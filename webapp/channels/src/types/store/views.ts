@@ -96,6 +96,12 @@ export type ViewsState = {
 
     rhs: RhsViewState;
 
+    threadRoom: {
+        selectedPostId: string;
+        selectedChannelId: string;
+        openedAt: number;
+    };
+
     rhsSuppressed: boolean;
 
     posts: {

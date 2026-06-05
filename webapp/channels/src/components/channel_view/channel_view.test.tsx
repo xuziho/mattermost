@@ -59,8 +59,11 @@ describe('components/channel_view', () => {
         isChannelBookmarksEnabled: false,
         missingChannelRole: false,
         fetchIsRestrictedDM: jest.fn(),
+        closeCenterThread: jest.fn(),
         canRestrictDirectMessage: false,
         restrictDirectMessage: false,
+        isCenterThreadRoomOpen: false,
+        centerThreadRoomChannelId: '',
     };
 
     it('Should match snapshot with base props', () => {

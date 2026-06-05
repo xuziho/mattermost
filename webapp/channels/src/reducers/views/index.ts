@@ -26,6 +26,7 @@ import search from './search';
 import settings from './settings';
 import system from './system';
 import textbox from './textbox';
+import threadRoom from './thread_room';
 import threads from './threads';
 
 export default combineReducers({
@@ -34,6 +35,7 @@ export default combineReducers({
     browser,
     channel,
     rhs,
+    threadRoom,
     rhsSuppressed,
     posts,
     modals,

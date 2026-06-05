@@ -100,7 +100,7 @@ export type Props = {
     actions: {
         markPostAsUnread: (post: Post, location: string) => void;
         emitShortcutReactToLastPostFrom: (emittedFrom: 'CENTER' | 'RHS_ROOT' | 'NO_WHERE') => void;
-        selectPost: (post: Post) => void;
+        openCenterThread: (post: Post) => void;
         selectPostFromRightHandSideSearch: (post: Post) => void;
         removePost: (post: Post) => void;
         closeRightHandSide: () => void;
@@ -385,7 +385,7 @@ function PostComponent(props: Props) {
             props.location === Locations.CENTER &&
             !props.isPostBeingEdited
         ) {
-            props.actions.selectPost(post);
+            props.actions.openCenterThread(post);
         }
 
         if (e.altKey) {
@@ -420,6 +420,7 @@ function PostComponent(props: Props) {
     }, [props.isMobileView, props.actions, props.teamName, props.isPinnedPosts, post]);
 
     const {selectPostFromRightHandSideSearch} = props.actions;
+    const {openCenterThread} = props.actions;
 
     const isSearchPopoutWindow = useMemo(() => isPopoutWindow() && isSearchResultItem, [isSearchResultItem]);
     const handleCommentClick = useCallback((e: React.MouseEvent) => {
@@ -437,12 +438,19 @@ function PostComponent(props: Props) {
     }, [post, props.teamName, selectPostFromRightHandSideSearch, isSearchPopoutWindow]);
 
     const handleThreadClick = useCallback((e: React.MouseEvent) => {
+        if (props.location === Locations.CENTER && props.currentTeam?.id === teamId) {
+            e.preventDefault();
+            e.stopPropagation();
+            openCenterThread(post);
+            return;
+        }
+
         if (isSearchPopoutWindow || props.currentTeam?.id === teamId) {
             handleCommentClick(e);
         } else {
             handleJumpClick(e);
         }
-    }, [handleCommentClick, handleJumpClick, props.currentTeam?.id, teamId, isSearchPopoutWindow]);
+    }, [handleCommentClick, handleJumpClick, openCenterThread, post, props.currentTeam?.id, props.location, teamId, isSearchPopoutWindow]);
 
     const translation = PostUtils.getPostTranslation(post, locale);
 

@@ -28,7 +28,8 @@ import {burnPostNow} from 'actions/burn_on_read_deletion';
 import {revealBurnOnReadPost} from 'actions/burn_on_read_posts';
 import {markPostAsUnread, emitShortcutReactToLastPostFrom} from 'actions/post_actions';
 import {openModal, closeModal} from 'actions/views/modals';
-import {closeRightHandSide, selectPost, setRhsExpanded, selectPostCard, selectPostFromRightHandSideSearch} from 'actions/views/rhs';
+import {closeRightHandSide, setRhsExpanded, selectPostCard, selectPostFromRightHandSideSearch} from 'actions/views/rhs';
+import {openCenterThread} from 'actions/views/thread_room';
 import {getBurnOnReadDurationMinutes} from 'selectors/burn_on_read';
 import {isBurnOnReadPost, shouldDisplayConcealedPlaceholder} from 'selectors/burn_on_read_posts';
 import {getShortcutReactToLastPostEmittedFrom, getOneClickReactionEmojis} from 'selectors/emojis';
@@ -257,7 +258,7 @@ function mapDispatchToProps(dispatch: Dispatch) {
             markPostAsUnread,
             emitShortcutReactToLastPostFrom,
             highlightPostInChannelPopout,
-            selectPost,
+            openCenterThread,
             selectPostFromRightHandSideSearch,
             setRhsExpanded,
             removePost: removePostCloseRHSDeleteDraft,
@@ -277,4 +278,3 @@ const connector = connect(makeMapStateToProps, mapDispatchToProps);
 export type PropsFromRedux = ConnectedProps<typeof connector>
 
 export default connector(PostComponent);
-

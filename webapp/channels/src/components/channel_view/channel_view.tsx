@@ -9,6 +9,7 @@ import {makeAsyncComponent} from 'components/async_load';
 import deferComponentRender from 'components/deferComponentRender';
 import {DropOverlayIdCenterChannel} from 'components/file_upload_overlay/file_upload_overlay';
 import PostView from 'components/post_view';
+import ThreadRoom from 'components/thread_room';
 
 import WebSocketClient from 'client/web_websocket_client';
 
@@ -99,6 +100,10 @@ export default class ChannelView extends React.PureComponent<Props, State> {
         // TODO: debounce
         if (prevProps.channelId !== this.props.channelId && this.props.enableWebSocketEventScope) {
             WebSocketClient.updateActiveChannel(this.props.channelId);
+        }
+
+        if (prevProps.channelId !== this.props.channelId && this.props.isCenterThreadRoomOpen) {
+            this.props.closeCenterThread();
         }
 
         // If we're restricting direct messages and the value is not yet set, fetch it
@@ -207,6 +212,7 @@ export default class ChannelView extends React.PureComponent<Props, State> {
         }
 
         const DeferredPostView = this.state.deferredPostView;
+        const showThreadRoom = this.props.isCenterThreadRoomOpen && this.props.centerThreadRoomChannelId === this.props.channelId;
 
         return (
             <div
@@ -218,14 +224,20 @@ export default class ChannelView extends React.PureComponent<Props, State> {
                     overlayType='center'
                     id={DropOverlayIdCenterChannel}
                 />
-                <ChannelHeader/>
-                <ChannelBanner channelId={this.props.channelId}/>
-                {this.props.isChannelBookmarksEnabled && <ChannelBookmarks channelId={this.props.channelId}/>}
-                <DeferredPostView
-                    channelId={this.props.channelId}
-                    focusedPostId={this.state.focusedPostId}
-                />
-                {createPost}
+                {showThreadRoom ? (
+                    <ThreadRoom/>
+                ) : (
+                    <>
+                        <ChannelHeader/>
+                        <ChannelBanner channelId={this.props.channelId}/>
+                        {this.props.isChannelBookmarksEnabled && <ChannelBookmarks channelId={this.props.channelId}/>}
+                        <DeferredPostView
+                            channelId={this.props.channelId}
+                            focusedPostId={this.state.focusedPostId}
+                        />
+                        {createPost}
+                    </>
+                )}
             </div>
         );
     }

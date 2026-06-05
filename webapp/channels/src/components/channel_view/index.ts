@@ -19,6 +19,11 @@ import {getCurrentRelativeTeamUrl} from 'mattermost-redux/selectors/entities/tea
 import {isFirstAdmin} from 'mattermost-redux/selectors/entities/users';
 
 import {goToLastViewedChannel} from 'actions/views/channel';
+import {closeCenterThread} from 'actions/views/thread_room';
+import {
+    getCenterThreadRoomSelectedChannelId,
+    getIsCenterThreadRoomOpen,
+} from 'selectors/thread_room';
 
 import {getIsChannelBookmarksEnabled} from 'components/channel_bookmarks/utils';
 
@@ -54,12 +59,15 @@ function mapStateToProps(state: GlobalState) {
         restrictDirectMessage: channel ? state.entities.channels.restrictedDMs[channel.id] : false,
         isChannelBookmarksEnabled: getIsChannelBookmarksEnabled(state),
         missingChannelRole,
+        isCenterThreadRoomOpen: getIsCenterThreadRoomOpen(state),
+        centerThreadRoomChannelId: getCenterThreadRoomSelectedChannelId(state),
     };
 }
 
 const mapDispatchToProps = ({
     goToLastViewedChannel,
     fetchIsRestrictedDM,
+    closeCenterThread,
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

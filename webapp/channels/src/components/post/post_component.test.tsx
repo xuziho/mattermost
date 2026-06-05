@@ -47,7 +47,7 @@ describe('PostComponent', () => {
         actions: {
             markPostAsUnread: jest.fn(),
             emitShortcutReactToLastPostFrom: jest.fn(),
-            selectPost: jest.fn(),
+            openCenterThread: jest.fn(),
             selectPostFromRightHandSideSearch: jest.fn(),
             removePost: jest.fn(),
             closeRightHandSide: jest.fn(),
@@ -61,6 +61,24 @@ describe('PostComponent', () => {
         },
         isChannelAutotranslated: false,
     };
+
+    test('should open center thread room when clicking the center post body with click-to-reply enabled', async () => {
+        const openCenterThread = jest.fn();
+        const props = {
+            ...baseProps,
+            clickToReply: true,
+            actions: {
+                ...baseProps.actions,
+                openCenterThread,
+            },
+        };
+
+        renderWithContext(<PostComponent {...props}/>);
+
+        await userEvent.click(screen.getByTestId('postView'));
+
+        expect(openCenterThread).toHaveBeenCalledWith(props.post);
+    });
 
     describe('reactions', () => {
         const baseState: DeepPartial<GlobalState> = {
@@ -285,16 +303,16 @@ describe('PostComponent', () => {
                 replyCount: 1,
             };
 
-            test('should select post in RHS when clicked in center channel', async () => {
+            test('should open center thread room when clicked in center channel', async () => {
                 renderWithContext(<PostComponent {...propsForRootPost}/>, state);
 
                 await userEvent.click(screen.getByText('1 reply'));
 
-                // Yes, this action has a different name than the one you'd expect
-                expect(propsForRootPost.actions.selectPostFromRightHandSideSearch).toHaveBeenCalledWith(rootPost);
+                expect(propsForRootPost.actions.openCenterThread).toHaveBeenCalledWith(rootPost);
+                expect(propsForRootPost.actions.selectPostFromRightHandSideSearch).not.toHaveBeenCalled();
             });
 
-            test('should select post in RHS when clicked in center channel in a DM/GM', async () => {
+            test('should open center thread room when clicked in center channel in a DM/GM', async () => {
                 const props = {
                     ...propsForRootPost,
                     team: undefined,
@@ -303,8 +321,8 @@ describe('PostComponent', () => {
 
                 await userEvent.click(screen.getByText('1 reply'));
 
-                // Yes, this action has a different name than the one you'd expect
-                expect(propsForRootPost.actions.selectPostFromRightHandSideSearch).toHaveBeenCalledWith(rootPost);
+                expect(propsForRootPost.actions.openCenterThread).toHaveBeenCalledWith(rootPost);
+                expect(propsForRootPost.actions.selectPostFromRightHandSideSearch).not.toHaveBeenCalled();
                 expect(getHistory().push).not.toHaveBeenCalled();
             });
 
@@ -389,7 +407,8 @@ describe('PostComponent', () => {
 
                 await userEvent.click(screen.getByText('1 reply'));
 
-                expect(propsForRootPost.actions.selectPostFromRightHandSideSearch).toHaveBeenCalledWith(rootPost);
+                expect(propsForRootPost.actions.openCenterThread).toHaveBeenCalledWith(rootPost);
+                expect(propsForRootPost.actions.selectPostFromRightHandSideSearch).not.toHaveBeenCalled();
                 expect(getHistory().replace).not.toHaveBeenCalled();
 
                 jest.restoreAllMocks();
