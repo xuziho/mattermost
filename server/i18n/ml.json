@@ -468,10 +468,6 @@
     "translation": "LDAP ലഭ്യമല്ല."
   },
   {
-    "id": "api.cloud.license_error",
-    "translation": "നിങ്ങളുടെ അനുമതിപത്രം ക്ലൗഡ് അഭ്യർത്ഥനകളെ പിന്തുണയ്ക്കുന്നില്ല."
-  },
-  {
     "id": "api.command_away.name",
     "translation": "ദൂരെ"
   },
@@ -696,10 +692,6 @@
     "translation": "{{.Channel}} എന്ന ഡിഫോൾട്ട് ചാനലിന്റെ ഒരു അസാധുവായ അപ്‌ഡേറ്റ് നടത്താൻ ശ്രമിച്ചു."
   },
   {
-    "id": "api.cloud.cws_webhook_event_missing_error",
-    "translation": "വെബ്ഹുക്ക് ഇവന്റ് കൈകാര്യം ചെയ്തില്ല. ഒന്നുകിൽ അത് കാണുന്നില്ല അല്ലെങ്കിൽ അത് സാധുവല്ല."
-  },
-  {
     "id": "api.command_join.desc",
     "translation": "തുറന്ന ചാനലിൽ ചേരുക"
   },
@@ -758,14 +750,6 @@
   {
     "id": "api.command_invite.channel.app_error",
     "translation": "നിലവിലെ ചാനൽ വീണ്ടെടുക്കുന്നതിൽ തെറ്റ്."
-  },
-  {
-    "id": "api.command_help.name",
-    "translation": "സഹായം"
-  },
-  {
-    "id": "api.command_help.desc",
-    "translation": "മറ്റെർമോസ്റ് സഹായ പേജ് തുറക്കുക"
   },
   {
     "id": "api.command_groupmsg.permission.app_error",
@@ -889,10 +873,6 @@
   {
     "id": "api.command_channel_rename.too_long.app_error",
     "translation": "ചാനലിന്റെ പേര് {{.Length}} അല്ലെങ്കിൽ കുറച്ച് പ്രതീകങ്ങൾ ആയിരിക്കണം."
-  },
-  {
-    "id": "api.cloud.request_error",
-    "translation": "CWS-ലേക്കുള്ള അഭ്യർത്ഥന പ്രോസസ്സ് ചെയ്യുന്നതിൽ തെറ്റ്."
   },
   {
     "id": "api.command_remove.hint",
@@ -1169,5 +1149,9 @@
   {
     "id": "api.command_remove.message.app_error",
     "translation": "/remove അല്ലെങ്കിൽ /kick കമാൻഡ് ഉപയോഗിച്ച് ഒരു സന്ദേശം നൽകണം."
+  },
+  {
+    "id": "api.templates.license_up_for_renewal_review_license",
+    "translation": "Review license"
   }
 ]

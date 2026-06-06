@@ -2,8 +2,6 @@
 // See LICENSE.txt for license information.
 
 export const appsPluginId = 'com.mattermost.apps';
-export const callsPluginId = 'com.mattermost.calls';
-export const playbooksPluginId = 'playbooks';
 
 // License SKU short names — mirrored from webapp/channels/src/utils/constants.tsx LicenseSkus
 export const LicenseSkus = {

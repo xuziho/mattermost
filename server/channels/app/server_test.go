@@ -396,7 +396,6 @@ func TestSentry(t *testing.T) {
 		// t.Setenv prevents t.Parallel — env var has no config equivalent
 		t.Setenv("MM_SERVICEENVIRONMENT", model.ServiceEnvironmentTest)
 
-		// Allow Playbooks to startup
 		oldBuildHash := model.BuildHash
 		model.BuildHash = "dev"
 

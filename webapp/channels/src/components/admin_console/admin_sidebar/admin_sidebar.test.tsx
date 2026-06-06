@@ -44,7 +44,6 @@ describe('components/AdminSidebar', () => {
         buildEnterpriseReady: false,
         navigationBlocked: false,
         siteName: 'test snap',
-        subscriptionProduct: undefined,
         plugins: {
             plugin_0: {
                 active: false,
@@ -86,13 +85,6 @@ describe('components/AdminSidebar', () => {
                 compliance: true,
             },
         },
-        cloud: {
-            limits: {
-                limitsLoaded: false,
-                limits: {},
-            },
-            errors: {},
-        },
         showTaskList: false,
     };
 
@@ -129,7 +121,7 @@ describe('components/AdminSidebar', () => {
         expect(container).toMatchSnapshot();
     });
 
-    test('should not show Workspace Optimization when Cloud license feature is enabled', () => {
+    test('should not show Workspace Optimization when hidden by license state', () => {
         const props = {
             ...defaultProps,
             license: {
@@ -166,7 +158,6 @@ describe('components/AdminSidebar', () => {
             adminDefinition: AdminDefinition,
             buildEnterpriseReady: false,
             siteName: 'test snap',
-            subscriptionProduct: undefined,
             navigationBlocked: false,
             plugins: {
                 plugin_0: {
@@ -188,7 +179,6 @@ describe('components/AdminSidebar', () => {
                 getPlugins: jest.fn(),
             },
             consoleAccess: {...defaultProps.consoleAccess},
-            cloud: {...defaultProps.cloud},
             showTaskList: false,
         };
 
@@ -212,7 +202,6 @@ describe('components/AdminSidebar', () => {
             adminDefinition: AdminDefinition,
             buildEnterpriseReady: false,
             siteName: 'test snap',
-            subscriptionProduct: undefined,
             navigationBlocked: false,
             plugins: {
                 plugin_0: {
@@ -234,7 +223,6 @@ describe('components/AdminSidebar', () => {
                 getPlugins: jest.fn(),
             },
             consoleAccess: {...defaultProps.consoleAccess},
-            cloud: {...defaultProps.cloud},
             showTaskList: false,
         };
 
@@ -261,7 +249,6 @@ describe('components/AdminSidebar', () => {
             buildEnterpriseReady: true,
             navigationBlocked: false,
             siteName: 'test snap',
-            subscriptionProduct: undefined,
             plugins: {
                 plugin_0: {
                     active: false,
@@ -282,7 +269,6 @@ describe('components/AdminSidebar', () => {
                 getPlugins: jest.fn(),
             },
             consoleAccess: {...defaultProps.consoleAccess},
-            cloud: {...defaultProps.cloud},
             showTaskList: false,
         };
 
@@ -337,7 +323,6 @@ describe('components/AdminSidebar', () => {
             buildEnterpriseReady: true,
             navigationBlocked: false,
             siteName: 'test snap',
-            subscriptionProduct: undefined,
             plugins: {
                 plugin_0: {
                     active: false,
@@ -358,7 +343,6 @@ describe('components/AdminSidebar', () => {
                 getPlugins: jest.fn(),
             },
             consoleAccess: {...defaultProps.consoleAccess},
-            cloud: {...defaultProps.cloud},
             showTaskList: false,
         };
 
@@ -400,8 +384,6 @@ describe('components/AdminSidebar', () => {
                 FeatureFlags: {
                     AttributeBasedAccessControl: true,
                     CustomProfileAttributes: true,
-                    CloudDedicatedExportUI: true,
-                    CloudIPFiltering: true,
                     ExperimentalAuditSettingsSystemConsoleUI: true,
                 },
             },
@@ -409,7 +391,6 @@ describe('components/AdminSidebar', () => {
             buildEnterpriseReady: true,
             navigationBlocked: false,
             siteName: 'test snap',
-            subscriptionProduct: undefined,
             plugins: {
                 plugin_0: {
                     active: false,
@@ -430,7 +411,6 @@ describe('components/AdminSidebar', () => {
                 getPlugins: jest.fn(),
             },
             consoleAccess: {...defaultProps.consoleAccess},
-            cloud: {...defaultProps.cloud},
             showTaskList: false,
         };
 
@@ -473,7 +453,6 @@ describe('components/AdminSidebar', () => {
             buildEnterpriseReady: true,
             navigationBlocked: false,
             siteName: 'test snap',
-            subscriptionProduct: undefined,
             plugins: {
                 plugin_0: {
                     active: false,
@@ -494,7 +473,6 @@ describe('components/AdminSidebar', () => {
                 getPlugins: jest.fn(),
             },
             consoleAccess: {...defaultProps.consoleAccess},
-            cloud: {...defaultProps.cloud},
             showTaskList: false,
         };
 
@@ -536,8 +514,6 @@ describe('components/AdminSidebar', () => {
                 FeatureFlags: {
                     AttributeBasedAccessControl: true,
                     CustomProfileAttributes: true,
-                    CloudDedicatedExportUI: true,
-                    CloudIPFiltering: true,
                     ExperimentalAuditSettingsSystemConsoleUI: true,
                 },
             },
@@ -545,7 +521,6 @@ describe('components/AdminSidebar', () => {
             buildEnterpriseReady: true,
             navigationBlocked: false,
             siteName: 'test snap',
-            subscriptionProduct: undefined,
             plugins: {
                 plugin_0: {
                     active: false,
@@ -566,7 +541,6 @@ describe('components/AdminSidebar', () => {
                 getPlugins: jest.fn(),
             },
             consoleAccess: {...defaultProps.consoleAccess},
-            cloud: {...defaultProps.cloud},
             showTaskList: false,
         };
 
@@ -591,7 +565,6 @@ describe('components/AdminSidebar', () => {
             buildEnterpriseReady: true,
             navigationBlocked: false,
             siteName: 'test snap',
-            subscriptionProduct: undefined,
             plugins: {
                 'mattermost-autolink': samplePlugin1,
             },
@@ -600,7 +573,6 @@ describe('components/AdminSidebar', () => {
                 getPlugins: jest.fn(),
             },
             consoleAccess: {...defaultProps.consoleAccess},
-            cloud: {...defaultProps.cloud},
             showTaskList: false,
         };
 
@@ -731,7 +703,6 @@ describe('components/AdminSidebar', () => {
             buildEnterpriseReady: true,
             navigationBlocked: false,
             siteName: 'test snap',
-            subscriptionProduct: undefined,
             plugins: {
                 'mattermost-autolink': samplePlugin1,
             },
@@ -745,7 +716,6 @@ describe('components/AdminSidebar', () => {
                 },
                 write: {},
             },
-            cloud: {...defaultProps.cloud},
             showTaskList: false,
         };
 

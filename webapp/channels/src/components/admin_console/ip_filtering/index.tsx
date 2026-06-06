@@ -9,7 +9,6 @@ import {AlertOutlineIcon} from '@mattermost/compass-icons/components';
 import type {AllowedIPRange, FetchIPResponse} from '@mattermost/types/config';
 
 import {applyIPFilters, getCurrentIP, getIPFilters} from 'actions/admin_actions';
-import {getInstallation} from 'actions/cloud';
 import {closeModal, openModal} from 'actions/views/modals';
 
 import AdminHeader from 'components/widgets/admin_console/admin_header';
@@ -36,7 +35,6 @@ const IPFiltering = () => {
     const [currentUsersIP, setCurrentUsersIP] = useState<string | null>(null);
     const [saving, setSaving] = useState<boolean>(false);
     const [filterToggle, setFilterToggle] = useState<boolean>(false);
-    const [installationStatus, setInstallationStatus] = useState<string>('');
 
     // savingMessage allows the component to change the label on the Save button in the SaveChangesPanel
     const [savingMessage, setSavingMessage] = useState<string>('');
@@ -55,8 +53,6 @@ const IPFiltering = () => {
     };
 
     useEffect(() => {
-        getInstallationStatus();
-
         getIPFilters((data: AllowedIPRange[]) => {
             setIpFilters(data);
             setOriginalIpFilters(data);
@@ -111,52 +107,6 @@ const IPFiltering = () => {
             }) || []);
         }
     }, [filterToggle]);
-
-    function pollInstallationStatus() {
-        let installationFetchAttempts = 0;
-        const interval = setInterval(async () => {
-            if (installationFetchAttempts > 15) {
-                // Average time for provisioner to update is around 30 seconds. This allows up to 75 seconds before it will stop fetching, displaying an error
-                setSavingDescription((
-                    <>
-                        <AlertOutlineIcon size={16}/> {formatMessage({id: 'admin.ip_filtering.failed_to_fetch_installation_state', defaultMessage: 'Failed to fetch your workspace\'s status. Please try again later or contact support.'})}
-                    </>
-                ));
-                clearInterval(interval);
-                return;
-            }
-            const result = await dispatch(getInstallation());
-            installationFetchAttempts++;
-            if (result.data) {
-                const {data} = result;
-                if (data.state === 'stable') {
-                    setSaving(false);
-                    setSavingDescription(null);
-                    clearInterval(interval);
-                }
-                setInstallationStatus(data.state);
-            }
-        }, 5000);
-    }
-
-    async function getInstallationStatus() {
-        const result = await dispatch(getInstallation());
-        if (result.data) {
-            const {data} = result;
-            setInstallationStatus(data.state);
-            if (installationStatus === '' && data.state !== 'stable') {
-                // This is the first load of the page, and the installation is not stable, so we must lock saving until it becomes stable
-                setSaving(true);
-
-                // Override the default messages for the save button and the error message to be communicative of the current state to the user
-                setSavingMessage(savingButtonMessages.SAVING_PREVIOUS_CHANGE);
-                changeSavingDescription(savingDescriptionMessages.SAVING_PREVIOUS_CHANGE);
-            }
-            if (data.state !== 'stable') {
-                pollInstallationStatus();
-            }
-        }
-    }
 
     function changeSavingDescription(text: string) {
         setSavingDescription((
@@ -230,7 +180,6 @@ const IPFiltering = () => {
     }
 
     function handleSave() {
-        setInstallationStatus('update-requested');
         setSaving(true);
         setSavingMessage(savingButtonMessages.SAVING_CHANGES);
         changeSavingDescription(savingDescriptionMessages.SAVING_CHANGES);
@@ -239,7 +188,8 @@ const IPFiltering = () => {
         const success = (data: AllowedIPRange[]) => {
             setIpFilters(data);
             setOriginalIpFilters(data);
-            getInstallationStatus();
+            setSaving(false);
+            setSavingDescription(null);
         };
 
         applyIPFilters(ipFilters ?? [], success);
@@ -338,8 +288,8 @@ const IPFiltering = () => {
             </div>
             <SaveChangesPanel
                 saving={saving}
-                saveNeeded={saveNeeded || installationStatus !== 'stable'}
-                isDisabled={!currentIPIsInRange() || installationStatus !== 'stable'}
+                saveNeeded={saveNeeded}
+                isDisabled={!currentIPIsInRange()}
                 onClick={handleSaveClick}
                 serverError={saveBarError()}
                 savingMessage={savingMessage}

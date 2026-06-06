@@ -4,8 +4,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import {useCurrentProductId} from 'utils/products';
-
 import CenterControls from './center_controls/center_controls';
 import {useIsLoggedIn} from './hooks';
 import LeftControls from './left_controls/left_controls';
@@ -33,7 +31,6 @@ const GlobalHeaderContainer = styled.header`
 
 const GlobalHeader = (): JSX.Element | null => {
     const isLoggedIn = useIsLoggedIn();
-    const currentProductID = useCurrentProductId();
 
     if (!isLoggedIn) {
         return null;
@@ -42,8 +39,8 @@ const GlobalHeader = (): JSX.Element | null => {
     return (
         <GlobalHeaderContainer id='global-header'>
             <LeftControls/>
-            <CenterControls productId={currentProductID}/>
-            <RightControls productId={currentProductID}/>
+            <CenterControls/>
+            <RightControls/>
         </GlobalHeaderContainer>
     );
 };

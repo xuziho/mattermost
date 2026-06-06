@@ -204,18 +204,6 @@
     "translation": "travanj"
   },
   {
-    "id": "api.templates.cloud_welcome_email.button",
-    "translation": "Otvori Mattermost"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.app_market_place",
-    "translation": "tržnici programa."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.add_apps_sub_info",
-    "translation": "Optimiraj tok tvog rada pomoću alata kao što su GitHub, Jira i Zoom. Istraži sve naše integracije na"
-  },
-  {
     "id": "api.admin.ldap.not_available.app_error",
     "translation": "LDAP nije dostupan."
   },
@@ -334,10 +322,6 @@
   {
     "id": "api.command_invite.name",
     "translation": "pozovi"
-  },
-  {
-    "id": "api.command_help.name",
-    "translation": "pomoć"
   },
   {
     "id": "api.command_groupmsg.name",
@@ -710,10 +694,6 @@
   {
     "id": "api.templates.invite_body_footer.learn_more",
     "translation": "Saznaj više"
-  },
-  {
-    "id": "api.templates.welcome_body.app_download_button",
-    "translation": "Preuzmi"
   },
   {
     "id": "app.acknowledgement.delete.app_error",
@@ -1094,5 +1074,9 @@
   {
     "id": "api.team.remove_user_from_team.removed",
     "translation": "%v je uklonjen/a iz tima."
+  },
+  {
+    "id": "api.templates.license_up_for_renewal_review_license",
+    "translation": "Review license"
   }
 ]

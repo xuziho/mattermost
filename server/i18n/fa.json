@@ -3784,34 +3784,6 @@
     "translation": "نمی توان فایلهای مشابه را اصلاح کرد."
   },
   {
-    "id": "app.plugin.marshal.app_error",
-    "translation": "افزونه های بازار مارشال انجام نشد."
-  },
-  {
-    "id": "app.plugin.marketplace_plugins.signature_not_found.app_error",
-    "translation": "امضای افزونه موردنظر در بازار یافت نشد."
-  },
-  {
-    "id": "app.plugin.marketplace_plugins.not_found.app_error",
-    "translation": "Cپلاگین درخواستی بازار پیدا نشد."
-  },
-  {
-    "id": "app.plugin.marketplace_plugin_request.app_error",
-    "translation": "رمزگشایی درخواست پلاگین بازار انجام نشد."
-  },
-  {
-    "id": "app.plugin.marketplace_disabled.app_error",
-    "translation": "بازار غیرفعال شده است. لطفا برای اطلاعات بیشتر گزارش های خود را بررسی کنید."
-  },
-  {
-    "id": "app.plugin.marketplace_client.failed_to_fetch",
-    "translation": "دریافت پلاگین از سرور بازار انجام نشد."
-  },
-  {
-    "id": "app.plugin.marketplace_client.app_error",
-    "translation": "مشتری بازارایجاد نشد."
-  },
-  {
     "id": "app.plugin.manifest.app_error",
     "translation": "مانیفست برای پلاگین استخراج شده یافت نشد."
   },
@@ -3822,10 +3794,6 @@
   {
     "id": "app.plugin.invalid_id.app_error",
     "translation": "شناسه پلاگین باید حداقل {{.Min}} نویسه باشد ، حداکثر {{.Max}} نویسه باشد و با {{.Regex}} مطابقت داشته باشد."
-  },
-  {
-    "id": "app.plugin.install_marketplace_plugin.app_error",
-    "translation": "پلاگین Marketplace نصب نشد."
   },
   {
     "id": "app.plugin.install_id_failed_remove.app_error",
@@ -4172,46 +4140,6 @@
     "translation": "بارگیری انجام نشد."
   },
   {
-    "id": "api.upgrade_to_enterprise_status.signature.app_error",
-    "translation": "Mattermost قادر به ارتقا به نسخه تجاری نبود. امضای دیجیتالی پرونده باینری بارگیری شده تأیید نمی شود."
-  },
-  {
-    "id": "api.upgrade_to_enterprise_status.app_error",
-    "translation": "Mattermost قادر به ارتقا به نسخه تجاری نبود."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.system_not_supported.app_error",
-    "translation": "Mattermost قادر به ارتقا به نسخه تجاری نبود. این ویژگی فقط در سیستم های لینوکس با معماری x86-64 کار خواهد کرد."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-user.app_error",
-    "translation": "Mattermost قادر به ارتقا به نسخه تجاری نبود. کاربر سیستم Mattermost {{.MattermostUsername}} دسترسی نوشتاری به پرونده باینری لازم را ندارد. یک مدیر سیستم می تواند مجوزهای پرونده را با اجرای دستور زیر در سروری که Mattermost در آن نصب شده است به روز کند: \n\n```\nchown {{.MattermostUsername}} \"{{.Path}}\"\n```\n\n بعد از تغییر مجوزهای فایل ، دوباره سعی کنید Mattermost را به روز کنید. هنگام به روزرسانی و راه اندازی مجدد ، به یاد داشته باشید که مجوزهای اصلی فایل باینری را بازیابی کنید:\n\n```\nchown {{.FileUsername}} \"{{.Path}}\"\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-user-and-permission.app_error",
-    "translation": "Mattermost قادر به ارتقا به نسخه تجاری نبود. کاربر سیستم Mattermost {{.MattermostUsername}} دسترسی نوشتاری به پرونده باینری لازم را ندارد. یک مدیر سیستم می تواند مجوزهای پرونده را با اجرای دستور زیر در سروری که Mattermost در آن نصب شده است ، به روز کند: \n\n```\nchown {{.MattermostUsername}} \"{{.Path}}\"\nchmod +w \"{{.Path}}\"\n```\n\n پس از تغییر مجوزهای فایل ، دوباره سعی کنید Mattermost را ارتقا دهید. هنگام به روزرسانی و راه اندازی مجدد ، به خاطر داشته باشید که مجوزهای اصلی فایل باینری را بازیابی کنید: \n\n```\nchown {{.FileUsername}} \"{{.Path}}\"\nchmod -w \"{{.Path}}\"\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-permission.app_error",
-    "translation": "Mattermost قادر به ارتقا به نسخه تجاری نبود. کاربر سیستم Mattermost {{.MattermostUsername}} دسترسی نوشتاری به پرونده باینری لازم را ندارد. یک مدیر سیستم می تواند مجوزهای پرونده را با اجرای دستور زیر در سرور محل نصب Mattermost به روز کند: \n\n```\nchmod +w \"{{.Path}}\"\n```\n\nپس از تغییر مجوزهای فایل ، دوباره سعی کنید Mattermost را ارتقا دهید. هنگام به روزرسانی و راه اندازی مجدد ، به یاد داشته باشید که مجوزهای اصلی فایل باینری را بازیابی کنید:\n\n```\nchmod -w \"{{.Path}}\"\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.generic_error.app_error",
-    "translation": "Mattermost قادر به ارتقا به نسخه تجاری نبود."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.app_error",
-    "translation": "در حال حاضر ارتقا نسخه تجاری در حال اجرا است."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.already-enterprise.app_error",
-    "translation": "نمی توانید ارتقا دهید زیرا در حال حاضر Mattermostنسخه تجاری را اجرا می کنید."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.already-done.app_error",
-    "translation": "شما قبلاً به Mattermost نسخه تجاری ارتقا داده اید. لطفاً سرور را مجدداً راه اندازی کنید تا به روزرسانی پایان یابد."
-  },
-  {
     "id": "api.unmarshal_error",
     "translation": "بازگشایی نشد."
   },
@@ -4250,18 +4178,6 @@
   {
     "id": "api.templates.welcome_body.button",
     "translation": "تأیید ایمیل"
-  },
-  {
-    "id": "api.templates.welcome_body.app_download_title",
-    "translation": "برنامه های دسکتاپ و موبایل را دانلود کنید"
-  },
-  {
-    "id": "api.templates.welcome_body.app_download_info",
-    "translation": "برای بهترین تجربه ، برنامه ها را برای رایانه شخصی ، Mac ، iOS و Android بارگیری کنید."
-  },
-  {
-    "id": "api.templates.welcome_body.app_download_button",
-    "translation": "دانلود"
   },
   {
     "id": "api.templates.verify_subject",
@@ -4530,54 +4446,6 @@
   {
     "id": "api.templates.deactivate_body.info",
     "translation": "شما حساب خود را در {{ .SiteURL }} غیرفعال کردید."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.title",
-    "translation": "آزمایشی 14 روزه شما از فضای کاری {{.WorkSpace}} آماده راه اندازی است!"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subtitle_info",
-    "translation": "مراحل زیر را انجام دهید تا تیم های خود را بسازید و بیشترین بهره را از فضای کاری خود ببرید."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subtitle",
-    "translation": "فضای کاری خود را تنظیم کنید"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subject",
-    "translation": "تبریک می گویم!"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.start_questions",
-    "translation": "در مورد شروع کار سوالی دارید؟ به ما ایمیل بزنید"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.signin_sub_info2",
-    "translation": "برای بهترین تجربه در رایانه شخصی، مک، iOS و اندروید."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.signin_sub_info",
-    "translation": "وارد فضای کاری خود شوید در"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.mm_apps",
-    "translation": "اپلیکیشن های موبایل و دسکتاپ"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.invite_sub_info",
-    "translation": "برای دعوت از اعضای خود برای پیوستن به {{.WorkSpace}}، این لینک را به اشتراک بگذارید:"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.invite_info",
-    "translation": "افراد را به فضای کاری خود دعوت کنید"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.info2",
-    "translation": "مطمئن شوید که پیوند خود را برای استفاده در آینده ذخیره کرده یا نشانک گذاری کنید."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.info",
-    "translation": "تشکر برای ایجاد "
   },
   {
     "id": "api.team.remove_team_icon.get_team.app_error",
@@ -5360,10 +5228,6 @@
     "translation": "ایمیل غیرفعال کردن حساب با موفقیت ارسال نشد"
   },
   {
-    "id": "api.user.send_cloud_welcome_email.error",
-    "translation": "ایمیل خوش آمدگویی ابری ارسال نشد"
-  },
-  {
     "id": "api.user.saml.not_available.app_error",
     "translation": "SAML 2.0 در این سرور پیکربندی یا پشتیبانی نشده است."
   },
@@ -5412,10 +5276,6 @@
     "translation": "AD/LDAP در این سرور موجود نیست."
   },
   {
-    "id": "api.user.login_cws.license.error",
-    "translation": "ورود CWS ممنوع است."
-  },
-  {
     "id": "api.user.login_by_oauth.parse.app_error",
     "translation": "تجزیه و تحلیل داده های خودکار از مورد کاربر {{.Service}} امکان پذیر نیست."
   },
@@ -5426,10 +5286,6 @@
   {
     "id": "api.user.login_by_oauth.bot_login_forbidden.app_error",
     "translation": "ورود بات ممنوع است."
-  },
-  {
-    "id": "api.user.login_by_cws.invalid_token.app_error",
-    "translation": "رمز CWS معتبر نیست"
   },
   {
     "id": "api.user.login.use_auth_service.app_error",
@@ -6150,26 +6006,6 @@
     "translation": "ما نتوانستیم تعداد گفت و گو را برای کاربر دریافت کنیم."
   },
   {
-    "id": "api.templates.cloud_welcome_email.download_mm_info",
-    "translation": "برنامه Mattermost را دانلود کنید"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.button",
-    "translation": "Mattermost را باز کنید"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.app_market_place",
-    "translation": "بازار اپلیکیشن."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.add_apps_sub_info",
-    "translation": "کار خود را با ابزارهایی مانند Github، Google Calendar و Chrome ساده کنید. همه ادغام‌هایی را که روی خود داریم کاوش کنید"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.add_apps_info",
-    "translation": "برنامه ها را به فضای کاری خود اضافه کنید"
-  },
-  {
     "id": "api.team.update_team_scheme.scheme_scope.error",
     "translation": "نمی توان طرح را برای تیم تنظیم کرد زیرا طرح ارائه شده یک طرح تیمی نیست."
   },
@@ -6396,14 +6232,6 @@
   {
     "id": "api.export.export_not_found.app_error",
     "translation": "فایل صادراتی پیدا نشد."
-  },
-  {
-    "id": "api.error_set_first_admin_visit_marketplace_status",
-    "translation": "خطا در تلاش برای ذخیره اولین وضعیت بازدید مدیر از بازار در فروشگاه."
-  },
-  {
-    "id": "api.error_get_first_admin_visit_marketplace_status",
-    "translation": "خطا در بازیابی اولین وضعیت بازدید مدیر از بازار از فروشگاه."
   },
   {
     "id": "api.emoji.upload.open.app_error",
@@ -7165,14 +6993,6 @@
     "translation": "خطا در بازیابی کانال فعلی."
   },
   {
-    "id": "api.command_help.name",
-    "translation": "راهنما"
-  },
-  {
-    "id": "api.command_help.desc",
-    "translation": "نمایش متن راهنمای مترموست"
-  },
-  {
     "id": "api.command_groupmsg.permission.app_error",
     "translation": "شما مجوزهای مناسبی برای ایجاد پیام گروهی جدید ندارید."
   },
@@ -7526,22 +7346,6 @@
   {
     "id": "api.command.admin_only.app_error",
     "translation": "ادغام ها فقط به سرپرستان محدود شده است."
-  },
-  {
-    "id": "api.cloud.request_error",
-    "translation": "خطا در پردازش درخواست به CWS."
-  },
-  {
-    "id": "api.cloud.license_error",
-    "translation": "مجوز شما از درخواستهای ابری پشتیبانی نمی کند."
-  },
-  {
-    "id": "api.cloud.cws_webhook_event_missing_error",
-    "translation": "رویداد Webhook رسیدگی نشد. یا مفقود است یا معتبر نیست."
-  },
-  {
-    "id": "api.cloud.app_error",
-    "translation": "خطای داخلی در هنگام درخواست api ابری."
   },
   {
     "id": "api.channel.update_team_member_roles.scheme_role.app_error",
@@ -8118,5 +7922,9 @@
   {
     "id": "api.acknowledgement.delete.archived_channel.app_error",
     "translation": "شما نمی توانید یک تاییدیه را در یک کانال بایگانی شده حذف کنید."
+  },
+  {
+    "id": "api.templates.license_up_for_renewal_review_license",
+    "translation": "Review license"
   }
 ]

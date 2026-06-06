@@ -8,7 +8,6 @@ import {FormattedMessage} from 'react-intl';
 import type {ClientLicense} from '@mattermost/types/config';
 
 import AlertBanner from 'components/alert_banner';
-import ContactUsButton from 'components/announcement_bar/contact_sales/contact_us';
 
 import {getSkuDisplayName} from 'utils/subscription';
 import {getRemainingDaysFromFutureTimestamp} from 'utils/utils';
@@ -25,14 +24,6 @@ const RenewLicenseCard: React.FC<RenewLicenseCardProps> = ({license, totalUsers,
     let bannerType: 'info' | 'warning' | 'danger' = 'info';
     const endOfLicense = moment.utc(new Date(parseInt(license?.ExpiresAt, 10)));
     const daysToEndLicense = getRemainingDaysFromFutureTimestamp(parseInt(license?.ExpiresAt, 10));
-    const contactSalesBtn = (
-        <div className='purchase-card'>
-            <ContactUsButton
-                customClass='btn-primary'
-            />
-        </div>
-    );
-
     let cardTitle = (
         <FormattedMessage
             id='admin.license.renewalCard.licenseExpiring'
@@ -59,8 +50,8 @@ const RenewLicenseCard: React.FC<RenewLicenseCardProps> = ({license, totalUsers,
         <div className='RenewLicenseCard__text'>
             <div className='RenewLicenseCard__text-description bolder'>
                 <FormattedMessage
-                    id='admin.license.renewalCard.description.contact_sales'
-                    defaultMessage='Renew your {licenseSku} license by contacting sales to avoid any disruption.'
+                    id='admin.license.renewalCard.description.renew_license'
+                    defaultMessage='Renew your {licenseSku} license to avoid any disruption.'
                     values={{
                         licenseSku: getSkuDisplayName(license.SkuShortName, license.IsGovSku === 'true'),
                     }}
@@ -89,9 +80,6 @@ const RenewLicenseCard: React.FC<RenewLicenseCardProps> = ({license, totalUsers,
                     />
                 </strong>
                 {totalUsers}
-            </div>
-            <div className='RenewLicenseCard__buttons'>
-                {contactSalesBtn}
             </div>
         </div>
     );

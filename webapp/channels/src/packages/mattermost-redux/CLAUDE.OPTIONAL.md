@@ -2,7 +2,7 @@
 
 ## Purpose
 - Embedded copy of the `mattermost-redux` package for local development.
-- Owns canonical Redux entities, actions, selectors, and request helpers shared across products (Channels, Boards, Playbooks).
+- Owns canonical Redux entities, actions, selectors, and request helpers for Channels.
 - Manages server-sourced data (`state.entities.*`) and API actions.
 
 ## Directory Structure (src/)

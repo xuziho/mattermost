@@ -10,7 +10,6 @@ require (
 	github.com/aws/aws-sdk-go-v2/config v1.32.13
 	github.com/aws/aws-sdk-go-v2/credentials v1.19.13
 	github.com/aws/aws-sdk-go-v2/feature/ec2/imds v1.18.21
-	github.com/aws/aws-sdk-go-v2/service/marketplacemetering v1.36.3
 	github.com/bep/imagemeta v0.12.0
 	github.com/blang/semver/v4 v4.0.0
 	github.com/boxes-ltd/imaging v1.7.5
@@ -233,3 +232,5 @@ replace github.com/vmihailenco/msgpack/v5 => github.com/mattermost/msgpack/v5 v5
 
 // See MM-63434 for more details.
 replace github.com/ledongthuc/pdf => github.com/jgheithcock/pdf v0.0.0-20260404175814-28cd6530c1fe
+
+replace github.com/mattermost/mattermost/server/public => ./public

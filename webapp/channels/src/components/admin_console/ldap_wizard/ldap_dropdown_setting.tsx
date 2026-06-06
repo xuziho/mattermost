@@ -49,7 +49,7 @@ const LDAPDropdownSetting = (props: Props) => {
         }
     }
 
-    // used to hide help in case of cloud-starter and open-id selection to show upgrade notice.
+    // used to hide help for some identity-provider settings.
     let hideHelp = false;
     if (props.setting.isHelpHidden) {
         if (typeof (props.setting.isHelpHidden) === 'function') {

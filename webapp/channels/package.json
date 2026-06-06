@@ -97,7 +97,6 @@
   },
   "devDependencies": {
     "@deanwhillier/jest-matchmedia-mock": "1.2.0",
-    "@mattermost/calls-common": "0.27.0",
     "@mattermost/eslint-plugin": "*",
     "@stylistic/stylelint-plugin": "3.1.2",
     "@testing-library/dom": "10.4.1",

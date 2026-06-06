@@ -343,30 +343,6 @@ func TestSendUpdatedRoleEvent(t *testing.T) {
 		mockTeamStore.AssertNotCalled(t, "GetTeamsByScheme", mock.Anything, mock.Anything, mock.Anything)
 	})
 
-	t.Run("Playbook scope falls back to global broadcast without querying teams or channels", func(t *testing.T) {
-		mainHelper.Parallel(t)
-		th := SetupWithStoreMock(t)
-
-		schemeID := model.NewId()
-		roleName := model.NewId()
-		scheme := &model.Scheme{Id: schemeID, Scope: model.SchemeScopePlaybook}
-
-		mockStore := th.App.Srv().Store().(*mocks.Store)
-		mockSchemeStore := mocks.SchemeStore{}
-		mockTeamStore := mocks.TeamStore{}
-		mockChannelStore := mocks.ChannelStore{}
-		mockSchemeStore.On("Get", schemeID).Return(scheme, nil)
-		mockStore.On("Scheme").Return(&mockSchemeStore)
-		mockStore.On("Team").Return(&mockTeamStore)
-		mockStore.On("Channel").Return(&mockChannelStore)
-
-		role := &model.Role{Name: roleName, BuiltIn: false, SchemeId: &schemeID}
-		appErr := th.App.sendUpdatedRoleEvent(role)
-		require.Nil(t, appErr)
-		mockTeamStore.AssertNotCalled(t, "GetTeamsByScheme", mock.Anything, mock.Anything, mock.Anything)
-		mockChannelStore.AssertNotCalled(t, "GetChannelsByScheme", mock.Anything, mock.Anything, mock.Anything)
-	})
-
 	t.Run("Scheme store error is logged and skips broadcast", func(t *testing.T) {
 		mainHelper.Parallel(t)
 		th := SetupWithStoreMock(t)

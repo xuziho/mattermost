@@ -35,7 +35,6 @@ function mapStateToProps(state: GlobalState) {
     const experimentalPrimaryTeam: string | undefined = config.ExperimentalPrimaryTeam;
     const joinableTeams: string[] = getJoinableTeamIds(state);
     const moreTeamsToJoin: boolean = joinableTeams && joinableTeams.length > 0;
-    const products = state.plugins.components.Product || [];
 
     const [unreadTeamsSet, mentionsInTeamMap, teamHasUrgentMap] = getTeamsUnreadStatuses(state);
     const enableWebSocketEventScope = config.FeatureFlagWebSocketEventScope === 'true';
@@ -48,7 +47,6 @@ function mapStateToProps(state: GlobalState) {
         locale: getCurrentLocale(state),
         moreTeamsToJoin,
         userTeamsOrderPreference: get(state, Preferences.TEAMS_ORDER, '', ''),
-        products,
         unreadTeamsSet,
         mentionsInTeamMap,
         teamHasUrgentMap,

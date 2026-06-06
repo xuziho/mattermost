@@ -33,7 +33,6 @@ const (
 	HeaderCsrfToken                 = "X-CSRF-Token"
 	HeaderBearer                    = "BEARER"
 	HeaderAuth                      = "Authorization"
-	HeaderCloudToken                = "X-Cloud-Token"
 	HeaderRemoteclusterToken        = "X-RemoteCluster-Token"
 	HeaderRemoteclusterId           = "X-RemoteCluster-Id"
 	HeaderRequestedWith             = "X-Requested-With"
@@ -358,10 +357,6 @@ func (c *Client4) systemRoute() clientRoute {
 
 func (c *Client4) aiBridgeTestHelperRoute() clientRoute {
 	return c.systemRoute().Join("e2e", "ai_bridge")
-}
-
-func (c *Client4) cloudRoute() clientRoute {
-	return newClientRoute("cloud")
 }
 
 func (c *Client4) testEmailRoute() clientRoute {
@@ -707,10 +702,6 @@ func (c *Client4) actionsRoute() clientRoute {
 
 func (c *Client4) dialogsRoute() clientRoute {
 	return c.actionsRoute().Join("dialogs")
-}
-
-func (c *Client4) trialLicenseRoute() clientRoute {
-	return newClientRoute("trial-license")
 }
 
 func (c *Client4) integrityRoute() clientRoute {
@@ -6468,16 +6459,6 @@ func (c *Client4) InstallPluginFromURL(ctx context.Context, downloadURL string, 
 	return DecodeJSONFromResponse[*Manifest](r)
 }
 
-// InstallMarketplacePlugin will install marketplace plugin.
-func (c *Client4) InstallMarketplacePlugin(ctx context.Context, request *InstallMarketplacePluginRequest) (*Manifest, *Response, error) {
-	r, err := c.doAPIPostJSON(ctx, c.pluginsRoute().Join("marketplace"), request)
-	if err != nil {
-		return nil, BuildResponse(r), err
-	}
-	defer closeBody(r)
-	return DecodeJSONFromResponse[*Manifest](r)
-}
-
 // ReattachPlugin asks the server to reattach to a plugin launched by another process.
 //
 // Only available in local mode, and currently only used for testing.
@@ -6563,22 +6544,6 @@ func (c *Client4) DisablePlugin(ctx context.Context, id string) (*Response, erro
 	}
 	defer closeBody(r)
 	return BuildResponse(r), nil
-}
-
-// GetMarketplacePlugins will return a list of plugins that an admin can install.
-func (c *Client4) GetMarketplacePlugins(ctx context.Context, filter *MarketplacePluginFilter) ([]*MarketplacePlugin, *Response, error) {
-	r, err := c.doAPIGetWithQuery(ctx, c.pluginsRoute().Join("marketplace"), filter.ToValues(), "")
-	if err != nil {
-		return nil, BuildResponse(r), err
-	}
-	defer closeBody(r)
-
-	plugins, err := MarketplacePluginsFromReader(r.Body)
-	if err != nil {
-		return nil, BuildResponse(r), fmt.Errorf("failed to parse marketplace plugins response: %w", err)
-	}
-
-	return plugins, BuildResponse(r), nil
 }
 
 // UpdateChannelScheme will update a channel's scheme.
@@ -6905,28 +6870,6 @@ func (c *Client4) GetChannelMemberCountsByGroup(ctx context.Context, channelID s
 	return DecodeJSONFromResponse[[]*ChannelMemberCountByGroup](r)
 }
 
-func (c *Client4) RequestTrialLicenseWithExtraFields(ctx context.Context, trialRequest *TrialLicenseRequest) (*Response, error) {
-	r, err := c.doAPIPostJSON(ctx, c.trialLicenseRoute(), trialRequest)
-	if err != nil {
-		return BuildResponse(r), err
-	}
-
-	defer closeBody(r)
-	return BuildResponse(r), nil
-}
-
-// RequestTrialLicense will request a trial license and install it in the server
-// DEPRECATED - USE RequestTrialLicenseWithExtraFields (this method remains for backwards compatibility)
-func (c *Client4) RequestTrialLicense(ctx context.Context, users int) (*Response, error) {
-	reqData := map[string]any{"users": users, "terms_accepted": true}
-	r, err := c.doAPIPostJSON(ctx, c.trialLicenseRoute(), reqData)
-	if err != nil {
-		return BuildResponse(r), err
-	}
-	defer closeBody(r)
-	return BuildResponse(r), nil
-}
-
 // GetGroupStats retrieves stats for a Mattermost Group
 func (c *Client4) GetGroupStats(ctx context.Context, groupID string) (*GroupStats, *Response, error) {
 	r, err := c.doAPIGet(ctx, c.groupRoute(groupID).Join("stats"), "")
@@ -7020,40 +6963,12 @@ func (c *Client4) CheckIntegrity(ctx context.Context) ([]IntegrityCheckResult, *
 	return DecodeJSONFromResponse[[]IntegrityCheckResult](r)
 }
 
-func (c *Client4) GetNotices(ctx context.Context, lastViewed int64, teamId string, client NoticeClientType, clientVersion, locale, etag string) (NoticeMessages, *Response, error) {
-	values := url.Values{}
-	values.Set("lastViewed", strconv.FormatInt(lastViewed, 10))
-	values.Set("client", string(client))
-	values.Set("clientVersion", clientVersion)
-	values.Set("locale", locale)
-	r, err := c.doAPIGetWithQuery(ctx, c.systemRoute().Join("notices", teamId), values, etag)
-	if err != nil {
-		return nil, BuildResponse(r), err
-	}
-	defer closeBody(r)
-	notices, err := UnmarshalProductNoticeMessages(r.Body)
-	if err != nil {
-		return nil, BuildResponse(r), err
-	}
-	return notices, BuildResponse(r), nil
-}
-
 func (c *Client4) MarkNoticesViewed(ctx context.Context, ids []string) (*Response, error) {
 	r, err := c.doAPIPutJSON(ctx, c.systemRoute().Join("notices", "view"), ids)
 	if err != nil {
 		return BuildResponse(r), err
 	}
 	defer closeBody(r)
-	return BuildResponse(r), nil
-}
-
-func (c *Client4) CompleteOnboarding(ctx context.Context, request *CompleteOnboardingRequest) (*Response, error) {
-	r, err := c.doAPIPostJSON(ctx, c.systemRoute().Join("onboarding", "complete"), request)
-	if err != nil {
-		return BuildResponse(r), err
-	}
-	defer closeBody(r)
-
 	return BuildResponse(r), nil
 }
 
@@ -7112,35 +7027,6 @@ func (c *Client4) UpdatePassword(ctx context.Context, userId, currentPassword, n
 	return BuildResponse(r), nil
 }
 
-// Cloud Section
-
-func (c *Client4) GetCloudProducts(ctx context.Context) ([]*Product, *Response, error) {
-	r, err := c.doAPIGet(ctx, c.cloudRoute().Join("products"), "")
-	if err != nil {
-		return nil, BuildResponse(r), err
-	}
-	defer closeBody(r)
-	return DecodeJSONFromResponse[[]*Product](r)
-}
-
-func (c *Client4) GetSelfHostedProducts(ctx context.Context) ([]*Product, *Response, error) {
-	r, err := c.doAPIGet(ctx, c.cloudRoute().Join("products", "selfhosted"), "")
-	if err != nil {
-		return nil, BuildResponse(r), err
-	}
-	defer closeBody(r)
-	return DecodeJSONFromResponse[[]*Product](r)
-}
-
-func (c *Client4) GetProductLimits(ctx context.Context) (*ProductLimits, *Response, error) {
-	r, err := c.doAPIGet(ctx, c.cloudRoute().Join("limits"), "")
-	if err != nil {
-		return nil, BuildResponse(r), err
-	}
-	defer closeBody(r)
-	return DecodeJSONFromResponse[*ProductLimits](r)
-}
-
 func (c *Client4) GetIPFilters(ctx context.Context) (*AllowedIPRanges, *Response, error) {
 	r, err := c.doAPIGet(ctx, c.ipFiltersRoute(), "")
 	if err != nil {
@@ -7169,93 +7055,6 @@ func (c *Client4) GetMyIP(ctx context.Context) (*GetIPAddressResponse, *Response
 
 	defer closeBody(r)
 	return DecodeJSONFromResponse[*GetIPAddressResponse](r)
-}
-
-func (c *Client4) ValidateWorkspaceBusinessEmail(ctx context.Context) (*Response, error) {
-	r, err := c.doAPIPost(ctx, c.cloudRoute().Join("validate-workspace-business-email"), "")
-	if err != nil {
-		return BuildResponse(r), err
-	}
-	defer closeBody(r)
-
-	return BuildResponse(r), nil
-}
-
-func (c *Client4) NotifyAdmin(ctx context.Context, nr *NotifyAdminToUpgradeRequest) (int, error) {
-	r, err := c.doAPIPostJSON(ctx, c.usersRoute().Join("notify-admin"), nr)
-	if err != nil {
-		return r.StatusCode, err
-	}
-
-	closeBody(r)
-
-	return r.StatusCode, nil
-}
-
-func (c *Client4) TriggerNotifyAdmin(ctx context.Context, nr *NotifyAdminToUpgradeRequest) (int, error) {
-	r, err := c.doAPIPostJSON(ctx, c.usersRoute().Join("trigger-notify-admin-posts"), nr)
-	if err != nil {
-		return r.StatusCode, err
-	}
-
-	closeBody(r)
-
-	return r.StatusCode, nil
-}
-
-func (c *Client4) ValidateBusinessEmail(ctx context.Context, email *ValidateBusinessEmailRequest) (*Response, error) {
-	r, err := c.doAPIPostJSON(ctx, c.cloudRoute().Join("validate-business-email"), email)
-	if err != nil {
-		return BuildResponse(r), err
-	}
-	defer closeBody(r)
-
-	return BuildResponse(r), nil
-}
-
-func (c *Client4) GetCloudCustomer(ctx context.Context) (*CloudCustomer, *Response, error) {
-	r, err := c.doAPIGet(ctx, c.cloudRoute().Join("customer"), "")
-	if err != nil {
-		return nil, BuildResponse(r), err
-	}
-	defer closeBody(r)
-	return DecodeJSONFromResponse[*CloudCustomer](r)
-}
-
-func (c *Client4) GetSubscription(ctx context.Context) (*Subscription, *Response, error) {
-	r, err := c.doAPIGet(ctx, c.cloudRoute().Join("subscription"), "")
-	if err != nil {
-		return nil, BuildResponse(r), err
-	}
-	defer closeBody(r)
-	return DecodeJSONFromResponse[*Subscription](r)
-}
-
-func (c *Client4) GetInvoicesForSubscription(ctx context.Context) ([]*Invoice, *Response, error) {
-	r, err := c.doAPIGet(ctx, c.cloudRoute().Join("subscription", "invoices"), "")
-	if err != nil {
-		return nil, BuildResponse(r), err
-	}
-	defer closeBody(r)
-	return DecodeJSONFromResponse[[]*Invoice](r)
-}
-
-func (c *Client4) UpdateCloudCustomer(ctx context.Context, customerInfo *CloudCustomerInfo) (*CloudCustomer, *Response, error) {
-	r, err := c.doAPIPutJSON(ctx, c.cloudRoute().Join("customer"), customerInfo)
-	if err != nil {
-		return nil, BuildResponse(r), err
-	}
-	defer closeBody(r)
-	return DecodeJSONFromResponse[*CloudCustomer](r)
-}
-
-func (c *Client4) UpdateCloudCustomerAddress(ctx context.Context, address *Address) (*CloudCustomer, *Response, error) {
-	r, err := c.doAPIPutJSON(ctx, c.cloudRoute().Join("customer", "address"), address)
-	if err != nil {
-		return nil, BuildResponse(r), err
-	}
-	defer closeBody(r)
-	return DecodeJSONFromResponse[*CloudCustomer](r)
 }
 
 func (c *Client4) ListImports(ctx context.Context) ([]string, *Response, error) {
@@ -7738,16 +7537,6 @@ func (c *Client4) AddUserToGroupSyncables(ctx context.Context, userID string) (*
 		return BuildResponse(r), err
 	}
 	defer closeBody(r)
-	return BuildResponse(r), nil
-}
-
-func (c *Client4) CheckCWSConnection(ctx context.Context, userId string) (*Response, error) {
-	r, err := c.doAPIGet(ctx, c.cloudRoute().Join("healthz"), "")
-	if err != nil {
-		return BuildResponse(r), err
-	}
-	defer closeBody(r)
-
 	return BuildResponse(r), nil
 }
 

@@ -25,7 +25,6 @@ describe('components/TeamSidebar/TeamButton', () => {
         isDraggable: false,
         teamIndex: 0,
         teamId: '',
-        isInProduct: false,
     };
 
     it('should show unread badge and set class when unread in channels', () => {
@@ -43,22 +42,6 @@ describe('components/TeamSidebar/TeamButton', () => {
         expect(screen.getByTestId('team-container-')).toHaveClass('unread');
     });
 
-    it('should hide unread badge and set no class when unread in a product', () => {
-        const props = {
-            ...baseProps,
-            active: false,
-            unread: true,
-            isInProduct: true,
-        };
-
-        renderWithContext(
-            <TeamButton {...props}/>,
-        );
-
-        expect(screen.queryByTestId('team-badge-')).not.toBeInTheDocument();
-        expect(screen.getByTestId('team-container-')).not.toHaveClass('unread');
-    });
-
     it('should show mentions badge and set class when mentions in channels', () => {
         const props = {
             ...baseProps,
@@ -73,23 +56,6 @@ describe('components/TeamSidebar/TeamButton', () => {
 
         expect(screen.queryByTestId('team-badge-')).toHaveClass('badge-max-number');
         expect(screen.getByTestId('team-container-')).toHaveClass('unread');
-    });
-
-    it('should hide mentions badge and set no class when mentions in product', () => {
-        const props = {
-            ...baseProps,
-            active: false,
-            unread: true,
-            mentions: 1,
-            isInProduct: true,
-        };
-
-        renderWithContext(
-            <TeamButton {...props}/>,
-        );
-
-        expect(screen.queryByTestId('team-badge-')).not.toBeInTheDocument();
-        expect(screen.getByTestId('team-container-')).not.toHaveClass('unread');
     });
 
     describe('aria-label accessibility', () => {

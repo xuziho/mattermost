@@ -19,7 +19,7 @@ import SettingItem from 'components/setting_item';
 import SettingItemMax from 'components/setting_item_max';
 import RestrictedIndicator from 'components/widgets/menu/menu_items/restricted_indicator';
 
-import Constants, {NotificationLevels, MattermostFeatures, LicenseSkus, UserSettingsNotificationSections} from 'utils/constants';
+import Constants, {NotificationLevels, LicenseSkus, UserSettingsNotificationSections} from 'utils/constants';
 import {notificationSoundKeys, stopTryNotificationRing} from 'utils/notification_sounds';
 import {a11yFocus} from 'utils/utils';
 
@@ -50,13 +50,11 @@ type State = {
     desktopThreads: UserNotifyProps['desktop_threads'];
     pushThreads: UserNotifyProps['push_threads'];
     emailThreads: UserNotifyProps['email_threads'];
-    pushActivity: UserNotifyProps['push'];
-    pushStatus: UserNotifyProps['push_status'];
-    desktopSound: UserNotifyProps['desktop_sound'];
-    callsDesktopSound: UserNotifyProps['calls_desktop_sound'];
-    desktopNotificationSound: UserNotifyProps['desktop_notification_sound'];
-    callsNotificationSound: UserNotifyProps['calls_notification_sound'];
-    usernameKey: boolean;
+	pushActivity: UserNotifyProps['push'];
+	pushStatus: UserNotifyProps['push_status'];
+	desktopSound: UserNotifyProps['desktop_sound'];
+	desktopNotificationSound: UserNotifyProps['desktop_notification_sound'];
+	usernameKey: boolean;
     isCustomKeysWithNotificationInputChecked: boolean;
     customKeysWithNotification: MultiInputValue[];
     customKeysWithNotificationInputValue: string;
@@ -76,12 +74,10 @@ function getDefaultStateFromProps(props: Props): State {
     let desktop: UserNotifyProps['desktop'] = NotificationLevels.MENTION;
     let desktopThreads: UserNotifyProps['desktop_threads'] = NotificationLevels.ALL;
     let pushThreads: UserNotifyProps['push_threads'] = NotificationLevels.ALL;
-    let emailThreads: UserNotifyProps['email_threads'] = NotificationLevels.ALL;
-    let sound: UserNotifyProps['desktop_sound'] = 'true';
-    let callsSound: UserNotifyProps['calls_desktop_sound'] = 'true';
-    let desktopNotificationSound: UserNotifyProps['desktop_notification_sound'] = notificationSoundKeys[0] as UserNotifyProps['desktop_notification_sound'];
-    let callsNotificationSound: UserNotifyProps['calls_notification_sound'] = 'Calm';
-    let comments: UserNotifyProps['comments'] = 'never';
+	let emailThreads: UserNotifyProps['email_threads'] = NotificationLevels.ALL;
+	let sound: UserNotifyProps['desktop_sound'] = 'true';
+	let desktopNotificationSound: UserNotifyProps['desktop_notification_sound'] = notificationSoundKeys[0] as UserNotifyProps['desktop_notification_sound'];
+	let comments: UserNotifyProps['comments'] = 'never';
     let enableEmail: UserNotifyProps['email'] = 'true';
     let pushActivity: UserNotifyProps['push'] = NotificationLevels.MENTION;
     let pushStatus: UserNotifyProps['push_status'] = Constants.UserStatuses.AWAY;
@@ -105,20 +101,14 @@ function getDefaultStateFromProps(props: Props): State {
         if (props.user.notify_props.email_threads) {
             emailThreads = props.user.notify_props.email_threads;
         }
-        if (props.user.notify_props.desktop_sound) {
-            sound = props.user.notify_props.desktop_sound;
-        }
-        if (props.user.notify_props.calls_desktop_sound) {
-            callsSound = props.user.notify_props.calls_desktop_sound;
-        }
-        if (props.user.notify_props.desktop_notification_sound) {
-            desktopNotificationSound = props.user.notify_props.desktop_notification_sound;
-        }
-        if (props.user.notify_props.calls_notification_sound) {
-            callsNotificationSound = props.user.notify_props.calls_notification_sound;
-        }
-        if (props.user.notify_props.comments) {
-            comments = props.user.notify_props.comments;
+		if (props.user.notify_props.desktop_sound) {
+			sound = props.user.notify_props.desktop_sound;
+		}
+		if (props.user.notify_props.desktop_notification_sound) {
+			desktopNotificationSound = props.user.notify_props.desktop_notification_sound;
+		}
+		if (props.user.notify_props.comments) {
+			comments = props.user.notify_props.comments;
         }
         if (props.user.notify_props.email) {
             enableEmail = props.user.notify_props.email;
@@ -190,13 +180,11 @@ function getDefaultStateFromProps(props: Props): State {
         pushThreads,
         emailThreads,
         enableEmail,
-        pushActivity,
-        pushStatus,
-        desktopSound: sound,
-        callsDesktopSound: callsSound,
-        desktopNotificationSound,
-        callsNotificationSound,
-        usernameKey,
+		pushActivity,
+		pushStatus,
+		desktopSound: sound,
+		desktopNotificationSound,
+		usernameKey,
         customKeysWithNotification,
         isCustomKeysWithNotificationInputChecked,
         customKeysWithNotificationInputValue: '',
@@ -238,12 +226,10 @@ class NotificationsTab extends React.PureComponent<Props, State> {
 
     handleSubmit = async () => {
         const data: UserNotifyProps = {...this.props.user.notify_props};
-        data.email = this.state.enableEmail;
-        data.desktop_sound = this.state.desktopSound;
-        data.calls_desktop_sound = this.state.callsDesktopSound;
-        data.desktop_notification_sound = this.state.desktopNotificationSound;
-        data.calls_notification_sound = this.state.callsNotificationSound;
-        data.desktop = this.state.desktopActivity;
+		data.email = this.state.enableEmail;
+		data.desktop_sound = this.state.desktopSound;
+		data.desktop_notification_sound = this.state.desktopNotificationSound;
+		data.desktop = this.state.desktopActivity;
         data.desktop_threads = this.state.desktopThreads;
         data.email_threads = this.state.emailThreads;
         data.push_status = this.state.pushStatus;
@@ -733,51 +719,20 @@ class NotificationsTab extends React.PureComponent<Props, State> {
         const collapsedEditButtonWhenDisabled = (
             <RestrictedIndicator
                 blocked={this.props.isEnterpriseOrCloudOrSKUStarterFree && this.props.isEnterpriseReady}
-                feature={MattermostFeatures.HIGHLIGHT_WITHOUT_NOTIFICATION}
                 minimumPlanRequiredForFeature={LicenseSkus.Professional}
                 tooltipTitle={this.props.intl.formatMessage({
                     id: 'user.settings.notifications.keywordsWithHighlight.disabledTooltipTitle',
-                    defaultMessage: 'Professional feature',
+                    defaultMessage: 'Unavailable feature',
                 })}
                 tooltipMessageBlocked={this.props.intl.formatMessage({
                     id: 'user.settings.notifications.keywordsWithHighlight.disabledTooltipMessage',
                     defaultMessage:
-                    'This feature is available on the Professional plan',
+                    'This feature is not available on this server.',
                 })}
-                titleAdminPreTrial={this.props.intl.formatMessage({
-                    id: 'user.settings.notifications.keywordsWithHighlight.userModal.titleAdminPreTrial',
-                    defaultMessage: 'Highlight keywords without notifications with Mattermost Professional',
-                })}
-                messageAdminPreTrial={this.props.intl.formatMessage({
-                    id: 'user.settings.notifications.keywordsWithHighlight.userModal.messageAdminPreTrial',
-                    defaultMessage: 'Get the ability to passively highlight keywords that you care about. Upgrade to Professional plan to unlock this feature.',
-                })}
-                titleAdminPostTrial={this.props.intl.formatMessage({
-                    id: 'user.settings.notifications.keywordsWithHighlight.userModal.titleAdminPostTrial',
-                    defaultMessage: 'Highlight keywords without notifications with Mattermost Professional',
-                })}
-                messageAdminPostTrial={this.props.intl.formatMessage({
-                    id: 'user.settings.notifications.keywordsWithHighlight.userModal.messageAdminPostTrial',
-                    defaultMessage: 'Get the ability to passively highlight keywords that you care about. Upgrade to Professional plan to unlock this feature.',
-                },
-                )}
-                titleEndUser={this.props.intl.formatMessage({
-                    id: 'user.settings.notifications.keywordsWithHighlight.userModal.titleEndUser',
-                    defaultMessage: 'Highlight keywords without notifications with Mattermost Professional',
-                })}
-                messageEndUser={this.props.intl.formatMessage(
-                    {
-                        id: 'user.settings.notifications.keywordsWithHighlight.userModal.messageEndUser',
-                        defaultMessage: 'Get the ability to passively highlight keywords that you care about.{br}{br}Request your admin to upgrade to Mattermost Professional to access this feature.',
-                    },
-                    {
-                        br: <br/>,
-                    },
-                )}
                 ctaExtraContent={
                     <FormattedMessage
                         id='user.settings.notifications.keywordsWithHighlight.professional'
-                        defaultMessage='Professional'
+                        defaultMessage='Unavailable'
                     />
                 }
                 clickCallback={this.handleCloseSettingsModal}
@@ -1060,9 +1015,6 @@ class NotificationsTab extends React.PureComponent<Props, State> {
                         areAllSectionsInactive={areAllSectionsInactive}
                         desktopSound={this.state.desktopSound}
                         desktopNotificationSound={this.state.desktopNotificationSound}
-                        isCallsRingingEnabled={this.props.isCallsRingingEnabled}
-                        callsDesktopSound={this.state.callsDesktopSound}
-                        callsNotificationSound={this.state.callsNotificationSound}
                     />
                     <div className='divider-light'/>
                     <EmailNotificationSetting

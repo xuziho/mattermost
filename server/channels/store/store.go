@@ -56,7 +56,6 @@ type Store interface {
 	ChannelMemberHistory() ChannelMemberHistoryStore
 	Plugin() PluginStore
 	TermsOfService() TermsOfServiceStore
-	ProductNotices() ProductNoticesStore
 	Group() GroupStore
 	UserTermsOfService() UserTermsOfServiceStore
 	LinkMetadata() LinkMetadataStore
@@ -83,7 +82,6 @@ type Store interface {
 	ReplicaLagAbs() error
 	CheckIntegrity() <-chan model.IntegrityCheckResult
 	Logger() mlog.LoggerIFace
-	NotifyAdmin() NotifyAdminStore
 	PostPriority() PostPriorityStore
 	PostAcknowledgement() PostAcknowledgementStore
 	PostPersistentNotification() PostPersistentNotificationStore
@@ -891,13 +889,6 @@ type TermsOfServiceStore interface {
 	Get(id string, allowFromCache bool) (*model.TermsOfService, error)
 }
 
-type ProductNoticesStore interface {
-	View(userID string, notices []string) error
-	Clear(notices []string) error
-	ClearOldNotices(currentNotices model.ProductNotices) error
-	GetViews(userID string) ([]model.ProductNoticeViewState, error)
-}
-
 type UserTermsOfServiceStore interface {
 	GetByUser(userID string) (*model.UserTermsOfService, error)
 	Save(userTermsOfService *model.UserTermsOfService) (*model.UserTermsOfService, error)
@@ -1014,14 +1005,6 @@ type GroupStore interface {
 type LinkMetadataStore interface {
 	Save(linkMetadata *model.LinkMetadata) (*model.LinkMetadata, error)
 	Get(url string, timestamp int64) (*model.LinkMetadata, error)
-}
-
-type NotifyAdminStore interface {
-	Save(data *model.NotifyAdminData) (*model.NotifyAdminData, error)
-	GetDataByUserIdAndFeature(userID string, feature model.MattermostFeature) ([]*model.NotifyAdminData, error)
-	Get(trial bool) ([]*model.NotifyAdminData, error)
-	DeleteBefore(trial bool, now int64) error
-	Update(userID string, requiredPlan string, requiredFeature model.MattermostFeature, now int64) error
 }
 
 type SharedChannelStore interface {

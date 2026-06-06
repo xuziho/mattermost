@@ -1068,10 +1068,6 @@
     "translation": "Đặt làm mặc định"
   },
   {
-    "id": "api.templates.welcome_body.app_download_info",
-    "translation": "Để có trải nghiệm tốt nhất, hãy tải xuống các ứng dụng cho PC, Mac, iOS và Android từ:"
-  },
-  {
     "id": "interactive_message.decode_trigger_id.base64_decode_failed_signature",
     "translation": "Không thể giải mã chữ ký base64 của ID kích hoạt cho hộp thoại tương tác."
   },
@@ -1120,10 +1116,6 @@
     "translation": "Để kết thúc việc cập nhật địa chỉ email cho {{.TeamDisplayName}}, vui lòng chọn đường dẫn bên dưới để xác minh địa chỉ đúng"
   },
   {
-    "id": "api.command_help.name",
-    "translation": "trợ giúp"
-  },
-  {
     "id": "api.command_search.name",
     "translation": "tìm kiếm"
   },
@@ -1162,10 +1154,6 @@
   {
     "id": "api.file.get_file.public_invalid.app_error",
     "translation": "Link không hợp lệ"
-  },
-  {
-    "id": "app.plugin.marketplace_client.failed_to_fetch",
-    "translation": "Lấy danh sách plugins từ marketplace server thất bại."
   },
   {
     "id": "app.import.validate_direct_channel_import_data.header_length.error",
@@ -3206,10 +3194,6 @@
     "translation": "URL SAML SSO phải là một URL hợp lệ và bắt đầu bằng http:// hoặc https://."
   },
   {
-    "id": "api.command_help.desc",
-    "translation": "Mở trang trợ giúp Mattermost"
-  },
-  {
     "id": "api.team.set_team_icon.write_file.app_error",
     "translation": "Không thể lưu biểu tượng nhóm"
   },
@@ -3714,10 +3698,6 @@
     "translation": "Google Chrome"
   },
   {
-    "id": "app.plugin.marketplace_disabled.app_error",
-    "translation": "Plugin đã bị vô hiệu hóa. Vui lòng kiểm tra nhật ký của bạn để biết thêm chi tiết."
-  },
-  {
     "id": "api.team.move_channel.success",
     "translation": "Kênh này đã được chuyển đến nhóm này từ %v."
   },
@@ -3856,10 +3836,6 @@
   {
     "id": "app.import.attachment.file_upload.error",
     "translation": "Lỗi khi tải tệp lên: \"{{.FilePath}}\""
-  },
-  {
-    "id": "app.plugin.marshal.app_error",
-    "translation": "Không thể bổ sung các plugin trên marketplace."
   },
   {
     "id": "store.sql_channel.get.existing.app_error",
@@ -4092,10 +4068,6 @@
   {
     "id": "api.command_mute.success_unmute",
     "translation": "{{.Channel}} không còn bị tắt tiếng nữa."
-  },
-  {
-    "id": "app.plugin.marketplace_client.app_error",
-    "translation": "Tạo marketplace client thất bại."
   },
   {
     "id": "app.import.validate_direct_channel_import_data.members_required.error",
@@ -4538,10 +4510,6 @@
   {
     "id": "api.command_channel_header.hint",
     "translation": "[text]"
-  },
-  {
-    "id": "app.plugin.install_marketplace_plugin.app_error",
-    "translation": "Không thể bổ sung các plugin trên marketplace."
   },
   {
     "id": "model.authorize.is_valid.create_at.app_error",
@@ -5262,14 +5230,6 @@
     "translation": "Khóa không hợp lệ, phải dài hơn {{.Min}} và dài tối đa {{.Max}} ký tự."
   },
   {
-    "id": "api.cloud.cws_webhook_event_missing_error",
-    "translation": "Sự kiện webhook không được xử lý. Nó bị thiếu hoặc nó không hợp lệ."
-  },
-  {
-    "id": "api.cloud.app_error",
-    "translation": "Lỗi nội bộ trong khi yêu cầu api trên đám mây."
-  },
-  {
     "id": "api.team.invite_members.unable_to_send_email_with_defaults.app_error",
     "translation": "SMTP không được định cấu hình trong Bảng điều khiển hệ thống"
   },
@@ -5278,12 +5238,8 @@
     "translation": "Tìm hiểu thêm"
   },
   {
-    "id": "api.templates.license_up_for_renewal_contact_sales",
-    "translation": "Liên hệ bộ phận bán hàng"
-  },
-  {
-    "id": "api.templates.welcome_body.app_download_button",
-    "translation": "Tải xuống"
+    "id": "api.templates.license_up_for_renewal_review_license",
+    "translation": "Review license"
   },
   {
     "id": "app.system.system_bot.bot_displayname",
@@ -5300,14 +5256,6 @@
   {
     "id": "api.channel.group_message.converted.to_private_channel",
     "translation": "{{.ConvertedByUsername}} đã tạo kênh này từ một tin nhắn nhóm với {{.GMMembers}}."
-  },
-  {
-    "id": "api.cloud.license_error",
-    "translation": "Giấy phép của bạn không hỗ trợ các yêu cầu trên đám mây."
-  },
-  {
-    "id": "api.cloud.notify_admin_to_upgrade_error.already_notified",
-    "translation": "Đã thông báo cho Admin"
   },
   {
     "id": "api.command_custom_status.desc",
@@ -5348,14 +5296,6 @@
   {
     "id": "api.command_invite.user_not_in_team.messageOverflow",
     "translation": "Bạn có thể thêm {{.FirstUser}} và {{.Others}} người khác vào kênh này sau khi họ là thành viên của nhóm **{{.Team}}**."
-  },
-  {
-    "id": "api.command_marketplace.desc",
-    "translation": "Mở kho tiện ích"
-  },
-  {
-    "id": "api.command_marketplace.name",
-    "translation": "kho tiện ích"
   },
   {
     "id": "api.command_remote.accept_invitation",
@@ -5562,10 +5502,6 @@
     "translation": "Tạo liên kết để tải xuống bản xuất."
   },
   {
-    "id": "api.command_help.success",
-    "translation": "Matter Extreme là một nền tảng nguồn mở để liên lạc, cộng tác và điều phối công việc một cách an toàn giữa các công cụ và nhóm.\nMattermost chứa ba công cụ chính:\n\n**Kênh** - Luôn kết nối với nhóm của bạn thông qua nhắn tin 1:1 và nhóm.\n**[Playbooks](/playbooks)** - Xây dựng và định cấu hình các quy trình có thể lặp lại để đạt được kết quả cụ thể và có thể dự đoán được.\n**[Boards](/boards)** - Quản lý các dự án và nhiệm vụ theo cấu trúc bảng Kanban để giúp nhóm của bạn đạt được các cột mốc quan trọng.\n\n[Xem tài liệu và hướng dẫn]({{.HelpLink}})"
-  },
-  {
     "id": "api.command_exportlink.driver.app_error",
     "translation": "Trình điều khiển lưu trữ tệp không hỗ trợ tạo liên kết."
   },
@@ -5612,10 +5548,6 @@
   {
     "id": "api.command_exportlink.link.text",
     "translation": "Bạn có thể tải tệp của mình xuống tại đây: {{.Link}}.\nLiên kết này sẽ hết hạn sau {{.Expiration}}."
-  },
-  {
-    "id": "api.command_marketplace.unsupported.app_error",
-    "translation": "Lệnh kho tiện ích không hỗ trợ trên thiết bị của bạn."
   },
   {
     "id": "api.command_remote.name.help",
@@ -5778,10 +5710,6 @@
     "translation": "Một hoặc nhiều quyền sau đây mà bạn đang cố gắng thêm hoặc xóa không được phép"
   },
   {
-    "id": "api.server.cws.needs_enterprise_edition",
-    "translation": "Dịch vụ chỉ có ở phiên bản Matter Extreme Enterprise"
-  },
-  {
     "id": "api.server.hosted_signup_unavailable.error",
     "translation": "Cổng thông tin không có sẵn để đăng ký tự lưu trữ."
   },
@@ -5874,74 +5802,6 @@
     "translation": "Kiểm tra giới hạn hình ảnh không thành công. Độ phân giải quá cao."
   },
   {
-    "id": "api.templates.cloud_welcome_email.add_apps_info",
-    "translation": "Thêm ứng dụng vào không gian làm việc của bạn"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.add_apps_sub_info",
-    "translation": "Hợp lý hóa công việc của bạn với các công cụ như GitHub, Jira và Zoom. Khám phá tất cả các tích hợp chúng tôi có trên"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.app_market_place",
-    "translation": "chợ ứng dụng."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.button",
-    "translation": "Mở Mattermost"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.download_mm_info",
-    "translation": "Tải ứng dụng Mattermost"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.info",
-    "translation": "Cám ơn vì đã tạo "
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.info2",
-    "translation": "Đảm bảo lưu hoặc đánh dấu liên kết của bạn để sử dụng sau này."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.invite_info",
-    "translation": "Mời mọi người đến không gian làm việc của bạn"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.invite_sub_info",
-    "translation": "Chia sẻ liên kết này để mời thành viên của bạn tham gia {{.WorkSpace}}:"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.mm_apps",
-    "translation": "ứng dụng dành cho thiết bị di động và máy tính để bàn"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.signin_sub_info",
-    "translation": "Đăng nhập vào không gian làm việc của bạn trên"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.signin_sub_info2",
-    "translation": "để có trải nghiệm tốt nhất trên Windows, Linux, Mac, iOS và Android."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.start_questions",
-    "translation": "Bạn có thắc mắc về việc bắt đầu? Gửi email cho chúng tôi theo địa chỉ"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subject",
-    "translation": "Chúc mừng!"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subtitle",
-    "translation": "Thiết lập không gian làm việc của bạn"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subtitle_info",
-    "translation": "Thực hiện các bước sau để xây dựng nhóm của bạn và tận dụng tối đa không gian làm việc của bạn."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.title",
-    "translation": "Không gian làm việc của bạn đã sẵn sàng hoạt động!"
-  },
-  {
     "id": "api.templates.email_us_anytime_at",
     "translation": "Gửi email cho chúng tôi bất cứ lúc nào tại "
   },
@@ -6018,10 +5878,6 @@
     "translation": "Nhấp vào bên dưới để xác minh địa chỉ email của bạn."
   },
   {
-    "id": "api.templates.welcome_body.app_download_title",
-    "translation": "Tải xuống ứng dụng dành cho máy tính để bàn và thiết bị di động"
-  },
-  {
     "id": "api.templates.welcome_body.info1",
     "translation": "Nếu người đó không phải là bạn, bạn có thể yên tâm bỏ qua email này."
   },
@@ -6060,10 +5916,6 @@
   {
     "id": "api.templates.welcome_body.subTitle2",
     "translation": "Nhấp vào bên dưới để xác minh địa chỉ email của bạn."
-  },
-  {
-    "id": "api.cloud.request_error",
-    "translation": "Lỗi xử lý yêu cầu tới CWS."
   },
   {
     "id": "app.notification.body.dm.title",
@@ -6162,18 +6014,6 @@
     "translation": "Đã xảy ra lỗi khi lấy khóa chung từ cửa hàng."
   },
   {
-    "id": "app.plugin.marketplace_plugin_request.app_error",
-    "translation": "Không giải mã được yêu cầu plugin thị trường."
-  },
-  {
-    "id": "app.plugin.marketplace_plugins.not_found.app_error",
-    "translation": "Không thể tìm thấy plugin thị trường được yêu cầu."
-  },
-  {
-    "id": "app.plugin.marketplace_plugins.signature_not_found.app_error",
-    "translation": "Không thể tìm thấy chữ ký plugin thị trường được yêu cầu."
-  },
-  {
     "id": "app.plugin.modify_saml.app_error",
     "translation": "Không thể sửa đổi tập tin saml."
   },
@@ -6262,10 +6102,6 @@
     "translation": "Không thể đếm số bài viết theo ngày."
   },
   {
-    "id": "app.post.cloud.get.app_error",
-    "translation": "Không thể tìm nạp bài đăng vì nó đã vượt quá giới hạn gói của đám mây."
-  },
-  {
     "id": "app.session.remove.app_error",
     "translation": "Không thể xóa phiên."
   },
@@ -6294,16 +6130,8 @@
     "translation": "Không có mục nào cho trạng thái đó tồn tại."
   },
   {
-    "id": "app.system.complete_onboarding_request.no_first_user",
-    "translation": "Việc giới thiệu chỉ có thể được hoàn thành bởi Quản trị viên hệ thống."
-  },
-  {
     "id": "app.system.get_by_name.app_error",
     "translation": "Không thể tìm thấy biến hệ thống."
-  },
-  {
-    "id": "app.system.get_onboarding_request.app_error",
-    "translation": "Không nhận được trạng thái hoàn tất quá trình giới thiệu."
   },
   {
     "id": "app.system.permanent_delete_by_name.app_error",
@@ -6320,10 +6148,6 @@
   {
     "id": "app.team.clear_all_custom_role_assignments.select.app_error",
     "translation": "Không thể truy xuất các thành viên trong nhóm."
-  },
-  {
-    "id": "app.system.complete_onboarding_request.app_error",
-    "translation": "Không giải mã được yêu cầu giới thiệu hoàn chỉnh."
   },
   {
     "id": "app.team.clear_cache.app_error",
@@ -6368,14 +6192,6 @@
   {
     "id": "api.command_channel_header.update_channel.max_length",
     "translation": "Văn bản đã nhập vượt quá giới hạn ký tự. Tiêu đề kênh được giới hạn ở {{.MaxLength}} ký tự."
-  },
-  {
-    "id": "api.cloud.teams_limit_reached.create",
-    "translation": "Không thể tạo nhóm vì đã đạt đến giới hạn số lượng nhóm"
-  },
-  {
-    "id": "api.cloud.teams_limit_reached.restore",
-    "translation": "Không thể khôi phục đội vì đã đạt đến giới hạn nhóm"
   },
   {
     "id": "api.command.execute_command.format.app_error",
@@ -6532,14 +6348,6 @@
   {
     "id": "api.email_batching.send_batched_email_notification.title",
     "translation": "Bạn có tin nhắn mới"
-  },
-  {
-    "id": "api.error_get_first_admin_visit_marketplace_status",
-    "translation": "Lỗi khi truy xuất trạng thái lượt truy cập thị trường của quản trị viên đầu tiên từ cửa hàng."
-  },
-  {
-    "id": "api.error_no_organization_name_provided_for_self_hosted_onboarding",
-    "translation": "Lỗi không cung cấp tên tổ chức cho quá trình giới thiệu tự lưu trữ."
   },
   {
     "id": "api.emoji.create.internal_error",
@@ -6952,10 +6760,6 @@
   {
     "id": "api.error_set_first_admin_complete_setup",
     "translation": "Lỗi khi lưu thiết lập hoàn chỉnh của quản trị viên đầu tiên trong cửa hàng."
-  },
-  {
-    "id": "api.error_set_first_admin_visit_marketplace_status",
-    "translation": "Lỗi khi lưu trạng thái lượt truy cập thị trường của quản trị viên đầu tiên trong cửa hàng."
   },
   {
     "id": "api.export.export_not_found.app_error",
@@ -7782,10 +7586,6 @@
     "translation": "Không thể xóa tất cả các phiên của người dùng."
   },
   {
-    "id": "app.last_accessible_file.app_error",
-    "translation": "Lỗi tìm nạp tệp có thể truy cập lần cuối"
-  },
-  {
     "id": "app.post.permanent_delete_by_user.app_error",
     "translation": "Không thể chọn bài viết để xóa cho người dùng."
   },
@@ -7874,30 +7674,6 @@
     "translation": "Không thể sắp xếp thứ tự."
   },
   {
-    "id": "api.upgrade_to_enterprise.already-enterprise.app_error",
-    "translation": "Bạn không thể nâng cấp vì bạn đang chạy Matter Extreme Enterprise Edition."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.app_error",
-    "translation": "Bản nâng cấp lên Matter Extreme Enterprise Edition đang chạy."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.generic_error.app_error",
-    "translation": "Matter Extreme không thể nâng cấp lên Phiên bản doanh nghiệp."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.system_not_supported.app_error",
-    "translation": "Matter Extreme không thể nâng cấp lên Phiên bản doanh nghiệp. Tính năng này sẽ chỉ hoạt động trên các hệ thống Linux có kiến trúc x86-64."
-  },
-  {
-    "id": "api.upgrade_to_enterprise_status.app_error",
-    "translation": "Matter Extreme không thể nâng cấp lên Phiên bản doanh nghiệp."
-  },
-  {
-    "id": "api.upgrade_to_enterprise_status.signature.app_error",
-    "translation": "Matter Extreme không thể nâng cấp lên Phiên bản doanh nghiệp. Không thể xác minh chữ ký số của tệp nhị phân đã tải xuống."
-  },
-  {
     "id": "api.upload.create.upload_too_large.app_error",
     "translation": "Unable to upload file. File is too large."
   },
@@ -7982,14 +7758,6 @@
     "translation": "Không thể mã hóa trường thành JSON"
   },
   {
-    "id": "api.upgrade_to_enterprise.already-done.app_error",
-    "translation": "Bạn đã nâng cấp lên Matter Extreme Enterprise Edition. Vui lòng khởi động lại máy chủ để hoàn tất quá trình nâng cấp."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-user.app_error",
-    "translation": "Matter Extreme không thể nâng cấp lên Phiên bản doanh nghiệp. Người dùng hệ thống Matter Extreme {{.MattermostUsername}} không có quyền ghi vào tệp nhị phân cần thiết. Quản trị viên hệ thống có thể cập nhật quyền của tệp bằng cách thực hiện lệnh sau trên máy chủ nơi Matter Extreme được cài đặt:\n\n```\nchown {{.MattermostUsername}} \"{{.Path}}\"\n```\n\nSau khi thay đổi quyền truy cập tệp, hãy thử nâng cấp lại Matter Extreme. Khi bạn đã nâng cấp và khởi động lại, hãy nhớ khôi phục quyền truy cập tệp nhị phân ban đầu:\n\n```\nchown {{.FileUsername}} \"{{.Path}}\""
-  },
-  {
     "id": "model.plugin_command_error.error.app_error",
     "translation": "Plugin cho /{{.Command}} không hoạt động. Xin vui lòng liên hệ với quản trị hệ thống của bạn"
   },
@@ -8000,10 +7768,6 @@
   {
     "id": "model.session.is_valid.user_id.app_error",
     "translation": "Trường UserId không hợp lệ cho phiên."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-user-and-permission.app_error",
-    "translation": "Matter Extreme không thể nâng cấp lên Phiên bản doanh nghiệp. Người dùng hệ thống Matter Extreme {{.MattermostUsername}} không có quyền ghi vào tệp nhị phân cần thiết. Quản trị viên hệ thống có thể cập nhật quyền của tệp bằng cách thực hiện lệnh sau trên máy chủ nơi Matter Extreme được cài đặt:"
   },
   {
     "id": "api.user.autocomplete_users.missing_team_id.app_error",
@@ -8102,20 +7866,8 @@
     "translation": "Đăng nhập không thành công vì người dùng từ xa không được phép đăng nhập."
   },
   {
-    "id": "api.user.login_by_cws.invalid_token.app_error",
-    "translation": "Mã thông báo CWS không hợp lệ"
-  },
-  {
-    "id": "api.user.login_cws.license.error",
-    "translation": "Đăng nhập CWS bị cấm."
-  },
-  {
     "id": "api.user.patch_user.login_provider_attribute_set.app_error",
     "translation": "Trường '{{.Field}}' phải được đặt thông qua nhà cung cấp thông tin đăng nhập của người dùng."
-  },
-  {
-    "id": "api.user.send_cloud_welcome_email.error",
-    "translation": "Không gửi được email chào mừng trên đám mây"
   },
   {
     "id": "api.user.update_active.cannot_enable_guest_when_guest_feature_is_disabled.app_error",
@@ -8382,10 +8134,6 @@
     "translation": "Chúng tôi đã gặp lỗi khi tìm hồ sơ người dùng."
   },
   {
-    "id": "api.upgrade_to_enterprise.invalid-permission.app_error",
-    "translation": "Matter Extreme không thể nâng cấp lên Phiên bản doanh nghiệp. Người dùng hệ thống Matter Extreme {{.MattermostUsername}} không có quyền ghi vào tệp nhị phân cần thiết. Quản trị viên hệ thống có thể cập nhật quyền của tệp bằng cách thực hiện lệnh sau trên máy chủ nơi Matter Extreme được cài đặt:\n\n```\nchmod +w \"{{.Path}}\"\n```\n\nSau khi thay đổi quyền truy cập tệp, hãy thử nâng cấp lại Matter Extreme. Khi bạn đã nâng cấp và khởi động lại, hãy nhớ khôi phục quyền truy cập tệp nhị phân ban đầu:\n\n```\nchmod -w \"{{.Path}}\"\n```"
-  },
-  {
     "id": "app.admin.saml.failure_read_response_body_from_idp.app_error",
     "translation": "Đã xảy ra lỗi khi đọc tải trọng phản hồi nhận được từ Nhà cung cấp danh tính."
   },
@@ -8564,10 +8312,6 @@
   {
     "id": "app.export.zip_create.error",
     "translation": "Không thể thêm tệp vào kho lưu trữ zip trong khi xuất."
-  },
-  {
-    "id": "app.file.cloud.get.app_error",
-    "translation": "Không thể tìm nạp tệp vì nó đã vượt quá giới hạn của gói đám mây."
   },
   {
     "id": "app.file_info.get.app_error",

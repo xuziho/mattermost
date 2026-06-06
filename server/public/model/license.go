@@ -63,7 +63,6 @@ type LicenseRecord struct {
 type LicenseLimits struct {
 	PostHistory         int64 `json:"post_history"`
 	BoardCards          int64 `json:"board_cards"`
-	PlaybookRuns        int64 `json:"playbook_runs"`
 	CallDurationSeconds int64 `json:"call_duration"`
 	AgentsPrompts       int64 `json:"agents_prompts"`
 	PushNotifications   int64 `json:"push_notifications"`
@@ -100,60 +99,6 @@ type Customer struct {
 	Company string `json:"company"`
 }
 
-type TrialLicenseRequest struct {
-	ServerID              string `json:"server_id"`
-	Email                 string `json:"email"`
-	Name                  string `json:"name"`
-	SiteURL               string `json:"site_url"`
-	SiteName              string `json:"site_name"`
-	Users                 int    `json:"users"`
-	TermsAccepted         bool   `json:"terms_accepted"`
-	ReceiveEmailsAccepted bool   `json:"receive_emails_accepted"`
-	ContactName           string `json:"contact_name"`
-	ContactEmail          string `json:"contact_email"`
-	CompanyName           string `json:"company_name"`
-	CompanyCountry        string `json:"company_country"`
-	CompanySize           string `json:"company_size"`
-	ServerVersion         string `json:"server_version"`
-}
-
-// If any of the below fields are set, this is not a legacy request, and all fields should be validated
-func (tlr *TrialLicenseRequest) IsLegacy() bool {
-	return tlr.CompanyCountry == "" && tlr.CompanyName == "" && tlr.CompanySize == "" && tlr.ContactName == ""
-}
-
-func (tlr *TrialLicenseRequest) IsValid() bool {
-	if !tlr.TermsAccepted {
-		return false
-	}
-
-	if tlr.Email == "" {
-		return false
-	}
-
-	if tlr.Users <= 0 {
-		return false
-	}
-
-	if tlr.CompanyCountry == "" {
-		return false
-	}
-
-	if tlr.CompanyName == "" {
-		return false
-	}
-
-	if tlr.CompanySize == "" {
-		return false
-	}
-
-	if tlr.ContactName == "" {
-		return false
-	}
-
-	return true
-}
-
 type Features struct {
 	Users                     *int  `json:"users"`
 	LDAP                      *bool `json:"ldap"`
@@ -181,7 +126,6 @@ type Features struct {
 	LockTeammateNameDisplay   *bool `json:"lock_teammate_name_display"`
 	EnterprisePlugins         *bool `json:"enterprise_plugins"`
 	AdvancedLogging           *bool `json:"advanced_logging"`
-	Cloud                     *bool `json:"cloud"`
 	SharedChannels            *bool `json:"shared_channels"`
 	RemoteClusterService      *bool `json:"remote_cluster_service"`
 	OutgoingOAuthConnections  *bool `json:"outgoing_oauth_connections"`
@@ -215,7 +159,6 @@ func (f *Features) ToMap() map[string]any {
 		"lock_teammate_name_display":  *f.LockTeammateNameDisplay,
 		"enterprise_plugins":          *f.EnterprisePlugins,
 		"advanced_logging":            *f.AdvancedLogging,
-		"cloud":                       *f.Cloud,
 		"shared_channels":             *f.SharedChannels,
 		"remote_cluster_service":      *f.RemoteClusterService,
 		"future":                      *f.FutureFeatures,
@@ -332,10 +275,6 @@ func (f *Features) SetDefaults() {
 		f.AdvancedLogging = NewPointer(*f.FutureFeatures)
 	}
 
-	if f.Cloud == nil {
-		f.Cloud = NewPointer(false)
-	}
-
 	if f.SharedChannels == nil {
 		f.SharedChannels = NewPointer(*f.FutureFeatures)
 	}
@@ -374,15 +313,6 @@ func (l *License) IsStarted() bool {
 	return l.StartsAt < GetMillis()
 }
 
-// Cloud preview is a cloud license, that is also a trial, and the difference between the start and end date is exactly 1 hour.
-func (l *License) IsCloudPreview() bool {
-	return l.IsCloud() && l.IsTrialLicense() && l.ExpiresAt-l.StartsAt == 1*time.Hour.Milliseconds()
-}
-
-func (l *License) IsCloud() bool {
-	return l != nil && l.Features != nil && l.Features.Cloud != nil && *l.Features.Cloud
-}
-
 func (l *License) IsTrialLicense() bool {
 	return l.IsTrial || (l.ExpiresAt-l.StartsAt) == trialDuration.Milliseconds() || (l.ExpiresAt-l.StartsAt) == adminTrialDuration.Milliseconds()
 }
@@ -392,12 +322,6 @@ func (l *License) IsSanctionedTrial() bool {
 
 	return l.IsTrialLicense() &&
 		(duration >= sanctionedTrialDurationLowerBound.Milliseconds() || duration <= sanctionedTrialDurationUpperBound.Milliseconds())
-}
-
-func (l *License) HasEnterpriseMarketplacePlugins() bool {
-	return *l.Features.EnterprisePlugins ||
-		l.SkuShortName == LicenseShortSkuE20 ||
-		MinimumProfessionalLicense(l)
 }
 
 func (l *License) HasRemoteClusterService() bool {

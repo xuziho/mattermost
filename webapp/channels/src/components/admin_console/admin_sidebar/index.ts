@@ -7,16 +7,10 @@ import {bindActionCreators} from 'redux';
 import type {Dispatch} from 'redux';
 
 import {getPlugins} from 'mattermost-redux/actions/admin';
-import {getSubscriptionProduct} from 'mattermost-redux/selectors/entities/cloud';
 import {getConfig, getLicense} from 'mattermost-redux/selectors/entities/general';
-import {getBool} from 'mattermost-redux/selectors/entities/preferences';
-import {isFirstAdmin} from 'mattermost-redux/selectors/entities/users';
 
 import {getAdminDefinition, getConsoleAccess} from 'selectors/admin_console';
 import {getNavigationBlocked} from 'selectors/views/admin';
-import {getIsMobileView} from 'selectors/views/browser';
-
-import {OnboardingTaskCategory, OnboardingTaskList} from 'components/onboarding_tasks';
 
 import type {GlobalState} from 'types/store';
 
@@ -29,12 +23,6 @@ function mapStateToProps(state: GlobalState) {
     const siteName = config.SiteName;
     const adminDefinition = getAdminDefinition(state);
     const consoleAccess = getConsoleAccess(state);
-    const taskListStatus = getBool(state, OnboardingTaskCategory, OnboardingTaskList.ONBOARDING_TASK_LIST_SHOW);
-    const isUserFirstAdmin = isFirstAdmin(state);
-    const isMobileView = getIsMobileView(state);
-    const showTaskList = isUserFirstAdmin && taskListStatus && !isMobileView;
-    const subscriptionProduct = getSubscriptionProduct(state);
-
     return {
         license,
         config: state.entities.admin.config,
@@ -44,9 +32,7 @@ function mapStateToProps(state: GlobalState) {
         siteName,
         adminDefinition,
         consoleAccess,
-        cloud: state.entities.cloud,
-        showTaskList,
-        subscriptionProduct,
+        showTaskList: false,
     };
 }
 

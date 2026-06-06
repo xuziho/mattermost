@@ -4,9 +4,7 @@
 package platform
 
 import (
-	"bytes"
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"os"
 
@@ -224,14 +222,6 @@ func (ps *PlatformService) SaveLicense(licenseBytes []byte) (*model.License, *mo
 		}
 		return nil, model.NewAppError("addLicense", "api.license.add_license.save_active.app_error", nil, "", http.StatusInternalServerError).Wrap(err)
 	}
-	// only on prem licenses set this in the first place
-	if !license.IsCloud() {
-		_, err := ps.Store.System().PermanentDeleteByName(model.SystemHostedPurchaseNeedsScreening)
-		if err != nil {
-			ps.logger.Warn(fmt.Sprintf("Failed to remove %s system store key", model.SystemHostedPurchaseNeedsScreening))
-		}
-	}
-
 	if err := ps.ReloadConfig(); err != nil {
 		ps.logger.Warn("Failed to reload config after saving license", mlog.Err(err))
 	}
@@ -343,57 +333,6 @@ func (ps *PlatformService) RemoveLicenseListener(id string) {
 
 func (ps *PlatformService) GetSanitizedClientLicense() map[string]string {
 	return utils.GetSanitizedClientLicense(ps.ClientLicense())
-}
-
-// RequestTrialLicense request a trial license from the mattermost official license server
-func (ps *PlatformService) RequestTrialLicense(trialRequest *model.TrialLicenseRequest) *model.AppError {
-	trialRequestJSON, err := json.Marshal(trialRequest)
-	if err != nil {
-		return model.NewAppError("RequestTrialLicense", "api.unmarshal_error", nil, "", http.StatusInternalServerError).Wrap(err)
-	}
-
-	resp, err := http.Post(ps.getRequestTrialURL(), "application/json", bytes.NewBuffer(trialRequestJSON))
-	if err != nil {
-		return model.NewAppError("RequestTrialLicense", "api.license.request_trial_license.app_error", nil, "", http.StatusBadRequest).Wrap(err)
-	}
-	defer resp.Body.Close()
-
-	// CloudFlare sitting in front of the Customer Portal will block this request with a 451 response code in the event that the request originates from a country sanctioned by the U.S. Government.
-	if resp.StatusCode == http.StatusUnavailableForLegalReasons {
-		return model.NewAppError("RequestTrialLicense", "api.license.request_trial_license.embargoed", nil, "Request for trial license came from an embargoed country", http.StatusUnavailableForLegalReasons)
-	}
-
-	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
-		return model.NewAppError("RequestTrialLicense", "api.license.request_trial_license.app_error", nil,
-			fmt.Sprintf("Unexpected HTTP status code %q returned by server", resp.Status), http.StatusInternalServerError)
-	}
-
-	var licenseResponse map[string]string
-	err = json.NewDecoder(resp.Body).Decode(&licenseResponse)
-	if err != nil {
-		ps.logger.Warn("Error decoding license response", mlog.Err(err))
-	}
-
-	if _, ok := licenseResponse["license"]; !ok {
-		return model.NewAppError("RequestTrialLicense", "api.license.request_trial_license.app_error", nil, licenseResponse["message"], http.StatusBadRequest)
-	}
-
-	if _, err := ps.SaveLicense([]byte(licenseResponse["license"])); err != nil {
-		return err
-	}
-
-	if err := ps.ReloadConfig(); err != nil {
-		ps.logger.Warn("Failed to reload config after requesting trial license", mlog.Err(err))
-	}
-	if appErr := ps.InvalidateAllCaches(); appErr != nil {
-		ps.logger.Warn("Failed to invalidate cache after requesting trial license", mlog.Err(appErr))
-	}
-
-	return nil
-}
-
-func (ps *PlatformService) getRequestTrialURL() string {
-	return fmt.Sprintf("%s/api/v1/trials", *ps.Config().CloudSettings.CWSURL)
 }
 
 func (ps *PlatformService) logLicense(message string, license *model.License) {

@@ -4,7 +4,6 @@
 import React from 'react';
 import type {match} from 'react-router-dom';
 
-import type {CloudState} from '@mattermost/types/cloud';
 import type {PluginSettings} from '@mattermost/types/config';
 
 import CustomPluginSettings from 'components/admin_console/custom_plugin_settings';
@@ -34,7 +33,6 @@ describe('custom plugin sections and settings', () => {
         environmentConfig: {},
         setNavigationBlocked: jest.fn(),
         roles: {},
-        cloud: {} as CloudState,
         license: {},
         editRole: jest.fn(),
         isCurrentUserSystemAdmin: false,

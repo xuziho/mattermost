@@ -18,9 +18,6 @@ const (
 	ViewTitleMaxRunes       = 256
 	ViewDescriptionMaxRunes = 1024
 	MaxViewsPerChannel      = 50
-
-	BoardsPropertyGroupName      = "boards"
-	BoardsPropertyFieldNameBoard = "board"
 )
 
 type View struct {

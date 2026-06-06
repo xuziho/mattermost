@@ -70,7 +70,6 @@ type Handler struct {
 	HandleFunc                func(*Context, http.ResponseWriter, *http.Request)
 	HandlerName               string
 	RequireSession            bool
-	RequireCloudKey           bool
 	RequireRemoteClusterToken bool
 	TrustRequester            bool
 	RequireMfa                bool
@@ -213,9 +212,6 @@ func (h Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	subpath, _ := utils.GetSubpathFromConfig(c.App.Config())
 	siteURLHeader := app.GetProtocol(r) + "://" + r.Host + subpath
-	if c.App.Channels().License().IsCloud() {
-		siteURLHeader = *c.App.Config().ServiceSettings.SiteURL + subpath
-	}
 	c.SetSiteURLHeader(siteURLHeader)
 
 	w.Header().Set(model.HeaderRequestId, c.AppContext.RequestId())
@@ -254,7 +250,7 @@ func (h Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	token, tokenLocation := app.ParseAuthTokenFromRequest(r)
 
-	if token != "" && tokenLocation != app.TokenLocationCloudHeader && tokenLocation != app.TokenLocationRemoteClusterHeader {
+	if token != "" && tokenLocation != app.TokenLocationRemoteClusterHeader {
 		session, err := c.App.GetSession(token)
 
 		if err != nil {
@@ -284,15 +280,6 @@ func (h Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			c.AppContext = c.AppContext.WithSession(&model.Session{})
 			c.RemoveSessionCookie(w, r)
 			c.Err = model.NewAppError("ServeHTTP", "api.context.session_expired.app_error", nil, "token="+token+" Appears to be a CSRF attempt", http.StatusUnauthorized)
-		}
-	} else if token != "" && c.App.Channels().License().IsCloud() && tokenLocation == app.TokenLocationCloudHeader {
-		// Check to see if this provided token matches our CWS Token
-		session, err := c.App.GetCloudSession(token)
-		if err != nil {
-			c.Logger.Warn("Invalid CWS token", mlog.Err(err))
-			c.Err = err
-		} else {
-			c.AppContext = c.AppContext.WithSession(session)
 		}
 	} else if token != "" && c.App.Channels().License() != nil && c.App.Channels().License().HasRemoteClusterService() && tokenLocation == app.TokenLocationRemoteClusterHeader {
 		// Get the remote cluster
@@ -330,10 +317,6 @@ func (h Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	if c.Err == nil && h.DisableWhenBusy && c.App.Srv().Platform().Busy.IsBusy() {
 		c.SetServerBusyError()
-	}
-
-	if c.Err == nil && h.RequireCloudKey {
-		c.CloudKeyRequired()
 	}
 
 	if c.Err == nil && h.RequireRemoteClusterToken {

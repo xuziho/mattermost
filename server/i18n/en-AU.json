@@ -1688,26 +1688,6 @@
     "translation": "Can't modify saml files."
   },
   {
-    "id": "app.plugin.marshal.app_error",
-    "translation": "Failed to marshal marketplace plugins."
-  },
-  {
-    "id": "app.plugin.marketplace_plugins.signature_not_found.app_error",
-    "translation": "Could not find the requested marketplace plugin signature."
-  },
-  {
-    "id": "app.plugin.marketplace_plugins.not_found.app_error",
-    "translation": "Could not find the requested marketplace plugin."
-  },
-  {
-    "id": "app.plugin.marketplace_plugin_request.app_error",
-    "translation": "Failed to decode the marketplace plugin request."
-  },
-  {
-    "id": "app.plugin.marketplace_disabled.app_error",
-    "translation": "Marketplace has been disabled. Please check your logs for details."
-  },
-  {
     "id": "model.reaction.is_valid.update_at.app_error",
     "translation": "Update at must be a valid time."
   },
@@ -1816,14 +1796,6 @@
     "translation": "/{{.Command}} command crashed the {{.PluginId}} plugin. Please contact your system administrator"
   },
   {
-    "id": "app.plugin.marketplace_client.failed_to_fetch",
-    "translation": "Failed to get plugins from the marketplace server."
-  },
-  {
-    "id": "app.plugin.marketplace_client.app_error",
-    "translation": "Failed to create marketplace client."
-  },
-  {
     "id": "app.plugin.manifest.app_error",
     "translation": "Unable to find manifest for extracted plugin."
   },
@@ -1834,10 +1806,6 @@
   {
     "id": "app.plugin.invalid_id.app_error",
     "translation": "Plugin Id must be at least {{.Min}} characters, at most {{.Max}} characters and match {{.Regex}}."
-  },
-  {
-    "id": "app.plugin.install_marketplace_plugin.app_error",
-    "translation": "Failed to install marketplace plugin."
   },
   {
     "id": "app.plugin.install_id_failed_remove.app_error",
@@ -4328,26 +4296,6 @@
     "translation": "Failed to parse token data from email verification"
   },
   {
-    "id": "api.upgrade_to_enterprise.invalid-permission.app_error",
-    "translation": "Mattermost was unable to upgrade to Enterprise Edition. The Mattermost system user {{.MattermostUsername}} does not have write access to the necessary binary file. A system administrator can update the file permissions by executing the following command on the server where Mattermost is installed:\n\n```\nchmod +w '{{.Path}}'\n```\n\nAfter changing the file permissions, try to upgrade Mattermost again. When you have upgraded and restarted, remember to restore the original binary file permissions:\n\n```\nchmod -w '{{.Path}}'\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.generic_error.app_error",
-    "translation": "Mattermost was unable to upgrade to Enterprise Edition."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.app_error",
-    "translation": "An upgrade to Mattermost Enterprise Edition is already running."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.already-enterprise.app_error",
-    "translation": "You cannot upgrade because you are already running Mattermost Enterprise Edition."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.already-done.app_error",
-    "translation": "You have already upgraded to Mattermost Enterprise Edition. Please restart the server to finish the upgrade."
-  },
-  {
     "id": "api.unable_to_create_zip_file",
     "translation": "Error creating zip file."
   },
@@ -4382,18 +4330,6 @@
   {
     "id": "api.templates.welcome_body.button",
     "translation": "Verify Email"
-  },
-  {
-    "id": "api.templates.welcome_body.app_download_title",
-    "translation": "Download the desktop and mobile apps"
-  },
-  {
-    "id": "api.templates.welcome_body.app_download_info",
-    "translation": "For the best experience, download the apps for PC, Mac, iOS and Android."
-  },
-  {
-    "id": "api.templates.welcome_body.app_download_button",
-    "translation": "Download"
   },
   {
     "id": "api.templates.verify_subject",
@@ -4722,74 +4658,6 @@
   {
     "id": "api.templates.deactivate_body.info",
     "translation": "You deactivated your account on {{ .SiteURL }}."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.title",
-    "translation": "Your workspace is ready to go!"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subtitle_info",
-    "translation": "Take the following steps to build out your teams and get the most out of your workspace."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subtitle",
-    "translation": "Set up your workspace"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subject",
-    "translation": "Congratulations!"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.start_questions",
-    "translation": "Having questions about getting started? Email us at"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.signin_sub_info2",
-    "translation": "for the best experience on Windows, Linux, Mac, iOS and Android."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.signin_sub_info",
-    "translation": "Sign into your workspace on our"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.mm_apps",
-    "translation": "mobile and desktop apps"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.invite_sub_info",
-    "translation": "Share this link to invite your members to join {{.WorkSpace}}:"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.invite_info",
-    "translation": "Invite people to your workspace"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.info2",
-    "translation": "Make sure to save or bookmark your link for future use."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.info",
-    "translation": "Thanks for creating "
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.download_mm_info",
-    "translation": "Download the Mattermost App"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.button",
-    "translation": "Open Mattermost"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.app_market_place",
-    "translation": "app marketplace."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.add_apps_sub_info",
-    "translation": "Streamline your work with tools like GitHub, Jira and Zoom. Explore all of the integrations we have on our"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.add_apps_info",
-    "translation": "Add apps to your workspace"
   },
   {
     "id": "api.team.update_team_scheme.scheme_scope.error",
@@ -5492,10 +5360,6 @@
     "translation": "Failed to send the deactivate account email successfully"
   },
   {
-    "id": "api.user.send_cloud_welcome_email.error",
-    "translation": "Failed to send cloud welcome email"
-  },
-  {
     "id": "api.user.saml.not_available.app_error",
     "translation": "SAML 2.0 is not configured or supported on this server."
   },
@@ -5544,10 +5408,6 @@
     "translation": "AD/LDAP not available on this server."
   },
   {
-    "id": "api.user.login_cws.license.error",
-    "translation": "CWS login is forbidden."
-  },
-  {
     "id": "api.user.login_by_oauth.parse.app_error",
     "translation": "Could not parse auth data out of {{.Service}} user object."
   },
@@ -5558,10 +5418,6 @@
   {
     "id": "api.user.login_by_oauth.bot_login_forbidden.app_error",
     "translation": "Bot login is forbidden."
-  },
-  {
-    "id": "api.user.login_by_cws.invalid_token.app_error",
-    "translation": "CWS token is not valid"
   },
   {
     "id": "api.user.login.use_auth_service.app_error",
@@ -5796,26 +5652,6 @@
     "translation": "Failed to get upload."
   },
   {
-    "id": "api.upgrade_to_enterprise_status.signature.app_error",
-    "translation": "Mattermost was unable to upgrade to Enterprise Edition. The digital signature of the downloaded binary file could not be verified."
-  },
-  {
-    "id": "api.upgrade_to_enterprise_status.app_error",
-    "translation": "Mattermost was unable to upgrade to Enterprise Edition."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.system_not_supported.app_error",
-    "translation": "Mattermost was unable to upgrade to Enterprise Edition. This feature will only work on Linux systems with x86-64 architecture."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-user.app_error",
-    "translation": "Mattermost was unable to upgrade to Enterprise Edition. The Mattermost system user {{.MattermostUsername}} does not have write access to the necessary binary file. A system administrator can update the file permissions by executing the following command on the server where Mattermost is installed:\n\n```\nchown {{.MattermostUsername}} '{{.Path}}'\n```\n\nAfter changing the file permissions, try to upgrade Mattermost again. When you have upgraded and restarted, remember to restore the original binary file permissions:\n\n```\nchown {{.FileUsername}} '{{.Path}}'\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-user-and-permission.app_error",
-    "translation": "Mattermost was unable to upgrade to Enterprise Edition. The Mattermost system user {{.MattermostUsername}} does not have write access to the necessary binary file. A system administrator can update the file permissions by executing the following command on the server where Mattermost is installed:\n\n```\nchown {{.MattermostUsername}} '{{.Path}}'\nchmod +w '{{.Path}}'\n```\n\nAfter changing the file permissions, try to upgrade Mattermost again. When you have upgraded and restarted, remember to restore the original binary file permissions:\n\n```\nchown {{.FileUsername}} '{{.Path}}'\nchmod -w '{{.Path}}'\n```"
-  },
-  {
     "id": "api.file.list_directory.app_error",
     "translation": "Unable to list directory."
   },
@@ -5866,14 +5702,6 @@
   {
     "id": "api.export.export_not_found.app_error",
     "translation": "Unable to find export file."
-  },
-  {
-    "id": "api.error_set_first_admin_visit_marketplace_status",
-    "translation": "Error trying to mark the first admin marketplace visit in the store."
-  },
-  {
-    "id": "api.error_get_first_admin_visit_marketplace_status",
-    "translation": "Error trying to retrieve the first admin visit marketplace status from the store."
   },
   {
     "id": "api.emoji.upload.open.app_error",
@@ -6535,14 +6363,6 @@
   {
     "id": "api.command_invite.channel.app_error",
     "translation": "Error retrieving the current channel."
-  },
-  {
-    "id": "api.command_help.name",
-    "translation": "help"
-  },
-  {
-    "id": "api.command_help.desc",
-    "translation": "Show Mattermost help message"
   },
   {
     "id": "api.command_groupmsg.permission.app_error",
@@ -7312,22 +7132,6 @@
   {
     "id": "api.command.admin_only.app_error",
     "translation": "Integrations have been limited to admins only."
-  },
-  {
-    "id": "api.cloud.request_error",
-    "translation": "Error processing request to CWS."
-  },
-  {
-    "id": "api.cloud.license_error",
-    "translation": "Your licence does not support cloud requests."
-  },
-  {
-    "id": "api.cloud.cws_webhook_event_missing_error",
-    "translation": "Webhook event was not handled. Either it is missing or it is not valid."
-  },
-  {
-    "id": "api.cloud.app_error",
-    "translation": "Internal error during cloud api request."
   },
   {
     "id": "api.channel.update_team_member_roles.scheme_role.app_error",
@@ -8126,20 +7930,8 @@
     "translation": "SAML response is too long"
   },
   {
-    "id": "app.system.complete_onboarding_request.no_first_user",
-    "translation": "Onboarding can only be completed by a System Administrator."
-  },
-  {
-    "id": "app.system.complete_onboarding_request.app_error",
-    "translation": "Failed to decode the complete onboarding request."
-  },
-  {
     "id": "model.emoji.system_emoji_name.app_error",
     "translation": "Name conflicts with existing system emoji name."
-  },
-  {
-    "id": "app.system.get_onboarding_request.app_error",
-    "translation": "Failed to get onboarding completion status."
   },
   {
     "id": "app.member_count",
@@ -8286,28 +8078,12 @@
     "translation": "Unable to get teams usage"
   },
   {
-    "id": "api.cloud.teams_limit_reached.restore",
-    "translation": "Unable to restore team because teams limit has been reached"
-  },
-  {
-    "id": "api.cloud.teams_limit_reached.create",
-    "translation": "Unable to create team because teams limit has been reached"
-  },
-  {
     "id": "model.config.is_valid.image_decoder_concurrency.app_error",
     "translation": "Invalid decoder concurrency {{.Value}}. Should be a positive number or -1."
   },
   {
-    "id": "api.cloud.notify_admin_to_upgrade_error.already_notified",
-    "translation": "Already notified admin"
-  },
-  {
     "id": "common.parse_error_int64",
     "translation": "Failed to parse the value:{{.Value}} to int64"
-  },
-  {
-    "id": "app.post.cloud.get.app_error",
-    "translation": "Can't fetch the post as it is past the cloud's plan limit."
   },
   {
     "id": "app.last_accessible_post.app_error",
@@ -8328,22 +8104,6 @@
   {
     "id": "app.team.clear_cache.app_error",
     "translation": "An error occurred while clearing team member cache"
-  },
-  {
-    "id": "api.command_marketplace.unsupported.app_error",
-    "translation": "The marketplace command is not supported on your device."
-  },
-  {
-    "id": "api.command_marketplace.name",
-    "translation": "marketplace"
-  },
-  {
-    "id": "api.command_marketplace.desc",
-    "translation": "Open the Marketplace"
-  },
-  {
-    "id": "api.command_help.success",
-    "translation": "Mattermost is an open-source platform for secure communication, collaboration, and orchestration of work across tools and teams.\nMattermost contains two key tools:\n\n**Channels** - Stay connected with your team via 1:1 and group messaging.\n**[Playbooks](/playbooks)** - Build and configure repeatable processes to achieve specific and predictable outcomes.\n\n[View documentation and guides]({{.HelpLink}})"
   },
   {
     "id": "app.notify_admin.send_notification_post.app_error",
@@ -8382,16 +8142,8 @@
     "translation": "group name already exists as a reserved name"
   },
   {
-    "id": "app.last_accessible_file.app_error",
-    "translation": "Error fetching last accessible file"
-  },
-  {
     "id": "app.job.error",
     "translation": "Error during job execution."
-  },
-  {
-    "id": "app.file.cloud.get.app_error",
-    "translation": "Unable to retrieve file: cloud storage limit exceeded."
   },
   {
     "id": "api.team.invite_guests_to_channels.license.error",
@@ -8554,10 +8306,6 @@
     "translation": "A user with the username '{{.Username}}' already exists."
   },
   {
-    "id": "api.server.cws.needs_enterprise_edition",
-    "translation": "Service only available in Mattermost Enterprise edition"
-  },
-  {
     "id": "api.config.update_config.translations.app_error",
     "translation": "Failed to update server translations."
   },
@@ -8566,8 +8314,8 @@
     "translation": "Invalid log filter"
   },
   {
-    "id": "api.templates.license_up_for_renewal_contact_sales",
-    "translation": "Contact Sales"
+    "id": "api.templates.license_up_for_renewal_review_license",
+    "translation": "Review license"
   },
   {
     "id": "model.license_record.is_valid.bytes.app_error",
@@ -8616,10 +8364,6 @@
   {
     "id": "app.post_priority.delete_persistent_notification_post.app_error",
     "translation": "Failed to delete persistent notification post"
-  },
-  {
-    "id": "api.error_no_organization_name_provided_for_self_hosted_onboarding",
-    "translation": "Error: no organisation name provided for self-hosted onboarding."
   },
   {
     "id": "app.file_info.get.gif.app_error",
@@ -8916,10 +8660,6 @@
   {
     "id": "api.templates.ip_filters_changed_footer.contact_support",
     "translation": "Contact support"
-  },
-  {
-    "id": "api.templates.ip_filters_changed_footer.log_in_to_customer_portal",
-    "translation": "Log in to the customer portal to reset IP filtering"
   },
   {
     "id": "api.templates.ip_filters_changed_footer.send_an_email_to",
@@ -9436,10 +9176,6 @@
   {
     "id": "api.channel.update_channel_member_roles.guest.app_error",
     "translation": "Invalid channel member update: A guest cannot be made team member or team admin, please promote as a user first."
-  },
-  {
-    "id": "api.server.cws.disabled",
-    "translation": "Interactions with the Mattermost Customer Portal have been disabled by the system admin."
   },
   {
     "id": "model.user.is_valid.invalidProperty.app_error",

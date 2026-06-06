@@ -109,8 +109,8 @@
         padding: 0;
     }
 
-    .flex-child {
-        margin: 0 !important; //to override inline margin added by calls button
+	.flex-child {
+		margin: 0 !important;
 
         &:first-child {
             min-width: 0;

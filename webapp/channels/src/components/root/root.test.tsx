@@ -12,7 +12,7 @@ import {renderWithContext, waitFor} from 'tests/react_testing_utils';
 import * as BrowserUtils from 'utils/browser_utils';
 import {StoragePrefixes} from 'utils/constants';
 
-import {handleLoginLogoutSignal, redirectToOnboardingOrDefaultTeam} from './actions';
+import {handleLoginLogoutSignal, redirectToDefaultTeam} from './actions';
 import type {Props} from './root';
 import Root, {doesRouteBelongToTeamControllerRoutes} from './root';
 
@@ -50,19 +50,13 @@ describe('components/Root', () => {
         telemetryId: '1234ab',
         serviceEnvironment: undefined,
         siteURL: 'http://localhost:8065',
-        iosDownloadLink: undefined,
-        androidDownloadLink: undefined,
-        appDownloadLink: undefined,
         showTermsOfService: false,
         plugins: [],
-        products: [],
-        showLaunchingWorkspace: false,
         rhsIsExpanded: false,
         rhsIsOpen: false,
         rhsState: null,
         shouldShowAppBar: false,
         isCloud: false,
-        enableDesktopLandingPage: true,
         actions: {
             loadConfigAndMe: jest.fn().mockImplementation(() => {
                 return Promise.resolve({
@@ -72,10 +66,9 @@ describe('components/Root', () => {
             }),
             loadRecentlyUsedCustomEmojis: jest.fn(),
             migrateRecentEmojis: jest.fn(),
-            initializeProducts: jest.fn(),
             ...bindActionCreators({
                 handleLoginLogoutSignal,
-                redirectToOnboardingOrDefaultTeam,
+                redirectToDefaultTeam,
             }, store.dispatch),
         },
         dispatch: store.dispatch,
@@ -224,58 +217,6 @@ describe('components/Root', () => {
         });
     });
 
-    describe('showLandingPageIfNecessary', () => {
-        const landingProps = {
-            ...baseProps,
-            iosDownloadLink: 'http://iosapp.com',
-            androidDownloadLink: 'http://androidapp.com',
-            appDownloadLink: 'http://desktopapp.com',
-            ...{
-                location: {
-                    pathname: '/',
-                    search: '',
-                },
-            } as RouteComponentProps,
-        };
-
-        test('should show for normal cases', async () => {
-            renderWithContext(<Root {...landingProps}/>);
-
-            await waitFor(() => {
-                expect(landingProps.history.push).toHaveBeenCalledWith('/landing#/');
-            });
-        });
-
-        test('should not show for Desktop App login flow', async () => {
-            const props = {
-                ...landingProps,
-                ...{
-                    location: {
-                        pathname: '/login/desktop',
-                    },
-                } as RouteComponentProps,
-            };
-
-            renderWithContext(<Root {...props}/>);
-
-            await waitFor(() => {
-                expect(props.history.push).not.toHaveBeenCalled();
-            });
-        });
-
-        test('should not show when disabled', async () => {
-            const props = {
-                ...landingProps,
-                enableDesktopLandingPage: false,
-            };
-
-            renderWithContext(<Root {...props}/>);
-
-            await waitFor(() => {
-                expect(props.history.push).not.toHaveBeenCalled();
-            });
-        });
-    });
 });
 
 describe('doesRouteBelongToTeamControllerRoutes', () => {
@@ -304,13 +245,11 @@ describe('doesRouteBelongToTeamControllerRoutes', () => {
         expect(doesRouteBelongToTeamControllerRoutes('/main_component_product_1')).toBe(false);
         expect(doesRouteBelongToTeamControllerRoutes('/product_1/public')).toBe(false);
         expect(doesRouteBelongToTeamControllerRoutes('/_redirect/pl/message_1')).toBe(false);
-        expect(doesRouteBelongToTeamControllerRoutes('/preparing-workspace')).toBe(false);
         expect(doesRouteBelongToTeamControllerRoutes('/mfa')).toBe(false);
         expect(doesRouteBelongToTeamControllerRoutes('/create_team')).toBe(false);
         expect(doesRouteBelongToTeamControllerRoutes('/oauth/authorize')).toBe(false);
         expect(doesRouteBelongToTeamControllerRoutes('/select_team')).toBe(false);
         expect(doesRouteBelongToTeamControllerRoutes('/admin_console')).toBe(false);
-        expect(doesRouteBelongToTeamControllerRoutes('/landing')).toBe(false);
         expect(doesRouteBelongToTeamControllerRoutes('/terms_of_service')).toBe(false);
         expect(doesRouteBelongToTeamControllerRoutes('/claim')).toBe(false);
         expect(doesRouteBelongToTeamControllerRoutes('/do_verify_email')).toBe(false);

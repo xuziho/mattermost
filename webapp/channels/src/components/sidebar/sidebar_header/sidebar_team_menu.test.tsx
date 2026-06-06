@@ -69,27 +69,6 @@ describe('components/sidebar/sidebar_header/sidebar_team_menu', () => {
                     },
                 },
             },
-            cloud: {
-                subscription: {
-                    is_free_trial: 'false',
-                },
-                products: {},
-            },
-            usage: {
-                files: {
-                    totalStorage: 0,
-                    totalStorageLoaded: true,
-                },
-                messages: {
-                    history: 0,
-                    historyLoaded: true,
-                },
-                teams: {
-                    active: 1,
-                    cloudArchived: 0,
-                    teamsLoaded: true,
-                },
-            },
         },
         plugins: {
             components: {
@@ -252,41 +231,17 @@ describe('components/sidebar/sidebar_header/sidebar_team_menu', () => {
         });
     });
 
-    test('should show restricted indicator for "Create a team" on cloud free plan', async () => {
-        // State with cloud free plan
-        const stateWithCloudFree: DeepPartial<GlobalState> = {
-            ...initialState,
-            entities: {
-                ...initialState.entities,
-                general: {
-                    ...initialState.entities?.general,
-                    license: {
-                        ...initialState.entities?.general?.license,
-                        Cloud: 'true',
-                    },
-                },
-                cloud: {
-                    ...initialState.entities?.cloud,
-                    subscription: {
-                        is_free_trial: 'true',
-                    },
-                },
-            },
-        };
-
+    test('should not show a restricted indicator for "Create a team"', async () => {
         renderWithContext(
             <SidebarTeamMenu {...baseProps}/>,
-            stateWithCloudFree,
+            initialState,
         );
 
         await userEvent.click(screen.getByText(currentTeam.display_name));
 
         await waitFor(() => {
             expect(screen.getByText('Create a team')).toBeInTheDocument();
-
-            // Verify the RestrictedIndicator is rendered
-            expect(document.querySelector('.RestrictedIndicator__icon-tooltip')).toBeInTheDocument();
+            expect(document.querySelector('.RestrictedIndicator__icon-tooltip')).not.toBeInTheDocument();
         });
     });
 });
-

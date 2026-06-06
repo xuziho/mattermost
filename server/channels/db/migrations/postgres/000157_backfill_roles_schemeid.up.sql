@@ -9,11 +9,7 @@ FROM (
             defaultteamguestrole,
             defaultchanneladminrole,
             defaultchanneluserrole,
-            defaultchannelguestrole,
-            defaultplaybookadminrole,
-            defaultplaybookmemberrole,
-            defaultrunadminrole,
-            defaultrunmemberrole
+            defaultchannelguestrole
         ]) AS role_name
         FROM schemes
     ) expanded

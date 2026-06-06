@@ -18,44 +18,6 @@ describe('Footer Component', () => {
         isInEditMode: false,
     };
 
-    describe('HelpButton visibility', () => {
-        it('should render HelpButton when not in edit mode', () => {
-            renderWithContext(
-                <Footer
-                    {...baseProps}
-                    isInEditMode={false}
-                />,
-            );
-
-            expect(screen.getByText('Help')).toBeInTheDocument();
-        });
-
-        it('should not render HelpButton when in edit mode', () => {
-            renderWithContext(
-                <Footer
-                    {...baseProps}
-                    isInEditMode={true}
-                />,
-            );
-
-            expect(screen.queryByText('Help')).not.toBeInTheDocument();
-        });
-
-        it('should render HelpButton as a button element with correct attributes', () => {
-            renderWithContext(
-                <Footer
-                    {...baseProps}
-                    isInEditMode={false}
-                />,
-            );
-
-            const helpButton = screen.getByText('Help');
-            expect(helpButton.tagName).toBe('BUTTON');
-            expect(helpButton).toHaveAttribute('type', 'button');
-            expect(helpButton).toHaveAttribute('aria-label', 'Messaging help');
-        });
-    });
-
     describe('Footer structure', () => {
         it('should render the footer with correct id and role', () => {
             const {container} = renderWithContext(
@@ -95,4 +57,3 @@ describe('Footer Component', () => {
         });
     });
 });
-

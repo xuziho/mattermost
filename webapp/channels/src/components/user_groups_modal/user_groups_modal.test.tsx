@@ -67,12 +67,6 @@ describe('component/user_groups_modal', () => {
                 },
                 config: {},
             },
-            cloud: {},
-            admin: {
-                prevTrialLicense: {
-                    IsLicensed: 'false',
-                },
-            },
             users: {
                 currentUserId: 'user1',
                 profiles: {

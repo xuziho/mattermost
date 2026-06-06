@@ -60,10 +60,6 @@
     "translation": "Пытанні?"
   },
   {
-    "id": "api.templates.cloud_welcome_email.subject",
-    "translation": "Віншуем!"
-  },
-  {
     "id": "api.command_shrug.hint",
     "translation": "[паведамленне]"
   },
@@ -150,10 +146,6 @@
   {
     "id": "api.command_invite.name",
     "translation": "запрасіць"
-  },
-  {
-    "id": "api.command_help.name",
-    "translation": "даведка"
   },
   {
     "id": "api.command_groupmsg.name",
@@ -296,10 +288,6 @@
     "translation": "Сістэма"
   },
   {
-    "id": "api.templates.welcome_body.app_download_button",
-    "translation": "Спампаваць"
-  },
-  {
     "id": "api.admin.saml.failure_save_idp_certificate_file.app_error",
     "translation": "Не атрымалася захаваць файл сертыфіката."
   },
@@ -418,14 +406,6 @@
   {
     "id": "api.templates.email_change_verify_body.button",
     "translation": "Праверыць электронную пошту"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.button",
-    "translation": "Адкрыць Mattermost"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.app_market_place",
-    "translation": "маркетплейсе праграм."
   },
   {
     "id": "model.guest.is_valid.channels.app_error",
@@ -836,10 +816,6 @@
     "translation": "Што такое Mattermost?"
   },
   {
-    "id": "api.templates.cloud_welcome_email.info",
-    "translation": "Дзякуй за стварэнне "
-  },
-  {
     "id": "api.team.import_team.unknown_import_from.app_error",
     "translation": "Невядомая крыніца імпарту."
   },
@@ -1220,10 +1196,6 @@
     "translation": "памылка падліку груп"
   },
   {
-    "id": "app.system.get_onboarding_request.app_error",
-    "translation": "Немагчыма атрымаць статус завяршэння ўключэння."
-  },
-  {
     "id": "api.error_set_first_admin_complete_setup",
     "translation": "Памылка пры спробе захаваць першую завершаную наладу адміністратара ў сховішчы."
   },
@@ -1234,14 +1206,6 @@
   {
     "id": "model.emoji.system_emoji_name.app_error",
     "translation": "Назва супадае з існуючай назвай сістэмнага эмодзі."
-  },
-  {
-    "id": "app.system.complete_onboarding_request.no_first_user",
-    "translation": "Уключэнне можа быць завершана толькі сістэмным адміністратарам."
-  },
-  {
-    "id": "app.system.complete_onboarding_request.app_error",
-    "translation": "Немагчыма дэкадаваць поўны запыт на ўключэнне."
   },
   {
     "id": "api.user.authorize_oauth_user.saml_response_too_long.app_error",
@@ -4956,10 +4920,6 @@
     "translation": "Не атрымалася паспяхова адправіць электроннае пісьмо аб дэактывацыі ўліковага запісу"
   },
   {
-    "id": "api.user.send_cloud_welcome_email.error",
-    "translation": "Не атрымалася адправіць прывітальнае электроннае пісьмо для воблака"
-  },
-  {
     "id": "api.user.saml.not_available.app_error",
     "translation": "SAML 2.0 не наладжаны або не падтрымліваецца на гэтым серверы."
   },
@@ -5008,10 +4968,6 @@
     "translation": "AD/LDAP недаступны на гэтым серверы."
   },
   {
-    "id": "api.user.login_cws.license.error",
-    "translation": "Уваход у CWS забаронены."
-  },
-  {
     "id": "api.user.login_by_oauth.parse.app_error",
     "translation": "Не атрымалася разабраць аўтэнтыфікацыйныя даныя з аб'екта карыстальніка {{.Service}}."
   },
@@ -5022,10 +4978,6 @@
   {
     "id": "api.user.login_by_oauth.bot_login_forbidden.app_error",
     "translation": "Уваход бота забаронены."
-  },
-  {
-    "id": "api.user.login_by_cws.invalid_token.app_error",
-    "translation": "Токен CWS несапраўдны"
   },
   {
     "id": "api.user.login.use_auth_service.app_error",
@@ -5244,46 +5196,6 @@
     "translation": "Не атрымалася атрымаць загрузкі."
   },
   {
-    "id": "api.upgrade_to_enterprise_status.signature.app_error",
-    "translation": "Mattermost не атрымалася абнавіць да Enterprise Edition. Лічбавы подпіс спампаванага бінарнага файла не атрымалася праверыць."
-  },
-  {
-    "id": "api.upgrade_to_enterprise_status.app_error",
-    "translation": "Mattermost не атрымалася абнавіць да Enterprise Edition."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.system_not_supported.app_error",
-    "translation": "Mattermost не атрымалася абнавіць да Enterprise Edition. Гэтая функцыя будзе працаваць толькі на сістэмах Linux з архітэктурай x86-64."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-user.app_error",
-    "translation": "Mattermost не атрымалася абнавіць да Enterprise Edition. Сістэмны карыстальнік Mattermost {{.MattermostUsername}} не мае правоў запісу ў неабходны бінарны файл. Сістэмны адміністратар можа абнавіць дазволы файла, выканаўшы наступную каманду на серверы, дзе ўсталяваны Mattermost:\n\n```\nchown {{.MattermostUsername}} \"{{.Path}}\"\n```\n\nПасля змены дазволаў файла паспрабуйце зноў абнавіць Mattermost. Пасля абнаўлення і перазапуску не забудзьцеся аднавіць зыходныя дазволы для бінарнага файла:\n\n```\nchown {{.FileUsername}} \"{{.Path}}\"\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-user-and-permission.app_error",
-    "translation": "Mattermost не атрымалася абнавіць да Enterprise Edition. Сістэмны карыстальнік Mattermost {{.MattermostUsername}} не мае правоў запісу ў неабходны бінарны файл. Сістэмны адміністратар можа абнавіць дазволы файла, выканаўшы наступную каманду на серверы, дзе ўсталяваны Mattermost:\n\n```\nchown {{.MattermostUsername}} \"{{.Path}}\"\nchmod +w \"{{.Path}}\"\n```\n\nПасля змены дазволаў файла паспрабуйце зноў абнавіць Mattermost. Пасля абнаўлення і перазапуску не забудзьцеся аднавіць зыходныя дазволы для бінарнага файла:\n\n```\nchown {{.FileUsername}} \"{{.Path}}\"\nchmod -w \"{{.Path}}\"\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-permission.app_error",
-    "translation": "Mattermost не атрымалася абнавіць да Enterprise Edition. Сістэмны карыстальнік Mattermost {{.MattermostUsername}} не мае правоў запісу ў неабходны бінарны файл. Сістэмны адміністратар можа абнавіць дазволы файла, выканаўшы наступную каманду на серверы, дзе ўсталяваны Mattermost:\n\n```\nchmod +w \"{{.Path}}\"\n```\n\nПасля змены дазволаў файла паспрабуйце зноў абнавіць Mattermost. Пасля абнаўлення і перазапуску не забудзьцеся аднавіць зыходныя дазволы для бінарнага файла:\n\n```\nchmod -w \"{{.Path}}\"\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.generic_error.app_error",
-    "translation": "Mattermost не атрымалася абнавіць да Enterprise Edition."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.app_error",
-    "translation": "Абнаўленне да Mattermost Enterprise Edition ужо выконваецца."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.already-enterprise.app_error",
-    "translation": "Вы не можаце абнавіцца, бо ў вас ужо працуе Mattermost Enterprise Edition."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.already-done.app_error",
-    "translation": "Вы ўжо абнавіліся да Mattermost Enterprise Edition. Калі ласка, перазапусціце сервер, каб завяршыць абнаўленне."
-  },
-  {
     "id": "api.unable_to_create_zip_file",
     "translation": "Памылка стварэння zip-файла."
   },
@@ -5306,14 +5218,6 @@
   {
     "id": "api.templates.welcome_body.info",
     "translation": "Гэты адрас электроннай пошты быў выкарыстаны для стварэння ўліковага запісу на Mattermost."
-  },
-  {
-    "id": "api.templates.welcome_body.app_download_title",
-    "translation": "Спампаваць працоўны стол і мабільныя праграмы"
-  },
-  {
-    "id": "api.templates.welcome_body.app_download_info",
-    "translation": "Для найлепшага досведу спампуйце праграмы для ПК, Mac, iOS і Android."
   },
   {
     "id": "api.templates.verify_subject",
@@ -5356,34 +5260,6 @@
     "translation": "Немагчыма змяніць файлы saml."
   },
   {
-    "id": "app.plugin.marshal.app_error",
-    "translation": "Не атрымалася апрацаваць плагіны з крамы плагінаў."
-  },
-  {
-    "id": "app.plugin.marketplace_plugins.signature_not_found.app_error",
-    "translation": "Немагчыма знайсці подпіс запытанага плагіна з крамы плагінаў."
-  },
-  {
-    "id": "app.plugin.marketplace_plugins.not_found.app_error",
-    "translation": "Немагчыма знайсці запытаны плагін з крамы плагінаў."
-  },
-  {
-    "id": "app.plugin.marketplace_plugin_request.app_error",
-    "translation": "Не атрымалася дэкадаваць запыт да крамы плагінаў."
-  },
-  {
-    "id": "app.plugin.marketplace_disabled.app_error",
-    "translation": "Крама плагінаў адключана. Калі ласка, праверце свае лагі для падрабязнасцей."
-  },
-  {
-    "id": "app.plugin.marketplace_client.failed_to_fetch",
-    "translation": "Не атрымалася атрымаць плагіны з сервера крамы плагінаў."
-  },
-  {
-    "id": "app.plugin.marketplace_client.app_error",
-    "translation": "Не атрымалася стварыць кліент крамы плагінаў."
-  },
-  {
     "id": "app.plugin.manifest.app_error",
     "translation": "Немагчыма знайсці маніфест для распакаванага плагіна."
   },
@@ -5394,10 +5270,6 @@
   {
     "id": "app.plugin.invalid_id.app_error",
     "translation": "Ідэнтыфікатар плагіна павінен мець даўжыню ад {{.Min}} да {{.Max}} сімвалаў і адпавядаць {{.Regex}}."
-  },
-  {
-    "id": "app.plugin.install_marketplace_plugin.app_error",
-    "translation": "Не атрымалася ўсталяваць плагін з крамы плагінаў."
   },
   {
     "id": "app.plugin.install_id_failed_remove.app_error",
@@ -6548,14 +6420,6 @@
     "translation": "Немагчыма знайсці файл экспарту."
   },
   {
-    "id": "api.error_set_first_admin_visit_marketplace_status",
-    "translation": "Памылка пры спробе захаваць статус першага наведвання маркетплейса адміністратарам у сховішчы."
-  },
-  {
-    "id": "api.error_get_first_admin_visit_marketplace_status",
-    "translation": "Памылка пры спробе атрымаць са сховішча статус першага наведвання маркетплейса адміністратарам."
-  },
-  {
     "id": "api.emoji.upload.open.app_error",
     "translation": "Немагчыма стварыць эмодзі. Адбылася памылка пры спробе адкрыць далучаную выяву."
   },
@@ -6690,10 +6554,6 @@
   {
     "id": "api.command_invite.channel.app_error",
     "translation": "Памылка атрымання бягучага канала."
-  },
-  {
-    "id": "api.command_help.desc",
-    "translation": "Паказаць даведачнае паведамленне Mattermost"
   },
   {
     "id": "api.command_groupmsg.permission.app_error",
@@ -6970,22 +6830,6 @@
   {
     "id": "api.command.admin_only.app_error",
     "translation": "Інтэграцыі абмежаваны толькі для адміністратараў."
-  },
-  {
-    "id": "api.cloud.request_error",
-    "translation": "Памылка апрацоўкі запыту да CWS."
-  },
-  {
-    "id": "api.cloud.license_error",
-    "translation": "Ваша ліцэнзія не падтрымлівае хмарныя запыты."
-  },
-  {
-    "id": "api.cloud.cws_webhook_event_missing_error",
-    "translation": "Падзея Webhook не была апрацавана. Яна адсутнічае або не з'яўляецца сапраўднай."
-  },
-  {
-    "id": "api.cloud.app_error",
-    "translation": "Унутраная памылка падчас запыту да хмарнага API."
   },
   {
     "id": "api.channel.update_team_member_roles.scheme_role.app_error",
@@ -7274,58 +7118,6 @@
   {
     "id": "api.templates.deactivate_body.info",
     "translation": "Вы дэактывавалі свой уліковы запіс на {{ .SiteURL }}."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.title",
-    "translation": "Ваша працоўнае месца гатова да працы!"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subtitle_info",
-    "translation": "Выканайце наступныя крокі, каб стварыць свае каманды і атрымаць максімальную карысць ад вашага працоўнага месца."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subtitle",
-    "translation": "Наладзьце сваё працоўнае месца"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.start_questions",
-    "translation": "Ёсць пытанні па пачатку працы? Напішыце нам на"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.signin_sub_info2",
-    "translation": "для найлепшага досведу працы на Windows, Linux, Mac, iOS і Android."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.signin_sub_info",
-    "translation": "Увайдзіце ў сваё працоўнае месца на нашым"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.mm_apps",
-    "translation": "мабільныя і настольныя праграмы"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.invite_sub_info",
-    "translation": "Падзяліцеся гэтай спасылкай, каб запрасіць вашых членаў далучыцца да {{.WorkSpace}}:"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.invite_info",
-    "translation": "Запрасіце людзей у ваша працоўнае месца"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.info2",
-    "translation": "Пераканайцеся, што вы захавалі або дадалі ў закладкі сваю спасылку для будучага выкарыстання."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.download_mm_info",
-    "translation": "Спампаваць праграму Mattermost"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.add_apps_sub_info",
-    "translation": "Аптымізуйце сваю працу з такімі інструментамі, як GitHub, Jira і Zoom. Даследуйце ўсе інтэграцыі, якія мы маем на нашым"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.add_apps_info",
-    "translation": "Дадайце праграмы ў ваша працоўнае месца"
   },
   {
     "id": "api.team.update_team_scheme.scheme_scope.error",
@@ -8304,18 +8096,6 @@
     "translation": "Вам забаронена змена назвы, display_name і прызначэння прамых або групавых паведамленняў."
   },
   {
-    "id": "api.cloud.notify_admin_to_upgrade_error.already_notified",
-    "translation": "Адміністратар ужо апавешчаны"
-  },
-  {
-    "id": "api.cloud.teams_limit_reached.create",
-    "translation": "Немагчыма стварыць каманду, бо дасягнуты ліміт каманд"
-  },
-  {
-    "id": "api.cloud.teams_limit_reached.restore",
-    "translation": "Немагчыма аднавіць каманду, бо дасягнуты ліміт каманд"
-  },
-  {
     "id": "api.command_exportlink.hint",
     "translation": "[job-id|zip імя файла|{{.LatestMsg}}]"
   },
@@ -8344,10 +8124,6 @@
     "translation": "Немагчыма стварыць URL папярэдняга падпісання."
   },
   {
-    "id": "api.command_help.success",
-    "translation": "Mattermost - гэта платформа з адкрытым зыходным кодам для бяспечнай камунікацыі, супрацоўніцтва і арганізацыі працы паміж інструментамі і камандамі.\nMattermost змяшчае два асноўныя інструменты:\n\n**Каналы** - Заставайцеся на сувязі са сваёй камандай праз 1:1 і групавыя паведамленні.\n**[Плэйбукі](/playbooks)** - Стварайце і наладжвайце паўтаральныя працэсы для дасягнення канкрэтных і прадказальных вынікаў.\n\n[Праглядзець дакументацыю і кіраўніцтва]({{.HelpLink}})"
-  },
-  {
     "id": "api.command_invite.channel_constrained_user_denied",
     "translation": "Гэты канал кіруецца групамі. Гэты карыстальнік не з'яўляецца часткай групы, якая сінхранізуецца з гэтым каналам."
   },
@@ -8362,18 +8138,6 @@
   {
     "id": "api.command_invite.user_not_in_team.messageOverflow",
     "translation": "Вы можаце дадаць {{.FirstUser}} і {{.Others}} у гэты канал, калі яны стануць членамі каманды **{{.Team}}**."
-  },
-  {
-    "id": "api.command_marketplace.desc",
-    "translation": "Адкрыйце Маркетплейс"
-  },
-  {
-    "id": "api.command_marketplace.name",
-    "translation": "крама плагінаў"
-  },
-  {
-    "id": "api.command_marketplace.unsupported.app_error",
-    "translation": "Каманда marketplace не падтрымліваецца на вашай прыладзе."
   },
   {
     "id": "api.command_remote.confirm_invitation.error",
@@ -8464,10 +8228,6 @@
     "translation": "Немагчыма перайсці да пачатку файла."
   },
   {
-    "id": "api.error_no_organization_name_provided_for_self_hosted_onboarding",
-    "translation": "Памылка: не названа арганізацыя для самастойнай налады."
-  },
-  {
     "id": "api.file.cloud_upload.app_error",
     "translation": "Загрузка праз mmctl у Cloud-экземпляр не падтрымліваецца. Калі ласка, азнаёмцеся з дакументацыяй тут: https://docs.mattermost.com/manage/cloud-data-export.html."
   },
@@ -8532,10 +8292,6 @@
     "translation": "Няправільны email_token"
   },
   {
-    "id": "api.server.cws.needs_enterprise_edition",
-    "translation": "Паслуга даступная толькі ў выданні Mattermost Enterprise"
-  },
-  {
     "id": "api.system.logs.invalidFilter",
     "translation": "Няправільны фільтр часопіса"
   },
@@ -8592,10 +8348,6 @@
     "translation": "Звязацца з падтрымкай"
   },
   {
-    "id": "api.templates.ip_filters_changed_footer.log_in_to_customer_portal",
-    "translation": "Увайдзіце ў партал кліента, каб скінуць IP-фільтрацыю"
-  },
-  {
     "id": "api.templates.ip_filters_changed_footer.send_an_email_to",
     "translation": "Адправіць ліст на {{ .InitiatingUserEmail }}"
   },
@@ -8604,8 +8356,8 @@
     "translation": "Узніклі праблемы з доступам да вашага працоўнага месца?"
   },
   {
-    "id": "api.templates.license_up_for_renewal_contact_sales",
-    "translation": "Кантакты аддзела продажаў"
+    "id": "api.templates.license_up_for_renewal_review_license",
+    "translation": "Review license"
   },
   {
     "id": "api.upload.create.upload_too_large.app_error",
@@ -8744,10 +8496,6 @@
     "translation": "Памылка падчас выканання задачы."
   },
   {
-    "id": "app.last_accessible_file.app_error",
-    "translation": "Памылка атрымання апошняга даступнага файла"
-  },
-  {
     "id": "app.last_accessible_post.app_error",
     "translation": "Памылка атрымання апошняга даступнага паведамлення"
   },
@@ -8828,10 +8576,6 @@
     "translation": "Файл экспарту не знойдзены."
   },
   {
-    "id": "app.file.cloud.get.app_error",
-    "translation": "Немагчыма атрымаць файл, бо ён перавышае ліміт хмарнага плана."
-  },
-  {
     "id": "app.file_info.get.gif.app_error",
     "translation": "Немагчыма дэкадаваць GIF."
   },
@@ -8870,10 +8614,6 @@
   {
     "id": "app.post.analytics_teams_count.app_error",
     "translation": "Немагчыма атрымаць даныя аб выкарыстанні каманд"
-  },
-  {
-    "id": "app.post.cloud.get.app_error",
-    "translation": "Немагчыма атрымаць паведамленне, бо яно перавышае ліміт плана хмарнага сэрвісу."
   },
   {
     "id": "app.post.delete_post.get_team.app_error",
@@ -9314,10 +9054,6 @@
   {
     "id": "api.command_share.invite_remote_to_channel.error",
     "translation": "Немагчыма запрасіць аддаленага карыстальніка ў канал: {{.Error}}"
-  },
-  {
-    "id": "api.server.cws.disabled",
-    "translation": "Узаемадзеянне з парталам кліентаў Mattermost адключана сістэмным адміністратарам."
   },
   {
     "id": "api.team.update_team_member_roles.user_and_guest.app_error",

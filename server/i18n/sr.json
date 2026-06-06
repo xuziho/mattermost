@@ -644,14 +644,6 @@
     "translation": "Приступи отвореном каналу"
   },
   {
-    "id": "api.command_help.name",
-    "translation": "помоћ"
-  },
-  {
-    "id": "api.command_help.desc",
-    "translation": "Прикажи поруку помоћи Маттермост"
-  },
-  {
     "id": "api.command_expand.success",
     "translation": "Везе са сликама ће од сада подразумевано бити раширене"
   },
@@ -1126,5 +1118,9 @@
       "one": "Nije uspelo slanje {{.Count}} zakazane objave.",
       "other": "Nije uspelo slanje {{.Count}} zakazanih objava."
     }
+  },
+  {
+    "id": "api.templates.license_up_for_renewal_review_license",
+    "translation": "Review license"
   }
 ]

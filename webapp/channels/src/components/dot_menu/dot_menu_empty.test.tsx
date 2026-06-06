@@ -69,7 +69,6 @@ describe('components/dot_menu/DotMenu returning empty ("")', () => {
             },
             modals: {
                 modalState: {},
-                showLaunchingWorkspace: false,
             },
         },
     };

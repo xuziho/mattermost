@@ -8,7 +8,6 @@ import {
     PostTypes,
     TeamTypes,
     ThreadTypes,
-    CloudTypes,
     LimitsTypes,
 } from 'mattermost-redux/action_types';
 import {Posts} from 'mattermost-redux/constants';
@@ -4739,33 +4738,6 @@ describe('limitedViews', () => {
         });
 
         expect(nextState).toEqual({...zeroState, threads: {rootId: 123}});
-    });
-
-    it(`${CloudTypes.RECEIVED_CLOUD_LIMITS} clears out limited views if there are no longer message limits`, () => {
-        const nextState = reducers.limitedViews({...zeroState, threads: {rootId: 123}}, {
-            type: CloudTypes.RECEIVED_CLOUD_LIMITS,
-            data: {
-                limits: {},
-            },
-        });
-
-        expect(nextState).toEqual(zeroState);
-    });
-
-    it(`${CloudTypes.RECEIVED_CLOUD_LIMITS} preserves limited views if there are still message limits`, () => {
-        const initialState = {...zeroState, threads: {rootId: 123}};
-        const nextState = reducers.limitedViews(initialState, {
-            type: CloudTypes.RECEIVED_CLOUD_LIMITS,
-            data: {
-                limits: {
-                    messages: {
-                        history: 10000,
-                    },
-                },
-            },
-        });
-
-        expect(nextState).toEqual(initialState);
     });
 
     describe('LEAVE_CHANNEL in limitedViews', () => {

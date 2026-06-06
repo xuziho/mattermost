@@ -10,7 +10,6 @@ import {
     ensureLicense,
     ensurePluginsLoaded,
     ensureServerDeployment,
-    shouldHaveCallsEnabled,
     shouldHaveFeatureFlag,
     shouldRunInLinux,
     skipIfFeatureFlagNotSet,
@@ -82,7 +81,6 @@ export class PlaywrightExtended {
     readonly testBrowser;
 
     // ./flag
-    readonly shouldHaveCallsEnabled;
     readonly shouldHaveFeatureFlag;
     readonly shouldRunInLinux;
     readonly ensureLicense;
@@ -151,7 +149,6 @@ export class PlaywrightExtended {
         this.testBrowser = new TestBrowser(browser);
 
         // ./flag
-        this.shouldHaveCallsEnabled = shouldHaveCallsEnabled;
         this.shouldHaveFeatureFlag = shouldHaveFeatureFlag;
         this.shouldRunInLinux = shouldRunInLinux;
         this.ensureLicense = ensureLicense;

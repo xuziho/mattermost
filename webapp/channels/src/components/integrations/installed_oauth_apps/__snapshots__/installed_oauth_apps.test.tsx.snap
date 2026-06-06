@@ -50,23 +50,14 @@ exports[`components/integrations/InstalledOAuthApps should match snapshot 1`] = 
     >
       Create 
       <a
-        href="https://mattermost.com/pl/setup-oauth-2.0?utm_source=mattermost&utm_medium=in-product&utm_content=installed_oauth_apps&uid=currentUserId&sid=&edition=team&server_version="
+        href="#official-link-removed"
         location="installed_oauth_apps"
         rel="noopener noreferrer"
         target="_blank"
       >
         OAuth 2.0 applications
       </a>
-       to securely integrate bots and third-party apps with Mattermost. Visit the 
-      <a
-        href="https://mattermost.com/marketplace/?utm_source=mattermost&utm_medium=in-product&utm_content=installed_oauth_apps&uid=currentUserId&sid=&edition=team&server_version="
-        location="installed_oauth_apps"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        App Directory
-      </a>
-       to find available self-hosted apps.
+       to securely integrate bots and third-party apps with Mattermost.
     </span>
     <div
       class="backstage-list"
@@ -395,23 +386,14 @@ exports[`components/integrations/InstalledOAuthApps should match snapshot for Ap
     >
       Create 
       <a
-        href="https://mattermost.com/pl/setup-oauth-2.0?utm_source=mattermost&utm_medium=in-product&utm_content=installed_oauth_apps&uid=currentUserId&sid=&edition=team&server_version="
+        href="#official-link-removed"
         location="installed_oauth_apps"
         rel="noopener noreferrer"
         target="_blank"
       >
         OAuth 2.0 applications
       </a>
-       to securely integrate bots and third-party apps with Mattermost. Visit the 
-      <a
-        href="https://mattermost.com/marketplace/?utm_source=mattermost&utm_medium=in-product&utm_content=installed_oauth_apps&uid=currentUserId&sid=&edition=team&server_version="
-        location="installed_oauth_apps"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        App Directory
-      </a>
-       to find available self-hosted apps.
+       to securely integrate bots and third-party apps with Mattermost.
     </span>
     <div
       class="backstage-list"

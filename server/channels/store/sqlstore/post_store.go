@@ -1952,7 +1952,7 @@ func (s *SqlPostStore) GetNthRecentPostTime(n int64) (int64, error) {
 	query := s.getQueryBuilder().
 		Select("CreateAt").
 		From("Posts p").
-		// Consider users posts only for cloud limit
+		// Consider user-authored posts only.
 		Where(sq.And{
 			sq.Eq{"p.Type": ""},
 			sq.Expr("p.UserId NOT IN (SELECT UserId FROM Bots)"),

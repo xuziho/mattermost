@@ -40,7 +40,6 @@ type TimerLayer struct {
 	JobStore                        store.JobStore
 	LicenseStore                    store.LicenseStore
 	LinkMetadataStore               store.LinkMetadataStore
-	NotifyAdminStore                store.NotifyAdminStore
 	OAuthStore                      store.OAuthStore
 	OutgoingOAuthConnectionStore    store.OutgoingOAuthConnectionStore
 	PluginStore                     store.PluginStore
@@ -49,7 +48,6 @@ type TimerLayer struct {
 	PostPersistentNotificationStore store.PostPersistentNotificationStore
 	PostPriorityStore               store.PostPriorityStore
 	PreferenceStore                 store.PreferenceStore
-	ProductNoticesStore             store.ProductNoticesStore
 	PropertyFieldStore              store.PropertyFieldStore
 	PropertyGroupStore              store.PropertyGroupStore
 	PropertyValueStore              store.PropertyValueStore
@@ -162,10 +160,6 @@ func (s *TimerLayer) LinkMetadata() store.LinkMetadataStore {
 	return s.LinkMetadataStore
 }
 
-func (s *TimerLayer) NotifyAdmin() store.NotifyAdminStore {
-	return s.NotifyAdminStore
-}
-
 func (s *TimerLayer) OAuth() store.OAuthStore {
 	return s.OAuthStore
 }
@@ -196,10 +190,6 @@ func (s *TimerLayer) PostPriority() store.PostPriorityStore {
 
 func (s *TimerLayer) Preference() store.PreferenceStore {
 	return s.PreferenceStore
-}
-
-func (s *TimerLayer) ProductNotices() store.ProductNoticesStore {
-	return s.ProductNoticesStore
 }
 
 func (s *TimerLayer) PropertyField() store.PropertyFieldStore {
@@ -411,11 +401,6 @@ type TimerLayerLinkMetadataStore struct {
 	Root *TimerLayer
 }
 
-type TimerLayerNotifyAdminStore struct {
-	store.NotifyAdminStore
-	Root *TimerLayer
-}
-
 type TimerLayerOAuthStore struct {
 	store.OAuthStore
 	Root *TimerLayer
@@ -453,11 +438,6 @@ type TimerLayerPostPriorityStore struct {
 
 type TimerLayerPreferenceStore struct {
 	store.PreferenceStore
-	Root *TimerLayer
-}
-
-type TimerLayerProductNoticesStore struct {
-	store.ProductNoticesStore
 	Root *TimerLayer
 }
 
@@ -5774,86 +5754,6 @@ func (s *TimerLayerLinkMetadataStore) Save(linkMetadata *model.LinkMetadata) (*m
 	return result, err
 }
 
-func (s *TimerLayerNotifyAdminStore) DeleteBefore(trial bool, now int64) error {
-	start := time.Now()
-
-	err := s.NotifyAdminStore.DeleteBefore(trial, now)
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if err == nil {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("NotifyAdminStore.DeleteBefore", success, elapsed)
-	}
-	return err
-}
-
-func (s *TimerLayerNotifyAdminStore) Get(trial bool) ([]*model.NotifyAdminData, error) {
-	start := time.Now()
-
-	result, err := s.NotifyAdminStore.Get(trial)
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if err == nil {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("NotifyAdminStore.Get", success, elapsed)
-	}
-	return result, err
-}
-
-func (s *TimerLayerNotifyAdminStore) GetDataByUserIdAndFeature(userID string, feature model.MattermostFeature) ([]*model.NotifyAdminData, error) {
-	start := time.Now()
-
-	result, err := s.NotifyAdminStore.GetDataByUserIdAndFeature(userID, feature)
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if err == nil {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("NotifyAdminStore.GetDataByUserIdAndFeature", success, elapsed)
-	}
-	return result, err
-}
-
-func (s *TimerLayerNotifyAdminStore) Save(data *model.NotifyAdminData) (*model.NotifyAdminData, error) {
-	start := time.Now()
-
-	result, err := s.NotifyAdminStore.Save(data)
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if err == nil {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("NotifyAdminStore.Save", success, elapsed)
-	}
-	return result, err
-}
-
-func (s *TimerLayerNotifyAdminStore) Update(userID string, requiredPlan string, requiredFeature model.MattermostFeature, now int64) error {
-	start := time.Now()
-
-	err := s.NotifyAdminStore.Update(userID, requiredPlan, requiredFeature, now)
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if err == nil {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("NotifyAdminStore.Update", success, elapsed)
-	}
-	return err
-}
-
 func (s *TimerLayerOAuthStore) DeleteApp(id string) error {
 	start := time.Now()
 
@@ -7816,70 +7716,6 @@ func (s *TimerLayerPreferenceStore) Save(preferences model.Preferences) error {
 			success = "true"
 		}
 		s.Root.Metrics.ObserveStoreMethodDuration("PreferenceStore.Save", success, elapsed)
-	}
-	return err
-}
-
-func (s *TimerLayerProductNoticesStore) Clear(notices []string) error {
-	start := time.Now()
-
-	err := s.ProductNoticesStore.Clear(notices)
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if err == nil {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("ProductNoticesStore.Clear", success, elapsed)
-	}
-	return err
-}
-
-func (s *TimerLayerProductNoticesStore) ClearOldNotices(currentNotices model.ProductNotices) error {
-	start := time.Now()
-
-	err := s.ProductNoticesStore.ClearOldNotices(currentNotices)
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if err == nil {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("ProductNoticesStore.ClearOldNotices", success, elapsed)
-	}
-	return err
-}
-
-func (s *TimerLayerProductNoticesStore) GetViews(userID string) ([]model.ProductNoticeViewState, error) {
-	start := time.Now()
-
-	result, err := s.ProductNoticesStore.GetViews(userID)
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if err == nil {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("ProductNoticesStore.GetViews", success, elapsed)
-	}
-	return result, err
-}
-
-func (s *TimerLayerProductNoticesStore) View(userID string, notices []string) error {
-	start := time.Now()
-
-	err := s.ProductNoticesStore.View(userID, notices)
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if err == nil {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("ProductNoticesStore.View", success, elapsed)
 	}
 	return err
 }
@@ -14444,7 +14280,6 @@ func New(childStore store.Store, metrics einterfaces.MetricsInterface) *TimerLay
 	newStore.JobStore = &TimerLayerJobStore{JobStore: childStore.Job(), Root: &newStore}
 	newStore.LicenseStore = &TimerLayerLicenseStore{LicenseStore: childStore.License(), Root: &newStore}
 	newStore.LinkMetadataStore = &TimerLayerLinkMetadataStore{LinkMetadataStore: childStore.LinkMetadata(), Root: &newStore}
-	newStore.NotifyAdminStore = &TimerLayerNotifyAdminStore{NotifyAdminStore: childStore.NotifyAdmin(), Root: &newStore}
 	newStore.OAuthStore = &TimerLayerOAuthStore{OAuthStore: childStore.OAuth(), Root: &newStore}
 	newStore.OutgoingOAuthConnectionStore = &TimerLayerOutgoingOAuthConnectionStore{OutgoingOAuthConnectionStore: childStore.OutgoingOAuthConnection(), Root: &newStore}
 	newStore.PluginStore = &TimerLayerPluginStore{PluginStore: childStore.Plugin(), Root: &newStore}
@@ -14453,7 +14288,6 @@ func New(childStore store.Store, metrics einterfaces.MetricsInterface) *TimerLay
 	newStore.PostPersistentNotificationStore = &TimerLayerPostPersistentNotificationStore{PostPersistentNotificationStore: childStore.PostPersistentNotification(), Root: &newStore}
 	newStore.PostPriorityStore = &TimerLayerPostPriorityStore{PostPriorityStore: childStore.PostPriority(), Root: &newStore}
 	newStore.PreferenceStore = &TimerLayerPreferenceStore{PreferenceStore: childStore.Preference(), Root: &newStore}
-	newStore.ProductNoticesStore = &TimerLayerProductNoticesStore{ProductNoticesStore: childStore.ProductNotices(), Root: &newStore}
 	newStore.PropertyFieldStore = &TimerLayerPropertyFieldStore{PropertyFieldStore: childStore.PropertyField(), Root: &newStore}
 	newStore.PropertyGroupStore = &TimerLayerPropertyGroupStore{PropertyGroupStore: childStore.PropertyGroup(), Root: &newStore}
 	newStore.PropertyValueStore = &TimerLayerPropertyValueStore{PropertyValueStore: childStore.PropertyValue(), Root: &newStore}

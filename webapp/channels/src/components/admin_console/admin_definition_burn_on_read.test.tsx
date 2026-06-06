@@ -105,7 +105,7 @@ describe('AdminDefinition - Burn-on-Read Settings', () => {
         });
     });
 
-    test('Burn-on-Read section should use LicensedSectionContainer with proper feature discovery', () => {
+    test('Burn-on-Read section should use LicensedSectionContainer with license gating', () => {
         const postsSection = AdminDefinition.site.subsections.posts;
         const sections = 'sections' in postsSection.schema! ? postsSection.schema.sections : undefined;
 
@@ -119,11 +119,7 @@ describe('AdminDefinition - Burn-on-Read Settings', () => {
         // Check that it has proper license SKU requirement
         expect(burnOnReadSection?.license_sku).toBe(LicenseSkus.EnterpriseAdvanced);
 
-        // Check that component props include feature discovery config
-        expect(burnOnReadSection?.componentProps).toBeDefined();
-        expect(burnOnReadSection?.componentProps?.requiredSku).toBe(LicenseSkus.EnterpriseAdvanced);
-        expect(burnOnReadSection?.componentProps?.featureDiscoveryConfig).toBeDefined();
-        expect(burnOnReadSection?.componentProps?.featureDiscoveryConfig?.featureName).toBe('burn_on_read');
+        expect(burnOnReadSection?.componentProps).toBeUndefined();
     });
 
     test('Burn-on-Read section isHidden should return true when feature flag is disabled', () => {

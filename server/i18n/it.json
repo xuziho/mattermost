@@ -616,14 +616,6 @@
     "translation": "Non si possiedono i permessi per creare un nuovo messaggio di gruppo."
   },
   {
-    "id": "api.command_help.desc",
-    "translation": "Vai alla pagina di aiuto di Mattermost"
-  },
-  {
-    "id": "api.command_help.name",
-    "translation": "aiuto"
-  },
-  {
     "id": "api.command_invite.channel.app_error",
     "translation": "Errore nel caricamento del canale corrente."
   },
@@ -1898,10 +1890,6 @@
   {
     "id": "api.templates.verify_subject",
     "translation": "[{{ .SiteName }}] Verifica Email"
-  },
-  {
-    "id": "api.templates.welcome_body.app_download_info",
-    "translation": "Per una migliore esperienza, scaricare le app per PC, Mac, iOS e Android da:"
   },
   {
     "id": "api.templates.welcome_body.button",
@@ -4592,26 +4580,6 @@
     "translation": "La versione del plugin non può essere interpretata."
   },
   {
-    "id": "app.plugin.marketplace_client.failed_to_fetch",
-    "translation": "Errore durante il recupero dei plugin dal server marketplace."
-  },
-  {
-    "id": "app.plugin.marketplace_disabled.app_error",
-    "translation": "Marketplace disattivato. Controllare i log per ulteriori informazioni."
-  },
-  {
-    "id": "app.plugin.marketplace_plugins.not_found.app_error",
-    "translation": "Impossibile trovare il plugin richiesto al marketplace."
-  },
-  {
-    "id": "app.plugin.marketplace_plugins.signature_not_found.app_error",
-    "translation": "Impossibile trovare la firma del plugin richiesto al marketplace."
-  },
-  {
-    "id": "app.plugin.marshal.app_error",
-    "translation": "Errore durante l'introduzione dei plugin marketplace."
-  },
-  {
     "id": "app.plugin.modify_saml.app_error",
     "translation": "Impossibile modificare i file saml."
   },
@@ -5014,18 +4982,6 @@
   {
     "id": "app.plugin.get_public_key.get_file.app_error",
     "translation": "Si è verificato un errore durante il recupero della chiave pubblica dallo store."
-  },
-  {
-    "id": "app.plugin.install_marketplace_plugin.app_error",
-    "translation": "Errore durante l'installazione del plugin marketplace."
-  },
-  {
-    "id": "app.plugin.marketplace_client.app_error",
-    "translation": "Errore durante la creazione del client marketplace."
-  },
-  {
-    "id": "app.plugin.marketplace_plugin_request.app_error",
-    "translation": "Errore durante la decodifica della richiesta al marketplace dei plugin."
   },
   {
     "id": "app.plugin.remove_bundle.app_error",
@@ -6464,10 +6420,6 @@
     "translation": "Impossibile contare le squadre"
   },
   {
-    "id": "api.user.login_cws.license.error",
-    "translation": "L'accesso bot è proibito."
-  },
-  {
     "id": "app.team.join_user_to_team.save_member.app_error",
     "translation": "Impossibile assegnare a un gruppo di lavoro per default"
   },
@@ -6526,18 +6478,6 @@
   {
     "id": "app.channel.clear_all_custom_role_assignments.select.app_error",
     "translation": "Impossibile recuperare i membri del canale"
-  },
-  {
-    "id": "api.cloud.license_error",
-    "translation": "La tua licenza non supporta le richieste di cloud."
-  },
-  {
-    "id": "api.cloud.cws_webhook_event_missing_error",
-    "translation": "L'evento webhook non è stato gestito. Manca oppure non è valido."
-  },
-  {
-    "id": "api.cloud.app_error",
-    "translation": "Errore interno durante la richiesta della cloud api."
   },
   {
     "id": "api.channel.patch_channel_moderations.cache_invalidation.error",
@@ -6624,10 +6564,6 @@
     "translation": " "
   },
   {
-    "id": "api.templates.cloud_welcome_email.add_apps_sub_info",
-    "translation": " "
-  },
-  {
     "id": "api.config.patch_config.restricted_merge.app_error",
     "translation": " "
   },
@@ -6665,10 +6601,6 @@
   },
   {
     "id": "api.command_remote.service_disabled",
-    "translation": " "
-  },
-  {
-    "id": "api.templates.welcome_body.app_download_button",
     "translation": " "
   },
   {
@@ -6713,10 +6645,6 @@
   },
   {
     "id": "app.post.search.app_error",
-    "translation": " "
-  },
-  {
-    "id": "app.post.cloud.get.app_error",
     "translation": " "
   },
   {
@@ -6804,15 +6732,7 @@
     "translation": " "
   },
   {
-    "id": "api.user.send_cloud_welcome_email.error",
-    "translation": " "
-  },
-  {
     "id": "api.user.invalidate_verify_email_tokens_parse.error",
-    "translation": " "
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-user.app_error",
     "translation": " "
   },
   {
@@ -6853,10 +6773,6 @@
   },
   {
     "id": "api.command_remote.remove_remote_id.help",
-    "translation": " "
-  },
-  {
-    "id": "api.cloud.notify_admin_to_upgrade_error.already_notified",
     "translation": " "
   },
   {
@@ -6916,20 +6832,12 @@
     "translation": " "
   },
   {
-    "id": "api.cloud.request_error",
-    "translation": "Errore nell'elaborazione della richiesta a CWS."
-  },
-  {
     "id": "app.user.demote_user_to_guest.user_update.app_error",
     "translation": " "
   },
   {
     "id": "api.command_share.name",
     "translation": " "
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subject",
-    "translation": "Congratulazioni!"
   },
   {
     "id": "api.command_share.missing_action",
@@ -7004,10 +6912,6 @@
     "translation": " "
   },
   {
-    "id": "api.templates.cloud_welcome_email.subtitle_info",
-    "translation": " "
-  },
-  {
     "id": "api.migrate_to_saml.error",
     "translation": " "
   },
@@ -7017,14 +6921,6 @@
   },
   {
     "id": "app.upload.upload_data.first_part_too_small.app_error",
-    "translation": " "
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-user-and-permission.app_error",
-    "translation": " "
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.button",
     "translation": " "
   },
   {
@@ -7105,10 +7001,6 @@
   },
   {
     "id": "api.context.json_encoding.app_error",
-    "translation": " "
-  },
-  {
-    "id": "api.error_get_first_admin_visit_marketplace_status",
     "translation": " "
   },
   {
@@ -7204,14 +7096,6 @@
     "translation": " "
   },
   {
-    "id": "api.templates.cloud_welcome_email.add_apps_info",
-    "translation": " "
-  },
-  {
-    "id": "api.user.login_by_cws.invalid_token.app_error",
-    "translation": " "
-  },
-  {
     "id": "api.templates.invite_body_guest.subTitle",
     "translation": " "
   },
@@ -7300,10 +7184,6 @@
     "translation": " "
   },
   {
-    "id": "api.upgrade_to_enterprise.already-done.app_error",
-    "translation": " "
-  },
-  {
     "id": "app.notification.footer.title",
     "translation": " "
   },
@@ -7317,10 +7197,6 @@
   },
   {
     "id": "app.group.no_rows",
-    "translation": " "
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.signin_sub_info2",
     "translation": " "
   },
   {
@@ -7432,10 +7308,6 @@
     "translation": " "
   },
   {
-    "id": "api.templates.cloud_welcome_email.mm_apps",
-    "translation": " "
-  },
-  {
     "id": "api.file.test_connection_s3_settings_nil.app_error",
     "translation": " "
   },
@@ -7488,10 +7360,6 @@
     "translation": " "
   },
   {
-    "id": "app.system.complete_onboarding_request.no_first_user",
-    "translation": " "
-  },
-  {
     "id": "app.user.get_unread_count.app_error",
     "translation": " "
   },
@@ -7500,31 +7368,11 @@
     "translation": " "
   },
   {
-    "id": "api.templates.cloud_welcome_email.info2",
-    "translation": " "
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.invite_sub_info",
-    "translation": " "
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.start_questions",
-    "translation": " "
-  },
-  {
     "id": "api.templates.welcome_body.subTitle1",
     "translation": " "
   },
   {
     "id": "api.templates.welcome_body.subTitle2",
-    "translation": " "
-  },
-  {
-    "id": "api.upgrade_to_enterprise.already-enterprise.app_error",
-    "translation": " "
-  },
-  {
-    "id": "api.upgrade_to_enterprise.system_not_supported.app_error",
     "translation": " "
   },
   {
@@ -7597,10 +7445,6 @@
   },
   {
     "id": "api.file.cloud_upload.app_error",
-    "translation": " "
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subtitle",
     "translation": " "
   },
   {
@@ -7692,23 +7536,11 @@
     "translation": " "
   },
   {
-    "id": "api.templates.welcome_body.app_download_title",
-    "translation": " "
-  },
-  {
     "id": "ent.elasticsearch.search_files.disabled",
     "translation": "La ricerca {{.Backend}} di file è disabilitata su questo server"
   },
   {
     "id": "api.command_share.channel_status_id",
-    "translation": " "
-  },
-  {
-    "id": "api.upgrade_to_enterprise_status.signature.app_error",
-    "translation": " "
-  },
-  {
-    "id": "api.upgrade_to_enterprise.generic_error.app_error",
     "translation": " "
   },
   {
@@ -7741,10 +7573,6 @@
   },
   {
     "id": "api.command_share.permission_required",
-    "translation": " "
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.invite_info",
     "translation": " "
   },
   {
@@ -7820,10 +7648,6 @@
     "translation": " "
   },
   {
-    "id": "api.templates.cloud_welcome_email.title",
-    "translation": "Il tuo spazio di lavoro è pronto !"
-  },
-  {
     "id": "app.teams.analytics_teams_count.app_error",
     "translation": " "
   },
@@ -7845,14 +7669,6 @@
   },
   {
     "id": "api.command_share.shared_channel_unshare.error",
-    "translation": " "
-  },
-  {
-    "id": "api.cloud.teams_limit_reached.restore",
-    "translation": " "
-  },
-  {
-    "id": "api.cloud.teams_limit_reached.create",
     "translation": " "
   },
   {
@@ -7904,10 +7720,6 @@
     "translation": " "
   },
   {
-    "id": "api.templates.cloud_welcome_email.info",
-    "translation": " "
-  },
-  {
     "id": "api.upload.upload_data.multipart_error",
     "translation": " "
   },
@@ -7929,10 +7741,6 @@
   },
   {
     "id": "api.templates.invite_body_footer.learn_more",
-    "translation": " "
-  },
-  {
-    "id": "app.system.get_onboarding_request.app_error",
     "translation": " "
   },
   {
@@ -8009,10 +7817,6 @@
   },
   {
     "id": "api.config.update_config.diff.app_error",
-    "translation": " "
-  },
-  {
-    "id": "app.system.complete_onboarding_request.app_error",
     "translation": " "
   },
   {
@@ -8100,10 +7904,6 @@
     "translation": " "
   },
   {
-    "id": "api.error_set_first_admin_visit_marketplace_status",
-    "translation": " "
-  },
-  {
     "id": "api.command_share.channel_shared",
     "translation": " "
   },
@@ -8188,31 +7988,7 @@
     "translation": " "
   },
   {
-    "id": "api.upgrade_to_enterprise_status.app_error",
-    "translation": " "
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-permission.app_error",
-    "translation": " "
-  },
-  {
-    "id": "api.upgrade_to_enterprise.app_error",
-    "translation": " "
-  },
-  {
     "id": "api.templates.verify_body.info1",
-    "translation": " "
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.signin_sub_info",
-    "translation": " "
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.download_mm_info",
-    "translation": " "
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.app_market_place",
     "translation": " "
   },
   {
@@ -8338,5 +8114,9 @@
   {
     "id": "api.acknowledgement.delete.archived_channel.app_error",
     "translation": "Non è possibile rimuovere una conferma in un canale archiviato."
+  },
+  {
+    "id": "api.templates.license_up_for_renewal_review_license",
+    "translation": "Review license"
   }
 ]

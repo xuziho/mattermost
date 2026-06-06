@@ -18,7 +18,6 @@ levels of authentication and authorization:
   - APIHandler: Public endpoints requiring no authentication
   - APISessionRequired: Endpoints requiring authenticated user sessions
   - APISessionRequiredTrustRequester: Authenticated endpoints for trusted requests
-  - CloudAPIKeyRequired: Cloud installation webhook endpoints
   - RemoteClusterTokenRequired: Remote cluster communication endpoints
   - APILocal: Local mode access via UNIX socket
 

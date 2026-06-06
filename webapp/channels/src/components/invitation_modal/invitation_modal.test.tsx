@@ -10,7 +10,6 @@ import {General} from 'mattermost-redux/constants';
 import deepFreeze from 'mattermost-redux/utils/deep_freeze';
 
 import {renderWithContext, screen, act} from 'tests/react_testing_utils';
-import {SelfHostedProducts} from 'utils/constants';
 import {TestHelper} from 'utils/test_helper';
 import {generateId} from 'utils/utils';
 
@@ -36,7 +35,6 @@ const defaultProps: Props = deepFreeze({
     invitableChannels: [],
     emailInvitationsEnabled: true,
     isAdmin: false,
-    isCloud: false,
     canAddUsers: true,
     canInviteGuests: true,
     canInviteGuestsWithMagicLink: false,
@@ -52,11 +50,6 @@ let props = defaultProps;
 describe('InvitationModal', () => {
     const state = {
         entities: {
-            admin: {
-                prevTrialLicense: {
-                    IsLicensed: 'true',
-                },
-            },
             general: {
                 config: {
                     BuildEnterpriseReady: 'true',
@@ -65,12 +58,6 @@ describe('InvitationModal', () => {
                     IsLicensed: 'true',
                     Cloud: 'true',
                     Id: generateId(),
-                },
-            },
-            cloud: {
-                subscription: {
-                    is_free_trial: 'false',
-                    trial_end_at: 0,
                 },
             },
             users: {
@@ -88,19 +75,6 @@ describe('InvitationModal', () => {
             },
             preferences: {
                 myPreferences: {},
-            },
-            hostedCustomer: {
-                products: {
-                    productsLoaded: true,
-                    products: {
-                        prod_professional: TestHelper.getProductMock({
-                            id: 'prod_professional',
-                            name: 'Professional',
-                            sku: SelfHostedProducts.PROFESSIONAL,
-                            price_per_seat: 7.5,
-                        }),
-                    },
-                },
             },
             limits: {
                 serverLimits: {},

@@ -11,11 +11,8 @@ import {Client4} from 'mattermost-redux/client';
 import * as UserUtils from 'mattermost-redux/utils/user_utils';
 
 import RevokeTokenButton from 'components/admin_console/revoke_token_button';
-import ExternalLink from 'components/external_link';
 import LoadingScreen from 'components/loading_screen';
 import Avatar from 'components/widgets/users/avatar';
-
-import {DeveloperLinks} from 'utils/constants';
 
 export type Props = {
 
@@ -150,25 +147,7 @@ export default class ManageTokensModal extends React.PureComponent<Props, State>
                 <div className='pt-3'>
                     <FormattedMessage
                         id='admin.manage_tokens.userAccessTokensDescription'
-                        defaultMessage='Personal access tokens function similarly to session tokens and can be used by integrations to <linkAuthentication>interact with this Mattermost server</linkAuthentication>. Tokens are disabled if the user is deactivated. Learn more about <linkPersonalAccessTokens>personal access tokens</linkPersonalAccessTokens>.'
-                        values={{
-                            linkAuthentication: (msg: React.ReactNode) => (
-                                <ExternalLink
-                                    href='https://api.mattermost.com/#tag/authentication'
-                                    location='manage_tokens_modal'
-                                >
-                                    {msg}
-                                </ExternalLink>
-                            ),
-                            linkPersonalAccessTokens: (msg: React.ReactNode) => (
-                                <ExternalLink
-                                    href={DeveloperLinks.PERSONAL_ACCESS_TOKENS}
-                                    location='manage_tokens_modal'
-                                >
-                                    {msg}
-                                </ExternalLink>
-                            ),
-                        }}
+                        defaultMessage='Personal access tokens function similarly to session tokens and can be used by integrations to interact with this server. Tokens are disabled if the user is deactivated.'
                     />
                 </div>
                 <div className='manage-teams__teams'>

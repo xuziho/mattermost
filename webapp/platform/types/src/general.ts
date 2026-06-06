@@ -7,12 +7,9 @@ import type {IDMappedObjects} from './utilities';
 
 export type GeneralState = {
     config: Partial<ClientConfig>;
-    firstAdminVisitMarketplaceStatus: boolean;
-    firstAdminCompleteSetup: boolean;
     license: ClientLicense;
     serverVersion: string;
     customProfileAttributes: IDMappedObjects<UserPropertyField>;
-    cwsAvailability: 'pending' | 'available' | 'unavailable' | 'not_applicable';
 };
 
 export type SystemSetting = {

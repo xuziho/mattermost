@@ -196,9 +196,7 @@ func (s *Store) Set(newCfg *model.Config) (*model.Config, *model.Config, error) 
 	// We attempt to remove any environment override that may be present in the input config.
 	newCfgNoEnv := removeEnvOverrides(newCfg, oldCfgNoEnv, s.GetEnvironmentOverrides())
 
-	// Don't store feature flags unless we are on MM cloud
-	// MM cloud uses config in the DB as a cache of the feature flag
-	// settings in case the management system is down when a pod starts.
+	// Keep feature flags out of stored config when the config store owns them as read-only cached values.
 
 	// Backing up feature flags section in case we need to restore them later on.
 	oldCfgFF := oldCfg.FeatureFlags

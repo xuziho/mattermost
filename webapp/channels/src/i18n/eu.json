@@ -1,14 +1,21 @@
 {
   "about.buildnumber": "Konpilazio zenbakia:",
   "about.cloudEdition": "Hodeia",
-  "about.copyright": "Copyright 2015 - {currentYear} Mattermost, Inc. Eskubide guztiak gordeta",
   "about.database": "Databasea:",
   "about.date": "Konpilatze data:",
   "about.dbversion": "Databasearen eskemaren bertsioa:",
-  "about.enterpriseEditionLearn": "Enpresarako bertsioari buruz informazio gehiago hemen ",
   "about.enterpriseEditionSt": "Komunikazio modernoa zure suebakiaren atzetik.",
   "about.hash": "Konpilazioaren egiaztatze batuketa:",
   "about.hashee": "EE Konpilazioaren batuketa:",
-  "about.teamEditionLearn": "Batu Mattermost komunetateari hemen ",
-  "about.teamEditiont1": "Enpresarako Bertsioa"
+  "about.teamEditiont1": "Enpresarako Bertsioa",
+  "admin.license.additionalLicensedFeatures": "Additional licensed features",
+  "admin.license.timeLimitedLicenseTitle": "Time-limited license",
+  "admin.license.timeLimitedLicenseSubtitle": "Upload a new local license file before this license expires to continue using licensed features.",
+  "admin.license.enterprisePlanTitle": "Licensed seat count",
+  "admin.license.enterprisePlanSubtitle": "Upload an updated license if you need to increase your licensed headcount.",
+  "admin.system_users.exportButton.notLicensed.hint": "User data export is not available on this server.",
+  "admin.system_users.exportButton.notLicensed.title": "Unavailable feature",
+  "admin.license.renewalCard.description.renew_license": "Renew your {licenseSku} license to avoid any disruption.",
+  "admin.permissions.sysconsole_section_billing.name": "License account",
+  "admin.permissions.sysconsole_section_billing.description": "Access local license account details."
 }

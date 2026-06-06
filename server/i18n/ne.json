@@ -22,5 +22,9 @@
   {
     "id": "api.admin.add_certificate.array.app_error",
     "translation": "'प्रमाणपत्र' अन्तर्गत अनुरोधमा कुनै फाइल छैन।"
+  },
+  {
+    "id": "api.templates.license_up_for_renewal_review_license",
+    "translation": "Review license"
   }
 ]

@@ -47,9 +47,6 @@ const (
 // to mobile clients in a backwards-compatible way
 type PushSubType string
 
-// PushSubTypeCalls is used by the Calls plugin
-const PushSubTypeCalls PushSubType = "calls"
-
 type PushNotificationAck struct {
 	Id               string `json:"id"`
 	ClientReceivedAt int64  `json:"received_at"`

@@ -9,10 +9,6 @@ import type {UserNotifyProps} from '@mattermost/types/users';
 import type {SelectOption} from 'components/widgets/modals/components/react_select_item';
 
 import bing from 'sounds/bing.mp3';
-import calls_calm from 'sounds/calls_calm.mp3';
-import calls_cheerful from 'sounds/calls_cheerful.mp3';
-import calls_dynamic from 'sounds/calls_dynamic.mp3';
-import calls_urgent from 'sounds/calls_urgent.mp3';
 import crackle from 'sounds/crackle.mp3';
 import down from 'sounds/down.mp3';
 import hello from 'sounds/hello.mp3';
@@ -108,65 +104,6 @@ export function getValueOfNotificationSoundsSelect(soundName?: string) {
     return soundOption;
 }
 
-export const callsNotificationSounds = new Map([
-    ['Dynamic', calls_dynamic],
-    ['Calm', calls_calm],
-    ['Urgent', calls_urgent],
-    ['Cheerful', calls_cheerful],
-]);
-
-export const callNotificationSoundKeys = Array.from(callsNotificationSounds.keys());
-
-export const optionsOfIncomingCallSoundsSelect: SelectOption[] = callNotificationSoundKeys.map((soundName) => {
-    if (soundName === 'Dynamic') {
-        return {
-            value: soundName,
-            label: defineMessage({
-                id: 'user.settings.notifications.desktopNotificationSound.soundDynamic',
-                defaultMessage: 'Dynamic',
-            }),
-        };
-    } else if (soundName === 'Calm') {
-        return {
-            value: soundName,
-            label: defineMessage({
-                id: 'user.settings.notifications.desktopNotificationSound.soundCalm',
-                defaultMessage: 'Calm',
-            }),
-        };
-    } else if (soundName === 'Urgent') {
-        return {
-            value: soundName,
-            label: defineMessage({
-                id: 'user.settings.notifications.desktopNotificationSound.soundUrgent',
-                defaultMessage: 'Urgent',
-            }),
-        };
-    } else if (soundName === 'Cheerful') {
-        return {
-            value: soundName,
-            label: defineMessage({
-                id: 'user.settings.notifications.desktopNotificationSound.soundCheerful',
-                defaultMessage: 'Cheerful',
-            }),
-        };
-    }
-    return {
-        value: '',
-        label: '',
-    };
-});
-
-export function getValueOfIncomingCallSoundsSelect(soundName?: string) {
-    const soundOption = optionsOfIncomingCallSoundsSelect.find((option) => option.value === soundName);
-
-    if (!soundOption) {
-        return undefined;
-    }
-
-    return soundOption;
-}
-
 let canDing = true;
 export function ding(name: string) {
     if (hasSoundOptions() && canDing) {
@@ -183,61 +120,7 @@ export function tryNotificationSound(name: string) {
     audio.play();
 }
 
-let currentRing: HTMLAudioElement | null = null;
-export function ring(name: string) {
-    if (!hasSoundOptions()) {
-        return;
-    }
-    stopRing();
-
-    currentRing = loopNotificationRing(name);
-    currentRing.addEventListener('pause', () => {
-        stopRing();
-    });
-}
-
-export function stopRing() {
-    if (currentRing) {
-        currentRing.pause();
-        currentRing.src = '';
-        currentRing.remove();
-        currentRing = null;
-    }
-}
-
-let currentTryRing: HTMLAudioElement | null = null;
-let currentTimer: NodeJS.Timeout;
-export function tryNotificationRing(name: string) {
-    if (!hasSoundOptions()) {
-        return;
-    }
-    stopTryNotificationRing();
-    clearTimeout(currentTimer);
-
-    currentTryRing = loopNotificationRing(name);
-    currentTryRing.addEventListener('pause', () => {
-        stopTryNotificationRing();
-    });
-
-    currentTimer = setTimeout(() => {
-        stopTryNotificationRing();
-    }, 5000);
-}
-
 export function stopTryNotificationRing() {
-    if (currentTryRing) {
-        currentTryRing.pause();
-        currentTryRing.src = '';
-        currentTryRing.remove();
-        currentTryRing = null;
-    }
-}
-
-export function loopNotificationRing(name: string) {
-    const audio = new Audio(callsNotificationSounds.get(name) ?? callsNotificationSounds.get('Calm'));
-    audio.loop = true;
-    audio.play();
-    return audio;
 }
 
 export function hasSoundOptions() {

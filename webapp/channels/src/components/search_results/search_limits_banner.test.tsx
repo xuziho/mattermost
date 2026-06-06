@@ -5,35 +5,8 @@ import React from 'react';
 
 import {renderWithContext} from 'tests/react_testing_utils';
 import {DataSearchTypes} from 'utils/constants';
-import {FileSizes} from 'utils/file_utils';
-import {makeEmptyUsage} from 'utils/limits_test';
 
 import SearchLimitsBanner from './search_limits_banner';
-
-const usage = makeEmptyUsage();
-
-const limits = {
-    limitsLoaded: true,
-    limits: {
-        integrations: {
-            enabled: 5,
-        },
-        messages: {
-            history: 10000,
-        },
-        files: {
-            total_storage: FileSizes.Gigabyte,
-        },
-        teams: {
-            active: 1,
-            teamsLoaded: true,
-        },
-        boards: {
-            cards: 500,
-            views: 5,
-        },
-    },
-};
 
 describe('components/select_results/SearchLimitsBanner', () => {
     test('should NOT show banner for no limits when doing messages search', () => {
@@ -62,7 +35,6 @@ describe('components/select_results/SearchLimitsBanner', () => {
                     current: {},
                     truncationInfo: undefined,
                 },
-                usage,
             },
             views: {
                 rhs: {
@@ -74,9 +46,6 @@ describe('components/select_results/SearchLimitsBanner', () => {
         expect(container.querySelector('#messages_search_limits_banner')).toBeNull();
     });
     test('should show banner when doing messages search above the limit in Entry with limits', () => {
-        const aboveMessagesLimitUsage = JSON.parse(JSON.stringify(usage));
-        aboveMessagesLimitUsage.messages.history = 15000; // above limit of 10K
-
         const state = {
             entities: {
                 general: {
@@ -90,19 +59,11 @@ describe('components/select_results/SearchLimitsBanner', () => {
                         uid: {},
                     },
                 },
-                cloud: {
-                    subscription: {
-                        is_free_trial: 'true',
-                        product_id: 'prod_1', // free
-                    },
-                    limits,
-                },
                 limits: {
                     serverLimits: {
                         postHistoryLimit: 10000,
                     },
                 },
-                usage: aboveMessagesLimitUsage,
                 search: {
                     results: [],
                     flagged: [],
@@ -127,10 +88,7 @@ describe('components/select_results/SearchLimitsBanner', () => {
         expect(container.querySelector('#messages_search_limits_banner')).not.toBeNull();
     });
 
-    test('should display "View plans" CTA text for messages search when banner is shown', () => {
-        const aboveMessagesLimitUsage = JSON.parse(JSON.stringify(usage));
-        aboveMessagesLimitUsage.messages.history = 15000; // above limit of 10K
-
+    test('should display self-managed history limit text for messages search when banner is shown', () => {
         const state = {
             entities: {
                 general: {
@@ -145,19 +103,11 @@ describe('components/select_results/SearchLimitsBanner', () => {
                         uid: {},
                     },
                 },
-                cloud: {
-                    subscription: {
-                        is_free_trial: 'true',
-                        product_id: 'prod_1', // free
-                    },
-                    limits,
-                },
                 limits: {
                     serverLimits: {
                         postHistoryLimit: 10000,
                     },
                 },
-                usage: aboveMessagesLimitUsage,
                 search: {
                     results: [],
                     flagged: [],
@@ -182,13 +132,10 @@ describe('components/select_results/SearchLimitsBanner', () => {
         const {container} = renderWithContext(<SearchLimitsBanner searchType={DataSearchTypes.MESSAGES_SEARCH_TYPE}/>, state);
 
         expect(container.querySelector('#messages_search_limits_banner')).not.toBeNull();
-        expect(container.textContent).toContain('paid plans');
+        expect(container.textContent).toContain('Full access to message history is not available on this server.');
     });
 
     test('should display correct banner message format for messages search', () => {
-        const aboveMessagesLimitUsage = JSON.parse(JSON.stringify(usage));
-        aboveMessagesLimitUsage.messages.history = 15000; // above limit of 10K
-
         const state = {
             entities: {
                 general: {
@@ -203,19 +150,11 @@ describe('components/select_results/SearchLimitsBanner', () => {
                         uid: {},
                     },
                 },
-                cloud: {
-                    subscription: {
-                        is_free_trial: 'true',
-                        product_id: 'prod_1', // free
-                    },
-                    limits,
-                },
                 limits: {
                     serverLimits: {
                         postHistoryLimit: 10000,
                     },
                 },
-                usage: aboveMessagesLimitUsage,
                 search: {
                     results: [],
                     flagged: [],
@@ -241,15 +180,10 @@ describe('components/select_results/SearchLimitsBanner', () => {
 
         const bannerText = container.textContent;
         expect(bannerText).toContain('Limited history is displayed');
-        expect(bannerText).toContain('Full access to message history is included in');
+        expect(bannerText).toContain('Full access to message history is not available on this server.');
     });
 
-    test('should render CTA link correctly when banner is shown', () => {
-        const aboveMessagesLimitUsage = JSON.parse(JSON.stringify(usage));
-        aboveMessagesLimitUsage.messages.history = 15000; // above limit of 10K
-
-        // Test focuses on verifying component renders correctly with proper CTA
-
+    test('should not render CTA link when banner is shown', () => {
         const state = {
             entities: {
                 general: {
@@ -264,19 +198,11 @@ describe('components/select_results/SearchLimitsBanner', () => {
                         uid: {},
                     },
                 },
-                cloud: {
-                    subscription: {
-                        is_free_trial: 'true',
-                        product_id: 'prod_1', // free
-                    },
-                    limits,
-                },
                 limits: {
                     serverLimits: {
                         postHistoryLimit: 10000,
                     },
                 },
-                usage: aboveMessagesLimitUsage,
                 search: {
                     results: [],
                     flagged: [],
@@ -300,19 +226,14 @@ describe('components/select_results/SearchLimitsBanner', () => {
 
         const {container} = renderWithContext(<SearchLimitsBanner searchType={DataSearchTypes.MESSAGES_SEARCH_TYPE}/>, state);
 
-        // Verify the banner is shown and contains the CTA link
         expect(container.querySelector('#messages_search_limits_banner')).not.toBeNull();
-        expect(container.textContent).toContain('paid plans');
+        expect(container.textContent).not.toContain('paid plans');
 
-        // Find the CTA link
         const ctaLinks = container.querySelectorAll('a');
-        expect(ctaLinks).toHaveLength(1);
+        expect(ctaLinks).toHaveLength(0);
     });
 
     test('should NOT show banner when RHS is showing pinned posts even with truncated search results', () => {
-        const aboveMessagesLimitUsage = JSON.parse(JSON.stringify(usage));
-        aboveMessagesLimitUsage.messages.history = 15000; // above limit of 10K
-
         const state = {
             entities: {
                 general: {
@@ -327,19 +248,11 @@ describe('components/select_results/SearchLimitsBanner', () => {
                         uid: {},
                     },
                 },
-                cloud: {
-                    subscription: {
-                        is_free_trial: 'true',
-                        product_id: 'prod_1', // free
-                    },
-                    limits,
-                },
                 limits: {
                     serverLimits: {
                         postHistoryLimit: 10000,
                     },
                 },
-                usage: aboveMessagesLimitUsage,
                 search: {
                     results: [],
                     flagged: [],

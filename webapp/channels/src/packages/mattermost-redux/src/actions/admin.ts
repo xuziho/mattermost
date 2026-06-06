@@ -18,7 +18,6 @@ import type {
 } from '@mattermost/types/data_retention';
 import type {ServerError} from '@mattermost/types/errors';
 import type {GroupSearchOpts} from '@mattermost/types/groups';
-import type {CompleteOnboardingRequest} from '@mattermost/types/setup';
 import type {
     Team,
     TeamSearchOpts,
@@ -440,21 +439,6 @@ export function removeLicense(): ActionFuncAsync<boolean> {
         await dispatch(getServerLimits());
 
         return {data: true};
-    };
-}
-
-export function getPrevTrialLicense(): ActionFuncAsync {
-    return async (dispatch, getState) => {
-        let data;
-        try {
-            data = await Client4.getPrevTrialLicense();
-        } catch (error) {
-            forceLogoutIfNecessary(error as ServerError, dispatch, getState);
-            return {error};
-        }
-
-        dispatch({type: AdminTypes.PREV_TRIAL_LICENSE_SUCCESS, data});
-        return {data};
     };
 }
 
@@ -890,13 +874,6 @@ export function removeDataRetentionCustomPolicyChannels(id: string, channels: st
 
         return {data};
     };
-}
-
-export function completeSetup(completeSetup: CompleteOnboardingRequest) {
-    return bindClientFunc({
-        clientFunc: Client4.completeSetup,
-        params: [completeSetup],
-    });
 }
 
 export function getAppliedSchemaMigrations() {

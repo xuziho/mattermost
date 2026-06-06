@@ -165,7 +165,6 @@ describe('components/dot_menu/DotMenu', () => {
             },
             modals: {
                 modalState: {},
-                showLaunchingWorkspace: false,
             },
         },
     };

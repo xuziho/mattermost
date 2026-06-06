@@ -165,17 +165,4 @@ describe('Integrations', () => {
         });
     });
 
-    it('MM-T5100 /marketplace test', () => {
-        cy.apiAdminLogin();
-
-        cy.apiInitSetup().then(({team}) => {
-            // # Go to town square
-            cy.visit(`/${team.name}/channels/town-square`);
-
-            // # Post "/marketplace" as SystemAdmin
-            cy.postMessage('/marketplace ');
-
-            cy.findByRole('heading', {name: 'App Marketplace'}).should('be.visible');
-        });
-    });
 });

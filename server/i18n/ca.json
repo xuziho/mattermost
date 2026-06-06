@@ -732,10 +732,6 @@
     "translation": "No es pot moure el connector des del directori temporal fins a la destinació final. Un altre complement pot estar utilitzant el mateix nom de directori."
   },
   {
-    "id": "app.plugin.marketplace_disabled.app_error",
-    "translation": "Els connectors s'han desactivat. Verifiqueu els teus registres per obtenir-ne més detalls."
-  },
-  {
     "id": "app.plugin.manifest.app_error",
     "translation": "No es pot trobar el manifest per al connector extret"
   },
@@ -1462,10 +1458,6 @@
   {
     "id": "api.templates.welcome_body.button",
     "translation": "Verifica el correu"
-  },
-  {
-    "id": "api.templates.welcome_body.app_download_info",
-    "translation": "Per obtenir la millor experiència, baixa les aplicacions per a PC, Mac, iOS i Android des de:"
   },
   {
     "id": "api.templates.verify_subject",
@@ -3652,14 +3644,6 @@
     "translation": "S'ha produït un error en recuperar el canal actual."
   },
   {
-    "id": "api.command_help.name",
-    "translation": "help"
-  },
-  {
-    "id": "api.command_help.desc",
-    "translation": "Obre la pàgina d'ajuda de Mattermost"
-  },
-  {
     "id": "api.command_groupmsg.permission.app_error",
     "translation": "No tens els permisos adequats per crear un missatge de grup nou."
   },
@@ -4506,5 +4490,9 @@
   {
     "id": "model.group.name.invalid_length.app_error",
     "translation": "El nom ha de tenir entre 1 i 64 caràcters alfanumèrics en minúscula"
+  },
+  {
+    "id": "api.templates.license_up_for_renewal_review_license",
+    "translation": "Review license"
   }
 ]

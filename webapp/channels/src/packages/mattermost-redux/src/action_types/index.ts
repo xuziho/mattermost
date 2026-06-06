@@ -10,7 +10,6 @@ import BotTypes from './bots';
 import ChannelBookmarkTypes from './channel_bookmarks';
 import ChannelCategoryTypes from './channel_categories';
 import ChannelTypes from './channels';
-import CloudTypes from './cloud';
 import ContentFlaggingTypes from './content_flagging';
 import DraftTypes from './drafts';
 import EmojiTypes from './emojis';
@@ -18,12 +17,9 @@ import ErrorTypes from './errors';
 import FileTypes from './files';
 import GeneralTypes from './general';
 import GroupTypes from './groups';
-import HostedCustomerTypes from './hosted_customer';
 import IntegrationTypes from './integrations';
 import JobTypes from './jobs';
 import LimitsTypes from './limits';
-import PlaybookType from './playbooks';
-import PluginTypes from './plugins';
 import PostTypes from './posts';
 import PreferenceTypes from './preferences';
 import PropertyTypes from './properties';
@@ -58,14 +54,10 @@ export {
     SchemeTypes,
     GroupTypes,
     BotTypes,
-    PluginTypes,
     ChannelCategoryTypes,
-    CloudTypes,
     AppsTypes,
     ThreadTypes,
-    HostedCustomerTypes,
     DraftTypes,
-    PlaybookType,
     ChannelBookmarkTypes,
     ScheduledPostTypes,
     SharedChannelTypes,

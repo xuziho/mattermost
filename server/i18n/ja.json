@@ -614,14 +614,6 @@
     "translation": "新しいグループメッセージを作成する権限がありません。"
   },
   {
-    "id": "api.command_help.desc",
-    "translation": "Mattermostヘルプメッセージを表示"
-  },
-  {
-    "id": "api.command_help.name",
-    "translation": "ヘルプ"
-  },
-  {
     "id": "api.command_invite.channel.app_error",
     "translation": "現在のチャンネルを取得する際にエラーが発生しました。"
   },
@@ -1892,10 +1884,6 @@
   {
     "id": "api.templates.verify_subject",
     "translation": "[{{ .SiteName }}] 電子メール確認"
-  },
-  {
-    "id": "api.templates.welcome_body.app_download_info",
-    "translation": "PC / Mac / iOS / Android 用のアプリをダウンロードして最高の体験を。"
   },
   {
     "id": "api.templates.welcome_body.button",
@@ -4922,40 +4910,8 @@
     "translation": "SAMLファイルを変更できません。"
   },
   {
-    "id": "app.plugin.marshal.app_error",
-    "translation": "マーケットプレースプラグインを変換できませんでした。"
-  },
-  {
-    "id": "app.plugin.marketplace_plugins.signature_not_found.app_error",
-    "translation": "リクエストされたプラグインの署名が見つかりませんでした。"
-  },
-  {
-    "id": "app.plugin.marketplace_plugins.not_found.app_error",
-    "translation": "リクエストされたマーケットプレースのプラグインが見つかりませんでした。"
-  },
-  {
-    "id": "app.plugin.marketplace_plugin_request.app_error",
-    "translation": "マーケットプレースのプラグインリクエストをデコードできませんでした。"
-  },
-  {
-    "id": "app.plugin.marketplace_disabled.app_error",
-    "translation": "マーケットプレースは無効化されています。詳しくはログを確認してください。"
-  },
-  {
-    "id": "app.plugin.marketplace_client.failed_to_fetch",
-    "translation": "マーケットプレースサーバーからプラグインを取得できませんでした。"
-  },
-  {
-    "id": "app.plugin.marketplace_client.app_error",
-    "translation": "マーケットプレースのクライアントを作成できませんでした。"
-  },
-  {
     "id": "app.plugin.invalid_version.app_error",
     "translation": "プラグインのバージョンを解析できません。"
-  },
-  {
-    "id": "app.plugin.install_marketplace_plugin.app_error",
-    "translation": "マーケットプレースプラグインをインストールできませんでした。"
   },
   {
     "id": "app.plugin.get_public_key.get_file.app_error",
@@ -6290,34 +6246,6 @@
     "translation": "チャンネル種別数を取得できませんでした。"
   },
   {
-    "id": "api.upgrade_to_enterprise_status.signature.app_error",
-    "translation": "MattermostをEnterprise Editionにアップグレードできませんでした。ダウンロードされたバイナリファイルのデジタル署名を検証できませんでした。"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.system_not_supported.app_error",
-    "translation": "MattermostをEnterprise Editionにアップグレードできませんでした。この機能はx86-64アーキテクチャのLinux上でのみ動作します。"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-user.app_error",
-    "translation": "MattermostをEnterprise Editionにアップグレードできませんでした。Mattermostシステムユーザー {{.MattermostUsername}} がバイナリファイルへの書き込み権限を持っていません。システム管理者がMattermostがインストールされたサーバーで下記のコマンドを実行することにより、ファイルに対する権限を更新することができます。\n\n```\nchown {{.MattermostUsername}} \"{{.Path}}\"\n```\n\nファイルの権限を変更した後、Mattermostのアップグレードを再度試してみてください。アップグレードが完了し再起動を行うことができた場合、バイナリファイルの権限を元に戻すことを忘れないでください。\n\n```\nchown {{.FileUsername}} \"{{.Path}}\"\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-user-and-permission.app_error",
-    "translation": "MattermostをEnterprise Editionにアップグレードできませんでした。Mattermostシステムユーザー {{.MattermostUsername}} がバイナリファイルへの書き込み権限を持っていません。システム管理者がMattermostがインストールされたサーバーで下記のコマンドを実行することにより、ファイルに対する権限を更新することができます。\n\n```\nchown {{.MattermostUsername}} \"{{.Path}}\"\nchmod +w \"{{.Path}}\"\n```\n\nファイルの権限を変更した後、Mattermostのアップグレードを再度試してみてください。アップグレードが完了し再起動を行うことができた場合、バイナリファイルの権限を元に戻すことを忘れないでください。\n\n```\nchown {{.FileUsername}} \"{{.Path}}\"\nchmod -w \"{{.Path}}\"\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-permission.app_error",
-    "translation": "MattermostをEnterprise Editionにアップグレードできませんでした。Mattermostシステムユーザー {{.MattermostUsername}} がバイナリファイルへの書き込み権限を持っていません。システム管理者がMattermostがインストールされたサーバーで下記のコマンドを実行することにより、ファイルに対する権限を更新することができます。\n\n```\nchmod +w \"{{.Path}}\"\n```\n\nファイルの権限を変更した後、Mattermostのアップグレードを再度試してみてください。アップグレードが完了し再起動を行うことができた場合、バイナリファイルの権限を元に戻すことを忘れないでください。\n\n```\nchmod -w \"{{.Path}}\"\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.generic_error.app_error",
-    "translation": "MattermostをEnterprise Editionにアップグレードできませんでした。"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.already-enterprise.app_error",
-    "translation": "すでにMattermost Enterprise Editionが起動しているため、アップグレードできません。"
-  },
-  {
     "id": "app.upload.upload_data.first_part_too_small.app_error",
     "translation": "データをアップロードできませんでした。最初の部分は少なくとも {{.Size}} バイト以上である必要があります。"
   },
@@ -6486,14 +6414,6 @@
     "translation": "システム管理者のみがハッシュ化されたパスワードを設定できます。"
   },
   {
-    "id": "api.user.login_cws.license.error",
-    "translation": "CWSログインが見つかりませんでした。"
-  },
-  {
-    "id": "api.user.login_by_cws.invalid_token.app_error",
-    "translation": "CWSトークンが不正です"
-  },
-  {
     "id": "api.user.get_uploads_for_user.forbidden.app_error",
     "translation": "アップロードを取得できませんでした。"
   },
@@ -6504,18 +6424,6 @@
   {
     "id": "api.upload.get_upload.forbidden.app_error",
     "translation": "アップロードを取得できませんでした。"
-  },
-  {
-    "id": "api.upgrade_to_enterprise_status.app_error",
-    "translation": "MattermostをEnterprise Editionにアップグレードできませんでした。"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.app_error",
-    "translation": "Mattermost Enterprise Editionへのアップグレードはすでに開始されています。"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.already-done.app_error",
-    "translation": "すでにMattermost Enterprise Editionにアップグレードされています。アップグレードを完了するにはサーバーを再起動してください。"
   },
   {
     "id": "api.post.search_posts.invalid_body.app_error",
@@ -6746,24 +6654,12 @@
     "translation": "認証プロバイダからのレスポンスに不正な署名が見つかりました。システム管理者に連絡してください。"
   },
   {
-    "id": "api.cloud.request_error",
-    "translation": "CWSへのリクエストを処理する際にエラーが発生しました。"
-  },
-  {
     "id": "app.upload.run_plugins_hook.rejected",
     "translation": "ファイル {{.Filename}} をアップロードできませんでした。プラグインによって拒否されました: {{.Reason}}"
   },
   {
     "id": "app.upload.run_plugins_hook.move_fail",
     "translation": "ファイルを移動できませんでした。"
-  },
-  {
-    "id": "api.cloud.license_error",
-    "translation": "あなたのライセンスはクラウドリクエストをサポートしていません。"
-  },
-  {
-    "id": "api.cloud.app_error",
-    "translation": "クラウドAPIリクエスト中に内部エラーが発生しました。"
   },
   {
     "id": "api.templates.email_us_anytime_at",
@@ -7266,14 +7162,6 @@
     "translation": "心当たりがない場合、このメールを無視してください。"
   },
   {
-    "id": "api.templates.welcome_body.app_download_title",
-    "translation": "デスクトップアプリとモバイルアプリをダウンロードする"
-  },
-  {
-    "id": "api.templates.welcome_body.app_download_button",
-    "translation": "ダウンロード"
-  },
-  {
     "id": "api.templates.verify_body.subTitle2",
     "translation": "下記をクリックし、電子メールアドレスを確認してください。"
   },
@@ -7330,10 +7218,6 @@
     "translation": "プロフィール画像は、ユーザーのログインプロバイダを通じて設定する必要があります。"
   },
   {
-    "id": "api.user.send_cloud_welcome_email.error",
-    "translation": "クラウドウェルカムメールを送信できませんでした"
-  },
-  {
     "id": "api.user.patch_user.login_provider_attribute_set.app_error",
     "translation": "フィールド'{{.Field}}'は、ユーザーのログインプロバイダを通じて設定する必要があります。"
   },
@@ -7364,74 +7248,6 @@
   {
     "id": "api.templates.invite_body.subTitle",
     "translation": "Mattermostでチームとの共同作業を始める"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.title",
-    "translation": "ワークスペースの準備が整いました!"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subtitle_info",
-    "translation": "以下のステップにより、チームを構築し、ワークスペースを最大限に活用することができます。"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subtitle",
-    "translation": "ワークスペースを設定する"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subject",
-    "translation": "おめでとう!"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.start_questions",
-    "translation": "利用を開始するにあたり、質問がありますか? メールにてお問い合わせください"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.signin_sub_info2",
-    "translation": "Windows、Linux、Mac、iOS、Androidで最高の体験を。"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.signin_sub_info",
-    "translation": "ワークスペースにサインインしてください"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.mm_apps",
-    "translation": "モバイルおよびデスクトップアプリ"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.invite_sub_info",
-    "translation": "このリンクを共有して、メンバーを {{.WorkSpace}} へ招待してください。"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.invite_info",
-    "translation": "ワークスペースにメンバーを招待する"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.info2",
-    "translation": "今後の使用のために、リンクを必ず保存またはブックマークしてください。"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.info",
-    "translation": "作成してくれてありがとうございます "
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.download_mm_info",
-    "translation": "Mattermostアプリをダウンロードする"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.app_market_place",
-    "translation": "アプリマーケットプレース。"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.add_apps_sub_info",
-    "translation": "GitHub、Jira、Zoomなどのツールを使って仕事を効率化しましょう。我々のマーケットプレースですべての統合機能をご覧ください"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.button",
-    "translation": "Mattermostを開く"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.add_apps_info",
-    "translation": "ワークスペースにアプリを追加する"
   },
   {
     "id": "api.team.invite_guests_to_channels.invalid_body.app_error",
@@ -7480,14 +7296,6 @@
   {
     "id": "api.job.retrieve.nopermissions",
     "translation": "取得しようとしているジョブのジョブタイプにパーミッションが含まれていません"
-  },
-  {
-    "id": "api.error_set_first_admin_visit_marketplace_status",
-    "translation": "ストア に初回管理者訪問マーケットプレースステータスを保存する際にエラーが発生しました。"
-  },
-  {
-    "id": "api.error_get_first_admin_visit_marketplace_status",
-    "translation": "ストアから初回管理者アクセスマーケットプレースステータスを取得する際にエラーが発生しました。"
   },
   {
     "id": "api.context.remote_id_missing.app_error",
@@ -7792,10 +7600,6 @@
   {
     "id": "api.command_remote.accept.help",
     "translation": "外部のMattermostインスタンスからの招待を受け付ける"
-  },
-  {
-    "id": "api.cloud.cws_webhook_event_missing_error",
-    "translation": "Webhookイベントが処理されませんでした。存在しないか、有効でないかのいずれかです。"
   },
   {
     "id": "api.file.test_connection_s3_bucket_does_not_exist.app_error",
@@ -8114,14 +7918,6 @@
     "translation": "受信したPost IDの数が{{.MaxLength}}の最大サイズを超えています"
   },
   {
-    "id": "app.system.complete_onboarding_request.no_first_user",
-    "translation": "オンボーディングの完了はシステム管理者のみが行えます。"
-  },
-  {
-    "id": "app.system.complete_onboarding_request.app_error",
-    "translation": "オンボーディングの完了リクエストをデコードできませんでした。"
-  },
-  {
     "id": "api.user.authorize_oauth_user.saml_response_too_long.app_error",
     "translation": "SAMLの応答が長すぎます"
   },
@@ -8148,10 +7944,6 @@
   {
     "id": "model.emoji.system_emoji_name.app_error",
     "translation": "既存のシステム絵文字名と名前が競合しています。"
-  },
-  {
-    "id": "app.system.get_onboarding_request.app_error",
-    "translation": "オンボーディングの完了ステータスの取得に失敗しました。"
   },
   {
     "id": "app.member_count",
@@ -8282,18 +8074,6 @@
     "translation": "チームの利用状況を取得できませんでした"
   },
   {
-    "id": "api.cloud.teams_limit_reached.restore",
-    "translation": "チーム数の制限に達したため、チームを復元できませんでした"
-  },
-  {
-    "id": "api.cloud.teams_limit_reached.create",
-    "translation": "チーム数の制限に達したため、チームを作成できませんでした"
-  },
-  {
-    "id": "api.cloud.notify_admin_to_upgrade_error.already_notified",
-    "translation": "管理者に通知済み"
-  },
-  {
     "id": "common.parse_error_int64",
     "translation": "値を解析できませんでした: {{.Value}} から int64"
   },
@@ -8306,10 +8086,6 @@
     "translation": "アップロードされたデータからファイル情報を生成できませんでした。"
   },
   {
-    "id": "app.post.cloud.get.app_error",
-    "translation": "クラウドプランの制限を超えているため投稿を取得できません。"
-  },
-  {
     "id": "model.config.is_valid.amazons3_timeout.app_error",
     "translation": "不正なタイムアウト値 {{.Value}} 。正の数にする必要があります。"
   },
@@ -8320,22 +8096,6 @@
   {
     "id": "app.post_reminder_dm",
     "translation": "このメッセージ（@{{.Username}}により投稿された）についてのリマインダーです: {{.SiteURL}}/{{.TeamName}}/pl/{{.PostId}}"
-  },
-  {
-    "id": "api.command_marketplace.unsupported.app_error",
-    "translation": "このデバイスではmarketplaceコマンドはサポートされていません。"
-  },
-  {
-    "id": "api.command_marketplace.name",
-    "translation": "マーケットプレイス"
-  },
-  {
-    "id": "api.command_marketplace.desc",
-    "translation": "マーケットプレイスを開く"
-  },
-  {
-    "id": "api.command_help.success",
-    "translation": "Mattermost は、ツールやチームをまたがるセキュアなコミュニケーション、コラボレーション、オーケストレーションのためのオープンソースプラットフォームです。\nMattermostには、2つの主要なツールが含まれています:\n\n**Channels** - 1対1もしくはグループとのメッセージングによりチームを常に繋がった状態にします\n**[Playbooks](/playbooks)** - 繰り返し行われる作業をプロセス化し、予測可能な結果を残せるようにします\n\n[ドキュメントとガイドを見る]({{.HelpLink}})"
   },
   {
     "id": "ent.saml.configure.certificate_parse_error.app_error",
@@ -8376,14 +8136,6 @@
   {
     "id": "model.group.name.reserved_name.app_error",
     "translation": "グループ名は予約語として既に登録されています"
-  },
-  {
-    "id": "app.last_accessible_file.app_error",
-    "translation": "最後にアクセスしたファイルの取得エラー"
-  },
-  {
-    "id": "app.file.cloud.get.app_error",
-    "translation": "クラウドプランの制限を超えているため、ファイルを取得できません。"
   },
   {
     "id": "api.team.invite_guests_to_channels.license.error",
@@ -8558,16 +8310,12 @@
     "translation": "不正なログフィルターです"
   },
   {
-    "id": "api.server.cws.needs_enterprise_edition",
-    "translation": "Mattermost Enterprise Editionでのみ利用可能なサービスです"
-  },
-  {
     "id": "app.oauth.remove_auth_data_by_client_id.app_error",
     "translation": "oauth データを削除することができませんでした。"
   },
   {
-    "id": "api.templates.license_up_for_renewal_contact_sales",
-    "translation": "営業に問い合わせる"
+    "id": "api.templates.license_up_for_renewal_review_license",
+    "translation": "Review license"
   },
   {
     "id": "model.license_record.is_valid.bytes.app_error",
@@ -8596,10 +8344,6 @@
   {
     "id": "api.post.post_priority.max_recipients_persistent_notification_post.request_error",
     "translation": "永続的な通知は、最大 {{.MaxRecipients}} 人の受信者への通知が許可されています。"
-  },
-  {
-    "id": "api.error_no_organization_name_provided_for_self_hosted_onboarding",
-    "translation": "エラー: セルフホストのオンボーディングで組織名が指定されていません。"
   },
   {
     "id": "api.post.post_priority.min_recipients_persistent_notification_post.request_error",
@@ -8964,10 +8708,6 @@
   {
     "id": "api.templates.ip_filters_changed_footer.contact_support",
     "translation": "サポートに連絡する"
-  },
-  {
-    "id": "api.templates.ip_filters_changed_footer.log_in_to_customer_portal",
-    "translation": "カスタマーポータルにログインしてIPフィルタリングをリセットする"
   },
   {
     "id": "api.templates.ip_filters_changed.title",
@@ -9480,10 +9220,6 @@
   {
     "id": "api.command_share.invite_remote_to_channel.error",
     "translation": "チャンネルにリモートを招待できません: {{.Error}}"
-  },
-  {
-    "id": "api.server.cws.disabled",
-    "translation": "Mattermostカスタマーポータルとのやり取りはシステム管理者によって無効化されています。"
   },
   {
     "id": "basic_security_check.url.too_long_error",

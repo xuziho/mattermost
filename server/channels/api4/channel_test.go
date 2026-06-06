@@ -6294,8 +6294,6 @@ func TestGetChannelModerations(t *testing.T) {
 		scheme.DefaultChannelGuestRole = ""
 
 		mockStore := mocks.Store{}
-
-		// Playbooks DB job requires a plugin mock
 		pluginStore := mocks.PluginStore{}
 		pluginStore.On("List", mock.Anything, mock.Anything, mock.Anything).Return([]string{}, nil)
 		mockStore.On("Plugin").Return(&pluginStore)
@@ -6450,8 +6448,6 @@ func TestPatchChannelModerations(t *testing.T) {
 		scheme.DefaultChannelGuestRole = ""
 
 		mockStore := mocks.Store{}
-
-		// Playbooks DB job requires a plugin mock
 		pluginStore := mocks.PluginStore{}
 		pluginStore.On("List", mock.Anything, mock.Anything, mock.Anything).Return([]string{}, nil)
 		mockStore.On("Plugin").Return(&pluginStore)

@@ -17,9 +17,6 @@ import {haveITeamPermission} from 'mattermost-redux/selectors/entities/roles';
 import {loadOutgoingOAuthConnectionsAndProfiles} from 'actions/integration_actions';
 
 import BackstageList from 'components/backstage/components/backstage_list';
-import ExternalLink from 'components/external_link';
-
-import {DeveloperLinks} from 'utils/constants';
 
 import type {GlobalState} from 'types/store';
 
@@ -106,20 +103,7 @@ const InstalledOutgoingOAuthConnections = (props: Props) => {
             helpText={
                 <FormattedMessage
                     id='installed_outgoing_oauth_connections.help'
-                    defaultMessage='Create {outgoingOauthConnections} to securely integrate bots and third-party apps with Mattermost.'
-                    values={{
-                        outgoingOauthConnections: (
-                            <ExternalLink
-                                href={DeveloperLinks.SETUP_OAUTH2}
-                                location='installed_outgoing_oauth_connections'
-                            >
-                                <FormattedMessage
-                                    id='installed_outgoing_oauth_connections.help.outgoingOauthConnections'
-                                    defaultMessage='Outgoing OAuth Connections'
-                                />
-                            </ExternalLink>
-                        ),
-                    }}
+                    defaultMessage='Create outgoing OAuth connections to securely authenticate webhook and slash command requests.'
                 />
             }
             emptyText={

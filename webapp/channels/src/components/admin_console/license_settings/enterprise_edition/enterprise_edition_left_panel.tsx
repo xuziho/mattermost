@@ -15,8 +15,6 @@ import {getConfig} from 'mattermost-redux/selectors/entities/general';
 import {getServerLimits} from 'mattermost-redux/selectors/entities/limits';
 
 import useGetFeatureFlagValue from 'components/common/hooks/useGetFeatureFlagValue';
-import useOpenPricingModal from 'components/common/hooks/useOpenPricingModal';
-import useOpenSalesLink from 'components/common/hooks/useOpenSalesLink';
 import ExternalLink from 'components/external_link';
 import Tag from 'components/widgets/tag/tag';
 import WithTooltip from 'components/with_tooltip';
@@ -65,8 +63,6 @@ const EnterpriseEditionLeftPanel = ({
 }: EnterpriseEditionProps) => {
     const {formatMessage} = useIntl();
     const [unsanitizedLicense, setUnsanitizedLicense] = useState(license);
-    const {openPricingModal, isAirGapped} = useOpenPricingModal();
-    const [openContactSales] = useOpenSalesLink();
     const enableMattermostEntry = useGetFeatureFlagValue('EnableMattermostEntry');
 
     useEffect(() => {
@@ -91,19 +87,6 @@ const EnterpriseEditionLeftPanel = ({
     const expirationDays = getRemainingDaysFromFutureTimestamp(parseInt(unsanitizedLicense.ExpiresAt, 10));
     const isEntrySku = unsanitizedLicense.SkuShortName === LicenseSkus.Entry;
 
-    const viewPlansButton = isAirGapped ? null : (
-        <button
-            id='enterprise_edition_view_plans'
-            onClick={openPricingModal}
-            className='btn btn-tertiary btn-sm PlanDetails__viewPlansButton'
-        >
-            {formatMessage({
-                id: 'workspace_limits.menu_limit.view_plans',
-                defaultMessage: 'View plans',
-            })}
-        </button>
-    );
-
     // For Entry SKU, render a simplified panel
     if (isEntrySku) {
         return (
@@ -117,7 +100,6 @@ const EnterpriseEditionLeftPanel = ({
                             {`Mattermost ${getSkuDisplayName(unsanitizedLicense.SkuShortName, unsanitizedLicense.IsGovSku === 'true')}`}
                         </div>
                     </div>
-                    {viewPlansButton}
                 </div>
                 <div className='EnterpriseEditionLeftPanel__Subtitle'>
                     <FormattedMessage
@@ -212,20 +194,10 @@ const EnterpriseEditionLeftPanel = ({
                         )}
                     </div>
                 </div>
-                {viewPlansButton}
             </div>
             <div className='licenseInformation'>
                 <div className='licenseInformation__Header'>
                     <span className='licenseInformation__Title'>{'License details'}</span>
-                    <button
-                        className='btn btn-primary btn-sm add-seats-button '
-                        onClick={openContactSales}
-                    >
-                        <FormattedMessage
-                            id={'admin.license.enterpriseEdition.add.seats'}
-                            defaultMessage='+ Add seats'
-                        />
-                    </button>
                 </div>
                 {
                     renderLicenseContent(

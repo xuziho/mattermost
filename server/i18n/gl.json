@@ -230,5 +230,9 @@
   {
     "id": "api.roles.patch_roles.not_allowed_permission.error",
     "translation": "Un ou máis dos seguintes permisos que tenta engadir ou eliminar non está autorizado"
+  },
+  {
+    "id": "api.templates.license_up_for_renewal_review_license",
+    "translation": "Review license"
   }
 ]

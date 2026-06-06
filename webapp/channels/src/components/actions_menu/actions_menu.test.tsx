@@ -29,20 +29,20 @@ jest.mock('utils/utils', () => {
 });
 
 const dropdownMenuActions: PostDropdownMenuAction[] = [
-    {
-        id: 'the_component_id',
-        pluginId: 'playbooks',
-        text: 'Some text',
+	{
+		id: 'the_component_id',
+		pluginId: 'custom-plugin',
+		text: 'Some text',
         action: jest.fn(),
         filter: jest.fn(() => true),
     },
 ];
 
 const dropdownComponents: PostDropdownMenuItemComponent[] = [
-    {
-        id: 'the_component_id',
-        pluginId: 'playbooks',
-        text: 'Some text',
+	{
+		id: 'the_component_id',
+		pluginId: 'custom-plugin',
+		text: 'Some text',
         component: () => null,
     },
 ];
@@ -59,9 +59,7 @@ describe('components/actions_menu/ActionsMenu', () => {
         post: TestHelper.getPostMock({id: 'post_id_1', is_pinned: false, type: '' as PostType}),
         pluginMenuItemComponents: [],
         location: 'center',
-        canOpenMarketplace: false,
         actions: {
-            openModal: jest.fn(),
             openAppsModal: jest.fn(),
             handleBindingClick: jest.fn(),
             postEphemeralCallResponseForPost: jest.fn(),
@@ -69,52 +67,22 @@ describe('components/actions_menu/ActionsMenu', () => {
         },
     };
 
-    test('sysadmin - should have divider when plugin menu item exists', () => {
-        const {container, rerender} = renderWithContext(
-            <ActionsMenu {...baseProps}/>,
-        );
-        expect(container.querySelector('#divider_post_post_id_1_marketplace')).toBeNull();
-
-        rerender(
-            <ActionsMenu
-                {...baseProps}
-                pluginMenuItems={dropdownMenuActions}
-                canOpenMarketplace={true}
-            />,
-        );
-        expect(container.querySelector('#divider_post_post_id_1_marketplace')).not.toBeNull();
-    });
-
-    test('has actions - marketplace enabled and user has SYSCONSOLE_WRITE_PLUGINS - should show actions and app marketplace', () => {
+    test('has actions - should show actions', () => {
         const {container} = renderWithContext(
             <ActionsMenu
                 {...baseProps}
                 pluginMenuItems={dropdownMenuActions}
-                canOpenMarketplace={true}
             />,
         );
         expect(container).toMatchSnapshot();
     });
 
-    test('has actions - marketplace disabled or user not having SYSCONSOLE_WRITE_PLUGINS - should not show actions and app marketplace', () => {
+    test('no actions - menu should not be visible', () => {
         const {container} = renderWithContext(
             <ActionsMenu
                 {...baseProps}
-                pluginMenuItems={dropdownMenuActions}
-                canOpenMarketplace={false}
             />,
         );
-        expect(container).toMatchSnapshot();
-    });
-
-    test('no actions - sysadmin - menu should show visit marketplace', () => {
-        const {container} = renderWithContext(
-            <ActionsMenu
-                {...baseProps}
-                canOpenMarketplace={true}
-            />,
-        );
-
         expect(container).toMatchSnapshot();
     });
 
@@ -130,22 +98,6 @@ describe('components/actions_menu/ActionsMenu', () => {
         expect(container).toMatchSnapshot();
     });
 
-    test('sysadmin - should have divider when pluggable menu item exists', () => {
-        const {container, rerender} = renderWithContext(
-            <ActionsMenu {...baseProps}/>,
-        );
-        expect(container.querySelector('#divider_post_post_id_1_marketplace')).toBeNull();
-
-        rerender(
-            <ActionsMenu
-                {...baseProps}
-                pluginMenuItemComponents={dropdownComponents}
-                canOpenMarketplace={true}
-            />,
-        );
-        expect(container.querySelector('#divider_post_post_id_1_marketplace')).not.toBeNull();
-    });
-
     test('end user - should not have divider when pluggable menu item exists', () => {
         const {container, rerender} = renderWithContext(
             <ActionsMenu
@@ -153,7 +105,7 @@ describe('components/actions_menu/ActionsMenu', () => {
                 isSysAdmin={false}
             />,
         );
-        expect(container.querySelector('#divider_post_post_id_1_marketplace')).toBeNull();
+        expect(container.querySelector('#divider_post_post_id_1')).toBeNull();
 
         rerender(
             <ActionsMenu
@@ -162,6 +114,6 @@ describe('components/actions_menu/ActionsMenu', () => {
                 pluginMenuItemComponents={dropdownComponents}
             />,
         );
-        expect(container.querySelector('#divider_post_post_id_1_marketplace')).toBeNull();
+        expect(container.querySelector('#divider_post_post_id_1')).toBeNull();
     });
 });

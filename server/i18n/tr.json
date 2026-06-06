@@ -615,14 +615,6 @@
     "translation": "Yeni bir grup iletisi ekleme izniniz yok."
   },
   {
-    "id": "api.command_help.desc",
-    "translation": "Mattermost yardım iletisini görüntüle"
-  },
-  {
-    "id": "api.command_help.name",
-    "translation": "help"
-  },
-  {
     "id": "api.command_invite.channel.app_error",
     "translation": "Geçerli kanal alınırken sorun çıktı."
   },
@@ -1897,10 +1889,6 @@
   {
     "id": "api.templates.verify_subject",
     "translation": "[{{ .SiteName }}] e-posta doğrulama"
-  },
-  {
-    "id": "api.templates.welcome_body.app_download_info",
-    "translation": "En iyi deneyim için Windows, Mac, iOS ve Android uygulamalarını indirebilirsiniz."
   },
   {
     "id": "api.templates.welcome_body.button",
@@ -4591,36 +4579,8 @@
     "translation": "Herkese açık anahtar silinirken bir sorun çıktı."
   },
   {
-    "id": "app.plugin.install_marketplace_plugin.app_error",
-    "translation": "Mağaza uygulama eki kurulamadı."
-  },
-  {
     "id": "app.plugin.invalid_version.app_error",
     "translation": "Uygulama eki sürümü işlenemedi."
-  },
-  {
-    "id": "app.plugin.marketplace_client.app_error",
-    "translation": "Mağaza istemcisi oluşturulamadı."
-  },
-  {
-    "id": "app.plugin.marketplace_client.failed_to_fetch",
-    "translation": "Uygulama ekleri mağaza sunucusundan alınamadı."
-  },
-  {
-    "id": "app.plugin.marketplace_plugin_request.app_error",
-    "translation": "Mağaza uygulama eki isteğinin kodu çözülemedi."
-  },
-  {
-    "id": "app.plugin.marketplace_plugins.not_found.app_error",
-    "translation": "İstenilen mağaza uygulama eki bulunamadı."
-  },
-  {
-    "id": "app.plugin.marketplace_plugins.signature_not_found.app_error",
-    "translation": "İstenilen mağaza uygulama eki imzası bulunamadı."
-  },
-  {
-    "id": "app.plugin.marshal.app_error",
-    "translation": "Mağaza uygulama ekleri sıraya alınamadı."
   },
   {
     "id": "app.plugin.modify_saml.app_error",
@@ -5017,10 +4977,6 @@
   {
     "id": "app.plugin.get_public_key.get_file.app_error",
     "translation": "Herkese açık anahtar depodan alınırken bir sorun çıktı."
-  },
-  {
-    "id": "app.plugin.marketplace_disabled.app_error",
-    "translation": "Mağaza özelliği kapatıldı. Ayrıntılar için günlük kayıtlarına bakın."
   },
   {
     "id": "app.plugin.remove_bundle.app_error",
@@ -6259,14 +6215,6 @@
     "translation": "Yalnızca sistem yöneticileri önceden karılmış parolalar ayarlayabilir."
   },
   {
-    "id": "api.user.login_cws.license.error",
-    "translation": "Müşteri site sunucusu oturum açmaya izin vermiyor."
-  },
-  {
-    "id": "api.user.login_by_cws.invalid_token.app_error",
-    "translation": "Müşteri site sunucusu kodu geçersiz"
-  },
-  {
     "id": "api.user.get_uploads_for_user.forbidden.app_error",
     "translation": "Yüklemeler alınamadı."
   },
@@ -6333,14 +6281,6 @@
   {
     "id": "api.config.migrate_config.app_error",
     "translation": "Kaydedilmiş yapılandırma aktarılamadı."
-  },
-  {
-    "id": "api.cloud.license_error",
-    "translation": "Lisansınız Cloud isteklerini desteklemiyor."
-  },
-  {
-    "id": "api.cloud.app_error",
-    "translation": "Cloud API isteği yapılırken bir iç sorun çıktı."
   },
   {
     "id": "api.admin.add_certificate.parseform.app_error",
@@ -6607,52 +6547,8 @@
     "translation": "Takımlar sayılamadı."
   },
   {
-    "id": "api.upgrade_to_enterprise_status.signature.app_error",
-    "translation": "Mattermost Enterprise üst tarifesine geçilemedi. İndirilen dosyanın sayısal imzası doğrulanamadı."
-  },
-  {
-    "id": "api.upgrade_to_enterprise_status.app_error",
-    "translation": "Mattermost Enterprise üst tarifesine geçilemedi."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.system_not_supported.app_error",
-    "translation": "Mattermost Enterprise üst tarifesine geçilemedi. Bu özellik yalnızca x86-64 mimarisine sahip Linux sistemleri üzerinde kullanılabilir."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-user.app_error",
-    "translation": "Mattermost Enterprise üst tarifesine geçilemedi. {{.MattermostUsername}} Mattermost sistem kullanıcısının gerekli program dosyalarına yazma izni yok. Bir sistem yöneticisi Mattermost uygulamasının kurulu olduğu sunucu üzerinde aşağıdaki komutları yürüterek dosya izinlerini güncelleyebilir:\n\n```\nchown {{.MattermostUsername}} \"{{.Path}}\"\n```\n\nDosya izinleri değiştirildikten sonra Mattermost üst tarifesine geçmeyi yeniden deneyin. Geçiş işlemi tamamlanıp sunucuyu yeniden başlatıldıktan sonra aşağıdaki komutun yürütülerek program dosyası izinlerini özgün duruma döndürülmesi gerektiğini unutmayın:\n\n```\nchown {{.FileUsername}} \"{{.Path}}\"\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-user-and-permission.app_error",
-    "translation": "Mattermost Enterprise üst tarifesine geçilemedi. {{.MattermostUsername}} Mattermost sistem kullanıcısının gerekli program dosyalarına yazma izni yok. Bir sistem yöneticisi Mattermost uygulamasının kurulu olduğu sunucu üzerinde aşağıdaki komutları yürüterek dosya izinlerini güncelleyebilir:\n\n```\nchown {{.MattermostUsername}} \"{{.Path}}\"\nchmod +w \"{{.Path}}\"\n```\n\nDosya izinleri değiştirildikten sonra Mattermost üst tarifesine geçmeyi yeniden deneyin. Geçiş işlemini tamamlanıp sunucuyu yeniden başlatıldıktan sonra aşağıdaki komutun yürütülerek program dosyası izinlerini özgün duruma döndürülmesi gerektiğini unutmayın:\n\n```\nchown {{.FileUsername}} \"{{.Path}}\"\nchmod -w \"{{.Path}}\"\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-permission.app_error",
-    "translation": "Mattermost Enterprise üst tarifesine geçilemedi. {{.MattermostUsername}} Mattermost sistem kullanıcısının gerekli program dosyalarına yazma izni yok. Bir sistem yöneticisi Mattermost uygulamasının kurulu olduğu sunucu üzerinde aşağıdaki komutları yürüterek dosya izinlerini güncelleyebilir:\n\n```\nchmod +w \"{{.Path}}\"\n```\n\nDosya izinleri değiştirildikten sonra Mattermost üst tarifesine geçmeyi yeniden deneyin. Geçiş işlemini tamamlanıp sunucuyu yeniden başlatıldıktan sonra aşağıdaki komutun yürütülerek program dosyası izinlerini özgün duruma döndürülmesi gerektiğini unutmayın:\n\n```\nchmod -w \"{{.Path}}\"\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.generic_error.app_error",
-    "translation": "Mattermost Enterprise üst tarifesine geçilemedi."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.app_error",
-    "translation": "Zaten bir Mattermost Enterprise üst tarifesine geçme işlemi yapılıyor."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.already-enterprise.app_error",
-    "translation": "Zaten Mattermost Enterprise üst tarifesini kullandığınız için tarife geçişi yapamazsınız."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.already-done.app_error",
-    "translation": "Zaten Mattermost Enterprise üst tarifesine geçmişsiniz. Lütfen geçiş işlemini tamamlamak için sunucuyu yeniden başlatın."
-  },
-  {
     "id": "api.system.update_notices.validating_failed",
     "translation": "Ürün bildirimi koşulları doğrulanamadı"
-  },
-  {
-    "id": "api.cloud.request_error",
-    "translation": "Müşteri site sunucusu isteği işlenirken sorun çıktı."
   },
   {
     "id": "model.plugin_command_error.error.app_error",
@@ -7243,14 +7139,6 @@
     "translation": "Bu işlemi siz yapmadıysanız bu e-postayı yok sayabilirsiniz."
   },
   {
-    "id": "api.templates.welcome_body.app_download_title",
-    "translation": "Bilgisayar ve mobil uygulamalarını indirin"
-  },
-  {
-    "id": "api.templates.welcome_body.app_download_button",
-    "translation": "İndir"
-  },
-  {
     "id": "api.templates.questions_footer.title",
     "translation": "Sorularınız mı var?"
   },
@@ -7285,18 +7173,6 @@
   {
     "id": "api.templates.invite_body_guest.subTitle",
     "translation": "Takım ile iş birliği yapmak üzere konuk olarak davet edildiniz"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.signin_sub_info2",
-    "translation": "Windows, Linux, Mac, iOS ve Android üzerinde en iyi deneyim için."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.signin_sub_info",
-    "translation": "Çalışma alanınıza şuradan oturum açın"
-  },
-  {
-    "id": "api.user.send_cloud_welcome_email.error",
-    "translation": "Cloud karşılama iletisi gönderilemedi"
   },
   {
     "id": "api.templates.welcome_body.subTitle2",
@@ -7343,72 +7219,8 @@
     "translation": "Mattermost üzerinde takımınızla iş birliği yapmaya başlayın"
   },
   {
-    "id": "api.templates.cloud_welcome_email.title",
-    "translation": "Çalışma alanınız hazır!"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subtitle_info",
-    "translation": "Aşağıdaki adımları izleyerek takımlarınızı oluşturun ve çalışma alanınızı değerlendirin."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subtitle",
-    "translation": "Çalışma alanınızı kurun"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subject",
-    "translation": "Tebrikler!"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.start_questions",
-    "translation": "Başlamakla ilgili sorularınız mı var? Şu adrese e-posta gönderin"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.mm_apps",
-    "translation": "mobil ve bilgisayar uygulamaları"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.invite_sub_info",
-    "translation": "Kişileri {{.WorkSpace}} çalışma alanınıza davet etmek için bu bağlantıyı paylaşın:"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.invite_info",
-    "translation": "Kişileri çalışma alanınıza davet edin"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.info2",
-    "translation": "Gelecekte kullanmak için bağlantınızı kaydettiğinizden ya da sık kullanılanlara eklediğinizden emin olun."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.info",
-    "translation": "Eklediğiniz için teşekkürler "
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.download_mm_info",
-    "translation": "Mattermost uygulamasını indir"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.button",
-    "translation": "Mattermost uygulamasını aç"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.app_market_place",
-    "translation": "uygulama mağazası."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.add_apps_sub_info",
-    "translation": "Çalışmalarınızı GitHub, Jira ve Zoom gibi uygulamalar ile paylaşın. Tüm bütünleştirmeleri şurada görebilirsiniz"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.add_apps_info",
-    "translation": "Çalışma alanınıza uygulamalar ekleyin"
-  },
-  {
     "id": "api.team.invite_guests_to_channels.invalid_body.app_error",
     "translation": "İstek içeriği geçersiz ya da eksik."
-  },
-  {
-    "id": "api.cloud.cws_webhook_event_missing_error",
-    "translation": "İnternet kancası işlemi yapılamadı. Eksik ya da geçersiz olabilir."
   },
   {
     "id": "app.import.generate_password.app_error",
@@ -7429,14 +7241,6 @@
   {
     "id": "model.user.is_valid.marshal.app_error",
     "translation": "Alan JSON olarak kodlanamadı"
-  },
-  {
-    "id": "api.error_set_first_admin_visit_marketplace_status",
-    "translation": "Mağazada ilk yönetici ziyareti durum bilgisi kaydedilirken sorun çıktı."
-  },
-  {
-    "id": "api.error_get_first_admin_visit_marketplace_status",
-    "translation": "Mağazadan ilk yönetici ziyareti durum bilgisi alınırken sorun çıktı."
   },
   {
     "id": "api.channel.patch_channel_moderations.cache_invalidation.error",
@@ -8126,20 +7930,8 @@
     "translation": "SAML yanıtı çok uzun"
   },
   {
-    "id": "app.system.complete_onboarding_request.no_first_user",
-    "translation": "Başlamaya hazırlık işlemi yalnızca bir sistem yöneticisi tarafından tamamlanabilir."
-  },
-  {
-    "id": "app.system.complete_onboarding_request.app_error",
-    "translation": "Başlamaya hazırlık isteğinin tamamının şifresi çözülemedi."
-  },
-  {
     "id": "model.emoji.system_emoji_name.app_error",
     "translation": "Bu ad, var olan bir sistem görsel ifadesi adıyla çakışıyor."
-  },
-  {
-    "id": "app.system.get_onboarding_request.app_error",
-    "translation": "Başlamaya hazırlık işleminin tamamlanma durumu alınamadı."
   },
   {
     "id": "api.error_set_first_admin_complete_setup",
@@ -8282,14 +8074,6 @@
     "translation": "Takımların kullanım bilgileri alınamadı"
   },
   {
-    "id": "api.cloud.teams_limit_reached.restore",
-    "translation": "Takım sayısı sınırına ulaşıldığından takım geri yüklenemedi"
-  },
-  {
-    "id": "api.cloud.teams_limit_reached.create",
-    "translation": "Takım sayısı sınırına ulaşıldığından takım eklenemedi"
-  },
-  {
     "id": "app.usage.get_storage_usage.app_error",
     "translation": "Depolama alanı kullanımı alınamadı."
   },
@@ -8298,16 +8082,8 @@
     "translation": "{{.Value}} kod çözücü eşzamanlılığı geçersiz. Pozitif bir sayı ya da -1 olmalıdır."
   },
   {
-    "id": "api.cloud.notify_admin_to_upgrade_error.already_notified",
-    "translation": "Yönetici zaten bilgilendirilmiş"
-  },
-  {
     "id": "common.parse_error_int64",
     "translation": "Değer işlenemedi:{{.Value}} int64 olarak"
-  },
-  {
-    "id": "app.post.cloud.get.app_error",
-    "translation": "Cloud tarifesinin sınırlarını aştığından ileti alınamadı."
   },
   {
     "id": "app.last_accessible_post.app_error",
@@ -8328,22 +8104,6 @@
   {
     "id": "app.team.clear_cache.app_error",
     "translation": "Takım üyesi ön belleği temizlenirken sorun çıktı"
-  },
-  {
-    "id": "api.command_help.success",
-    "translation": "Mattermost, sağladığı araçlar ile takımların güvenli iletişim, işbirliği ve birlikte çalışmasını sağlayan açık kaynaklı bir platformdur.\nMattermost üç temel araç sunar:\n\n**Kanallar** - Takımınızla toplu olarak ve üyeleriyle birebir iletişim kurabilirsiniz.\n**[Senaryolar](/playbooks)** - Yinelenen işlemlere özel yapılandırmalar oluşturarak öngörülebilir sonuçlar alabilirsiniz.\n\n[İlgili belgeler ve rehberler]({{.HelpLink}})"
-  },
-  {
-    "id": "api.command_marketplace.unsupported.app_error",
-    "translation": "Aygıtınızda marketplace komutu desteklenmiyor."
-  },
-  {
-    "id": "api.command_marketplace.name",
-    "translation": "marketplace"
-  },
-  {
-    "id": "api.command_marketplace.desc",
-    "translation": "Mağazayı aç"
   },
   {
     "id": "app.notify_admin.send_notification_post.app_error",
@@ -8380,14 +8140,6 @@
   {
     "id": "app.job.error",
     "translation": "Görev yürütülürken sorun çıktı."
-  },
-  {
-    "id": "app.last_accessible_file.app_error",
-    "translation": "Erişilebilen son dosya alınırken sorun çıktı"
-  },
-  {
-    "id": "app.file.cloud.get.app_error",
-    "translation": "Cloud tarifesinin sınırlarını aştığından dosya alınamadı."
   },
   {
     "id": "model.group.name.reserved_name.app_error",
@@ -8562,16 +8314,12 @@
     "translation": "Kimlik doğrulama hizmeti geçersiz: {{.AuthService}}"
   },
   {
-    "id": "api.server.cws.needs_enterprise_edition",
-    "translation": "Bu hizmet yalnızca Mattermost Enterprise sürümüyle kullanılabilir"
-  },
-  {
     "id": "app.oauth.remove_auth_data_by_client_id.app_error",
     "translation": "Oauth verileri kaldırılamadı."
   },
   {
-    "id": "api.templates.license_up_for_renewal_contact_sales",
-    "translation": "Satış ekibi ile görüşün"
+    "id": "api.templates.license_up_for_renewal_review_license",
+    "translation": "Review license"
   },
   {
     "id": "api.system.logs.invalidFilter",
@@ -8636,10 +8384,6 @@
   {
     "id": "model.config.is_valid.persistent_notifications_interval.app_error",
     "translation": "Kalıcı bildirimlerin geçersiz sayılacağı sıklık. En az iki dakika olmalıdır."
-  },
-  {
-    "id": "api.error_no_organization_name_provided_for_self_hosted_onboarding",
-    "translation": "Hata: Özel barındırılan kullanıma geçmek için kuruluş adı belirtilmemiş."
   },
   {
     "id": "api.post.post_priority.min_recipients_persistent_notification_post.request_error",
@@ -9270,10 +9014,6 @@
     "translation": "Destek ekibi ile görüşün"
   },
   {
-    "id": "api.templates.ip_filters_changed_footer.log_in_to_customer_portal",
-    "translation": "IP süzmeyi sıfırlamak için müşteri portalında oturum açın"
-  },
-  {
     "id": "api.templates.ip_filters_changed_footer.send_an_email_to",
     "translation": "{{ .InitiatingUserEmail }} adresine bir e-posta gönderin"
   },
@@ -9436,10 +9176,6 @@
   {
     "id": "api.post.move_thread.disabled.app_error",
     "translation": "Konuları taşıma özelliği kapalı"
-  },
-  {
-    "id": "api.server.cws.disabled",
-    "translation": "Mattermost müşteri portalı ile etkileşim kurma özelliği sistem yöneticisi tarafından kapatılmış."
   },
   {
     "id": "api.templates.ip_filters_changed.title",

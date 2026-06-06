@@ -283,17 +283,11 @@ class AuthenticationCategory extends SidebarCategory {
 class PluginsCategory extends SidebarCategory {
     readonly pluginManagement: SidebarSection;
     readonly agents: SidebarSection;
-    readonly calls: SidebarSection;
-    readonly playbooks: SidebarSection;
-    readonly boards: SidebarSection;
 
     constructor(container: Locator) {
         super(container);
         this.pluginManagement = this.section('Plugin Management');
         this.agents = this.section('Agents');
-        this.calls = this.section('Calls');
-        this.playbooks = this.section('Playbooks');
-        this.boards = this.section('Mattermost Boards');
     }
 
     getPlugin(pluginName: string): SidebarSection {

@@ -92,8 +92,6 @@ var tReservedDomains = []struct {
 	{"admin", true},
 	{"Admin-punch", true},
 	{"spin-punch-admin", false},
-	{"playbooks", true},
-	{"boards", true},
 }
 
 func TestReservedTeamName(t *testing.T) {

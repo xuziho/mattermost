@@ -4,29 +4,20 @@
 package app
 
 import (
-	"crypto/subtle"
-	"errors"
 	"fmt"
 	"net/http"
-	"net/url"
-	"os"
 	"strconv"
-	"strings"
 	"time"
 
 	"github.com/avct/uasurfer"
 
 	"github.com/mattermost/mattermost/server/public/model"
 	"github.com/mattermost/mattermost/server/public/plugin"
-	"github.com/mattermost/mattermost/server/public/shared/mlog"
 	"github.com/mattermost/mattermost/server/public/shared/request"
-	"github.com/mattermost/mattermost/server/v8/channels/store"
 	"github.com/mattermost/mattermost/server/v8/channels/utils"
 )
 
-const cwsTokenEnv = "CWS_CLOUD_TOKEN"
-
-func (a *App) AuthenticateUserForLogin(rctx request.CTX, id, loginId, password, mfaToken, cwsToken string, ldapOnly bool) (user *model.User, err *model.AppError) {
+func (a *App) AuthenticateUserForLogin(rctx request.CTX, id, loginId, password, mfaToken, _ string, ldapOnly bool) (user *model.User, err *model.AppError) {
 	// Do statistics
 	defer func() {
 		if a.Metrics() != nil {
@@ -38,52 +29,13 @@ func (a *App) AuthenticateUserForLogin(rctx request.CTX, id, loginId, password, 
 		}
 	}()
 
-	if password == "" && !isCWSLogin(a, cwsToken) {
+	if password == "" {
 		return nil, model.NewAppError("AuthenticateUserForLogin", "api.user.login.blank_pwd.app_error", nil, "", http.StatusBadRequest)
 	}
 
 	// Get the MM user we are trying to login
 	if user, err = a.GetUserForLogin(rctx, id, loginId); err != nil {
 		return nil, err
-	}
-
-	// CWS login allow to use the one-time token to login the users when they're redirected to their
-	// installation for the first time
-	if isCWSLogin(a, cwsToken) {
-		if err = checkUserNotBot(user); err != nil {
-			return nil, err
-		}
-		token, err := a.Srv().Store().Token().GetByToken(cwsToken)
-		if nfErr := new(store.ErrNotFound); err != nil && !errors.As(err, &nfErr) {
-			rctx.Logger().Debug("Error retrieving the cws token from the store", mlog.Err(err))
-			return nil, model.NewAppError("AuthenticateUserForLogin",
-				"api.user.login_by_cws.invalid_token.app_error", nil, "", http.StatusInternalServerError).Wrap(err)
-		}
-		// If token is stored in the database that means it was used
-		if token != nil {
-			return nil, model.NewAppError("AuthenticateUserForLogin",
-				"api.user.login_by_cws.invalid_token.app_error", nil, "", http.StatusBadRequest)
-		}
-		envToken := a.Srv().cwsTokenOverride
-		if envToken == "" {
-			envToken, _ = os.LookupEnv(cwsTokenEnv)
-		}
-		if envToken != "" && subtle.ConstantTimeCompare([]byte(envToken), []byte(cwsToken)) == 1 {
-			token = &model.Token{
-				Token:    cwsToken,
-				CreateAt: model.GetMillis(),
-				Type:     model.TokenTypeCWSAccess,
-			}
-			err := a.Srv().Store().Token().Save(token)
-			if err != nil {
-				rctx.Logger().Debug("Error storing the cws token in the store", mlog.Err(err))
-				return nil, model.NewAppError("AuthenticateUserForLogin",
-					"api.user.login_by_cws.invalid_token.app_error", nil, "", http.StatusInternalServerError)
-			}
-			return user, nil
-		}
-		return nil, model.NewAppError("AuthenticateUserForLogin",
-			"api.user.login_by_cws.invalid_token.app_error", nil, "", http.StatusBadRequest)
 	}
 
 	// and then authenticate them
@@ -215,51 +167,6 @@ func (a *App) DoLogin(rctx request.CTX, w http.ResponseWriter, r *http.Request, 
 	return session, nil
 }
 
-func (a *App) AttachCloudSessionCookie(rctx request.CTX, w http.ResponseWriter, r *http.Request) {
-	secure := false
-	if GetProtocol(r) == "https" {
-		secure = true
-	}
-
-	maxAgeSeconds := *a.Config().ServiceSettings.SessionLengthWebInHours * 60 * 60
-	subpath, _ := utils.GetSubpathFromConfig(a.Config())
-	expiresAt := time.Unix(model.GetMillis()/1000+int64(maxAgeSeconds), 0)
-
-	domain := ""
-	if siteURL, err := url.Parse(a.GetSiteURL()); err == nil {
-		domain = siteURL.Hostname()
-	}
-
-	if domain == "" {
-		return
-	}
-
-	var workspaceName string
-	if strings.Contains(domain, "localhost") {
-		workspaceName = "localhost"
-	} else {
-		// ensure we have a format for a cloud workspace url i.e. example.cloud.mattermost.com
-		if len(strings.Split(domain, ".")) != 4 {
-			return
-		}
-		workspaceName = strings.SplitN(domain, ".", 2)[0]
-		domain = strings.SplitN(domain, ".", 3)[2]
-		domain = "." + domain
-	}
-
-	cookie := &http.Cookie{
-		Name:    model.SessionCookieCloudUrl,
-		Value:   workspaceName,
-		Path:    subpath,
-		MaxAge:  maxAgeSeconds,
-		Expires: expiresAt,
-		Domain:  domain,
-		Secure:  secure,
-	}
-
-	http.SetCookie(w, cookie)
-}
-
 func (a *App) AttachSessionCookies(rctx request.CTX, w http.ResponseWriter, r *http.Request) {
 	secure := false
 	if GetProtocol(r) == "https" {
@@ -311,11 +218,6 @@ func (a *App) AttachSessionCookies(rctx request.CTX, w http.ResponseWriter, r *h
 	http.SetCookie(w, sessionCookie)
 	http.SetCookie(w, userCookie)
 	http.SetCookie(w, csrfCookie)
-
-	// For context see: https://mattermost.atlassian.net/browse/MM-39583
-	if a.License().IsCloud() {
-		a.AttachCloudSessionCookie(rctx, w, r)
-	}
 }
 
 func GetProtocol(r *http.Request) string {
@@ -323,8 +225,4 @@ func GetProtocol(r *http.Request) string {
 		return "https"
 	}
 	return "http"
-}
-
-func isCWSLogin(a *App, token string) bool {
-	return a.License().IsCloud() && token != ""
 }

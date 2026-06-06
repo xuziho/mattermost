@@ -6,7 +6,6 @@ import merge from 'deepmerge';
 import {Constants} from '../../utils';
 
 import onPremDefaultConfig from './on_prem_default_config.json';
-import cloudDefaultConfig from './cloud_default_config.json';
 
 // *****************************************************************************
 // System
@@ -32,12 +31,9 @@ Cypress.Commands.add('apiGetClientLicense', () => {
 
         const license = response.body;
         const isLicensed = license.IsLicensed === 'true';
-        const isCloudLicensed = hasLicenseForFeature(license, 'Cloud');
-
         return cy.wrap({
             license: response.body,
             isLicensed,
-            isCloudLicensed,
         });
     });
 });
@@ -129,18 +125,7 @@ export const getDefaultConfig = () => {
         },
     };
 
-    const isCloud = cypressEnv.serverEdition === Constants.ServerEdition.CLOUD;
-
-    if (isCloud) {
-        fromCypressEnv.CloudSettings = {
-            CWSURL: cypressEnv.cwsURL,
-            CWSAPIURL: cypressEnv.cwsAPIURL,
-        };
-    }
-
-    const defaultConfig = isCloud ? cloudDefaultConfig : onPremDefaultConfig;
-
-    return merge(defaultConfig, fromCypressEnv);
+    return merge(onPremDefaultConfig, fromCypressEnv);
 };
 
 const expectConfigToBeUpdatable = (currentConfig, newConfig) => {
@@ -212,20 +197,6 @@ Cypress.Commands.add('apiGetConfig', (old = false) => {
     });
 });
 
-Cypress.Commands.add('apiEnsureFeatureFlag', (key, value) => {
-    cy.apiGetConfig().then(({config}) => {
-        cy.log(JSON.stringify(config.PluginSettings.Plugins.playbooks));
-        const currentValue = config.PluginSettings.Plugins.playbooks[key];
-        if (currentValue !== value) {
-            cy.apiUpdateConfig({
-                PluginSettings: {Plugins: {playbooks: {[key]: value}}},
-            }).then(() => {
-                return cy.wrap({prevValue: currentValue, value});
-            });
-        }
-        return cy.wrap({prevValue: currentValue, value});
-    });
-});
 
 Cypress.Commands.add('apiGetAnalytics', () => {
     cy.apiAdminLogin();
@@ -247,16 +218,8 @@ Cypress.Commands.add('apiInvalidateCache', () => {
     });
 });
 
-function isCloudEdition() {
-    return cy.apiGetClientLicense().then(({isCloudLicensed}) => {
-        return cy.wrap(isCloudLicensed);
-    });
-}
-
 Cypress.Commands.add('shouldNotRunOnCloudEdition', () => {
-    isCloudEdition().then((isCloud) => {
-        expect(isCloud, isCloud ? 'Should not run on Cloud server' : '').to.equal(false);
-    });
+    return cy.wrap(false);
 });
 
 function isTeamEdition() {

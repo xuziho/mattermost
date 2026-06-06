@@ -112,18 +112,10 @@ export const Preferences = {
     CATEGORY_SYSTEM_NOTICE: 'system_notice',
     RECOMMENDED_NEXT_STEPS: 'recommended_next_steps',
     TEAMS_ORDER: 'teams_order',
-    CLOUD_UPGRADE_BANNER: 'cloud_upgrade_banner',
-    CLOUD_TRIAL_BANNER: 'cloud_trial_banner',
-    START_TRIAL_MODAL: 'start_trial_modal',
-    ADMIN_CLOUD_UPGRADE_PANEL: 'admin_cloud_upgrade_panel',
     CATEGORY_EMOJI: 'emoji',
     EMOJI_SKINTONE: 'emoji_skintone',
     ONE_CLICK_REACTIONS_ENABLED: 'one_click_reactions_enabled',
     ONE_CLICK_REACTIONS_ENABLED_DEFAULT: 'true',
-    CLOUD_TRIAL_END_BANNER: 'cloud_trial_end_banner',
-    CLOUD_USER_EPHEMERAL_INFO: 'cloud_user_ephemeral_info',
-    CATEGORY_CLOUD_LIMITS: 'cloud_limits',
-    THREE_DAYS_LEFT_TRIAL_MODAL: 'three_days_left_trial_modal',
 
     // For one off things that have a special, attention-grabbing UI until you interact with them
     TOUCHED: 'touched',
@@ -141,17 +133,10 @@ export const Preferences = {
     FORWARD_POST_VIEWED: 'forward_post_viewed',
     HIDE_POST_FILE_UPGRADE_WARNING: 'hide_post_file_upgrade_warning',
     SHOWN_LIMITS_REACHED_ON_LOGIN: 'shown_limits_reached_on_login',
-    USE_CASE: 'use_case',
     DELINQUENCY_MODAL_CONFIRMED: 'delinquency_modal_confirmed',
     CONFIGURATION_BANNERS: 'configuration_banners',
     NOTIFY_ADMIN_REVOKE_DOWNGRADED_WORKSPACE: 'admin_revoke_downgraded_instance',
-    OVERAGE_USERS_BANNER: ReduxPreferences.CATEGORY_OVERAGE_USERS_BANNER,
-    POST_HISTORY_LIMIT_BANNER: ReduxPreferences.CATEGORY_POST_HISTORY_LIMIT_BANNER,
-    USERS_LIMITS_BANNER: 'users_limits_banner',
-    SINGLE_CHANNEL_GUEST_LIMIT_BANNER: 'sc_guest_limit_banner',
-    TO_CLOUD_YEARLY_PLAN_NUDGE: 'to_cloud_yearly_plan_nudge',
     TO_PAID_PLAN_NUDGE: 'to_paid_plan_nudge',
-    CLOUD_ANNUAL_RENEWAL_BANNER: 'cloud_annual_renewal_banner',
 };
 
 // For one off things that have a special, attention-grabbing UI until you interact with them
@@ -161,9 +146,6 @@ export const Touched = {
 
 // Category for actions/interactions that will happen just once
 export const Unique = {
-    HAS_CLOUD_PURCHASE: 'has_cloud_purchase',
-    REQUEST_TRIAL_AFTER_SERVER_UPGRADE: 'request_trial_after_upgrade',
-    CLICKED_UPGRADE_AND_TRIAL_BTN: 'clicked_upgradeandtrial_btn',
 };
 
 export const TrialPeriodDays = {
@@ -177,11 +159,8 @@ export const TrialPeriodDays = {
 
 export const suitePluginIds = {
     agents: 'mattermost-ai',
-    playbooks: 'playbooks',
-    focalboard: 'focalboard',
 
     apps: 'com.mattermost.apps',
-    calls: 'com.mattermost.calls',
     nps: 'com.mattermost.nps',
     channelExport: 'com.mattermost.plugin-channel-export',
 };
@@ -255,10 +234,6 @@ export const ActionTypes = keyMirror({
     INCREMENT_EMOJI_PICKER_PAGE: null,
     SET_RECENT_SKIN: null,
 
-    SHOW_ONBOARDING_TASK_COMPLETION: null,
-    SHOW_ONBOARDING_COMPLETE_PROFILE_TOUR: null,
-    SHOW_ONBOARDING_VISIT_CONSOLE_TOUR: null,
-
     TOGGLE_LHS: null,
     OPEN_LHS: null,
     CLOSE_LHS: null,
@@ -290,13 +265,6 @@ export const ActionTypes = keyMirror({
     ALL_CHANNEL_SYNC_STATUS: null,
 
     UPDATE_ACTIVE_SECTION: null,
-
-    RECEIVED_MARKETPLACE_PLUGINS: null,
-    RECEIVED_MARKETPLACE_APPS: null,
-    FILTER_MARKETPLACE_LISTING: null,
-    INSTALLING_MARKETPLACE_ITEM: null,
-    INSTALLING_MARKETPLACE_ITEM_SUCCEEDED: null,
-    INSTALLING_MARKETPLACE_ITEM_FAILED: null,
 
     POST_UNREAD_SUCCESS: null,
 
@@ -380,29 +348,18 @@ export const ModalIdentifiers = {
     MANAGE_CHANNEL_GROUPS: 'manage_channel_groups',
     GROUP_MEMBERS: 'group_members',
     MOBILE_SUBMENU: 'mobile_submenu',
-    PLUGIN_MARKETPLACE: 'plugin_marketplace',
     EDIT_CATEGORY: 'edit_category',
     DELETE_CATEGORY: 'delete_category',
     SIDEBAR_WHATS_NEW_MODAL: 'sidebar_whats_new_modal',
-    UPGRADE_CLOUD_ACCOUNT: 'upgrade_cloud_account',
-    START_TRIAL_MODAL: 'start_trial_modal',
-    TRIAL_BENEFITS_MODAL: 'trial_benefits_modal',
-    PRICING_MODAL: 'pricing_modal',
-    LEARN_MORE_TRIAL_MODAL: 'learn_more_trial_modal',
     ENTERPRISE_EDITION_LICENSE: 'enterprise_edition_license',
-    CONFIRM_NOTIFY_ADMIN: 'confirm_notify_admin',
     REMOVE_NEXT_STEPS_MODAL: 'remove_next_steps_modal',
     MORE_CHANNELS: 'more_channels',
     NEW_CHANNEL_MODAL: 'new_channel_modal',
-    CLOUD_PURCHASE: 'cloud_purchase',
-    SELF_HOSTED_PURCHASE: 'self_hosted_purchase',
-    CLOUD_DOWNGRADE_CHOOSE_TEAM: 'cloud_downgrade_choose_team',
     SUCCESS_MODAL: 'success_modal',
     ERROR_MODAL: 'error_modal',
     DND_CUSTOM_TIME_PICKER: 'dnd_custom_time_picker',
     POST_REMINDER_CUSTOM_TIME_PICKER: 'post_reminder_custom_time_picker',
     CUSTOM_STATUS: 'custom_status',
-    COMMERCIAL_SUPPORT: 'commercial_support',
     NO_INTERNET_CONNECTION: 'no_internet_connection',
     JOIN_CHANNEL_PROMPT: 'join_channel_prompt',
     COLLAPSED_REPLY_THREADS_MODAL: 'collapsed_reply_threads_modal',
@@ -423,41 +380,25 @@ export const ModalIdentifiers = {
     DELETE_DRAFT: 'delete_draft_modal',
     SEND_DRAFT: 'send_draft_modal',
     UPLOAD_LICENSE: 'upload_license',
-    CLOUD_LIMITS: 'cloud_limits',
-    THREE_DAYS_LEFT_TRIAL_MODAL: 'three_days_left_trial_modal',
     REQUEST_BUSINESS_EMAIL_MODAL: 'request_business_email_modal',
-    FEATURE_RESTRICTED_MODAL: 'feature_restricted_modal',
     FORWARD_POST_MODAL: 'forward_post_modal',
     JOIN_PUBLIC_CHANNEL_MODAL: 'join_public_channel_modal',
-    CLOUD_INVOICE_PREVIEW: 'cloud_invoice_preview',
-    BILLING_HISTORY: 'billing_history',
-    SUM_OF_MEMBERS_MODAL: 'sum_of_members_modal',
     RESTORE_POST_MODAL: 'restore_post',
     INFO_TOAST: 'info_toast',
     MARK_ALL_THREADS_AS_READ: 'mark_all_threads_as_read_modal',
     DELINQUENCY_MODAL_DOWNGRADE: 'delinquency_modal_downgrade',
-    CLOUD_LIMITS_DOWNGRADE: 'cloud_limits_downgrade',
     PERSIST_NOTIFICATION_CONFIRM_MODAL: 'persist_notification_confirm_modal',
-    AIR_GAPPED_SELF_HOSTED_PURCHASE: 'air_gapped_self_hosted_purchase',
-    DOWNGRADE_MODAL: 'downgrade_modal',
-    PURCHASE_IN_PROGRESS: 'purchase_in_progress',
     DELETE_WORKSPACE: 'delete_workspace',
     FEEDBACK: 'feedback',
     DELETE_WORKSPACE_PROGRESS: 'delete_workspace_progress',
     DELETE_WORKSPACE_RESULT: 'delete_workspace_result',
-    SCREENING_IN_PROGRESS: 'screening_in_progress',
-    CONFIRM_SWITCH_TO_YEARLY: 'confirm_switch_to_yearly',
     EXPANSION_IN_PROGRESS: 'expansion_in_progress',
-    SELF_HOSTED_EXPANSION: 'self_hosted_expansion',
-    START_TRIAL_FORM_MODAL: 'start_trial_form_modal',
-    START_TRIAL_FORM_MODAL_RESULT: 'start_trial_form_modal_result',
     MOVE_THREAD_MODAL: 'move_thread_modal',
     CONVERT_GM_TO_CHANNEL: 'convert_gm_to_channel',
     IP_FILTERING_ADD_EDIT_MODAL: 'ip_filtering_add_edit_modal',
     IP_FILTERING_DELETE_CONFIRMATION_MODAL: 'ip_filtering_delete_confirmation_modal',
     IP_FILTERING_SAVE_CONFIRMATION_MODAL: 'ip_filtering_save_confirmation_modal',
     REACTION_LIMIT_REACHED: 'reaction_limit_reached',
-    AIR_GAPPED_CONTACT_SALES: 'air_gapped_contact_sales',
     MANAGE_ROLES_MODAL: 'manage_roles_modal',
     MANAGE_TEAMS_MODAL: 'manage_teams_modal',
     MANAGE_TOKENS_MODAL: 'manage_teams_modal',
@@ -469,7 +410,6 @@ export const ModalIdentifiers = {
     REVOKE_SESSIONS_MODAL: 'revoke_sessions_modal',
     CREATE_GROUP_SYNCABLES_MEMBERSHIP_MODAL: 'create_group_syncables_membership_modal',
     EXPORT_USER_DATA_MODAL: 'export_user_data_modal',
-    UPGRADE_EXPORT_DATA_MODAL: 'upgrade_export_data_modal',
     EXPORT_ERROR_MODAL: 'export_error_modal',
     CHANNEL_BOOKMARK_DELETE: 'channel_bookmark_delete',
     CHANNEL_BOOKMARK_CREATE: 'channel_bookmark_create',
@@ -513,24 +453,6 @@ export const EventTypes = Object.assign(
     }),
 );
 
-export const CloudProducts = {
-
-    // STARTER sku is used by both free cloud starter
-    // and paid cloud starter (legacy cloud starter).
-    // Where differentiation is needed, check whether any limits are applied.
-    // If none are applied, it must be legacy cloud starter.
-    STARTER: 'cloud-starter',
-    PROFESSIONAL: 'cloud-professional',
-    ENTERPRISE: 'cloud-enterprise',
-    LEGACY: 'cloud-legacy',
-    ADVANCED: 'cloud-advanced',
-};
-
-export const CloudBillingTypes = {
-    INTERNAL: 'internal',
-    LICENSED: 'licensed',
-};
-
 export const SelfHostedProducts = {
     STARTER: 'starter',
     PROFESSIONAL: 'professional',
@@ -541,8 +463,6 @@ export const MattermostFeatures = {
     GUEST_ACCOUNTS: 'mattermost.feature.guest_accounts',
     CUSTOM_USER_GROUPS: 'mattermost.feature.custom_user_groups',
     CREATE_MULTIPLE_TEAMS: 'mattermost.feature.create_multiple_teams',
-    START_CALL: 'mattermost.feature.start_call',
-    PLAYBOOKS_RETRO: 'mattermost.feature.playbooks_retro',
     UNLIMITED_MESSAGES: 'mattermost.feature.unlimited_messages',
     UNLIMITED_FILE_STORAGE: 'mattermost.feature.unlimited_file_storage',
     ALL_PROFESSIONAL_FEATURES: 'mattermost.feature.all_professional',
@@ -575,11 +495,6 @@ export function getLicenseTier(licenseSku: string): number {
         return 0;
     }
 }
-
-export const CloudProductToSku = {
-    [CloudProducts.PROFESSIONAL]: LicenseSkus.Professional,
-    [CloudProducts.ENTERPRISE]: LicenseSkus.Enterprise,
-};
 
 export const A11yClassNames = {
     REGION: 'a11y__region',
@@ -625,7 +540,6 @@ export const SocketEvents = {
     APPS_FRAMEWORK_REFRESH_BINDINGS: 'custom_com.mattermost.apps_refresh_bindings',
     APPS_FRAMEWORK_PLUGIN_ENABLED: 'custom_com.mattermost.apps_plugin_enabled',
     APPS_FRAMEWORK_PLUGIN_DISABLED: 'custom_com.mattermost.apps_plugin_disabled',
-    FIRST_ADMIN_VISIT_MARKETPLACE_STATUS_RECEIVED: 'first_admin_visit_marketplace_status_received',
     THREAD_UPDATED: 'thread_updated',
     THREAD_FOLLOW_CHANGED: 'thread_follow_changed',
     THREAD_READ_CHANGED: 'thread_read_changed',
@@ -638,7 +552,6 @@ export const SocketEvents = {
     SCHEDULED_POST_UPDATED: 'scheduled_post_updated',
     SCHEDULED_POST_DELETED: 'scheduled_post_deleted',
     PERSISTENT_NOTIFICATION_TRIGGERED: 'persistent_notification_triggered',
-    HOSTED_CUSTOMER_SIGNUP_PROGRESS_UPDATED: 'hosted_customer_signup_progress_updated',
     CPA_FIELD_CREATED: 'custom_profile_attributes_field_created',
     CPA_FIELD_UPDATED: 'custom_profile_attributes_field_updated',
     CPA_FIELD_DELETED: 'custom_profile_attributes_field_deleted',
@@ -655,16 +568,7 @@ export const TutorialSteps = {
     MENU_POPOVER: 3,
     PRODUCT_SWITCHER: 4,
     SETTINGS: 5,
-    START_TRIAL: 6,
     FINISHED: 999,
-};
-
-// note: add steps in same order as the keys in TutorialSteps above
-export const AdminTutorialSteps = ['START_TRIAL'];
-
-export const TopLevelProducts = {
-    BOARDS: 'Boards',
-    PLAYBOOKS: 'Playbooks',
 };
 
 export enum ItemStatus {
@@ -675,34 +579,11 @@ export enum ItemStatus {
     ERROR = 'error',
 }
 
-export const RecommendedNextStepsLegacy = {
-    COMPLETE_PROFILE: 'complete_profile',
-    TEAM_SETUP: 'team_setup',
-    INVITE_MEMBERS: 'invite_members',
-    PREFERENCES_SETUP: 'preferences_setup',
-    NOTIFICATION_SETUP: 'notification_setup',
-    DOWNLOAD_APPS: 'download_apps',
-    CREATE_FIRST_CHANNEL: 'create_first_channel',
-    HIDE: 'hide',
-    SKIP: 'skip',
-};
-
 export const Threads = {
     CHANGED_SELECTED_THREAD: 'changed_selected_thread',
     CHANGED_LAST_VIEWED_AT: 'changed_last_viewed_at',
     MANUALLY_UNREAD_THREAD: 'manually_unread_thread',
     CHANGED_LAST_UPDATE_AT: 'changed_last_update_at',
-};
-
-export const CloudBanners = {
-    HIDE: 'hide',
-    TRIAL: 'trial',
-    UPGRADE_FROM_TRIAL: 'upgrade_from_trial',
-    THREE_DAYS_LEFT_TRIAL_MODAL_DISMISSED: 'dismiss_3_days_left_trial_modal',
-    NUDGE_TO_CLOUD_YEARLY_PLAN_SNOOZED: 'nudge_to_cloud_yearly_plan_snoozed',
-    NUDGE_TO_PAID_PLAN_SNOOZED: 'nudge_to_paid_plan_snoozed',
-    ANNUAL_RENEWAL_60_DAY: 'annual_renewal_60_day',
-    ANNUAL_RENEWAL_30_DAY: 'annual_renewal_30_day',
 };
 
 export const ConfigurationBanners = {
@@ -748,8 +629,6 @@ export const PostTypes = {
     ME: 'me',
     REMINDER: 'reminder',
     WRANGLER: 'system_wrangler',
-    CUSTOM_CALLS: 'custom_calls',
-    CUSTOM_CALLS_RECORDING: 'custom_calls_recording',
     CUSTOM_DATA_SPILLAGE_REPORT: 'custom_spillage_report',
     AUTO_TRANSLATION_CHANGE: 'system_autotranslation',
     BURN_ON_READ: 'burn_on_read',
@@ -1027,28 +906,6 @@ export const AboutLinks = {
     PRIVACY_POLICY: 'https://mattermost.com/pl/privacy-policy/',
 };
 
-export const CloudLinks = {
-    BILLING_DOCS: 'https://docs.mattermost.com/product-overview/cloud-subscriptions.html',
-    PRICING: 'https://mattermost.com/pl/pricing/',
-    PRORATED_PAYMENT: 'https://mattermost.com/pl/mattermost-cloud-prorate-documentation',
-    DEPLOYMENT_OPTIONS: 'https://mattermost.com/deploy/',
-    DOWNLOAD_UPDATE: 'https://mattermost.com/deploy/',
-    CLOUD_SIGNUP_PAGE: 'https://mattermost.com/sign-up/',
-    SELF_HOSTED_SIGNUP: 'https://customers.mattermost.com/signup',
-    DELINQUENCY_DOCS: 'https://docs.mattermost.com/about/cloud-subscriptions.html#failed-or-late-payments',
-    SELF_HOSTED_PRICING: 'https://mattermost.com/pl/pricing/#self-hosted',
-};
-
-export const HostedCustomerLinks = {
-    BILLING_DOCS: 'https://mattermost.com/pl/how-self-hosted-billing-works',
-    SELF_HOSTED_BILLING: 'https://mattermost.com/pl/self-hosted-billing',
-    TERMS_AND_CONDITIONS: 'https://mattermost.com/enterprise-edition-terms/',
-    SECURITY_UPDATES: 'https://mattermost.com/security-updates/',
-    DOWNLOAD: 'https://mattermost.com/download',
-    NEWSLETTER_UNSUBSCRIBE_LINK: 'https://forms.mattermost.com/UnsubscribePage.html',
-    PRIVACY: AboutLinks.PRIVACY_POLICY,
-};
-
 export const DocLinks = {
     ABOUT_TEAMS: 'https://docs.mattermost.com/welcome/about-teams.html#team-url',
     ADVANCED_LOGGING: 'https://mattermost.com/pl/advanced-logging',
@@ -1067,10 +924,11 @@ export const DocLinks = {
     GUEST_ACCOUNTS: 'https://docs.mattermost.com/onboard/guest-accounts.html',
     HIGH_AVAILABILITY_CLUSTER: 'https://mattermost.com/pl/high-availability-cluster',
     IN_PRODUCT_NOTICES: 'https://mattermost.com/pl/in-product-notices',
+    DOWNLOAD_UPDATE: 'https://mattermost.com/deploy/',
     MULTI_FACTOR_AUTH: 'https://mattermost.com/pl/multi-factor-authentication',
     ONBOARD_ADVANCED_PERMISSIONS: 'https://mattermost.com/pl/advanced-permissions',
     ONBOARD_LDAP: 'https://mattermost.com/pl/setup-ldap',
-    SELF_HOSTED_BILLING: HostedCustomerLinks.SELF_HOSTED_BILLING,
+    SELF_HOSTED_BILLING: 'https://mattermost.com/pl/self-hosted-billing',
     SESSION_LENGTHS: 'https://mattermost.com/pl/configure-session-lengths',
     SETUP_IMAGE_PROXY: 'https://mattermost.com/pl/setup-image-proxy',
     SETUP_LDAP: 'https://mattermost.com/pl/setup-ldap',
@@ -1081,44 +939,19 @@ export const DocLinks = {
     SITE_URL: 'https://mattermost.com/pl/configure-site-url',
     SSL_CERTIFICATE: 'https://mattermost.com/pl/setup-ssl-client-certificate',
     TRUE_UP_REVIEW: 'https://mattermost.com/pl/true-up-documentation',
-    TRUSTED_CONNECTION: 'https://mattermost.com/pl/default-allow-untrusted-internal-connections',
     UPGRADE_SERVER: 'https://mattermost.com/pl/upgrade-mattermost',
 };
 
-export const DeveloperLinks = {
-    CUSTOM_SLASH_COMMANDS: 'https://mattermost.com/pl/custom-slash-commands',
-    ENABLE_OAUTH2: 'https://mattermost.com/pl/enable-oauth',
-    INCOMING_WEBHOOKS: 'https://mattermost.com/pl/incoming-webhooks',
-    OUTGOING_WEBHOOKS: 'https://mattermost.com/pl/outgoing-webhooks',
-    INTERACTIVE_MESSAGES: 'https://mattermost.com/pl/interactive-messages',
-    INTERACTIVE_DIALOGS: 'https://mattermost.com/pl/interactive-dialogs',
-    PERSONAL_ACCESS_TOKENS: 'https://mattermost.com/pl/personal-access-tokens',
-    PLUGIN_SIGNING: 'https://mattermost.com/pl/sign-plugins',
-    PLUGINS: 'https://mattermost.com/pl/plugins',
-    SETUP_CUSTOM_SLASH_COMMANDS: 'https://mattermost.com/pl/setup-custom-slash-commands',
-    SETUP_INCOMING_WEBHOOKS: 'https://mattermost.com/pl/setup-incoming-webhooks',
-    SETUP_OAUTH2: 'https://mattermost.com/pl/setup-oauth-2.0',
-    SETUP_OUTGOING_WEBHOOKS: 'https://mattermost.com/pl/setup-outgoing-webhooks',
-};
-
 export const LicenseLinks = {
-    CONTACT_SALES: 'https://mattermost.com/contact-sales/',
     ENTRY_LIMITS_INFO: 'https://mattermost.com/pl/mattermost-entry-limits',
     TRIAL_INFO_LINK: 'https://mattermost.com/trial',
     EMBARGOED_COUNTRIES: 'https://mattermost.com/pl/limitations-for-embargoed-countries',
     SOFTWARE_SERVICES_LICENSE_AGREEMENT: 'https://mattermost.com/pl/software-and-services-license-agreement',
     SOFTWARE_SERVICES_LICENSE_AGREEMENT_TEXT: 'Software Services and License Agreement',
-    UNSUPPORTED: 'https://mattermost.com/pricing/',
     UNSUPPORTED_UPGRADE_LINK: 'https://docs.mattermost.com/administration-guide/upgrade/enterprise-install-upgrade.html#upgrading-to-enterprise-edition-from-mattermost-team-edition',
 };
 
 export const MattermostLink = 'https://mattermost.com/';
-
-export const BillingSchemes = {
-    FLAT_FEE: 'flat_fee',
-    PER_SEAT: 'per_seat',
-    SALES_SERVE: 'sales_serve',
-};
 
 export const RecurringIntervals = {
     YEAR: 'year',
@@ -1201,20 +1034,6 @@ export const PermissionsScope = {
     [Permissions.CONVERT_PRIVATE_CHANNEL_TO_PUBLIC]: 'channel_scope',
     [Permissions.MANAGE_SHARED_CHANNELS]: 'system_scope',
     [Permissions.MANAGE_SECURE_CONNECTIONS]: 'system_scope',
-    [Permissions.PLAYBOOK_PUBLIC_CREATE]: 'team_scope',
-    [Permissions.PLAYBOOK_PUBLIC_MANAGE_PROPERTIES]: 'playbook_scope',
-    [Permissions.PLAYBOOK_PUBLIC_MANAGE_MEMBERS]: 'playbook_scope',
-    [Permissions.PLAYBOOK_PUBLIC_VIEW]: 'playbook_scope',
-    [Permissions.PLAYBOOK_PUBLIC_MAKE_PRIVATE]: 'playbook_scope',
-    [Permissions.PLAYBOOK_PRIVATE_CREATE]: 'team_scope',
-    [Permissions.PLAYBOOK_PRIVATE_MANAGE_PROPERTIES]: 'playbook_scope',
-    [Permissions.PLAYBOOK_PRIVATE_MANAGE_MEMBERS]: 'playbook_scope',
-    [Permissions.PLAYBOOK_PRIVATE_VIEW]: 'playbook_scope',
-    [Permissions.PLAYBOOK_PRIVATE_MAKE_PUBLIC]: 'playbook_scope',
-    [Permissions.RUN_CREATE]: 'playbook_scope',
-    [Permissions.RUN_MANAGE_MEMBERS]: 'run_scope',
-    [Permissions.RUN_MANAGE_PROPERTIES]: 'run_scope',
-    [Permissions.RUN_VIEW]: 'run_scope',
     [Permissions.CREATE_CUSTOM_GROUP]: 'system_scope',
     [Permissions.EDIT_CUSTOM_GROUP]: 'system_scope',
     [Permissions.DELETE_CUSTOM_GROUP]: 'system_scope',
@@ -1274,18 +1093,10 @@ export const DefaultRolePermissions = {
         Permissions.EDIT_CUSTOM_GROUP,
         Permissions.DELETE_CUSTOM_GROUP,
         Permissions.MANAGE_CUSTOM_GROUP_MEMBERS,
-        Permissions.PLAYBOOK_PUBLIC_CREATE,
-        Permissions.PLAYBOOK_PRIVATE_CREATE,
-        Permissions.PLAYBOOK_PUBLIC_MANAGE_MEMBERS,
-        Permissions.PLAYBOOK_PRIVATE_MANAGE_MEMBERS,
-        Permissions.PLAYBOOK_PUBLIC_MANAGE_PROPERTIES,
-        Permissions.PLAYBOOK_PRIVATE_MANAGE_PROPERTIES,
-        Permissions.RUN_CREATE,
         Permissions.USE_SLASH_COMMANDS,
         Permissions.DELETE_EMOJIS,
         Permissions.INVITE_GUEST,
         Permissions.CREATE_EMOJIS,
-        Permissions.RUN_VIEW,
         Permissions.RESTORE_CUSTOM_GROUP,
         Permissions.MANAGE_OWN_AGENT,
         Permissions.ADD_BOOKMARK_PUBLIC_CHANNEL,
@@ -1444,7 +1255,6 @@ export const Constants = {
     ActionTypes,
     UserStatuses,
     TutorialSteps,
-    AdminTutorialSteps,
     PostTypes,
     ErrorPageTypes,
     AnnouncementBarTypes,
@@ -1487,7 +1297,6 @@ export const Constants = {
     SPECIAL_MENTIONS: ['all', 'channel', 'here'],
     PLAN_MENTIONS: /Professional plan|Enterprise plan|Enterprise trial/gi,
     SPECIAL_MENTIONS_REGEX: /(?:\B|\b_+)@(channel|all|here)(?!(\.|-|_)*[^\W_])/gi,
-    SUM_OF_MEMBERS_MENTION_REGEX: /\d+ members/gi,
     ALL_MENTION_REGEX: /(?:\B|\b_+)@(all)(?!(\.|-|_)*[^\W_])/gi,
     CHANNEL_MENTION_REGEX: /(?:\B|\b_+)@(channel)(?!(\.|-|_)*[^\W_])/gi,
     HERE_MENTION_REGEX: /(?:\B|\b_+)@(here)(?!(\.|-|_)*[^\W_])/gi,
@@ -1563,7 +1372,6 @@ export const Constants = {
     OFFICE365_SERVICE: 'office365',
     OAUTH_SERVICES: ['gitlab', 'google', 'office365', 'openid'],
     OPENID_SERVICE: 'openid',
-    OPENID_SERVICE_FEATURE_DISCOVERY: 'openid_feature_discovery',
     OPENID_SCOPES: 'profile openid email',
     EMAIL_SERVICE: 'email',
     LDAP_SERVICE: 'ldap',
@@ -1605,8 +1413,6 @@ export const Constants = {
         'error',
         'help',
         'plugins',
-        'playbooks',
-        'boards',
     ],
     RESERVED_USERNAMES: [
         'valet',
@@ -2093,8 +1899,6 @@ export const ConsolePages = {
     WEB_SERVER: '/admin_console/environment/web_server',
     PUSH_NOTIFICATION_CENTER: '/admin_console/environment/push_notification_server',
     SMTP: '/admin_console/environment/smtp',
-    PAYMENT_INFO: '/admin_console/billing/payment_info',
-    BILLING_HISTORY: '/admin_console/billing/billing_history',
 };
 
 export const WindowSizes = {

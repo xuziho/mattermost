@@ -539,7 +539,6 @@ func getFlaggedPostsForUser(c *Context, w http.ResponseWriter, r *http.Request) 
 	}
 }
 
-// getPost also sets a header to indicate, if post is inaccessible due to the cloud plan's limit.
 func getPost(c *Context, w http.ResponseWriter, r *http.Request) {
 	c.RequirePostId()
 	if c.Err != nil {
@@ -555,12 +554,6 @@ func getPost(c *Context, w http.ResponseWriter, r *http.Request) {
 	post, err, isMember := c.App.GetPostIfAuthorized(c.AppContext, c.Params.PostId, c.AppContext.Session(), includeDeleted)
 	if err != nil {
 		c.Err = err
-
-		// Post is inaccessible due to cloud plan's limit.
-		if err.Id == "app.post.cloud.get.app_error" {
-			w.Header().Set(model.HeaderFirstInaccessiblePostTime, "1")
-		}
-
 		return
 	}
 
@@ -595,7 +588,7 @@ func getPost(c *Context, w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// getPostsByIds also sets a header to indicate, if posts were truncated as per the cloud plan's limit.
+// getPostsByIds also sets a header when posts are not fully accessible.
 func getPostsByIds(c *Context, w http.ResponseWriter, r *http.Request) {
 	postIDs, err := model.SortedArrayFromJSON(r.Body)
 	if err != nil {
@@ -684,9 +677,7 @@ func getEditHistoryForPost(c *Context, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if originalPost.Type == model.PostTypeCard && c.App.Config().FeatureFlags.IntegratedBoards {
-		// Cards: collaborative model — any channel member with edit_post can view edit history
-	} else if c.AppContext.Session().UserId != originalPost.UserId {
+	if c.AppContext.Session().UserId != originalPost.UserId {
 		c.SetPermissionError(model.PermissionEditPost)
 		return
 	}
@@ -745,12 +736,6 @@ func deletePost(c *Context, w http.ResponseWriter, _ *http.Request) {
 
 	switch {
 	case c.AppContext.Session().UserId == post.UserId:
-		if ok, _ := c.App.SessionHasPermissionToChannel(c.AppContext, *c.AppContext.Session(), post.ChannelId, model.PermissionDeletePost); !ok {
-			c.SetPermissionError(model.PermissionDeletePost)
-			return
-		}
-	case post.Type == model.PostTypeCard && c.App.Config().FeatureFlags.IntegratedBoards:
-		// Cards: collaborative model — any user with delete_post can delete any card
 		if ok, _ := c.App.SessionHasPermissionToChannel(c.AppContext, *c.AppContext.Session(), post.ChannelId, model.PermissionDeletePost); !ok {
 			c.SetPermissionError(model.PermissionDeletePost)
 			return
@@ -865,8 +850,7 @@ func getPostThread(c *Context, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if list.FirstInaccessiblePostTime != 0 {
-		// e.g. if root post is archived in a cloud plan,
-		// we don't want to display the thread,
+		// If the root post is inaccessible, we don't want to display the thread,
 		// but at the same time the request was not bad,
 		// so we return the time of archival and let the client
 		// show an error
@@ -1110,10 +1094,7 @@ func updatePost(c *Context, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if originalPost.Type == model.PostTypeCard && c.App.Config().FeatureFlags.IntegratedBoards {
-		// Cards: collaborative model — skip ownership check
-		// PermissionEditPost already checked above
-	} else if c.AppContext.Session().UserId != originalPost.UserId {
+	if c.AppContext.Session().UserId != originalPost.UserId {
 		// We don't need to check the member here, since we already checked it above
 		if ok, _ := c.App.SessionHasPermissionToChannel(c.AppContext, *c.AppContext.Session(), originalPost.ChannelId, model.PermissionEditOthersPosts); !ok {
 			c.SetPermissionError(model.PermissionEditOthersPosts)
@@ -1224,9 +1205,6 @@ func postPatchChecks(c *Context, auditRec *model.AuditRecord, patch *model.PostP
 	var permission *model.Permission
 	switch {
 	case c.AppContext.Session().UserId == originalPost.UserId:
-		permission = model.PermissionEditPost
-	case originalPost.Type == model.PostTypeCard && c.App.Config().FeatureFlags.IntegratedBoards:
-		// Cards: collaborative model — any member can edit any card
 		permission = model.PermissionEditPost
 	default:
 		permission = model.PermissionEditOthersPosts
@@ -1522,10 +1500,6 @@ func moveThread(c *Context, w http.ResponseWriter, r *http.Request) {
 	sourcePost, err, _ := c.App.GetPostIfAuthorized(c.AppContext, c.Params.PostId, c.AppContext.Session(), false)
 	if err != nil {
 		c.Err = err
-		if err.Id == "app.post.cloud.get.app_error" {
-			w.Header().Set(model.HeaderFirstInaccessiblePostTime, "1")
-		}
-
 		return
 	}
 
@@ -1854,9 +1828,6 @@ func revealPost(c *Context, w http.ResponseWriter, r *http.Request) {
 	post, err, isMember := c.App.GetPostIfAuthorized(c.AppContext, postId, c.AppContext.Session(), false)
 	if err != nil {
 		c.Err = err
-		if err.Id == "app.post.cloud.get.app_error" {
-			w.Header().Set(model.HeaderFirstInaccessiblePostTime, "1")
-		}
 		return
 	}
 
@@ -1915,9 +1886,6 @@ func burnPost(c *Context, w http.ResponseWriter, r *http.Request) {
 	post, err, _ := c.App.GetPostIfAuthorized(c.AppContext, postId, c.AppContext.Session(), false)
 	if err != nil {
 		c.Err = err
-		if err.Id == "app.post.cloud.get.app_error" {
-			w.Header().Set(model.HeaderFirstInaccessiblePostTime, "1")
-		}
 		return
 	}
 

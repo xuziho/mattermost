@@ -19,7 +19,6 @@ body {
     }
 
     &.admin-onboarding {
-        background-image: url("images/admin-onboarding-background.jpg");
         background-repeat: no-repeat;
         background-size: cover;
     }
@@ -183,11 +182,7 @@ body.app__body #root {
                 "main";
         }
 
-        &:has(#playbooks-backstageRoot) {
-            margin: 0;
-            border-radius: 0;
-        }
-    }
+	}
 
     &:has(.app-bar) {
         .main-wrapper {

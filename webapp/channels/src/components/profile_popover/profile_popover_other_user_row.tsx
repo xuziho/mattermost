@@ -13,7 +13,6 @@ import {getFeatureFlagValue} from 'mattermost-redux/selectors/entities/general';
 import {canUserDirectMessage} from 'actions/user_actions';
 
 import ProfilePopoverAddToChannel from 'components/profile_popover/profile_popover_add_to_channel';
-import ProfilePopoverCallButtonWrapper from 'components/profile_popover/profile_popover_call_button_wrapper';
 
 type Props = {
     user: UserProfile;
@@ -163,13 +162,7 @@ const ProfilePopoverOtherUserRow = ({
                     user={user}
                     hide={hide}
                 />
-                <ProfilePopoverCallButtonWrapper
-                    currentUserId={currentUserId}
-                    fullname={fullname}
-                    userId={user.id}
-                    username={user.username}
-                />
-            </div>
+			</div>
         </div>
     );
 };

@@ -19,22 +19,15 @@ const (
 	JobTypeMigrations                    = "migrations"
 	JobTypePlugins                       = "plugins"
 	JobTypeExpiryNotify                  = "expiry_notify"
-	JobTypeProductNotices                = "product_notices"
 	JobTypeActiveUsers                   = "active_users"
 	JobTypeImportProcess                 = "import_process"
 	JobTypeImportDelete                  = "import_delete"
 	JobTypeExportProcess                 = "export_process"
 	JobTypeExportDelete                  = "export_delete"
-	JobTypeCloud                         = "cloud"
 	JobTypeResendInvitationEmail         = "resend_invitation_email"
 	JobTypeExtractContent                = "extract_content"
 	JobTypeLastAccessiblePost            = "last_accessible_post"
-	JobTypeLastAccessibleFile            = "last_accessible_file"
-	JobTypeUpgradeNotifyAdmin            = "upgrade_notify_admin"
-	JobTypeTrialNotifyAdmin              = "trial_notify_admin"
 	JobTypePostPersistentNotifications   = "post_persistent_notifications"
-	JobTypeInstallPluginNotifyAdmin      = "install_plugin_notify_admin"
-	JobTypeHostedPurchaseScreening       = "hosted_purchase_screening"
 	JobTypeS3PathMigration               = "s3_path_migration"
 	JobTypeCleanupDesktopTokens          = "cleanup_desktop_tokens"
 	JobTypeDeleteEmptyDraftsMigration    = "delete_empty_drafts_migration"
@@ -67,16 +60,13 @@ var AllJobTypes = [...]string{
 	JobTypeMigrations,
 	JobTypePlugins,
 	JobTypeExpiryNotify,
-	JobTypeProductNotices,
 	JobTypeActiveUsers,
 	JobTypeImportProcess,
 	JobTypeImportDelete,
 	JobTypeExportProcess,
 	JobTypeExportDelete,
-	JobTypeCloud,
 	JobTypeExtractContent,
 	JobTypeLastAccessiblePost,
-	JobTypeLastAccessibleFile,
 	JobTypeCleanupDesktopTokens,
 	JobTypeRefreshMaterializedViews,
 	JobTypeMobileSessionMetadata,

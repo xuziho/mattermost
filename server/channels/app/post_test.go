@@ -2988,7 +2988,7 @@ func TestCountMentionsFromPost(t *testing.T) {
 		})
 		require.NoError(t, e)
 
-		// post4 should mention the user, but since post2 is inaccessible due to the cloud plan's limit,
+		// post4 should mention the user, but since post2 is inaccessible,
 		// post4 does not notify the user.
 
 		count, _, _, err := th.App.countMentionsFromPost(th.Context, user2, post3)

@@ -37,7 +37,6 @@ func GetMockStoreForSetupFunctions() *mocks.Store {
 	systemStore.On("GetByName", "EmojisPermissionsMigrationComplete").Return(&model.System{Name: "EmojisPermissionsMigrationComplete", Value: "true"}, nil)
 	systemStore.On("GetByName", "GuestRolesCreationMigrationComplete").Return(&model.System{Name: "GuestRolesCreationMigrationComplete", Value: "true"}, nil)
 	systemStore.On("GetByName", "SystemConsoleRolesCreationMigrationComplete").Return(&model.System{Name: "SystemConsoleRolesCreationMigrationComplete", Value: "true"}, nil)
-	systemStore.On("GetByName", "PlaybookRolesCreationMigrationComplete").Return(&model.System{Name: "PlaybookRolesCreationMigrationComplete", Value: "true"}, nil)
 	systemStore.On("GetByName", "PostPriorityConfigDefaultTrueMigrationComplete").Return(&model.System{Name: "PostPriorityConfigDefaultTrueMigrationComplete", Value: "true"}, nil)
 	systemStore.On("GetByName", "content_flagging_setup_done").Return(&model.System{Name: "content_flagging_setup_done", Value: "true"}, nil)
 	systemStore.On("GetByName", "managed_category_setup_done").Return(&model.System{Name: "managed_category_setup_done", Value: "true"}, nil)
@@ -56,7 +55,6 @@ func GetMockStoreForSetupFunctions() *mocks.Store {
 	systemStore.On("GetByName", model.MigrationKeyAddSystemConsolePermissions).Return(&model.System{Name: model.MigrationKeyAddSystemConsolePermissions, Value: "true"}, nil)
 	systemStore.On("GetByName", model.MigrationKeyAddConvertChannelPermissions).Return(&model.System{Name: model.MigrationKeyAddConvertChannelPermissions, Value: "true"}, nil)
 	systemStore.On("GetByName", model.MigrationKeyAddSystemRolesPermissions).Return(&model.System{Name: model.MigrationKeyAddSystemRolesPermissions, Value: "true"}, nil)
-	systemStore.On("GetByName", model.MigrationKeyAddBillingPermissions).Return(&model.System{Name: model.MigrationKeyAddBillingPermissions, Value: "true"}, nil)
 	systemStore.On("GetByName", model.MigrationKeyAddDownloadComplianceExportResults).Return(&model.System{Name: model.MigrationKeyAddDownloadComplianceExportResults, Value: "true"}, nil)
 	systemStore.On("GetByName", model.MigrationKeyAddSiteSubsectionPermissions).Return(&model.System{Name: model.MigrationKeyAddSiteSubsectionPermissions, Value: "true"}, nil)
 	systemStore.On("GetByName", model.MigrationKeyAddExperimentalSubsectionPermissions).Return(&model.System{Name: model.MigrationKeyAddExperimentalSubsectionPermissions, Value: "true"}, nil)
@@ -69,9 +67,7 @@ func GetMockStoreForSetupFunctions() *mocks.Store {
 	systemStore.On("GetByName", model.MigrationKeyAddIntegrationsSubsectionPermissions).Return(&model.System{Name: model.MigrationKeyAddIntegrationsSubsectionPermissions, Value: "true"}, nil)
 	systemStore.On("GetByName", model.MigrationKeyAddManageSharedChannelPermissions).Return(&model.System{Name: model.MigrationKeyAddManageSharedChannelPermissions, Value: "true"}, nil)
 	systemStore.On("GetByName", model.MigrationKeyAddManageSecureConnectionsPermissions).Return(&model.System{Name: model.MigrationKeyAddManageSecureConnectionsPermissions, Value: "true"}, nil)
-	systemStore.On("GetByName", model.MigrationKeyAddPlaybooksPermissions).Return(&model.System{Name: model.MigrationKeyAddPlaybooksPermissions, Value: "true"}, nil)
 	systemStore.On("GetByName", model.MigrationKeyAddCustomUserGroupsPermissions).Return(&model.System{Name: model.MigrationKeyAddCustomUserGroupsPermissions, Value: "true"}, nil)
-	systemStore.On("GetByName", model.MigrationKeyAddPlayboosksManageRolesPermissions).Return(&model.System{Name: model.MigrationKeyAddPlayboosksManageRolesPermissions, Value: "true"}, nil)
 	systemStore.On("GetByName", model.MigrationKeyAddCustomUserGroupsPermissionRestore).Return(&model.System{Name: model.MigrationKeyAddCustomUserGroupsPermissionRestore, Value: "true"}, nil)
 	systemStore.On("GetByName", model.MigrationKeyAddReadChannelContentPermissions).Return(&model.System{Name: model.MigrationKeyAddReadChannelContentPermissions, Value: "true"}, nil)
 	systemStore.On("GetByName", model.MigrationKeyDeleteEmptyDrafts).Return(&model.System{Name: model.MigrationKeyDeleteEmptyDrafts, Value: "true"}, nil)
@@ -85,10 +81,9 @@ func GetMockStoreForSetupFunctions() *mocks.Store {
 	systemStore.On("GetByName", model.RestrictAccessToChannelConversionToPublic).Return(&model.System{Name: model.RestrictAccessToChannelConversionToPublic, Value: "true"}, nil)
 	systemStore.On("GetByName", model.MigrationKeyFixReadAuditsPermission).Return(&model.System{Name: model.MigrationKeyFixReadAuditsPermission, Value: "true"}, nil)
 	systemStore.On("GetByName", model.MigrationRemoveGetAnalyticsPermission).Return(&model.System{Name: model.MigrationRemoveGetAnalyticsPermission, Value: "true"}, nil)
-	systemStore.On("GetByName", "CustomGroupAdminRoleCreationMigrationComplete").Return(&model.System{Name: model.MigrationKeyAddPlayboosksManageRolesPermissions, Value: "true"}, nil)
+	systemStore.On("GetByName", "CustomGroupAdminRoleCreationMigrationComplete").Return(&model.System{Name: "CustomGroupAdminRoleCreationMigrationComplete", Value: "true"}, nil)
 	systemStore.On("GetByName", "SystemSharedChannelManagerRoleCreationMigrationComplete").Return(&model.System{Name: "SystemSharedChannelManagerRoleCreationMigrationComplete", Value: "true"}, nil)
 	systemStore.On("GetByName", model.MigrationKeyAddSharedChannelManagerPermissions).Return(&model.System{Name: model.MigrationKeyAddSharedChannelManagerPermissions, Value: "true"}, nil)
-	systemStore.On("GetByName", "products_boards").Return(&model.System{Name: "products_boards", Value: "true"}, nil)
 	systemStore.On("GetByName", "elasticsearch_fix_channel_index_migration").Return(&model.System{Name: "elasticsearch_fix_channel_index_migration", Value: "true"}, nil)
 	systemStore.On("GetByName", model.MigrationAddSysconsoleMobileSecurityPermission).Return(&model.System{Name: model.MigrationAddSysconsoleMobileSecurityPermission, Value: "true"}, nil)
 	systemStore.On("GetByName", model.MigrationKeyAddChannelBannerPermissions).Return(&model.System{Name: model.MigrationKeyAddChannelBannerPermissions, Value: "true"}, nil)
@@ -149,19 +144,12 @@ func GetMockStoreForSetupFunctions() *mocks.Store {
 	propertyGroupStore.On("Register", model.ManagedCategoryPropertyGroupName).Return(managedCategoryGroup, nil)
 	propertyGroupStore.On("Get", model.ManagedCategoryPropertyGroupName).Return(managedCategoryGroup, nil)
 
-	boardsGroup := &model.PropertyGroup{ID: model.NewId(), Name: model.BoardsPropertyGroupName}
-	propertyGroupStore.On("Register", model.BoardsPropertyGroupName).Return(boardsGroup, nil)
-	propertyGroupStore.On("Get", model.BoardsPropertyGroupName).Return(boardsGroup, nil)
-
 	propertyFieldStore.On("SearchPropertyFields", mock.Anything).Return([]*model.PropertyField{}, nil)
 	propertyFieldStore.On("CreatePropertyField", mock.Anything).Return(&model.PropertyField{}, nil)
 	propertyFieldStore.On("Create", mock.AnythingOfType("*model.PropertyField")).Return(&model.PropertyField{}, nil)
 
 	managedCategoryField := &model.PropertyField{ID: model.NewId(), GroupID: managedCategoryGroup.ID, Name: model.ManagedCategoryPropertyFieldName}
 	propertyFieldStore.On("GetFieldByName", managedCategoryGroup.ID, "", model.ManagedCategoryPropertyFieldName).Return(managedCategoryField, nil)
-
-	boardField := &model.PropertyField{ID: model.NewId(), GroupID: boardsGroup.ID, Name: model.BoardsPropertyFieldNameBoard}
-	propertyFieldStore.On("GetFieldByName", boardsGroup.ID, "", model.BoardsPropertyFieldNameBoard).Return(boardField, nil)
 
 	viewStore := mocks.ViewStore{}
 	mockStore.On("View").Return(&viewStore)

@@ -8,7 +8,6 @@ import type {Role} from '@mattermost/types/roles';
 
 import {memoizeResult} from 'mattermost-redux/utils/helpers';
 
-import ExternalLink from 'components/external_link';
 import AdminPanel from 'components/widgets/admin_console/admin_panel';
 
 import Constants from 'utils/constants';
@@ -23,7 +22,6 @@ type Props = {
     permissionsToUpdate: PermissionsToUpdate;
     updatePermissions: (permissions: PermissionToUpdate[]) => void;
     readOnly?: boolean;
-    isLicensedForCloud: boolean;
 }
 
 type State = {
@@ -38,11 +36,6 @@ const sectionsList: SystemSection[] = [
         subsections: [
             {name: 'about_edition_and_license'},
         ],
-    },
-    {
-        name: 'billing',
-        hasDescription: true,
-        subsections: [],
     },
     {
         name: 'reporting',
@@ -199,7 +192,6 @@ export default class SystemRolePermissions extends React.PureComponent<Props, St
     };
 
     getRows = (permissionsMap: Record<string, boolean>, permissionsToUpdate: PermissionsToUpdate, visibleSections: Record<string, boolean>) => {
-        const {isLicensedForCloud} = this.props;
         let editedSectionsByRole = {
             ...SECTIONS_BY_ROLES,
         };
@@ -210,17 +202,7 @@ export default class SystemRolePermissions extends React.PureComponent<Props, St
                     <p>
                         <FormattedMessage
                             id='admin.permissions.roles.system_custom_group_admin.introduction'
-                            defaultMessage='The built-in Custom Group Manager role can be used to delegate the administration of <a>Custom Groups</a> to users other than the System Admin.'
-                            values={{
-                                a: (chunks) => (
-                                    <ExternalLink
-                                        href='https://docs.mattermost.com/welcome/manage-custom-groups.html'
-                                        location='adminConsoleSystemRoles'
-                                    >
-                                        {chunks}
-                                    </ExternalLink>
-                                ),
-                            }}
+                            defaultMessage='The built-in Custom Group Manager role can be used to delegate the administration of Custom Groups to users other than the System Admin.'
                         />
                     </p>
                     <p>
@@ -249,17 +231,7 @@ export default class SystemRolePermissions extends React.PureComponent<Props, St
                     <p>
                         <FormattedMessage
                             id='admin.permissions.roles.system_shared_channel_manager.introduction'
-                            defaultMessage='The built-in Shared Channel Manager role can be used to delegate the ability to browse available connections and share or unshare channels with <a>remote servers</a> to users other than the System Admin.'
-                            values={{
-                                a: (chunks) => (
-                                    <ExternalLink
-                                        href='https://docs.mattermost.com/administration-guide/onboard/connected-workspaces.html'
-                                        location='adminConsoleSystemRoles'
-                                    >
-                                        {chunks}
-                                    </ExternalLink>
-                                ),
-                            }}
+                            defaultMessage='The built-in Shared Channel Manager role can be used to delegate the ability to browse available connections and share or unshare channels with remote servers to users other than the System Admin.'
                         />
                     </p>
                     <p>
@@ -293,17 +265,6 @@ export default class SystemRolePermissions extends React.PureComponent<Props, St
                     ...permissionsToShow,
                 },
             };
-        }
-
-        if (!isLicensedForCloud) {
-            // Remove the billing section if it's not licensed for cloud
-            this.removeSection('billing');
-        }
-
-        if (isLicensedForCloud) {
-            // Remove the site configuration section if it's licensed for cloud
-            this.removeSection('about');
-            this.removeSection('environment');
         }
 
         return getSectionsListForRole(sectionsList, this.props.role.name, editedSectionsByRole).map((section: SystemSection) => {

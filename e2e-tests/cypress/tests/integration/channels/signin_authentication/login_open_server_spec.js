@@ -10,7 +10,7 @@
 // Stage: @prod
 // Group: @channels @signin_authentication
 
-import {FixedCloudConfig} from '../../../utils/constants';
+import {FixedDefaultConfig} from '../../../utils/constants';
 
 describe('Login page with open server', () => {
     let config;
@@ -71,7 +71,7 @@ describe('Login page with open server', () => {
                 HELP_LINK,
                 PRIVACY_POLICY_LINK,
                 TERMS_OF_SERVICE_LINK,
-            } = FixedCloudConfig.SupportSettings;
+            } = FixedDefaultConfig.SupportSettings;
 
             // * Check if about footer link is present
             cy.findByText('About').should('exist').

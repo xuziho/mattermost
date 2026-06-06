@@ -9,10 +9,9 @@ import type {Team} from './teams';
 import type {IDMappedObjects, RelationOneToManyUnique, RelationOneToOne} from './utilities';
 
 export type UserNotifyProps = {
-    desktop: 'default' | 'all' | 'mention' | 'none';
-    desktop_sound: 'default' | 'true' | 'false';
-    calls_desktop_sound: 'true' | 'false';
-    email: 'true' | 'false';
+	desktop: 'default' | 'all' | 'mention' | 'none';
+	desktop_sound: 'default' | 'true' | 'false';
+	email: 'true' | 'false';
     mark_unread: 'all' | 'mention';
     push: 'default' | 'all' | 'mention' | 'none';
     push_status: 'ooo' | 'offline' | 'away' | 'dnd' | 'online';
@@ -20,16 +19,13 @@ export type UserNotifyProps = {
     first_name: 'true' | 'false';
     channel: 'true' | 'false';
     mention_keys: string;
-    highlight_keys: string;
-    desktop_notification_sound?: 'default' | 'Bing' | 'Crackle' | 'Down' | 'Hello' | 'Ripple' | 'Upstairs';
-    calls_notification_sound?: 'Dynamic' | 'Calm' | 'Urgent' | 'Cheerful';
-    desktop_threads?: 'default' | 'all' | 'mention' | 'none';
+	highlight_keys: string;
+	desktop_notification_sound?: 'default' | 'Bing' | 'Crackle' | 'Down' | 'Hello' | 'Ripple' | 'Upstairs';
+	desktop_threads?: 'default' | 'all' | 'mention' | 'none';
     email_threads?: 'default' | 'all' | 'mention' | 'none';
     push_threads?: 'default' | 'all' | 'mention' | 'none';
-    auto_responder_active?: 'true' | 'false';
-    auto_responder_message?: string;
-    calls_mobile_sound?: 'true' | 'false' | '';
-    calls_mobile_notification_sound?: 'Dynamic' | 'Calm' | 'Urgent' | 'Cheerful' | '';
+	auto_responder_active?: 'true' | 'false';
+	auto_responder_message?: string;
 };
 
 export type UserProfile = {

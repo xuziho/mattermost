@@ -1419,51 +1419,6 @@ func TestHookOnSendDailyTelemetry(t *testing.T) {
 	require.True(t, hookCalled)
 }
 
-func TestHookOnCloudLimitsUpdated(t *testing.T) {
-	mainHelper.Parallel(t)
-	th := Setup(t).InitBasic(t)
-
-	tearDown, pluginIDs, _ := SetAppEnvironmentWithPlugins(t,
-		[]string{
-			`
-		package main
-
-		import (
-			"github.com/mattermost/mattermost/server/public/model"
-			"github.com/mattermost/mattermost/server/public/plugin"
-		)
-
-		type MyPlugin struct {
-			plugin.MattermostPlugin
-		}
-
-		func (p *MyPlugin) OnCloudLimitsUpdated(_ *model.ProductLimits) {
-			return
-		}
-
-		func main() {
-			plugin.ClientMain(&MyPlugin{})
-		}
-	`,
-		}, th.App, th.NewPluginAPI)
-	defer tearDown()
-
-	require.Len(t, pluginIDs, 1)
-	pluginID := pluginIDs[0]
-
-	require.True(t, th.App.GetPluginsEnvironment().IsActive(pluginID))
-
-	hookCalled := false
-	th.App.Channels().RunMultiHook(func(hooks plugin.Hooks, _ *model.Manifest) bool {
-		hooks.OnCloudLimitsUpdated(nil)
-
-		hookCalled = true
-		return hookCalled
-	}, plugin.OnCloudLimitsUpdatedID)
-
-	require.True(t, hookCalled)
-}
-
 //go:embed test_templates/hook_notification_will_be_pushed.tmpl
 var hookNotificationWillBePushedTmpl string
 

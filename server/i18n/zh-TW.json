@@ -614,14 +614,6 @@
     "translation": "缺少建立新群組訊息的適當權限。"
   },
   {
-    "id": "api.command_help.desc",
-    "translation": "顯示 Mattermost 說明頁面"
-  },
-  {
-    "id": "api.command_help.name",
-    "translation": "help"
-  },
-  {
     "id": "api.command_invite.channel.app_error",
     "translation": "取得目前頻道時發生錯誤。"
   },
@@ -1890,10 +1882,6 @@
   {
     "id": "api.templates.verify_subject",
     "translation": "{{ .SiteName }}] 電子郵件地址驗證"
-  },
-  {
-    "id": "api.templates.welcome_body.app_download_info",
-    "translation": "欲享受最佳體驗，請下載 PC、Mac、iOS、Android 等平台的應用程式。"
   },
   {
     "id": "api.templates.welcome_body.button",
@@ -4920,40 +4908,8 @@
     "translation": "無法修改 saml 檔案。"
   },
   {
-    "id": "app.plugin.marshal.app_error",
-    "translation": "無法封送處理市集擴充程式。"
-  },
-  {
-    "id": "app.plugin.marketplace_plugins.signature_not_found.app_error",
-    "translation": "找不到請求的市集擴充程式簽名。"
-  },
-  {
-    "id": "app.plugin.marketplace_plugins.not_found.app_error",
-    "translation": "找不到請求的市集擴充程式。"
-  },
-  {
-    "id": "app.plugin.marketplace_plugin_request.app_error",
-    "translation": "無法解碼市集擴充程式請求。"
-  },
-  {
-    "id": "app.plugin.marketplace_disabled.app_error",
-    "translation": "市集已被停用。詳情請見紀錄檔。"
-  },
-  {
-    "id": "app.plugin.marketplace_client.failed_to_fetch",
-    "translation": "無法從市集伺服器取得擴充程式。"
-  },
-  {
-    "id": "app.plugin.marketplace_client.app_error",
-    "translation": "無法建立市集用戶端。"
-  },
-  {
     "id": "app.plugin.invalid_version.app_error",
     "translation": "無法解析擴充程式版本。"
-  },
-  {
-    "id": "app.plugin.install_marketplace_plugin.app_error",
-    "translation": "無法安裝市集擴充程式。"
   },
   {
     "id": "app.plugin.get_public_key.get_file.app_error",
@@ -6492,16 +6448,8 @@
     "translation": "只有系統管理員能設定已被雜湊運算過的密碼。"
   },
   {
-    "id": "api.user.login_by_cws.invalid_token.app_error",
-    "translation": "CWS 代符無效"
-  },
-  {
     "id": "api.upload.upload_data.invalid_content_length",
     "translation": "Content-Length 無效。"
-  },
-  {
-    "id": "api.upgrade_to_enterprise_status.signature.app_error",
-    "translation": "無法更新至企業版。無法驗證已下載執行檔的數位簽章。"
   },
   {
     "id": "app.channel.sidebar_categories.app_error",
@@ -6532,52 +6480,12 @@
     "translation": "無法取得頻道。"
   },
   {
-    "id": "api.user.login_cws.license.error",
-    "translation": "禁止 CWS 登入。"
-  },
-  {
     "id": "api.user.get_uploads_for_user.forbidden.app_error",
     "translation": "無法取得上傳檔。"
   },
   {
     "id": "api.upload.get_upload.forbidden.app_error",
     "translation": "無法取得上傳檔。"
-  },
-  {
-    "id": "api.upgrade_to_enterprise_status.app_error",
-    "translation": "無法升級至企業版。"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.system_not_supported.app_error",
-    "translation": "無法升級至企業版。此功能只能在 x86-64 架構下的 Linux 系統上運作。"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-user.app_error",
-    "translation": "無法升級至企業版。Mattermost 系統使用者 {{.MattermostUsername}} 沒有必要執行檔的寫入權限。系統管理員可以在 Mattermost 伺服器上執行下列命令以更新檔案權限：\n\n```\nchown {{.MattermostUsername}} \"{{.Path}}\"\n```\n\n變更檔案權限後，請重新嘗試升級。當完成升級並重新啟動後，記得還原執行檔權限：\n\n```\nchown {{.FileUsername}} \"{{.Path}}\"\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-user-and-permission.app_error",
-    "translation": "無法升級至企業版。Mattermost 系統使用者 {{.MattermostUsername}} 沒有必要執行檔的寫入權限。系統管理員可以在 Mattermost 伺服器上執行下列命令以更新檔案權限：\n\n```\nchown {{.MattermostUsername}} \"{{.Path}}\"\nchmod +w \"{{.Path}}\"\n```\n\n變更檔案權限後，請重新嘗試升級。當完成升級並重新啟動後，記得還原執行檔權限：\n\n```\nchown {{.FileUsername}} \"{{.Path}}\"\nchmod -w \"{{.Path}}\"\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-permission.app_error",
-    "translation": "無法升級至企業版。Mattermost 系統使用者 {{.MattermostUsername}} 沒有必要執行檔的寫入權限。系統管理員可以在 Mattermost 伺服器上執行下列命令以更新檔案權限：\n\n```\nchmod +w \"{{.Path}}\"\n```\n\n變更檔案權限後，請重新嘗試升級。當完成升級並重新啟動後，記得還原執行檔權限：\n\n```\nchmod -w \"{{.Path}}\"\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.generic_error.app_error",
-    "translation": "無法升級至企業版。"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.app_error",
-    "translation": "正在升級至 Mattermost 企業版。"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.already-enterprise.app_error",
-    "translation": "因為目前執行的已是 Mattermost 企業版，所以無法升級。"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.already-done.app_error",
-    "translation": "已升級至 Mattermost 企業版。請重新啟動伺服器以完成升級。"
   },
   {
     "id": "api.migrate_to_saml.error",
@@ -6724,32 +6632,8 @@
     "translation": "返回至 {{.SiteName}}"
   },
   {
-    "id": "api.cloud.app_error",
-    "translation": "請求雲端 API 時發生內部錯誤。"
-  },
-  {
     "id": "api.channel.patch_channel_moderations.cache_invalidation.error",
     "translation": "使快取無效時發生錯誤"
-  },
-  {
-    "id": "api.cloud.request_error",
-    "translation": "處理 CWS 請求時發生錯誤。"
-  },
-  {
-    "id": "api.cloud.notify_admin_to_upgrade_error.already_notified",
-    "translation": "已通知管理員"
-  },
-  {
-    "id": "api.cloud.license_error",
-    "translation": "您的授權不支援雲端請求。"
-  },
-  {
-    "id": "api.cloud.teams_limit_reached.restore",
-    "translation": "無法復原團隊，已達到團隊數量上限"
-  },
-  {
-    "id": "api.cloud.teams_limit_reached.create",
-    "translation": "無法建立團隊，已達到團隊數量上限"
   },
   {
     "id": "api.command_custom_status.success",
@@ -6786,10 +6670,6 @@
   {
     "id": "api.command_channel_header.update_channel.max_length",
     "translation": "輸入的文字超出字數限制。頻道標題不得超過 {{.MaxLength}} 個字元。"
-  },
-  {
-    "id": "api.cloud.cws_webhook_event_missing_error",
-    "translation": "Webhook 事件未處理。事件可能遺失或無效。"
   },
   {
     "id": "api.channel.create_channel.direct_channel.team_restricted_error",
@@ -6858,10 +6738,6 @@
   {
     "id": "api.post.send_notification_and_forget.push_comment_on_crt_thread",
     "translation": " 回覆了您正在追蹤的討論串。"
-  },
-  {
-    "id": "api.command_help.success",
-    "translation": "Mattermost 是一款開放源碼的平台，提供跨工具及團隊的安全通訊、協作及工作規劃。\nMattermost 包含兩大核心工具：\n\n**頻道**- 透過一對一及群組訊息，隨時與您的團隊保持聯繫。\n**[Playbooks](/playbooks)** - 建立並設定可重複使用的流程，以達成特定、可預測的結果。\n\n[檢視文件及指引]({{.HelpLink}})"
   },
   {
     "id": "api.command_invite.user_not_in_team.messageOverflow",
@@ -6998,10 +6874,6 @@
   {
     "id": "api.team.update_team_member_roles.guest.app_error",
     "translation": "無效的團隊成員更新：訪客無法成為團隊成員或團隊管理員，請先將其升級為使用者。"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.signin_sub_info",
-    "translation": "登入我們您的工作區，透過我們的"
   },
   {
     "id": "api.templates.license_up_for_renewal_subject",
@@ -7144,10 +7016,6 @@
     "translation": "無法取得最不常使用的工作階段。"
   },
   {
-    "id": "app.system.complete_onboarding_request.app_error",
-    "translation": "無法解碼完整的使用教學請求。"
-  },
-  {
     "id": "ent.outgoing_oauth_connections.get_connections.app_error",
     "translation": "取得對外 OAuth 連線時發生錯誤。"
   },
@@ -7272,10 +7140,6 @@
     "translation": "儲存組態時執行擴充程式 hook 程式發生錯誤。"
   },
   {
-    "id": "app.system.complete_onboarding_request.no_first_user",
-    "translation": "只能由系統管理員完成導引流程。"
-  },
-  {
     "id": "app.team.get_common_team_ids_for_users.app_error",
     "translation": "無法取得共同的團隊 ID。"
   },
@@ -7336,10 +7200,6 @@
     "translation": "邀請已過期。"
   },
   {
-    "id": "api.error_get_first_admin_visit_marketplace_status",
-    "translation": "嘗試從儲存空間取得首個管理員造訪市集狀態時發生錯誤。"
-  },
-  {
     "id": "api.file.cloud_upload.app_error",
     "translation": "不支援從 mmctl 上傳至雲端個體。請查閱文件：https://docs.mattermost.com/manage/cloud-data-export.html。"
   },
@@ -7360,18 +7220,6 @@
     "translation": "驗證完成"
   },
   {
-    "id": "api.templates.cloud_welcome_email.add_apps_info",
-    "translation": "新增應用程式至您的工作區"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subject",
-    "translation": "恭喜！"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.title",
-    "translation": "您的工作區已就緒！"
-  },
-  {
     "id": "api.templates.email_footer_v2",
     "translation": "© 2022 Mattermost, Inc. 530 Lytton Avenue, Second floor, Palo Alto, CA, 94301"
   },
@@ -7384,16 +7232,8 @@
     "translation": "點按下方按鈕以完成驗證您的電子郵件地址。"
   },
   {
-    "id": "api.templates.welcome_body.app_download_button",
-    "translation": "下載"
-  },
-  {
     "id": "api.unmarshal_error",
     "translation": "解除封送處理失敗。"
-  },
-  {
-    "id": "api.user.send_cloud_welcome_email.error",
-    "translation": "無法傳送雲端歡迎電子郵件"
   },
   {
     "id": "app.eport.generate_presigned_url.link.app_error",
@@ -7728,18 +7568,6 @@
     "translation": "無法產生預先簽章網址。"
   },
   {
-    "id": "api.command_marketplace.unsupported.app_error",
-    "translation": "您的裝置不支援市集命令。"
-  },
-  {
-    "id": "api.command_marketplace.desc",
-    "translation": "開啟市集"
-  },
-  {
-    "id": "api.command_marketplace.name",
-    "translation": "市集"
-  },
-  {
     "id": "api.command_remote.accept.help",
     "translation": "從外部的 Mattermost 個體接受邀請"
   },
@@ -7880,16 +7708,8 @@
     "translation": "開啟 Mattermost"
   },
   {
-    "id": "api.error_no_organization_name_provided_for_self_hosted_onboarding",
-    "translation": "未提供自行架站引導流程的組織名稱。"
-  },
-  {
     "id": "api.error_get_first_admin_complete_setup",
     "translation": "嘗試從儲存空間取得首個完成的管理者設定時發生錯誤。"
-  },
-  {
-    "id": "api.error_set_first_admin_visit_marketplace_status",
-    "translation": "嘗試將管理員首次造訪市集狀態儲存至儲存空間時發生錯誤。"
   },
   {
     "id": "api.error_set_first_admin_complete_setup",
@@ -8100,54 +7920,6 @@
     "translation": "OAtuh 代符網址無效。"
   },
   {
-    "id": "api.templates.cloud_welcome_email.app_market_place",
-    "translation": "我們的整合功能。"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.add_apps_sub_info",
-    "translation": "將您的工作與 GitHub、Jira 和 Zoom 等等的工具完美整合。在應用程式市集上探索"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.button",
-    "translation": "開啟 Mattermost"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.download_mm_info",
-    "translation": "下載 Mattermost 應用程式"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.info",
-    "translation": "感謝您註冊 "
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.info2",
-    "translation": "請確保儲存連結或將其加入書籤，以供未來使用。"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.invite_info",
-    "translation": "邀請人們至您的工作區"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.invite_sub_info",
-    "translation": "分享此連結以邀請您的成員加入 {{.WorkSpace}}："
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.mm_apps",
-    "translation": "行動裝置與桌面應用程式"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.start_questions",
-    "translation": "對開始使用有問題嗎？請透過電子郵件聯絡我們"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subtitle",
-    "translation": "設定您的工作區"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subtitle_info",
-    "translation": "採取下列步驟以建構您的團隊，並使您的工作區發揮最佳助益。"
-  },
-  {
     "id": "api.templates.invite_body.subTitle",
     "translation": "開始在 Mattermost 上與您的團隊協作"
   },
@@ -8174,10 +7946,6 @@
   {
     "id": "api.templates.ip_filters_changed.subject",
     "translation": "對您的工作區的 IP 過濾設定變更"
-  },
-  {
-    "id": "api.templates.ip_filters_changed_footer.log_in_to_customer_portal",
-    "translation": "登入客戶入口網站以重設 IP 過濾"
   },
   {
     "id": "api.templates.questions_footer.info",
@@ -8292,10 +8060,6 @@
     "translation": "執行工作時發生錯誤。"
   },
   {
-    "id": "app.last_accessible_file.app_error",
-    "translation": "無法取得最後可存取的檔案"
-  },
-  {
     "id": "app.last_accessible_post.app_error",
     "translation": "無法取得最後可存取的訊息"
   },
@@ -8326,10 +8090,6 @@
   {
     "id": "app.plugin.subpath_parse.app_error",
     "translation": "無法解析 SiteURL 子路徑"
-  },
-  {
-    "id": "app.post.cloud.get.app_error",
-    "translation": "因超過雲端方案限制，無法取得訊息。"
   },
   {
     "id": "app.post.delete_post.get_team.app_error",
@@ -8378,10 +8138,6 @@
   {
     "id": "app.role.get_all.app_error",
     "translation": "無法取得所有角色。"
-  },
-  {
-    "id": "app.system.get_onboarding_request.app_error",
-    "translation": "無法取得導引流程完成狀態。"
   },
   {
     "id": "app.team.clear_cache.app_error",
@@ -8768,10 +8524,6 @@
     "translation": "找不到匯出檔案。"
   },
   {
-    "id": "app.file.cloud.get.app_error",
-    "translation": "因超過雲端方案限制，無法取得檔案。"
-  },
-  {
     "id": "app.group.permanent_delete_members_by_user.app_error",
     "translation": "無法移除具有 UserID「{{.UserId}}」的群組成員。"
   },
@@ -9064,10 +8816,6 @@
     "translation": "續訂授權的電子郵件寄送失敗"
   },
   {
-    "id": "api.server.cws.needs_enterprise_edition",
-    "translation": "服務僅在 Mattermost 企業版中可供使用"
-  },
-  {
     "id": "api.system.logs.invalidFilter",
     "translation": "紀錄篩選器無效"
   },
@@ -9092,10 +8840,6 @@
     "translation": "團隊成員更新無效：無法為單一團隊設定訪客，系統管理員必須將訪客升級為使用者，或將使用者降級為訪客。"
   },
   {
-    "id": "api.templates.cloud_welcome_email.signin_sub_info2",
-    "translation": "以在 Windows、Linux、Mac、iOS 及 Android 上享有最佳體驗。"
-  },
-  {
     "id": "api.templates.invite_body_footer.title",
     "translation": "Mattermost 是什麼？"
   },
@@ -9110,10 +8854,6 @@
   {
     "id": "api.templates.ip_filters_changed_footer.contact_support",
     "translation": "取得支援"
-  },
-  {
-    "id": "api.templates.welcome_body.app_download_title",
-    "translation": "下載桌面及行動版應用程式"
   },
   {
     "id": "api.upload.upload_data.invalid_content_type",
@@ -9164,8 +8904,8 @@
     "translation": "隨時透過此電子郵件地址聯絡我們 "
   },
   {
-    "id": "api.templates.license_up_for_renewal_contact_sales",
-    "translation": "聯絡銷售人員"
+    "id": "api.templates.license_up_for_renewal_review_license",
+    "translation": "Review license"
   },
   {
     "id": "app.post.analytics_teams_count.app_error",
@@ -9654,10 +9394,6 @@
   {
     "id": "api.config.update.elasticsearch.autocomplete_cannot_be_enabled_error",
     "translation": "頻道索引結構已經過期，頻道自動完成無法啟用。建議重新產生您的頻道引。詳細資訊請見 Mattermost 更新日誌"
-  },
-  {
-    "id": "api.server.cws.disabled",
-    "translation": "與 Mattermost 客戶入口網站的互動功能已被系統管理員停用。"
   },
   {
     "id": "app.channel.bookmark.save.app_error",

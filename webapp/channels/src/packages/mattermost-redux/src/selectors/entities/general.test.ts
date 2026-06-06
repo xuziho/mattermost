@@ -372,35 +372,6 @@ describe('Selectors.General', () => {
         });
     });
 
-    describe('firstAdminVisitMarketplaceStatus', () => {
-        test('should return empty when status does not exist', () => {
-            const state = {
-                entities: {
-                    general: {
-                        firstAdminVisitMarketplaceStatus: {
-                        },
-                    },
-                },
-            } as unknown as GlobalState;
-
-            expect(Selectors.getFirstAdminVisitMarketplaceStatus(state)).toEqual({});
-        });
-
-        test('should return the value of the status', () => {
-            const state = {
-                entities: {
-                    general: {
-                        firstAdminVisitMarketplaceStatus: true,
-                    },
-                },
-            } as unknown as GlobalState;
-
-            expect(Selectors.getFirstAdminVisitMarketplaceStatus(state)).toEqual(true);
-            state.entities.general.firstAdminVisitMarketplaceStatus = false;
-            expect(Selectors.getFirstAdminVisitMarketplaceStatus(state)).toEqual(false);
-        });
-    });
-
     describe('getCustomProfileAttributes', () => {
         test('should return empty when no attributes', () => {
             const state = {
@@ -430,4 +401,3 @@ describe('Selectors.General', () => {
         });
     });
 });
-

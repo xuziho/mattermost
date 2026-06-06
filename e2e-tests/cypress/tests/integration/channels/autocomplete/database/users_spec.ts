@@ -20,11 +20,7 @@ describe('Autocomplete with Database - Users', () => {
     let testTeam: Cypress.Team;
 
     before(() => {
-        cy.apiGetClientLicense().then(({isCloudLicensed}) => {
-            if (!isCloudLicensed) {
-                cy.shouldHaveElasticsearchDisabled();
-            }
-        });
+        cy.shouldHaveElasticsearchDisabled();
 
         createSearchData(prefix).then((searchData) => {
             testUsers = searchData.users;

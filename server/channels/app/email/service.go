@@ -32,7 +32,6 @@ const (
 	TokenTypeVerifyEmail              = "verify_email"
 	TokenTypeTeamInvitation           = "team_invitation"
 	TokenTypeGuestInvitation          = "guest_invitation"
-	TokenTypeCWSAccess                = "cws_access_token"
 	TokenTypeGuestMagicLinkInvitation = "guest_magic_link_invitation"
 	TokenTypeGuestMagicLink           = "guest_magic_link"
 )
@@ -138,7 +137,6 @@ type ServiceInterface interface {
 	SendVerifyEmail(userEmail, locale, siteURL, token, redirect string) error
 	SendSignInChangeEmail(email, method, locale, siteURL string) error
 	SendWelcomeEmail(userID string, email string, verified bool, disableWelcomeEmail bool, locale, siteURL, redirect string) error
-	SendCloudWelcomeEmail(userEmail, locale, teamInviteID, workSpaceName, dns, siteURL string) error
 	SendPasswordChangeEmail(email, method, locale, siteURL string) error
 	SendUserAccessTokenAddedEmail(email, locale, siteURL string) error
 	SendPasswordResetEmail(email string, token *model.Token, locale, siteURL string) (bool, error)
@@ -158,7 +156,7 @@ type ServiceInterface interface {
 	InitEmailBatching()
 	SendChangeUsernameEmail(newUsername, email, locale, siteURL string) error
 	CreateVerifyEmailToken(userID string, newEmail string) (*model.Token, error)
-	SendIPFiltersChangedEmail(email string, userWhoChangedFilter *model.User, siteURL, portalURL, locale string, isWorkspaceOwner bool) error
+	SendIPFiltersChangedEmail(email string, userWhoChangedFilter *model.User, siteURL, locale string) error
 	SetStore(st store.Store)
 	Stop()
 }

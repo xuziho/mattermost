@@ -39,20 +39,5 @@ func (a *App) GetTeamsUsage() (*model.TeamsUsage, *model.AppError) {
 	}
 
 	usage.Active = teamCount
-
-	allTeams, appErr := a.GetAllTeams()
-	if appErr != nil {
-		return nil, appErr
-	}
-
-	cloudArchivedTeamCount := 0
-
-	for _, team := range allTeams {
-		if team.DeleteAt > 0 && team.CloudLimitsArchived {
-			cloudArchivedTeamCount += 1
-		}
-	}
-
-	usage.CloudArchived = int64(cloudArchivedTeamCount)
 	return usage, nil
 }

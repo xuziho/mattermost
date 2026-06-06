@@ -54,10 +54,8 @@ type Store struct {
 	UserTermsOfServiceStore         mocks.UserTermsOfServiceStore
 	LinkMetadataStore               mocks.LinkMetadataStore
 	SharedChannelStore              mocks.SharedChannelStore
-	ProductNoticesStore             mocks.ProductNoticesStore
 	DraftStore                      mocks.DraftStore
 	logger                          mlog.LoggerIFace
-	NotifyAdminStore                mocks.NotifyAdminStore
 	PostPriorityStore               mocks.PostPriorityStore
 	PostAcknowledgementStore        mocks.PostAcknowledgementStore
 	PostPersistentNotificationStore mocks.PostPersistentNotificationStore
@@ -84,7 +82,6 @@ func (s *Store) Post() store.PostStore                         { return &s.PostS
 func (s *Store) User() store.UserStore                         { return &s.UserStore }
 func (s *Store) RetentionPolicy() store.RetentionPolicyStore   { return &s.RetentionPolicyStore }
 func (s *Store) Bot() store.BotStore                           { return &s.BotStore }
-func (s *Store) ProductNotices() store.ProductNoticesStore     { return &s.ProductNoticesStore }
 func (s *Store) Audit() store.AuditStore                       { return &s.AuditStore }
 func (s *Store) ClusterDiscovery() store.ClusterDiscoveryStore { return &s.ClusterDiscoveryStore }
 func (s *Store) RemoteCluster() store.RemoteClusterStore       { return &s.RemoteClusterStore }
@@ -120,7 +117,6 @@ func (s *Store) ChannelMemberHistory() store.ChannelMemberHistoryStore {
 }
 func (s *Store) ChannelBookmark() store.ChannelBookmarkStore { return &s.ChannelBookmarkStore }
 func (s *Store) DesktopTokens() store.DesktopTokensStore     { return &s.DesktopTokensStore }
-func (s *Store) NotifyAdmin() store.NotifyAdminStore         { return &s.NotifyAdminStore }
 func (s *Store) Group() store.GroupStore                     { return &s.GroupStore }
 func (s *Store) LinkMetadata() store.LinkMetadataStore       { return &s.LinkMetadataStore }
 func (s *Store) SharedChannel() store.SharedChannelStore     { return &s.SharedChannelStore }
@@ -221,10 +217,8 @@ func (s *Store) AssertExpectations(t mock.TestingT) bool {
 		&s.RoleStore,
 		&s.SchemeStore,
 		&s.ThreadStore,
-		&s.ProductNoticesStore,
 		&s.SharedChannelStore,
 		&s.DraftStore,
-		&s.NotifyAdminStore,
 		&s.PostPriorityStore,
 		&s.PostAcknowledgementStore,
 		&s.PostPersistentNotificationStore,

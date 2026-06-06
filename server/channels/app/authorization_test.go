@@ -260,7 +260,6 @@ func TestSessionHasPermissionToChannel(t *testing.T) {
 		// Mock the channel store so getting the channel returns with an error, as per the bug report.
 		mockStore := mocks.Store{}
 
-		// Playbooks DB job requires a plugin mock
 		pluginStore := mocks.PluginStore{}
 		pluginStore.On("List", mock.Anything, mock.Anything, mock.Anything).Return([]string{}, nil)
 		mockStore.On("Plugin").Return(&pluginStore)

@@ -14,11 +14,8 @@ import ExternalLink from 'components/external_link';
 import Nbsp from 'components/html_entities/nbsp';
 import MattermostLogo from 'components/widgets/icons/mattermost_logo';
 
-import {AboutLinks} from 'utils/constants';
 import {getSkuDisplayName} from 'utils/subscription';
 import {getDesktopVersion, isDesktopApp} from 'utils/user_agent';
-
-import AboutBuildModalCloud from './about_build_modal_cloud/about_build_modal_cloud';
 
 type SocketStatus = {
     connected: boolean;
@@ -74,16 +71,6 @@ export default function AboutBuildModal(props: Props) {
     const config = props.config;
     const license = props.license;
 
-    if (license.Cloud === 'true') {
-        return (
-            <AboutBuildModalCloud
-                {...props}
-                show={show}
-                doHide={doHide}
-            />
-        );
-    }
-
     let title = (
         <FormattedMessage
             id='about.teamEditiont0'
@@ -98,20 +85,7 @@ export default function AboutBuildModal(props: Props) {
         />
     );
 
-    let learnMore = (
-        <div>
-            <FormattedMessage
-                id='about.teamEditionLearn'
-                defaultMessage='Join the Mattermost community at '
-            />
-            <ExternalLink
-                location='about_build_modal'
-                href='https://mattermost.com/community/'
-            >
-                {'mattermost.com/community/'}
-            </ExternalLink>
-        </div>
-    );
+    let learnMore: React.ReactNode = null;
 
     let licensee;
     if (config.BuildEnterpriseReady === 'true') {
@@ -133,25 +107,6 @@ export default function AboutBuildModal(props: Props) {
             // Show the plan name instead of generic "Enterprise Edition"
             const skuName = getSkuDisplayName(license.SkuShortName || '', license.IsGovSku === 'true');
             title = <>{skuName}</>;
-            learnMore = (
-                <div>
-                    <FormattedMessage
-                        id='about.planNameLearn'
-                        defaultMessage='Learn more about Mattermost {planName} at {link}'
-                        values={{
-                            planName: skuName,
-                            link: (
-                                <ExternalLink
-                                    location='about_build_modal'
-                                    href='https://mattermost.com/'
-                                >
-                                    {'mattermost.com'}
-                                </ExternalLink>
-                            ),
-                        }}
-                    />
-                </div>
-            );
             licensee = (
                 <div className='form-group'>
                     <FormattedMessage
@@ -161,53 +116,8 @@ export default function AboutBuildModal(props: Props) {
                     <Nbsp/>{license.Company}
                 </div>
             );
-        } else {
-            learnMore = (
-                <div>
-                    <FormattedMessage
-                        id='about.enterpriseEditionLearn'
-                        defaultMessage='Learn more about Enterprise Edition at {link}'
-                        values={{
-                            link: (
-                                <ExternalLink
-                                    location='about_build_modal'
-                                    href='https://mattermost.com/'
-                                >
-                                    {'mattermost.com'}
-                                </ExternalLink>
-                            ),
-                        }}
-                    />
-                </div>
-            );
         }
     }
-
-    const termsOfService = (
-        <ExternalLink
-            location='about_build_modal'
-            id='tosLink'
-            href={AboutLinks.TERMS_OF_SERVICE}
-        >
-            <FormattedMessage
-                id='about.tos'
-                defaultMessage='Terms of Use'
-            />
-        </ExternalLink>
-    );
-
-    const privacyPolicy = (
-        <ExternalLink
-            id='privacyLink'
-            location='about_build_modal'
-            href={AboutLinks.PRIVACY_POLICY}
-        >
-            <FormattedMessage
-                id='about.privacy'
-                defaultMessage='Privacy Policy'
-            />
-        </ExternalLink>
-    );
 
     const getServerVersionString = () => {
         const version = config.BuildNumber === 'dev' ? config.BuildNumber : config.Version;
@@ -374,16 +284,12 @@ export default function AboutBuildModal(props: Props) {
                         <div className='about-modal__copyright'>
                             <FormattedMessage
                                 id='about.copyright'
-                                defaultMessage='Copyright 2015 - {currentYear} Mattermost, Inc. All rights reserved'
+                                defaultMessage='Copyright 2015 - {currentYear} {appTitle}. All rights reserved'
                                 values={{
                                     currentYear: new Date().getFullYear(),
+                                    appTitle: config.SiteName || 'Mattermost',
                                 }}
                             />
-                        </div>
-                        <div className='about-modal__links'>
-                            {termsOfService}
-                            {' - '}
-                            {privacyPolicy}
                         </div>
                     </div>
                 </div>

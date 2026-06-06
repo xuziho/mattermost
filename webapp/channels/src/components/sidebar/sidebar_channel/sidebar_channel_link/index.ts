@@ -9,25 +9,15 @@ import type {Channel} from '@mattermost/types/channels';
 
 import {fetchChannelRemotes} from 'mattermost-redux/actions/shared_channels';
 import {makeGetChannelUnreadCount} from 'mattermost-redux/selectors/entities/channels';
-import {getCurrentUserId, getMyChannelMemberships} from 'mattermost-redux/selectors/entities/common';
-import {getConfig} from 'mattermost-redux/selectors/entities/general';
-import {getInt} from 'mattermost-redux/selectors/entities/preferences';
+import {getMyChannelMemberships} from 'mattermost-redux/selectors/entities/common';
 import {getRemoteNamesForChannel} from 'mattermost-redux/selectors/entities/shared_channels';
 import {isChannelMuted} from 'mattermost-redux/utils/channel_utils';
 
 import {markMostRecentPostInChannelAsUnread, unsetEditingPost} from 'actions/post_actions';
 import {clearChannelSelection, multiSelectChannelAdd, multiSelectChannelTo} from 'actions/views/channel_sidebar';
 import {closeRightHandSide} from 'actions/views/rhs';
-import {getFirstChannelName} from 'selectors/onboarding';
 import {getIsRhsOpen, getRhsState} from 'selectors/rhs';
 import {isChannelSelected} from 'selectors/views/channel_sidebar';
-
-import {
-    GenericTaskSteps,
-    OnboardingTaskCategory,
-    OnboardingTasksName,
-} from 'components/onboarding_tasks';
-import {FINISHED, OnboardingTourSteps, TutorialTourName} from 'components/tours';
 
 import type {GlobalState} from 'types/store';
 
@@ -43,15 +33,6 @@ function makeMapStateToProps() {
     return (state: GlobalState, ownProps: OwnProps) => {
         const member = getMyChannelMemberships(state)[ownProps.channel.id];
         const unreadCount = getUnreadCount(state, ownProps.channel.id);
-        const config = getConfig(state);
-        const enableTutorial = config.EnableTutorial === 'true';
-        const currentUserId = getCurrentUserId(state);
-        const tutorialStep = getInt(state, TutorialTourName.ONBOARDING_TUTORIAL_STEP, currentUserId, 0);
-        const triggerStep = getInt(state, OnboardingTaskCategory, OnboardingTasksName.CHANNELS_TOUR, FINISHED);
-        const channelTourTriggered = triggerStep === GenericTaskSteps.STARTED;
-        const isOnboardingFlowEnabled = config.EnableOnboardingFlow;
-        const showChannelsTour = enableTutorial && tutorialStep === OnboardingTourSteps.CHANNELS_AND_DIRECT_MESSAGES;
-        const showChannelsTutorialStep = showChannelsTour && channelTourTriggered && isOnboardingFlowEnabled === 'true';
 
         const remoteNames = ownProps.channel?.shared ?
             getRemoteNamesForChannel(state, ownProps.channel.id) : [];
@@ -63,8 +44,6 @@ function makeMapStateToProps() {
             isMuted: isChannelMuted(member),
             hasUrgent: unreadCount.hasUrgent,
             isChannelSelected: isChannelSelected(state, ownProps.channel.id),
-            firstChannelName: showChannelsTutorialStep ? getFirstChannelName(state) : '',
-            showChannelsTutorialStep,
             rhsState: getRhsState(state),
             rhsOpen: getIsRhsOpen(state),
             remoteNames,

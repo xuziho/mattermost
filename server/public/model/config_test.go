@@ -461,14 +461,14 @@ func TestConfigDefaultServiceSettingsExperimentalGroupUnreadChannels(t *testing.
 }
 
 func TestConfigDefaultNPSPluginState(t *testing.T) {
-	t.Run("should enable NPS plugin by default", func(t *testing.T) {
+	t.Run("should not enable NPS plugin by default", func(t *testing.T) {
 		c1 := Config{}
 		c1.SetDefaults()
 
-		assert.True(t, c1.PluginSettings.PluginStates["com.mattermost.nps"].Enable)
+		assert.False(t, c1.PluginSettings.PluginStates["com.mattermost.nps"].Enable)
 	})
 
-	t.Run("should enable NPS plugin if diagnostics are enabled", func(t *testing.T) {
+	t.Run("should not enable NPS plugin if diagnostics are enabled", func(t *testing.T) {
 		c1 := Config{
 			LogSettings: LogSettings{
 				EnableDiagnostics: NewPointer(true),
@@ -477,7 +477,7 @@ func TestConfigDefaultNPSPluginState(t *testing.T) {
 
 		c1.SetDefaults()
 
-		assert.True(t, c1.PluginSettings.PluginStates["com.mattermost.nps"].Enable)
+		assert.False(t, c1.PluginSettings.PluginStates["com.mattermost.nps"].Enable)
 	})
 
 	t.Run("should not enable NPS plugin if diagnostics are disabled", func(t *testing.T) {
@@ -507,6 +507,14 @@ func TestConfigDefaultNPSPluginState(t *testing.T) {
 
 		assert.False(t, c1.PluginSettings.PluginStates["com.mattermost.nps"].Enable)
 	})
+}
+
+func TestConfigDefaultAnnouncementNotices(t *testing.T) {
+	c1 := Config{}
+	c1.SetDefaults()
+
+	assert.False(t, *c1.AnnouncementSettings.AdminNoticesEnabled)
+	assert.False(t, *c1.AnnouncementSettings.UserNoticesEnabled)
 }
 
 func TestConfigDefaultChannelExportPluginState(t *testing.T) {
@@ -1946,7 +1954,7 @@ func TestConfigFilteredByTag(t *testing.T) {
 	c := Config{}
 	c.SetDefaults()
 
-	cfgMap := configToMapFilteredByTag(c, ConfigAccessTagType, ConfigAccessTagCloudRestrictable)
+	cfgMap := configToMapFilteredByTag(c, ConfigAccessTagType, ConfigAccessTagWriteRestrictable)
 
 	// Remove entire sections but the map is still there
 	clusterSettings, ok := cfgMap["SqlSettings"].(map[string]any)
@@ -1964,7 +1972,7 @@ func TestConfigToJSONFiltered(t *testing.T) {
 	c := Config{}
 	c.SetDefaults()
 
-	jsonCfgFiltered, err := c.ToJSONFiltered(ConfigAccessTagType, ConfigAccessTagCloudRestrictable)
+	jsonCfgFiltered, err := c.ToJSONFiltered(ConfigAccessTagType, ConfigAccessTagWriteRestrictable)
 	require.NoError(t, err)
 
 	unmarshaledCfg := make(map[string]json.RawMessage)
@@ -1985,40 +1993,6 @@ func TestConfigToJSONFiltered(t *testing.T) {
 	require.False(t, ok)
 	_, ok = unmarshaledServiceSettings["SiteURL"]
 	require.True(t, ok)
-}
-
-func TestConfigMarketplaceDefaults(t *testing.T) {
-	t.Parallel()
-
-	t.Run("no marketplace url", func(t *testing.T) {
-		c := Config{}
-		c.SetDefaults()
-
-		require.True(t, *c.PluginSettings.EnableMarketplace)
-		require.Equal(t, PluginSettingsDefaultMarketplaceURL, *c.PluginSettings.MarketplaceURL)
-	})
-
-	t.Run("old marketplace url", func(t *testing.T) {
-		c := Config{}
-		c.SetDefaults()
-
-		*c.PluginSettings.MarketplaceURL = PluginSettingsOldMarketplaceURL
-		c.SetDefaults()
-
-		require.True(t, *c.PluginSettings.EnableMarketplace)
-		require.Equal(t, PluginSettingsDefaultMarketplaceURL, *c.PluginSettings.MarketplaceURL)
-	})
-
-	t.Run("custom marketplace url", func(t *testing.T) {
-		c := Config{}
-		c.SetDefaults()
-
-		*c.PluginSettings.MarketplaceURL = "https://marketplace.example.com"
-		c.SetDefaults()
-
-		require.True(t, *c.PluginSettings.EnableMarketplace)
-		require.Equal(t, "https://marketplace.example.com", *c.PluginSettings.MarketplaceURL)
-	})
 }
 
 func TestSetDefaultFeatureFlagBehaviour(t *testing.T) {
@@ -2188,54 +2162,12 @@ func TestConfigServiceSettingsIsValid(t *testing.T) {
 	})
 }
 
-func TestConfigDefaultCallsPluginState(t *testing.T) {
-	t.Run("should enable Calls plugin by default on self-hosted", func(t *testing.T) {
-		c1 := Config{}
-		c1.SetDefaults()
-
-		assert.True(t, c1.PluginSettings.PluginStates["com.mattermost.calls"].Enable)
-	})
-
-	t.Run("should enable Calls plugin by default on Cloud", func(t *testing.T) {
-		// t.Setenv prevents t.Parallel — env var has no config equivalent
-		t.Setenv("MM_CLOUD_INSTALLATION_ID", "test")
-		c1 := Config{}
-		c1.SetDefaults()
-
-		assert.True(t, c1.PluginSettings.PluginStates["com.mattermost.calls"].Enable)
-	})
-
-	t.Run("should not re-enable Calls plugin after it has been disabled", func(t *testing.T) {
-		c1 := Config{
-			PluginSettings: PluginSettings{
-				PluginStates: map[string]*PluginState{
-					"com.mattermost.calls": {
-						Enable: false,
-					},
-				},
-			},
-		}
-
-		c1.SetDefaults()
-		assert.False(t, c1.PluginSettings.PluginStates["com.mattermost.calls"].Enable)
-	})
-}
-
 func TestConfigDefaultAIPluginState(t *testing.T) {
-	t.Run("should enable AI plugin by default on self-hosted", func(t *testing.T) {
+	t.Run("should not enable AI plugin by default on self-hosted", func(t *testing.T) {
 		c1 := Config{}
 		c1.SetDefaults()
 
-		assert.True(t, c1.PluginSettings.PluginStates["mattermost-ai"].Enable)
-	})
-
-	t.Run("should enable AI plugin by default on Cloud", func(t *testing.T) {
-		// t.Setenv prevents t.Parallel — env var has no config equivalent
-		t.Setenv("MM_CLOUD_INSTALLATION_ID", "test")
-		c1 := Config{}
-		c1.SetDefaults()
-
-		assert.True(t, c1.PluginSettings.PluginStates["mattermost-ai"].Enable)
+		assert.False(t, c1.PluginSettings.PluginStates["mattermost-ai"].Enable)
 	})
 
 	t.Run("should not re-enable AI plugin after it has been disabled", func(t *testing.T) {
@@ -2667,7 +2599,7 @@ func TestFilterConfig(t *testing.T) {
 			TagFilters: []FilterTag{
 				{
 					TagType: ConfigAccessTagType,
-					TagName: ConfigAccessTagCloudRestrictable,
+					TagName: ConfigAccessTagWriteRestrictable,
 				},
 			},
 		})
@@ -2681,7 +2613,7 @@ func TestFilterConfig(t *testing.T) {
 		require.True(t, ok)
 		require.Equal(t, true, enableFileAttachments)
 
-		// All fields of SqlSettings are ConfigAccessTagCloudRestrictable
+		// All fields of SqlSettings are ConfigAccessTagWriteRestrictable
 		_, ok = m["SqlSettings"]
 		require.False(t, ok)
 	})
@@ -2699,7 +2631,7 @@ func TestFilterConfig(t *testing.T) {
 				},
 				{
 					TagType: ConfigAccessTagType,
-					TagName: ConfigAccessTagCloudRestrictable,
+					TagName: ConfigAccessTagWriteRestrictable,
 				},
 			},
 		})
@@ -2712,7 +2644,7 @@ func TestFilterConfig(t *testing.T) {
 		_, ok = fileSettings.(map[string]any)["EnableFileAttachments"]
 		require.False(t, ok)
 
-		// All fields of SqlSettings are ConfigAccessTagCloudRestrictable
+		// All fields of SqlSettings are ConfigAccessTagWriteRestrictable
 		_, ok = m["SqlSettings"]
 		require.False(t, ok)
 	})
@@ -2865,7 +2797,6 @@ func TestConfigAccessTagsMapToValidPermissions(t *testing.T) {
 
 	specialTags := map[string]bool{
 		ConfigAccessTagWriteRestrictable: true,
-		ConfigAccessTagCloudRestrictable: true,
 		ConfigAccessTagAnySysConsoleRead: true,
 	}
 

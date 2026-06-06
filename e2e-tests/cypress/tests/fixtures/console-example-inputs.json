@@ -320,15 +320,6 @@
         ]
     },
     {
-        "section": "plugins",
-        "disabledInputs": [
-            {
-                "path": "/admin_console/plugins/plugin_management",
-                "selector": "marketplaceUrlinput"
-            }
-        ]
-    },
-    {
         "section": "integrations.integration_management",
         "disabledInputs": [
             {

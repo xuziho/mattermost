@@ -24,7 +24,6 @@ import {PermissionsScope, DefaultRolePermissions, DocLinks, ModeratedPermissions
 
 import GuestPermissionsTree, {GUEST_INCLUDED_PERMISSIONS} from '../guest_permissions_tree';
 import PermissionsTree, {EXCLUDED_PERMISSIONS} from '../permissions_tree';
-import PermissionsTreePlaybooks from '../permissions_tree_playbooks';
 
 type Props = {
     config: Partial<ClientConfig>;
@@ -55,10 +54,6 @@ type RolesState = {
     system_admin: Role;
     team_admin: Role;
     channel_admin: Role;
-    playbook_admin: Role;
-    playbook_member: Role;
-    run_admin: Role;
-    run_member: Role;
     all_users: {name: string; display_name: string; permissions: Role['permissions']};
     guests: {name: string; display_name: string; permissions: Role['permissions']};
 }
@@ -80,10 +75,6 @@ export class PermissionSystemSchemeSettings extends React.PureComponent<Props, S
                 system_admin: true,
                 team_admin: true,
                 channel_admin: true,
-                playbook_member: true,
-                playbook_admin: true,
-                run_member: true,
-                run_admin: true,
             },
             urlParams: new URLSearchParams(props.location.search),
         };
@@ -94,10 +85,6 @@ export class PermissionSystemSchemeSettings extends React.PureComponent<Props, S
             GeneralConstants.TEAM_USER_ROLE,
             GeneralConstants.CHANNEL_ADMIN_ROLE,
             GeneralConstants.CHANNEL_USER_ROLE,
-            GeneralConstants.PLAYBOOK_ADMIN_ROLE,
-            GeneralConstants.PLAYBOOK_MEMBER_ROLE,
-            GeneralConstants.RUN_ADMIN_ROLE,
-            GeneralConstants.RUN_MEMBER_ROLE,
             GeneralConstants.SYSTEM_GUEST_ROLE,
             GeneralConstants.TEAM_GUEST_ROLE,
             GeneralConstants.CHANNEL_GUEST_ROLE,
@@ -160,18 +147,12 @@ export class PermissionSystemSchemeSettings extends React.PureComponent<Props, S
                 system_admin: props.roles.system_admin,
                 team_admin: props.roles.team_admin,
                 channel_admin: props.roles.channel_admin,
-                playbook_admin: props.roles.playbook_admin,
-                playbook_member: props.roles.playbook_member,
-                run_admin: props.roles.run_admin,
-                run_member: props.roles.run_member,
                 all_users: {
                     name: 'all_users',
                     display_name: 'All members',
                     permissions: props.roles.system_user.permissions?.
                         concat(props.roles.team_user.permissions).
-                        concat(props.roles.channel_user.permissions).
-                        concat(props.roles.playbook_member.permissions).
-                        concat(props.roles.run_member.permissions),
+                        concat(props.roles.channel_user.permissions),
                 },
                 guests: {
                     name: 'guests',
@@ -197,14 +178,6 @@ export class PermissionSystemSchemeSettings extends React.PureComponent<Props, S
             channel_user: {
                 ...this.props.roles.channel_user,
                 permissions: role.permissions?.filter((p) => PermissionsScope[p] === 'channel_scope'),
-            },
-            playbook_member: {
-                ...this.props.roles.playbook_member,
-                permissions: role.permissions?.filter((p) => PermissionsScope[p] === 'playbook_scope'),
-            },
-            run_member: {
-                ...this.props.roles.run_member,
-                permissions: role.permissions?.filter((p) => PermissionsScope[p] === 'run_scope'),
             },
         };
     };
@@ -242,11 +215,6 @@ export class PermissionSystemSchemeSettings extends React.PureComponent<Props, S
                 roles.channel_user.permissions?.push(permission);
             }
         }
-        for (const permission of this.props.roles.playbook_member.permissions) {
-            if (EXCLUDED_PERMISSIONS.includes(permission)) {
-                roles.playbook_member.permissions?.push(permission);
-            }
-        }
         return roles;
     };
 
@@ -272,14 +240,11 @@ export class PermissionSystemSchemeSettings extends React.PureComponent<Props, S
     handleSubmit = async () => {
         const teamAdminPromise = this.props.actions.editRole(this.state.roles.team_admin);
         const channelAdminPromise = this.props.actions.editRole(this.state.roles.channel_admin);
-        const playbookAdminPromise = this.props.actions.editRole(this.state.roles.playbook_admin);
 
         const derivedRoles = this.restoreExcludedPermissions(this.deriveRolesFromAllUsers(this.state.roles.all_users));
         const systemUserPromise = this.props.actions.editRole(derivedRoles.system_user);
         const teamUserPromise = this.props.actions.editRole(derivedRoles.team_user);
         const channelUserPromise = this.props.actions.editRole(derivedRoles.channel_user);
-        const playbookMemberPromise = this.props.actions.editRole(derivedRoles.playbook_member);
-        const runMemberPromise = this.props.actions.editRole(derivedRoles.run_member);
 
         const promises = [
             teamAdminPromise,
@@ -287,9 +252,6 @@ export class PermissionSystemSchemeSettings extends React.PureComponent<Props, S
             systemUserPromise,
             teamUserPromise,
             channelUserPromise,
-            playbookAdminPromise,
-            playbookMemberPromise,
-            runMemberPromise,
         ];
 
         if (this.haveGuestAccountsPermissions()) {
@@ -472,24 +434,6 @@ export class PermissionSystemSchemeSettings extends React.PureComponent<Props, S
                                 onToggle={this.togglePermission}
                                 selectRow={this.selectRow}
                                 readOnly={this.props.isDisabled}
-                            />
-                        </AdminPanelTogglable>
-
-                        <AdminPanelTogglable
-                            className='permissions-block'
-                            open={this.state.openRoles.playbook_admin}
-                            onToggle={() => this.toggleRole('playbook_admin')}
-                            title={defineMessage({id: 'admin.permissions.systemScheme.playbookAdmin', defaultMessage: 'Playbook Administrator'})}
-                            subtitle={defineMessage({id: 'admin.permissions.systemScheme.playbookAdminSubtitle', defaultMessage: 'Permissions granted to administrators of a playbook.'})}
-                        >
-                            <PermissionsTreePlaybooks
-                                role={this.state.roles.playbook_admin}
-                                parentRole={this.state.roles.all_users}
-                                scope={'playbook_scope'}
-                                onToggle={this.togglePermission}
-                                selectRow={this.selectRow}
-                                readOnly={this.props.isDisabled || false}
-                                license={this.props.license}
                             />
                         </AdminPanelTogglable>
 

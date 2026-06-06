@@ -2,7 +2,6 @@
 // See LICENSE.txt for license information.
 
 import type {Channel} from '@mattermost/types/channels';
-import type {MarketplaceApp, MarketplacePlugin} from '@mattermost/types/marketplace';
 import type {CursorPaginationDirection, ReportDuration} from '@mattermost/types/reports';
 import type {Team} from '@mattermost/types/teams';
 import type {UserThread} from '@mattermost/types/threads';
@@ -124,7 +123,6 @@ export type ViewsState = {
                 dialogType: React.ComponentType;
             };
         };
-        showLaunchingWorkspace: boolean;
     };
 
     emoji: {
@@ -184,18 +182,6 @@ export type ViewsState = {
         previousActiveSection: string;
     };
 
-    marketplace: {
-        plugins: MarketplacePlugin[];
-        apps: MarketplaceApp[];
-        installing: {[id: string]: boolean};
-        errors: {[id: string]: string};
-        filter: string;
-    };
-
-    productMenu: {
-        switcherOpen: boolean;
-    };
-
     channelSidebar: {
         unreadFilterEnabled: boolean;
         draggingState: DraggingState;
@@ -206,12 +192,6 @@ export type ViewsState = {
 
     addChannelCtaDropdown: {
         isOpen: boolean;
-    };
-
-    onboardingTasks: {
-        isShowOnboardingTaskCompletion: boolean;
-        isShowOnboardingCompleteProfileTour: boolean;
-        isShowOnboardingVisitConsoleTour: boolean;
     };
 
     threads: {

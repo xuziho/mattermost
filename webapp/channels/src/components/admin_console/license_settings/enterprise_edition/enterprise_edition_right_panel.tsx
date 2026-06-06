@@ -6,12 +6,9 @@ import {FormattedMessage, useIntl} from 'react-intl';
 
 import type {ClientLicense} from '@mattermost/types/config';
 
-import ContactUsButton from 'components/announcement_bar/contact_sales/contact_us';
-import useOpenSalesLink from 'components/common/hooks/useOpenSalesLink';
 import SetupSystemSvg from 'components/common/svg_images_components/setup_system_svg';
-import ExternalLink from 'components/external_link';
 
-import {LicenseSkus, LicenseLinks} from 'utils/constants';
+import {LicenseSkus} from 'utils/constants';
 
 export interface EnterpriseEditionProps {
     isTrialLicense: boolean;
@@ -23,7 +20,6 @@ const EnterpriseEditionRightPanel = ({
     license,
 }: EnterpriseEditionProps) => {
     const intl = useIntl();
-    const [openContactSales] = useOpenSalesLink();
     const upgradeAdvantages = [
         intl.formatMessage({
             id: 'admin.license.upgradeAdvantage.adLdapSync',
@@ -83,18 +79,12 @@ const EnterpriseEditionRightPanel = ({
     const isProfessional = license?.SkuShortName === LicenseSkus.Professional;
     const isEntry = license?.SkuShortName === LicenseSkus.Entry;
 
-    const contactSalesBtn = (
-        <div className='purchase-card'>
-            <ContactUsButton/>
-        </div>
-    );
-
     const title = () => {
         if (isTrialLicense) {
             return (
                 <FormattedMessage
-                    id='admin.license.purchaseEnterprisePlanTitle'
-                    defaultMessage='Purchase Enterprise Advanced'
+                    id='admin.license.timeLimitedLicenseTitle'
+                    defaultMessage='Time-limited license'
                 />
             );
         }
@@ -110,30 +100,30 @@ const EnterpriseEditionRightPanel = ({
             return (
                 <FormattedMessage
                     id='admin.license.enterprisePlanTitle'
-                    defaultMessage='Need to increase your headcount?'
+                    defaultMessage='Licensed seat count'
                 />
             );
         }
         if (isEnterprise) {
             return (
                 <FormattedMessage
-                    id='admin.license.upgradeToEnterpriseAdvanced'
-                    defaultMessage='Upgrade to Enterprise Advanced'
+                    id='admin.license.additionalLicensedFeatures'
+                    defaultMessage='Additional licensed features'
                 />
             );
         }
         if (isProfessional) {
             return (
                 <FormattedMessage
-                    id='admin.license.upgradeToEnterprise'
-                    defaultMessage='Upgrade to Enterprise'
+                    id='admin.license.additionalLicensedFeatures'
+                    defaultMessage='Additional licensed features'
                 />
             );
         }
         return (
             <FormattedMessage
-                id='admin.license.upgradeToEnterprise'
-                defaultMessage='Upgrade to Enterprise'
+                id='admin.license.additionalLicensedFeatures'
+                defaultMessage='Additional licensed features'
             />
         );
     };
@@ -156,8 +146,8 @@ const EnterpriseEditionRightPanel = ({
         if (isTrialLicense) {
             return (
                 <FormattedMessage
-                    id='admin.license.purchaseEnterprisePlanSubtitle'
-                    defaultMessage='Continue your access to Enterprise Advanced features by purchasing a license.'
+                    id='admin.license.timeLimitedLicenseSubtitle'
+                    defaultMessage='Upload a new local license file before this license expires to continue using licensed features.'
                 />
             );
         }
@@ -165,17 +155,7 @@ const EnterpriseEditionRightPanel = ({
             return (
                 <FormattedMessage
                     id='admin.license.entryPlanSubtitle'
-                    defaultMessage='Purchase a plan to unlock full access, or <link>start a trial</link> to remove limits while you evaluate Enterprise Advanced.'
-                    values={{
-                        link: (msg: React.ReactNode) => (
-                            <ExternalLink
-                                location='entry_trial_license'
-                                href={LicenseLinks.TRIAL_INFO_LINK}
-                            >
-                                {msg}
-                            </ExternalLink>
-                        ),
-                    }}
+                    defaultMessage='Upload a license to unlock full access.'
                 />
             );
         }
@@ -183,7 +163,7 @@ const EnterpriseEditionRightPanel = ({
             return (
                 <FormattedMessage
                     id='admin.license.enterprisePlanSubtitle'
-                    defaultMessage="We're here to work with you and your needs. Contact us today to get more seats on your plan."
+                    defaultMessage='Upload an updated license if you need to increase your licensed headcount.'
                 />
             );
         }
@@ -219,17 +199,6 @@ const EnterpriseEditionRightPanel = ({
                 <div className='upgrade-subtitle'>
                     {subtitle()}
                 </div>
-                <div className='purchase_buttons'>
-                    <button
-                        className='btn btn-primary'
-                        onClick={openContactSales}
-                    >
-                        <FormattedMessage
-                            id='admin.license.contactSales'
-                            defaultMessage='Questions? Contact sales'
-                        />
-                    </button>
-                </div>
             </div>
         );
     }
@@ -244,9 +213,6 @@ const EnterpriseEditionRightPanel = ({
             </div>
             <div className='upgrade-subtitle'>
                 {subtitle()}
-            </div>
-            <div className='purchase_buttons'>
-                {contactSalesBtn}
             </div>
         </div>
     );

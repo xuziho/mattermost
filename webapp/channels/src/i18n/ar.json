@@ -1,9 +1,18 @@
 {
   "about.buildnumber": "رقم النسخة:",
   "about.cloudEdition": "سحابة",
-  "about.copyright": "جميع الحقوق محفوظة 2015 - {currentYear} لماترموست",
   "about.database": "قاعدة البيانات:",
   "about.date": "تاريخ الاصدار:",
   "about.teamEditiont0": "النسخة المحددة للفريق",
-  "about.teamEditiont1": "النسخة المؤسسية"
+  "about.teamEditiont1": "النسخة المؤسسية",
+  "admin.license.additionalLicensedFeatures": "Additional licensed features",
+  "admin.license.timeLimitedLicenseTitle": "Time-limited license",
+  "admin.license.timeLimitedLicenseSubtitle": "Upload a new local license file before this license expires to continue using licensed features.",
+  "admin.license.enterprisePlanTitle": "Licensed seat count",
+  "admin.license.enterprisePlanSubtitle": "Upload an updated license if you need to increase your licensed headcount.",
+  "admin.system_users.exportButton.notLicensed.hint": "User data export is not available on this server.",
+  "admin.system_users.exportButton.notLicensed.title": "Unavailable feature",
+  "admin.license.renewalCard.description.renew_license": "Renew your {licenseSku} license to avoid any disruption.",
+  "admin.permissions.sysconsole_section_billing.name": "License account",
+  "admin.permissions.sysconsole_section_billing.description": "Access local license account details."
 }

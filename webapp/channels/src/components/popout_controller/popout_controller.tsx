@@ -12,7 +12,6 @@ import {getCurrentUserId} from 'mattermost-redux/selectors/entities/users';
 import {loadStatusesByIds} from 'actions/status_actions';
 
 import ChannelPopout from 'components/channel_popout';
-import HelpPopout from 'components/help_popout';
 import LoggedIn from 'components/logged_in';
 import ModalController from 'components/modal_controller';
 import RhsPopout from 'components/rhs_popout';
@@ -63,10 +62,6 @@ const PopoutController: React.FC<RouteComponentProps> = (routeProps) => {
                 <Route
                     path={`/_popout/rhs/:team(${TEAM_NAME_PATH_PATTERN})`}
                     component={RhsPopout}
-                />
-                <Route
-                    path='/_popout/help/:page?'
-                    component={HelpPopout}
                 />
             </Switch>
         </LoggedIn>

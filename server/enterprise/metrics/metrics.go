@@ -7,7 +7,6 @@ import (
 	"database/sql"
 	"math"
 	"net/url"
-	"os"
 	"strconv"
 	"strings"
 
@@ -23,31 +22,28 @@ import (
 )
 
 const (
-	MetricsNamespace                   = "mattermost"
-	MetricsSubsystemPosts              = "post"
-	MetricsSubsystemDB                 = "db"
-	MetricsSubsystemAPI                = "api"
-	MetricsSubsystemPlugin             = "plugin"
-	MetricsSubsystemHTTP               = "http"
-	MetricsSubsystemCluster            = "cluster"
-	MetricsSubsystemLogin              = "login"
-	MetricsSubsystemCaching            = "cache"
-	MetricsSubsystemWebsocket          = "websocket"
-	MetricsSubsystemSearch             = "search"
-	MetricsSubsystemLogging            = "logging"
-	MetricsSubsystemRemoteCluster      = "remote_cluster"
-	MetricsSubsystemSharedChannels     = "shared_channels"
-	MetricsSubsystemSystem             = "system"
-	MetricsSubsystemJobs               = "jobs"
-	MetricsSubsystemNotifications      = "notifications"
-	MetricsSubsystemClientsMobileApp   = "mobileapp"
-	MetricsSubsystemClientsWeb         = "webapp"
-	MetricsSubsystemClientsDesktopApp  = "desktopapp"
-	MetricsSubsystemAccessControl      = "access_control"
-	MetricsSubsystemAutoTranslation    = "autotranslation"
-	MetricsCloudInstallationLabel      = "installationId"
-	MetricsCloudDatabaseClusterLabel   = "databaseClusterName"
-	MetricsCloudInstallationGroupLabel = "installationGroupId"
+	MetricsNamespace                  = "mattermost"
+	MetricsSubsystemPosts             = "post"
+	MetricsSubsystemDB                = "db"
+	MetricsSubsystemAPI               = "api"
+	MetricsSubsystemPlugin            = "plugin"
+	MetricsSubsystemHTTP              = "http"
+	MetricsSubsystemCluster           = "cluster"
+	MetricsSubsystemLogin             = "login"
+	MetricsSubsystemCaching           = "cache"
+	MetricsSubsystemWebsocket         = "websocket"
+	MetricsSubsystemSearch            = "search"
+	MetricsSubsystemLogging           = "logging"
+	MetricsSubsystemRemoteCluster     = "remote_cluster"
+	MetricsSubsystemSharedChannels    = "shared_channels"
+	MetricsSubsystemSystem            = "system"
+	MetricsSubsystemJobs              = "jobs"
+	MetricsSubsystemNotifications     = "notifications"
+	MetricsSubsystemClientsMobileApp  = "mobileapp"
+	MetricsSubsystemClientsWeb        = "webapp"
+	MetricsSubsystemClientsDesktopApp = "desktopapp"
+	MetricsSubsystemAccessControl     = "access_control"
+	MetricsSubsystemAutoTranslation   = "autotranslation"
 )
 
 type MetricsInterfaceImpl struct {
@@ -264,6 +260,9 @@ func init() {
 // migrating configuration store to the new platform service. Once the store and license are migrated,
 // we will be able to remove server dependency and lean on platform service during initialization.
 func New(ps *platform.PlatformService, driver, dataSource string) *MetricsInterfaceImpl {
+	_ = driver
+	_ = dataSource
+
 	m := &MetricsInterfaceImpl{
 		Platform: ps,
 	}
@@ -282,18 +281,6 @@ func New(ps *platform.PlatformService, driver, dataSource string) *MetricsInterf
 	m.Registry.MustRegister(collectors.NewGoCollector())
 
 	additionalLabels := map[string]string{}
-	if os.Getenv("MM_CLOUD_INSTALLATION_ID") != "" {
-		additionalLabels[MetricsCloudInstallationLabel] = os.Getenv("MM_CLOUD_INSTALLATION_ID")
-		if os.Getenv("MM_CLOUD_GROUP_ID") != "" {
-			additionalLabels[MetricsCloudInstallationGroupLabel] = os.Getenv("MM_CLOUD_GROUP_ID")
-		}
-		cluster, err := extractDBCluster(driver, dataSource)
-		if err != nil {
-			ps.Log().Warn("Failed to extract DB Cluster label", mlog.Err(err))
-		} else {
-			additionalLabels[MetricsCloudDatabaseClusterLabel] = cluster
-		}
-	}
 
 	// Helper function to apply additional labels to histogram options
 	withLabels := func(opts prometheus.HistogramOpts) prometheus.HistogramOpts {

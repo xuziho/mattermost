@@ -60,7 +60,6 @@ describe('components/channel_members_rhs/Member', () => {
             push: 'mention',
             desktop: 'mention',
             desktop_sound: 'true',
-            calls_desktop_sound: 'true',
             mark_unread: 'all',
             push_status: 'online',
             comments: 'never',

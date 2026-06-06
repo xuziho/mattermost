@@ -317,30 +317,6 @@ function apiSaveCRTPreference(userId: string, value = 'on'): ChainableT<any> {
 Cypress.Commands.add('apiSaveCRTPreference', apiSaveCRTPreference);
 
 /**
- * Save cloud trial banner preference.
- * See https://api.mattermost.com/#tag/preferences/paths/~1users~1{user_id}~1preferences/put
- * @param {string} userId - User ID
- * @param {string} name - options are trial or hide
- * @param {string} value - options are 'max_days_banner' or '3_days_banner' for trial, and 'true' or 'false' for hide
- * @returns {Response} response: Cypress-chainable response which should have successful HTTP status of 200 OK to continue or pass.
- *
- * @example
- *   cy.apiSaveCloudTrialBannerPreference('user-id', 'hide', 'true');
- */
-function apiSaveCloudTrialBannerPreference(userId: string, name: string, value: string): ChainableT<any> {
-    const preference = {
-        user_id: userId,
-        category: 'cloud_trial_banner',
-        name,
-        value,
-    };
-
-    return cy.apiSaveUserPreference([preference], userId);
-}
-
-Cypress.Commands.add('apiSaveCloudTrialBannerPreference', apiSaveCloudTrialBannerPreference);
-
-/**
  * Save show trial modal.
  * See https://api.mattermost.com/#tag/preferences/paths/~1users~1{user_id}~1preferences/put
  * @param {string} userId - User ID
@@ -424,34 +400,6 @@ function apiSaveUnreadScrollPositionPreference(userId, value) {
 Cypress.Commands.add('apiSaveUnreadScrollPositionPreference', apiSaveUnreadScrollPositionPreference);
 
 /**
- * Mark Boards welcome page as viewed.
- * See https://api.mattermost.com/#tag/preferences/paths/~1users~1{user_id}~1preferences/put
- * @param {string} userId - User ID
- * @returns {Response} response: Cypress-chainable response which should have successful HTTP status of 200 OK to continue or pass.
- *
- * @example
- *   cy.apiBoardsWelcomePageViewed('user-id');
- */
-function apiBoardsWelcomePageViewed(userId: string): ChainableT<any> {
-    const preferences = [{
-        user_id: userId,
-        category: 'boards',
-        name: 'welcomePageViewed',
-        value: '1',
-    },
-    {
-        user_id: userId,
-        category: 'boards',
-        name: 'version72MessageCanceled',
-        value: 'true',
-    }];
-
-    return cy.apiSaveUserPreference(preferences, userId);
-}
-
-Cypress.Commands.add('apiBoardsWelcomePageViewed', apiBoardsWelcomePageViewed);
-
-/**
  * Saves Join/Leave messages preference of a user directly via API
  * This API assume that the user is logged in and has cookie to access
  * @param {Boolean} enable - Either true (default) or false
@@ -476,25 +424,7 @@ function apiDisableTutorials(userId) {
     const preferences = [
         {
             user_id: userId,
-            category: 'playbook_edit',
-            name: userId,
-            value: '999',
-        },
-        {
-            user_id: userId,
-            category: 'tutorial_pb_run_details',
-            name: userId,
-            value: '999',
-        },
-        {
-            user_id: userId,
             category: 'crt_thread_pane_step',
-            name: userId,
-            value: '999',
-        },
-        {
-            user_id: userId,
-            category: 'playbook_preview',
             name: userId,
             value: '999',
         },
@@ -536,12 +466,10 @@ declare global {
             apiHideSidebarWhatsNewModalPreference: typeof apiHideSidebarWhatsNewModalPreference;
             apiGetUserPreference: typeof apiGetUserPreference;
             apiSaveCRTPreference: typeof apiSaveCRTPreference;
-            apiSaveCloudTrialBannerPreference: typeof apiSaveCloudTrialBannerPreference;
             apiSaveStartTrialModal: typeof apiSaveStartTrialModal;
             apiSaveOnboardingTaskListPreference: typeof apiSaveOnboardingTaskListPreference;
             apiSaveSkipStepsPreference: typeof apiSaveSkipStepsPreference;
             apiSaveUnreadScrollPositionPreference: typeof apiSaveUnreadScrollPositionPreference;
-            apiBoardsWelcomePageViewed: typeof apiBoardsWelcomePageViewed;
             apiSaveJoinLeaveMessagesPreference: typeof apiSaveJoinLeaveMessagesPreference;
             apiDisableTutorials: typeof apiDisableTutorials;
         }

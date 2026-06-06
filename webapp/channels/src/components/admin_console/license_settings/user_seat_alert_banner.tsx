@@ -11,9 +11,7 @@ import {savePreferences} from 'mattermost-redux/actions/preferences';
 import {get as selectPreference} from 'mattermost-redux/selectors/entities/preferences';
 import {getCurrentUser} from 'mattermost-redux/selectors/entities/users';
 
-import ExternalLink from 'components/external_link';
-
-import {Preferences, LicenseLinks} from 'utils/constants';
+import {Preferences} from 'utils/constants';
 
 import type {GlobalState} from 'types/store';
 
@@ -107,10 +105,10 @@ const UserSeatAlertBanner: React.FC<UserSeatAlertBannerProps> = ({license, total
             />
         );
         message = (
-            <FormattedMessage
-                id='admin.license.userSeatAlert.infoMessage'
-                defaultMessage='Your organization is approaching full license utilization. Now is a good time to assess future needs and align usage with procurement planning. Contact us to explore available options.'
-            />
+                <FormattedMessage
+                    id='admin.license.userSeatAlert.infoMessage'
+                    defaultMessage='Your organization is approaching full license utilization. Now is a good time to assess future needs and align usage with procurement planning.'
+                />
         );
     } else if (percentUsed >= 100) {
         mode = 'danger';
@@ -121,32 +119,18 @@ const UserSeatAlertBanner: React.FC<UserSeatAlertBannerProps> = ({license, total
             />
         );
         message = (
-            <FormattedMessage
-                id='admin.license.userSeatAlert.dangerMessage'
-                defaultMessage='All licensed seats are now in use. Contact Sales to extend your license.'
-            />
+                <FormattedMessage
+                    id='admin.license.userSeatAlert.dangerMessage'
+                    defaultMessage='All licensed seats are now in use. Upload an updated license to extend your seat limit.'
+                />
         );
     }
-
-    const actionButtonLeft = (
-        <ExternalLink
-            href={LicenseLinks.CONTACT_SALES}
-            location='license_settings_user_seat_alert'
-            className='style-button AlertBanner__buttonLeft'
-        >
-            <FormattedMessage
-                id='admin.license.userSeatAlert.contactSales'
-                defaultMessage='Contact Sales'
-            />
-        </ExternalLink>
-    );
 
     return (
         <AlertBanner
             mode={mode}
             title={title}
             message={message}
-            actionButtonLeft={actionButtonLeft}
             onDismiss={handleDismiss}
             closeBtnTooltip={formatMessage({id: 'admin.license.userSeatAlert.closeBtnTooltip', defaultMessage: 'Dismiss'})}
         />

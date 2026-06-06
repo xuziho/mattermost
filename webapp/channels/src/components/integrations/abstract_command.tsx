@@ -10,12 +10,11 @@ import type {Command} from '@mattermost/types/integrations';
 import type {Team} from '@mattermost/types/teams';
 
 import BackstageHeader from 'components/backstage/components/backstage_header';
-import ExternalLink from 'components/external_link';
 import FormError from 'components/form_error';
 import LocalizedPlaceholderInput from 'components/localized_placeholder_input';
 import SpinnerButton from 'components/spinner_button';
 
-import {Constants, DeveloperLinks} from 'utils/constants';
+import {Constants} from 'utils/constants';
 import * as Utils from 'utils/utils';
 
 import OAuthConnectionAudienceInput from './outgoing_oauth_connections/oauth_connection_audience_input';
@@ -495,20 +494,7 @@ export default class AbstractCommand extends React.PureComponent<Props, State> {
                                 <div className='form__help'>
                                     <FormattedMessage
                                         id='add_command.trigger.helpReserved'
-                                        defaultMessage='Reserved: {link}'
-                                        values={{
-                                            link: (
-                                                <ExternalLink
-                                                    href={DeveloperLinks.CUSTOM_SLASH_COMMANDS}
-                                                    location='abstract_command'
-                                                >
-                                                    <FormattedMessage
-                                                        id='add_command.trigger.helpReservedLinkText'
-                                                        defaultMessage='See built-in slash commands'
-                                                    />
-                                                </ExternalLink>
-                                            ),
-                                        }}
+                                        defaultMessage='Reserved trigger words cannot be used by custom slash commands.'
                                     />
                                 </div>
                             </div>
@@ -541,12 +527,7 @@ export default class AbstractCommand extends React.PureComponent<Props, State> {
                                 <div className='form__help'>
                                     <FormattedMessage
                                         id={'add_command.outgoing_oauth_connections.help_text'}
-                                        defaultMessage={'You can connect commands to <link>outgoing OAuth connections</link>.'}
-                                        values={{
-                                            link: (text) => (
-                                                <a href='https://mattermost.com/pl/outgoing-oauth-connections'>{text}</a>
-                                            ),
-                                        }}
+                                        defaultMessage={'You can connect commands to outgoing OAuth connections.'}
                                     />
                                 </div>
                             </div>

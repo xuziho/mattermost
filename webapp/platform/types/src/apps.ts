@@ -1,7 +1,6 @@
 // Copyright (c) 2015-present Mattermost, Inc. All Rights Reserved.
 // See LICENSE.txt for license information.
 
-import {isProductScope, type ProductScope} from './products';
 import {isArrayOf, isStringArray} from './utilities';
 
 export enum Permission {
@@ -52,7 +51,7 @@ export type AppsState = {
 export type AppBinding = {
     app_id: string;
     location?: string;
-    supported_product_ids?: ProductScope;
+    supported_product_ids?: null | null[];
     icon?: string;
 
     // Label is the (usually short) primary text to display at the location.
@@ -98,7 +97,11 @@ export function isAppBinding(obj: unknown): obj is AppBinding {
         return false;
     }
 
-    if (binding.supported_product_ids !== undefined && !isProductScope(binding.supported_product_ids)) {
+    if (
+        binding.supported_product_ids !== undefined &&
+        binding.supported_product_ids !== null &&
+        !isArrayOf(binding.supported_product_ids, (e) => e === null)
+    ) {
         return false;
     }
 

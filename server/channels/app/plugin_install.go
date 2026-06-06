@@ -33,7 +33,6 @@
 //     └───────────────────┴────────┘
 //
 // Prepackaged plugins are bundles shipped alongside the server to simplify installation and
-// upgrade. This occurs automatically if configured (PluginSettings.AutomaticPrepackagedPlugins)
 // and the plugin is enabled (PluginSettings.PluginStates[plugin_id].Enable), unless a matching or
 // newer version of the plugin is already installed.
 //
@@ -41,8 +40,8 @@
 // release. On first startup, they are unpacked just like prepackaged plugins, but also get copied
 // to the filestore. On future startups, the server uses the version in the filestore.
 //
-// Plugins are installed to the filestore when the user installs via the marketplace or system
-// console. (Or because the plugin is transitionally prepackaged).
+// Plugins are installed to the filestore when the user installs via the system console.
+// They are also copied there when the plugin is transitionally prepackaged.
 //
 // ### Enabling a Plugin
 //
@@ -74,7 +73,6 @@
 package app
 
 import (
-	"bytes"
 	"fmt"
 	"io"
 	"net/http"
@@ -256,102 +254,6 @@ func (ch *Channels) installPluginToFilestore(manifest *model.Manifest, bundle, s
 	)
 
 	return nil
-}
-
-// InstallMarketplacePlugin installs a plugin listed in the marketplace server. It will get the
-// plugin bundle from the prepackaged folder, if available, or remotely if EnableRemoteMarketplace
-// is true.
-func (ch *Channels) InstallMarketplacePlugin(request *model.InstallMarketplacePluginRequest) (*model.Manifest, *model.AppError) {
-	logger := ch.srv.Log().With(
-		mlog.String("plugin_id", request.Id),
-		mlog.String("requested_version", request.Version),
-	)
-	logger.Info("Installing plugin from marketplace")
-
-	var pluginFile, signatureFile io.ReadSeeker
-
-	prepackagedPlugin, appErr := ch.getPrepackagedPlugin(request.Id, request.Version)
-	if appErr != nil && appErr.Id != "app.plugin.marketplace_plugins.not_found.app_error" {
-		return nil, appErr
-	}
-	if prepackagedPlugin != nil {
-		fileReader, err := os.Open(prepackagedPlugin.Path)
-		if err != nil {
-			return nil, model.NewAppError("InstallMarketplacePlugin", "app.plugin.install_marketplace_plugin.app_error", nil, fmt.Sprintf("failed to open prepackaged plugin %s", prepackagedPlugin.Path), http.StatusInternalServerError).Wrap(err)
-		}
-		defer fileReader.Close()
-
-		signatureReader, err := os.Open(prepackagedPlugin.SignaturePath)
-		if err != nil {
-			return nil, model.NewAppError("InstallMarketplacePlugin", "app.plugin.install_marketplace_plugin.app_error", nil, fmt.Sprintf("failed to open prepackaged plugin signature %s", prepackagedPlugin.SignaturePath), http.StatusInternalServerError).Wrap(err)
-		}
-		defer signatureReader.Close()
-
-		pluginFile = fileReader
-		signatureFile = signatureReader
-		logger.Debug("Found matching pre-packaged plugin", mlog.String("bundle_path", prepackagedPlugin.Path), mlog.String("signature_path", prepackagedPlugin.SignaturePath))
-	}
-
-	if *ch.cfgSvc.Config().PluginSettings.EnableRemoteMarketplace {
-		var plugin *model.BaseMarketplacePlugin
-		plugin, appErr = ch.getRemoteMarketplacePlugin(request.Id, request.Version)
-		// The plugin might only be prepackaged and not on the Marketplace.
-		if appErr != nil && appErr.Id != "app.plugin.marketplace_plugins.not_found.app_error" {
-			logger.Warn("Failed to reach Marketplace to install plugin", mlog.Err(appErr))
-		}
-
-		if plugin != nil {
-			prepackagedVersion, _ := semver.StrictNewVersion("0.0.0")
-			if prepackagedPlugin != nil {
-				var err error
-				prepackagedVersion, err = semver.StrictNewVersion(prepackagedPlugin.Manifest.Version)
-				if err != nil {
-					return nil, model.NewAppError("InstallMarketplacePlugin", "app.plugin.invalid_version.app_error", nil, "", http.StatusBadRequest).Wrap(err)
-				}
-			}
-
-			marketplaceVersion, err := semver.StrictNewVersion(plugin.Manifest.Version)
-			if err != nil {
-				return nil, model.NewAppError("InstallMarketplacePlugin", "app.prepackged-plugin.invalid_version.app_error", nil, "", http.StatusBadRequest).Wrap(err)
-			}
-
-			if prepackagedVersion.LessThan(marketplaceVersion) { // Always true if no prepackaged plugin was found
-				logger.Debug("Found upgraded plugin from remote marketplace", mlog.String("version", plugin.Manifest.Version), mlog.String("download_url", plugin.DownloadURL))
-
-				downloadedPluginBytes, err := ch.srv.downloadFromURL(plugin.DownloadURL)
-				if err != nil {
-					return nil, model.NewAppError("InstallMarketplacePlugin", "app.plugin.install_marketplace_plugin.app_error", nil, "", http.StatusInternalServerError).Wrap(err)
-				}
-				signature, err := plugin.DecodeSignature()
-				if err != nil {
-					return nil, model.NewAppError("InstallMarketplacePlugin", "app.plugin.signature_decode.app_error", nil, "", http.StatusNotImplemented).Wrap(err)
-				}
-				pluginFile = bytes.NewReader(downloadedPluginBytes)
-				signatureFile = signature
-			} else {
-				logger.Debug("Preferring pre-packaged plugin over version in remote marketplace", mlog.String("version", plugin.Manifest.Version), mlog.String("download_url", plugin.DownloadURL))
-			}
-		}
-	}
-
-	if pluginFile == nil {
-		return nil, model.NewAppError("InstallMarketplacePlugin", "app.plugin.marketplace_plugins.not_found.app_error", nil, "", http.StatusInternalServerError)
-	}
-	if signatureFile == nil {
-		return nil, model.NewAppError("InstallMarketplacePlugin", "app.plugin.marketplace_plugins.signature_not_found.app_error", nil, "", http.StatusInternalServerError)
-	}
-
-	appErr = ch.verifyPlugin(logger, pluginFile, signatureFile)
-	if appErr != nil {
-		return nil, appErr
-	}
-
-	manifest, appErr := ch.installPlugin(pluginFile, signatureFile, installPluginLocallyAlways)
-	if appErr != nil {
-		return nil, appErr
-	}
-
-	return manifest, nil
 }
 
 type pluginInstallationStrategy int

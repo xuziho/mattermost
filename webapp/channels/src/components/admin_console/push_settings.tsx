@@ -9,7 +9,7 @@ import type {AdminConfig, ClientLicense, EmailSettings} from '@mattermost/types/
 
 import ExternalLink from 'components/external_link';
 
-import {Constants, DocLinks} from 'utils/constants';
+import {Constants} from 'utils/constants';
 
 import DropdownSetting from './dropdown_setting';
 import OLDAdminSettings from './old_admin_settings';
@@ -189,100 +189,28 @@ export class PushSettings extends OLDAdminSettings<Props, State> {
             sendHelpText = (
                 <FormattedMessage
                     id='admin.email.pushOffHelp'
-                    defaultMessage='Please see <link>documentation on push notifications</link> to learn more about setup options.'
-                    values={{
-                        link: (msg) => (
-                            <ExternalLink
-                                href={DocLinks.SETUP_PUSH_NOTIFICATIONS}
-                                location='push_settings'
-                            >
-                                {msg}
-                            </ExternalLink>
-                        ),
-                    }}
+                    defaultMessage='Push notifications are disabled. Configure a push notification server to send notifications to mobile apps.'
                 />
             );
         } else if (this.state.pushNotificationServerType === PUSH_NOTIFICATIONS_MHPNS) {
             pushServerHelpText = (
                 <FormattedMessage
                     id='admin.email.mhpnsHelp'
-                    defaultMessage='Download <linkIOS>Mattermost iOS app</linkIOS> from iTunes. Download <linkAndroid>Mattermost Android app</linkAndroid> from Google Play. Learn more about the <linkHPNS>Mattermost Hosted Push Notification Service</linkHPNS>.'
-                    values={{
-                        linkIOS: (msg) => (
-                            <ExternalLink
-                                href='https://mattermost.com/pl/ios-app/'
-                                location='push_settings'
-                            >
-                                {msg}
-                            </ExternalLink>
-                        ),
-                        linkAndroid: (msg) => (
-                            <ExternalLink
-                                href='https://mattermost.com/pl/android-app/'
-                                location='push_settings'
-                            >
-                                {msg}
-                            </ExternalLink>
-                        ),
-                        linkHPNS: (msg) => (
-                            <ExternalLink
-                                href={DocLinks.SETUP_PUSH_NOTIFICATIONS}
-                                location='push_settings'
-                            >
-                                {msg}
-                            </ExternalLink>
-                        ),
-                    }}
+                    defaultMessage='Use the hosted push notification service endpoint configured for this deployment.'
                 />
             );
         } else if (this.state.pushNotificationServerType === PUSH_NOTIFICATIONS_MTPNS) {
             pushServerHelpText = (
                 <FormattedMessage
                     id='admin.email.mtpnsHelp'
-                    defaultMessage='Download <linkIOS>Mattermost iOS app</linkIOS> from iTunes. Download <linkAndroid>Mattermost Android app</linkAndroid> from Google Play. Learn more about the <linkHPNS>Mattermost Hosted Push Notification Service</linkHPNS>.'
-                    values={{
-                        linkIOS: (msg) => (
-                            <ExternalLink
-                                href='https://mattermost.com/pl/ios-app/'
-                                location='push_settings'
-                            >
-                                {msg}
-                            </ExternalLink>
-                        ),
-                        linkAndroid: (msg) => (
-                            <ExternalLink
-                                href='https://mattermost.com/pl/android-app/'
-                                location='push_settings'
-                            >
-                                {msg}
-                            </ExternalLink>
-                        ),
-                        linkHPNS: (msg) => (
-                            <ExternalLink
-                                href={DocLinks.SETUP_PUSH_NOTIFICATIONS}
-                                location='push_settings'
-                            >
-                                {msg}
-                            </ExternalLink>
-                        ),
-                    }}
+                    defaultMessage='Use the configured test push notification service endpoint for mobile notifications.'
                 />
             );
         } else {
             pushServerHelpText = (
                 <FormattedMessage
                     id='admin.email.easHelp'
-                    defaultMessage='Learn more about compiling and deploying your own mobile apps from an <link>Enterprise App Store</link>.'
-                    values={{
-                        link: (msg) => (
-                            <ExternalLink
-                                href='https://docs.mattermost.com/'
-                                location='push_settings'
-                            >
-                                {msg}
-                            </ExternalLink>
-                        ),
-                    }}
+                    defaultMessage='Enter the push notification service endpoint used by your own mobile app deployment.'
                 />
             );
         }

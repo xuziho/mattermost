@@ -19,8 +19,6 @@ import {getCurrentTeamId} from 'mattermost-redux/selectors/entities/teams';
 import {getSidebarBrowseOrAddChannelMenuPluginComponents} from 'selectors/plugins';
 
 import * as Menu from 'components/menu';
-import {OnboardingTourSteps} from 'components/tours';
-import {useShowOnboardingTutorialStep, CreateAndJoinChannelsTour, InvitePeopleTour} from 'components/tours/onboarding_tour';
 
 export const ELEMENT_ID_FOR_BROWSE_OR_ADD_CHANNEL_MENU = 'browserOrAddChannelMenu';
 export const ELEMENT_ID_FOR_BROWSE_OR_ADD_CHANNEL_MENU_BUTTON = 'browseOrAddChannelMenuButton';
@@ -43,9 +41,6 @@ export default function SidebarBrowserOrAddChannelMenu(props: Props) {
     const currentTeamId = useSelector(getCurrentTeamId);
     const pluginMenuItems = useSelector(getSidebarBrowseOrAddChannelMenuPluginComponents);
 
-    const showCreateAndJoinChannelsTutorialTip = useShowOnboardingTutorialStep(OnboardingTourSteps.CREATE_AND_JOIN_CHANNELS);
-    const showInvitePeopleTutorialTip = useShowOnboardingTutorialStep(OnboardingTourSteps.INVITE_PEOPLE);
-
     let createNewChannelMenuItem: JSX.Element | null = null;
     if (props.canCreateChannel) {
         createNewChannelMenuItem = (
@@ -59,7 +54,6 @@ export default function SidebarBrowserOrAddChannelMenu(props: Props) {
                         defaultMessage='Create new channel'
                     />
                 )}
-                trailingElements={showCreateAndJoinChannelsTutorialTip && <CreateAndJoinChannelsTour/>}
                 aria-haspopup='true'
             />
         );
@@ -151,7 +145,6 @@ export default function SidebarBrowserOrAddChannelMenu(props: Props) {
                     />
                 </>
             )}
-            trailingElements={showInvitePeopleTutorialTip && <InvitePeopleTour/>}
             aria-haspopup='true'
         />
     );

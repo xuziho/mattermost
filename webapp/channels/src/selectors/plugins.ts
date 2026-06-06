@@ -1,11 +1,9 @@
 // Copyright (c) 2015-present Mattermost, Inc. All Rights Reserved.
 // See LICENSE.txt for license information.
 
-import {Preferences} from 'mattermost-redux/constants';
 import {createSelector} from 'mattermost-redux/selectors/create_selector';
 import {appBarEnabled, getAppBarAppBindings} from 'mattermost-redux/selectors/entities/apps';
 import {getLicense} from 'mattermost-redux/selectors/entities/general';
-import {get} from 'mattermost-redux/selectors/entities/preferences';
 import {createShallowSelector} from 'mattermost-redux/utils/helpers';
 
 import type {GlobalState} from 'types/store';
@@ -124,12 +122,6 @@ export const shouldShowAppBar = createSelector(
         return enabled && Boolean(bindings.length || appBarComponents.length || channelHeaderComponents.length);
     },
 );
-
-export function showNewChannelWithBoardPulsatingDot(state: GlobalState): boolean {
-    const pulsatingDotState = get(state, Preferences.APP_BAR, Preferences.NEW_CHANNEL_WITH_BOARD_TOUR_SHOWED, '');
-    const showPulsatingDot = pulsatingDotState !== '' && JSON.parse(pulsatingDotState)[Preferences.NEW_CHANNEL_WITH_BOARD_TOUR_SHOWED] === false;
-    return showPulsatingDot;
-}
 
 export const getSearchPluginSuggestions = createSelector(
     'getSearchPluginSuggestions',

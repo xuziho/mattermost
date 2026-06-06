@@ -19,9 +19,6 @@ const initialState = {
     },
     entities: {
         general: {
-            config: {
-                CWSURL: '',
-            },
             license: {
                 IsLicensed: 'true',
                 Cloud: 'true',
@@ -36,7 +33,6 @@ const initialState = {
         preferences: {
             myPreferences: {},
         },
-        cloud: {},
     },
 };
 
@@ -66,7 +62,7 @@ describe('components/admin_console/license_settings/enterprise_edition/enterpris
             initialState,
         );
 
-        expect(container.querySelector('.upgrade-title')?.textContent).toEqual('Upgrade to Enterprise');
+        expect(container.querySelector('.upgrade-title')?.textContent).toEqual('Additional licensed features');
 
         const subtitleItems = container.querySelectorAll('.upgrade-subtitle .item');
         expect(subtitleItems[0].textContent).toEqual('AD/LDAP Group sync');
@@ -85,7 +81,7 @@ describe('components/admin_console/license_settings/enterprise_edition/enterpris
             initialState,
         );
 
-        expect(container.querySelector('.upgrade-title')?.textContent).toEqual('Upgrade to Enterprise Advanced');
+        expect(container.querySelector('.upgrade-title')?.textContent).toEqual('Additional licensed features');
 
         const subtitleItems = container.querySelectorAll('.upgrade-subtitle .item');
         expect(subtitleItems[0].textContent).toEqual('Dynamic attribute-based access controls');
@@ -106,8 +102,8 @@ describe('components/admin_console/license_settings/enterprise_edition/enterpris
             initialState,
         );
 
-        expect(container.querySelector('.upgrade-title')?.textContent).toEqual('Need to increase your headcount?');
-        expect(container.querySelector('.upgrade-subtitle')?.textContent).toEqual("We're here to work with you and your needs. Contact us today to get more seats on your plan.");
+        expect(container.querySelector('.upgrade-title')?.textContent).toEqual('Licensed seat count');
+        expect(container.querySelector('.upgrade-subtitle')?.textContent).toEqual('Upload an updated license if you need to increase your licensed headcount.');
     });
 
     test('should render for Entry license', () => {
@@ -120,10 +116,8 @@ describe('components/admin_console/license_settings/enterprise_edition/enterpris
         );
 
         expect(container.querySelector('.upgrade-title')?.textContent).toEqual('Get access to full message history, AI-powered coordination, and secure workflow continuity');
-        expect(container.querySelector('.upgrade-subtitle')?.textContent).toEqual('Purchase a plan to unlock full access, or start a trial to remove limits while you evaluate Enterprise Advanced.');
-
-        // Check for the Contact sales button
-        expect(screen.getByRole('button', {name: 'Questions? Contact sales'})).toBeInTheDocument();
+        expect(container.querySelector('.upgrade-subtitle')?.textContent).toEqual('Upload a license to unlock full access.');
+        expect(screen.queryByRole('button', {name: 'Questions? Contact sales'})).not.toBeInTheDocument();
     });
 
     test('should render for Trial license', () => {
@@ -135,7 +129,7 @@ describe('components/admin_console/license_settings/enterprise_edition/enterpris
             initialState,
         );
 
-        expect(container.querySelector('.upgrade-title')?.textContent).toEqual('Purchase Enterprise Advanced');
-        expect(container.querySelector('.upgrade-subtitle')?.textContent).toEqual('Continue your access to Enterprise Advanced features by purchasing a license.');
+        expect(container.querySelector('.upgrade-title')?.textContent).toEqual('Time-limited license');
+        expect(container.querySelector('.upgrade-subtitle')?.textContent).toEqual('Upload a new local license file before this license expires to continue using licensed features.');
     });
 });

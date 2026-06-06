@@ -15,7 +15,6 @@ import {getTeamInviteInfo} from 'mattermost-redux/actions/teams';
 import {createUser, loadMe} from 'mattermost-redux/actions/users';
 import {Client4} from 'mattermost-redux/client';
 import {getConfig, getLicense, getPasswordConfig} from 'mattermost-redux/selectors/entities/general';
-import {getIsOnboardingFlowEnabled} from 'mattermost-redux/selectors/entities/preferences';
 import {getCurrentUserId} from 'mattermost-redux/selectors/entities/users';
 import {isEmail} from 'mattermost-redux/utils/helpers';
 
@@ -103,7 +102,6 @@ const Signup = ({onCustomizeHeader}: SignupProps) => {
     } = config;
     const {IsLicensed} = useSelector(getLicense);
     const loggedIn = Boolean(useSelector(getCurrentUserId));
-    const onboardingFlowEnabled = useSelector(getIsOnboardingFlowEnabled);
     const usedBefore = useSelector((state: GlobalState) => (!inviteId && !loggedIn && token ? getGlobalItem(state, token, null) : undefined));
 
     const emailInput = useRef<HTMLInputElement>(null);
@@ -318,15 +316,7 @@ const Signup = ({onCustomizeHeader}: SignupProps) => {
             } else if (inviteId) {
                 getInviteInfo(inviteId);
             } else if (loggedIn) {
-                if (onboardingFlowEnabled) {
-                    // need info about whether admin or not,
-                    // and whether admin has already completed
-                    // first tiem onboarding. Instead of fetching and orchestrating that here,
-                    // let the default root component handle it.
-                    history.push('/');
-                } else {
-                    redirectUserToDefaultTeam();
-                }
+                redirectUserToDefaultTeam();
             }
         }
 
@@ -476,12 +466,6 @@ const Signup = ({onCustomizeHeader}: SignupProps) => {
 
         if (redirectTo) {
             history.push(redirectTo);
-        } else if (onboardingFlowEnabled) {
-            // need info about whether admin or not,
-            // and whether admin has already completed
-            // first tiem onboarding. Instead of fetching and orchestrating that here,
-            // let the default root component handle it.
-            history.push('/');
         } else {
             redirectUserToDefaultTeam();
         }

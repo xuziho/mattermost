@@ -85,9 +85,9 @@ func (s *S3FileBackendNoBucketError) Error() string {
 	return "no such bucket"
 }
 
-// NewS3FileBackend returns an instance of an S3FileBackend and determine if we are in Mattermost cloud or not.
+// NewS3FileBackend returns an instance of an S3FileBackend.
 func NewS3FileBackend(settings FileBackendSettings) (*S3FileBackend, error) {
-	return newS3FileBackend(settings, os.Getenv("MM_CLOUD_FILESTORE_BIFROST") != "")
+	return newS3FileBackend(settings, false)
 }
 
 // NewS3FileBackendWithoutBifrost returns an instance of an S3FileBackend that will not use bifrost.

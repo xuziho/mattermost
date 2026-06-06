@@ -17,7 +17,7 @@ import (
 const maxPropertyValuePatchItems = 50
 
 func (api *API) InitProperties() {
-	if api.srv.Config().FeatureFlags.IntegratedBoards || api.srv.Config().FeatureFlags.ManagedChannelCategories {
+	if api.srv.Config().FeatureFlags.ManagedChannelCategories {
 		api.BaseRoutes.PropertyFields.Handle("", api.APISessionRequired(getPropertyFields)).Methods(http.MethodGet)
 		api.BaseRoutes.PropertyValues.Handle("", api.APISessionRequired(getPropertyValues)).Methods(http.MethodGet)
 

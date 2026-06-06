@@ -126,8 +126,6 @@ type Routes struct {
 	TermsOfService *mux.Router // 'api/v4/terms_of_service'
 	Groups         *mux.Router // 'api/v4/groups'
 
-	Cloud *mux.Router // 'api/v4/cloud'
-
 	Imports *mux.Router // 'api/v4/imports'
 	Import  *mux.Router // 'api/v4/imports/{import_name:.+\\.zip}'
 
@@ -142,8 +140,6 @@ type Routes struct {
 	Permissions *mux.Router // 'api/v4/permissions'
 
 	Usage *mux.Router // 'api/v4/usage'
-
-	HostedCustomer *mux.Router // 'api/v4/hosted_customer'
 
 	Drafts *mux.Router // 'api/v4/drafts'
 
@@ -287,8 +283,6 @@ func Init(srv *app.Server) (*API, error) {
 	api.BaseRoutes.TermsOfService = api.BaseRoutes.APIRoot.PathPrefix("/terms_of_service").Subrouter()
 	api.BaseRoutes.Groups = api.BaseRoutes.APIRoot.PathPrefix("/groups").Subrouter()
 
-	api.BaseRoutes.Cloud = api.BaseRoutes.APIRoot.PathPrefix("/cloud").Subrouter()
-
 	api.BaseRoutes.Imports = api.BaseRoutes.APIRoot.PathPrefix("/imports").Subrouter()
 	api.BaseRoutes.Import = api.BaseRoutes.Imports.PathPrefix("/{import_name:.+\\.zip}").Subrouter()
 	api.BaseRoutes.Exports = api.BaseRoutes.APIRoot.PathPrefix("/exports").Subrouter()
@@ -302,8 +296,6 @@ func Init(srv *app.Server) (*API, error) {
 	api.BaseRoutes.Permissions = api.BaseRoutes.APIRoot.PathPrefix("/permissions").Subrouter()
 
 	api.BaseRoutes.Usage = api.BaseRoutes.APIRoot.PathPrefix("/usage").Subrouter()
-
-	api.BaseRoutes.HostedCustomer = api.BaseRoutes.APIRoot.PathPrefix("/hosted_customer").Subrouter()
 
 	api.BaseRoutes.Drafts = api.BaseRoutes.APIRoot.PathPrefix("/drafts").Subrouter()
 
@@ -371,14 +363,12 @@ func Init(srv *app.Server) (*API, error) {
 	api.InitTermsOfService()
 	api.InitGroup()
 	api.InitAction()
-	api.InitCloud()
 	api.InitImport()
 	api.InitRemoteCluster()
 	api.InitSharedChannels()
 	api.InitPermissions()
 	api.InitExport()
 	api.InitUsage()
-	api.InitHostedCustomer()
 	api.InitDrafts()
 	api.InitIPFiltering()
 	api.InitChannelBookmarks()

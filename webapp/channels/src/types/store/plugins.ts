@@ -2,18 +2,14 @@
 // See LICENSE.txt for license information.
 
 import type React from 'react';
-import type {RouteComponentProps} from 'react-router-dom';
 
 import type {WebSocketClient} from '@mattermost/client';
-import type {IconGlyphTypes} from '@mattermost/compass-icons/IconGlyphs';
 import type {PluginAnalyticsRow} from '@mattermost/types/admin';
-import type {Board} from '@mattermost/types/boards';
-import type {Channel, ChannelMembership} from '@mattermost/types/channels';
+import type {Channel} from '@mattermost/types/channels';
 import type {FileInfo} from '@mattermost/types/files';
 import type {CommandArgs} from '@mattermost/types/integrations';
 import type {ClientPluginManifest} from '@mattermost/types/plugins';
 import type {Post, PostEmbed} from '@mattermost/types/posts';
-import type {ProductScope} from '@mattermost/types/products';
 import type {UserProfile} from '@mattermost/types/users';
 import type {IDMappedObjects} from '@mattermost/types/utilities';
 
@@ -31,7 +27,6 @@ export type PluginsState = {
     plugins: IDMappedObjects<ClientPluginManifest>;
 
     components: {
-        CallButton: CallButtonAction[];
         PostDropdownMenu: PostDropdownMenuAction[];
         MainMenu: MainMenuAction[];
         ChannelHeader: ChannelHeaderAction[];
@@ -43,7 +38,6 @@ export type PluginsState = {
         FileUploadMethod: FileUploadMethodAction[];
         ChannelIntroButton: ChannelIntroButtonAction[];
         FilesDropdown: FilesDropdownAction[];
-        Product: ProductComponent[];
         PostDropdownMenuItem: PostDropdownMenuItemComponent[];
         PostAction: PostActionComponent[];
         PostEditorAction: PostEditorActionComponent[];
@@ -54,7 +48,6 @@ export type PluginsState = {
         LinkTooltip: LinkTooltipComponent[];
         RightHandSidebarComponent: RightHandSidebarComponent[];
         NeedsTeamComponent: NeedsTeamComponent[];
-        CreateBoardFromTemplate: CreateBoardFromTemplateComponent[];
         SearchHints: SearchHintsComponent[];
         SearchSuggestions: SearchSuggestionsComponent[];
         SearchButtons: SearchButtonsComponent[];
@@ -140,7 +133,7 @@ export type PluggableText = string | React.ReactNode;
 export type AppBarChannelAction = (channel: Channel, member: ChannelMembership) => void;
 export type AppBarAction = PluginComponent & {
     iconUrl: string;
-    supportedProductIds: ProductScope;
+    supportedProductIds?: null;
     tooltipText: PluggableText;
 } & ({
     action: AppBarChannelAction;
@@ -206,15 +199,9 @@ export type UserGuideDropdownAction = PluginComponent & {
     action: (fileInfo: FileInfo) => void;
 };
 
-export type CallButtonAction = PluginComponent & {
-    button: React.ReactNode;
-    dropdownButton: React.ReactNode;
-    action: (channel?: Channel | null, member?: ChannelMembership) => void;
-};
-
 export type MobileChannelHeaderButtonAction = PluginComponent & {
-    button?: CallButtonAction['button'];
-    dropdownButton?: CallButtonAction['dropdownButton'];
+    button?: React.ReactNode;
+    dropdownButton?: React.ReactNode;
     icon: ChannelHeaderButtonAction['icon'];
     action: ChannelHeaderButtonAction['action'];
     dropdownText?: ChannelHeaderButtonAction['dropdownText'];
@@ -240,76 +227,6 @@ export type DesktopNotificationHook = PluginComponent & {
 export type FilesWillUploadHook = PluginComponent & {
     hook: (files: File[], uploadFiles: (files: File[]) => void) => { message?: string; files?: File[] };
 }
-
-type ProductBaseProps = {theme: Theme};
-export type ProductSubComponentNames = 'mainComponent' | 'publicComponent' | 'headerCentreComponent' | 'headerRightComponent';
-export type ProductComponent = PluginComponent & {
-
-    /**
-     * A compass-icon glyph name or React element to display as the icon in the product switcher.
-     * Accepts either:
-     * - IconGlyphTypes: A string name from the Compass Icons library (e.g., 'product-channels')
-     * - React.ReactNode: A custom React element to render as the icon
-     */
-    switcherIcon: IconGlyphTypes | React.ReactNode;
-
-    /**
-     * A string or React element to display in the product switcher
-     */
-    switcherText: React.ReactNode;
-
-    /**
-     * The route to be displayed at starting from the siteURL
-     */
-    baseURL: string;
-
-    /**
-     * A string specifying the URL the switcher item should point to.
-     */
-    switcherLinkURL: string;
-
-    /**
-     * The component to be displayed below the global header when your route is active.
-     */
-    mainComponent: React.ComponentType<ProductBaseProps & {
-        webSocketClient: WebSocketClient;
-    }>;
-
-    /**
-     * The public component to be displayed when a public route is active.
-     */
-    publicComponent: React.ComponentType<ProductBaseProps & RouteComponentProps>;
-
-    /**
-     * A component to fill the generic area in the center of
-     * the global header when your route is active.
-     */
-    headerCentreComponent: React.ComponentType<ProductBaseProps>;
-
-    /**
-     * A component to fill the generic area in the right of
-     * the global header when your route is active.
-     */
-    headerRightComponent: React.ComponentType<ProductBaseProps>;
-
-    /**
-     * A flag to display or hide the team sidebar in products.
-     */
-    showTeamSidebar: boolean;
-
-    /**
-     * A flag to display or hide the App Sidebar in products.
-     */
-    showAppBar: boolean;
-
-    /**
-     * When `true`, {@link ProductComponent.mainComponent} will be wrapped in a container with `grid-area: center` applied automatically.
-     * When `false`, {@link ProductComponent.mainComponent} will not be wrapped and must define its own `grid-area`,
-     * or return multiple elements with their own `grid-area`s respectively.
-     * @default true
-     */
-    wrapped: boolean;
-};
 
 export type NeedsTeamComponent = PluginComponent & {
     route: string;
@@ -469,15 +386,6 @@ export type GlobalComponent = PluginComponent & {
 export type ChannelToastComponent = PluginComponent & {
     component: React.ComponentType<BasePluggableProps>;
 }
-
-export type CreateBoardFromTemplateComponent = PluginComponent & {
-    component: React.ComponentType<BasePluggableProps & {
-        setCanCreate: (v: boolean) => void;
-        setAction: (action: ((currentTeamId: string, channelId: string) => Promise<Board>) | undefined) => void;
-        newBoardInfoIcon: React.JSX.Element;
-    }>;
-    action: () => void;
-};
 
 export type MessageWillFormatHook = PluginComponent & {
     hook: (post: Post, message: string) => string;

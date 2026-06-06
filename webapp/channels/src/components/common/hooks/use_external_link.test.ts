@@ -50,12 +50,12 @@ describe('useExternalLink', () => {
         const {result: {current: [href, queryParams]}} = renderHookWithContext(() => useExternalLink(url), getBaseState());
         const parsedLink = new URL(href);
         expect(parsedLink.searchParams.get('utm_source')).toBe('mattermost');
-        expect(parsedLink.searchParams.get('utm_medium')).toBe('in-product-cloud');
+        expect(parsedLink.searchParams.get('utm_medium')).toBe('in-product');
         expect(parsedLink.searchParams.get('utm_content')).toBe('');
         expect(parsedLink.searchParams.get('uid')).toBe(baseCurrentUserId);
         expect(parsedLink.searchParams.get('sid')).toBe(baseTelemetryId);
         expect(queryParams.utm_source).toBe('mattermost');
-        expect(queryParams.utm_medium).toBe('in-product-cloud');
+        expect(queryParams.utm_medium).toBe('in-product');
         expect(queryParams.utm_content).toBe('');
         expect(queryParams.uid).toBe(baseCurrentUserId);
         expect(queryParams.sid).toBe(baseTelemetryId);
@@ -71,7 +71,7 @@ describe('useExternalLink', () => {
         expect(queryParams.utm_content).toBe(location);
     });
 
-    it('non cloud environments set the proper utm medium', () => {
+    it('uses the same utm medium outside cloud environments', () => {
         const url = 'https://www.mattermost.com/some/url';
         const state = getBaseState();
         state.entities!.general!.license!.Cloud = 'false';

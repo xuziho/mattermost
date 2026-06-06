@@ -9,14 +9,12 @@ import {createChannel} from 'mattermost-redux/actions/channels';
 import Permissions from 'mattermost-redux/constants/permissions';
 
 import {
-    act,
     renderWithContext,
     screen,
     userEvent,
     waitFor,
     fireEvent,
 } from 'tests/react_testing_utils';
-import {suitePluginIds} from 'utils/constants';
 import {cleanUpUrlable} from 'utils/url';
 
 import type {GlobalState} from 'types/store';
@@ -95,9 +93,6 @@ describe('components/new_channel_modal', () => {
                     },
                 },
             },
-        },
-        plugins: {
-            plugins: {focalboard: {id: suitePluginIds.focalboard}},
         },
     };
 
@@ -265,13 +260,10 @@ describe('components/new_channel_modal', () => {
         const ChannelPurposeTextArea = screen.getByLabelText('Channel Purpose');
         expect(ChannelPurposeTextArea).toBeInTheDocument();
 
-        // Simulate user interaction with purpose field including focus/blur for validation - fireEvent used because userEvent doesn't have direct focus/blur methods
-        await act(async () => {
-            fireEvent.focus(ChannelPurposeTextArea);
-            await userEvent.clear(ChannelPurposeTextArea);
-            await userEvent.type(ChannelPurposeTextArea, value);
-            fireEvent.blur(ChannelPurposeTextArea);
-        });
+        await userEvent.click(ChannelPurposeTextArea);
+        await userEvent.clear(ChannelPurposeTextArea);
+        await userEvent.type(ChannelPurposeTextArea, value);
+        fireEvent.blur(ChannelPurposeTextArea);
 
         // Purpose should have been updated
         expect(ChannelPurposeTextArea).toHaveValue(value);

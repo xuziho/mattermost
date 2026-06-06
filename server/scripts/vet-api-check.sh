@@ -21,27 +21,11 @@ OUTPUT_EXCLUDING_IGNORED=$(echo "$OUTPUT" | grep -Fv \
     -e 'Cannot find /api/v4/channels/stats/member_count method: POST in OpenAPI 3 spec.' \
     -e 'Cannot find /api/v4/channels/{channel_id}/convert_to_channel method: POST in OpenAPI 3 spec.' \
     -e 'Cannot find /api/v4/client_perf method: POST in OpenAPI 3 spec.' \
-    -e 'Cannot find /api/v4/cloud/products/selfhosted method: GET in OpenAPI 3 spec.' \
-    -e 'Cannot find /api/v4/cloud/subscription/self-serve-status method: GET in OpenAPI 3 spec.' \
-    -e 'Cannot find /api/v4/cloud/request-trial method: PUT in OpenAPI 3 spec.' \
-    -e 'Cannot find /api/v4/cloud/validate-business-email method: POST in OpenAPI 3 spec.' \
-    -e 'Cannot find /api/v4/cloud/validate-workspace-business-email method: POST in OpenAPI 3 spec.' \
-    -e 'Cannot find /api/v4/cloud/check-cws-connection method: GET in OpenAPI 3 spec.' \
-    -e 'Cannot find /api/v4/cloud/delete-workspace method: DELETE in OpenAPI 3 spec.' \
     -e 'Cannot find /api/v4/drafts method: POST in OpenAPI 3 spec.' \
     -e 'Cannot find /api/v4/users/{user_id}/teams/{team_id}/drafts method: GET in OpenAPI 3 spec.' \
     -e 'Cannot find /api/v4/users/{user_id}/channels/{channel_id}/drafts/{thread_id} method: DELETE in OpenAPI 3 spec.' \
     -e 'Cannot find /api/v4/users/{user_id}/channels/{channel_id}/drafts method: DELETE in OpenAPI 3 spec.' \
     -e 'Cannot find /api/v4/exports/{export_name:.+\\.zip}/presign-url method: POST in OpenAPI 3 spec.' \
-    -e 'Cannot find /api/v4/hosted_customer/signup_available method: GET in OpenAPI 3 spec.' \
-    -e 'Cannot find /api/v4/hosted_customer/bootstrap method: POST in OpenAPI 3 spec.' \
-    -e 'Cannot find /api/v4/hosted_customer/customer method: POST in OpenAPI 3 spec.' \
-    -e 'Cannot find /api/v4/hosted_customer/confirm method: POST in OpenAPI 3 spec.' \
-    -e 'Cannot find /api/v4/hosted_customer/confirm-expand method: POST in OpenAPI 3 spec.' \
-    -e 'Cannot find /api/v4/hosted_customer/invoices method: GET in OpenAPI 3 spec.' \
-    -e 'Cannot find /api/v4/hosted_customer/invoices/{invoice_id:in_[A-Za-z0-9]+}/pdf method: GET in OpenAPI 3 spec.' \
-    -e 'Cannot find /api/v4/license/review method: POST in OpenAPI 3 spec.' \
-    -e 'Cannot find /api/v4/license/review/status method: GET in OpenAPI 3 spec.' \
     -e 'Cannot find /api/v4/posts/{post_id}/edit_history method: GET in OpenAPI 3 spec.' \
     -e 'Cannot find /api/v4/posts/{post_id}/info method: GET in OpenAPI 3 spec.' \
     -e 'Cannot find /api/v4/posts/search method: POST in OpenAPI 3 spec.' \
@@ -54,7 +38,6 @@ OUTPUT_EXCLUDING_IGNORED=$(echo "$OUTPUT" | grep -Fv \
     -e 'Cannot find /api/v4/users/login/desktop_token method: POST in OpenAPI 3 spec.' \
     -e 'Cannot find /api/v4/users/notify-admin method: POST in OpenAPI 3 spec.' \
     -e 'Cannot find /api/v4/users/trigger-notify-admin-posts method: POST in OpenAPI 3 spec.' \
-    -e "Handler /api/v4/cloud/subscription is defined with method PUT, but it's not in the spec" \
 2>&1 || true)
 
 if [[ ! -z "${OUTPUT_EXCLUDING_IGNORED// }" ]]; then

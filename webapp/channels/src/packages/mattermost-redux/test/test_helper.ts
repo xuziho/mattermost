@@ -100,7 +100,6 @@ class TestHelper {
                 comments: 'never',
                 desktop: 'default',
                 desktop_sound: 'false',
-                calls_desktop_sound: 'true',
                 email: 'false',
                 first_name: 'false',
                 mark_unread: 'mention',
@@ -142,7 +141,6 @@ class TestHelper {
                 comments: 'never',
                 desktop: 'default',
                 desktop_sound: 'false',
-                calls_desktop_sound: 'true',
                 email: 'false',
                 first_name: 'false',
                 mark_unread: 'mention',
@@ -263,9 +261,6 @@ class TestHelper {
             default_channel_admin_role: '',
             default_channel_user_role: '',
             default_channel_guest_role: '',
-            default_playbook_admin_role: '',
-            default_playbook_member_role: '',
-            default_run_member_role: '',
         };
     };
 
@@ -331,22 +326,6 @@ class TestHelper {
             display_name: 'test',
             description: 'test',
             url: 'http://localhost/notarealendpoint',
-        };
-    };
-
-    fakeMarketplacePlugin = () => {
-        return {
-            homepage_url: 'http://myplugin.com',
-            download_url: 'http://github.myplugin.tar.gz',
-            download_signature_url: 'http://github.myplugin.tar.gz.asc',
-            manifest:
-                {
-                    id: 'com.mattermost.fake-plugin',
-                    name: 'Fake Plugin',
-                    description: 'This plugin is for Redux testing purposes',
-                    version: '0.1.0',
-                    min_server_version: '5.12.0',
-                },
         };
     };
 
@@ -469,7 +448,6 @@ class TestHelper {
         return {
             desktop: 'default',
             desktop_sound: 'true',
-            calls_desktop_sound: 'true',
             email: 'true',
             mark_unread: 'all',
             push: 'default',

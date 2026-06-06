@@ -27,7 +27,6 @@ describe('Utils.Route', () => {
                 props: {userid: '121'},
                 notify_props: {desktop: 'default',
                     desktop_sound: 'false',
-                    calls_desktop_sound: 'true',
                     email: 'true',
                     mark_unread: 'all',
                     push: 'default',
@@ -88,7 +87,6 @@ describe('Utils.Route', () => {
                 notify_props: {
                     desktop: 'default',
                     desktop_sound: 'false',
-                    calls_desktop_sound: 'true',
                     email: 'true',
                     mark_unread: 'all',
                     push: 'default',

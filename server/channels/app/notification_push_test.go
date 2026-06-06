@@ -1617,7 +1617,6 @@ func TestPushNotificationRace(t *testing.T) {
 
 	memoryStore := config.NewTestMemoryStore()
 	mockStore := testlib.GetMockStoreForSetupFunctions()
-	// Playbooks DB job requires a plugin mock
 	pluginStore := mocks.PluginStore{}
 	pluginStore.On("List", mock.Anything, mock.Anything, mock.Anything).Return([]string{}, nil)
 	mockStore.On("Plugin").Return(&pluginStore)

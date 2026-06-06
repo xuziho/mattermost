@@ -24,9 +24,6 @@ RUN_SERVER_IN_BACKGROUND ?= true
 # Possible options: test or qa
 LDAP_DATA ?= test
 
-# Mock the CWS.
-MM_ENABLE_CWS_MOCK ?= false
-
 # Skip running setup-go-work automatically.
 # IGNORE_GO_WORK_IF_EXISTS is supported for backwards compatibility.
 ifdef IGNORE_GO_WORK_IF_EXISTS

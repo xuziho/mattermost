@@ -69,7 +69,6 @@ describe('components/dot_menu/DotMenu on mobile view', () => {
             },
             modals: {
                 modalState: {},
-                showLaunchingWorkspace: false,
             },
         },
     };

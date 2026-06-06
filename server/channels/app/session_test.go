@@ -334,37 +334,6 @@ func TestApp_ExtendExpiryIfNeeded(t *testing.T) {
 	}
 }
 
-func TestGetCloudSession(t *testing.T) {
-	th := Setup(t)
-
-	t.Run("Matching environment variable and token should return non-nil session", func(t *testing.T) {
-		// t.Setenv prevents t.Parallel — env var has no config equivalent
-		t.Setenv("MM_CLOUD_API_KEY", "mytoken")
-		session, err := th.App.GetCloudSession("mytoken")
-		require.Nil(t, err)
-		require.NotNil(t, session)
-		require.Equal(t, "mytoken", session.Token)
-	})
-
-	t.Run("Empty environment variable should return error", func(t *testing.T) {
-		// t.Setenv prevents t.Parallel — env var has no config equivalent
-		t.Setenv("MM_CLOUD_API_KEY", "")
-		session, err := th.App.GetCloudSession("mytoken")
-		require.Nil(t, session)
-		require.NotNil(t, err)
-		require.Equal(t, "api.context.invalid_token.error", err.Id)
-	})
-
-	t.Run("Mismatched env variable and token should return error", func(t *testing.T) {
-		// t.Setenv prevents t.Parallel — env var has no config equivalent
-		t.Setenv("MM_CLOUD_API_KEY", "mytoken")
-		session, err := th.App.GetCloudSession("myincorrecttoken")
-		require.Nil(t, session)
-		require.NotNil(t, err)
-		require.Equal(t, "api.context.invalid_token.error", err.Id)
-	})
-}
-
 func TestGetRemoteClusterSession(t *testing.T) {
 	mainHelper.Parallel(t)
 	th := Setup(t)

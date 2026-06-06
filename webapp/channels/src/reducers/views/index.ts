@@ -13,12 +13,9 @@ import drafts from './drafts';
 import emoji from './emoji';
 import i18n from './i18n';
 import lhs from './lhs';
-import marketplace from './marketplace';
 import modals from './modals';
 import notice from './notice';
-import onboardingTasks from './onboarding_tasks';
 import posts from './posts';
-import productMenu from './product_menu';
 import readout from './readout';
 import rhs from './rhs';
 import rhsSuppressed from './rhs_suppressed';
@@ -47,12 +44,9 @@ export default combineReducers({
     system,
     channelSelectorModal,
     settings,
-    marketplace,
     textbox,
     channelSidebar,
-    onboardingTasks,
     threads,
-    productMenu,
     drafts,
     readout,
 });

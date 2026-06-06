@@ -36,7 +36,6 @@ import {generateId} from 'utils/utils';
 
 import type {
     PluginsState,
-    ProductComponent,
     NeedsTeamComponent,
     PostDropdownMenuAction,
     ChannelHeaderAction,
@@ -54,8 +53,6 @@ import type {
     SearchButtonsComponent,
     SearchSuggestionsComponent,
     SearchHintsComponent,
-    CallButtonAction,
-    CreateBoardFromTemplateComponent,
     PostWillRenderEmbedComponent,
     FilesWillUploadHook,
     MessageWillBePostedHook,
@@ -217,28 +214,6 @@ export default class PluginRegistry {
     });
 
     /**
-     * Register a component fixed to the bottom of the create new channel modal and also registers a callback function to be called after
-     * the channel has been succesfully created
-     * Accepts a React component. Returns a unique identifier.
-     */
-    registerActionAfterChannelCreation = reArg(['component', 'action'], ({
-        component,
-        action,
-    }: {
-        component: CreateBoardFromTemplateComponent['component'];
-        action: CreateBoardFromTemplateComponent['action'];
-    }) => {
-        const id = generateId();
-        dispatchPluginComponentWithData('CreateBoardFromTemplate', {
-            id,
-            pluginId: this.id,
-            component,
-            action,
-        });
-        return id;
-    });
-
-    /**
      * Register a component to render in the channel header next to the pinned posts button.
      * This component will be rendered in the left icon section of the channel header, unlike registerChannelHeaderButtonAction which
      * renders in the right plugin section or App Bar.
@@ -321,53 +296,6 @@ export default class PluginRegistry {
         };
 
         dispatchPluginComponentWithData('ChannelIntroButton', data);
-
-        return id;
-    });
-
-    /**
-     * Add a "call button" to the channel header. If there is more than one button registered by any
-     * plugin, a dropdown menu is created to contain all the call plugin buttons.
-     * Accepts the following:
-     * - button - A React element to use as the main button to be displayed in case of a single registration.
-     * - dropdownButton -A React element to use as the dropdown button to be displayed in case of multiple registrations.
-     * - action - A function called when the button is clicked, passed the channel and channel member as arguments.
-     * Returns an unique identifier
-     * Minimum required version: 6.5
-     */
-    registerCallButtonAction = reArg([
-        'button',
-        'dropdownButton',
-        'action',
-        'icon',
-        'dropdownText',
-    ], ({
-        button,
-        dropdownButton,
-        action,
-        icon,
-        dropdownText,
-    }: {
-        button: ReactResolvable;
-        dropdownButton: ReactResolvable;
-        action: CallButtonAction['action'];
-        icon: ReactResolvable;
-        dropdownText: ReactResolvable;
-    }) => {
-        const id = generateId();
-
-        const data = {
-            id,
-            pluginId: this.id,
-            button: resolveReactElement(button),
-            dropdownButton: resolveReactElement(dropdownButton),
-            icon: resolveReactElement(icon),
-            dropdownText: resolveReactElement(dropdownText),
-            action,
-        };
-
-        dispatchPluginComponentWithData('CallButton', data);
-        dispatchPluginComponentWithData('MobileChannelHeaderButton', data);
 
         return id;
     });
@@ -1178,59 +1106,6 @@ export default class PluginRegistry {
     });
 
     /**
-     * INTERNAL: Subject to change without notice.
-     * Register a Product, consisting of a global header menu item, mainComponent, and other pluggables.
-     * @remarks DANGER: Interferes with historic routes.
-     * @see {@link ProductComponent}
-     * @returns {string}
-     */
-    registerProduct = reArg([
-        'baseURL',
-        'switcherIcon',
-        'switcherText',
-        'switcherLinkURL',
-        'mainComponent',
-        'headerCentreComponent',
-        'headerRightComponent',
-        'showTeamSidebar',
-        'showAppBar',
-        'wrapped',
-        'publicComponent',
-    ], ({
-        baseURL,
-        switcherIcon,
-        switcherText,
-        switcherLinkURL,
-        mainComponent,
-        headerCentreComponent = () => null,
-        headerRightComponent = () => null,
-        showTeamSidebar = false,
-        showAppBar = false,
-        wrapped = true,
-        publicComponent,
-    }: Omit<ProductComponent, 'id' | 'pluginId'>) => {
-        const id = generateId();
-
-        dispatchPluginComponentWithData('Product', {
-            id,
-            pluginId: this.id,
-            switcherIcon: resolveReactElement(switcherIcon),
-            switcherText: resolveReactElement(switcherText),
-            baseURL: '/' + standardizeRoute(baseURL),
-            switcherLinkURL: '/' + standardizeRoute(switcherLinkURL),
-            mainComponent,
-            headerCentreComponent,
-            headerRightComponent,
-            showTeamSidebar,
-            showAppBar,
-            wrapped,
-            publicComponent,
-        });
-
-        return id;
-    });
-
-    /**
      * Register a hook that will be called when a message is edited by the user before it
      * is sent to the server. Accepts a function that receives the post as an argument.
      *
@@ -1313,7 +1188,7 @@ export default class PluginRegistry {
 
     /**
      * INTERNAL: Subject to change without notice.
-     * Register a global component at the root of the app that survives across product switches.
+     * Register a global component at the root of the app.
      * All parameters are required.
      * Returns a unique identifier.
      */

@@ -15,14 +15,10 @@ describe('MobileSidebarRightItems', () => {
     const defaultProps: Props = {
         teamId: 'team-id',
         teamName: 'team_name',
-        appDownloadLink: undefined,
         experimentalPrimaryTeam: undefined,
-        helpLink: undefined,
-        reportAProblemLink: '',
         moreTeamsToJoin: false,
         pluginMenuItems: [],
         isMentionSearch: false,
-        usageDeltaTeams: 0,
         siteName: 'site-name',
         isLicensedForLDAPGroups: false,
         guestAccessEnabled: true,
@@ -34,8 +30,6 @@ describe('MobileSidebarRightItems', () => {
             openModal: jest.fn(),
         },
         teamIsGroupConstrained: false,
-        isStarterFree: false,
-        isFreeTrial: false,
         userId: 'test-user-id',
         profilePicture: 'http://localhost/api/v4/users/test-user-id/image',
         autoResetPref: '',
@@ -149,25 +143,4 @@ describe('MobileSidebarRightItems', () => {
         expect(screen.getByText('Plugin Item 1')).toBeInTheDocument();
     });
 
-    test('should show help link when provided', () => {
-        renderWithContext(
-            <MobileSidebarRightItems
-                {...defaultProps}
-                helpLink='https://help.example.com'
-            />,
-            defaultState,
-        );
-        expect(screen.getByText('Help')).toBeInTheDocument();
-    });
-
-    test('should show report link when provided', () => {
-        renderWithContext(
-            <MobileSidebarRightItems
-                {...defaultProps}
-                reportAProblemLink='https://report.example.com'
-            />,
-            defaultState,
-        );
-        expect(screen.getByText('Report a Problem')).toBeInTheDocument();
-    });
 });

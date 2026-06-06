@@ -11,9 +11,7 @@ import ChannelInviteModal from 'components/channel_invite_modal';
 import ChannelMembersModal from 'components/channel_members_modal';
 import DatePicker from 'components/date_picker/date_picker';
 import * as Menu from 'components/menu';
-import {useNotifyAdmin} from 'components/notify_admin_cta/notify_admin_cta';
 import PostMessagePreview from 'components/post_view/post_message_preview';
-import StartTrialFormModal from 'components/start_trial_form_modal';
 import ThreadViewer from 'components/threading/thread_viewer';
 import Timestamp from 'components/timestamp';
 import UserSettingsModal from 'components/user_settings/modal';
@@ -34,12 +32,6 @@ import {openInteractiveDialog} from './interactive_dialog'; // This import has i
 import {loadSharedDependency} from './shared_dependencies';
 import Textbox from './textbox';
 
-// Note: We can't directly use the hook here, but we can create a function that opens the external pricing page
-// For plugins, we'll always try to open the external page and let the browser handle if it's blocked
-const openPricingModalForPlugins = () => {
-    (window as any).open('https://mattermost.com/pricing', '_blank', 'noopener,noreferrer');
-};
-
 interface WindowWithLibraries {
     React: typeof import('react');
     ReactDOM: typeof import('react-dom');
@@ -55,7 +47,6 @@ interface WindowWithLibraries {
         messageHtmlToComponent: (html: string, ...args: any[]) => JSX.Element;
     };
     openInteractiveDialog: typeof openInteractiveDialog;
-    useNotifyAdmin: typeof useNotifyAdmin;
     WebappUtils: {
         modals: {
             openModal: typeof openModal;
@@ -77,7 +68,6 @@ interface WindowWithLibraries {
         };
     };
     loadSharedDependency(request: string): unknown;
-    openPricingModal: () => void;
     Components: {
         Textbox: typeof Textbox;
         Timestamp: typeof Timestamp;
@@ -86,7 +76,6 @@ interface WindowWithLibraries {
         Avatar: typeof Avatar;
         imageURLForUser: typeof imageURLForUser;
         BotBadge: typeof BotTag;
-        StartTrialFormModal: typeof StartTrialFormModal;
         ThreadViewer: typeof ThreadViewer;
         PostMessagePreview: typeof PostMessagePreview;
         AdvancedTextEditor: typeof AdvancedTextEditor;
@@ -136,7 +125,6 @@ window.PostUtils = {
     },
 };
 window.openInteractiveDialog = openInteractiveDialog;
-window.useNotifyAdmin = useNotifyAdmin;
 window.WebappUtils = {
     get browserHistory() {
         return getHistory();
@@ -159,10 +147,6 @@ window.WebappUtils = {
 };
 window.loadSharedDependency = loadSharedDependency;
 
-// For plugins, we provide a simple function that always tries to open the external pricing page
-// This won't respect air-gapped status, but plugins shouldn't be calling this in air-gapped environments
-window.openPricingModal = openPricingModalForPlugins;
-
 // Components exposed on window FOR INTERNAL PLUGIN USE ONLY. These components may have breaking changes in the future
 // outside of major releases. They will be replaced by common components once that project is more mature and able to
 // guarantee better compatibility.
@@ -174,7 +158,6 @@ window.Components = {
     Avatar,
     imageURLForUser,
     BotBadge: BotTag,
-    StartTrialFormModal,
     ThreadViewer,
     PostMessagePreview,
     AdvancedTextEditor,

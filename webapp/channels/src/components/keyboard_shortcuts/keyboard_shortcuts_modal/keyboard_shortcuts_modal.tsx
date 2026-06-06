@@ -4,15 +4,10 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {Modal} from 'react-bootstrap';
 import {defineMessages, useIntl} from 'react-intl';
-import {useSelector} from 'react-redux';
-
-import {isCallsEnabled} from 'selectors/calls';
 
 import KeyboardShortcutSequence, {
     KEYBOARD_SHORTCUTS,
 } from 'components/keyboard_shortcuts/keyboard_shortcuts_sequence';
-import type {
-    KeyboardShortcutDescriptor} from 'components/keyboard_shortcuts/keyboard_shortcuts_sequence';
 
 import * as UserAgent from 'utils/user_agent';
 
@@ -60,22 +55,6 @@ const modalMessages = defineMessages({
         id: 'shortcuts.msgs.search.header',
         defaultMessage: 'Searching',
     },
-    callsHeader: {
-        id: 'shortcuts.calls.header',
-        defaultMessage: 'Calls',
-    },
-    callsGlobalHeader: {
-        id: 'shortcuts.calls.global.header',
-        defaultMessage: 'Global',
-    },
-    callsWidgetHeader: {
-        id: 'shortcuts.calls.widget.header',
-        defaultMessage: 'Call widget',
-    },
-    callsExpandedHeader: {
-        id: 'shortcuts.calls.expanded.header',
-        defaultMessage: 'Expanded view (pop-out window)',
-    },
 });
 
 interface Props {
@@ -91,19 +70,6 @@ const KeyboardShortcutsModal = ({onExited}: Props): JSX.Element => {
     const handleHide = useCallback(() => setShow(false), []);
 
     const isLinux = UserAgent.isLinux();
-
-    const callsEnabled = useSelector(isCallsEnabled);
-
-    const renderShortcutSequences = (shortcuts: {[key: string]: KeyboardShortcutDescriptor}) => {
-        return Object.entries(shortcuts).map(([key, shortcut]) => {
-            return (
-                <KeyboardShortcutSequence
-                    key={key}
-                    shortcut={shortcut}
-                />
-            );
-        });
-    };
 
     useEffect(() => {
         contentRef.current?.focus();
@@ -210,26 +176,6 @@ const KeyboardShortcutsModal = ({onExited}: Props): JSX.Element => {
                                     </div>
                                 </div>
                             </div>
-                            { callsEnabled &&
-                            <div className='section'>
-                                <div>
-                                    <h3 className='section-title'><strong>{formatMessage(modalMessages.callsHeader)}</strong></h3>
-                                    <div className='subsection'>
-                                        <h4 className='subsection-title'>{formatMessage(modalMessages.callsGlobalHeader)}</h4>
-                                        {renderShortcutSequences(KEYBOARD_SHORTCUTS.calls.global)}
-                                    </div>
-
-                                    <div className='subsection'>
-                                        <h4 className='subsection-title'>{formatMessage(modalMessages.callsWidgetHeader)}</h4>
-                                        {renderShortcutSequences(KEYBOARD_SHORTCUTS.calls.widget)}
-                                    </div>
-                                    <div className='subsection'>
-                                        <h4 className='subsection-title'>{formatMessage(modalMessages.callsExpandedHeader)}</h4>
-                                        {renderShortcutSequences(KEYBOARD_SHORTCUTS.calls.popout)}
-                                    </div>
-                                </div>
-                            </div>
-                            }
                         </div>
                     </div>
                     <div className='info__label'>{formatMessage(modalMessages.info)}</div>

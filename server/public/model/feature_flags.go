@@ -41,21 +41,11 @@ type FeatureFlags struct {
 	// Enable WYSIWYG text editor
 	WysiwygEditor bool
 
-	OnboardingTourTips bool
-
-	DeprecateCloudFree bool
-
 	EnableExportDirectDownload bool
 
 	MoveThreadsEnabled bool
 
-	StreamlinedMarketplace bool
-
-	CloudIPFiltering bool
-	ConsumePostHook  bool
-
-	CloudAnnualRenewals    bool
-	CloudDedicatedExportUI bool
+	ConsumePostHook bool
 
 	ChannelBookmarks bool
 
@@ -98,10 +88,6 @@ type FeatureFlags struct {
 	// FEATURE_FLAG_REMOVAL: EnableAIRecaps - Remove this when GA is released
 	EnableAIRecaps bool
 
-	// FEATURE_FLAG_REMOVAL: IntegratedBoards - Remove this when GA is released
-	// Enable the Integrated Boards feature within Mattermost channels
-	IntegratedBoards bool
-
 	// Enable LIKE-based CJK (Chinese, Japanese, Korean) search for PostgreSQL
 	CJKSearch bool
 
@@ -119,16 +105,10 @@ func (f *FeatureFlags) SetDefaults() {
 	f.EnableSharedChannelsPlugins = true
 	f.AppsEnabled = false
 	f.NormalizeLdapDNs = false
-	f.DeprecateCloudFree = false
 	f.WysiwygEditor = false
-	f.OnboardingTourTips = true
 	f.EnableExportDirectDownload = false
 	f.MoveThreadsEnabled = false
-	f.StreamlinedMarketplace = true
-	f.CloudIPFiltering = false
 	f.ConsumePostHook = false
-	f.CloudAnnualRenewals = false
-	f.CloudDedicatedExportUI = false
 	f.ChannelBookmarks = true
 	f.WebSocketEventScope = true
 	f.NotificationMonitoring = true
@@ -151,8 +131,6 @@ func (f *FeatureFlags) SetDefaults() {
 	f.EnableAIPluginBridge = false
 
 	f.EnableAIRecaps = false
-
-	f.IntegratedBoards = false
 
 	f.CJKSearch = false
 

@@ -368,14 +368,6 @@ func (a *App) exportSchemes(rctx request.CTX, job *model.Job, writer io.Writer, 
 				schemeRolesMap[scheme.DefaultTeamAdminRole] = true
 				schemeRolesMap[scheme.DefaultTeamUserRole] = true
 				schemeRolesMap[scheme.DefaultTeamGuestRole] = true
-
-				// Playbooks
-				// At the moment this is only needed to avoid exporting and
-				// importing spurious roles.
-				schemeRolesMap[scheme.DefaultPlaybookAdminRole] = true
-				schemeRolesMap[scheme.DefaultPlaybookMemberRole] = true
-				schemeRolesMap[scheme.DefaultRunAdminRole] = true
-				schemeRolesMap[scheme.DefaultRunMemberRole] = true
 			}
 
 			if scheme.Scope == model.SchemeScopeTeam || scheme.Scope == model.SchemeScopeChannel {

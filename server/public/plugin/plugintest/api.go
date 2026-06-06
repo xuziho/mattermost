@@ -1661,36 +1661,6 @@ func (_m *API) GetChannelsForTeamForUser(teamID string, userID string, includeDe
 	return r0, r1
 }
 
-// GetCloudLimits provides a mock function with no fields
-func (_m *API) GetCloudLimits() (*model.ProductLimits, error) {
-	ret := _m.Called()
-
-	if len(ret) == 0 {
-		panic("no return value specified for GetCloudLimits")
-	}
-
-	var r0 *model.ProductLimits
-	var r1 error
-	if rf, ok := ret.Get(0).(func() (*model.ProductLimits, error)); ok {
-		return rf()
-	}
-	if rf, ok := ret.Get(0).(func() *model.ProductLimits); ok {
-		r0 = rf()
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(*model.ProductLimits)
-		}
-	}
-
-	if rf, ok := ret.Get(1).(func() error); ok {
-		r1 = rf()
-	} else {
-		r1 = ret.Error(1)
-	}
-
-	return r0, r1
-}
-
 // GetCommand provides a mock function with given fields: commandID
 func (_m *API) GetCommand(commandID string) (*model.Command, error) {
 	ret := _m.Called(commandID)
@@ -4840,26 +4810,6 @@ func (_m *API) RemoveUserCustomStatus(userID string) *model.AppError {
 	var r0 *model.AppError
 	if rf, ok := ret.Get(0).(func(string) *model.AppError); ok {
 		r0 = rf(userID)
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(*model.AppError)
-		}
-	}
-
-	return r0
-}
-
-// RequestTrialLicense provides a mock function with given fields: requesterID, users, termsAccepted, receiveEmailsAccepted
-func (_m *API) RequestTrialLicense(requesterID string, users int, termsAccepted bool, receiveEmailsAccepted bool) *model.AppError {
-	ret := _m.Called(requesterID, users, termsAccepted, receiveEmailsAccepted)
-
-	if len(ret) == 0 {
-		panic("no return value specified for RequestTrialLicense")
-	}
-
-	var r0 *model.AppError
-	if rf, ok := ret.Get(0).(func(string, int, bool, bool) *model.AppError); ok {
-		r0 = rf(requesterID, users, termsAccepted, receiveEmailsAccepted)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*model.AppError)

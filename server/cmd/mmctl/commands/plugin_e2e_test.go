@@ -19,6 +19,13 @@ import (
 	"github.com/mattermost/mattermost/server/v8/cmd/mmctl/printer"
 )
 
+func removePluginIfInstalled(c client.Client, s *MmctlE2ETestSuite, pluginID string) {
+	appErr := pluginDeleteCmdF(c, &cobra.Command{}, []string{pluginID})
+	if appErr != nil {
+		s.Require().Contains(appErr.Error(), "Unable to delete plugin.")
+	}
+}
+
 func (s *MmctlE2ETestSuite) TestPluginAddCmd() {
 	s.SetupTestHelper().InitBasic(s.T())
 

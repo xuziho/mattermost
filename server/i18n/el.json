@@ -720,14 +720,6 @@
     "translation": "Σφάλμα κατά την ανάκτηση του τρέχον καναλιού."
   },
   {
-    "id": "api.command_help.name",
-    "translation": "Βοήθεια"
-  },
-  {
-    "id": "api.command_help.desc",
-    "translation": "Ανοίξτε τη σελίδα βοήθειας"
-  },
-  {
     "id": "api.command_groupmsg.permission.app_error",
     "translation": "Δεν έχετε δικαιώματα για να δημιουργήσετε μήνυμα ομάδας."
   },
@@ -1731,22 +1723,6 @@
     "translation": "Το κείμενο που έχει εισαχθεί υπερβαίνει το όριο χαρακτήρων. Η επικεφαλίδα του καναλιού περιορίζεται σε {{.MaxLength}} χαρακτήρες."
   },
   {
-    "id": "api.cloud.request_error",
-    "translation": "Σφάλμα επεξεργασίας αιτήματος προς το CWS."
-  },
-  {
-    "id": "api.cloud.license_error",
-    "translation": "Η άδειά σας δεν υποστηρίζει αιτήματα cloud."
-  },
-  {
-    "id": "api.cloud.cws_webhook_event_missing_error",
-    "translation": "Το συμβάν Webhook δε διεκπεραιώθηκε. Είτε λείπει είτε δεν είναι έγκυρο."
-  },
-  {
-    "id": "api.cloud.app_error",
-    "translation": "Εσωτερικό σφάλμα κατά τη διάρκεια αιτήματος του cloud api."
-  },
-  {
     "id": "api.channel.update_team_member_roles.changing_guest_role.app_error",
     "translation": "Μη έγκυρη ενημέρωση μέλους ομάδας: Δεν μπορείτε να προσθέσετε ή να καταργήσετε τον ρόλο επισκέπτη χειροκίνητα."
   },
@@ -2187,10 +2163,6 @@
     "translation": "Δεν είναι δυνατή η δημιουργία ενός άμεσου καναλιού μεταξύ αυτών των χρηστών, επειδή δε μοιράζονται μια κοινή ομάδα."
   },
   {
-    "id": "api.error_get_first_admin_visit_marketplace_status",
-    "translation": "Σφάλμα κατά την ανάκτηση της κατάστασης της πρώτης επίσκεψης του διαχειριστή στο marketplace."
-  },
-  {
     "id": "api.emoji.upload.open.app_error",
     "translation": "Δεν είναι δυνατή η δημιουργία του emoji. Παρουσιάστηκε σφάλμα κατά την προσπάθεια ανοίγματος της συνημμένης εικόνας."
   },
@@ -2335,10 +2307,6 @@
   {
     "id": "api.file.attachments.disabled.app_error",
     "translation": "Η σύναψη αρχείων έχει απενεργοποιηθεί σε αυτόν τον διακομιστή."
-  },
-  {
-    "id": "api.error_set_first_admin_visit_marketplace_status",
-    "translation": "Σφάλμα κατά την προσπάθεια αποθήκευσης της κατάστασης της πρώτης επίσκεψης του διαχειριστή στο marketplace."
   },
   {
     "id": "api.oauth.get_access_token.bad_client_id.app_error",
@@ -2615,10 +2583,6 @@
   {
     "id": "api.templates.reset_subject",
     "translation": "[{{ .SiteName }}] Επαναφέρετε τον κωδικό πρόσβασης σας"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.add_apps_sub_info",
-    "translation": "Βελτιώστε την εργασία σας με εργαλεία όπως το Github, το Ημερολόγιο της Google και το Chrome. Εξερευνήστε όλες τις ενσωματώσεις που διαθέτουμε"
   },
   {
     "id": "api.license.request-trial.can-start-trial.error",
@@ -2975,70 +2939,6 @@
     "translation": "Απενεργοποιήσατε τον λογαριασμό σας στο {{.SiteURL}}."
   },
   {
-    "id": "api.templates.cloud_welcome_email.title",
-    "translation": "Η δοκιμαστική έκδοση 14 ημερών του χώρου εργασίας {{.WorkSpace}} είναι έτοιμη!"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subtitle_info",
-    "translation": "Ακολουθήστε τα παρακάτω βήματα για να δημιουργήσετε τις ομάδες σας και να αξιοποιήσετε στο έπακρο το χώρο εργασίας σας."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subtitle",
-    "translation": "Ρυθμίστε το χώρο εργασίας σας"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subject",
-    "translation": "Συγχαρητήρια!"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.start_questions",
-    "translation": "Έχετε ερωτήσεις για το πως θα ξεκινήσετε; Στείλτε μας email στο"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.signin_sub_info2",
-    "translation": "για την καλύτερη εμπειρία σε Η/Υ, Mac, iOS και Android."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.signin_sub_info",
-    "translation": "Συνδεθείτε στο χώρο εργασίας σας στο"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.mm_apps",
-    "translation": "εφαρμογές για κινητά και υπολογιστές"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.invite_sub_info",
-    "translation": "Μοιραστείτε αυτόν τον σύνδεσμο για να προσκαλέσετε τα μέλη σας να ενταχθούν στο {{.WorkSpace}}:"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.invite_info",
-    "translation": "Προσκαλέστε άτομα στο χώρο εργασίας σας"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.info2",
-    "translation": "Φροντίστε να αποθηκεύσετε ή να προσθέσετε σελιδοδείκτη στον σύνδεσμό σας για μελλοντική χρήση."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.info",
-    "translation": "Ευχαριστώ για τη δημιουργία "
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.download_mm_info",
-    "translation": "Κατεβάστε την εφαρμογή Mattermost"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.button",
-    "translation": "Ανοίξτε το Mattermost"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.app_market_place",
-    "translation": "αγορά εφαρμογών."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.add_apps_info",
-    "translation": "Προσθέστε εφαρμογές στον χώρο εργασίας σας"
-  },
-  {
     "id": "api.team.update_team_member_roles.guest_and_user.app_error",
     "translation": "Μη έγκυρη ενημέρωση μέλους ομάδας: Ένας χρήστης πρέπει να είναι είτε επισκέπτης είτε χρήστης, όχι και τα δύο."
   },
@@ -3049,42 +2949,6 @@
   {
     "id": "api.license.request-trial.can-start-trial.not-allowed",
     "translation": "Αυτή η δοκιμαστική άδεια χρήσης για το Mattermost Enterprise Edition έχει λήξει και δεν είναι πλέον έγκυρη. Εάν θέλετε να παρατείνετε τη δοκιμαστική περίοδο, παρακαλούμε [επικοινωνήστε με την ομάδα πωλήσεών μας](https://mattermost.com/contact-us/)."
-  },
-  {
-    "id": "api.upgrade_to_enterprise_status.app_error",
-    "translation": "Το Mattermost δεν μπόρεσε να κάνει αναβάθμιση σε Enterprise Edition."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.system_not_supported.app_error",
-    "translation": "Το Mattermost δεν μπόρεσε να κάνει αναβάθμιση σε Enterprise Edition. Αυτή η δυνατότητα θα λειτουργεί μόνο σε συστήματα Linux με αρχιτεκτονική x86-64."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-user.app_error",
-    "translation": "Το Mattermost δεν μπόρεσε να κάνει αναβάθμιση σε Enterprise Edition. Ο χρήστης του συστήματος Mattermost {{.MattermostUsername}} δεν έχει πρόσβαση εγγραφής στο απαραίτητο δυαδικό αρχείο. Ένας διαχειριστής συστήματος μπορεί να ενημερώσει τα δικαιώματα του αρχείου εκτελώντας την ακόλουθη εντολή στο διακομιστή όπου είναι εγκατεστημένο το Mattermost:\n\n```\nchown {{.MattermostUsername}} \"{{.Path}}\"\n```\n\nΑφού γίνει αλλαγή στα δικαιώματα των αρχείων, δοκιμάστε να αναβαθμίσετε ξανά το Mattermost. Όταν κάνετε αναβάθμιση και επανεκκίνηση, θυμηθείτε να επαναφέρετε τα αρχικά δικαιώματα των δυαδικών αρχείων:\n\n```\nchown {{.FileUsername}} \"{{.Path}}\"\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-user-and-permission.app_error",
-    "translation": "Το Mattermost δεν μπόρεσε να κάνει αναβάθμιση σε Enterprise Edition. Ο χρήστης του συστήματος Mattermost {{.MattermostUsername}} δεν έχει πρόσβαση εγγραφής στο απαραίτητο δυαδικό αρχείο. Ένας διαχειριστής συστήματος μπορεί να ενημερώσει τα δικαιώματα του αρχείου εκτελώντας την ακόλουθη εντολή στο διακομιστή όπου είναι εγκατεστημένο το Mattermost:\n\n```\nchown {{.MattermostUsername}} \"{{.Path}}\"\nchmod +w \"{{.Path}}\"\n```\n\nΑφού γίνει αλλαγή στα δικαιώματα των αρχείων, δοκιμάστε να αναβαθμίσετε ξανά το Mattermost. Όταν κάνετε αναβάθμιση και επανεκκίνηση, θυμηθείτε να επαναφέρετε τα αρχικά δικαιώματα των δυαδικών αρχείων:\n\n```\nchown {{.FileUsername}} \"{{.Path}}\"\nchmod -w \"{{.Path}}\"\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-permission.app_error",
-    "translation": "Το Mattermost δεν μπόρεσε να κάνει αναβάθμιση σε Enterprise Edition. Ο χρήστης του συστήματος Mattermost {{.MattermostUsername}} δεν έχει πρόσβαση εγγραφής στο απαραίτητο δυαδικό αρχείο. Ένας διαχειριστής συστήματος μπορεί να ενημερώσει τα δικαιώματα του αρχείου εκτελώντας την ακόλουθη εντολή στο διακομιστή όπου είναι εγκατεστημένο το Mattermost:\n\n```\nchmod +w \"{{.Path}}\"\n```\n\nΑφού γίνει αλλαγή στα δικαιώματα των αρχείων, δοκιμάστε να αναβαθμίσετε ξανά το Mattermost. Όταν κάνετε αναβάθμιση και επανεκκίνηση, θυμηθείτε να επαναφέρετε τα αρχικά δικαιώματα των δυαδικών αρχείων:\n\n```\nchmod -w \"{{.Path}}\"\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.generic_error.app_error",
-    "translation": "Το Mattermost δεν μπόρεσε να κάνει αναβάθμιση σε Enterprise Edition."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.app_error",
-    "translation": "Εκτελείται ήδη μια αναβάθμιση σε Mattermost Enterprise Edition."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.already-enterprise.app_error",
-    "translation": "Δεν μπορείτε να κάνετε αναβάθμιση επειδή εκτελείτε ήδη το Mattermost Enterprise Edition."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.already-done.app_error",
-    "translation": "Έχετε ήδη αναβαθμίσει σε Mattermost Enterprise Edition. Παρακαλώ κάνετε επανεκκίνηση τον διακομιστή για να ολοκληρώσετε την αναβάθμιση."
   },
   {
     "id": "api.templates.welcome_subject",
@@ -3101,10 +2965,6 @@
   {
     "id": "api.templates.welcome_body.button",
     "translation": "Επαλήθευση Email"
-  },
-  {
-    "id": "api.templates.welcome_body.app_download_info",
-    "translation": "Για την καλύτερη δυνατή εμπειρία, κατεβάστε τις εφαρμογές για Η/Υ, Mac, iOS και Android."
   },
   {
     "id": "api.templates.verify_subject",
@@ -3173,10 +3033,6 @@
   {
     "id": "api.upload.get_upload.forbidden.app_error",
     "translation": "Αποτυχία λήψης."
-  },
-  {
-    "id": "api.upgrade_to_enterprise_status.signature.app_error",
-    "translation": "Το Mattermost δεν μπόρεσε να κάνει αναβάθμιση σε Enterprise Edition. Δεν ήταν δυνατή η επαλήθευση της ψηφιακής υπογραφής του ληφθέντος δυαδικού αρχείου."
   },
   {
     "id": "api.user.add_direct_channels_and_forget.failed.error",
@@ -3373,5 +3229,9 @@
   {
     "id": "api.server.license_up_for_renewal.error_sending_email",
     "translation": "Αποτυχία αποστολής άδειας χρήσης για ανανέωση μηνυμάτων emails"
+  },
+  {
+    "id": "api.templates.license_up_for_renewal_review_license",
+    "translation": "Review license"
   }
 ]

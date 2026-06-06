@@ -3,11 +3,9 @@
 
 import React from 'react';
 import {Modal} from 'react-bootstrap';
-import {FormattedMessage, useIntl} from 'react-intl';
+import {useIntl} from 'react-intl';
 
 import {InformationOutlineIcon} from '@mattermost/compass-icons/components';
-
-import ExternalLink from 'components/external_link';
 
 import './save_confirmation_modal.scss';
 
@@ -43,22 +41,9 @@ export default function SaveConfirmationModal({onExited, onConfirm, title, subti
                             <InformationOutlineIcon/>
                         </div>
                         <div className='Body'>
-                            <div className='Title'>{formatMessage({id: 'admin.ip_filtering.save_disclaimer_title', defaultMessage: 'Using the Customer Portal to restore access'})}</div>
-                            {/* TODO - replace "workspace owner" with owner's email address? */}
+                            <div className='Title'>{formatMessage({id: 'admin.ip_filtering.save_disclaimer_title', defaultMessage: 'Restoring access if you block yourself'})}</div>
                             <div className='Subtitle'>
-                                <FormattedMessage
-                                    id={'admin.ip_filtering.save_disclaimer_subtitle'}
-                                    defaultMessage={'If you happen to block yourself with these settings, your workspace owner can log in to the <customerportal>Customer Portal</customerportal> to disable IP filtering to restore access.'}
-                                    values={{
-                                        customerportal: (msg) => (
-                                            <ExternalLink
-                                                location='save_confirmation_modal'
-                                                href='https://customers.mattermost.com/console/ip_filtering'
-                                            >
-                                                {msg}
-                                            </ExternalLink>),
-                                    }}
-                                />
+                                {formatMessage({id: 'admin.ip_filtering.save_disclaimer_subtitle', defaultMessage: 'If these settings block your access, restore access from the server configuration or ask another system administrator to disable IP filtering.'})}
                             </div>
                         </div>
                     </div>

@@ -88,7 +88,6 @@ async function printLicenseInfo(client: Client4) {
   - IsTrial         = ${license.IsTrial}
   - SkuName         = ${license.SkuName}
   - SkuShortName    = ${license.SkuShortName}
-  - Cloud           = ${license.Cloud}
   - Users           = ${license.Users}`);
 }
 
@@ -124,7 +123,6 @@ async function printClientInfo(client: Client4) {
     console.log(`Plugin Settings:
   - Enable  = ${PluginSettings?.Enable}
   - EnableUploads  = ${PluginSettings?.EnableUploads}
-  - AutomaticPrepackagedPlugins  = ${PluginSettings?.AutomaticPrepackagedPlugins}`);
 }
 
 async function printPluginDetails(client: Client4) {

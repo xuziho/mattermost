@@ -39,7 +39,6 @@ interface Props {
     isDraggable?: boolean;
     teamIndex?: number;
     teamId?: string;
-    isInProduct?: boolean;
     hasUrgent?: boolean;
 }
 
@@ -80,7 +79,7 @@ export default function TeamButton({
     });
 
     if (!teamClass) {
-        if (unread && !otherProps.isInProduct) {
+        if (unread) {
             teamClass = 'unread';
 
             badge = (
@@ -96,7 +95,7 @@ export default function TeamButton({
         }
 
         // Only update ariaLabel for actual team buttons with unread status, not for create/join team buttons
-        if (unread && isNotCreateTeamButton && !otherProps.isInProduct) {
+        if (unread && isNotCreateTeamButton) {
             ariaLabel = formatMessage({
                 id: 'team.button.unread.ariaLabel',
                 defaultMessage: '{teamName} team unread',
@@ -155,7 +154,7 @@ export default function TeamButton({
             tip={tip}
         >
             <div className={'team-btn ' + btnClass}>
-                {!otherProps.isInProduct && badge}
+                {badge}
                 {content}
             </div>
         </WithTeamTooltip>

@@ -5,7 +5,6 @@ import classNames from 'classnames';
 import React from 'react';
 
 import type {Channel} from '@mattermost/types/channels';
-import type {ProductIdentifier} from '@mattermost/types/products';
 import type {Team} from '@mattermost/types/teams';
 
 import ChannelInfoRhs from 'components/channel_info_rhs';
@@ -34,7 +33,6 @@ export type Props = {
     channel?: Channel;
     team?: Team;
     teamId: Team['id'];
-    productId: ProductIdentifier;
     postRightVisible: boolean;
     postCardVisible: boolean;
     searchVisible: boolean;
@@ -226,10 +224,9 @@ export default class SidebarRight extends React.PureComponent<Props, State> {
             this.props.actions.setRhsExpanded(false);
         }
 
-        // close when changing products or teams
+        // close when changing teams
         if (
-            (prevProps.teamId && this.props.teamId !== prevProps.teamId) ||
-            this.props.productId !== prevProps.productId
+            prevProps.teamId && this.props.teamId !== prevProps.teamId
         ) {
             this.props.actions.closeRightHandSide();
         }

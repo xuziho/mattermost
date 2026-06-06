@@ -232,7 +232,6 @@ const (
 	DataRetentionSettingsDefaultMessageRetentionHours          = 0
 	DataRetentionSettingsDefaultFileRetentionDays              = 365
 	DataRetentionSettingsDefaultFileRetentionHours             = 0
-	DataRetentionSettingsDefaultBoardsRetentionDays            = 365
 	DataRetentionSettingsDefaultDeletionJobStartTime           = "02:00"
 	DataRetentionSettingsDefaultBatchSize                      = 3000
 	DataRetentionSettingsDefaultTimeBetweenBatchesMilliseconds = 100
@@ -242,9 +241,6 @@ const (
 
 	PluginSettingsDefaultDirectory          = "./plugins"
 	PluginSettingsDefaultClientDirectory    = "./client/plugins"
-	PluginSettingsDefaultEnableMarketplace  = true
-	PluginSettingsDefaultMarketplaceURL     = "https://api.integrations.mattermost.com"
-	PluginSettingsOldMarketplaceURL         = "https://marketplace.integrations.mattermost.com"
 	PluginSettingsDefaultHookTimeoutSeconds = 30
 
 	ComplianceExportDirectoryFormat                = "compliance-export-2006-01-02-15h04m"
@@ -273,11 +269,6 @@ const (
 	Office365SettingsDefaultAuthEndpoint    = "https://login.microsoftonline.com/common/oauth2/v2.0/authorize"
 	Office365SettingsDefaultTokenEndpoint   = "https://login.microsoftonline.com/common/oauth2/v2.0/token"
 	Office365SettingsDefaultUserAPIEndpoint = "https://graph.microsoft.com/v1.0/me"
-
-	CloudSettingsDefaultCwsURL        = "https://customers.mattermost.com"
-	CloudSettingsDefaultCwsAPIURL     = "https://portal.internal.prod.cloud.mattermost.com"
-	CloudSettingsDefaultCwsURLTest    = "https://portal.test.cloud.mattermost.com"
-	CloudSettingsDefaultCwsAPIURLTest = "https://api.internal.test.cloud.mattermost.com"
 
 	OpenidSettingsDefaultScope = "profile openid email"
 
@@ -331,26 +322,26 @@ var ServerTLSSupportedCiphers = map[string]uint16{
 
 type ServiceSettings struct {
 	SiteURL             *string `access:"environment_web_server,authentication_saml,write_restrictable"`
-	WebsocketURL        *string `access:"write_restrictable,cloud_restrictable"`
-	LicenseFileLocation *string `access:"write_restrictable,cloud_restrictable"`                        // telemetry: none
-	ListenAddress       *string `access:"environment_web_server,write_restrictable,cloud_restrictable"` // telemetry: none
-	ConnectionSecurity  *string `access:"environment_web_server,write_restrictable,cloud_restrictable"`
-	TLSCertFile         *string `access:"environment_web_server,write_restrictable,cloud_restrictable"`
-	TLSKeyFile          *string `access:"environment_web_server,write_restrictable,cloud_restrictable"`
-	TLSMinVer           *string `access:"write_restrictable,cloud_restrictable"` // telemetry: none
-	TLSStrictTransport  *bool   `access:"write_restrictable,cloud_restrictable"`
+	WebsocketURL        *string `access:"write_restrictable"`
+	LicenseFileLocation *string `access:"write_restrictable"`                        // telemetry: none
+	ListenAddress       *string `access:"environment_web_server,write_restrictable"` // telemetry: none
+	ConnectionSecurity  *string `access:"environment_web_server,write_restrictable"`
+	TLSCertFile         *string `access:"environment_web_server,write_restrictable"`
+	TLSKeyFile          *string `access:"environment_web_server,write_restrictable"`
+	TLSMinVer           *string `access:"write_restrictable"` // telemetry: none
+	TLSStrictTransport  *bool   `access:"write_restrictable"`
 	// In seconds.
-	TLSStrictTransportMaxAge            *int64   `access:"write_restrictable,cloud_restrictable"` // telemetry: none
-	TLSOverwriteCiphers                 []string `access:"write_restrictable,cloud_restrictable"` // telemetry: none
-	UseLetsEncrypt                      *bool    `access:"environment_web_server,write_restrictable,cloud_restrictable"`
-	LetsEncryptCertificateCacheFile     *string  `access:"environment_web_server,write_restrictable,cloud_restrictable"` // telemetry: none
-	Forward80To443                      *bool    `access:"environment_web_server,write_restrictable,cloud_restrictable"`
-	TrustedProxyIPHeader                []string `access:"write_restrictable,cloud_restrictable"` // telemetry: none
-	ReadTimeout                         *int     `access:"environment_web_server,write_restrictable,cloud_restrictable"`
-	WriteTimeout                        *int     `access:"environment_web_server,write_restrictable,cloud_restrictable"`
-	IdleTimeout                         *int     `access:"write_restrictable,cloud_restrictable"`
-	MaximumLoginAttempts                *int     `access:"authentication_password,write_restrictable,cloud_restrictable"`
-	GoroutineHealthThreshold            *int     `access:"write_restrictable,cloud_restrictable"` // telemetry: none
+	TLSStrictTransportMaxAge            *int64   `access:"write_restrictable"` // telemetry: none
+	TLSOverwriteCiphers                 []string `access:"write_restrictable"` // telemetry: none
+	UseLetsEncrypt                      *bool    `access:"environment_web_server,write_restrictable"`
+	LetsEncryptCertificateCacheFile     *string  `access:"environment_web_server,write_restrictable"` // telemetry: none
+	Forward80To443                      *bool    `access:"environment_web_server,write_restrictable"`
+	TrustedProxyIPHeader                []string `access:"write_restrictable"` // telemetry: none
+	ReadTimeout                         *int     `access:"environment_web_server,write_restrictable"`
+	WriteTimeout                        *int     `access:"environment_web_server,write_restrictable"`
+	IdleTimeout                         *int     `access:"write_restrictable"`
+	MaximumLoginAttempts                *int     `access:"authentication_password,write_restrictable"`
+	GoroutineHealthThreshold            *int     `access:"write_restrictable"` // telemetry: none
 	EnableOAuthServiceProvider          *bool    `access:"integrations_integration_management"`
 	EnableDynamicClientRegistration     *bool    `access:"integrations_integration_management"`
 	DCRRedirectURIAllowlist             []string `access:"integrations_integration_management"`
@@ -361,60 +352,59 @@ type ServiceSettings struct {
 	OutgoingIntegrationRequestsTimeout  *int64   `access:"integrations_integration_management"` // In seconds.
 	EnablePostUsernameOverride          *bool    `access:"integrations_integration_management"`
 	EnablePostIconOverride              *bool    `access:"integrations_integration_management"`
-	GoogleDeveloperKey                  *string  `access:"site_posts,write_restrictable,cloud_restrictable"`
+	GoogleDeveloperKey                  *string  `access:"site_posts,write_restrictable"`
 	EnableLinkPreviews                  *bool    `access:"site_posts"`
 	EnablePermalinkPreviews             *bool    `access:"site_posts"`
 	RestrictLinkPreviews                *string  `access:"site_posts"`
-	EnableTesting                       *bool    `access:"environment_developer,write_restrictable,cloud_restrictable"`
-	EnableDeveloper                     *bool    `access:"environment_developer,write_restrictable,cloud_restrictable"`
-	DeveloperFlags                      *string  `access:"environment_developer,cloud_restrictable"`
-	EnableClientPerformanceDebugging    *bool    `access:"environment_developer,write_restrictable,cloud_restrictable"`
-	EnableSecurityFixAlert              *bool    `access:"environment_smtp,write_restrictable,cloud_restrictable"`
-	EnableInsecureOutgoingConnections   *bool    `access:"environment_web_server,write_restrictable,cloud_restrictable"`
-	AllowedUntrustedInternalConnections *string  `access:"environment_web_server,write_restrictable,cloud_restrictable"`
+	EnableTesting                       *bool    `access:"environment_developer,write_restrictable"`
+	EnableDeveloper                     *bool    `access:"environment_developer,write_restrictable"`
+	DeveloperFlags                      *string  `access:"environment_developer"`
+	EnableClientPerformanceDebugging    *bool    `access:"environment_developer,write_restrictable"`
+	EnableSecurityFixAlert              *bool    `access:"environment_smtp,write_restrictable"`
+	EnableInsecureOutgoingConnections   *bool    `access:"environment_web_server,write_restrictable"`
+	AllowedUntrustedInternalConnections *string  `access:"environment_web_server,write_restrictable"`
 	EnableMultifactorAuthentication     *bool    `access:"authentication_mfa"`
 	EnforceMultifactorAuthentication    *bool    `access:"authentication_mfa"`
 	EnableUserAccessTokens              *bool    `access:"integrations_integration_management"`
-	AllowCorsFrom                       *string  `access:"integrations_cors,write_restrictable,cloud_restrictable"`
-	CorsExposedHeaders                  *string  `access:"integrations_cors,write_restrictable,cloud_restrictable"`
-	CorsAllowCredentials                *bool    `access:"integrations_cors,write_restrictable,cloud_restrictable"`
-	CorsDebug                           *bool    `access:"integrations_cors,write_restrictable,cloud_restrictable"`
-	AllowCookiesForSubdomains           *bool    `access:"write_restrictable,cloud_restrictable"`
-	ExtendSessionLengthWithActivity     *bool    `access:"environment_session_lengths,write_restrictable,cloud_restrictable"`
-	TerminateSessionsOnPasswordChange   *bool    `access:"environment_session_lengths,write_restrictable,cloud_restrictable"`
+	AllowCorsFrom                       *string  `access:"integrations_cors,write_restrictable"`
+	CorsExposedHeaders                  *string  `access:"integrations_cors,write_restrictable"`
+	CorsAllowCredentials                *bool    `access:"integrations_cors,write_restrictable"`
+	CorsDebug                           *bool    `access:"integrations_cors,write_restrictable"`
+	AllowCookiesForSubdomains           *bool    `access:"write_restrictable"`
+	ExtendSessionLengthWithActivity     *bool    `access:"environment_session_lengths,write_restrictable"`
+	TerminateSessionsOnPasswordChange   *bool    `access:"environment_session_lengths,write_restrictable"`
 
 	// Deprecated
-	SessionLengthWebInDays  *int `access:"environment_session_lengths,write_restrictable,cloud_restrictable"` // telemetry: none
-	SessionLengthWebInHours *int `access:"environment_session_lengths,write_restrictable,cloud_restrictable"`
+	SessionLengthWebInDays  *int `access:"environment_session_lengths,write_restrictable"` // telemetry: none
+	SessionLengthWebInHours *int `access:"environment_session_lengths,write_restrictable"`
 	// Deprecated
-	SessionLengthMobileInDays  *int `access:"environment_session_lengths,write_restrictable,cloud_restrictable"` // telemetry: none
-	SessionLengthMobileInHours *int `access:"environment_session_lengths,write_restrictable,cloud_restrictable"`
+	SessionLengthMobileInDays  *int `access:"environment_session_lengths,write_restrictable"` // telemetry: none
+	SessionLengthMobileInHours *int `access:"environment_session_lengths,write_restrictable"`
 	// Deprecated
-	SessionLengthSSOInDays  *int `access:"environment_session_lengths,write_restrictable,cloud_restrictable"` // telemetry: none
-	SessionLengthSSOInHours *int `access:"environment_session_lengths,write_restrictable,cloud_restrictable"`
+	SessionLengthSSOInDays  *int `access:"environment_session_lengths,write_restrictable"` // telemetry: none
+	SessionLengthSSOInHours *int `access:"environment_session_lengths,write_restrictable"`
 
-	SessionCacheInMinutes                             *int    `access:"environment_session_lengths,write_restrictable,cloud_restrictable"`
-	SessionIdleTimeoutInMinutes                       *int    `access:"environment_session_lengths,write_restrictable,cloud_restrictable"`
-	WebsocketSecurePort                               *int    `access:"write_restrictable,cloud_restrictable"` // telemetry: none
-	WebsocketPort                                     *int    `access:"write_restrictable,cloud_restrictable"` // telemetry: none
-	WebserverMode                                     *string `access:"environment_web_server,write_restrictable,cloud_restrictable"`
+	SessionCacheInMinutes                             *int    `access:"environment_session_lengths,write_restrictable"`
+	SessionIdleTimeoutInMinutes                       *int    `access:"environment_session_lengths,write_restrictable"`
+	WebsocketSecurePort                               *int    `access:"write_restrictable"` // telemetry: none
+	WebsocketPort                                     *int    `access:"write_restrictable"` // telemetry: none
+	WebserverMode                                     *string `access:"environment_web_server,write_restrictable"`
 	EnableGifPicker                                   *bool   `access:"integrations_gif"`
 	GiphySdkKey                                       *string `access:"integrations_gif"`
 	EnableCustomEmoji                                 *bool   `access:"site_emoji"`
 	EnableEmojiPicker                                 *bool   `access:"site_emoji"`
 	PostEditTimeLimit                                 *int    `access:"user_management_permissions"`
-	TimeBetweenUserTypingUpdatesMilliseconds          *int64  `access:"experimental_features,write_restrictable,cloud_restrictable"`
-	EnableCrossTeamSearch                             *bool   `access:"write_restrictable,cloud_restrictable"`
-	EnablePostSearch                                  *bool   `access:"write_restrictable,cloud_restrictable"`
+	TimeBetweenUserTypingUpdatesMilliseconds          *int64  `access:"experimental_features,write_restrictable"`
+	EnableCrossTeamSearch                             *bool   `access:"write_restrictable"`
+	EnablePostSearch                                  *bool   `access:"write_restrictable"`
 	EnableFileSearch                                  *bool   `access:"write_restrictable"`
-	MinimumHashtagLength                              *int    `access:"environment_database,write_restrictable,cloud_restrictable"`
-	EnableUserTypingMessages                          *bool   `access:"experimental_features,write_restrictable,cloud_restrictable"`
-	EnableChannelViewedMessages                       *bool   `access:"experimental_features,write_restrictable,cloud_restrictable"`
-	EnableUserStatuses                                *bool   `access:"write_restrictable,cloud_restrictable"`
+	MinimumHashtagLength                              *int    `access:"environment_database,write_restrictable"`
+	EnableUserTypingMessages                          *bool   `access:"experimental_features,write_restrictable"`
+	EnableChannelViewedMessages                       *bool   `access:"experimental_features,write_restrictable"`
+	EnableUserStatuses                                *bool   `access:"write_restrictable"`
 	ExperimentalEnableAuthenticationTransfer          *bool   `access:"experimental_features"`
-	ClusterLogTimeoutMilliseconds                     *int    `access:"write_restrictable,cloud_restrictable"`
+	ClusterLogTimeoutMilliseconds                     *int    `access:"write_restrictable"`
 	EnableTutorial                                    *bool   `access:"experimental_features"`
-	EnableOnboardingFlow                              *bool   `access:"experimental_features"`
 	ExperimentalEnableDefaultChannelLeaveJoinMessages *bool   `access:"experimental_features"`
 	ExperimentalGroupUnreadChannels                   *string `access:"experimental_features"`
 	EnableAPITeamDeletion                             *bool
@@ -422,9 +412,9 @@ type ServiceSettings struct {
 	EnableAPIUserDeletion                             *bool
 	EnableAPIPostDeletion                             *bool
 	EnableDesktopLandingPage                          *bool
-	MinimumDesktopAppVersion                          *string `access:"environment_web_server,write_restrictable,cloud_restrictable"`
+	MinimumDesktopAppVersion                          *string `access:"environment_web_server,write_restrictable"`
 	ExperimentalEnableHardenedMode                    *bool   `access:"experimental_features"`
-	ExperimentalStrictCSRFEnforcement                 *bool   `access:"experimental_features,write_restrictable,cloud_restrictable"`
+	ExperimentalStrictCSRFEnforcement                 *bool   `access:"experimental_features,write_restrictable"`
 	EnableEmailInvitations                            *bool   `access:"authentication_signup"`
 	DisableBotsWhenOwnerIsDeactivated                 *bool   `access:"integrations_bot_accounts"`
 	EnableBotAccountCreation                          *bool   `access:"integrations_bot_accounts"`
@@ -440,28 +430,28 @@ type ServiceSettings struct {
 	EnableBurnOnRead                                  *bool   `access:"site_posts"`
 	BurnOnReadDurationSeconds                         *int    `access:"site_posts"`
 	BurnOnReadMaximumTimeToLiveSeconds                *int    `access:"site_posts"`
-	BurnOnReadSchedulerFrequencySeconds               *int    `access:"site_posts,cloud_restrictable"`
+	BurnOnReadSchedulerFrequencySeconds               *int    `access:"site_posts"`
 	EnableAPIChannelDeletion                          *bool
-	EnableLocalMode                                   *bool   `access:"cloud_restrictable"`
-	LocalModeSocketLocation                           *string `access:"cloud_restrictable"` // telemetry: none
+	EnableLocalMode                                   *bool   `access:""`
+	LocalModeSocketLocation                           *string `access:""` // telemetry: none
 	EnableAWSMetering                                 *bool   // telemetry: none
-	AWSMeteringTimeoutSeconds                         *int    `access:"write_restrictable,cloud_restrictable"`         // telemetry: none
+	AWSMeteringTimeoutSeconds                         *int    `access:"write_restrictable"`                            // telemetry: none
 	SplitKey                                          *string `access:"experimental_feature_flags,write_restrictable"` // telemetry: none
 	FeatureFlagSyncIntervalSeconds                    *int    `access:"experimental_feature_flags,write_restrictable"` // telemetry: none
 	DebugSplit                                        *bool   `access:"experimental_feature_flags,write_restrictable"` // telemetry: none
 	ThreadAutoFollow                                  *bool   `access:"experimental_features"`
 	CollapsedThreads                                  *string `access:"experimental_features"`
-	ManagedResourcePaths                              *string `access:"environment_web_server,write_restrictable,cloud_restrictable"`
+	ManagedResourcePaths                              *string `access:"environment_web_server,write_restrictable"`
 	EnableCustomGroups                                *bool   `access:"site_users_and_teams"`
 	AllowSyncedDrafts                                 *bool   `access:"site_posts"`
 	UniqueEmojiReactionLimitPerPost                   *int    `access:"site_posts"`
 	RefreshPostStatsRunTime                           *string `access:"site_users_and_teams"`
-	MaximumPayloadSizeBytes                           *int64  `access:"environment_file_storage,write_restrictable,cloud_restrictable"`
-	MaximumURLLength                                  *int    `access:"environment_file_storage,write_restrictable,cloud_restrictable"`
+	MaximumPayloadSizeBytes                           *int64  `access:"environment_file_storage,write_restrictable"`
+	MaximumURLLength                                  *int    `access:"environment_file_storage,write_restrictable"`
 	ScheduledPosts                                    *bool   `access:"site_posts"`
-	EnableWebHubChannelIteration                      *bool   `access:"write_restrictable,cloud_restrictable"` // telemetry: none
-	FrameAncestors                                    *string `access:"write_restrictable,cloud_restrictable"` // telemetry: none
-	DeleteAccountLink                                 *string `access:"site_users_and_teams,write_restrictable,cloud_restrictable"`
+	EnableWebHubChannelIteration                      *bool   `access:"write_restrictable"` // telemetry: none
+	FrameAncestors                                    *string `access:"write_restrictable"` // telemetry: none
+	DeleteAccountLink                                 *string `access:"site_users_and_teams,write_restrictable"`
 }
 
 var MattermostGiphySdkKey string
@@ -682,10 +672,6 @@ func (s *ServiceSettings) SetDefaults(isUpdate bool) {
 
 	if s.EnableTutorial == nil {
 		s.EnableTutorial = NewPointer(true)
-	}
-
-	if s.EnableOnboardingFlow == nil {
-		s.EnableOnboardingFlow = NewPointer(true)
 	}
 
 	// Must be manually enabled for existing installations.
@@ -1040,12 +1026,12 @@ func (s *ServiceSettings) SetDefaults(isUpdate bool) {
 }
 
 type CacheSettings struct {
-	CacheType          *string `access:",write_restrictable,cloud_restrictable"`
-	RedisAddress       *string `access:",write_restrictable,cloud_restrictable"` // telemetry: none
-	RedisPassword      *string `access:",write_restrictable,cloud_restrictable"` // telemetry: none
-	RedisDB            *int    `access:",write_restrictable,cloud_restrictable"` // telemetry: none
-	RedisCachePrefix   *string `access:",write_restrictable,cloud_restrictable"` // telemetry: none
-	DisableClientCache *bool   `access:",write_restrictable,cloud_restrictable"` // telemetry: none
+	CacheType          *string `access:",write_restrictable"`
+	RedisAddress       *string `access:",write_restrictable"` // telemetry: none
+	RedisPassword      *string `access:",write_restrictable"` // telemetry: none
+	RedisDB            *int    `access:",write_restrictable"` // telemetry: none
+	RedisCachePrefix   *string `access:",write_restrictable"` // telemetry: none
+	DisableClientCache *bool   `access:",write_restrictable"` // telemetry: none
 }
 
 func (s *CacheSettings) SetDefaults() {
@@ -1092,18 +1078,18 @@ func (s *CacheSettings) isValid() *AppError {
 
 type ClusterSettings struct {
 	Enable                  *bool   `access:"environment_high_availability,write_restrictable"`
-	ClusterName             *string `access:"environment_high_availability,write_restrictable,cloud_restrictable"` // telemetry: none
-	OverrideHostname        *string `access:"environment_high_availability,write_restrictable,cloud_restrictable"` // telemetry: none
-	NetworkInterface        *string `access:"environment_high_availability,write_restrictable,cloud_restrictable"`
-	BindAddress             *string `access:"environment_high_availability,write_restrictable,cloud_restrictable"`
-	AdvertiseAddress        *string `access:"environment_high_availability,write_restrictable,cloud_restrictable"`
-	UseIPAddress            *bool   `access:"environment_high_availability,write_restrictable,cloud_restrictable"`
-	EnableGossipCompression *bool   `access:"environment_high_availability,write_restrictable,cloud_restrictable"`
+	ClusterName             *string `access:"environment_high_availability,write_restrictable"` // telemetry: none
+	OverrideHostname        *string `access:"environment_high_availability,write_restrictable"` // telemetry: none
+	NetworkInterface        *string `access:"environment_high_availability,write_restrictable"`
+	BindAddress             *string `access:"environment_high_availability,write_restrictable"`
+	AdvertiseAddress        *string `access:"environment_high_availability,write_restrictable"`
+	UseIPAddress            *bool   `access:"environment_high_availability,write_restrictable"`
+	EnableGossipCompression *bool   `access:"environment_high_availability,write_restrictable"`
 	// Deprecated: use EnableGossipEncryption
 	EnableExperimentalGossipEncryption *bool `json:",omitempty"`
-	EnableGossipEncryption             *bool `access:"environment_high_availability,write_restrictable,cloud_restrictable"`
-	ReadOnlyConfig                     *bool `access:"environment_high_availability,write_restrictable,cloud_restrictable"`
-	GossipPort                         *int  `access:"environment_high_availability,write_restrictable,cloud_restrictable"` // telemetry: none
+	EnableGossipEncryption             *bool `access:"environment_high_availability,write_restrictable"`
+	ReadOnlyConfig                     *bool `access:"environment_high_availability,write_restrictable"`
+	GossipPort                         *int  `access:"environment_high_availability,write_restrictable"` // telemetry: none
 }
 
 func (s *ClusterSettings) SetDefaults() {
@@ -1157,12 +1143,12 @@ func (s *ClusterSettings) SetDefaults() {
 }
 
 type MetricsSettings struct {
-	Enable                    *bool    `access:"environment_performance_monitoring,write_restrictable,cloud_restrictable"`
-	BlockProfileRate          *int     `access:"environment_performance_monitoring,write_restrictable,cloud_restrictable"`
-	ListenAddress             *string  `access:"environment_performance_monitoring,write_restrictable,cloud_restrictable"` // telemetry: none
-	EnableClientMetrics       *bool    `access:"environment_performance_monitoring,write_restrictable,cloud_restrictable"`
-	EnableNotificationMetrics *bool    `access:"environment_performance_monitoring,write_restrictable,cloud_restrictable"`
-	ClientSideUserIds         []string `access:"environment_performance_monitoring,write_restrictable,cloud_restrictable"` // telemetry: none
+	Enable                    *bool    `access:"environment_performance_monitoring,write_restrictable"`
+	BlockProfileRate          *int     `access:"environment_performance_monitoring,write_restrictable"`
+	ListenAddress             *string  `access:"environment_performance_monitoring,write_restrictable"` // telemetry: none
+	EnableClientMetrics       *bool    `access:"environment_performance_monitoring,write_restrictable"`
+	EnableNotificationMetrics *bool    `access:"environment_performance_monitoring,write_restrictable"`
+	ClientSideUserIds         []string `access:"environment_performance_monitoring,write_restrictable"` // telemetry: none
 }
 
 func (s *MetricsSettings) SetDefaults() {
@@ -1206,8 +1192,8 @@ func (s *MetricsSettings) isValid() *AppError {
 
 type ExperimentalSettings struct {
 	// Deprecated: This field is no longer in use, server will fail to start if enabled.
-	ClientSideCertEnable                                  *bool  `access:"experimental_features,cloud_restrictable"`
-	LinkMetadataTimeoutMilliseconds                       *int64 `access:"experimental_features,write_restrictable,cloud_restrictable"`
+	ClientSideCertEnable                                  *bool  `access:"experimental_features"`
+	LinkMetadataTimeoutMilliseconds                       *int64 `access:"experimental_features,write_restrictable"`
 	RestrictSystemAdmin                                   *bool  `access:"*_read,write_restrictable"`
 	EnableSharedChannels                                  *bool  `access:"experimental_features"` // Deprecated: use `ConnectedWorkspacesSettings.EnableSharedChannels`
 	EnableRemoteClusterService                            *bool  `access:"experimental_features"` // Deprecated: use `ConnectedWorkspacesSettings.EnableRemoteClusterService`
@@ -1276,7 +1262,7 @@ func (s *ExperimentalSettings) SetDefaults() {
 }
 
 type AnalyticsSettings struct {
-	MaxUsersForStatistics *int `access:"write_restrictable,cloud_restrictable"`
+	MaxUsersForStatistics *int `access:"write_restrictable"`
 }
 
 func (s *AnalyticsSettings) SetDefaults() {
@@ -1479,28 +1465,28 @@ func (s *IntuneSettings) IsValid() *AppError {
 }
 
 type ReplicaLagSettings struct {
-	DataSource       *string `access:"environment,write_restrictable,cloud_restrictable"` // telemetry: none
-	QueryAbsoluteLag *string `access:"environment,write_restrictable,cloud_restrictable"` // telemetry: none
-	QueryTimeLag     *string `access:"environment,write_restrictable,cloud_restrictable"` // telemetry: none
+	DataSource       *string `access:"environment,write_restrictable"` // telemetry: none
+	QueryAbsoluteLag *string `access:"environment,write_restrictable"` // telemetry: none
+	QueryTimeLag     *string `access:"environment,write_restrictable"` // telemetry: none
 }
 
 type SqlSettings struct {
-	DriverName                        *string               `access:"environment_database,write_restrictable,cloud_restrictable"`
-	DataSource                        *string               `access:"environment_database,write_restrictable,cloud_restrictable"` // telemetry: none
-	DataSourceReplicas                []string              `access:"environment_database,write_restrictable,cloud_restrictable"`
-	DataSourceSearchReplicas          []string              `access:"environment_database,write_restrictable,cloud_restrictable"`
-	MaxIdleConns                      *int                  `access:"environment_database,write_restrictable,cloud_restrictable"`
-	ConnMaxLifetimeMilliseconds       *int                  `access:"environment_database,write_restrictable,cloud_restrictable"`
-	ConnMaxIdleTimeMilliseconds       *int                  `access:"environment_database,write_restrictable,cloud_restrictable"`
-	MaxOpenConns                      *int                  `access:"environment_database,write_restrictable,cloud_restrictable"`
-	Trace                             *bool                 `access:"environment_database,write_restrictable,cloud_restrictable"`
-	AtRestEncryptKey                  *string               `access:"environment_database,write_restrictable,cloud_restrictable"` // telemetry: none
-	QueryTimeout                      *int                  `access:"environment_database,write_restrictable,cloud_restrictable"`
-	AnalyticsQueryTimeout             *int                  `access:"environment_database,write_restrictable,cloud_restrictable"`
-	DisableDatabaseSearch             *bool                 `access:"environment_database,write_restrictable,cloud_restrictable"`
-	MigrationsStatementTimeoutSeconds *int                  `access:"environment_database,write_restrictable,cloud_restrictable"`
-	ReplicaLagSettings                []*ReplicaLagSettings `access:"environment_database,write_restrictable,cloud_restrictable"` // telemetry: none
-	ReplicaMonitorIntervalSeconds     *int                  `access:"environment_database,write_restrictable,cloud_restrictable"`
+	DriverName                        *string               `access:"environment_database,write_restrictable"`
+	DataSource                        *string               `access:"environment_database,write_restrictable"` // telemetry: none
+	DataSourceReplicas                []string              `access:"environment_database,write_restrictable"`
+	DataSourceSearchReplicas          []string              `access:"environment_database,write_restrictable"`
+	MaxIdleConns                      *int                  `access:"environment_database,write_restrictable"`
+	ConnMaxLifetimeMilliseconds       *int                  `access:"environment_database,write_restrictable"`
+	ConnMaxIdleTimeMilliseconds       *int                  `access:"environment_database,write_restrictable"`
+	MaxOpenConns                      *int                  `access:"environment_database,write_restrictable"`
+	Trace                             *bool                 `access:"environment_database,write_restrictable"`
+	AtRestEncryptKey                  *string               `access:"environment_database,write_restrictable"` // telemetry: none
+	QueryTimeout                      *int                  `access:"environment_database,write_restrictable"`
+	AnalyticsQueryTimeout             *int                  `access:"environment_database,write_restrictable"`
+	DisableDatabaseSearch             *bool                 `access:"environment_database,write_restrictable"`
+	MigrationsStatementTimeoutSeconds *int                  `access:"environment_database,write_restrictable"`
+	ReplicaLagSettings                []*ReplicaLagSettings `access:"environment_database,write_restrictable"` // telemetry: none
+	ReplicaMonitorIntervalSeconds     *int                  `access:"environment_database,write_restrictable"`
 }
 
 func (s *SqlSettings) SetDefaults(isUpdate bool) {
@@ -1576,19 +1562,19 @@ func (s *SqlSettings) SetDefaults(isUpdate bool) {
 }
 
 type LogSettings struct {
-	EnableConsole          *bool           `access:"environment_logging,write_restrictable,cloud_restrictable"`
-	ConsoleLevel           *string         `access:"environment_logging,write_restrictable,cloud_restrictable"`
-	ConsoleJson            *bool           `access:"environment_logging,write_restrictable,cloud_restrictable"`
-	EnableColor            *bool           `access:"environment_logging,write_restrictable,cloud_restrictable"` // telemetry: none
-	EnableFile             *bool           `access:"environment_logging,write_restrictable,cloud_restrictable"`
-	FileLevel              *string         `access:"environment_logging,write_restrictable,cloud_restrictable"`
-	FileJson               *bool           `access:"environment_logging,write_restrictable,cloud_restrictable"`
-	FileLocation           *string         `access:"environment_logging,write_restrictable,cloud_restrictable"`
-	EnableWebhookDebugging *bool           `access:"environment_logging,write_restrictable,cloud_restrictable"`
-	EnableDiagnostics      *bool           `access:"environment_logging,write_restrictable,cloud_restrictable"` // telemetry: none
-	EnableSentry           *bool           `access:"environment_logging,write_restrictable,cloud_restrictable"` // telemetry: none
-	AdvancedLoggingJSON    json.RawMessage `access:"environment_logging,write_restrictable,cloud_restrictable"`
-	MaxFieldSize           *int            `access:"environment_logging,write_restrictable,cloud_restrictable"`
+	EnableConsole          *bool           `access:"environment_logging,write_restrictable"`
+	ConsoleLevel           *string         `access:"environment_logging,write_restrictable"`
+	ConsoleJson            *bool           `access:"environment_logging,write_restrictable"`
+	EnableColor            *bool           `access:"environment_logging,write_restrictable"` // telemetry: none
+	EnableFile             *bool           `access:"environment_logging,write_restrictable"`
+	FileLevel              *string         `access:"environment_logging,write_restrictable"`
+	FileJson               *bool           `access:"environment_logging,write_restrictable"`
+	FileLocation           *string         `access:"environment_logging,write_restrictable"`
+	EnableWebhookDebugging *bool           `access:"environment_logging,write_restrictable"`
+	EnableDiagnostics      *bool           `access:"environment_logging,write_restrictable"` // telemetry: none
+	EnableSentry           *bool           `access:"environment_logging,write_restrictable"` // telemetry: none
+	AdvancedLoggingJSON    json.RawMessage `access:"environment_logging,write_restrictable"`
+	MaxFieldSize           *int            `access:"environment_logging,write_restrictable"`
 }
 
 func NewLogSettings() *LogSettings {
@@ -1676,8 +1662,8 @@ func (s *LogSettings) GetAdvancedLoggingConfig() []byte {
 }
 
 type ExperimentalAuditSettings struct {
-	FileEnabled         *bool           `access:"experimental_features,write_restrictable,cloud_restrictable"`
-	FileName            *string         `access:"experimental_features,write_restrictable,cloud_restrictable"` // telemetry: none
+	FileEnabled         *bool           `access:"experimental_features,write_restrictable"`
+	FileName            *string         `access:"experimental_features,write_restrictable"` // telemetry: none
 	AdvancedLoggingJSON json.RawMessage `access:"experimental_features"`
 	Certificate         *string         `access:"experimental_features"` // telemetry: none
 }
@@ -1777,29 +1763,29 @@ type FileSettings struct {
 	EnableFileAttachments              *bool   `access:"site_file_sharing_and_downloads"`
 	EnableMobileUpload                 *bool   `access:"site_file_sharing_and_downloads"`
 	EnableMobileDownload               *bool   `access:"site_file_sharing_and_downloads"`
-	MaxFileSize                        *int64  `access:"environment_file_storage,cloud_restrictable"`
-	MaxImageResolution                 *int64  `access:"environment_file_storage,cloud_restrictable"`
-	MaxImageDecoderConcurrency         *int64  `access:"environment_file_storage,cloud_restrictable"`
-	DriverName                         *string `access:"environment_file_storage,write_restrictable,cloud_restrictable"`
-	Directory                          *string `access:"environment_file_storage,write_restrictable,cloud_restrictable"`
-	EnablePublicLink                   *bool   `access:"site_public_links,cloud_restrictable"`
+	MaxFileSize                        *int64  `access:"environment_file_storage"`
+	MaxImageResolution                 *int64  `access:"environment_file_storage"`
+	MaxImageDecoderConcurrency         *int64  `access:"environment_file_storage"`
+	DriverName                         *string `access:"environment_file_storage,write_restrictable"`
+	Directory                          *string `access:"environment_file_storage,write_restrictable"`
+	EnablePublicLink                   *bool   `access:"site_public_links"`
 	ExtractContent                     *bool   `access:"environment_file_storage,write_restrictable"`
 	ArchiveRecursion                   *bool   `access:"environment_file_storage,write_restrictable"`
-	PublicLinkSalt                     *string `access:"site_public_links,cloud_restrictable"`                           // telemetry: none
-	InitialFont                        *string `access:"environment_file_storage,cloud_restrictable"`                    // telemetry: none
-	AmazonS3AccessKeyId                *string `access:"environment_file_storage,write_restrictable,cloud_restrictable"` // telemetry: none
-	AmazonS3SecretAccessKey            *string `access:"environment_file_storage,write_restrictable,cloud_restrictable"` // telemetry: none
-	AmazonS3Bucket                     *string `access:"environment_file_storage,write_restrictable,cloud_restrictable"` // telemetry: none
-	AmazonS3PathPrefix                 *string `access:"environment_file_storage,write_restrictable,cloud_restrictable"` // telemetry: none
-	AmazonS3Region                     *string `access:"environment_file_storage,write_restrictable,cloud_restrictable"` // telemetry: none
-	AmazonS3Endpoint                   *string `access:"environment_file_storage,write_restrictable,cloud_restrictable"` // telemetry: none
-	AmazonS3SSL                        *bool   `access:"environment_file_storage,write_restrictable,cloud_restrictable"`
-	AmazonS3SignV2                     *bool   `access:"environment_file_storage,write_restrictable,cloud_restrictable"`
-	AmazonS3SSE                        *bool   `access:"environment_file_storage,write_restrictable,cloud_restrictable"`
-	AmazonS3Trace                      *bool   `access:"environment_file_storage,write_restrictable,cloud_restrictable"`
-	AmazonS3RequestTimeoutMilliseconds *int64  `access:"environment_file_storage,write_restrictable,cloud_restrictable"` // telemetry: none
-	AmazonS3UploadPartSizeBytes        *int64  `access:"environment_file_storage,write_restrictable,cloud_restrictable"` // telemetry: none
-	AmazonS3StorageClass               *string `access:"environment_file_storage,write_restrictable,cloud_restrictable"` // telemetry: none
+	PublicLinkSalt                     *string `access:"site_public_links"`                           // telemetry: none
+	InitialFont                        *string `access:"environment_file_storage"`                    // telemetry: none
+	AmazonS3AccessKeyId                *string `access:"environment_file_storage,write_restrictable"` // telemetry: none
+	AmazonS3SecretAccessKey            *string `access:"environment_file_storage,write_restrictable"` // telemetry: none
+	AmazonS3Bucket                     *string `access:"environment_file_storage,write_restrictable"` // telemetry: none
+	AmazonS3PathPrefix                 *string `access:"environment_file_storage,write_restrictable"` // telemetry: none
+	AmazonS3Region                     *string `access:"environment_file_storage,write_restrictable"` // telemetry: none
+	AmazonS3Endpoint                   *string `access:"environment_file_storage,write_restrictable"` // telemetry: none
+	AmazonS3SSL                        *bool   `access:"environment_file_storage,write_restrictable"`
+	AmazonS3SignV2                     *bool   `access:"environment_file_storage,write_restrictable"`
+	AmazonS3SSE                        *bool   `access:"environment_file_storage,write_restrictable"`
+	AmazonS3Trace                      *bool   `access:"environment_file_storage,write_restrictable"`
+	AmazonS3RequestTimeoutMilliseconds *int64  `access:"environment_file_storage,write_restrictable"` // telemetry: none
+	AmazonS3UploadPartSizeBytes        *int64  `access:"environment_file_storage,write_restrictable"` // telemetry: none
+	AmazonS3StorageClass               *string `access:"environment_file_storage,write_restrictable"` // telemetry: none
 	// Export store settings
 	DedicatedExportStore                     *bool   `access:"environment_file_storage,write_restrictable"`
 	ExportDriverName                         *string `access:"environment_file_storage,write_restrictable"`
@@ -2013,16 +1999,16 @@ type EmailSettings struct {
 	UseChannelInEmailNotifications    *bool   `access:"experimental_features"`
 	RequireEmailVerification          *bool   `access:"authentication_email"`
 	FeedbackName                      *string `access:"site_notifications"`
-	FeedbackEmail                     *string `access:"site_notifications,cloud_restrictable"`
-	ReplyToAddress                    *string `access:"site_notifications,cloud_restrictable"`
+	FeedbackEmail                     *string `access:"site_notifications"`
+	ReplyToAddress                    *string `access:"site_notifications"`
 	FeedbackOrganization              *string `access:"site_notifications"`
-	EnableSMTPAuth                    *bool   `access:"environment_smtp,write_restrictable,cloud_restrictable"`
-	SMTPUsername                      *string `access:"environment_smtp,write_restrictable,cloud_restrictable"` // telemetry: none
-	SMTPPassword                      *string `access:"environment_smtp,write_restrictable,cloud_restrictable"` // telemetry: none
-	SMTPServer                        *string `access:"environment_smtp,write_restrictable,cloud_restrictable"` // telemetry: none
-	SMTPPort                          *string `access:"environment_smtp,write_restrictable,cloud_restrictable"` // telemetry: none
-	SMTPServerTimeout                 *int    `access:"cloud_restrictable"`
-	ConnectionSecurity                *string `access:"environment_smtp,write_restrictable,cloud_restrictable"`
+	EnableSMTPAuth                    *bool   `access:"environment_smtp,write_restrictable"`
+	SMTPUsername                      *string `access:"environment_smtp,write_restrictable"` // telemetry: none
+	SMTPPassword                      *string `access:"environment_smtp,write_restrictable"` // telemetry: none
+	SMTPServer                        *string `access:"environment_smtp,write_restrictable"` // telemetry: none
+	SMTPPort                          *string `access:"environment_smtp,write_restrictable"` // telemetry: none
+	SMTPServerTimeout                 *int    `access:""`
+	ConnectionSecurity                *string `access:"environment_smtp,write_restrictable"`
 	SendPushNotifications             *bool   `access:"environment_push_notification_server"`
 	PushNotificationServer            *string `access:"environment_push_notification_server"` // telemetry: none
 	PushNotificationContents          *string `access:"site_notifications"`
@@ -2031,7 +2017,7 @@ type EmailSettings struct {
 	EmailBatchingBufferSize           *int    `access:"experimental_features"`
 	EmailBatchingInterval             *int    `access:"experimental_features"`
 	EnablePreviewModeBanner           *bool   `access:"site_notifications"`
-	SkipServerCertificateVerification *bool   `access:"environment_smtp,write_restrictable,cloud_restrictable"`
+	SkipServerCertificateVerification *bool   `access:"environment_smtp,write_restrictable"`
 	EmailNotificationContentsType     *string `access:"site_notifications"`
 	LoginButtonColor                  *string `access:"experimental_features"`
 	LoginButtonBorderColor            *string `access:"experimental_features"`
@@ -2181,13 +2167,13 @@ func (s *EmailSettings) SetDefaults(isUpdate bool) {
 }
 
 type RateLimitSettings struct {
-	Enable           *bool  `access:"environment_rate_limiting,write_restrictable,cloud_restrictable"`
-	PerSec           *int   `access:"environment_rate_limiting,write_restrictable,cloud_restrictable"`
-	MaxBurst         *int   `access:"environment_rate_limiting,write_restrictable,cloud_restrictable"`
-	MemoryStoreSize  *int   `access:"environment_rate_limiting,write_restrictable,cloud_restrictable"`
-	VaryByRemoteAddr *bool  `access:"environment_rate_limiting,write_restrictable,cloud_restrictable"`
-	VaryByUser       *bool  `access:"environment_rate_limiting,write_restrictable,cloud_restrictable"`
-	VaryByHeader     string `access:"environment_rate_limiting,write_restrictable,cloud_restrictable"`
+	Enable           *bool  `access:"environment_rate_limiting,write_restrictable"`
+	PerSec           *int   `access:"environment_rate_limiting,write_restrictable"`
+	MaxBurst         *int   `access:"environment_rate_limiting,write_restrictable"`
+	MemoryStoreSize  *int   `access:"environment_rate_limiting,write_restrictable"`
+	VaryByRemoteAddr *bool  `access:"environment_rate_limiting,write_restrictable"`
+	VaryByUser       *bool  `access:"environment_rate_limiting,write_restrictable"`
+	VaryByHeader     string `access:"environment_rate_limiting,write_restrictable"`
 }
 
 func (s *RateLimitSettings) SetDefaults() {
@@ -2237,15 +2223,15 @@ func (s *PrivacySettings) setDefaults() {
 }
 
 type SupportSettings struct {
-	TermsOfServiceLink                     *string `access:"site_customization,write_restrictable,cloud_restrictable"`
-	PrivacyPolicyLink                      *string `access:"site_customization,write_restrictable,cloud_restrictable"`
-	AboutLink                              *string `access:"site_customization,write_restrictable,cloud_restrictable"`
+	TermsOfServiceLink                     *string `access:"site_customization,write_restrictable"`
+	PrivacyPolicyLink                      *string `access:"site_customization,write_restrictable"`
+	AboutLink                              *string `access:"site_customization,write_restrictable"`
 	HelpLink                               *string `access:"site_customization"`
-	ReportAProblemLink                     *string `access:"site_customization,write_restrictable,cloud_restrictable"`
-	ReportAProblemType                     *string `access:"site_customization,write_restrictable,cloud_restrictable"`
-	ReportAProblemMail                     *string `access:"site_customization,write_restrictable,cloud_restrictable"`
-	AllowDownloadLogs                      *bool   `access:"site_customization,write_restrictable,cloud_restrictable"`
-	ForgotPasswordLink                     *string `access:"site_customization,write_restrictable,cloud_restrictable"`
+	ReportAProblemLink                     *string `access:"site_customization,write_restrictable"`
+	ReportAProblemType                     *string `access:"site_customization,write_restrictable"`
+	ReportAProblemMail                     *string `access:"site_customization,write_restrictable"`
+	AllowDownloadLogs                      *bool   `access:"site_customization,write_restrictable"`
+	ForgotPasswordLink                     *string `access:"site_customization,write_restrictable"`
 	SupportEmail                           *string `access:"site_notifications"`
 	CustomTermsOfServiceEnabled            *bool   `access:"compliance_custom_terms_of_service"`
 	CustomTermsOfServiceReAcceptancePeriod *int    `access:"compliance_custom_terms_of_service"`
@@ -2365,11 +2351,11 @@ func (s *AnnouncementSettings) SetDefaults() {
 	}
 
 	if s.AdminNoticesEnabled == nil {
-		s.AdminNoticesEnabled = NewPointer(true)
+		s.AdminNoticesEnabled = NewPointer(false)
 	}
 
 	if s.UserNoticesEnabled == nil {
-		s.UserNoticesEnabled = NewPointer(true)
+		s.UserNoticesEnabled = NewPointer(false)
 	}
 	if s.NoticesURL == nil {
 		s.NoticesURL = NewPointer(AnnouncementSettingsDefaultNoticesJsonURL)
@@ -2530,10 +2516,10 @@ func (s *TeamSettings) SetDefaults() {
 }
 
 type ClientRequirements struct {
-	AndroidLatestVersion string `access:"write_restrictable,cloud_restrictable"`
-	AndroidMinVersion    string `access:"write_restrictable,cloud_restrictable"`
-	IosLatestVersion     string `access:"write_restrictable,cloud_restrictable"`
-	IosMinVersion        string `access:"write_restrictable,cloud_restrictable"`
+	AndroidLatestVersion string `access:"write_restrictable"`
+	AndroidMinVersion    string `access:"write_restrictable"`
+	IosLatestVersion     string `access:"write_restrictable"`
+	IosMinVersion        string `access:"write_restrictable"`
 }
 
 type LdapSettings struct {
@@ -2789,24 +2775,24 @@ func (s *LocalizationSettings) SetDefaults() {
 }
 
 type AutoTranslationSettings struct {
-	Enable          *bool                           `access:"site_localization,cloud_restrictable"`
-	RestrictDMAndGM *bool                           `access:"site_localization,cloud_restrictable"`
-	Provider        *string                         `access:"site_localization,cloud_restrictable"`
-	TargetLanguages *[]string                       `access:"site_localization,cloud_restrictable"`
-	Workers         *int                            `access:"site_localization,cloud_restrictable"`
-	TimeoutMs       *int                            `access:"site_localization,cloud_restrictable"`
-	LibreTranslate  *LibreTranslateProviderSettings `access:"site_localization,cloud_restrictable"`
-	Agents          *AgentsProviderSettings         `access:"site_localization,cloud_restrictable"`
+	Enable          *bool                           `access:"site_localization"`
+	RestrictDMAndGM *bool                           `access:"site_localization"`
+	Provider        *string                         `access:"site_localization"`
+	TargetLanguages *[]string                       `access:"site_localization"`
+	Workers         *int                            `access:"site_localization"`
+	TimeoutMs       *int                            `access:"site_localization"`
+	LibreTranslate  *LibreTranslateProviderSettings `access:"site_localization"`
+	Agents          *AgentsProviderSettings         `access:"site_localization"`
 }
 
 // LibreTranslateProviderSettings configures the LibreTranslate translation provider.
 type LibreTranslateProviderSettings struct {
-	URL    *string `access:"site_localization,cloud_restrictable"` // LibreTranslate server URL
-	APIKey *string `access:"site_localization,cloud_restrictable"` // Optional API key for authenticated requests
+	URL    *string `access:"site_localization"` // LibreTranslate server URL
+	APIKey *string `access:"site_localization"` // Optional API key for authenticated requests
 }
 
 type AgentsProviderSettings struct {
-	LLMServiceID *string `access:"site_localization,cloud_restrictable"`
+	LLMServiceID *string `access:"site_localization"`
 }
 
 func (s *AutoTranslationSettings) SetDefaults() {
@@ -3049,11 +3035,11 @@ func (s *SamlSettings) SetDefaults() {
 }
 
 type NativeAppSettings struct {
-	AppCustomURLSchemes           []string `access:"site_customization,write_restrictable,cloud_restrictable"` // telemetry: none
-	AppDownloadLink               *string  `access:"site_customization,write_restrictable,cloud_restrictable"`
-	AndroidAppDownloadLink        *string  `access:"site_customization,write_restrictable,cloud_restrictable"`
-	IosAppDownloadLink            *string  `access:"site_customization,write_restrictable,cloud_restrictable"`
-	MobileExternalBrowser         *bool    `access:"site_customization,write_restrictable,cloud_restrictable"`
+	AppCustomURLSchemes           []string `access:"site_customization,write_restrictable"` // telemetry: none
+	AppDownloadLink               *string  `access:"site_customization,write_restrictable"`
+	AndroidAppDownloadLink        *string  `access:"site_customization,write_restrictable"`
+	IosAppDownloadLink            *string  `access:"site_customization,write_restrictable"`
+	MobileExternalBrowser         *bool    `access:"site_customization,write_restrictable"`
 	MobileEnableBiometrics        *bool    `access:"site_customization,write_restrictable"`
 	MobilePreventScreenCapture    *bool    `access:"site_customization,write_restrictable"`
 	MobileJailbreakProtection     *bool    `access:"site_customization,write_restrictable"`
@@ -3122,36 +3108,36 @@ func (s *NativeAppSettings) AreDownloadLinksValid() *AppError {
 }
 
 type ElasticsearchSettings struct {
-	ConnectionURL                               *string `access:"environment_elasticsearch,write_restrictable,cloud_restrictable"`
-	Backend                                     *string `access:"environment_elasticsearch,write_restrictable,cloud_restrictable"`
-	Username                                    *string `access:"environment_elasticsearch,write_restrictable,cloud_restrictable"`
-	Password                                    *string `access:"environment_elasticsearch,write_restrictable,cloud_restrictable"`
-	EnableIndexing                              *bool   `access:"environment_elasticsearch,write_restrictable,cloud_restrictable"`
-	EnableSearching                             *bool   `access:"environment_elasticsearch,write_restrictable,cloud_restrictable"`
-	EnableCJKAnalyzers                          *bool   `access:"environment_elasticsearch,write_restrictable,cloud_restrictable"`
-	EnableAutocomplete                          *bool   `access:"environment_elasticsearch,write_restrictable,cloud_restrictable"`
-	Sniff                                       *bool   `access:"environment_elasticsearch,write_restrictable,cloud_restrictable"`
-	PostIndexReplicas                           *int    `access:"environment_elasticsearch,write_restrictable,cloud_restrictable"`
-	PostIndexShards                             *int    `access:"environment_elasticsearch,write_restrictable,cloud_restrictable"`
-	ChannelIndexReplicas                        *int    `access:"environment_elasticsearch,write_restrictable,cloud_restrictable"`
-	ChannelIndexShards                          *int    `access:"environment_elasticsearch,write_restrictable,cloud_restrictable"`
-	UserIndexReplicas                           *int    `access:"environment_elasticsearch,write_restrictable,cloud_restrictable"`
-	UserIndexShards                             *int    `access:"environment_elasticsearch,write_restrictable,cloud_restrictable"`
-	AggregatePostsAfterDays                     *int    `access:"environment_elasticsearch,write_restrictable,cloud_restrictable"` // telemetry: none
-	PostsAggregatorJobStartTime                 *string `access:"environment_elasticsearch,write_restrictable,cloud_restrictable"` // telemetry: none
-	IndexPrefix                                 *string `access:"environment_elasticsearch,write_restrictable,cloud_restrictable"`
-	GlobalSearchPrefix                          *string `access:"environment_elasticsearch,write_restrictable,cloud_restrictable"`
-	LiveIndexingBatchSize                       *int    `access:"environment_elasticsearch,write_restrictable,cloud_restrictable"`
+	ConnectionURL                               *string `access:"environment_elasticsearch,write_restrictable"`
+	Backend                                     *string `access:"environment_elasticsearch,write_restrictable"`
+	Username                                    *string `access:"environment_elasticsearch,write_restrictable"`
+	Password                                    *string `access:"environment_elasticsearch,write_restrictable"`
+	EnableIndexing                              *bool   `access:"environment_elasticsearch,write_restrictable"`
+	EnableSearching                             *bool   `access:"environment_elasticsearch,write_restrictable"`
+	EnableCJKAnalyzers                          *bool   `access:"environment_elasticsearch,write_restrictable"`
+	EnableAutocomplete                          *bool   `access:"environment_elasticsearch,write_restrictable"`
+	Sniff                                       *bool   `access:"environment_elasticsearch,write_restrictable"`
+	PostIndexReplicas                           *int    `access:"environment_elasticsearch,write_restrictable"`
+	PostIndexShards                             *int    `access:"environment_elasticsearch,write_restrictable"`
+	ChannelIndexReplicas                        *int    `access:"environment_elasticsearch,write_restrictable"`
+	ChannelIndexShards                          *int    `access:"environment_elasticsearch,write_restrictable"`
+	UserIndexReplicas                           *int    `access:"environment_elasticsearch,write_restrictable"`
+	UserIndexShards                             *int    `access:"environment_elasticsearch,write_restrictable"`
+	AggregatePostsAfterDays                     *int    `access:"environment_elasticsearch,write_restrictable"` // telemetry: none
+	PostsAggregatorJobStartTime                 *string `access:"environment_elasticsearch,write_restrictable"` // telemetry: none
+	IndexPrefix                                 *string `access:"environment_elasticsearch,write_restrictable"`
+	GlobalSearchPrefix                          *string `access:"environment_elasticsearch,write_restrictable"`
+	LiveIndexingBatchSize                       *int    `access:"environment_elasticsearch,write_restrictable"`
 	BulkIndexingTimeWindowSeconds               *int    `json:",omitempty"` // telemetry: none
-	BatchSize                                   *int    `access:"environment_elasticsearch,write_restrictable,cloud_restrictable"`
-	RequestTimeoutSeconds                       *int    `access:"environment_elasticsearch,write_restrictable,cloud_restrictable"`
-	SkipTLSVerification                         *bool   `access:"environment_elasticsearch,write_restrictable,cloud_restrictable"`
-	CA                                          *string `access:"environment_elasticsearch,write_restrictable,cloud_restrictable"`
-	ClientCert                                  *string `access:"environment_elasticsearch,write_restrictable,cloud_restrictable"`
-	ClientKey                                   *string `access:"environment_elasticsearch,write_restrictable,cloud_restrictable"`
-	Trace                                       *string `access:"environment_elasticsearch,write_restrictable,cloud_restrictable"`
-	IgnoredPurgeIndexes                         *string `access:"environment_elasticsearch,write_restrictable,cloud_restrictable"` // telemetry: none
-	EnableSearchPublicChannelsWithoutMembership *bool   `access:"environment_elasticsearch,write_restrictable,cloud_restrictable"`
+	BatchSize                                   *int    `access:"environment_elasticsearch,write_restrictable"`
+	RequestTimeoutSeconds                       *int    `access:"environment_elasticsearch,write_restrictable"`
+	SkipTLSVerification                         *bool   `access:"environment_elasticsearch,write_restrictable"`
+	CA                                          *string `access:"environment_elasticsearch,write_restrictable"`
+	ClientCert                                  *string `access:"environment_elasticsearch,write_restrictable"`
+	ClientKey                                   *string `access:"environment_elasticsearch,write_restrictable"`
+	Trace                                       *string `access:"environment_elasticsearch,write_restrictable"`
+	IgnoredPurgeIndexes                         *string `access:"environment_elasticsearch,write_restrictable"` // telemetry: none
+	EnableSearchPublicChannelsWithoutMembership *bool   `access:"environment_elasticsearch,write_restrictable"`
 }
 
 func (s *ElasticsearchSettings) SetDefaults() {
@@ -3275,12 +3261,10 @@ func (s *ElasticsearchSettings) SetDefaults() {
 type DataRetentionSettings struct {
 	EnableMessageDeletion          *bool   `access:"compliance_data_retention_policy"`
 	EnableFileDeletion             *bool   `access:"compliance_data_retention_policy"`
-	EnableBoardsDeletion           *bool   `access:"compliance_data_retention_policy"`
 	MessageRetentionDays           *int    `access:"compliance_data_retention_policy"` // Deprecated: use `MessageRetentionHours`
 	MessageRetentionHours          *int    `access:"compliance_data_retention_policy"`
 	FileRetentionDays              *int    `access:"compliance_data_retention_policy"` // Deprecated: use `FileRetentionHours`
 	FileRetentionHours             *int    `access:"compliance_data_retention_policy"`
-	BoardsRetentionDays            *int    `access:"compliance_data_retention_policy"`
 	DeletionJobStartTime           *string `access:"compliance_data_retention_policy"`
 	BatchSize                      *int    `access:"compliance_data_retention_policy"`
 	TimeBetweenBatchesMilliseconds *int    `access:"compliance_data_retention_policy"`
@@ -3297,10 +3281,6 @@ func (s *DataRetentionSettings) SetDefaults() {
 		s.EnableFileDeletion = NewPointer(false)
 	}
 
-	if s.EnableBoardsDeletion == nil {
-		s.EnableBoardsDeletion = NewPointer(false)
-	}
-
 	if s.MessageRetentionDays == nil {
 		s.MessageRetentionDays = NewPointer(DataRetentionSettingsDefaultMessageRetentionDays)
 	}
@@ -3315,10 +3295,6 @@ func (s *DataRetentionSettings) SetDefaults() {
 
 	if s.FileRetentionHours == nil {
 		s.FileRetentionHours = NewPointer(DataRetentionSettingsDefaultFileRetentionHours)
-	}
-
-	if s.BoardsRetentionDays == nil {
-		s.BoardsRetentionDays = NewPointer(DataRetentionSettingsDefaultBoardsRetentionDays)
 	}
 
 	if s.DeletionJobStartTime == nil {
@@ -3366,10 +3342,10 @@ func (s *DataRetentionSettings) GetFileRetentionHours() int {
 }
 
 type JobSettings struct {
-	RunJobs                    *bool `access:"write_restrictable,cloud_restrictable"` // telemetry: none
-	RunScheduler               *bool `access:"write_restrictable,cloud_restrictable"` // telemetry: none
-	CleanupJobsThresholdDays   *int  `access:"write_restrictable,cloud_restrictable"`
-	CleanupConfigThresholdDays *int  `access:"write_restrictable,cloud_restrictable"`
+	RunJobs                    *bool `access:"write_restrictable"` // telemetry: none
+	RunScheduler               *bool `access:"write_restrictable"` // telemetry: none
+	CleanupJobsThresholdDays   *int  `access:"write_restrictable"`
+	CleanupConfigThresholdDays *int  `access:"write_restrictable"`
 }
 
 func (s *JobSettings) SetDefaults() {
@@ -3390,67 +3366,22 @@ func (s *JobSettings) SetDefaults() {
 	}
 }
 
-type CloudSettings struct {
-	CWSURL                *string `access:"write_restrictable"`
-	CWSAPIURL             *string `access:"write_restrictable"`
-	CWSMock               *bool   `access:"write_restrictable"`
-	Disable               *bool   `access:"write_restrictable,cloud_restrictable"`
-	PreviewModalBucketURL *string `access:"write_restrictable"`
-}
-
-func (s *CloudSettings) SetDefaults() {
-	serviceEnvironment := GetServiceEnvironment()
-	if s.CWSURL == nil || serviceEnvironment == ServiceEnvironmentProduction {
-		switch serviceEnvironment {
-		case ServiceEnvironmentProduction:
-			s.CWSURL = NewPointer(CloudSettingsDefaultCwsURL)
-		case ServiceEnvironmentTest, ServiceEnvironmentDev:
-			s.CWSURL = NewPointer(CloudSettingsDefaultCwsURLTest)
-		}
-	}
-
-	if s.CWSAPIURL == nil {
-		switch serviceEnvironment {
-		case ServiceEnvironmentProduction:
-			s.CWSAPIURL = NewPointer(CloudSettingsDefaultCwsAPIURL)
-		case ServiceEnvironmentTest, ServiceEnvironmentDev:
-			s.CWSAPIURL = NewPointer(CloudSettingsDefaultCwsAPIURLTest)
-		}
-	}
-	if s.CWSMock == nil {
-		isMockCws := MockCWS == "true"
-		s.CWSMock = &isMockCws
-	}
-
-	if s.Disable == nil {
-		s.Disable = NewPointer(false)
-	}
-
-	if s.PreviewModalBucketURL == nil {
-		s.PreviewModalBucketURL = NewPointer("")
-	}
-}
-
 type PluginState struct {
 	Enable bool
 }
 
 type PluginSettings struct {
-	Enable                      *bool                     `access:"plugins,write_restrictable"`
-	EnableUploads               *bool                     `access:"plugins,write_restrictable,cloud_restrictable"`
-	AllowInsecureDownloadURL    *bool                     `access:"plugins,write_restrictable,cloud_restrictable"`
-	EnableHealthCheck           *bool                     `access:"plugins,write_restrictable,cloud_restrictable"`
-	Directory                   *string                   `access:"plugins,write_restrictable,cloud_restrictable"` // telemetry: none
-	ClientDirectory             *string                   `access:"plugins,write_restrictable,cloud_restrictable"` // telemetry: none
-	Plugins                     map[string]map[string]any `access:"plugins"`                                       // telemetry: none
-	PluginStates                map[string]*PluginState   `access:"plugins"`                                       // telemetry: none
-	EnableMarketplace           *bool                     `access:"plugins,write_restrictable,cloud_restrictable"`
-	EnableRemoteMarketplace     *bool                     `access:"plugins,write_restrictable,cloud_restrictable"`
-	AutomaticPrepackagedPlugins *bool                     `access:"plugins,write_restrictable,cloud_restrictable"`
-	RequirePluginSignature      *bool                     `access:"plugins,write_restrictable,cloud_restrictable"`
-	MarketplaceURL              *string                   `access:"plugins,write_restrictable,cloud_restrictable"`
-	SignaturePublicKeyFiles     []string                  `access:"plugins,write_restrictable,cloud_restrictable"`
-	ChimeraOAuthProxyURL        *string                   `access:"plugins,write_restrictable,cloud_restrictable"`
+	Enable                   *bool                     `access:"plugins,write_restrictable"`
+	EnableUploads            *bool                     `access:"plugins,write_restrictable"`
+	AllowInsecureDownloadURL *bool                     `access:"plugins,write_restrictable"`
+	EnableHealthCheck        *bool                     `access:"plugins,write_restrictable"`
+	Directory                *string                   `access:"plugins,write_restrictable"` // telemetry: none
+	ClientDirectory          *string                   `access:"plugins,write_restrictable"` // telemetry: none
+	Plugins                  map[string]map[string]any `access:"plugins"`                    // telemetry: none
+	PluginStates             map[string]*PluginState   `access:"plugins"`                    // telemetry: none
+	RequirePluginSignature   *bool                     `access:"plugins,write_restrictable"`
+	SignaturePublicKeyFiles  []string                  `access:"plugins,write_restrictable"`
+	ChimeraOAuthProxyURL     *string                   `access:"plugins,write_restrictable"`
 }
 
 func (s *PluginSettings) SetDefaults(ls LogSettings) {
@@ -3487,39 +3418,11 @@ func (s *PluginSettings) SetDefaults(ls LogSettings) {
 	}
 
 	if s.PluginStates[PluginIdNPS] == nil {
-		// Enable the NPS plugin by default if diagnostics are enabled
-		s.PluginStates[PluginIdNPS] = &PluginState{Enable: ls.EnableDiagnostics == nil || *ls.EnableDiagnostics}
-	}
-
-	if s.PluginStates[PluginIdCalls] == nil {
-		// Enable the calls plugin by default
-		s.PluginStates[PluginIdCalls] = &PluginState{Enable: true}
-	}
-
-	if s.PluginStates[PluginIdPlaybooks] == nil {
-		// Enable the playbooks plugin by default
-		s.PluginStates[PluginIdPlaybooks] = &PluginState{Enable: true}
+		s.PluginStates[PluginIdNPS] = &PluginState{Enable: false}
 	}
 
 	if s.PluginStates[PluginIdAI] == nil {
-		// Enable the AI plugin by default
-		s.PluginStates[PluginIdAI] = &PluginState{Enable: true}
-	}
-
-	if s.EnableMarketplace == nil {
-		s.EnableMarketplace = NewPointer(PluginSettingsDefaultEnableMarketplace)
-	}
-
-	if s.EnableRemoteMarketplace == nil {
-		s.EnableRemoteMarketplace = NewPointer(true)
-	}
-
-	if s.AutomaticPrepackagedPlugins == nil {
-		s.AutomaticPrepackagedPlugins = NewPointer(true)
-	}
-
-	if s.MarketplaceURL == nil || *s.MarketplaceURL == "" || *s.MarketplaceURL == PluginSettingsOldMarketplaceURL {
-		s.MarketplaceURL = NewPointer(PluginSettingsDefaultMarketplaceURL)
+		s.PluginStates[PluginIdAI] = &PluginState{Enable: false}
 	}
 
 	if s.RequirePluginSignature == nil {
@@ -3849,7 +3752,7 @@ func (s *ImageProxySettings) SetDefaults() {
 // ImportSettings defines configuration settings for file imports.
 type ImportSettings struct {
 	// The directory where to store the imported files.
-	Directory *string `access:"cloud_restrictable"`
+	Directory *string `access:""`
 	// The number of days to retain the imported files before deleting them.
 	RetentionDays *int
 }
@@ -3880,7 +3783,7 @@ func (s *ImportSettings) SetDefaults() {
 // ExportSettings defines configuration settings for file exports.
 type ExportSettings struct {
 	// The directory where to store the exported files.
-	Directory *string `access:"cloud_restrictable"` // telemetry: none
+	Directory *string `access:""` // telemetry: none
 	// The number of days to retain the exported files before deleting them.
 	RetentionDays *int
 }
@@ -3928,7 +3831,6 @@ type ConfigFunc func() *Config
 const (
 	ConfigAccessTagType              = "access"
 	ConfigAccessTagWriteRestrictable = "write_restrictable"
-	ConfigAccessTagCloudRestrictable = "cloud_restrictable"
 )
 
 // Allows read access if any PermissionSysconsoleRead* is allowed
@@ -3951,9 +3853,6 @@ const ConfigAccessTagAnySysConsoleRead = "*_read"
 // unless the request is made using local mode.
 //
 // PermissionManageSystem always grants read access.
-//
-// Config values with the access tag 'cloud_restrictable' mean that are marked to be filtered when it's used in a cloud licensed
-// environment with ExperimentalSettings.RestrictedSystemAdmin set to true.
 //
 // Example:
 //
@@ -4008,7 +3907,6 @@ type Config struct {
 	DisplaySettings             DisplaySettings
 	GuestAccountsSettings       GuestAccountsSettings
 	ImageProxySettings          ImageProxySettings
-	CloudSettings               CloudSettings  // telemetry: none
 	FeatureFlags                *FeatureFlags  `access:"*_read" json:",omitempty"`
 	ImportSettings              ImportSettings // telemetry: none
 	ExportSettings              ExportSettings
@@ -4125,7 +4023,6 @@ func (o *Config) SetDefaults() {
 	o.DisplaySettings.SetDefaults()
 	o.GuestAccountsSettings.SetDefaults()
 	o.ImageProxySettings.SetDefaults()
-	o.CloudSettings.SetDefaults()
 	if o.FeatureFlags == nil {
 		o.FeatureFlags = &FeatureFlags{}
 		o.FeatureFlags.SetDefaults()

@@ -118,7 +118,6 @@ func setupTestHelper(tb testing.TB, dbStore store.Store, sqlSettings *model.SqlS
 	*memoryConfig.LogSettings.FileLocation = testLogsDir
 	*memoryConfig.AnnouncementSettings.AdminNoticesEnabled = false
 	*memoryConfig.AnnouncementSettings.UserNoticesEnabled = false
-	*memoryConfig.PluginSettings.AutomaticPrepackagedPlugins = false
 	// Enabling Redis with Postgres.
 	if *memoryConfig.SqlSettings.DriverName == model.DatabaseDriverPostgres && !mainHelper.Options.RunParallel {
 		*memoryConfig.CacheSettings.CacheType = model.CacheTypeRedis

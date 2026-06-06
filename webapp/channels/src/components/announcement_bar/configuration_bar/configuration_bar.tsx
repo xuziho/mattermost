@@ -12,7 +12,6 @@ import type {PreferenceType} from '@mattermost/types/preferences';
 
 import type {ActionResult} from 'mattermost-redux/types/actions';
 
-import PurchaseLink from 'components/announcement_bar/purchase_link/purchase_link';
 import ExternalLink from 'components/external_link';
 
 import alertIcon from 'images/icons/round-white-info-icon.svg';
@@ -23,7 +22,6 @@ import {getSkuDisplayName} from 'utils/subscription';
 import {getViewportSize} from 'utils/utils';
 
 import AnnouncementBar from '../default_announcement_bar';
-import RenewalLink from '../renewal_link/';
 import TextDismissableBar from '../text_dismissable_bar';
 
 type Props = {
@@ -84,9 +82,6 @@ const ConfigurationAnnouncementBar = (props: Props) => {
                     message={
                         <div className='announcement-bar__configuration'>
                             {message}
-                            <RenewalLink
-                                className='btn btn-tertiary btn-xs btn-inverted annnouncementBar__renewLicense'
-                            />
                         </div>
                     }
                     tooltipMsg={message}
@@ -98,18 +93,6 @@ const ConfigurationAnnouncementBar = (props: Props) => {
 
         const daysUntilLicenseExpires = daysToLicenseExpire(props.license);
         if (isTrialLicense(props.license) && typeof daysUntilLicenseExpires !== 'undefined' && daysUntilLicenseExpires <= 14 && !props.dismissedExpiringTrialLicense) {
-            const purchaseLicense = (
-                <PurchaseLink
-                    className='btn btn-tertiary btn-xs btn-inverted annnouncementBar__purchaseNow'
-                    buttonTextElement={
-                        <FormattedMessage
-                            id='announcement_bar.error.purchase_a_license_now'
-                            defaultMessage='Purchase a License Now'
-                        />
-                    }
-                />
-            );
-
             let message = (
                 <>
                     <img
@@ -118,7 +101,7 @@ const ConfigurationAnnouncementBar = (props: Props) => {
                     />
                     <FormattedMessage
                         id='announcement_bar.error.trial_license_expiring'
-                        defaultMessage='There are {days} days left on your free trial.'
+                        defaultMessage='There are {days} days left on this server license.'
                         tagName='strong'
                         values={{
                             days: daysUntilLicenseExpires,
@@ -133,10 +116,10 @@ const ConfigurationAnnouncementBar = (props: Props) => {
             if (daysUntilLicenseExpires < 1) {
                 const viewportBasedMessage = width < Constants.MOBILE_SCREEN_WIDTH ? formatMessage({
                     id: 'announcement_bar.error.trial_license_expiring_last_day.short',
-                    defaultMessage: 'This is the last day of your free trial.'},
+                    defaultMessage: 'This server license expires today.'},
                 ) : formatMessage({
                     id: 'announcement_bar.error.trial_license_expiring_last_day',
-                    defaultMessage: 'This is the last day of your free trial. Purchase a license now to continue using Mattermost Professional and Enterprise features.',
+                    defaultMessage: 'This server license expires today. Some licensed features may be unavailable after it expires.',
                 });
                 message = (
                     <>
@@ -158,7 +141,6 @@ const ConfigurationAnnouncementBar = (props: Props) => {
                     message={
                         <div className='announcement-bar__configuration'>
                             {message}
-                            {purchaseLicense}
                         </div>
                     }
                     tooltipMsg={message}
@@ -189,9 +171,6 @@ const ConfigurationAnnouncementBar = (props: Props) => {
                     message={
                         <div className='announcement-bar__configuration'>
                             {message}
-                            <RenewalLink
-                                className='btn btn-tertiary btn-xs btn-inverted annnouncementBar__renewLicense'
-                            />
                         </div>
                     }
                     tooltipMsg={message}

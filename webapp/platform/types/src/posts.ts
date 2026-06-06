@@ -198,19 +198,6 @@ export declare type PostPreviewMetadata = {
     channel_id: string;
 };
 
-export declare type PostsUsageResponse = {
-    count: number;
-};
-
-export declare type FilesUsageResponse = {
-    bytes: number;
-};
-
-export declare type TeamsUsageResponse = {
-    active: number;
-    cloud_archived: number;
-};
-
 export type PostAnalytics = {
     channel_id: string;
     post_id: string;

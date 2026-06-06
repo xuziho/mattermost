@@ -5,20 +5,13 @@ import partition from 'lodash/partition';
 import React from 'react';
 import {useSelector} from 'react-redux';
 
-import type {GlobalState} from '@mattermost/types/store';
-
-import {Permissions} from 'mattermost-redux/constants';
 import {getAppBarAppBindings} from 'mattermost-redux/selectors/entities/apps';
-import {isMarketplaceEnabled} from 'mattermost-redux/selectors/entities/general';
-import {haveICurrentTeamPermission} from 'mattermost-redux/selectors/entities/roles';
 
 import {getAppBarPluginComponents, getChannelHeaderPluginComponents, shouldShowAppBar} from 'selectors/plugins';
 
 import {suitePluginIds} from 'utils/constants';
-import {useCurrentProduct, useCurrentProductId, inScope} from 'utils/products';
 
 import AppBarBinding, {isAppBinding} from './app_bar_binding';
-import AppBarMarketplace from './app_bar_marketplace';
 import AppBarPluginComponent, {isAppBarComponent} from './app_bar_plugin_component';
 
 import './app_bar.scss';
@@ -27,28 +20,13 @@ export default function AppBar() {
     const channelHeaderComponents = useSelector(getChannelHeaderPluginComponents);
     const appBarPluginComponents = useSelector(getAppBarPluginComponents);
     const appBarBindings = useSelector(getAppBarAppBindings);
-    const currentProduct = useCurrentProduct();
-    const currentProductId = useCurrentProductId();
     const enabled = useSelector(shouldShowAppBar);
-    const canOpenMarketplace = useSelector((state: GlobalState) => (
-        isMarketplaceEnabled(state) &&
-        haveICurrentTeamPermission(state, Permissions.SYSCONSOLE_WRITE_PLUGINS)
-    ));
 
-    if (
-        !enabled ||
-        (currentProduct && !currentProduct.showAppBar)
-    ) {
+    if (!enabled) {
         return null;
     }
 
-    const coreProductsPluginIds = [suitePluginIds.focalboard, suitePluginIds.playbooks];
     const agentsPluginId = suitePluginIds.agents;
-
-    // Partition app bar components: Playbooks/Boards vs other plugins
-    const [coreProductComponents, pluginComponents] = partition(appBarPluginComponents, ({pluginId}) => {
-        return coreProductsPluginIds.includes(pluginId);
-    });
 
     // Partition channel header components: Agents vs others
     const [agentsComponents, otherChannelHeaderComponents] = partition(channelHeaderComponents, ({pluginId}) => {
@@ -57,12 +35,11 @@ export default function AppBar() {
 
     const items = [
         ...agentsComponents,
-        ...coreProductComponents,
+        ...appBarPluginComponents,
         getDivider(
-            agentsComponents.length + coreProductComponents.length,
-            pluginComponents.length + otherChannelHeaderComponents.length + appBarBindings.length,
+            agentsComponents.length + appBarPluginComponents.length,
+            otherChannelHeaderComponents.length + appBarBindings.length,
         ),
-        ...pluginComponents,
         ...otherChannelHeaderComponents,
         ...appBarBindings,
     ].map((x) => {
@@ -71,10 +48,6 @@ export default function AppBar() {
         }
 
         if (isAppBarComponent(x)) {
-            const supportedProductIds = 'supportedProductIds' in x ? x.supportedProductIds : undefined;
-            if (!inScope(supportedProductIds ?? null, currentProductId, currentProduct?.pluginId)) {
-                return null;
-            }
             return (
                 <AppBarPluginComponent
                     key={x.id}
@@ -82,9 +55,6 @@ export default function AppBar() {
                 />
             );
         } else if (isAppBinding(x)) {
-            if (!inScope(x.supported_product_ids ?? null, currentProductId, currentProduct?.pluginId)) {
-                return null;
-            }
             return (
                 <AppBarBinding
                     key={`${x.app_id}_${x.label}`}
@@ -100,11 +70,6 @@ export default function AppBar() {
             <div className={'app-bar__top'}>
                 {items}
             </div>
-            {canOpenMarketplace && (
-                <div className='app-bar__bottom'>
-                    <AppBarMarketplace/>
-                </div>
-            )}
         </div>
     );
 }

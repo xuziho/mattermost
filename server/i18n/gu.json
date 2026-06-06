@@ -78,5 +78,9 @@
   {
     "id": "api.admin.add_certificate.saving.app_error",
     "translation": "પ્રમાણપત્ર ફાઇલ સાચવી શકાઈ નથી."
+  },
+  {
+    "id": "api.templates.license_up_for_renewal_review_license",
+    "translation": "Review license"
   }
 ]

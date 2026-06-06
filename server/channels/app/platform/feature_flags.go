@@ -5,7 +5,6 @@ package platform
 
 import (
 	"encoding/json"
-	"os"
 	"time"
 
 	"github.com/mattermost/mattermost/server/public/shared/mlog"
@@ -64,21 +63,11 @@ func (ps *PlatformService) startFeatureFlagUpdateJob() error {
 		log = ps.logger
 	}
 
-	attributes := map[string]any{}
-
-	// if we are part of a cloud installation, add its installation and group id
-	if installationId := os.Getenv("MM_CLOUD_INSTALLATION_ID"); installationId != "" {
-		attributes["installation_id"] = installationId
-	}
-	if groupId := os.Getenv("MM_CLOUD_GROUP_ID"); groupId != "" {
-		attributes["group_id"] = groupId
-	}
-
 	synchronizer, err := featureflag.NewSynchronizer(featureflag.SyncParams{
 		ServerID:   ps.telemetryId,
 		SplitKey:   *ps.Config().ServiceSettings.SplitKey,
 		Log:        log,
-		Attributes: attributes,
+		Attributes: map[string]any{},
 	})
 	if err != nil {
 		return err
@@ -94,7 +83,7 @@ func (ps *PlatformService) startFeatureFlagUpdateJob() error {
 		defer ticker.Stop()
 		defer close(ps.featureFlagStopped)
 		if err := synchronizer.EnsureReady(); err != nil {
-			ps.logger.Warn("Problem connecting to feature flag management. Will fallback to cloud cache.", mlog.Err(err))
+			ps.logger.Warn("Problem connecting to feature flag management. Will fallback to cached feature flags.", mlog.Err(err))
 			return
 		}
 		ps.updateFeatureFlagValuesFromManagement()

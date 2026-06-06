@@ -28,12 +28,10 @@ import UserSettingsModal from 'components/user_settings/modal';
 import Menu from 'components/widgets/menu/menu';
 
 import {ModalIdentifiers, UserStatuses} from 'utils/constants';
-import {makeUrlSafe} from 'utils/url';
 
 import type {PropsFromRedux} from './index';
 
 export interface Props extends PropsFromRedux, WrappedComponentProps {
-    usageDeltaTeams: number;
 }
 
 export class MobileSidebarRightItems extends React.PureComponent<Props> {
@@ -73,9 +71,6 @@ export class MobileSidebarRightItems extends React.PureComponent<Props> {
     render() {
         const {formatMessage} = this.props.intl;
 
-        const safeAppDownloadLink = makeUrlSafe(this.props.appDownloadLink || '');
-        const teamsLimitReached = this.props.isStarterFree && !this.props.isFreeTrial && this.props.usageDeltaTeams >= 0;
-
         const pluginItems = this.props.pluginMenuItems.map((item) => (
             <Menu.ItemAction
                 id={item.id + '_pluginmenuitem'}
@@ -97,24 +92,6 @@ export class MobileSidebarRightItems extends React.PureComponent<Props> {
             <Menu
                 ariaLabel={formatMessage({id: 'navbar_dropdown.menuAriaLabel', defaultMessage: 'main menu'})}
             >
-                <Menu.Group>
-                    <SystemPermissionGate
-                        permissions={[Permissions.SYSCONSOLE_WRITE_BILLING]}
-                    >
-                        <Menu.CloudTrial
-                            id='menuCloudTrial'
-                        />
-                    </SystemPermissionGate>
-                </Menu.Group>
-                <Menu.Group>
-                    <SystemPermissionGate
-                        permissions={[Permissions.SYSCONSOLE_WRITE_ABOUT_EDITION_AND_LICENSE]}
-                    >
-                        <Menu.StartTrial
-                            id='startTrial'
-                        />
-                    </SystemPermissionGate>
-                </Menu.Group>
                 <Menu.Group>
                     <UserAccountOnlineMenuItem
                         userId={this.props.userId}
@@ -340,7 +317,6 @@ export class MobileSidebarRightItems extends React.PureComponent<Props> {
                     <SystemPermissionGate permissions={[Permissions.CREATE_TEAM]}>
                         <Menu.ItemLink
                             id='createTeam'
-                            show={!teamsLimitReached}
                             to='/create_team'
                             text={formatMessage({id: 'navbar_dropdown.create', defaultMessage: 'Create a Team'})}
                             icon={
@@ -381,42 +357,6 @@ export class MobileSidebarRightItems extends React.PureComponent<Props> {
                     {pluginItems}
                 </Menu.Group>
                 <Menu.Group>
-                    <Menu.ItemExternalLink
-                        id='helpLink'
-                        show={Boolean(this.props.helpLink)}
-                        url={this.props.helpLink}
-                        text={formatMessage({id: 'navbar_dropdown.help', defaultMessage: 'Help'})}
-                        icon={
-                            <i
-                                className='icon icon-help-circle-outline'
-                                style={{color: 'var(--sidebar-text)'}}
-                            />
-                        }
-                    />
-                    <Menu.ItemExternalLink
-                        id='reportLink'
-                        show={Boolean(this.props.reportAProblemLink)}
-                        url={this.props.reportAProblemLink}
-                        text={formatMessage({id: 'navbar_dropdown.report', defaultMessage: 'Report a Problem'})}
-                        icon={
-                            <i
-                                className='icon icon-alert-outline'
-                                style={{color: 'var(--sidebar-text)'}}
-                            />
-                        }
-                    />
-                    <Menu.ItemExternalLink
-                        id='nativeAppLink'
-                        show={this.props.appDownloadLink}
-                        url={safeAppDownloadLink}
-                        text={formatMessage({id: 'navbar_dropdown.nativeApps', defaultMessage: 'Download Apps'})}
-                        icon={
-                            <i
-                                className='icon icon-cellphone'
-                                style={{color: 'var(--sidebar-text)'}}
-                            />
-                        }
-                    />
                     <Menu.ItemToggleModalRedux
                         id='about'
                         modalId={ModalIdentifiers.ABOUT}

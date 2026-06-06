@@ -19,10 +19,8 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"github.com/mattermost/mattermost/server/public/model"
-	"github.com/mattermost/mattermost/server/public/plugin/plugintest/mock"
 	"github.com/mattermost/mattermost/server/public/shared/i18n"
 	"github.com/mattermost/mattermost/server/v8/channels/utils/testutils"
-	"github.com/mattermost/mattermost/server/v8/einterfaces/mocks"
 	"github.com/mattermost/mattermost/server/v8/platform/shared/mail"
 )
 
@@ -194,47 +192,6 @@ func TestCreateTeam(t *testing.T) {
 		require.Equal(t, originalName, createdTeam.Name)
 	})
 
-	t.Run("cloud limit reached returns 400", func(t *testing.T) {
-		th.App.Srv().SetLicense(model.NewTestLicense("cloud"))
-
-		cloud := &mocks.CloudInterface{}
-		cloudImpl := th.App.Srv().Cloud
-		defer func() {
-			th.App.Srv().Cloud = cloudImpl
-		}()
-		th.App.Srv().Cloud = cloud
-
-		cloud.Mock.On("GetCloudLimits", mock.Anything).Return(&model.ProductLimits{
-			Teams: &model.TeamsLimits{
-				Active: model.NewPointer(1),
-			},
-		}, nil).Once()
-		team := &model.Team{Name: GenerateTestUsername(), DisplayName: "Some Team", Type: model.TeamOpen}
-		_, resp, err := th.Client.CreateTeam(context.Background(), team)
-		require.Error(t, err)
-		CheckBadRequestStatus(t, resp)
-	})
-
-	t.Run("cloud below limit returns 200", func(t *testing.T) {
-		th.App.Srv().SetLicense(model.NewTestLicense("cloud"))
-
-		cloud := &mocks.CloudInterface{}
-		cloudImpl := th.App.Srv().Cloud
-		defer func() {
-			th.App.Srv().Cloud = cloudImpl
-		}()
-		th.App.Srv().Cloud = cloud
-
-		cloud.Mock.On("GetCloudLimits", mock.Anything).Return(&model.ProductLimits{
-			Teams: &model.TeamsLimits{
-				Active: model.NewPointer(200),
-			},
-		}, nil).Once()
-		team := &model.Team{Name: GenerateTestUsername(), DisplayName: "Some Team", Type: model.TeamOpen}
-		_, resp, err := th.Client.CreateTeam(context.Background(), team)
-		require.NoError(t, err)
-		CheckCreatedStatus(t, resp)
-	})
 }
 
 func TestCreateTeamSanitization(t *testing.T) {
@@ -1421,49 +1378,6 @@ func TestRestoreTeam(t *testing.T) {
 		CheckOKStatus(t, resp)
 	})
 
-	t.Run("cloud limit reached returns 400", func(t *testing.T) {
-		// Create an archived team to be restored later
-		team := createTeam(t, true, model.TeamOpen)
-		th.App.Srv().SetLicense(model.NewTestLicense("cloud"))
-
-		cloud := &mocks.CloudInterface{}
-		cloudImpl := th.App.Srv().Cloud
-		defer func() {
-			th.App.Srv().Cloud = cloudImpl
-		}()
-		th.App.Srv().Cloud = cloud
-
-		cloud.Mock.On("GetCloudLimits", mock.Anything).Return(&model.ProductLimits{
-			Teams: &model.TeamsLimits{
-				Active: model.NewPointer(1),
-			},
-		}, nil).Once()
-
-		_, resp, err := client.RestoreTeam(context.Background(), team.Id)
-		require.Error(t, err)
-		CheckBadRequestStatus(t, resp)
-	})
-
-	t.Run("cloud below limit returns 200", func(t *testing.T) {
-		th.App.Srv().SetLicense(model.NewTestLicense("cloud"))
-
-		cloud := &mocks.CloudInterface{}
-		cloudImpl := th.App.Srv().Cloud
-		defer func() {
-			th.App.Srv().Cloud = cloudImpl
-		}()
-		th.App.Srv().Cloud = cloud
-
-		cloud.Mock.On("GetCloudLimits", mock.Anything).Return(&model.ProductLimits{
-			Teams: &model.TeamsLimits{
-				Active: model.NewPointer(200),
-			},
-		}, nil).Twice()
-		team := createTeam(t, true, model.TeamOpen)
-		_, resp, err := client.RestoreTeam(context.Background(), team.Id)
-		require.NoError(t, err)
-		CheckOKStatus(t, resp)
-	})
 }
 
 func TestPatchTeamSanitization(t *testing.T) {

@@ -3,7 +3,6 @@
 
 import React from 'react';
 
-import type {CloudState} from '@mattermost/types/cloud';
 import type {AdminConfig, EnvironmentConfig} from '@mattermost/types/config';
 
 import {defaultIntl} from 'tests/helpers/intl-test-helper';
@@ -14,7 +13,6 @@ import type {ConsoleAccess, AdminDefinitionSubSectionSchema, AdminDefinitionSett
 import ValidationResult from './validation';
 
 const DefaultProps = {
-    cloud: {} as CloudState,
     consoleAccess: {} as ConsoleAccess,
     editRole: jest.fn(),
     enterpriseReady: false,

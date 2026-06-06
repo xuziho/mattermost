@@ -143,28 +143,6 @@ func TestLicenseIsStarted(t *testing.T) {
 	assert.False(t, l1.IsStarted())
 }
 
-func TestIsCloud(t *testing.T) {
-	l1 := License{}
-	l1.Features = &Features{}
-	l1.Features.SetDefaults()
-	assert.False(t, l1.IsCloud())
-
-	boolTrue := true
-	l1.Features.Cloud = &boolTrue
-	assert.True(t, l1.IsCloud())
-
-	var license *License
-	assert.False(t, license.IsCloud())
-
-	l1.Features = nil
-	assert.False(t, l1.IsCloud())
-
-	t.Run("false if license is nil", func(t *testing.T) {
-		var license *License
-		assert.False(t, license.IsCloud())
-	})
-}
-
 func TestLicenseRecordIsValid(t *testing.T) {
 	lr := LicenseRecord{
 		CreateAt: GetMillis(),
@@ -198,99 +176,6 @@ func TestLicenseRecordPreSave(t *testing.T) {
 	lr.PreSave()
 
 	assert.NotZero(t, lr.CreateAt)
-}
-
-func TestIsLegacyTrialRequest(t *testing.T) {
-	legacyTr := &TrialLicenseRequest{
-		Email:         "test@mattermost.com",
-		TermsAccepted: true,
-		SiteURL:       "https://mattermost.com",
-		SiteName:      "Mattermost",
-		Users:         100,
-	}
-	t.Run("legacy trial request", func(t *testing.T) {
-		assert.True(t, legacyTr.IsLegacy())
-	})
-
-	t.Run("legacy trial request with any non-legacy field set is not a legacy request", func(t *testing.T) {
-		legacyTr.CompanyCountry = "US"
-		assert.False(t, legacyTr.IsLegacy())
-		legacyTr.CompanyCountry = ""
-		legacyTr.CompanyName = "test company"
-		assert.False(t, legacyTr.IsLegacy())
-		legacyTr.CompanyName = ""
-		legacyTr.CompanySize = "50-100"
-		assert.False(t, legacyTr.IsLegacy())
-		legacyTr.CompanySize = ""
-		legacyTr.ContactName = "test user"
-		assert.False(t, legacyTr.IsLegacy())
-		legacyTr.ContactName = ""
-		assert.True(t, legacyTr.IsLegacy())
-	})
-}
-
-func TestTrialLicenseRequestIsValid(t *testing.T) {
-	validTlr := &TrialLicenseRequest{
-		Email:          "test@test.com",
-		Users:          100,
-		CompanyCountry: "US",
-		CompanyName:    "Test Company",
-		CompanySize:    "50-100",
-		ContactName:    "Test User",
-		TermsAccepted:  true,
-	}
-
-	resetBaseRequest := func() {
-		validTlr = &TrialLicenseRequest{
-			Email:          "test@test.com",
-			Users:          100,
-			CompanyCountry: "US",
-			CompanyName:    "Test Company",
-			CompanySize:    "50-100",
-			ContactName:    "Test User",
-			TermsAccepted:  true,
-		}
-	}
-	t.Run("valid request", func(t *testing.T) {
-		resetBaseRequest()
-		assert.Equal(t, true, validTlr.IsValid())
-	})
-
-	t.Run("no terms", func(t *testing.T) {
-		resetBaseRequest()
-		validTlr.TermsAccepted = false
-		assert.Equal(t, false, validTlr.IsValid())
-	})
-
-	t.Run("no email", func(t *testing.T) {
-		resetBaseRequest()
-		validTlr.Email = ""
-		assert.Equal(t, false, validTlr.IsValid())
-	})
-
-	t.Run("no CompanyCountry", func(t *testing.T) {
-		resetBaseRequest()
-		validTlr.CompanyCountry = ""
-		assert.Equal(t, false, validTlr.IsValid())
-	})
-
-	t.Run("no CompanyName", func(t *testing.T) {
-		resetBaseRequest()
-		validTlr.CompanyName = ""
-		assert.Equal(t, false, validTlr.IsValid())
-	})
-
-	t.Run("no CompanySize", func(t *testing.T) {
-		resetBaseRequest()
-		validTlr.CompanySize = ""
-		assert.Equal(t, false, validTlr.IsValid())
-	})
-
-	t.Run("Bad User Count", func(t *testing.T) {
-		resetBaseRequest()
-		validTlr.Users = 0
-		assert.Equal(t, false, validTlr.IsValid())
-	})
 }
 
 func TestLicense_IsTrialLicense(t *testing.T) {

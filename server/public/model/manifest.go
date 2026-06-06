@@ -197,7 +197,7 @@ type Manifest struct {
 	// ReleaseNotesURL is an optional URL where a changelog for the release can be found.
 	ReleaseNotesURL string `json:"release_notes_url,omitempty" yaml:"release_notes_url,omitempty"`
 
-	// A relative file path in the bundle that points to the plugins svg icon for use with the Plugin Marketplace.
+	// A relative file path in the bundle that points to the plugin SVG icon.
 	// This should be relative to the root of your bundle and the location of the manifest file. Bitmap image formats are not supported.
 	IconPath string `json:"icon_path,omitempty" yaml:"icon_path,omitempty"`
 

@@ -12,7 +12,6 @@ import type {LinkHTMLAttributes} from 'react';
 import type {MessageDescriptor} from 'react-intl';
 
 import type {Channel} from '@mattermost/types/channels';
-import type {Address} from '@mattermost/types/cloud';
 import type {FileInfo} from '@mattermost/types/files';
 import type {Group} from '@mattermost/types/groups';
 import type {GlobalState} from '@mattermost/types/store';
@@ -63,6 +62,15 @@ import {FOCUS_REPLY_POST, isPopoutWindow, sendToParent} from 'utils/popouts/popo
 import * as UserAgent from 'utils/user_agent';
 
 import {joinPrivateChannelPrompt} from './channel_utils';
+
+type Address = {
+    city: string;
+    country: string;
+    line1: string;
+    line2: string;
+    postal_code: string;
+    state: string;
+};
 
 const CLICKABLE_ELEMENTS = [
     'a',

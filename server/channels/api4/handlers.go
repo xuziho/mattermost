@@ -66,27 +66,6 @@ func (api *API) APISessionRequired(h handlerFunc, opts ...APIHandlerOption) http
 	return handler
 }
 
-// CloudAPIKeyRequired provides a handler for webhook endpoints to access Cloud installations from CWS
-func (api *API) CloudAPIKeyRequired(h handlerFunc, opts ...APIHandlerOption) http.Handler {
-	handler := &web.Handler{
-		Srv:             api.srv,
-		HandleFunc:      h,
-		HandlerName:     web.GetHandlerName(h),
-		RequireSession:  false,
-		RequireCloudKey: true,
-		TrustRequester:  false,
-		RequireMfa:      false,
-		IsStatic:        false,
-		IsLocal:         false,
-	}
-	setHandlerOpts(handler, opts...)
-
-	if *api.srv.Config().ServiceSettings.WebserverMode == "gzip" {
-		return gzhttp.GzipHandler(handler)
-	}
-	return handler
-}
-
 // RemoteClusterTokenRequired provides a handler for remote cluster requests to /remotecluster endpoints.
 func (api *API) RemoteClusterTokenRequired(h handlerFunc, opts ...APIHandlerOption) http.Handler {
 	handler := &web.Handler{
@@ -94,7 +73,6 @@ func (api *API) RemoteClusterTokenRequired(h handlerFunc, opts ...APIHandlerOpti
 		HandleFunc:                h,
 		HandlerName:               web.GetHandlerName(h),
 		RequireSession:            false,
-		RequireCloudKey:           false,
 		RequireRemoteClusterToken: true,
 		TrustRequester:            false,
 		RequireMfa:                false,

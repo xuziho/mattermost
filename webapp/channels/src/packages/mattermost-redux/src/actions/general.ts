@@ -5,13 +5,11 @@ import {batchActions} from 'redux-batched-actions';
 
 import {LogLevel} from '@mattermost/types/client4';
 import type {ClientConfig} from '@mattermost/types/config';
-import type {SystemSetting} from '@mattermost/types/general';
 
 import {AppsTypes, GeneralTypes} from 'mattermost-redux/action_types';
 import {Client4} from 'mattermost-redux/client';
 import type {ActionFuncAsync} from 'mattermost-redux/types/actions';
 
-import {logError} from './errors';
 import {bindClientFunc, forceLogoutIfNecessary} from './helpers';
 import {loadRolesIfNeeded} from './roles';
 
@@ -75,61 +73,6 @@ export function setServerVersion(serverVersion: string): ActionFuncAsync {
 export function setUrl(url: string) {
     Client4.setUrl(url);
     return true;
-}
-
-export function setFirstAdminVisitMarketplaceStatus(): ActionFuncAsync {
-    return async (dispatch) => {
-        try {
-            await Client4.setFirstAdminVisitMarketplaceStatus();
-        } catch (e) {
-            dispatch(logError(e));
-            return {error: e.message};
-        }
-        dispatch({type: GeneralTypes.FIRST_ADMIN_VISIT_MARKETPLACE_STATUS_RECEIVED, data: true});
-        return {data: true};
-    };
-}
-
-// accompanying "set" happens as part of Client4.completeSetup
-export function getFirstAdminSetupComplete(): ActionFuncAsync<SystemSetting> {
-    return async (dispatch, getState) => {
-        let data;
-        try {
-            data = await Client4.getFirstAdminSetupComplete();
-        } catch (error) {
-            forceLogoutIfNecessary(error, dispatch, getState);
-            return {error};
-        }
-
-        data = JSON.parse(data.value);
-        dispatch({type: GeneralTypes.FIRST_ADMIN_COMPLETE_SETUP_RECEIVED, data});
-        return {data};
-    };
-}
-
-export function checkCWSAvailability(): ActionFuncAsync {
-    return async (dispatch, getState) => {
-        const state = getState();
-        const config = state.entities.general.config;
-        const isEnterpriseReady = config.BuildEnterpriseReady === 'true';
-
-        if (!isEnterpriseReady) {
-            dispatch({type: GeneralTypes.CWS_AVAILABILITY_CHECK_SUCCESS, data: 'not_applicable'});
-            return {data: 'not_applicable'};
-        }
-
-        dispatch({type: GeneralTypes.CWS_AVAILABILITY_CHECK_REQUEST});
-
-        try {
-            const response = await Client4.cwsAvailabilityCheck();
-            const status = response.status;
-            dispatch({type: GeneralTypes.CWS_AVAILABILITY_CHECK_SUCCESS, data: status});
-            return {data: status};
-        } catch (error) {
-            dispatch({type: GeneralTypes.CWS_AVAILABILITY_CHECK_FAILURE});
-            return {data: 'unavailable'};
-        }
-    };
 }
 
 export default {

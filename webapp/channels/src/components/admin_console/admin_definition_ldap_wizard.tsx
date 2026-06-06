@@ -385,19 +385,9 @@ export const ldapWizardAdminDefinition: LDAPAdminDefinitionConfigSchemaSettings 
                 key: 'LdapSettings.IdAttribute',
                 label: defineMessage({id: 'admin.ldap.idAttrTitle', defaultMessage: 'ID Attribute: '}),
                 placeholder: defineMessage({id: 'admin.ldap.idAttrEx', defaultMessage: 'E.g.: "objectGUID" or "uid"'}),
-                help_text: defineMessage({id: 'admin.ldap.idAttrDesc', defaultMessage: 'The attribute in the AD/LDAP server used as a unique identifier in Mattermost. If you need to change this field after users have already logged in, use the <link>mattermost ldap idmigrate</link> CLI tool.'}),
+                help_text: defineMessage({id: 'admin.ldap.idAttrDesc', defaultMessage: 'The attribute in the AD/LDAP server used as a unique identifier. If you need to change this field after users have already logged in, use the ldap idmigrate CLI tool.'}),
                 help_text_more_info: defineMessage({id: 'admin.ldap.idAttrDescHover', defaultMessage: 'It should be an AD/LDAP attribute with a value that does not change such as uid for LDAP or objectGUID for Active Directory. If a user\'s ID Attribute changes, it will create a new Mattermost account unassociated with their old one.'}),
                 help_text_markdown: false,
-                help_text_values: {
-                    link: (msg: string) => (
-                        <ExternalLink
-                            location='admin_console'
-                            href='https://docs.mattermost.com/manage/command-line-tools.html#mattermost-ldap-idmigrate'
-                        >
-                            {msg}
-                        </ExternalLink>
-                    ),
-                },
                 isDisabled: it.any(
                     it.not(it.userHasWritePermissionOnResource(RESOURCE_KEYS.AUTHENTICATION.LDAP)),
                     it.all(

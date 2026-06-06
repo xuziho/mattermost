@@ -12,15 +12,6 @@ import (
 )
 
 func (api *API) InitView() {
-	if api.srv.Config().FeatureFlags.IntegratedBoards {
-		api.BaseRoutes.ChannelViews.Handle("", api.APISessionRequired(createView)).Methods(http.MethodPost)
-		api.BaseRoutes.ChannelViews.Handle("", api.APISessionRequired(getViewsForChannel)).Methods(http.MethodGet)
-		api.BaseRoutes.ChannelView.Handle("", api.APISessionRequired(getView)).Methods(http.MethodGet)
-		api.BaseRoutes.ChannelView.Handle("", api.APISessionRequired(updateView)).Methods(http.MethodPatch)
-		api.BaseRoutes.ChannelView.Handle("", api.APISessionRequired(deleteView)).Methods(http.MethodDelete)
-		api.BaseRoutes.ChannelView.Handle("/sort_order", api.APISessionRequired(updateViewSortOrder)).Methods(http.MethodPost)
-		api.BaseRoutes.ChannelViewPosts.Handle("", api.APISessionRequired(getPostsForView)).Methods(http.MethodGet)
-	}
 }
 
 func createView(c *Context, w http.ResponseWriter, r *http.Request) {

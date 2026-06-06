@@ -295,36 +295,6 @@ export const groupRolesStrings: Record<string, Record<string, MessageDescriptor>
             defaultMessage: 'Manage Shared Channels',
         },
     }),
-    playbook_public: defineMessages({
-        name: {
-            id: 'admin.permissions.group.playbook_public.name',
-            defaultMessage: 'Manage Public Playbooks',
-        },
-        description: {
-            id: 'admin.permissions.group.playbook_public.description',
-            defaultMessage: 'Manage public playbooks.',
-        },
-    }),
-    playbook_private: defineMessages({
-        name: {
-            id: 'admin.permissions.group.playbook_private.name',
-            defaultMessage: 'Manage Private Playbooks',
-        },
-        description: {
-            id: 'admin.permissions.group.playbook_private.description',
-            defaultMessage: 'Manage private playbooks.',
-        },
-    }),
-    runs: defineMessages({
-        name: {
-            id: 'admin.permissions.group.runs.name',
-            defaultMessage: 'Manage Runs',
-        },
-        description: {
-            id: 'admin.permissions.group.runs.description',
-            defaultMessage: 'Manage runs.',
-        },
-    }),
     custom_groups: defineMessages({
         name: {
             id: 'admin.permissions.group.custom_groups.name',

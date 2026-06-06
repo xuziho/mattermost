@@ -528,10 +528,6 @@
     "translation": "इस सर्वर पर फ़ाइल अटैचमेंट अक्षम कर दिए गए हैं।"
   },
   {
-    "id": "api.error_get_first_admin_visit_marketplace_status",
-    "translation": "स्टोर से पहले व्यवस्थापक विज़िट मार्केटप्लेस स्थिति को पुनर्प्राप्त करने का प्रयास करने में त्रुटि।"
-  },
-  {
     "id": "api.emoji.upload.open.app_error",
     "translation": "इमोजी बनाने में असमर्थ. संलग्न इमेज को खोलने का प्रयास करते समय कोई त्रुटि उत्पन्न हुई।"
   },
@@ -756,10 +752,6 @@
     "translation": "ईमेल सत्यापित करें"
   },
   {
-    "id": "api.templates.welcome_body.app_download_info",
-    "translation": "बेहतरीन अनुभव के लिए, PC, Mac, iOS और Android के लिए ऐप डाउनलोड करें।"
-  },
-  {
     "id": "api.templates.verify_subject",
     "translation": "[{{ .SiteName }}] ईमेल सत्यापन"
   },
@@ -954,30 +946,6 @@
   {
     "id": "api.templates.email_change_body.info",
     "translation": "{{.TeamDisplayName}} के लिए आपका ईमेल बदलकर {{.NewEmail}} कर दिया गया है।"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.title",
-    "translation": "{{.WorkSpace}} वर्कस्पेस का आपका १४ दिन का परीक्षण तैयार है!"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subtitle_info",
-    "translation": "अपनी टीम बनाने और अपने वर्कस्पेस का अधिकतम लाभ उठाने के लिए निम्नलिखित कदम उठाएं।"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subtitle",
-    "translation": "अपना वर्कस्पेस सेट करें"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subject",
-    "translation": "बधाई हो!"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.start_questions",
-    "translation": "आरंभ करने के बारे में प्रश्न हैं? हमें ईमेल करें"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.signin_sub_info2",
-    "translation": "PC, Mac, iOS और Android पर सर्वश्रेष्ठ अनुभव के लिए।"
   },
   {
     "id": "api.reaction.save_reaction.invalid.app_error",
@@ -3016,10 +2984,6 @@
     "translation": "पासवर्ड रीसेट ईमेल सफलतापूर्वक भेजने में विफल।"
   },
   {
-    "id": "api.user.send_cloud_welcome_email.error",
-    "translation": "क्लाउड स्वागत ईमेल भेजने में विफल"
-  },
-  {
     "id": "api.user.saml.not_available.app_error",
     "translation": "SAML 2.0 इस सर्वर पर कॉन्फ़िगर या समर्थित नहीं है।"
   },
@@ -3064,10 +3028,6 @@
     "translation": "इस सर्वर पर AD/LDAP उपलब्ध नहीं है।"
   },
   {
-    "id": "api.user.login_cws.license.error",
-    "translation": "CWS लॉगिन निषिद्ध है।"
-  },
-  {
     "id": "api.user.login_by_oauth.parse.app_error",
     "translation": "{{.Service}} उपयोगकर्ता ऑब्जेक्ट से प्रमाणीकरण डेटा पार्स नहीं किया जा सका।"
   },
@@ -3078,10 +3038,6 @@
   {
     "id": "api.user.login_by_oauth.bot_login_forbidden.app_error",
     "translation": "बॉट लॉगिन निषिद्ध है।"
-  },
-  {
-    "id": "api.user.login_by_cws.invalid_token.app_error",
-    "translation": "CWS टोकन मान्य नहीं है"
   },
   {
     "id": "api.channel.leave.default.app_error",
@@ -3638,46 +3594,6 @@
     "translation": "अपलोड प्राप्त करने में विफल।"
   },
   {
-    "id": "api.upgrade_to_enterprise_status.signature.app_error",
-    "translation": "मैटरमॉस्ट एंटरप्राइज़ संस्करण में अपग्रेड करने में असमर्थ था। डाउनलोड की गई बाइनरी फ़ाइल का डिजिटल हस्ताक्षर सत्यापित नहीं किया जा सका।"
-  },
-  {
-    "id": "api.upgrade_to_enterprise_status.app_error",
-    "translation": "मैटरमॉस्ट एंटरप्राइज़ संस्करण में अपग्रेड करने में असमर्थ था।"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.system_not_supported.app_error",
-    "translation": "मैटरमॉस्ट एंटरप्राइज़ संस्करण में अपग्रेड करने में असमर्थ था। यह सुविधा केवल x86-64 आर्किटेक्चर वाले Linux सिस्टम पर काम करेगी।"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-user.app_error",
-    "translation": "मैटरमॉस्ट एंटरप्राइज़ संस्करण में अपग्रेड करने में असमर्थ था। मैटरमोस्ट सिस्टम उपयोगकर्ता {{.MattermostUsername}} के पास आवश्यक बाइनरी फ़ाइल तक लेखन पहुंच नहीं है। एक सिस्टम व्यवस्थापक सर्वर पर निम्न आदेश निष्पादित करके फ़ाइल अनुमतियों को अद्यतन कर सकता है जहां मैटरमॉस्ट स्थापित है:\n\n```\nचुना हुआ {{.MattermostUsername}} \"{{.Path}}\"\n```\n\nफ़ाइल अनुमतियों को बदलने के बाद, मैटरमोस्ट को फिर से अपग्रेड करने का प्रयास करें। जब आपने अपग्रेड और पुनरारंभ किया है, तो मूल बाइनरी फ़ाइल अनुमतियों को पुनर्स्थापित करना याद रखें:\n\n```\nचुना हुआ {{.FileUsername}} \"{{.Path}}\"\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-user-and-permission.app_error",
-    "translation": "मैटरमॉस्ट एंटरप्राइज़ संस्करण में अपग्रेड करने में असमर्थ था। मैटरमोस्ट सिस्टम उपयोगकर्ता {{.MattermostUsername}} के पास आवश्यक बाइनरी फ़ाइल तक लेखन पहुंच नहीं है। एक सिस्टम व्यवस्थापक सर्वर पर निम्न आदेश निष्पादित करके फ़ाइल अनुमतियों को अद्यतन कर सकता है जहां मैटरमॉस्ट स्थापित है:\n\n```\nचुना हुआ {{.MattermostUsername}} \"{{.Path}}\"\nchmod +w \"{{.Path}}\"\n```\n\nफ़ाइल अनुमतियों को बदलने के बाद, मैटरमोस्ट को फिर से अपग्रेड करने का प्रयास करें। जब आपने अपग्रेड और पुनरारंभ किया है, तो मूल बाइनरी फ़ाइल अनुमतियों को पुनर्स्थापित करना याद रखें:\n\n```\nचुना हुआ {{.FileUsername}} \"{{.Path}}\"\nchmod -w \"{{.Path}}\"\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-permission.app_error",
-    "translation": "मैटरमॉस्ट एंटरप्राइज़ संस्करण में अपग्रेड करने में असमर्थ था। मैटरमोस्ट सिस्टम उपयोगकर्ता {{.MattermostUsername}} के पास आवश्यक बाइनरी फ़ाइल तक लेखन पहुंच नहीं है। एक सिस्टम व्यवस्थापक सर्वर पर निम्न आदेश निष्पादित करके फ़ाइल अनुमतियों को अद्यतन कर सकता है जहां मैटरमॉस्ट स्थापित है:\n\n```\nchmod +w \"{{.Path}}\"\n```\n\nफ़ाइल अनुमतियों को बदलने के बाद, मैटरमोस्ट को फिर से अपग्रेड करने का प्रयास करें। जब आपने अपग्रेड और पुनरारंभ किया है, तो मूल बाइनरी फ़ाइल अनुमतियों को पुनर्स्थापित करना याद रखें:\n\n```\nchmod -w \"{{.Path}}\"\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.generic_error.app_error",
-    "translation": "मैटरमॉस्ट एंटरप्राइज़ संस्करण में अपग्रेड करने में असमर्थ था।"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.app_error",
-    "translation": "मैटरमॉस्ट एंटरप्राइज़ संस्करण में अपग्रेड पहले से चल रहा है।"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.already-enterprise.app_error",
-    "translation": "आप अपग्रेड नहीं कर सकते क्योंकि आप पहले से ही मैटरमॉस्ट एंटरप्राइज संस्करण चला रहे हैं।"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.already-done.app_error",
-    "translation": "आप पहले ही मैटरमॉस्ट एंटरप्राइज संस्करण में अपग्रेड कर चुके हैं। कृपया अपग्रेड समाप्त करने के लिए सर्वर को पुनरारंभ करें।"
-  },
-  {
     "id": "api.unmarshal_error",
     "translation": "अनमार्शल करने में विफल।"
   },
@@ -3704,46 +3620,6 @@
   {
     "id": "api.templates.deactivate_body.info",
     "translation": "आपने अपना अकाऊंत {{ .SiteURL }} पर निष्क्रिय कर दिया है।"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.mm_apps",
-    "translation": "मोबाइल और डेस्कटॉप ऐप्स"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.invite_sub_info",
-    "translation": "अपने सदस्यों को {{.WorkSpace}} में शामिल होने के लिए आमंत्रित करने के लिए इस लिंक को साझा करें:"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.invite_info",
-    "translation": "लोगों को अपने कार्यक्षेत्र में आमंत्रित करें"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.info2",
-    "translation": "भविष्य में उपयोग के लिए अपने लिंक को सहेजना या बुकमार्क करना सुनिश्चित करें।"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.info",
-    "translation": "बनाने के लिए धन्यवाद "
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.download_mm_info",
-    "translation": "मैटरमोस्ट ऐप डाउनलोड करें"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.button",
-    "translation": "ओपन मैटरमोस्ट"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.app_market_place",
-    "translation": "ऐप मार्केटप्लेस।"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.add_apps_sub_info",
-    "translation": "Github, Google Calendar और Chrome जैसे टूल के साथ अपने काम को सुव्यवस्थित करें। हमारे पास मौजूद सभी एकीकरणों का अन्वेषण करें"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.add_apps_info",
-    "translation": "अपने कार्यक्षेत्र में ऐप्स जोड़ें"
   },
   {
     "id": "api.user.oauth_to_email.not_available.app_error",
@@ -3846,14 +3722,6 @@
     "translation": "वर्तमान चैनल को पुनः प्राप्त करने में त्रुटि।"
   },
   {
-    "id": "api.command_help.name",
-    "translation": "सहायता"
-  },
-  {
-    "id": "api.command_help.desc",
-    "translation": "मैटरमोस्ट सहायता संदेश दिखाएं"
-  },
-  {
     "id": "api.command_groupmsg.permission.app_error",
     "translation": "आपके पास नया ग्रूप मैसेज बनाने के लिए उपयुक्त अनुमतियाँ नहीं हैं।"
   },
@@ -3947,22 +3815,6 @@
   {
     "id": "api.command.admin_only.app_error",
     "translation": "इंटीग्रेश्न्स केवल व्यवस्थापकों तक ही सीमित है।"
-  },
-  {
-    "id": "api.cloud.request_error",
-    "translation": "CWS को अनुरोध संसाधित करने में त्रुटि।"
-  },
-  {
-    "id": "api.cloud.license_error",
-    "translation": "आपका लाइसेंस क्लाउड अनुरोधों का समर्थन नहीं करता है।"
-  },
-  {
-    "id": "api.cloud.cws_webhook_event_missing_error",
-    "translation": "वैबहुक ईवेंट को हैंडल नहीं किया गया था। या तो यह गायब है या यह मान्य नहीं है।"
-  },
-  {
-    "id": "api.cloud.app_error",
-    "translation": "क्लाउड एपीआई अनुरोध के दौरान आंतरिक त्रुटि।"
   },
   {
     "id": "api.channel.update_team_member_roles.scheme_role.app_error",
@@ -4461,10 +4313,6 @@
     "translation": " आप जिस धागे का अनुसरण कर रहे हैं उसका उत्तर दिया।"
   },
   {
-    "id": "api.error_set_first_admin_visit_marketplace_status",
-    "translation": "स्टोर में पहले व्यवस्थापक विज़िट मार्केटप्लेस स्थिति को सहेजने का प्रयास करने में त्रुटि।"
-  },
-  {
     "id": "api.user.invalidate_verify_email_tokens_delete.error",
     "translation": "ईमेल सत्यापन टोकन को अमान्य करते समय टोकन निकालने में असमर्थ"
   },
@@ -4631,10 +4479,6 @@
   {
     "id": "api.templates.email_footer",
     "translation": "अपनी अधिसूचना प्राथमिकताएं बदलने के लिए, अपनी टीम साइट पर लॉग इन करें और सेटिंग > सूचनाएं पर जाएं।"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.signin_sub_info",
-    "translation": "कार्यक्षेत्र में साइन इन करें"
   },
   {
     "id": "api.team.update_team_scheme.scheme_scope.error",
@@ -6757,18 +6601,6 @@
     "translation": "पर बनाएं एक मान्य समय होना चाहिए।"
   },
   {
-    "id": "app.plugin.marketplace_disabled.app_error",
-    "translation": "मार्केटप्लेस अक्षम कर दिया गया है. विवरण के लिए कृपया अपने लॉग जांचें।"
-  },
-  {
-    "id": "app.plugin.marketplace_client.failed_to_fetch",
-    "translation": "मार्केटप्लेस सर्वर से प्लगइन्स प्राप्त करने में विफल।"
-  },
-  {
-    "id": "app.plugin.marketplace_client.app_error",
-    "translation": "मार्केटप्लेस क्लाइंट बनाने में विफल।"
-  },
-  {
     "id": "app.plugin.manifest.app_error",
     "translation": "निकाले गए प्लगइन के लिए मेनिफेस्ट खोजने में असमर्थ।"
   },
@@ -6779,10 +6611,6 @@
   {
     "id": "app.plugin.invalid_id.app_error",
     "translation": "प्लगइन Id कम से कम {{.Min}} वर्ण, अधिकतम {{.Max}} वर्णों का होना चाहिए और {{.Regex}} से मेल खाना चाहिए।"
-  },
-  {
-    "id": "app.plugin.install_marketplace_plugin.app_error",
-    "translation": "मार्केटप्लेस प्लगइन स्थापित करने में विफल।"
   },
   {
     "id": "app.plugin.install_id_failed_remove.app_error",
@@ -7272,20 +7100,8 @@
     "translation": "टाइमआउट लिखने के लिए अमान्य मान।"
   },
   {
-    "id": "app.system.get_onboarding_request.app_error",
-    "translation": "ऑनबोर्डिंग पूर्णता स्थिति प्राप्त करने में विफल।"
-  },
-  {
     "id": "app.system.get_by_name.app_error",
     "translation": "सिस्टम चर खोजने में असमर्थ।"
-  },
-  {
-    "id": "app.system.complete_onboarding_request.no_first_user",
-    "translation": "ऑनबोर्डिंग केवल एक सिस्टम प्रशासक द्वारा पूरा किया जा सकता है।"
-  },
-  {
-    "id": "app.system.complete_onboarding_request.app_error",
-    "translation": "संपूर्ण ऑनबोर्डिंग अनुरोध को डीकोड करने में विफल।"
   },
   {
     "id": "app.submit_interactive_dialog.json_error",
@@ -7494,22 +7310,6 @@
   {
     "id": "app.plugin.modify_saml.app_error",
     "translation": "saml फ़ाइलों को संशोधित नहीं कर सकता।"
-  },
-  {
-    "id": "app.plugin.marshal.app_error",
-    "translation": "मार्केटप्लेस प्लगइन्स को मार्शल करने में विफल।"
-  },
-  {
-    "id": "app.plugin.marketplace_plugins.signature_not_found.app_error",
-    "translation": "अनुरोधित मार्केटप्लेस प्लगइन हस्ताक्षर नहीं मिल सका।"
-  },
-  {
-    "id": "app.plugin.marketplace_plugins.not_found.app_error",
-    "translation": "अनुरोधित मार्केटप्लेस प्लगइन नहीं मिला।"
-  },
-  {
-    "id": "app.plugin.marketplace_plugin_request.app_error",
-    "translation": "मार्केटप्लेस प्लगइन अनुरोध को डीकोड करने में विफल।"
   },
   {
     "id": "model.user_access_token.is_valid.token.app_error",
@@ -7832,14 +7632,6 @@
     "translation": "यदि यह आप नहीं थे, तो आप सुरक्षित रूप से इस ईमेल को अनदेखा कर सकते हैं।"
   },
   {
-    "id": "api.templates.welcome_body.app_download_title",
-    "translation": "डेस्कटॉप और मोबाइल ऐप डाउनलोड करें"
-  },
-  {
-    "id": "api.templates.welcome_body.app_download_button",
-    "translation": "डाउनलोड"
-  },
-  {
     "id": "api.templates.verify_body.subTitle2",
     "translation": "अपना ईमेल पता सत्यापित करने के लिए नीचे क्लिक करें।"
   },
@@ -7868,34 +7660,6 @@
     "translation": "अमान्य_अनुरोध: आपूर्ति की गई रीडायरेक्ट_यूरी प्राधिकरण कोड रीडायरेक्ट_यूरी से मेल नहीं खाती।"
   },
   {
-    "id": "api.command_marketplace.unsupported.app_error",
-    "translation": "मार्केटप्लेस कमांड आपके डिवाइस पर समर्थित नहीं है।"
-  },
-  {
-    "id": "api.command_marketplace.name",
-    "translation": "बाजार"
-  },
-  {
-    "id": "api.command_marketplace.desc",
-    "translation": "बाज़ार खोलें"
-  },
-  {
-    "id": "api.command_help.success",
-    "translation": "मैटरमोस्ट सुरक्षित संचार, सहयोग और उपकरणों और टीमों के काम के ऑर्केस्ट्रेशन के लिए एक खुला स्रोत मंच है।\nमैटरमोस्ट में तीन प्रमुख उपकरण हैं:\n\n**चैनल** - 1:1 और समूह संदेश के माध्यम से अपनी टीम से जुड़े रहें।\n**[प्लेबुक](/प्लेबुक)** - विशिष्ट और अनुमानित परिणाम प्राप्त करने के लिए दोहराने योग्य प्रक्रियाओं का निर्माण और कॉन्फ़िगर करें।\n**[Boards](/boards)** - अपनी टीम को प्रमुख मील के पत्थर हासिल करने में मदद करने के लिए कानबन बोर्ड संरचना में परियोजनाओं और कार्यों को प्रबंधित करें।\n\n[दस्तावेज़ीकरण और मार्गदर्शिकाएँ देखें]({{.HelpLink}})"
-  },
-  {
-    "id": "api.cloud.teams_limit_reached.restore",
-    "translation": "टीम को बहाल करने में असमर्थ क्योंकि टीमों की सीमा पूरी हो चुकी है"
-  },
-  {
-    "id": "api.cloud.teams_limit_reached.create",
-    "translation": "टीम बनाने में असमर्थ क्योंकि टीमों की सीमा पूरी हो चुकी है"
-  },
-  {
-    "id": "api.cloud.notify_admin_to_upgrade_error.already_notified",
-    "translation": "व्यवस्थापक को पहले ही सूचित कर दिया गया है"
-  },
-  {
     "id": "api.admin.syncables_error",
     "translation": "उपयोगकर्ता को समूह-टीमों और समूह-चैनलों में जोड़ने में विफल रहा"
   },
@@ -7910,5 +7674,9 @@
   {
     "id": "api.acknowledgement.delete.archived_channel.app_error",
     "translation": "आप संग्रहीत चैनल में पावती नहीं निकाल सकते।"
+  },
+  {
+    "id": "api.templates.license_up_for_renewal_review_license",
+    "translation": "Review license"
   }
 ]

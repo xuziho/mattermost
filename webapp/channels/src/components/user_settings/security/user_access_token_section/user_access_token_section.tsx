@@ -10,14 +10,13 @@ import type {ActionResult} from 'mattermost-redux/types/actions';
 import * as UserUtils from 'mattermost-redux/utils/user_utils';
 
 import ConfirmModal from 'components/confirm_modal';
-import ExternalLink from 'components/external_link';
 import SaveButton from 'components/save_button';
 import SettingItemMax from 'components/setting_item_max';
 import SettingItemMin from 'components/setting_item_min';
 import type SettingItemMinComponent from 'components/setting_item_min';
 import WarningIcon from 'components/widgets/icons/fa_warning_icon';
 
-import {Constants, DeveloperLinks} from 'utils/constants';
+import {Constants} from 'utils/constants';
 import * as Keyboard from 'utils/keyboard';
 import {isMobile} from 'utils/user_agent';
 
@@ -454,25 +453,7 @@ export default class UserAccessTokenSection extends React.PureComponent<Props, S
                 <span>
                     <FormattedMessage
                         id='user.settings.tokens.description_mobile'
-                        defaultMessage='<linkTokens>Personal access tokens</linkTokens> function similarly to session tokens and can be used by integrations to <linkAPI>authenticate against the REST API</linkAPI>. Create new tokens on your desktop.'
-                        values={{
-                            linkTokens: (msg: React.ReactNode) => (
-                                <ExternalLink
-                                    href={DeveloperLinks.PERSONAL_ACCESS_TOKENS}
-                                    location='user_access_token_section'
-                                >
-                                    {msg}
-                                </ExternalLink>
-                            ),
-                            linkAPI: (msg: React.ReactNode) => (
-                                <ExternalLink
-                                    href='https://api.mattermost.com/#tag/authentication'
-                                    location='user_access_token_section'
-                                >
-                                    {msg}
-                                </ExternalLink>
-                            ),
-                        }}
+                        defaultMessage='Personal access tokens function similarly to session tokens and can be used by integrations to authenticate against the REST API. Create new tokens on your desktop.'
                     />
                 </span>
             );
@@ -481,25 +462,7 @@ export default class UserAccessTokenSection extends React.PureComponent<Props, S
                 <span>
                     <FormattedMessage
                         id='user.settings.tokens.description'
-                        defaultMessage='<linkTokens>Personal access tokens</linkTokens> function similarly to session tokens and can be used by integrations to <linkAPI>authenticate against the REST API</linkAPI>.'
-                        values={{
-                            linkTokens: (msg: React.ReactNode) => (
-                                <ExternalLink
-                                    href={DeveloperLinks.PERSONAL_ACCESS_TOKENS}
-                                    location='user_access_token_section'
-                                >
-                                    {msg}
-                                </ExternalLink>
-                            ),
-                            linkAPI: (msg: React.ReactNode) => (
-                                <ExternalLink
-                                    href='https://api.mattermost.com/#tag/authentication'
-                                    location='user_access_token_section'
-                                >
-                                    {msg}
-                                </ExternalLink>
-                            ),
-                        }}
+                        defaultMessage='Personal access tokens function similarly to session tokens and can be used by integrations to authenticate against the REST API.'
                     />
                 </span>
             );

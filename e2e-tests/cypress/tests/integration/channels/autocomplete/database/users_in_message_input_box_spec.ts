@@ -19,11 +19,7 @@ describe('Autocomplete with Database - Users', () => {
     let testUsers: Record<string, SimpleUser>;
 
     before(() => {
-        cy.apiGetClientLicense().then(({isCloudLicensed}) => {
-            if (!isCloudLicensed) {
-                cy.shouldHaveElasticsearchDisabled();
-            }
-        });
+        cy.shouldHaveElasticsearchDisabled();
 
         createSearchData(prefix).then((searchData) => {
             testUsers = searchData.users;

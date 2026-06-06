@@ -123,8 +123,6 @@ const values = {
 
     SYSCONSOLE_READ_ABOUT_EDITION_AND_LICENSE: 'sysconsole_read_about_edition_and_license',
     SYSCONSOLE_WRITE_ABOUT_EDITION_AND_LICENSE: 'sysconsole_write_about_edition_and_license',
-    SYSCONSOLE_READ_BILLING: 'sysconsole_read_billing',
-    SYSCONSOLE_WRITE_BILLING: 'sysconsole_write_billing',
     SYSCONSOLE_READ_REPORTING_SITE_STATISTICS: 'sysconsole_read_reporting_site_statistics',
     SYSCONSOLE_WRITE_REPORTING_SITE_STATISTICS: 'sysconsole_write_reporting_site_statistics',
     SYSCONSOLE_READ_REPORTING_TEAM_STATISTICS: 'sysconsole_read_reporting_team_statistics',
@@ -234,26 +232,6 @@ const values = {
     SYSCONSOLE_READ_EXPERIMENTAL_BLEVE: 'sysconsole_read_experimental_bleve',
     SYSCONSOLE_WRITE_EXPERIMENTAL_BLEVE: 'sysconsole_write_experimental_bleve',
 
-    SYSCONSOLE_READ_PRODUCTS_BOARDS: 'sysconsole_read_products_boards',
-    SYSCONSOLE_WRITE_PRODUCTS_BOARDS: 'sysconsole_write_products_boards',
-
-    PLAYBOOK_PUBLIC_CREATE: 'playbook_public_create',
-    PLAYBOOK_PUBLIC_MANAGE_PROPERTIES: 'playbook_public_manage_properties',
-    PLAYBOOK_PUBLIC_MANAGE_MEMBERS: 'playbook_public_manage_members',
-    PLAYBOOK_PUBLIC_VIEW: 'playbook_public_view',
-    PLAYBOOK_PUBLIC_MAKE_PRIVATE: 'playbook_public_make_private',
-
-    PLAYBOOK_PRIVATE_CREATE: 'playbook_private_create',
-    PLAYBOOK_PRIVATE_MANAGE_PROPERTIES: 'playbook_private_manage_properties',
-    PLAYBOOK_PRIVATE_MANAGE_MEMBERS: 'playbook_private_manage_members',
-    PLAYBOOK_PRIVATE_VIEW: 'playbook_private_view',
-    PLAYBOOK_PRIVATE_MAKE_PUBLIC: 'playbook_private_make_public',
-
-    RUN_CREATE: 'run_create',
-    RUN_MANAGE_PROPERTIES: 'run_manage_properties',
-    RUN_MANAGE_MEMBERS: 'run_manage_members',
-    RUN_VIEW: 'run_view',
-
     CHANNEL_MODERATED_PERMISSIONS: {
         CREATE_POST: 'create_post',
         CREATE_REACTIONS: 'create_reactions',
@@ -288,7 +266,6 @@ const values = {
 
 values.SYSCONSOLE_READ_PERMISSIONS = [
     values.SYSCONSOLE_READ_ABOUT_EDITION_AND_LICENSE,
-    values.SYSCONSOLE_READ_BILLING,
     values.SYSCONSOLE_READ_REPORTING_SITE_STATISTICS,
     values.SYSCONSOLE_READ_REPORTING_TEAM_STATISTICS,
     values.SYSCONSOLE_READ_REPORTING_SERVER_LOGS,
@@ -341,12 +318,10 @@ values.SYSCONSOLE_READ_PERMISSIONS = [
     values.SYSCONSOLE_READ_EXPERIMENTAL_FEATURES,
     values.SYSCONSOLE_READ_EXPERIMENTAL_FEATURE_FLAGS,
     values.SYSCONSOLE_READ_EXPERIMENTAL_BLEVE,
-    values.SYSCONSOLE_READ_PRODUCTS_BOARDS,
 ];
 
 values.SYSCONSOLE_WRITE_PERMISSIONS = [
     values.SYSCONSOLE_WRITE_ABOUT_EDITION_AND_LICENSE,
-    values.SYSCONSOLE_WRITE_BILLING,
     values.SYSCONSOLE_WRITE_REPORTING_SITE_STATISTICS,
     values.SYSCONSOLE_WRITE_REPORTING_TEAM_STATISTICS,
     values.SYSCONSOLE_WRITE_REPORTING_SERVER_LOGS,
@@ -399,7 +374,6 @@ values.SYSCONSOLE_WRITE_PERMISSIONS = [
     values.SYSCONSOLE_WRITE_EXPERIMENTAL_FEATURES,
     values.SYSCONSOLE_WRITE_EXPERIMENTAL_FEATURE_FLAGS,
     values.SYSCONSOLE_WRITE_EXPERIMENTAL_BLEVE,
-    values.SYSCONSOLE_WRITE_PRODUCTS_BOARDS,
 ];
 
 export default values;

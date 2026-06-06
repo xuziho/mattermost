@@ -215,14 +215,12 @@ func (a *App) SessionHasPermissionToCreateJob(session model.Session, job *model.
 	case
 		model.JobTypeMigrations,
 		model.JobTypePlugins,
-		model.JobTypeProductNotices,
 		model.JobTypeExpiryNotify,
 		model.JobTypeActiveUsers,
 		model.JobTypeImportProcess,
 		model.JobTypeImportDelete,
 		model.JobTypeExportProcess,
 		model.JobTypeExportDelete,
-		model.JobTypeCloud,
 		model.JobTypeExtractContent:
 		return a.SessionHasPermissionTo(session, model.PermissionManageJobs), model.PermissionManageJobs
 	case model.JobTypeAccessControlSync:
@@ -286,14 +284,12 @@ func (a *App) SessionHasPermissionToManageJob(session model.Session, job *model.
 	case
 		model.JobTypeMigrations,
 		model.JobTypePlugins,
-		model.JobTypeProductNotices,
 		model.JobTypeExpiryNotify,
 		model.JobTypeActiveUsers,
 		model.JobTypeImportProcess,
 		model.JobTypeImportDelete,
 		model.JobTypeExportProcess,
 		model.JobTypeExportDelete,
-		model.JobTypeCloud,
 		model.JobTypeExtractContent:
 		permission = model.PermissionManageJobs
 	case model.JobTypeAccessControlSync:
@@ -322,14 +318,12 @@ func (a *App) SessionHasPermissionToReadJob(session model.Session, jobType strin
 	case
 		model.JobTypeMigrations,
 		model.JobTypePlugins,
-		model.JobTypeProductNotices,
 		model.JobTypeExpiryNotify,
 		model.JobTypeActiveUsers,
 		model.JobTypeImportProcess,
 		model.JobTypeImportDelete,
 		model.JobTypeExportProcess,
 		model.JobTypeExportDelete,
-		model.JobTypeCloud,
 		model.JobTypeMobileSessionMetadata,
 		model.JobTypeExtractContent:
 		return a.SessionHasPermissionTo(session, model.PermissionReadJobs), model.PermissionReadJobs

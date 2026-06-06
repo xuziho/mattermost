@@ -83,9 +83,6 @@ export type WebSocketMessage = (
     Messages.ConfigChanged |
     Messages.GuestsDeactivated |
     Messages.LicenseChanged |
-    Messages.CloudSubscriptionChanged |
-    Messages.FirstAdminVisitMarketplaceStatusReceived |
-    Messages.HostedCustomerSignupProgressUpdated |
 
     Messages.CPAFieldCreated |
     Messages.CPAFieldUpdated |

@@ -5,11 +5,10 @@ import React from 'react';
 
 import type {AppBinding} from '@mattermost/types/apps';
 
-import {Permissions} from 'mattermost-redux/constants';
 import {AppBindingLocations} from 'mattermost-redux/constants/apps';
 
 import mergeObjects from 'packages/mattermost-redux/test/merge_objects';
-import {renderWithContext, screen} from 'tests/react_testing_utils';
+import {renderWithContext} from 'tests/react_testing_utils';
 import {TestHelper} from 'utils/test_helper';
 
 import type {ChannelHeaderButtonAction, RightHandSidebarComponent} from 'types/store/plugins';
@@ -17,22 +16,22 @@ import type {ChannelHeaderButtonAction, RightHandSidebarComponent} from 'types/s
 import AppBar from './app_bar';
 
 describe('components/app_bar/app_bar', () => {
-    const channelHeaderComponents: ChannelHeaderButtonAction[] = [
-        {
-            id: 'the_component_id',
-            pluginId: 'playbooks',
-            icon: 'fallback_component' as any,
-            tooltipText: 'Playbooks Tooltip',
-            action: jest.fn(),
-            dropdownText: 'Playbooks dropdown',
-        },
-    ];
+	const channelHeaderComponents: ChannelHeaderButtonAction[] = [
+		{
+			id: 'the_component_id',
+			pluginId: 'custom-plugin',
+			icon: 'fallback_component' as any,
+			tooltipText: 'Custom plugin tooltip',
+			action: jest.fn(),
+			dropdownText: 'Custom plugin dropdown',
+		},
+	];
 
     const rhsComponents: RightHandSidebarComponent[] = [
-        {
-            id: 'the_rhs_plugin_component_id',
-            pluginId: 'playbooks',
-            component: () => null,
+		{
+			id: 'the_rhs_plugin_component_id',
+			pluginId: 'custom-plugin',
+			component: () => null,
             title: 'some title',
         },
     ];
@@ -61,7 +60,6 @@ describe('components/app_bar/app_bar', () => {
             components: {
                 AppBar: channelHeaderComponents,
                 RightHandSidebarComponent: rhsComponents,
-                Product: [],
             },
         },
         entities: {
@@ -134,56 +132,4 @@ describe('components/app_bar/app_bar', () => {
         expect(asFragment()).toMatchSnapshot();
     });
 
-    test('should not show marketplace if disabled or user does not have SYSCONSOLE_WRITE_PLUGINS permission', () => {
-        const testState = mergeObjects(initialState, {
-            entities: {
-                general: {
-                    config: {
-                        DisableAppBar: 'true',
-                        FeatureFlagAppsEnabled: 'true',
-                        EnableMarketplace: 'true',
-                        PluginsEnabled: 'true',
-                    },
-                },
-            },
-        });
-
-        renderWithContext(
-            <AppBar/>,
-            testState,
-        );
-
-        expect(screen.queryByLabelText('App Marketplace')).not.toBeInTheDocument();
-    });
-
-    test('should show marketplace if enabled and user has SYSCONSOLE_WRITE_PLUGINS permission', () => {
-        const testState = mergeObjects(initialState, {
-            entities: {
-                general: {
-                    config: {
-                        DisableAppBar: 'false',
-                        FeatureFlagAppsEnabled: 'true',
-                        EnableMarketplace: 'true',
-                        PluginsEnabled: 'true',
-                    },
-                },
-                roles: {
-                    roles: {
-                        system_user: {
-                            permissions: [
-                                Permissions.SYSCONSOLE_WRITE_PLUGINS,
-                            ],
-                        },
-                    },
-                },
-            },
-        });
-
-        renderWithContext(
-            <AppBar/>,
-            testState,
-        );
-
-        expect(screen.queryByLabelText('App Marketplace')).toBeInTheDocument();
-    });
 });

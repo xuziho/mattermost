@@ -2,21 +2,13 @@
 // See LICENSE.txt for license information.
 
 import classNames from 'classnames';
-import noop from 'lodash/noop';
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {FormattedMessage, defineMessage, useIntl} from 'react-intl';
-import {useSelector} from 'react-redux';
 
 import type {Team} from '@mattermost/types/teams';
 
-import {getLicense} from 'mattermost-redux/selectors/entities/general';
-
-import useGetUsage from 'components/common/hooks/useGetUsage';
-import useGetUsageDeltas from 'components/common/hooks/useGetUsageDeltas';
-import useOpenPricingModal from 'components/common/hooks/useOpenPricingModal';
 import AdminPanel from 'components/widgets/admin_console/admin_panel';
 import TeamIcon from 'components/widgets/team_icon/team_icon';
-import WithTooltip from 'components/with_tooltip';
 
 import {imageURLForTeam} from 'utils/utils';
 
@@ -32,82 +24,27 @@ type Props = {
 
 export function TeamProfile({team, isArchived, onToggleArchive, isDisabled, saveNeeded}: Props) {
     const teamIconUrl = imageURLForTeam(team);
-    const usageDeltas = useGetUsageDeltas();
-    const usage = useGetUsage();
-    const license = useSelector(getLicense);
     const intl = useIntl();
-    const {openPricingModal, isAirGapped} = useOpenPricingModal();
-
-    const [overrideRestoreDisabled, setOverrideRestoreDisabled] = useState(false);
-    const [restoreDisabled, setRestoreDisabled] = useState(usageDeltas.teams.teamsLoaded && usageDeltas.teams.active >= 0 && isArchived);
-
-    useEffect(() => {
-        setRestoreDisabled(license.Cloud === 'true' && usageDeltas.teams.teamsLoaded && usageDeltas.teams.active >= 0 && isArchived && !overrideRestoreDisabled && !saveNeeded);
-    }, [usageDeltas, isArchived, overrideRestoreDisabled, saveNeeded, license]);
-
-    // If in a cloud context and the teams usage hasn't loaded, don't render anything to prevent weird flashes on the screen
-    if (license.Cloud === 'true' && !usage.teams.teamsLoaded) {
-        return null;//
-    }
 
     const archiveBtn = isArchived ?
         defineMessage({id: 'admin.team_settings.team_details.unarchiveTeam', defaultMessage: 'Unarchive Team'}) :
         defineMessage({id: 'admin.team_settings.team_details.archiveTeam', defaultMessage: 'Archive Team'});
 
     const toggleArchive = () => {
-        setOverrideRestoreDisabled(true);
         onToggleArchive();
     };
     const button = () => {
-        if (restoreDisabled) {
-            return (
-                <WithTooltip
-                    title={intl.formatMessage({id: 'workspace_limits.teams_limit_reached.upgrade_to_unarchive', defaultMessage: 'Upgrade to Unarchive'})}
-                    hint={intl.formatMessage({id: 'workspace_limits.teams_limit_reached.tool_tip', defaultMessage: 'You\'ve reached the team limit for your current plan. Consider upgrading to unarchive this team or archive your other teams'})}
-                >
-                    <div
-                        className={'disabled-overlay-wrapper'}
-                    >
-                        <button
-                            type='button'
-                            disabled={restoreDisabled}
-                            style={{pointerEvents: 'none'}}
-                            className={
-                                classNames(
-                                    'btn',
-                                    'btn-danger',
-                                    'ArchiveButton',
-                                    {ArchiveButton___archived: isArchived},
-                                    {ArchiveButton___unarchived: !isArchived},
-                                    {disabled: isDisabled},
-                                    'cloud-limits-disabled',
-                                )
-                            }
-                            onClick={noop}
-                        >
-                            {isArchived ? (
-                                <i className='icon icon-archive-arrow-up-outline'/>
-                            ) : (
-                                <i className='icon icon-archive-outline'/>
-                            )}
-                            <FormattedMessage {...archiveBtn}/>
-                        </button>
-                    </div>
-                </WithTooltip>
-            );
-        }
         return (
             <button
                 type='button'
-                disabled={restoreDisabled}
+                disabled={isDisabled || saveNeeded}
                 className={
                     classNames(
                         'btn',
                         'ArchiveButton',
                         {ArchiveButton___archived: isArchived},
                         {ArchiveButton___unarchived: !isArchived},
-                        {disabled: isDisabled},
-                        'cloud-limits-disabled',
+                        {disabled: isDisabled || saveNeeded},
                     )
                 }
                 onClick={toggleArchive}
@@ -167,23 +104,6 @@ export function TeamProfile({team, isArchived, onToggleArchive, isDisabled, save
                     </div>
                     <div className='AdminChannelDetails_archiveContainer'>
                         {button()}
-                        {restoreDisabled && !isAirGapped &&
-                            <button
-                                onClick={openPricingModal}
-                                type='button'
-                                className={
-                                    classNames(
-                                        'btn',
-                                        'btn-secondary',
-                                        'upgrade-options-button',
-                                    )
-                                }
-                            >
-                                <FormattedMessage
-                                    id={'workspace_limits.teams_limit_reached.view_upgrade_options'}
-                                    defaultMessage={'View upgrade options'}
-                                />
-                            </button>}
                     </div>
                 </div>
             </div>

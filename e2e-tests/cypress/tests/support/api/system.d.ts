@@ -23,7 +23,6 @@ declare namespace Cypress {
          * See https://api.mattermost.com/#tag/system/paths/~1license~1client/get
          * @returns {ClientLicense} `out.license` as `ClientLicense`
          * @returns {Boolean} `out.isLicensed`
-         * @returns {Boolean} `out.isCloudLicensed`
          *
          * @example
          *   cy.apiGetClientLicense().then(({license}) => {
@@ -155,7 +154,7 @@ declare namespace Cypress {
         shouldHaveElasticsearchDisabled(): Chainable;
 
         /**
-         * Allow test for server other than Cloud edition or with Cloud license.
+         * Compatibility no-op for tests that used to skip cloud deployments.
          * Otherwise, fail fast.
          * @example
          *   cy.shouldNotRunOnCloudEdition();

@@ -8,7 +8,7 @@
         Retrieve a list of IP filters applied to the workspace
 
         __Minimum server version__: 9.1
-        __Note:__ This is intended for internal use and only applicable to Cloud workspaces
+        __Note:__ This endpoint is intended for internal use.
       operationId: GetIPFilters
       responses:
         "200":
@@ -17,7 +17,7 @@
             application/json:
               schema:
                 type: array
-                items: 
+                items:
                   $ref: "#/components/schemas/AllowedIPRange"
         "401":
           $ref: "#/components/responses/Unauthorized"
@@ -34,14 +34,14 @@
         Adjust IP Filters applied to the workspace
 
         __Minimum server version__: 9.1
-        __Note:__ This is intended for internal use and only applicable to Cloud workspaces
+        __Note:__ This endpoint is intended for internal use.
       operationId: ApplyIPFilters
       requestBody:
         content:
           application/json:
             schema:
               type: array
-              items: 
+              items:
                 $ref: "#/components/schemas/AllowedIPRange"
         description: IP Filters to apply
         required: true
@@ -52,7 +52,7 @@
             application/json:
               schema:
                 type: array
-                items: 
+                items:
                   $ref: "#/components/schemas/AllowedIPRange"
         "401":
           $ref: "#/components/responses/Unauthorized"
@@ -70,7 +70,7 @@
         Retrieve your current IP address as seen by the workspace
 
         __Minimum server version__: 9.1
-        __Note:__ This is intended for internal use and only applicable to Cloud workspaces
+        __Note:__ This endpoint is intended for internal use.
       operationId: MyIP
       responses:
         "200":

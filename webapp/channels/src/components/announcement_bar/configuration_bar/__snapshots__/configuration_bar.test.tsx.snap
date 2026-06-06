@@ -17,11 +17,6 @@ exports[`components/ConfigurationBar should match snapshot, expired 1`] = `
             src=""
           />
           Enterprise license is expired and some features may be disabled.
-          <button
-            class="btn btn-tertiary btn-xs btn-inverted annnouncementBar__renewLicense"
-          >
-            Contact sales
-          </button>
         </div>
       </span>
     </div>
@@ -34,8 +29,6 @@ exports[`components/ConfigurationBar should match snapshot, expired 1`] = `
   </div>
 </div>
 `;
-
-exports[`components/ConfigurationBar should match snapshot, expired, cloud license, show nothing 1`] = `<div />`;
 
 exports[`components/ConfigurationBar should match snapshot, expired, in grace period 1`] = `
 <div>
@@ -54,11 +47,6 @@ exports[`components/ConfigurationBar should match snapshot, expired, in grace pe
             src=""
           />
           Enterprise license is expired and some features may be disabled.
-          <button
-            class="btn btn-tertiary btn-xs btn-inverted annnouncementBar__renewLicense"
-          >
-            Contact sales
-          </button>
         </div>
       </span>
     </div>
@@ -92,8 +80,6 @@ exports[`components/ConfigurationBar should match snapshot, expired, regular use
 </div>
 `;
 
-exports[`components/ConfigurationBar should match snapshot, expiring, cloud license, show nothing 1`] = `<div />`;
-
 exports[`components/ConfigurationBar should match snapshot, expiring, trial license 1`] = `
 <div>
   <div
@@ -110,12 +96,7 @@ exports[`components/ConfigurationBar should match snapshot, expiring, trial lice
             class="advisor-icon"
             src=""
           />
-          This is the last day of your free trial. Purchase a license now to continue using Mattermost Professional and Enterprise features.
-          <button
-            class="btn btn-tertiary btn-xs btn-inverted annnouncementBar__purchaseNow"
-          >
-            Purchase a License Now
-          </button>
+          This server license expires today. Some licensed features may be unavailable after it expires.
         </div>
       </span>
     </div>
@@ -145,12 +126,7 @@ exports[`components/ConfigurationBar should match snapshot, expiring, trial lice
             class="advisor-icon"
             src=""
           />
-          This is the last day of your free trial.
-          <button
-            class="btn btn-tertiary btn-xs btn-inverted annnouncementBar__purchaseNow"
-          >
-            Purchase a License Now
-          </button>
+          This server license expires today.
         </div>
       </span>
     </div>

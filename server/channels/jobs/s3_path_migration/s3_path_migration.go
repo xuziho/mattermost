@@ -6,7 +6,6 @@ package s3_path_migration
 import (
 	"errors"
 	"net/http"
-	"os"
 	"strconv"
 	"time"
 
@@ -84,7 +83,7 @@ func (worker *S3PathMigrationWorker) JobChannel() chan<- model.Job {
 }
 
 func (worker *S3PathMigrationWorker) IsEnabled(_ *model.Config) bool {
-	return os.Getenv("MM_CLOUD_FILESTORE_BIFROST") != ""
+	return false
 }
 
 func (worker *S3PathMigrationWorker) getJobMetadata(job *model.Job, key string) (int, *model.AppError) {

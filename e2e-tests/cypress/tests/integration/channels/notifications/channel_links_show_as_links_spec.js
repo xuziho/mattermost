@@ -11,7 +11,7 @@
 
 import * as TIMEOUTS from '../../../fixtures/timeouts';
 import {
-    FixedCloudConfig,
+    FixedDefaultConfig,
     getMentionEmailTemplate,
     verifyEmailBody,
 } from '../../../utils';
@@ -96,7 +96,7 @@ describe('Notifications', () => {
             cy.getRecentEmail(receiver).then((data) => {
                 const {body, from, subject} = data;
                 const siteName = config.TeamSettings.SiteName;
-                const feedbackEmail = config.EmailSettings.FeedbackEmail || FixedCloudConfig.EmailSettings.FEEDBACK_EMAIL;
+                const feedbackEmail = config.EmailSettings.FeedbackEmail || FixedDefaultConfig.EmailSettings.FEEDBACK_EMAIL;
 
                 // * Verify that email is from default feedback email
                 expect(from).to.contain(feedbackEmail);

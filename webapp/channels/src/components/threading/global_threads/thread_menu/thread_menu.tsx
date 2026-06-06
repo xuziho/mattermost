@@ -4,6 +4,7 @@
 import React, {memo, useCallback} from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
 import {useDispatch, useSelector} from 'react-redux';
+import type {AnyAction} from 'redux';
 
 import {DotsVerticalIcon} from '@mattermost/compass-icons/components';
 import type {UserThread} from '@mattermost/types/threads';
@@ -74,7 +75,7 @@ function ThreadMenu({
         }));
         const lastViewedAt = hasUnreads ? Date.now() : unreadTimestamp;
 
-        dispatch(manuallyMarkThreadAsUnread(threadId, lastViewedAt));
+        dispatch(manuallyMarkThreadAsUnread(threadId, lastViewedAt) as AnyAction);
         if (hasUnreads) {
             dispatch(updateThreadRead(currentUserId, currentTeamId, threadId, Date.now()));
         } else {

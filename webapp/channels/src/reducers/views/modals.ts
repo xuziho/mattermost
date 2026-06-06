@@ -3,7 +3,7 @@
 
 import {combineReducers} from 'redux';
 
-import {GeneralTypes, UserTypes} from 'mattermost-redux/action_types';
+import {UserTypes} from 'mattermost-redux/action_types';
 
 import {ActionTypes} from 'utils/constants';
 
@@ -34,16 +34,6 @@ export function modalState(state: ViewsState['modals']['modalState'] = {}, actio
     }
 }
 
-export function showLaunchingWorkspace(state = false, action: MMAction) {
-    switch (action.type) {
-    case GeneralTypes.SHOW_LAUNCHING_WORKSPACE:
-        return action.open;
-    default:
-        return state;
-    }
-}
-
 export default combineReducers({
     modalState,
-    showLaunchingWorkspace,
 });

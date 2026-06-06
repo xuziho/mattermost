@@ -126,5 +126,9 @@
   {
     "id": "April",
     "translation": "Prill"
+  },
+  {
+    "id": "api.templates.license_up_for_renewal_review_license",
+    "translation": "Review license"
   }
 ]

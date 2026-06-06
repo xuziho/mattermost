@@ -11,21 +11,18 @@ import type {Post} from '@mattermost/types/posts';
 import {AppCallResponseTypes} from 'mattermost-redux/constants/apps';
 import type {ActionResult} from 'mattermost-redux/types/actions';
 
-import MarketplaceModal from 'components/plugin_marketplace/marketplace_modal';
 import Menu from 'components/widgets/menu/menu';
 import MenuWrapper from 'components/widgets/menu/menu_wrapper';
 
 import Pluggable from 'plugins/pluggable';
 import {createCallContext} from 'utils/apps';
-import {Constants, Locations, ModalIdentifiers} from 'utils/constants';
+import {Constants, Locations} from 'utils/constants';
 import * as PostUtils from 'utils/post_utils';
 
-import type {ModalData} from 'types/actions';
 import type {HandleBindingClick, OpenAppsModal, PostEphemeralCallResponseForPost} from 'types/apps';
 import type {PostDropdownMenuAction, PostDropdownMenuItemComponent} from 'types/store/plugins';
 
 import ActionsMenuButton from './actions_menu_button';
-import ActionsMenuEmptyPopover from './actions_menu_empty_popover';
 import {ActionsMenuIcon} from './actions_menu_icon';
 
 import './actions_menu.scss';
@@ -44,7 +41,6 @@ export type Props = {
     pluginMenuItems?: PostDropdownMenuAction[];
     post: Post;
     teamId: string;
-    canOpenMarketplace: boolean;
 
     /**
      * Components for overriding provided by plugins
@@ -52,11 +48,6 @@ export type Props = {
     pluginMenuItemComponents: PostDropdownMenuItemComponent[];
 
     actions: {
-
-        /**
-         * Function to open a modal
-         */
-        openModal: <P>(modalData: ModalData<P>) => void;
 
         /**
          * Function to post the ephemeral message for a call response
@@ -126,19 +117,6 @@ export class ActionMenuClass extends React.PureComponent<Props, State> {
                 this.setState({appBindings: data});
             });
         }
-    };
-
-    handleOpenMarketplace = (): void => {
-        this.closeDropdown();
-
-        // Wait for the menu to close to avoid clashing between the menu's focus trap and the modal's
-        requestAnimationFrame(() => {
-            const openMarketplaceData = {
-                modalId: ModalIdentifiers.PLUGIN_MARKETPLACE,
-                dialogType: MarketplaceModal,
-            };
-            this.props.actions.openModal(openMarketplaceData);
-        });
     };
 
     onClickAppBinding = async (binding: AppBinding) => {
@@ -296,29 +274,12 @@ export class ActionMenuClass extends React.PureComponent<Props, State> {
 
         const {formatMessage} = this.props.intl;
 
-        let marketPlace = null;
-        if (this.props.canOpenMarketplace) {
-            marketPlace = (
-                <React.Fragment key={'marketplace'}>
-                    {this.renderDivider('marketplace')}
-                    <Menu.ItemAction
-                        id={`marketplace_icon_${this.props.post.id}`}
-                        key={`marketplace_${this.props.post.id}`}
-                        show={true}
-                        text={formatMessage({id: 'post_info.marketplace', defaultMessage: 'App Marketplace'})}
-                        icon={<ActionsMenuIcon name='icon-view-grid-plus-outline'/>}
-                        onClick={this.handleOpenMarketplace}
-                    />
-                </React.Fragment>
-            );
-        }
-
         const hasApps = Boolean(appBindings.length);
         const hasPluggables = Boolean(this.props.pluginMenuItemComponents?.length);
         const hasPluginItems = Boolean(pluginItems?.length);
 
         const hasPluginMenuItems = hasPluginItems || hasApps || hasPluggables;
-        if (!this.props.canOpenMarketplace && !hasPluginMenuItems) {
+        if (!hasPluginMenuItems) {
             return null;
         }
 
@@ -338,7 +299,6 @@ export class ActionMenuClass extends React.PureComponent<Props, State> {
                 pluginItems,
                 appBindings,
                 pluggable,
-                marketPlace,
             ];
 
             return (
@@ -361,25 +321,6 @@ export class ActionMenuClass extends React.PureComponent<Props, State> {
                         {menuItems}
                     </Menu>
                 </MenuWrapper>
-            );
-        } else if (this.props.isSysAdmin) {
-            return (
-                <>
-
-                    <ActionsMenuButton
-                        ref={this.buttonRef}
-                        buttonId={buttonId}
-                        onClick={this.openDropdown}
-                        popupId={popupId}
-                        isMenuOpen={this.props.isMenuOpen}
-                    />
-                    <ActionsMenuEmptyPopover
-                        anchorElement={this.buttonElement}
-                        onOpenMarketplace={this.handleOpenMarketplace}
-                        onToggle={this.props.handleDropdownOpened}
-                        isOpen={this.props.isMenuOpen}
-                    />
-                </>
             );
         }
 

@@ -5,12 +5,10 @@ import moment from 'moment';
 import React from 'react';
 
 import {fakeDate} from 'tests/helpers/date';
-import {renderWithContext, screen, act} from 'tests/react_testing_utils';
+import {renderWithContext} from 'tests/react_testing_utils';
 import {LicenseSkus} from 'utils/constants';
 
 import LicenseSettings from './license_settings';
-
-const flushPromises = () => new Promise(setImmediate);
 
 describe('components/admin_console/license_settings/LicenseSettings', () => {
     let resetFakeDate: {(): void};
@@ -35,9 +33,6 @@ describe('components/admin_console/license_settings/LicenseSettings', () => {
             Company: 'Mattermost Inc.',
             Users: '100',
         },
-        prevTrialLicense: {
-            IsLicensed: 'false',
-        },
         upgradedFromTE: false,
         enterpriseReady: true,
         totalUsers: 10,
@@ -46,16 +41,9 @@ describe('components/admin_console/license_settings/LicenseSettings', () => {
             getLicenseConfig: jest.fn(),
             uploadLicense: jest.fn(),
             removeLicense: jest.fn(),
-            upgradeToE0: jest.fn(),
-            ping: jest.fn(),
-            requestTrialLicense: jest.fn(),
-            restartServer: jest.fn(),
-            getPrevTrialLicense: jest.fn(),
-            upgradeToE0Status: jest.fn().mockImplementation(() => Promise.resolve({percentage: 0, error: null})),
             openModal: jest.fn(),
             getFilteredUsersStats: jest.fn(),
             getServerLimits: jest.fn(),
-            isAllowedToUpgradeToEnterprise: jest.fn().mockImplementation(() => Promise.resolve({})),
         },
     };
 
@@ -104,71 +92,14 @@ describe('components/admin_console/license_settings/LicenseSettings', () => {
         expect(container).toMatchSnapshot();
     });
 
-    test('upgrade to enterprise click', async () => {
-        const promise = Promise.resolve({});
-        const actions = {
-            ...defaultProps.actions,
-            getLicenseConfig: jest.fn(),
-            upgradeToE0: jest.fn(),
-            upgradeToE0Status: jest.fn().mockImplementation(() => Promise.resolve({percentage: 0, error: null})),
-            isAllowedToUpgradeToEnterprise: jest.fn().mockImplementation(() => promise),
-        };
-        const props = {...defaultProps, enterpriseReady: false, actions};
-        renderWithContext(<LicenseSettings {...props}/>);
-
-        await act(async () => {
-            await promise;
-        });
-
-        expect(actions.getLicenseConfig).toHaveBeenCalledTimes(1);
-        expect(actions.upgradeToE0Status).toHaveBeenCalledTimes(1);
-        actions.upgradeToE0Status = jest.fn().mockImplementation(() => Promise.resolve({percentage: 1, error: null}));
-
-        // Find and click the upgrade button
-        const upgradeButton = screen.getByRole('button', {name: /Upgrade to Enterprise Edition/i});
-        expect(upgradeButton).toBeInTheDocument();
-
-        await act(async () => {
-            upgradeButton.click();
-        });
-
-        expect(actions.upgradeToE0).toHaveBeenCalledTimes(1);
-    });
-
-    test('load screen while upgrading', async () => {
-        const actions = {
-            ...defaultProps.actions,
-            upgradeToE0Status: jest.fn().mockImplementation(() => Promise.resolve({percentage: 42, error: null})),
-        };
-        const props = {...defaultProps, enterpriseReady: false, actions};
-        const {container} = renderWithContext(<LicenseSettings {...props}/>);
-        await act(async () => {
-            await flushPromises();
-        });
-        expect(container).toMatchSnapshot();
-    });
-
-    test('load screen after upgrading', async () => {
-        const actions = {
-            ...defaultProps.actions,
-            upgradeToE0Status: jest.fn().mockImplementation(() => Promise.resolve({percentage: 100, error: null})),
-        };
-        const props = {...defaultProps, enterpriseReady: false, actions};
-        const {container} = renderWithContext(<LicenseSettings {...props}/>);
-        await act(async () => {
-            await flushPromises();
-        });
-        expect(container).toMatchSnapshot();
-    });
-
     test('should match snapshot enterprise build with trial license', () => {
         const props = {...defaultProps, license: {IsLicensed: 'true', StartsAt: '1617714643650', IssuedAt: '1617714643650', ExpiresAt: '1620335443650'}};
         const {container} = renderWithContext(<LicenseSettings {...props}/>);
         expect(container).toMatchSnapshot();
     });
 
-    test('should match snapshot team edition with expired trial in the past', () => {
-        const props = {...defaultProps, license: {IsLicensed: 'false'}, prevTrialLicense: {IsLicensed: 'true'}};
+    test('should match snapshot team edition without a license', () => {
+        const props = {...defaultProps, license: {IsLicensed: 'false'}};
         const {container} = renderWithContext(<LicenseSettings {...props}/>);
         expect(container).toMatchSnapshot();
     });

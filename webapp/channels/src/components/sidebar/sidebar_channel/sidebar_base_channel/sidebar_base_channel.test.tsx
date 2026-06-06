@@ -9,10 +9,6 @@ import SidebarBaseChannel from 'components/sidebar/sidebar_channel/sidebar_base_
 
 import {renderWithContext, screen, userEvent, waitFor} from 'tests/react_testing_utils';
 
-jest.mock('components/tours/onboarding_tour', () => ({
-    ChannelsAndDirectMessagesTour: () => null,
-}));
-
 jest.mock('components/sidebar/sidebar_channel/sidebar_channel_link', () => {
     const React = require('react');
 

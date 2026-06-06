@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import type {Dispatch} from 'redux';
 
-import {uploadLicense, removeLicense, getPrevTrialLicense} from 'mattermost-redux/actions/admin';
+import {uploadLicense, removeLicense} from 'mattermost-redux/actions/admin';
 import {getLicenseConfig} from 'mattermost-redux/actions/general';
 import {getServerLimits} from 'mattermost-redux/actions/limits';
 import {getFilteredUsersStats} from 'mattermost-redux/actions/users';
@@ -13,7 +13,6 @@ import {getConfig} from 'mattermost-redux/selectors/entities/general';
 import {getServerLimits as selectServerLimits} from 'mattermost-redux/selectors/entities/limits';
 import {getFilteredUsersStats as selectFilteredUserStats} from 'mattermost-redux/selectors/entities/users';
 
-import {requestTrialLicense, upgradeToE0Status, upgradeToE0, restartServer, ping, isAllowedToUpgradeToEnterprise} from 'actions/admin_actions';
 import {openModal} from 'actions/views/modals';
 
 import type {GlobalState} from 'types/store';
@@ -26,7 +25,6 @@ function mapStateToProps(state: GlobalState) {
     return {
         totalUsers: selectServerLimits(state)?.activeUserCount ?? selectFilteredUserStats(state)?.total_users_count ?? 0,
         upgradedFromTE: config.UpgradedFromTE === 'true',
-        prevTrialLicense: state.entities.admin.prevTrialLicense,
     };
 }
 
@@ -36,16 +34,9 @@ function mapDispatchToProps(dispatch: Dispatch) {
             getLicenseConfig,
             uploadLicense,
             removeLicense,
-            getPrevTrialLicense,
-            upgradeToE0,
-            upgradeToE0Status,
-            restartServer,
-            ping,
-            requestTrialLicense,
             openModal,
             getFilteredUsersStats,
             getServerLimits,
-            isAllowedToUpgradeToEnterprise,
         }, dispatch),
     };
 }

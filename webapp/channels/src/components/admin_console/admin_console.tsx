@@ -7,7 +7,6 @@ import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {Route, Switch, Redirect} from 'react-router-dom';
 import type {RouteComponentProps} from 'react-router-dom';
 
-import type {CloudState} from '@mattermost/types/cloud';
 import type {AdminConfig, ClientLicense, EnvironmentConfig} from '@mattermost/types/config';
 import type {Role} from '@mattermost/types/roles';
 import type {DeepPartial} from '@mattermost/types/utilities';
@@ -41,7 +40,6 @@ type ExtraProps = {
     roles: Record<string, Role>;
     editRole: (role: Role) => void;
     patchConfig: (config: DeepPartial<AdminConfig>) => Promise<ActionResult>;
-    cloud: CloudState;
     isCurrentUserSystemAdmin: boolean;
 }
 
@@ -126,12 +124,12 @@ const AdminConsole = (props: Props) => {
     };
 
     const renderRoutes = (extraProps: ExtraProps) => {
-        const {adminDefinition, config, license, buildEnterpriseReady, consoleAccess, cloud, isCurrentUserSystemAdmin} = props;
+        const {adminDefinition, config, license, buildEnterpriseReady, consoleAccess, isCurrentUserSystemAdmin} = props;
 
         const schemas: AdminDefinitionSubSection[] = Object.values(adminDefinition).flatMap((section: AdminDefinitionSection) => {
             let isSectionHidden = false;
             if (typeof section.isHidden === 'function') {
-                isSectionHidden = section.isHidden(config, {search}, license, buildEnterpriseReady, consoleAccess, cloud, isCurrentUserSystemAdmin);
+                isSectionHidden = section.isHidden(config, {search}, license, buildEnterpriseReady, consoleAccess, isCurrentUserSystemAdmin);
             } else {
                 isSectionHidden = Boolean(section.isHidden);
             }
@@ -145,7 +143,7 @@ const AdminConsole = (props: Props) => {
 
         const schemaRoutes = schemas.map((item: AdminDefinitionSubSection, index: number) => {
             if (typeof item.isHidden !== 'undefined') {
-                const isHidden = (typeof item.isHidden === 'function') ? item.isHidden(config, {search}, license, buildEnterpriseReady, consoleAccess, cloud, isCurrentUserSystemAdmin) : Boolean(item.isHidden);
+                const isHidden = (typeof item.isHidden === 'function') ? item.isHidden(config, {search}, license, buildEnterpriseReady, consoleAccess, isCurrentUserSystemAdmin) : Boolean(item.isHidden);
                 if (isHidden) {
                     return false;
                 }
@@ -154,7 +152,7 @@ const AdminConsole = (props: Props) => {
             let isItemDisabled: boolean;
 
             if (typeof item.isDisabled === 'function') {
-                isItemDisabled = item.isDisabled(config, {search}, license, buildEnterpriseReady, consoleAccess, cloud, isCurrentUserSystemAdmin);
+                isItemDisabled = item.isDisabled(config, {search}, license, buildEnterpriseReady, consoleAccess, isCurrentUserSystemAdmin);
             } else {
                 isItemDisabled = Boolean(item.isDisabled);
             }
@@ -232,7 +230,6 @@ const AdminConsole = (props: Props) => {
         roles,
         editRole,
         patchConfig,
-        cloud: props.cloud,
         isCurrentUserSystemAdmin: props.isCurrentUserSystemAdmin,
     };
 

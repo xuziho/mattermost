@@ -6,7 +6,6 @@ import {FormattedMessage, injectIntl} from 'react-intl';
 import type {IntlShape, MessageDescriptor, WrappedComponentProps} from 'react-intl';
 import {Link} from 'react-router-dom';
 
-import type {CloudState} from '@mattermost/types/cloud';
 import type {AdminConfig, ClientLicense, EnvironmentConfig} from '@mattermost/types/config';
 import type {Role} from '@mattermost/types/roles';
 import type {DeepPartial} from '@mattermost/types/utilities';
@@ -77,7 +76,6 @@ export type SchemaAdminSettingsProps = {
     patchConfig: (config: DeepPartial<AdminConfig>) => Promise<ActionResult>;
     isDisabled: boolean;
     consoleAccess: ConsoleAccess;
-    cloud: CloudState;
     isCurrentUserSystemAdmin: boolean;
     enterpriseReady: boolean;
 } & WrappedComponentProps
@@ -356,7 +354,7 @@ export class SchemaAdminSettings extends React.PureComponent<SchemaAdminSettings
 
     isDisabled = (setting: AdminDefinitionSetting) => {
         if (typeof setting.isDisabled === 'function') {
-            return setting.isDisabled(this.props.config, this.state, this.props.license, this.props.enterpriseReady, this.props.consoleAccess, this.props.cloud, this.props.isCurrentUserSystemAdmin);
+            return setting.isDisabled(this.props.config, this.state, this.props.license, this.props.enterpriseReady, this.props.consoleAccess, this.props.isCurrentUserSystemAdmin);
         }
         return Boolean(setting.isDisabled);
     };
@@ -579,7 +577,7 @@ export class SchemaAdminSettings extends React.PureComponent<SchemaAdminSettings
             }
         }
 
-        // used to hide help in case of cloud-starter and open-id selection to show upgrade notice.
+        // used to hide help for some identity-provider settings.
         let hideHelp = false;
         if (setting.isHelpHidden) {
             if (typeof (setting.isHelpHidden) === 'function') {
@@ -782,13 +780,7 @@ export class SchemaAdminSettings extends React.PureComponent<SchemaAdminSettings
     };
 
     handleChange = (id: string, value: any, confirm = false, doSubmit = false, warning = false) => {
-        let saveNeeded: State['saveNeeded'] = this.state.saveNeeded === 'permissions' ? 'both' : 'config';
-
-        // Exception: Since OpenId-Custom is treated as feature discovery for Cloud Starter licenses, save button is disabled.
-        const isCloudStarter = this.props.license.Cloud === 'true' && this.props.license.SkuShortName === 'starter';
-        if (id === 'openidType' && value === 'openid' && isCloudStarter) {
-            saveNeeded = false;
-        }
+        const saveNeeded: State['saveNeeded'] = this.state.saveNeeded === 'permissions' ? 'both' : 'config';
 
         const clientWarning = warning === false ? this.state.clientWarning : warning;
 
@@ -1258,7 +1250,7 @@ export class SchemaAdminSettings extends React.PureComponent<SchemaAdminSettings
                 if ('isHidden' in setting) {
                     let hidden = false;
                     if (typeof setting.isHidden === 'function') {
-                        hidden = setting.isHidden?.(this.props.config, this.state, this.props.license, this.props.enterpriseReady, this.props.consoleAccess, this.props.cloud, this.props.isCurrentUserSystemAdmin);
+                        hidden = setting.isHidden?.(this.props.config, this.state, this.props.license, this.props.enterpriseReady, this.props.consoleAccess, this.props.isCurrentUserSystemAdmin);
                     } else {
                         hidden = Boolean(setting.isHidden);
                     }
@@ -1266,9 +1258,6 @@ export class SchemaAdminSettings extends React.PureComponent<SchemaAdminSettings
                     // MM-50952
                     // If the setting is hidden, then it is not being set in state so there is
                     // nothing to validate, and validation would fail anyways and prevent saving
-                    // In practice, this only happens in custom cloud setup environments like RFQA
-                    // where it sets things in the config file directly instead of in the environment
-                    // (like cloud Mattermost does)
                     if (hidden) {
                         continue;
                     }

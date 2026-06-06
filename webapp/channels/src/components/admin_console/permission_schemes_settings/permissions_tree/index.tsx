@@ -17,8 +17,6 @@ export const EXCLUDED_PERMISSIONS = [
     Permissions.LIST_PUBLIC_TEAMS,
     Permissions.JOIN_PRIVATE_TEAMS,
     Permissions.LIST_PRIVATE_TEAMS,
-    Permissions.PLAYBOOK_PUBLIC_VIEW,
-    Permissions.PLAYBOOK_PRIVATE_VIEW,
 ];
 
 function mapStateToProps(state: GlobalState) {

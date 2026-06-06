@@ -13,7 +13,6 @@ import type {RelationOneToOne} from '@mattermost/types/utilities';
 import type {ActionResult} from 'mattermost-redux/types/actions';
 
 import BackstageList from 'components/backstage/components/backstage_list';
-import ExternalLink from 'components/external_link';
 
 import Constants from 'utils/constants';
 import * as Utils from 'utils/utils';
@@ -248,20 +247,7 @@ export default class Bots extends React.PureComponent<Props, State> {
                     <>
                         <FormattedMessage
                             id='bots.manage.help1'
-                            defaultMessage='Use {botAccounts} to integrate with Mattermost through plugins or the API. Bot accounts are available to everyone on your server. '
-                            values={{
-                                botAccounts: (
-                                    <ExternalLink
-                                        href='https://mattermost.com/pl/default-bot-accounts'
-                                        location='bots'
-                                    >
-                                        <FormattedMessage
-                                            id='bots.manage.bot_accounts'
-                                            defaultMessage='Bot Accounts'
-                                        />
-                                    </ExternalLink>
-                                ),
-                            }}
+                            defaultMessage='Use bot accounts to integrate with this workspace through plugins or the API. Bot accounts are available to everyone on your server. '
                         />
                         <FormattedMessage
                             id='bots.help2'

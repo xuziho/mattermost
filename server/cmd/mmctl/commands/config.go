@@ -351,10 +351,6 @@ func configGetCmdF(c client.Client, _ *cobra.Command, args []string) error {
 		return errors.New("invalid key")
 	}
 
-	if cloudRestricted(config, path) && reflect.ValueOf(val).IsNil() {
-		return fmt.Errorf("accessing this config path: %s is restricted in a cloud environment", args[0])
-	}
-
 	printer.Print(val)
 	return nil
 }
@@ -367,10 +363,6 @@ func configSetCmdF(c client.Client, _ *cobra.Command, args []string) error {
 
 	path := parseConfigPath(args[0])
 	if cErr := setConfigValue(path, config, args[1:]); cErr != nil {
-		if errors.Is(cErr, ErrConfigInvalidPath) && cloudRestricted(config, path) {
-			return fmt.Errorf("changing this config path: %s is restricted in a cloud environment", args[0])
-		}
-
 		return cErr
 	}
 	newConfig, _, err := c.PatchConfig(context.TODO(), config)
@@ -561,38 +553,6 @@ func configSubpathCmdF(cmd *cobra.Command, _ []string) error {
 	printer.Print("Config subpath successfully modified")
 
 	return nil
-}
-
-func cloudRestricted(cfg any, path []string) bool {
-	return cloudRestrictedR(reflect.TypeOf(cfg), path)
-}
-
-// cloudRestricted checks if the config path is restricted to the cloud
-func cloudRestrictedR(t reflect.Type, path []string) bool {
-	if t.Kind() == reflect.Ptr {
-		t = t.Elem()
-	}
-
-	if t.Kind() != reflect.Struct {
-		return false
-	}
-
-	for i := 0; i < t.NumField(); i++ {
-		field := t.Field(i)
-
-		if len(path) == 0 || field.Name != path[0] {
-			continue
-		}
-
-		accessTag := field.Tag.Get(model.ConfigAccessTagType)
-		if strings.Contains(accessTag, model.ConfigAccessTagCloudRestrictable) {
-			return true
-		}
-
-		return cloudRestrictedR(field.Type, path[1:])
-	}
-
-	return false
 }
 
 func configExportCmdF(c client.Client, cmd *cobra.Command, _ []string) error {

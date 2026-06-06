@@ -23,10 +23,9 @@ import ProfilePopover from './profile_popover';
 
 jest.mock('@mattermost/client', () => ({
     ...jest.requireActual('@mattermost/client'),
-    Client4: class MockClient4 extends jest.requireActual('@mattermost/client').Client4 {
-        getCallsChannelState = jest.fn();
-        getUserCustomProfileAttributesValues = jest.fn();
-    },
+	Client4: class MockClient4 extends jest.requireActual('@mattermost/client').Client4 {
+		getUserCustomProfileAttributesValues = jest.fn();
+	},
 }));
 
 // Set up a global mock object that the tests can modify
@@ -49,9 +48,7 @@ const updateMockForTestCase = (testCase: number) => {
 jest.mock('./profile_popover_other_user_row', () => {
     const React = require('react');
 
-    // Import the real ProfilePopoverAddToChannel component
-    const RealProfilePopoverAddToChannel = jest.requireActual('./profile_popover_add_to_channel').default;
-    const RealProfilePopoverCallButtonWrapper = jest.requireActual('./profile_popover_call_button_wrapper').default;
+	const RealProfilePopoverAddToChannel = jest.requireActual('./profile_popover_add_to_channel').default;
 
     return function MockProfilePopoverOtherUserRow(props: ComponentProps<any>) {
         // For the test cases, we'll simulate what would happen with a remote user
@@ -79,14 +76,8 @@ jest.mock('./profile_popover_other_user_row', () => {
                             user={props.user}
                             hide={props.hide}
                         />
-                        <RealProfilePopoverCallButtonWrapper
-                            currentUserId={props.currentUserId}
-                            fullname={props.fullname}
-                            userId={props.user.id}
-                            username={props.user.username}
-                        />
-                    </div>
-                </div>
+					</div>
+				</div>
             );
         }
 
@@ -112,14 +103,8 @@ jest.mock('./profile_popover_other_user_row', () => {
                         user={props.user}
                         hide={props.hide}
                     />
-                    <RealProfilePopoverCallButtonWrapper
-                        currentUserId={props.currentUserId}
-                        fullname={props.fullname}
-                        userId={props.user.id}
-                        username={props.user.username}
-                    />
-                </div>
-            </div>
+				</div>
+			</div>
         );
     };
 });
@@ -131,9 +116,7 @@ function renderWithPluginReducers(
     s: Parameters<typeof renderWithContext>[1],
     o?: Parameters<typeof renderWithContext>[2],
 ): ReturnType<typeof renderWithContext> {
-    const options = o || {};
-    options.pluginReducers = ['plugins-com.mattermost.calls'];
-    return renderWithContext(c, s, options);
+    return renderWithContext(c, s, o);
 }
 function getBasePropsAndState(): [Props, DeepPartial<GlobalState>] {
     const user = TestHelper.getUserMock({
@@ -232,22 +215,7 @@ function getBasePropsAndState(): [Props, DeepPartial<GlobalState>] {
             },
         },
         plugins: {
-            components: {
-                CallButton: [{}],
-            },
-            plugins: {
-                'com.mattermost.calls': {
-                    version: '0.4.2',
-                },
-            },
-        },
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        'plugins-com.mattermost.calls': {
-            sessions: {},
-            callsConfig: {
-                DefaultEnabled: true,
-            },
+            components: {},
         },
     };
     const props: Props = {
@@ -261,9 +229,7 @@ function getBasePropsAndState(): [Props, DeepPartial<GlobalState>] {
 }
 
 describe('components/ProfilePopover', () => {
-    (Client4.getCallsChannelState as jest.Mock).mockImplementation(async () => ({enabled: true}));
-
-    test('should correctly handle remote users based on connection status', async () => {
+	test('should correctly handle remote users based on connection status', async () => {
         // Test 1: Verify shared user is shown for any remote user
         {
             const [props, initialState] = getBasePropsAndState();
@@ -366,8 +332,7 @@ describe('components/ProfilePopover', () => {
 
         renderWithPluginReducers(<ProfilePopover {...props}/>, initialState);
 
-        // Use find to wait for the first re-render because of the calls fetch
-        await screen.findByText('user');
+		await screen.findByText('user');
 
         expect(await screen.queryByLabelText('Add to a Channel dialog')).not.toBeInTheDocument();
     });
@@ -440,8 +405,7 @@ describe('components/ProfilePopover', () => {
 
         renderWithPluginReducers(<ProfilePopover {...props}/>, initialState);
 
-        // Use find to wait for the first re-render because of the calls fetch
-        await screen.findByText('user');
+		await screen.findByText('user');
 
         expect(await screen.queryByText('In a meeting')).not.toBeInTheDocument();
     });
@@ -459,135 +423,8 @@ describe('components/ProfilePopover', () => {
 
         renderWithPluginReducers(<ProfilePopover {...props}/>, initialState);
 
-        // Use find to wait for the first re-render because of the calls fetch
-        await screen.findByText('user');
+		await screen.findByText('user');
         expect(screen.queryByText('January 01, 1970')).not.toBeInTheDocument();
-    });
-
-    test('should show start a call button', async () => {
-        const [props, initialState] = getBasePropsAndState();
-
-        renderWithPluginReducers(<ProfilePopover {...props}/>, initialState);
-        expect(await screen.findByLabelText('Start Call')).toBeInTheDocument();
-    });
-
-    test('should not show start call button when plugin is disabled', async () => {
-        const [props, initialState] = getBasePropsAndState();
-        initialState.plugins!.plugins = {};
-
-        renderWithPluginReducers(<ProfilePopover {...props}/>, initialState);
-        await act(async () => {
-            expect(screen.queryByLabelText('Start Call')).not.toBeInTheDocument();
-        });
-    });
-
-    test('should disable start call button when call is ongoing in the DM', async () => {
-        const [props, initialState] = getBasePropsAndState();
-
-        // Type assertion needed for dynamic plugin state access
-        (initialState as DeepPartial<GlobalState> & {
-            'plugins-com.mattermost.calls': {
-                sessions: Record<string, unknown>;
-                channels?: Record<string, {enabled: boolean}>;
-                callsConfig?: {DefaultEnabled: boolean};
-            };
-        })['plugins-com.mattermost.calls'].sessions = {dmChannelId: {currentUser: {user_id: 'currentUser'}}};
-
-        renderWithPluginReducers(<ProfilePopover {...props}/>, initialState);
-        const button = (await screen.findByLabelText('Call with user is ongoing')).closest('button');
-        expect(button).toBeDisabled();
-    });
-
-    test('should not show start call button when calls in channel have been explicitly disabled', async () => {
-        const [props, initialState] = getBasePropsAndState();
-
-        // Type assertion needed for dynamic plugin state access
-        (initialState as DeepPartial<GlobalState> & {
-            'plugins-com.mattermost.calls': {
-                sessions?: Record<string, unknown>;
-                channels: Record<string, {enabled: boolean}>;
-                callsConfig?: {DefaultEnabled: boolean};
-            };
-        })['plugins-com.mattermost.calls'].channels = {dmChannelId: {enabled: false}};
-
-        renderWithPluginReducers(<ProfilePopover {...props}/>, initialState);
-        await act(async () => {
-            expect(await screen.queryByLabelText('Start Call')).not.toBeInTheDocument();
-            expect(await screen.queryByLabelText('Call with user is ongoing')).not.toBeInTheDocument();
-        });
-    });
-
-    test('should not show start call button for users when calls test mode is on', async () => {
-        const [props, initialState] = getBasePropsAndState();
-
-        // Type assertion needed for dynamic plugin state access
-        (initialState as DeepPartial<GlobalState> & {
-            'plugins-com.mattermost.calls': {
-                sessions?: Record<string, unknown>;
-                channels?: Record<string, {enabled: boolean}>;
-                callsConfig: {DefaultEnabled: boolean};
-            };
-        })['plugins-com.mattermost.calls'].callsConfig = {DefaultEnabled: false};
-
-        renderWithPluginReducers(<ProfilePopover {...props}/>, initialState);
-        await act(async () => {
-            expect(await screen.queryByLabelText('Start Call')).not.toBeInTheDocument();
-        });
-    });
-
-    test('should show start call button for users when calls test mode is on if calls in channel have been explicitly enabled', async () => {
-        const [props, initialState] = getBasePropsAndState();
-
-        // Type assertion needed for dynamic plugin state access
-        (initialState as DeepPartial<GlobalState> & {
-            'plugins-com.mattermost.calls': {
-                sessions?: Record<string, unknown>;
-                channels?: Record<string, {enabled: boolean}>;
-                callsConfig: {DefaultEnabled: boolean};
-            };
-        })['plugins-com.mattermost.calls'].callsConfig = {DefaultEnabled: false};
-
-        // Set channels
-        (initialState as DeepPartial<GlobalState> & {
-            'plugins-com.mattermost.calls': {
-                sessions?: Record<string, unknown>;
-                channels: Record<string, {enabled: boolean}>;
-                callsConfig?: {DefaultEnabled: boolean};
-            };
-        })['plugins-com.mattermost.calls'].channels = {dmChannelId: {enabled: true}};
-
-        renderWithPluginReducers(<ProfilePopover {...props}/>, initialState);
-        await act(async () => {
-            expect(await screen.queryByLabelText('Start Call')).toBeInTheDocument();
-        });
-    });
-
-    test('should show start call button for admin when calls test mode is on', async () => {
-        const [props, initialState] = getBasePropsAndState();
-
-        // Type assertion needed for dynamic plugin state access
-        (initialState as DeepPartial<GlobalState> & {
-            'plugins-com.mattermost.calls': {
-                sessions?: Record<string, unknown>;
-                channels?: Record<string, {enabled: boolean}>;
-                callsConfig: {DefaultEnabled: boolean};
-            };
-        })['plugins-com.mattermost.calls'].callsConfig = {DefaultEnabled: false};
-        initialState.entities = {
-            ...initialState.entities!,
-            users: {
-                ...initialState.entities!.users,
-                profiles: {
-                    ...initialState.entities!.users!.profiles,
-                    currentUser: TestHelper.getUserMock({id: 'currentUser', roles: General.SYSTEM_ADMIN_ROLE}),
-                },
-            },
-        };
-
-        renderWithPluginReducers(<ProfilePopover {...props}/>, initialState);
-        await act(async () => {
-            expect(await screen.findByLabelText('Start Call')).toBeInTheDocument();
-        });
     });
 
     test('should display attributes if attribute exists for user', async () => {

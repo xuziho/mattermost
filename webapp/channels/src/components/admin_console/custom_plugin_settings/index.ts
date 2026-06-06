@@ -10,7 +10,6 @@ import type {GlobalState} from '@mattermost/types/store';
 
 import {createSelector} from 'mattermost-redux/selectors/create_selector';
 import {appsFeatureFlagEnabled} from 'mattermost-redux/selectors/entities/apps';
-import {isCurrentLicenseCloud} from 'mattermost-redux/selectors/entities/cloud';
 import {getRoles} from 'mattermost-redux/selectors/entities/roles';
 
 import {getAdminConsoleCustomComponents, getAdminConsoleCustomSections} from 'selectors/admin_console';
@@ -36,8 +35,7 @@ function makeGetPluginSchema() {
         (state: GlobalState, pluginId: string) => getAdminConsoleCustomComponents(state, pluginId),
         (state: GlobalState, pluginId: string) => getAdminConsoleCustomSections(state, pluginId),
         (state) => appsFeatureFlagEnabled(state),
-        isCurrentLicenseCloud,
-        (plugin: PluginRedux | undefined, customComponents: Record<string, AdminConsolePluginComponent>, customSections: Record<string, AdminConsolePluginCustomSection>, appsFeatureFlagIsEnabled, isCloudLicense) => {
+        (plugin: PluginRedux | undefined, customComponents: Record<string, AdminConsolePluginComponent>, customSections: Record<string, AdminConsolePluginCustomSection>, appsFeatureFlagIsEnabled) => {
             if (!plugin) {
                 return null;
             }
@@ -66,8 +64,7 @@ function makeGetPluginSchema() {
                     }
 
                     const isHidden = () => {
-                        return (isCloudLicense && setting.hosting === 'on-prem') ||
-                            (!isCloudLicense && setting.hosting === 'cloud');
+                        return setting.hosting === 'cloud';
                     };
 
                     return {
@@ -140,7 +137,7 @@ function makeGetPluginSchema() {
                 const allCustomSectionsAllowFallback = plugin.settings_schema?.sections?.every((s) => s.custom && s.fallback);
 
                 if (plugin.settings_schema && hasAllCustomSectionsDisabled && !allCustomSectionsAllowFallback) {
-                    // If the plugin is composed of purely custom sections (e.g. Calls), it's disabled (custom components are not found), and they don't allow a fallback, we show a single warning.
+                    // If the plugin is composed of purely custom sections, it's disabled (custom components are not found), and they don't allow a fallback, we show a single warning.
                     const warningBanner = {
                         key: 'admin.plugin.customSections.pluginDisabledWarning',
                         type: Constants.SettingsTypes.TYPE_BANNER,

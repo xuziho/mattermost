@@ -6,7 +6,6 @@ import type {MessageDescriptor, WrappedComponentProps} from 'react-intl';
 import {FormattedMessage} from 'react-intl';
 
 import type {TestLdapFiltersResponse} from '@mattermost/types/admin';
-import type {CloudState} from '@mattermost/types/cloud';
 import type {AdminConfig, ClientLicense, EnvironmentConfig} from '@mattermost/types/config';
 import type {Role} from '@mattermost/types/roles';
 import type {DeepPartial} from '@mattermost/types/utilities';
@@ -76,7 +75,6 @@ type Props = {
     patchConfig: (config: DeepPartial<AdminConfig>) => Promise<ActionResult>;
     isDisabled: boolean;
     consoleAccess: ConsoleAccess;
-    cloud: CloudState;
     isCurrentUserSystemAdmin: boolean;
     enterpriseReady: boolean;
 } & WrappedComponentProps
@@ -331,7 +329,7 @@ const LDAPWizard = (props: Props) => {
 
     const isDisabled = (setting: AdminDefinitionSetting) => {
         if (typeof setting.isDisabled === 'function') {
-            return setting.isDisabled(props.config, state, props.license, props.enterpriseReady, props.consoleAccess, props.cloud, props.isCurrentUserSystemAdmin);
+            return setting.isDisabled(props.config, state, props.license, props.enterpriseReady, props.consoleAccess, props.isCurrentUserSystemAdmin);
         }
         return Boolean(setting.isDisabled);
     };
@@ -427,13 +425,7 @@ const LDAPWizard = (props: Props) => {
     };
 
     const handleChange = (id: string, value: unknown, confirm = false, shouldSubmit = false, warning = false) => {
-        let saveNeeded: State['saveNeeded'] = state.saveNeeded === 'permissions' ? 'both' : 'config';
-
-        // Exception: Since OpenId-Custom is treated as feature discovery for Cloud Starter licenses, save button is disabled.
-        const isCloudStarter = props.license.Cloud === 'true' && props.license.SkuShortName === 'starter';
-        if (id === 'openidType' && value === 'openid' && isCloudStarter) {
-            saveNeeded = false;
-        }
+        const saveNeeded: State['saveNeeded'] = state.saveNeeded === 'permissions' ? 'both' : 'config';
 
         const clientWarning = warning === false ? state.clientWarning : warning;
 
@@ -545,7 +537,7 @@ const LDAPWizard = (props: Props) => {
                 if ('isHidden' in setting) {
                     let hidden = false;
                     if (typeof setting.isHidden === 'function') {
-                        hidden = setting.isHidden?.(props.config, state, props.license, props.enterpriseReady, props.consoleAccess, props.cloud, props.isCurrentUserSystemAdmin);
+                        hidden = setting.isHidden?.(props.config, state, props.license, props.enterpriseReady, props.consoleAccess, props.isCurrentUserSystemAdmin);
                     } else {
                         hidden = Boolean(setting.isHidden);
                     }
@@ -553,9 +545,6 @@ const LDAPWizard = (props: Props) => {
                     // MM-50952
                     // If the setting is hidden, then it is not being set in state so there is
                     // nothing to validate, and validation would fail anyways and prevent saving
-                    // In practice, this only happens in custom cloud setup environments like RFQA
-                    // where it sets things in the config file directly instead of in the environment
-                    // (like cloud Mattermost does)
                     if (hidden) {
                         continue;
                     }

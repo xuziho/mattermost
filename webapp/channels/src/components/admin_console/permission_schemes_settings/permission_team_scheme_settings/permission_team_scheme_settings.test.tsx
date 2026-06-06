@@ -12,7 +12,6 @@ import PermissionTeamSchemeSettings from './permission_team_scheme_settings';
 // Store the latest props passed to each mocked tree component keyed by identifier
 const mockPermissionsTreeProps: Record<string, any> = {};
 const mockGuestTreeProps: Record<string, any> = {};
-const mockPlaybookTreeProps: Record<string, any> = {};
 
 // Identify PermissionsTree instances by scope + parentRole presence
 function mockGetPermissionsTreeId(props: any): string {
@@ -45,14 +44,6 @@ jest.mock('../guest_permissions_tree', () => ({
         return <div data-testid='guest-permissions-tree-guests'/>;
     },
     GUEST_INCLUDED_PERMISSIONS: [],
-}));
-
-jest.mock('../permissions_tree_playbooks', () => ({
-    __esModule: true,
-    default: (props: any) => {
-        mockPlaybookTreeProps.playbook_admin = props;
-        return <div data-testid='playbook-permissions-tree-playbook_admin'/>;
-    },
 }));
 
 describe('components/admin_console/permission_schemes_settings/permission_team_scheme_settings/permission_team_scheme_settings', () => {
@@ -92,18 +83,6 @@ describe('components/admin_console/permission_schemes_settings/permission_team_s
                 permissions: [],
             },
             channel_guest: {
-                permissions: [],
-            },
-            playbook_admin: {
-                permissions: [],
-            },
-            playbook_member: {
-                permissions: [],
-            },
-            run_admin: {
-                permissions: [],
-            },
-            run_member: {
                 permissions: [],
             },
             aaa: {
@@ -162,7 +141,6 @@ describe('components/admin_console/permission_schemes_settings/permission_team_s
         // Clear captured props between tests
         Object.keys(mockPermissionsTreeProps).forEach((key) => delete mockPermissionsTreeProps[key]);
         Object.keys(mockGuestTreeProps).forEach((key) => delete mockGuestTreeProps[key]);
-        Object.keys(mockPlaybookTreeProps).forEach((key) => delete mockPlaybookTreeProps[key]);
     });
 
     test('should match snapshot on new with default roles without permissions', async () => {
@@ -211,15 +189,6 @@ describe('components/admin_console/permission_schemes_settings/permission_team_s
             channel_admin: {
                 permissions: ['delete_post'],
             },
-            playbook_admin: {
-                permissions: [],
-            },
-            playbook_member: {
-                permissions: [],
-            },
-            run_member: {
-                permissions: [],
-            },
         };
         renderWithContext(
             <PermissionTeamSchemeSettings
@@ -251,10 +220,6 @@ describe('components/admin_console/permission_schemes_settings/permission_team_s
                 default_channel_admin_role: 'ddd',
                 default_team_guest_role: 'eee',
                 default_channel_guest_role: 'fff',
-                default_playbook_admin_role: 'ggg',
-                default_playbook_member_role: 'hhh',
-                default_run_admin_role: 'iii',
-                default_run_member_role: 'jjj',
             },
         }));
         const updateTeamScheme = jest.fn().mockImplementation(() => Promise.resolve({}));
@@ -274,7 +239,7 @@ describe('components/admin_console/permission_schemes_settings/permission_team_s
         await userEvent.click(saveButton);
 
         await waitFor(() => {
-            expect(editRole).toHaveBeenCalledTimes(9);
+            expect(editRole).toHaveBeenCalledTimes(6);
         });
     });
 
@@ -312,10 +277,6 @@ describe('components/admin_console/permission_schemes_settings/permission_team_s
                 default_channel_admin_role: 'ddd',
                 default_team_guest_role: 'eee',
                 default_channel_guest_role: 'fff',
-                default_playbook_admin_role: 'ggg',
-                default_playbook_member_role: 'hhh',
-                default_run_admin_role: 'iii',
-                default_run_member_role: 'jjj',
             },
         }));
         const updateTeamScheme = jest.fn().mockImplementation(() => Promise.resolve({}));
@@ -402,10 +363,6 @@ describe('components/admin_console/permission_schemes_settings/permission_team_s
                 default_channel_admin_role: 'ddd',
                 default_team_guest_role: 'eee',
                 default_channel_guest_role: 'fff',
-                default_playbook_admin_role: 'ggg',
-                default_playbook_member_role: 'hhh',
-                default_run_admin_role: 'iii',
-                default_run_member_role: 'jjj',
             },
         };
 
@@ -443,10 +400,6 @@ describe('components/admin_console/permission_schemes_settings/permission_team_s
                 default_channel_admin_role: 'ddd',
                 default_team_guest_role: 'eee',
                 default_channel_guest_role: 'fff',
-                default_playbook_admin_role: 'ggg',
-                default_playbook_member_role: 'hhh',
-                default_run_admin_role: 'iii',
-                default_run_member_role: 'jjj',
             },
             roles: {
                 aaa: {
@@ -545,10 +498,6 @@ describe('components/admin_console/permission_schemes_settings/permission_team_s
                 default_channel_admin_role: 'ddd',
                 default_team_guest_role: 'eee',
                 default_channel_guest_role: 'fff',
-                default_playbook_admin_role: 'ggg',
-                default_playbook_member_role: 'hhh',
-                default_run_admin_role: 'iii',
-                default_run_member_role: 'jjj',
             },
         };
 
@@ -586,10 +535,6 @@ describe('components/admin_console/permission_schemes_settings/permission_team_s
                 default_channel_admin_role: 'ddd',
                 default_team_guest_role: 'eee',
                 default_channel_guest_role: 'fff',
-                default_playbook_admin_role: 'ggg',
-                default_playbook_member_role: 'hhh',
-                default_run_admin_role: 'iii',
-                default_run_member_role: 'jjj',
             },
         };
 
@@ -623,7 +568,6 @@ describe('components/admin_console/permission_schemes_settings/permission_team_s
         expect(mockPermissionsTreeProps.all_users.role.permissions).toContain(Permissions.CREATE_POST);
         expect(mockPermissionsTreeProps.channel_admin.role.permissions).toContain(Permissions.CREATE_POST);
         expect(mockPermissionsTreeProps.team_admin.role.permissions).toContain(Permissions.CREATE_POST);
-        expect(mockPlaybookTreeProps.playbook_admin.role.permissions).not.toContain(Permissions.CREATE_POST);
 
         // Changing a non-moderated permission should NOT set team/channel admins
         act(() => {
@@ -633,6 +577,5 @@ describe('components/admin_console/permission_schemes_settings/permission_team_s
         expect(mockPermissionsTreeProps.all_users.role.permissions).toContain(Permissions.EDIT_OTHERS_POSTS);
         expect(mockPermissionsTreeProps.channel_admin.role.permissions).not.toContain(Permissions.EDIT_OTHERS_POSTS);
         expect(mockPermissionsTreeProps.team_admin.role.permissions).not.toContain(Permissions.EDIT_OTHERS_POSTS);
-        expect(mockPlaybookTreeProps.playbook_admin.role.permissions).not.toContain(Permissions.EDIT_OTHERS_POSTS);
     });
 });

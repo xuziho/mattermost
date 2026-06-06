@@ -4,7 +4,6 @@
 import type {ChannelBookmarkWithFileInfo, UpdateChannelBookmarkResponse} from '@mattermost/types/channel_bookmarks';
 import type {ChannelCategory} from '@mattermost/types/channel_categories';
 import type {Channel, ChannelMembership, ChannelType} from '@mattermost/types/channels';
-import type {Limits, Subscription} from '@mattermost/types/cloud';
 import type {ClientConfig, ClientLicense} from '@mattermost/types/config';
 import type {Draft} from '@mattermost/types/drafts';
 import type {CustomEmoji} from '@mattermost/types/emojis';
@@ -403,21 +402,6 @@ export type GuestsDeactivated = BaseWebSocketMessage<WebSocketEvents.GuestsDeact
 export type LicenseChanged = BaseWebSocketMessage<WebSocketEvents.LicenseChanged, {
     license: ClientLicense;
 }>;
-
-export type CloudSubscriptionChanged = BaseWebSocketMessage<WebSocketEvents.CloudSubscriptionChanged, {
-    limits?: Limits;
-    subscription: Subscription;
-}>;
-
-export type FirstAdminVisitMarketplaceStatusReceived =
-    BaseWebSocketMessage<WebSocketEvents.FirstAdminVisitMarketplaceStatusReceived, {
-        firstAdminVisitMarketplaceStatus: JsonEncodedValue<boolean>;
-    }>;
-
-export type HostedCustomerSignupProgressUpdated =
-    BaseWebSocketMessage<WebSocketEvents.HostedCustomerSignupProgressUpdated, {
-        progress: string;
-    }>
 
 // Custom properties messages
 

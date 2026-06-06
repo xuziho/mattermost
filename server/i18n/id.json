@@ -1962,14 +1962,6 @@
     "translation": "Galat mengambil kanal termutakhir"
   },
   {
-    "id": "api.command_help.name",
-    "translation": "bantuan"
-  },
-  {
-    "id": "api.command_help.desc",
-    "translation": "Buka halaman bantuan Mattermost"
-  },
-  {
     "id": "api.command_groupmsg.name",
     "translation": "pesan"
   },
@@ -2906,18 +2898,6 @@
     "translation": "Anda tidak diizinkan untuk memperbarui nama, nama_tampilan, dan tujuan pesan langsung atau grup."
   },
   {
-    "id": "api.cloud.app_error",
-    "translation": "Kesalahan internal selama permintaan cloud api."
-  },
-  {
-    "id": "api.cloud.cws_webhook_event_missing_error",
-    "translation": "Peristiwa webhook tidak ditangani. Entah karena tidak ada atau tidak valid."
-  },
-  {
-    "id": "api.cloud.teams_limit_reached.create",
-    "translation": "Tidak dapat membuat tim karena batas tim telah tercapai"
-  },
-  {
     "id": "api.command_channel_header.update_channel.max_length",
     "translation": "Teks yang dimasukkan melebihi batas karakter. Header saluran dibatasi hingga karakter {{.MaxLength}}."
   },
@@ -2962,14 +2942,6 @@
   {
     "id": "api.command_mute.desc",
     "translation": "Menonaktifkan desktop, email, dan pemberitahuan push untuk saluran saat ini atau [saluran] yang ditentukan."
-  },
-  {
-    "id": "api.command_help.success",
-    "translation": "Mattermost adalah platform sumber terbuka untuk komunikasi, kolaborasi, dan orkestrasi pekerjaan yang aman di seluruh alat dan tim.\nMattermost berisi tiga alat utama:\n\n**Channels** - Tetap terhubung dengan tim Anda melalui pesan 1:1 dan grup.\n**[Playbooks](/playbooks)** - Membangun dan mengonfigurasi proses yang dapat diulang untuk mencapai hasil yang spesifik dan dapat diprediksi.\n**[Boards](/boards)** - Kelola proyek dan tugas dalam struktur papan Kanban untuk membantu tim Anda mencapai pencapaian penting.\n\n[Lihat dokumentasi dan panduan]({{.HelpLink}})"
-  },
-  {
-    "id": "api.command_marketplace.desc",
-    "translation": "Buka Pasar"
   },
   {
     "id": "api.command_mute.error",
@@ -3030,22 +3002,6 @@
   {
     "id": "api.channel.group_message.converted.to_private_channel",
     "translation": "{{.ConvertedByUsername}} membuat saluran ini dari sebuah pesan grup dengan {{.GMMembers}}."
-  },
-  {
-    "id": "api.cloud.license_error",
-    "translation": "Lisensi Anda tidak mendukung permintaan cloud."
-  },
-  {
-    "id": "api.cloud.notify_admin_to_upgrade_error.already_notified",
-    "translation": "Sudah diberitahukan admin"
-  },
-  {
-    "id": "api.cloud.request_error",
-    "translation": "Terjadi kesalahan saat memproses permintaan ke CWS."
-  },
-  {
-    "id": "api.cloud.teams_limit_reached.restore",
-    "translation": "Tidak dapat memulihkan tim karena batas tim telah tercapai"
   },
   {
     "id": "api.command.execute_command.format.app_error",
@@ -3204,14 +3160,6 @@
   {
     "id": "api.command_kick.name",
     "translation": "keluarkan"
-  },
-  {
-    "id": "api.command_marketplace.name",
-    "translation": "pasar"
-  },
-  {
-    "id": "api.command_marketplace.unsupported.app_error",
-    "translation": "Perintah marketplace tidak didukung pada perangkat Anda."
   },
   {
     "id": "api.command_mute.hint",
@@ -3580,5 +3528,9 @@
   {
     "id": "api.config.update_config.clear_siteurl.app_error",
     "translation": "URL situs tidak dapat dibersihkan."
+  },
+  {
+    "id": "api.templates.license_up_for_renewal_review_license",
+    "translation": "Review license"
   }
 ]

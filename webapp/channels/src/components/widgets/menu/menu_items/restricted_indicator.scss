@@ -17,9 +17,6 @@
         color: var(--button-bg);
         line-height: 22px;
 
-        &.trial::before {
-            content: "\26a1"; /* High Voltage Sign */
-        }
     }
 }
 

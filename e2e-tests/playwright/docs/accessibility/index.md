@@ -36,14 +36,14 @@ specs/accessibility/
 │   ├── account_menu_keyboard.spec.ts
 │   ├── intro_channel.spec.ts
 │   └── theme_settings.spec.ts
-└── [future-products]/         # Boards, Playbooks, etc.
+└── [future-products]/         # future channel surfaces.
     └── [page-or-component]/
         └── test.spec.ts
 ```
 
 ### Naming Conventions
 
-- **Products**: `channels/`, `boards/`, `playbooks/`
+- **Products**: `channels/`
 - **Pages**: `settings_dialog/`, `channel_header/`, `post_menu/`
 - **Components**: `notifications.spec.ts`, `theme_picker.spec.ts`
 - **Snapshots**: `[component-name]-section.yml`, `[feature-name]-modal.yml`

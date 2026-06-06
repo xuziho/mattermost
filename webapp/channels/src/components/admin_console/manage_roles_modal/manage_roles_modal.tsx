@@ -12,11 +12,8 @@ import {General} from 'mattermost-redux/constants';
 import type {ActionResult} from 'mattermost-redux/types/actions';
 import * as UserUtils from 'mattermost-redux/utils/user_utils';
 
-import ExternalLink from 'components/external_link';
 import BotTag from 'components/widgets/tag/bot_tag';
 import Avatar from 'components/widgets/users/avatar';
-
-import {DeveloperLinks} from 'utils/constants';
 
 import {isSuccess} from 'types/actions';
 
@@ -156,20 +153,10 @@ export default class ManageRolesModal extends React.PureComponent<Props, State> 
             additionalRoles = (
                 <div>
                     <p>
-                        <FormattedMessage
-                            id='admin.manage_roles.additionalRoles'
-                            defaultMessage='Select additional permissions for the account. <link>Read more about roles and permissions</link>.'
-                            values={{
-                                link: (msg: React.ReactNode) => (
-                                    <ExternalLink
-                                        href={DeveloperLinks.PERSONAL_ACCESS_TOKENS}
-                                        location='manage_roles_modal'
-                                    >
-                                        {msg}
-                                    </ExternalLink>
-                                ),
-                            }}
-                        />
+                            <FormattedMessage
+                                id='admin.manage_roles.additionalRoles'
+                                defaultMessage='Select additional permissions for the account.'
+                            />
                     </p>
                     <div className='checkbox'>
                         <label>
@@ -248,17 +235,7 @@ export default class ManageRolesModal extends React.PureComponent<Props, State> 
                                 />
                                 <FormattedMessage
                                     id='admin.manage_roles.allowUserAccessTokens'
-                                    defaultMessage='Allow this account to generate <link>personal access tokens</link>.'
-                                    values={{
-                                        link: (msg: React.ReactNode) => (
-                                            <ExternalLink
-                                                href={DeveloperLinks.PERSONAL_ACCESS_TOKENS}
-                                                location='manage_roles_modal'
-                                            >
-                                                {msg}
-                                            </ExternalLink>
-                                        ),
-                                    }}
+                                    defaultMessage='Allow this account to generate personal access tokens.'
                                 />
                                 <span className='d-block pt-2 pb-2 light'>
                                     <FormattedMessage

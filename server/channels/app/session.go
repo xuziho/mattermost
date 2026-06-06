@@ -8,7 +8,6 @@ import (
 	"errors"
 	"math"
 	"net/http"
-	"os"
 
 	"github.com/mattermost/mattermost/server/public/model"
 	"github.com/mattermost/mattermost/server/public/shared/mlog"
@@ -49,21 +48,6 @@ func (a *App) CreateSession(rctx request.CTX, session *model.Session) (*model.Se
 	}
 
 	return session, nil
-}
-
-func (a *App) GetCloudSession(token string) (*model.Session, *model.AppError) {
-	apiKey := os.Getenv("MM_CLOUD_API_KEY")
-	if apiKey != "" && subtle.ConstantTimeCompare([]byte(apiKey), []byte(token)) == 1 {
-		// Need a bare-bones session object for later checks
-		session := &model.Session{
-			Token:   token,
-			IsOAuth: false,
-		}
-
-		session.AddProp(model.SessionPropType, model.SessionTypeCloudKey)
-		return session, nil
-	}
-	return nil, model.NewAppError("GetCloudSession", "api.context.invalid_token.error", map[string]any{"Token": token, "Error": ""}, "The provided token is invalid", http.StatusUnauthorized)
 }
 
 func (a *App) GetRemoteClusterSession(token string, remoteId string) (*model.Session, *model.AppError) {

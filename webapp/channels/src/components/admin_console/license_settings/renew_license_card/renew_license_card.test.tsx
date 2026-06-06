@@ -21,9 +21,6 @@ const initialState: DeepPartial<GlobalState> = {
     },
     entities: {
         general: {
-            config: {
-                CWSURL: '',
-            },
             license: {
                 IsLicensed: 'true',
                 Cloud: 'true',
@@ -38,7 +35,6 @@ const initialState: DeepPartial<GlobalState> = {
         preferences: {
             myPreferences: {},
         },
-        cloud: {},
     },
 };
 
@@ -54,11 +50,10 @@ describe('components/RenewalLicenseCard', () => {
         isDisabled: false,
     };
 
-    test('should show Contact sales button', () => {
+    test('should render renewal message without Contact sales button', () => {
         renderWithContext(<RenewalLicenseCard {...props}/>, initialState);
 
-        const buttons = screen.getAllByRole('button');
-        expect(buttons).toHaveLength(1);
-        expect(screen.getByText('Contact Sales')).toBeInTheDocument();
+        expect(screen.getByText('Renew your Enterprise Advanced license to avoid any disruption.')).toBeInTheDocument();
+        expect(screen.queryByText('Contact Sales')).not.toBeInTheDocument();
     });
 });

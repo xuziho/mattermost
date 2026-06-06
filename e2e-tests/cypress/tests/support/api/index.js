@@ -4,7 +4,6 @@
 import './brand';
 import './bots';
 import './channel';
-import './cloud';
 import './cluster';
 import './common';
 import './data_retention';

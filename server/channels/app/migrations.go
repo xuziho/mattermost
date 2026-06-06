@@ -7,7 +7,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"os"
 	"reflect"
 
 	"github.com/hashicorp/go-multierror"
@@ -25,7 +24,6 @@ const (
 	CustomGroupAdminRoleCreationMigrationKey       = "CustomGroupAdminRoleCreationMigrationComplete"
 	SharedChannelManagerRoleCreationMigrationKey   = "SystemSharedChannelManagerRoleCreationMigrationComplete"
 	ContentExtractionConfigDefaultTrueMigrationKey = "ContentExtractionConfigDefaultTrueMigrationComplete"
-	PlaybookRolesCreationMigrationKey              = "PlaybookRolesCreationMigrationComplete"
 	FirstAdminSetupCompleteKey                     = model.SystemFirstAdminSetupComplete
 	remainingSchemaMigrationsKey                   = "RemainingSchemaMigrations"
 	postPriorityConfigDefaultTrueMigrationKey      = "PostPriorityConfigDefaultTrueMigrationComplete"
@@ -395,125 +393,6 @@ func (s *Server) doContentExtractionConfigDefaultTrueMigration() error {
 	return nil
 }
 
-func (s *Server) doPlaybooksRolesCreationMigration() error {
-	// If the migration is already marked as completed, don't do it again.
-	var nfErr *store.ErrNotFound
-	if _, err := s.Store().System().GetByName(PlaybookRolesCreationMigrationKey); err == nil {
-		return nil
-	} else if !errors.As(err, &nfErr) {
-		return fmt.Errorf("could not query migration: %w", err)
-	}
-
-	roles := model.MakeDefaultRoles()
-	var multiErr *multierror.Error
-	if _, err := s.Store().Role().GetByName(context.Background(), model.PlaybookAdminRoleId); err != nil {
-		if _, err := s.Store().Role().Save(roles[model.PlaybookAdminRoleId]); err != nil {
-			multiErr = multierror.Append(multiErr, fmt.Errorf("failed to create new playbook %q role to database: %w", model.PlaybookAdminRoleId, err))
-		}
-	}
-	if _, err := s.Store().Role().GetByName(context.Background(), model.PlaybookMemberRoleId); err != nil {
-		if _, err := s.Store().Role().Save(roles[model.PlaybookMemberRoleId]); err != nil {
-			multiErr = multierror.Append(multiErr, fmt.Errorf("failed to create new playbook %q role to database: %w", model.PlaybookMemberRoleId, err))
-		}
-	}
-	if _, err := s.Store().Role().GetByName(context.Background(), model.RunAdminRoleId); err != nil {
-		if _, err := s.Store().Role().Save(roles[model.RunAdminRoleId]); err != nil {
-			multiErr = multierror.Append(multiErr, fmt.Errorf("ffailed to create new playbook %q role to database: %w", model.RunAdminRoleId, err))
-		}
-	}
-	if _, err := s.Store().Role().GetByName(context.Background(), model.RunMemberRoleId); err != nil {
-		if _, err := s.Store().Role().Save(roles[model.RunMemberRoleId]); err != nil {
-			multiErr = multierror.Append(multiErr, fmt.Errorf("failed to create new playbook %q role to database: %w", model.RunMemberRoleId, err))
-		}
-	}
-	schemes, err := s.Store().Scheme().GetAllPage(model.SchemeScopeTeam, 0, 1000000)
-	if err != nil {
-		multiErr = multierror.Append(multiErr, fmt.Errorf("failed to get all schemes: %w", err))
-	}
-
-	for _, scheme := range schemes {
-		if scheme.Scope == model.SchemeScopeTeam {
-			if scheme.DefaultPlaybookAdminRole == "" {
-				playbookAdminRole := &model.Role{
-					Name:          model.NewId(),
-					DisplayName:   fmt.Sprintf("Playbook Admin Role for Scheme %s", scheme.Name),
-					Permissions:   roles[model.PlaybookAdminRoleId].Permissions,
-					SchemeManaged: true,
-				}
-
-				if savedRole, err := s.Store().Role().Save(playbookAdminRole); err != nil {
-					multiErr = multierror.Append(multiErr, fmt.Errorf("failed to create new playbook %q role for existing custom scheme: %w", model.PlaybookAdminRoleId, err))
-				} else {
-					scheme.DefaultPlaybookAdminRole = savedRole.Name
-				}
-			}
-			if scheme.DefaultPlaybookMemberRole == "" {
-				playbookMember := &model.Role{
-					Name:          model.NewId(),
-					DisplayName:   fmt.Sprintf("Playbook Member Role for Scheme %s", scheme.Name),
-					Permissions:   roles[model.PlaybookMemberRoleId].Permissions,
-					SchemeManaged: true,
-				}
-
-				if savedRole, err := s.Store().Role().Save(playbookMember); err != nil {
-					multiErr = multierror.Append(multiErr, fmt.Errorf("failed to create new playbook %q role for existing custom scheme: %w", model.PlaybookMemberRoleId, err))
-				} else {
-					scheme.DefaultPlaybookMemberRole = savedRole.Name
-				}
-			}
-
-			if scheme.DefaultRunAdminRole == "" {
-				runAdminRole := &model.Role{
-					Name:          model.NewId(),
-					DisplayName:   fmt.Sprintf("Run Admin Role for Scheme %s", scheme.Name),
-					Permissions:   roles[model.RunAdminRoleId].Permissions,
-					SchemeManaged: true,
-				}
-
-				if savedRole, err := s.Store().Role().Save(runAdminRole); err != nil {
-					multiErr = multierror.Append(multiErr, fmt.Errorf("failed to create new playbook %q role for existing custom scheme: %w", model.RunAdminRoleId, err))
-				} else {
-					scheme.DefaultRunAdminRole = savedRole.Name
-				}
-			}
-
-			if scheme.DefaultRunMemberRole == "" {
-				runMemberRole := &model.Role{
-					Name:          model.NewId(),
-					DisplayName:   fmt.Sprintf("Run Member Role for Scheme %s", scheme.Name),
-					Permissions:   roles[model.RunMemberRoleId].Permissions,
-					SchemeManaged: true,
-				}
-
-				if savedRole, err := s.Store().Role().Save(runMemberRole); err != nil {
-					multiErr = multierror.Append(multiErr, fmt.Errorf("failed to create new playbook %q role for existing custom scheme: %w", model.RunMemberRoleId, err))
-				} else {
-					scheme.DefaultRunMemberRole = savedRole.Name
-				}
-			}
-			_, err := s.Store().Scheme().Save(scheme)
-			if err != nil {
-				multiErr = multierror.Append(multiErr, fmt.Errorf("failed to update custom scheme: %w", err))
-			}
-		}
-	}
-
-	if multiErr != nil {
-		return multiErr
-	}
-
-	system := model.System{
-		Name:  PlaybookRolesCreationMigrationKey,
-		Value: "true",
-	}
-
-	if err := s.Store().System().SaveOrUpdate(&system); err != nil {
-		return fmt.Errorf("failed to mark playbook roles creation migration as completed: %w", err)
-	}
-
-	return nil
-}
-
 func (s *Server) doFirstAdminSetupCompleteMigration() error {
 	// arbitrary choice, though if there is an longstanding installation with less than 10 messages,
 	// putting the first admin through onboarding shouldn't be very disruptive.
@@ -823,30 +702,6 @@ func (s *Server) cacheManagedCategoryIDs() error {
 }
 
 func (s *Server) doCloudS3PathMigrations(rctx request.CTX) error {
-	// This migration is only applicable for cloud environments
-	if os.Getenv("MM_CLOUD_FILESTORE_BIFROST") == "" {
-		return nil
-	}
-
-	// If the migration is already marked as completed, don't do it again.
-	if _, err := s.Store().System().GetByName(model.MigrationKeyS3Path); err == nil {
-		return nil
-	}
-
-	// If there is a job already pending, no need to schedule again.
-	// This is possible if the pod was rolled over.
-	jobs, err := s.Store().Job().GetAllByTypeAndStatus(rctx, model.JobTypeS3PathMigration, model.JobStatusPending)
-	if err != nil {
-		return fmt.Errorf("failed to get jobs by type and status: %w", err)
-	}
-	if len(jobs) > 0 {
-		return nil
-	}
-
-	if _, appErr := s.Jobs.CreateJobOnce(rctx, model.JobTypeS3PathMigration, nil); appErr != nil {
-		return fmt.Errorf("failed to start job for migrating s3 file paths: %w", appErr)
-	}
-
 	return nil
 }
 
@@ -1003,7 +858,6 @@ func (s *Server) doAppMigrations() {
 		// This migration always run after dependent migrations such as the guest roles migration.
 		{"Permissions Migrations", s.doPermissionsMigrations},
 		{"Content Extraction Config Default True Migration", s.doContentExtractionConfigDefaultTrueMigration},
-		{"Playbooks Roles Creation Migration", s.doPlaybooksRolesCreationMigration},
 		{"First Admin Setup Complete Migration", s.doFirstAdminSetupCompleteMigration},
 		{"Remaining Schema Migrations", s.doRemainingSchemaMigrations},
 		{"Post Priority Config Default True Migration", s.doPostPriorityConfigDefaultTrueMigration},

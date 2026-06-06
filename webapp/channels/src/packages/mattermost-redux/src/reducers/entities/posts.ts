@@ -20,7 +20,7 @@ import type {
 } from '@mattermost/types/utilities';
 
 import type {MMReduxAction} from 'mattermost-redux/action_types';
-import {ChannelTypes, PostTypes, UserTypes, ThreadTypes, CloudTypes, LimitsTypes, TeamTypes} from 'mattermost-redux/action_types';
+import {ChannelTypes, PostTypes, UserTypes, ThreadTypes, LimitsTypes, TeamTypes} from 'mattermost-redux/action_types';
 import {Posts} from 'mattermost-redux/constants';
 import {PostTypes as PostTypeConstants} from 'mattermost-redux/constants/posts';
 import {comparePosts, isPermalink, shouldUpdatePost} from 'mattermost-redux/utils/post_utils';
@@ -1682,16 +1682,6 @@ export function limitedViews(
                     [action.rootId]: action.data.first_inaccessible_post_time || 0,
                 },
             };
-        }
-        return state;
-    }
-    case CloudTypes.RECEIVED_CLOUD_LIMITS: {
-        const {limits} = action.data;
-
-        // If limits change and there is no message limit any more (e.g. upgrade to non limited plan),
-        // this state is stale and should be dumped.
-        if (!limits?.messages || (!limits?.messages?.history && limits?.messages?.history !== 0)) {
-            return zeroStateLimitedViews;
         }
         return state;
     }

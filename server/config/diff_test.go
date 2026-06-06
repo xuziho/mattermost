@@ -781,14 +781,8 @@ func TestDiff(t *testing.T) {
 						"com.mattermost.nps": {
 							Enable: !defaultConfigGen().PluginSettings.PluginStates["com.mattermost.nps"].Enable,
 						},
-						"com.mattermost.calls": {
-							Enable: true,
-						},
 						"mattermost-ai": {
-							Enable: true,
-						},
-						"playbooks": {
-							Enable: true,
+							Enable: defaultConfigGen().PluginSettings.PluginStates["mattermost-ai"].Enable,
 						},
 					},
 				},
@@ -816,14 +810,8 @@ func TestDiff(t *testing.T) {
 						"com.mattermost.newplugin": {
 							Enable: true,
 						},
-						"com.mattermost.calls": {
-							Enable: true,
-						},
 						"mattermost-ai": {
-							Enable: true,
-						},
-						"playbooks": {
-							Enable: true,
+							Enable: defaultConfigGen().PluginSettings.PluginStates["mattermost-ai"].Enable,
 						},
 					},
 				},
@@ -843,14 +831,8 @@ func TestDiff(t *testing.T) {
 					Path:    "PluginSettings.PluginStates",
 					BaseVal: defaultConfigGen().PluginSettings.PluginStates,
 					ActualVal: map[string]*model.PluginState{
-						"com.mattermost.calls": {
-							Enable: true,
-						},
 						"mattermost-ai": {
-							Enable: true,
-						},
-						"playbooks": {
-							Enable: true,
+							Enable: defaultConfigGen().PluginSettings.PluginStates["mattermost-ai"].Enable,
 						},
 					},
 				},

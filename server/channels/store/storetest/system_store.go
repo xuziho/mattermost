@@ -73,7 +73,7 @@ func testSystemStoreSaveOrUpdate(t *testing.T, rctx request.CTX, ss store.Store)
 }
 
 func testSystemStoreGetByNameNoEntries(t *testing.T, rctx request.CTX, ss store.Store) {
-	res, nErr := ss.System().GetByName(model.SystemFirstAdminVisitMarketplace)
+	res, nErr := ss.System().GetByName("MissingSystemKey")
 	_, ok := nErr.(*store.ErrNotFound)
 	require.Error(t, nErr)
 	assert.True(t, ok)

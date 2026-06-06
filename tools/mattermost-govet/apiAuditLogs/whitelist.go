@@ -70,7 +70,6 @@ var whiteList = map[string]bool{
 	"getJobsByType":                        true,
 	"getLatestTermsOfService":              true,
 	"getLdapGroups":                        true,
-	"getMarketplacePlugins":                true,
 	"getOAuthApp":                          true,
 	"getOAuthAppInfo":                      true,
 	"getOAuthApps":                         true,

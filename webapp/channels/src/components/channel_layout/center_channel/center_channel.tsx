@@ -37,7 +37,6 @@ const Recaps = makeAsyncComponent('Recaps', lazy(() => import('components/recaps
     ),
 );
 const PermalinkView = makeAsyncComponent('PermalinkView', lazy(() => import('components/permalink_view')));
-const PlaybookRunner = makeAsyncComponent('PlaybookRunner', lazy(() => import('components/channel_layout/playbook_runner')));
 
 type Props = PropsFromRedux & OwnProps;
 
@@ -99,11 +98,6 @@ export default class CenterChannel extends React.PureComponent<Props, State> {
                             path={`/:team(${TEAM_NAME_PATH_PATTERN})/:path(channels|messages)/:identifier(${IDENTIFIER_PATH_PATTERN})/:postid(${ID_PATH_PATTERN})?`}
                             component={ChannelIdentifierRouter}
                         />
-                        <Route
-                            path={`/:team(${TEAM_NAME_PATH_PATTERN})/_playbooks/:playbookId(${ID_PATH_PATTERN})/run`}
-                        >
-                            <PlaybookRunner/>
-                        </Route>
                         {isCollapsedThreadsEnabled ? (
                             <Route
                                 path={`/:team(${TEAM_NAME_PATH_PATTERN})/threads/:threadIdentifier(${ID_PATH_PATTERN})?`}

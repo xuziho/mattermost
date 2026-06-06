@@ -1411,27 +1411,6 @@ func (api *PluginAPI) PublishPluginClusterEvent(ev model.PluginClusterEvent,
 	return nil
 }
 
-// RequestTrialLicense requests a trial license and installs it in the server
-func (api *PluginAPI) RequestTrialLicense(requesterID string, users int, termsAccepted bool, receiveEmailsAccepted bool) *model.AppError {
-	// Normally, plugins are unrestricted in their abilities, but to maintain backwards compatbilibity with plugins
-	// that were unaware of the nuances of ExperimentalSettings.RestrictSystemAdmin, we restrict the trial license
-	// unconditionally.
-	if *api.app.Config().ExperimentalSettings.RestrictSystemAdmin {
-		return model.NewAppError("RequestTrialLicense", "api.restricted_system_admin", nil, "", http.StatusForbidden)
-	}
-
-	return api.app.Channels().RequestTrialLicense(requesterID, users, termsAccepted, receiveEmailsAccepted)
-}
-
-// GetCloudLimits returns any limits associated with the cloud instance
-func (api *PluginAPI) GetCloudLimits() (*model.ProductLimits, error) {
-	if api.app.Cloud() == nil {
-		return &model.ProductLimits{}, nil
-	}
-	limits, err := api.app.Cloud().GetCloudLimits("")
-	return limits, err
-}
-
 // RegisterCollectionAndTopic is no longer supported.
 func (api *PluginAPI) RegisterCollectionAndTopic(collectionType, topicType string) error {
 	return nil

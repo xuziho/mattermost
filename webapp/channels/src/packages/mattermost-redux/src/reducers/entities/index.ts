@@ -10,13 +10,11 @@ import bots from './bots';
 import channelBookmarks from './channel_bookmarks';
 import channelCategories from './channel_categories';
 import channels from './channels';
-import cloud from './cloud';
 import contentFlagging from './content_flagging';
 import emojis from './emojis';
 import files from './files';
 import general from './general';
 import groups from './groups';
-import hostedCustomer from './hosted_customer';
 import integrations from './integrations';
 import jobs from './jobs';
 import limits from './limits';
@@ -32,7 +30,6 @@ import sharedChannels from './shared_channels';
 import teams from './teams';
 import threads from './threads';
 import typing from './typing';
-import usage from './usage';
 import users from './users';
 
 export default combineReducers({
@@ -59,9 +56,6 @@ export default combineReducers({
     threads,
     channelCategories,
     apps,
-    cloud,
-    usage,
-    hostedCustomer,
     channelBookmarks,
     scheduledPosts,
     sharedChannels,

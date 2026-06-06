@@ -22,12 +22,6 @@ const (
 	SchemeRoleDisplayNameChannelAdmin = "Channel Admin Role for Scheme"
 	SchemeRoleDisplayNameChannelUser  = "Channel User Role for Scheme"
 	SchemeRoleDisplayNameChannelGuest = "Channel Guest Role for Scheme"
-
-	SchemeRoleDisplayNamePlaybookAdmin  = "Playbook Admin Role for Scheme"
-	SchemeRoleDisplayNamePlaybookMember = "Playbook Member Role for Scheme"
-
-	SchemeRoleDisplayNameRunAdmin  = "Run Admin Role for Scheme"
-	SchemeRoleDisplayNameRunMember = "Run Member Role for Scheme"
 )
 
 type SqlSchemeStore struct {
@@ -46,8 +40,6 @@ func newSqlSchemeStore(sqlStore *SqlStore) store.SchemeStore {
 			"DefaultTeamAdminRole", "DefaultTeamUserRole", "DefaultTeamGuestRole",
 			"DefaultChannelAdminRole", "DefaultChannelUserRole", "DefaultChannelGuestRole",
 			"CreateAt", "UpdateAt", "DeleteAt",
-			"DefaultPlaybookAdminRole", "DefaultPlaybookMemberRole",
-			"DefaultRunAdminRole", "DefaultRunMemberRole",
 		).
 		From("Schemes")
 
@@ -81,8 +73,7 @@ func (s *SqlSchemeStore) Save(scheme *model.Scheme) (_ *model.Scheme, err error)
 	res, err := s.GetMaster().NamedExec(`UPDATE Schemes
 		SET UpdateAt=:UpdateAt, CreateAt=:CreateAt, DeleteAt=:DeleteAt, Name=:Name, DisplayName=:DisplayName, Description=:Description, Scope=:Scope,
 		 DefaultTeamAdminRole=:DefaultTeamAdminRole, DefaultTeamUserRole=:DefaultTeamUserRole, DefaultTeamGuestRole=:DefaultTeamGuestRole,
-		 DefaultChannelAdminRole=:DefaultChannelAdminRole, DefaultChannelUserRole=:DefaultChannelUserRole, DefaultChannelGuestRole=:DefaultChannelGuestRole,
-		 DefaultPlaybookMemberRole=:DefaultPlaybookMemberRole, DefaultPlaybookAdminRole=:DefaultPlaybookAdminRole, DefaultRunMemberRole=:DefaultRunMemberRole, DefaultRunAdminRole=:DefaultRunAdminRole
+		 DefaultChannelAdminRole=:DefaultChannelAdminRole, DefaultChannelUserRole=:DefaultChannelUserRole, DefaultChannelGuestRole=:DefaultChannelGuestRole
 		 WHERE Id=:Id`, scheme)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to update Scheme")
@@ -114,10 +105,6 @@ func (s *SqlSchemeStore) createScheme(scheme *model.Scheme, transaction *sqlxTxW
 		model.ChannelAdminRoleId,
 		model.ChannelUserRoleId,
 		model.ChannelGuestRoleId,
-		model.PlaybookAdminRoleId,
-		model.PlaybookMemberRoleId,
-		model.RunAdminRoleId,
-		model.RunMemberRoleId,
 	}
 	defaultRoles := make(map[string]*model.Role)
 	roles, err := s.SqlStore.Role().GetByNames(defaultRoleNames)
@@ -180,61 +167,6 @@ func (s *SqlSchemeStore) createScheme(scheme *model.Scheme, transaction *sqlxTxW
 		}
 		scheme.DefaultTeamGuestRole = savedRole.Name
 
-		// playbook admin role
-		playbookAdminRole := &model.Role{
-			Name:          model.NewId(),
-			DisplayName:   fmt.Sprintf("%s %s", SchemeRoleDisplayNamePlaybookAdmin, scheme.Name),
-			Permissions:   defaultRoles[model.PlaybookAdminRoleId].Permissions,
-			SchemeManaged: true,
-			SchemeId:      &scheme.Id,
-		}
-		savedRole, err = s.SqlStore.Role().(*SqlRoleStore).createRole(playbookAdminRole, transaction)
-		if err != nil {
-			return nil, err
-		}
-		scheme.DefaultPlaybookAdminRole = savedRole.Name
-
-		// playbook member role
-		playbookMemberRole := &model.Role{
-			Name:          model.NewId(),
-			DisplayName:   fmt.Sprintf("%s %s", SchemeRoleDisplayNamePlaybookMember, scheme.Name),
-			Permissions:   defaultRoles[model.PlaybookMemberRoleId].Permissions,
-			SchemeManaged: true,
-			SchemeId:      &scheme.Id,
-		}
-		savedRole, err = s.SqlStore.Role().(*SqlRoleStore).createRole(playbookMemberRole, transaction)
-		if err != nil {
-			return nil, err
-		}
-		scheme.DefaultPlaybookMemberRole = savedRole.Name
-
-		// run admin role
-		runAdminRole := &model.Role{
-			Name:          model.NewId(),
-			DisplayName:   fmt.Sprintf("%s %s", SchemeRoleDisplayNameRunAdmin, scheme.Name),
-			Permissions:   defaultRoles[model.RunAdminRoleId].Permissions,
-			SchemeManaged: true,
-			SchemeId:      &scheme.Id,
-		}
-		savedRole, err = s.SqlStore.Role().(*SqlRoleStore).createRole(runAdminRole, transaction)
-		if err != nil {
-			return nil, err
-		}
-		scheme.DefaultRunAdminRole = savedRole.Name
-
-		// run member role
-		runMemberRole := &model.Role{
-			Name:          model.NewId(),
-			DisplayName:   fmt.Sprintf("%s %s", SchemeRoleDisplayNameRunMember, scheme.Name),
-			Permissions:   defaultRoles[model.RunMemberRoleId].Permissions,
-			SchemeManaged: true,
-			SchemeId:      &scheme.Id,
-		}
-		savedRole, err = s.SqlStore.Role().(*SqlRoleStore).createRole(runMemberRole, transaction)
-		if err != nil {
-			return nil, err
-		}
-		scheme.DefaultRunMemberRole = savedRole.Name
 	}
 
 	if scheme.Scope == model.SchemeScopeTeam || scheme.Scope == model.SchemeScopeChannel {
@@ -305,9 +237,9 @@ func (s *SqlSchemeStore) createScheme(scheme *model.Scheme, transaction *sqlxTxW
 	}
 
 	if _, err := transaction.NamedExec(`INSERT INTO Schemes
-	(Id, Name, DisplayName, Description, Scope, DefaultTeamAdminRole, DefaultTeamUserRole, DefaultTeamGuestRole, DefaultChannelAdminRole, DefaultChannelUserRole, DefaultChannelGuestRole, CreateAt, UpdateAt, DeleteAt, DefaultPlaybookAdminRole, DefaultPlaybookMemberRole, DefaultRunAdminRole, DefaultRunMemberRole)
+	(Id, Name, DisplayName, Description, Scope, DefaultTeamAdminRole, DefaultTeamUserRole, DefaultTeamGuestRole, DefaultChannelAdminRole, DefaultChannelUserRole, DefaultChannelGuestRole, CreateAt, UpdateAt, DeleteAt)
 		VALUES
-		(:Id, :Name, :DisplayName, :Description, :Scope, :DefaultTeamAdminRole, :DefaultTeamUserRole, :DefaultTeamGuestRole, :DefaultChannelAdminRole, :DefaultChannelUserRole, :DefaultChannelGuestRole, :CreateAt, :UpdateAt, :DeleteAt, :DefaultPlaybookAdminRole, :DefaultPlaybookMemberRole, :DefaultRunAdminRole, :DefaultRunMemberRole)`, scheme); err != nil {
+		(:Id, :Name, :DisplayName, :Description, :Scope, :DefaultTeamAdminRole, :DefaultTeamUserRole, :DefaultTeamGuestRole, :DefaultChannelAdminRole, :DefaultChannelUserRole, :DefaultChannelGuestRole, :CreateAt, :UpdateAt, :DeleteAt)`, scheme); err != nil {
 		return nil, errors.Wrap(err, "failed to save Scheme")
 	}
 
@@ -433,10 +365,6 @@ func (s *SqlSchemeStore) GetAllPage(scope string, offset int, limit int) ([]*mod
 			"CreateAt",
 			"UpdateAt",
 			"DeleteAt",
-			"DefaultPlaybookAdminRole",
-			"DefaultPlaybookMemberRole",
-			"DefaultRunAdminRole",
-			"DefaultRunMemberRole",
 		).
 		From("Schemes").
 		Where(sq.Eq{"DeleteAt": 0}).

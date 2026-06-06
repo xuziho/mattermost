@@ -93,13 +93,11 @@ type SqlStoreStores struct {
 	role                       store.RoleStore
 	scheme                     store.SchemeStore
 	TermsOfService             store.TermsOfServiceStore
-	productNotices             store.ProductNoticesStore
 	group                      store.GroupStore
 	UserTermsOfService         store.UserTermsOfServiceStore
 	linkMetadata               store.LinkMetadataStore
 	sharedchannel              store.SharedChannelStore
 	draft                      store.DraftStore
-	notifyAdmin                store.NotifyAdminStore
 	postPriority               store.PostPriorityStore
 	postAcknowledgement        store.PostAcknowledgementStore
 	postPersistentNotification store.PostPersistentNotificationStore
@@ -283,9 +281,7 @@ func New(settings model.SqlSettings, logger mlog.LoggerIFace, metrics einterface
 	store.stores.role = newSqlRoleStore(store)
 	store.stores.scheme = newSqlSchemeStore(store)
 	store.stores.group = newSqlGroupStore(store)
-	store.stores.productNotices = newSqlProductNoticesStore(store)
 	store.stores.draft = newSqlDraftStore(store, metrics)
-	store.stores.notifyAdmin = newSqlNotifyAdminStore(store)
 	store.stores.postPriority = newSqlPostPriorityStore(store)
 	store.stores.postAcknowledgement = newSqlPostAcknowledgementStore(store)
 	store.stores.postPersistentNotification = newSqlPostPersistentNotificationStore(store)
@@ -827,10 +823,6 @@ func (ss *SqlStore) TermsOfService() store.TermsOfServiceStore {
 	return ss.stores.TermsOfService
 }
 
-func (ss *SqlStore) ProductNotices() store.ProductNoticesStore {
-	return ss.stores.productNotices
-}
-
 func (ss *SqlStore) UserTermsOfService() store.UserTermsOfServiceStore {
 	return ss.stores.UserTermsOfService
 }
@@ -845,10 +837,6 @@ func (ss *SqlStore) Group() store.GroupStore {
 
 func (ss *SqlStore) LinkMetadata() store.LinkMetadataStore {
 	return ss.stores.linkMetadata
-}
-
-func (ss *SqlStore) NotifyAdmin() store.NotifyAdminStore {
-	return ss.stores.notifyAdmin
 }
 
 func (ss *SqlStore) SharedChannel() store.SharedChannelStore {

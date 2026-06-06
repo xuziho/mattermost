@@ -8,14 +8,10 @@ import (
 	"encoding/json"
 	"io"
 	"net/http"
-	"net/url"
 	"strconv"
-
-	"github.com/pkg/errors"
 
 	"github.com/mattermost/mattermost/server/public/model"
 	"github.com/mattermost/mattermost/server/public/shared/mlog"
-	"github.com/mattermost/mattermost/server/v8/channels/store"
 	"github.com/mattermost/mattermost/server/v8/channels/utils/fileutils"
 )
 
@@ -29,7 +25,6 @@ func (api *API) InitPlugin() {
 	api.BaseRoutes.Plugins.Handle("", api.APISessionRequired(getPlugins)).Methods(http.MethodGet)
 	api.BaseRoutes.Plugin.Handle("", api.APISessionRequired(removePlugin)).Methods(http.MethodDelete)
 	api.BaseRoutes.Plugins.Handle("/install_from_url", api.APISessionRequired(installPluginFromURL)).Methods(http.MethodPost)
-	api.BaseRoutes.Plugins.Handle("/marketplace", api.APISessionRequired(installMarketplacePlugin)).Methods(http.MethodPost)
 
 	api.BaseRoutes.Plugins.Handle("/statuses", api.APISessionRequired(getPluginStatuses)).Methods(http.MethodGet)
 	api.BaseRoutes.Plugin.Handle("/enable", api.APISessionRequired(enablePlugin)).Methods(http.MethodPost)
@@ -37,10 +32,6 @@ func (api *API) InitPlugin() {
 
 	api.BaseRoutes.Plugins.Handle("/webapp", api.APIHandler(getWebappPlugins)).Methods(http.MethodGet)
 
-	api.BaseRoutes.Plugins.Handle("/marketplace", api.APISessionRequired(getMarketplacePlugins)).Methods(http.MethodGet)
-
-	api.BaseRoutes.Plugins.Handle("/marketplace/first_admin_visit", api.APIHandler(setFirstAdminVisitMarketplaceStatus)).Methods(http.MethodPost)
-	api.BaseRoutes.Plugins.Handle("/marketplace/first_admin_visit", api.APISessionRequired(getFirstAdminVisitMarketplaceStatus)).Methods(http.MethodGet)
 }
 
 func uploadPlugin(c *Context, w http.ResponseWriter, r *http.Request) {
@@ -125,52 +116,6 @@ func installPluginFromURL(c *Context, w http.ResponseWriter, r *http.Request) {
 
 	installPlugin(c, w, bytes.NewReader(pluginFileBytes), force)
 	auditRec.Success()
-}
-
-func installMarketplacePlugin(c *Context, w http.ResponseWriter, r *http.Request) {
-	if !*c.App.Config().PluginSettings.Enable {
-		c.Err = model.NewAppError("installMarketplacePlugin", "app.plugin.disabled.app_error", nil, "", http.StatusNotImplemented)
-		return
-	}
-
-	if !*c.App.Config().PluginSettings.EnableMarketplace {
-		c.Err = model.NewAppError("installMarketplacePlugin", "app.plugin.marketplace_disabled.app_error", nil, "", http.StatusNotImplemented)
-		return
-	}
-
-	auditRec := c.MakeAuditRecord(model.AuditEventInstallMarketplacePlugin, model.AuditStatusFail)
-	defer c.LogAuditRec(auditRec)
-
-	if !c.App.SessionHasPermissionTo(*c.AppContext.Session(), model.PermissionSysconsoleWritePlugins) {
-		c.SetPermissionError(model.PermissionSysconsoleWritePlugins)
-		return
-	}
-
-	pluginRequest, err := model.PluginRequestFromReader(r.Body)
-	if err != nil {
-		c.Err = model.NewAppError("installMarketplacePlugin", "app.plugin.marketplace_plugin_request.app_error", nil, "", http.StatusNotImplemented).Wrap(err)
-		return
-	}
-	model.AddEventParameterToAuditRec(auditRec, "plugin_id", pluginRequest.Id)
-
-	// Always install the latest compatible version
-	// https://mattermost.atlassian.net/browse/MM-41981
-	pluginRequest.Version = ""
-
-	manifest, appErr := c.App.Channels().InstallMarketplacePlugin(pluginRequest)
-	if appErr != nil {
-		c.Err = appErr
-		return
-	}
-
-	auditRec.Success()
-	auditRec.AddMeta("plugin_name", manifest.Name)
-	auditRec.AddMeta("plugin_desc", manifest.Description)
-
-	w.WriteHeader(http.StatusCreated)
-	if err := json.NewEncoder(w).Encode(manifest); err != nil {
-		c.Logger.Warn("Error while writing response", mlog.Err(err))
-	}
 }
 
 func getPlugins(c *Context, w http.ResponseWriter, r *http.Request) {
@@ -281,46 +226,6 @@ func getWebappPlugins(c *Context, w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func getMarketplacePlugins(c *Context, w http.ResponseWriter, r *http.Request) {
-	if !*c.App.Config().PluginSettings.Enable {
-		c.Err = model.NewAppError("getMarketplacePlugins", "app.plugin.disabled.app_error", nil, "", http.StatusNotImplemented)
-		return
-	}
-
-	if !*c.App.Config().PluginSettings.EnableMarketplace {
-		c.Err = model.NewAppError("getMarketplacePlugins", "app.plugin.marketplace_disabled.app_error", nil, "", http.StatusNotImplemented)
-		return
-	}
-
-	filter, err := parseMarketplacePluginFilter(r.URL)
-	if err != nil {
-		c.Err = model.NewAppError("getMarketplacePlugins", "app.plugin.marshal.app_error", nil, "", http.StatusInternalServerError).Wrap(err)
-		return
-	}
-
-	// if we are looking for remote only, we don't need to check for permissions
-	if !filter.RemoteOnly && !c.App.SessionHasPermissionTo(*c.AppContext.Session(), model.PermissionSysconsoleReadPlugins) {
-		c.SetPermissionError(model.PermissionSysconsoleReadPlugins)
-		return
-	}
-
-	plugins, appErr := c.App.GetMarketplacePlugins(c.AppContext, filter)
-	if appErr != nil {
-		c.Err = appErr
-		return
-	}
-
-	json, err := json.Marshal(plugins)
-	if err != nil {
-		c.Err = model.NewAppError("getMarketplacePlugins", "app.plugin.marshal.app_error", nil, "", http.StatusInternalServerError).Wrap(err)
-		return
-	}
-
-	if _, err := w.Write(json); err != nil {
-		c.Logger.Warn("Error while writing json response", mlog.Err(err))
-	}
-}
-
 func enablePlugin(c *Context, w http.ResponseWriter, r *http.Request) {
 	c.RequirePluginId()
 	if c.Err != nil {
@@ -379,36 +284,6 @@ func disablePlugin(c *Context, w http.ResponseWriter, r *http.Request) {
 	ReturnStatusOK(w)
 }
 
-func parseMarketplacePluginFilter(u *url.URL) (*model.MarketplacePluginFilter, error) {
-	page, err := parseInt(u, "page", 0)
-	if err != nil {
-		return nil, err
-	}
-
-	perPage, err := parseInt(u, "per_page", 100)
-	if err != nil {
-		return nil, err
-	}
-
-	filter := u.Query().Get("filter")
-	serverVersion := u.Query().Get("server_version")
-	localOnly, _ := strconv.ParseBool(u.Query().Get("local_only"))
-	remoteOnly, _ := strconv.ParseBool(u.Query().Get("remote_only"))
-
-	if localOnly && remoteOnly {
-		return nil, errors.New("local_only and remote_only cannot be both true")
-	}
-
-	return &model.MarketplacePluginFilter{
-		Page:          page,
-		PerPage:       perPage,
-		Filter:        filter,
-		ServerVersion: serverVersion,
-		LocalOnly:     localOnly,
-		RemoteOnly:    remoteOnly,
-	}, nil
-}
-
 func installPlugin(c *Context, w http.ResponseWriter, plugin io.ReadSeeker, force bool) {
 	conflict, err := fileutils.CheckDirectoryConflict(*c.App.Config().PluginSettings.Directory, *c.App.Config().ImportSettings.Directory)
 	if err != nil {
@@ -427,66 +302,6 @@ func installPlugin(c *Context, w http.ResponseWriter, plugin io.ReadSeeker, forc
 	}
 	w.WriteHeader(http.StatusCreated)
 	if err := json.NewEncoder(w).Encode(manifest); err != nil {
-		c.Logger.Warn("Error while writing response", mlog.Err(err))
-	}
-}
-
-func setFirstAdminVisitMarketplaceStatus(c *Context, w http.ResponseWriter, r *http.Request) {
-	auditRec := c.MakeAuditRecord(model.AuditEventSetFirstAdminVisitMarketplaceStatus, model.AuditStatusFail)
-	defer c.LogAuditRec(auditRec)
-	c.LogAudit("attempt")
-
-	if !c.App.SessionHasPermissionTo(*c.AppContext.Session(), model.PermissionManageSystem) {
-		c.SetPermissionError(model.PermissionManageSystem)
-		return
-	}
-
-	firstAdminVisitMarketplaceObj := model.System{
-		Name:  model.SystemFirstAdminVisitMarketplace,
-		Value: "true",
-	}
-
-	if err := c.App.Srv().Store().System().SaveOrUpdate(&firstAdminVisitMarketplaceObj); err != nil {
-		c.Err = model.NewAppError("setFirstAdminVisitMarketplaceStatus", "api.error_set_first_admin_visit_marketplace_status", nil, "", http.StatusInternalServerError).Wrap(err)
-		return
-	}
-
-	message := model.NewWebSocketEvent(model.WebsocketFirstAdminVisitMarketplaceStatusReceived, "", "", "", nil, "")
-	message.Add("firstAdminVisitMarketplaceStatus", firstAdminVisitMarketplaceObj.Value)
-	c.App.Publish(message)
-
-	auditRec.Success()
-	ReturnStatusOK(w)
-}
-
-func getFirstAdminVisitMarketplaceStatus(c *Context, w http.ResponseWriter, r *http.Request) {
-	auditRec := c.MakeAuditRecord(model.AuditEventGetFirstAdminVisitMarketplaceStatus, model.AuditStatusFail)
-	defer c.LogAuditRec(auditRec)
-	c.LogAudit("attempt")
-
-	if !c.App.SessionHasPermissionTo(*c.AppContext.Session(), model.PermissionManageSystem) {
-		c.SetPermissionError(model.PermissionManageSystem)
-		return
-	}
-
-	firstAdminVisitMarketplaceObj, err := c.App.Srv().Store().System().GetByName(model.SystemFirstAdminVisitMarketplace)
-	if err != nil {
-		var nfErr *store.ErrNotFound
-		switch {
-		case errors.As(err, &nfErr):
-			firstAdminVisitMarketplaceObj = &model.System{
-				Name:  model.SystemFirstAdminVisitMarketplace,
-				Value: "false",
-			}
-		default:
-			c.Err = model.NewAppError("getFirstAdminVisitMarketplaceStatus", "api.error_get_first_admin_visit_marketplace_status", nil, "", http.StatusInternalServerError).Wrap(err)
-
-			return
-		}
-	}
-
-	auditRec.Success()
-	if err := json.NewEncoder(w).Encode(firstAdminVisitMarketplaceObj); err != nil {
 		c.Logger.Warn("Error while writing response", mlog.Err(err))
 	}
 }

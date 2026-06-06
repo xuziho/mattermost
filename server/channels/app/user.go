@@ -393,8 +393,6 @@ func (a *App) createUserOrGuest(rctx request.CTX, user *model.User, guest bool) 
 		rctx.Logger().Warn("Encountered error saving user preferences", mlog.Err(err))
 	}
 
-	go a.UpdateViewedProductNoticesForNewUser(ruser.Id)
-
 	// This message goes to everyone, so the teamID, channelID and userID are irrelevant
 	message := model.NewWebSocketEvent(model.WebsocketEventNewUser, "", "", "", nil, "")
 	message.Add("user_id", ruser.Id)

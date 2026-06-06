@@ -996,34 +996,6 @@
     "translation": "SAML soubory nelze upravovat."
   },
   {
-    "id": "app.plugin.marshal.app_error",
-    "translation": "Nepodařilo se připravit zásuvné moduly tržiště."
-  },
-  {
-    "id": "app.plugin.marketplace_plugins.signature_not_found.app_error",
-    "translation": "Nepodařilo se nalézt podpis požadovaného zásuvného modulu z tržiště."
-  },
-  {
-    "id": "app.plugin.marketplace_plugins.not_found.app_error",
-    "translation": "Nepodařilo se nalézt požadovaný zásuvný modul na tržišti."
-  },
-  {
-    "id": "app.plugin.marketplace_plugin_request.app_error",
-    "translation": "Nepodařilo se rozluštit požadavek na tržiště zásuvných modulů."
-  },
-  {
-    "id": "app.plugin.marketplace_disabled.app_error",
-    "translation": "Tržiště je vypnuté. Podrobnosti najdete v logu."
-  },
-  {
-    "id": "app.plugin.marketplace_client.failed_to_fetch",
-    "translation": "Nepodařilo se získat zásuvné moduly ze serveru marketplace."
-  },
-  {
-    "id": "app.plugin.marketplace_client.app_error",
-    "translation": "Nelze vytvořit klienta pro marketplace."
-  },
-  {
     "id": "app.plugin.manifest.app_error",
     "translation": "Nepodařilo se najít manifest zásuvného modulu."
   },
@@ -1034,10 +1006,6 @@
   {
     "id": "app.plugin.invalid_id.app_error",
     "translation": "ID zásuvného modulu musí mít délku minimálně {{.Min}} a maximálně {{.Max}} znaků a vyhovovat regulárnímu výrazu {{.Regex}}."
-  },
-  {
-    "id": "app.plugin.install_marketplace_plugin.app_error",
-    "translation": "Nepodařilo se nainstalovat zásuvný modul z marketplace."
   },
   {
     "id": "app.plugin.install_id_failed_remove.app_error",
@@ -2696,10 +2664,6 @@
     "translation": "Ověřit e-mail"
   },
   {
-    "id": "api.templates.welcome_body.app_download_info",
-    "translation": "Pro nejlepší zážitek si stáhněte aplikace pro PC, Mac, iOS a Android."
-  },
-  {
     "id": "api.templates.verify_subject",
     "translation": "[{{ .SiteName }}] Ověření E-mailu"
   },
@@ -4144,14 +4108,6 @@
     "translation": "Chyba při získávání aktuálního kanálu."
   },
   {
-    "id": "api.command_help.name",
-    "translation": "nápověda"
-  },
-  {
-    "id": "api.command_help.desc",
-    "translation": "Zobrazit nápovědu k Mattermostu"
-  },
-  {
     "id": "api.command_groupmsg.permission.app_error",
     "translation": "Nemáte dostatečné oprávnění k vytvoření nové skupinové zprávy."
   },
@@ -5556,18 +5512,6 @@
     "translation": "Selhalo sloučení dané konfigurace."
   },
   {
-    "id": "api.cloud.request_error",
-    "translation": "Chyba zpracování požadavku na CWS."
-  },
-  {
-    "id": "api.cloud.license_error",
-    "translation": "Vaše licence neumožňuje cloudové dotazy."
-  },
-  {
-    "id": "api.cloud.app_error",
-    "translation": "Vnitřní chyba během požadavku na cloudové API."
-  },
-  {
     "id": "model.group_syncable.group_id.app_error",
     "translation": "neplatná položka group id pro group syncable."
   },
@@ -5748,14 +5692,6 @@
     "translation": "Pouze správci mohou nastavovat hash hesel."
   },
   {
-    "id": "api.user.login_cws.license.error",
-    "translation": "CWS přihlášení není povoleno."
-  },
-  {
-    "id": "api.user.login_by_cws.invalid_token.app_error",
-    "translation": "Nevalidní CWS oken"
-  },
-  {
     "id": "api.user.get_uploads_for_user.forbidden.app_error",
     "translation": "Selhalo získání nahraných souborů."
   },
@@ -5786,46 +5722,6 @@
   {
     "id": "api.upload.get_upload.forbidden.app_error",
     "translation": "Selhalo získání nahraného souboru."
-  },
-  {
-    "id": "api.upgrade_to_enterprise_status.signature.app_error",
-    "translation": "Mattermost nemohl být aktualizován na Enterprise edici. Digitální podpis staženého souboru nemohl být ověřen."
-  },
-  {
-    "id": "api.upgrade_to_enterprise_status.app_error",
-    "translation": "Mattermost nemohl být aktualizován na Enterprise edici."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.system_not_supported.app_error",
-    "translation": "Nepodařilo se aktualizovat Mattermost na Enterprise edici. Toto vylepšení funguje pouze na Linuxových systémech s architekturou x86-64."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-user.app_error",
-    "translation": "Nepodařilo se aktualizovat Mattermost na Enterprise edici. Systémový uživatel {{.MattermostUsername}} nemá oprávnění zápisu do patřičného binárního souboru. Systémový administrátor může upravit oprávnění k souboru spuštěním následujícího příkazu na serveru, kde je Mattermost instalován:\n\n```\nchown {{.MattermostUsername}} \"{{.Path}}\"\n```\n\nPo změně oprávnění se pokuste provést aktualizaci Mattermostu ještě jednou. Poté, co bude aktualizace dokončena a server restartován, nezapomeňte vrátit oprávnění k souboru na původní hodnotu:\n\n```\nchown {{.FileUsername}} \"{{.Path}}\"\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-user-and-permission.app_error",
-    "translation": "Nepodařilo se aktualizovat Mattermost na Enterprise edici. Systémový uživatel {{.MattermostUsername}} nemá oprávnění zápisu do patřičného binárního souboru. Systémový administrátor může upravit oprávnění k souboru spuštěním následujícího příkazu na serveru, kde je Mattermost instalován:\n\n```\nchown {{.MattermostUsername}} \"{{.Path}}\"\nchmod +w \"{{.Path}}\"\n```\n\nPo změně oprávnění se pokuste provést aktualizaci Mattermostu ještě jednou. Poté, co bude aktualizace dokončena a server restartován, nezapomeňte vrátit oprávnění k souboru na původní hodnotu:\n\n```\nchown {{.FileUsername}} \"{{.Path}}\"\nchmod -w \"{{.Path}}\"\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-permission.app_error",
-    "translation": "Nepodařilo se aktualizovat Mattermost na Enterprise edici. Systémový uživatel {{.MattermostUsername}} nemá oprávnění zápisu do patřičného binárního souboru. Systémový administrátor může upravit oprávnění k souboru spuštěním následujícího příkazu na serveru, kde je Mattermost instalován:\n\n```\nchmod +w \"{{.Path}}\"\n```\n\nPo změně oprávnění se pokuste provést aktualizaci Mattermostu ještě jednou. Poté, co bude aktualizace dokončena a server restartován, nezapomeňte vrátit oprávnění k souboru na původní hodnotu:\n\n```\nchmod -w \"{{.Path}}\"\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.generic_error.app_error",
-    "translation": "Mattermost nemohl být aktualizován na Enterprise edici."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.app_error",
-    "translation": "Aktualizace na Mattermost Enterprise edici již běží."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.already-enterprise.app_error",
-    "translation": "Nelze provést aktualizaci, protože již využíváte Mattermost Enterprise edici."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.already-done.app_error",
-    "translation": "Již jste upgradovali na Mattermost Enterprise Edition. Prosím, restartujte server, aby byl upgrade dokončen."
   },
   {
     "id": "api.team.add_team_member.invalid_body.app_error",
@@ -6616,10 +6512,6 @@
     "translation": "Zadaný text přesahuje maximální povolenou délku. Záhlaví kanálu je omezeno na {{.MaxLength}} znaků."
   },
   {
-    "id": "api.cloud.cws_webhook_event_missing_error",
-    "translation": "Událost webhooku nebyla zpracována. Buď chybí, nebo není platná."
-  },
-  {
     "id": "api.channel.patch_channel_moderations.cache_invalidation.error",
     "translation": "Chyba při zneplatnění mezipaměti"
   },
@@ -6630,10 +6522,6 @@
   {
     "id": "api.admin.saml.failure_reset_authdata_to_email.app_error",
     "translation": "Nepodařilo se resetovat pole AuthData na Email."
-  },
-  {
-    "id": "api.cloud.notify_admin_to_upgrade_error.already_notified",
-    "translation": "Administrátor byl již upozorněn"
   },
   {
     "id": "api.admin.syncables_error",
@@ -6658,26 +6546,6 @@
   {
     "id": "api.command_remote.desc",
     "translation": "Pozvěte zabezpečená připojení pro komunikaci mezi instancemi Mattermost."
-  },
-  {
-    "id": "api.command_marketplace.unsupported.app_error",
-    "translation": "Příkaz marketplace není na vašem zařízení podporován."
-  },
-  {
-    "id": "api.command_marketplace.name",
-    "translation": "obchod"
-  },
-  {
-    "id": "api.command_marketplace.desc",
-    "translation": "Otevřít obchod"
-  },
-  {
-    "id": "api.cloud.teams_limit_reached.restore",
-    "translation": "Tým nelze obnovit, protože bylo dosaženo limitu týmů"
-  },
-  {
-    "id": "api.cloud.teams_limit_reached.create",
-    "translation": "Tým nelze vytvořit, protože bylo dosaženo limitu týmů"
   },
   {
     "id": "web.error.unsupported_browser.no_longer_support",
@@ -6766,10 +6634,6 @@
   {
     "id": "api.command_remote.hint",
     "translation": "[akce]"
-  },
-  {
-    "id": "api.command_help.success",
-    "translation": "Mattermost je open source platforma pro bezpečnou komunikaci, spolupráci a orchestraci práce napříč nástroji a týmy.\nMattermost obsahuje dva klíčové nástroje:\n\n**Kanály** - Zůstaňte ve spojení se svým týmem prostřednictvím zpráv 1:1 a skupinových zpráv.\n**[Playbooks](/playbooks)** - Vytvářejte a konfigurujte opakovatelné procesy k dosažení konkrétních a předvídatelných výsledků.\n\n[Zobrazit dokumentaci a průvodce]({{.HelpLink}})"
   },
   {
     "id": "api.command_custom_status.clear.app_error",
@@ -7324,10 +7188,6 @@
     "translation": "Nelze získat tolik rolí podle názvu. Lze požadovat pouze {{.MaxNames}} rolí najednou."
   },
   {
-    "id": "api.templates.cloud_welcome_email.title",
-    "translation": "Vaše pracovní prostředí je připraveno k použití!"
-  },
-  {
     "id": "api.templates.email_footer_v2",
     "translation": "© 2022 Mattermost, Inc. 530 Lytton Avenue, druhé patro, Palo Alto, CA, 94301"
   },
@@ -7456,10 +7316,6 @@
     "translation": "Klikněte na tlačítko níže pro obnovení hesla. Pokud jste o reset nepožádali, tento e-mail můžete ignorovat."
   },
   {
-    "id": "api.templates.welcome_body.app_download_button",
-    "translation": "Stáhnout"
-  },
-  {
     "id": "api.templates.welcome_body.subTitle1",
     "translation": "Děkujeme, že jste se připojili. "
   },
@@ -7556,16 +7412,8 @@
     "translation": "Pole '{{.Field}}' musí být nastaveno prostřednictvím poskytovatele přihlášení uživatele."
   },
   {
-    "id": "api.user.send_cloud_welcome_email.error",
-    "translation": "Nepodařilo se odeslat uvítací e-mail na cloud"
-  },
-  {
     "id": "api.user.upload_profile_user.check_image_limits.app_error",
     "translation": "Kontrola limitů obrázku selhala. Rozlišení je příliš vysoké."
-  },
-  {
-    "id": "api.templates.welcome_body.app_download_title",
-    "translation": "Stáhněte si desktopové a mobilní aplikace"
   },
   {
     "id": "api.unmarshal_error",
@@ -7704,10 +7552,6 @@
     "translation": "SMTP není nakonfigurováno v Systémové Konzoli"
   },
   {
-    "id": "api.templates.ip_filters_changed_footer.log_in_to_customer_portal",
-    "translation": "Přihlaste se do zákaznického portálu pro reset IP filtrování"
-  },
-  {
     "id": "api.context.outgoing_oauth_connection.update_connection.input_error",
     "translation": "Neplatné vstupní parametry."
   },
@@ -7740,14 +7584,6 @@
     "translation": "Neplatný email_token"
   },
   {
-    "id": "api.server.cws.needs_enterprise_edition",
-    "translation": "Služba je k dispozici pouze v edici Enterprise"
-  },
-  {
-    "id": "api.server.cws.disabled",
-    "translation": "Interakce s portálem uživatelské podpory Mattermostu byly vypnuty systémovým administrátorem."
-  },
-  {
     "id": "api.team.invite_guests_to_channels.disabled.error",
     "translation": "Účty návštěvníků jsou zakázané"
   },
@@ -7768,26 +7604,6 @@
     "translation": "Neplatná aktualizace člena týmu: Host nemůže být přidělen jako člen týmu nebo administrátor týmu, nejprve jej prosím povyšte na uživatele."
   },
   {
-    "id": "api.templates.cloud_welcome_email.info2",
-    "translation": "Ujistěte se, že máte odkaz uložený nebo v záložkách pro budoucí použití."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.mm_apps",
-    "translation": "mobilní a desktopové aplikace"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.signin_sub_info2",
-    "translation": "pro nejlepší uživatelskou zkušenost na systémech Windows, Linux, Mac, iOS a Android."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.start_questions",
-    "translation": "Máte otázky ohledně toho jak začít? Napište nám email na"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subject",
-    "translation": "Gratulujeme!"
-  },
-  {
     "id": "api.templates.ip_filters_changed_footer.contact_support",
     "translation": "Kontaktujte podporu"
   },
@@ -7798,18 +7614,6 @@
   {
     "id": "api.team.invite_guests_to_channels.license.error",
     "translation": "Vaše licence nepodporuje návštěvnické účty"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.button",
-    "translation": "Otevřít Mattermost"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.info",
-    "translation": "Děkujeme za vytvoření "
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.download_mm_info",
-    "translation": "Stáhněte si aplikaci Mattermost"
   },
   {
     "id": "api.templates.ip_filters_changed_footer.send_an_email_to",
@@ -7846,10 +7650,6 @@
   {
     "id": "api.context.request_body_too_large.app_error",
     "translation": "Nelze zpracovat požadavek. Tělo požadavku je příliš velké."
-  },
-  {
-    "id": "api.error_no_organization_name_provided_for_self_hosted_onboarding",
-    "translation": "Chyba: Nebylo poskytnuto jméno organizace pro onboarding na vlastním hostingu."
   },
   {
     "id": "api.channel.create_group.remote_restricted.app_error",
@@ -7936,14 +7736,6 @@
     "translation": "Unable to seek to file start."
   },
   {
-    "id": "api.templates.cloud_welcome_email.add_apps_info",
-    "translation": "Přidejte aplikace do svého pracovního prostoru"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.add_apps_sub_info",
-    "translation": "Zjednodušte svou práci s nástroji jako GitHub, Jira a Zoom. Prozkoumejte všechny integrace, které máme na našem"
-  },
-  {
     "id": "api.custom_groups.feature_disabled",
     "translation": "funkce vlastních skupin je deaktivována"
   },
@@ -7958,10 +7750,6 @@
   {
     "id": "api.elasticsearch.test_elasticsearch_settings_nil.app_error",
     "translation": "Nastavení Elasticsearch obsahuje nevyplněné hodnoty."
-  },
-  {
-    "id": "api.error_set_first_admin_visit_marketplace_status",
-    "translation": "Chyba při pokusu o uložení stavu první návštěvy administrátora na marketplace do obchodu."
   },
   {
     "id": "api.getThreadsForUser.bad_params",
@@ -7988,10 +7776,6 @@
     "translation": "Typy úloh, které se pokoušíte získat, neobsahují oprávnění"
   },
   {
-    "id": "api.templates.cloud_welcome_email.app_market_place",
-    "translation": "marketplace aplikací."
-  },
-  {
     "id": "api.post.deduplicate_create_post.cache_error",
     "translation": "Nepodařilo se uložit příspěvek do mezipaměti po odstranění duplicity klienta, který opakoval stejný požadavek."
   },
@@ -8010,10 +7794,6 @@
   {
     "id": "api.job.unable_to_create_job.incorrect_job_type",
     "translation": "Typ úlohy, kterou se pokoušíte vytvořit, je neplatný"
-  },
-  {
-    "id": "api.error_get_first_admin_visit_marketplace_status",
-    "translation": "Chyba při pokusu o získání stavu první návštěvy administrátora na marketplace z obchodu."
   },
   {
     "id": "api.license.add_license.copy.app_error",
@@ -8058,10 +7838,6 @@
   {
     "id": "app.channel.update_member.app_error",
     "translation": "Nepodařilo se aktualizovat člena kanálu."
-  },
-  {
-    "id": "app.file.cloud.get.app_error",
-    "translation": "Nelze načíst soubor, protože překročil limit cloudového plánu."
   },
   {
     "id": "app.post.delete_post.get_team.app_error",
@@ -8216,36 +7992,12 @@
     "translation": "Nelze získat všechny úkoly podle typu a stavu."
   },
   {
-    "id": "app.post.cloud.get.app_error",
-    "translation": "Nelze získat příspěvek, protože přesáhl limit plánu cloudu."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.invite_info",
-    "translation": "Pozvěte lidi do svého pracovního prostoru"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.invite_sub_info",
-    "translation": "Sdílejte tento odkaz a pozvěte své členy, aby se připojili k {{.WorkSpace}}:"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.signin_sub_info",
-    "translation": "Přihlaste se do svého pracovního prostoru na našem"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subtitle",
-    "translation": "Nastavte svůj pracovní prostor"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subtitle_info",
-    "translation": "Pro maximální využití svého pracovního prostoru postupujte podle následujících kroků a vytvořte své týmy."
-  },
-  {
     "id": "api.templates.invite_team_and_channels_subject",
     "translation": "[{{ .SiteName }}] {{ .SenderName }} vás pozval k připojení do {{ .ChannelsLen }} kanálů v týmu {{ .TeamDisplayName }}"
   },
   {
-    "id": "api.templates.license_up_for_renewal_contact_sales",
-    "translation": "Kontaktujte prodej"
+    "id": "api.templates.license_up_for_renewal_review_license",
+    "translation": "Review license"
   },
   {
     "id": "api.templates.ip_filters_changed_footer.title",
@@ -8354,10 +8106,6 @@
   {
     "id": "app.import.validate_user_teams_import_data.invalid_auth_service.error",
     "translation": "Neplatná autentizační služba: {{.AuthService}}"
-  },
-  {
-    "id": "app.last_accessible_file.app_error",
-    "translation": "Chyba při načítání posledního přístupného souboru"
   },
   {
     "id": "app.last_accessible_post.app_error",
@@ -8788,10 +8536,6 @@
     "translation": "Nepodařilo se resetovat schémata týmu."
   },
   {
-    "id": "app.system.complete_onboarding_request.app_error",
-    "translation": "Nepodařilo se dekódovat úplný požadavek na zahájení procesu."
-  },
-  {
     "id": "app.team.clear_cache.app_error",
     "translation": "Chyba při vymazání cache členů týmu"
   },
@@ -8834,10 +8578,6 @@
   {
     "id": "app.scheme.permanent_delete_all.app_error",
     "translation": "Nepodařilo se trvale smazat schémata."
-  },
-  {
-    "id": "app.system.complete_onboarding_request.no_first_user",
-    "translation": "Onboarding může být dokončeno pouze Administrátorem Systému."
   },
   {
     "id": "app.team.clear_all_custom_role_assignments.select.app_error",
@@ -8894,10 +8634,6 @@
   {
     "id": "app.system.save.app_error",
     "translation": "Došlo k chybě při ukládání systémového nastavení."
-  },
-  {
-    "id": "app.system.get_onboarding_request.app_error",
-    "translation": "Nepodařilo se získat stav dokončení onboardingového procesu."
   },
   {
     "id": "app.team.migrate_team_members.update.app_error",

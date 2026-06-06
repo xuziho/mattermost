@@ -10,9 +10,7 @@ import type {Team} from '@mattermost/types/teams';
 import type {ActionResult} from 'mattermost-redux/types/actions';
 
 import BackstageList from 'components/backstage/components/backstage_list';
-import ExternalLink from 'components/external_link';
 
-import {DeveloperLinks} from 'utils/constants';
 import {localizeMessage} from 'utils/utils';
 
 import InstalledOAuthApp from '../installed_oauth_app';
@@ -148,31 +146,7 @@ export default class InstalledOAuthApps extends React.PureComponent<Props, State
                 helpText={
                     <FormattedMessage
                         id='installed_oauth_apps.help'
-                        defaultMessage='Create {oauthApplications} to securely integrate bots and third-party apps with Mattermost. Visit the {appDirectory} to find available self-hosted apps.'
-                        values={{
-                            oauthApplications: (
-                                <ExternalLink
-                                    href={DeveloperLinks.SETUP_OAUTH2}
-                                    location='installed_oauth_apps'
-                                >
-                                    <FormattedMessage
-                                        id='installed_oauth_apps.help.oauthApplications'
-                                        defaultMessage='OAuth 2.0 applications'
-                                    />
-                                </ExternalLink>
-                            ),
-                            appDirectory: (
-                                <ExternalLink
-                                    href='https://mattermost.com/marketplace/'
-                                    location='installed_oauth_apps'
-                                >
-                                    <FormattedMessage
-                                        id='installed_oauth_apps.help.appDirectory'
-                                        defaultMessage='App Directory'
-                                    />
-                                </ExternalLink>
-                            ),
-                        }}
+                        defaultMessage='Create OAuth 2.0 applications to securely integrate bots and third-party apps with this workspace.'
                     />
                 }
                 emptyText={

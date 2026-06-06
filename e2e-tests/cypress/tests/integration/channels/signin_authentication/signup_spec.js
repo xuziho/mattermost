@@ -10,7 +10,7 @@
 // Stage: @prod
 // Group: @channels @signin_authentication
 
-import {FixedCloudConfig} from '../../../utils/constants';
+import {FixedDefaultConfig} from '../../../utils/constants';
 
 describe('Signup Email page', () => {
     let config;
@@ -97,7 +97,7 @@ describe('Signup Email page', () => {
             HELP_LINK,
             PRIVACY_POLICY_LINK,
             TERMS_OF_SERVICE_LINK,
-        } = FixedCloudConfig.SupportSettings;
+        } = FixedDefaultConfig.SupportSettings;
 
         // * Check elements in the footer
         cy.get('.hfroute-footer').scrollIntoView().should('be.visible').within(() => {

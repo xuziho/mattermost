@@ -478,5 +478,9 @@
   {
     "id": "April",
     "translation": "აპრილი"
+  },
+  {
+    "id": "api.templates.license_up_for_renewal_review_license",
+    "translation": "Review license"
   }
 ]

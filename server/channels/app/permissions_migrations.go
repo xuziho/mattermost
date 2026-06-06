@@ -100,11 +100,7 @@ func isExactRole(roleName string) func(*model.Role, map[string]map[string]bool) 
 // TeamGuest,
 // ChannelAdmin,
 // ChannelUser,
-// ChannelGuest,
-// PlaybookAdmin,
-// PlaybookMember,
-// RunAdmin,
-// RunMember
+// ChannelGuest
 func isRole(roleName string) func(*model.Role, map[string]map[string]bool) bool {
 	return func(role *model.Role, permissionsMap map[string]map[string]bool) bool {
 		if role.Name == roleName {
@@ -136,12 +132,6 @@ func isSchemeRoleAssociatedToCommonName(roleName string, role *model.Role) bool 
 		model.ChannelAdminRoleId: sqlstore.SchemeRoleDisplayNameChannelAdmin,
 		model.ChannelUserRoleId:  sqlstore.SchemeRoleDisplayNameChannelUser,
 		model.ChannelGuestRoleId: sqlstore.SchemeRoleDisplayNameChannelGuest,
-
-		model.PlaybookAdminRoleId:  sqlstore.SchemeRoleDisplayNamePlaybookAdmin,
-		model.PlaybookMemberRoleId: sqlstore.SchemeRoleDisplayNamePlaybookMember,
-
-		model.RunAdminRoleId:  sqlstore.SchemeRoleDisplayNameRunAdmin,
-		model.RunMemberRoleId: sqlstore.SchemeRoleDisplayNameRunMember,
 	}
 	displayName, ok := roleIDToSchemeRoleDisplayName[roleName]
 	if !ok {
@@ -603,15 +593,6 @@ func (a *App) getAddManageSharedChannelsPermissionsMigration() (permissionsMap, 
 	}, nil
 }
 
-func (a *App) getBillingPermissionsMigration() (permissionsMap, error) {
-	return permissionsMap{
-		permissionTransformation{
-			On:  isExactRole(model.SystemAdminRoleId),
-			Add: []string{model.PermissionSysconsoleReadBilling.Id, model.PermissionSysconsoleWriteBilling.Id},
-		},
-	}, nil
-}
-
 func (a *App) getAddManageSecureConnectionsPermissionsMigration() (permissionsMap, error) {
 	return permissionsMap{
 		// add the new permission to system admin
@@ -982,70 +963,6 @@ func (a *App) getAddCustomUserGroupsPermissionRestore() (permissionsMap, error) 
 	}, nil
 }
 
-func (a *App) getAddPlaybooksPermissions() (permissionsMap, error) {
-	return permissionsMap{
-		permissionTransformation{
-			On: permissionOr(
-				permissionExists(model.PermissionCreatePublicChannel.Id),
-				permissionExists(model.PermissionCreatePrivateChannel.Id),
-			),
-			Add: []string{
-				model.PermissionPublicPlaybookCreate.Id,
-				model.PermissionPrivatePlaybookCreate.Id,
-			},
-		},
-		permissionTransformation{
-			On: isExactRole(model.SystemAdminRoleId),
-			Add: []string{
-				model.PermissionPublicPlaybookManageProperties.Id,
-				model.PermissionPublicPlaybookManageMembers.Id,
-				model.PermissionPublicPlaybookView.Id,
-				model.PermissionPublicPlaybookMakePrivate.Id,
-				model.PermissionPrivatePlaybookManageProperties.Id,
-				model.PermissionPrivatePlaybookManageMembers.Id,
-				model.PermissionPrivatePlaybookView.Id,
-				model.PermissionPrivatePlaybookMakePublic.Id,
-				model.PermissionRunCreate.Id,
-				model.PermissionRunManageProperties.Id,
-				model.PermissionRunManageMembers.Id,
-				model.PermissionRunView.Id,
-			},
-		},
-	}, nil
-}
-
-func (a *App) getPlaybooksPermissionsAddManageRoles() (permissionsMap, error) {
-	return permissionsMap{
-		permissionTransformation{
-			On: permissionOr(
-				isExactRole(model.PlaybookAdminRoleId),
-				isExactRole(model.TeamAdminRoleId),
-				isExactRole(model.SystemAdminRoleId),
-			),
-			Add: []string{
-				model.PermissionPublicPlaybookManageRoles.Id,
-				model.PermissionPrivatePlaybookManageRoles.Id,
-			},
-		},
-	}, nil
-}
-
-func (a *App) getProductsBoardsPermissions() (permissionsMap, error) {
-	return permissionsMap{
-		// Give the new subsection READ permissions to any user with SYSTEM_MANAGER
-		permissionTransformation{
-			On:  permissionOr(isExactRole(model.SystemManagerRoleId)),
-			Add: []string{model.PermissionSysconsoleReadProductsBoards.Id},
-		},
-
-		// Give the new subsection WRITE permissions to any user with SYSTEM_ADMIN
-		permissionTransformation{
-			On:  permissionOr(isExactRole(model.SystemAdminRoleId)),
-			Add: []string{model.PermissionSysconsoleWriteProductsBoards.Id},
-		},
-	}, nil
-}
-
 func (a *App) getAddChannelReadContentPermissions() (permissionsMap, error) {
 	return permissionsMap{
 		// Migrate all roles including custom roles that have the read_channel permission
@@ -1353,7 +1270,6 @@ func (s *Server) doPermissionsMigrations() error {
 		{Key: model.MigrationKeyAddManageSharedChannelPermissions, Migration: a.getAddManageSharedChannelsPermissionsMigration},
 		{Key: model.MigrationKeyAddManageSecureConnectionsPermissions, Migration: a.getAddManageSecureConnectionsPermissionsMigration},
 		{Key: model.MigrationKeyAddSystemRolesPermissions, Migration: a.getSystemRolesPermissionsMigration},
-		{Key: model.MigrationKeyAddBillingPermissions, Migration: a.getBillingPermissionsMigration},
 		{Key: model.MigrationKeyAddDownloadComplianceExportResults, Migration: a.getAddDownloadComplianceExportResult},
 		{Key: model.MigrationKeyAddExperimentalSubsectionPermissions, Migration: a.getAddExperimentalSubsectionPermissions},
 		{Key: model.MigrationKeyAddAuthenticationSubsectionPermissions, Migration: a.getAddAuthenticationSubsectionPermissions},
@@ -1364,10 +1280,7 @@ func (s *Server) doPermissionsMigrations() error {
 		{Key: model.MigrationKeyAddAboutSubsectionPermissions, Migration: a.getAddAboutSubsectionPermissions},
 		{Key: model.MigrationKeyAddReportingSubsectionPermissions, Migration: a.getAddReportingSubsectionPermissions},
 		{Key: model.MigrationKeyAddTestEmailAncillaryPermission, Migration: a.getAddTestEmailAncillaryPermission},
-		{Key: model.MigrationKeyAddPlaybooksPermissions, Migration: a.getAddPlaybooksPermissions},
 		{Key: model.MigrationKeyAddCustomUserGroupsPermissions, Migration: a.getAddCustomUserGroupsPermissions},
-		{Key: model.MigrationKeyAddPlayboosksManageRolesPermissions, Migration: a.getPlaybooksPermissionsAddManageRoles},
-		{Key: model.MigrationKeyAddProductsBoardsPermissions, Migration: a.getProductsBoardsPermissions},
 		{Key: model.MigrationKeyAddCustomUserGroupsPermissionRestore, Migration: a.getAddCustomUserGroupsPermissionRestore},
 		{Key: model.MigrationKeyAddReadChannelContentPermissions, Migration: a.getAddChannelReadContentPermissions},
 		{Key: model.MigrationKeyAddIPFilteringPermissions, Migration: a.getAddIPFilterPermissionsMigration},

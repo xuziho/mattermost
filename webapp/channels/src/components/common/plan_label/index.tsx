@@ -6,7 +6,6 @@ import {useIntl} from 'react-intl';
 import {useSelector} from 'react-redux';
 import styled from 'styled-components';
 
-import {getCloudSubscription as selectCloudSubscription, isCurrentLicenseCloud} from 'mattermost-redux/selectors/entities/cloud';
 import {getLicense} from 'mattermost-redux/selectors/entities/general';
 
 import {TrialPeriodDays} from 'utils/constants';
@@ -33,16 +32,14 @@ color: ${(props) => props.color};
 
 function PlanLabel(props: PlanLabelProps) {
     const {formatMessage} = useIntl();
-    const isCloud = useSelector(isCurrentLicenseCloud);
-    const subscription = useSelector(selectCloudSubscription);
     const license = useSelector(getLicense);
     const isSelfHostedEnterpriseTrial = license.IsTrial === 'true';
 
     let text = props.text;
 
-    if (props.renderLastDaysOnTrial && ((isCloud && subscription?.is_free_trial === 'true') || isSelfHostedEnterpriseTrial)) {
+    if (props.renderLastDaysOnTrial && isSelfHostedEnterpriseTrial) {
         const daysLeftOnTrial = Math.min(
-            getRemainingDaysFromFutureTimestamp(isSelfHostedEnterpriseTrial ? parseInt(license.ExpiresAt, 10) : subscription?.trial_end_at),
+            getRemainingDaysFromFutureTimestamp(parseInt(license.ExpiresAt, 10)),
             TrialPeriodDays.TRIAL_30_DAYS,
         );
         text = formatMessage({id: 'pricing_modal.plan_label_trialDays', defaultMessage: '{days} DAYS LEFT ON TRIAL'}, {days: daysLeftOnTrial});
@@ -62,4 +59,3 @@ function PlanLabel(props: PlanLabelProps) {
 }
 
 export default PlanLabel;
-

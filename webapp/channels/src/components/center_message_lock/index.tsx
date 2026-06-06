@@ -7,14 +7,11 @@ import {useIntl} from 'react-intl';
 import {EyeOffOutlineIcon} from '@mattermost/compass-icons/components';
 
 import useGetServerLimits from 'components/common/hooks/useGetServerLimits';
-import useOpenPricingModal from 'components/common/hooks/useOpenPricingModal';
 
 import './index.scss';
 
 export default function CenterMessageLock() {
     const intl = useIntl();
-
-    const {openPricingModal} = useOpenPricingModal();
 
     const [limitsLoaded] = useGetServerLimits();
 
@@ -27,25 +24,10 @@ export default function CenterMessageLock() {
         defaultMessage: 'Limited history is displayed',
     });
 
-    const description = intl.formatMessage(
-        {
-            id: 'workspace_limits.message_history.locked.description.admin',
-            defaultMessage: 'Full access to message history is included in <a>paid plans</a>',
-        },
-        {
-            a: (chunks: React.ReactNode | React.ReactNodeArray) => (
-                <a
-                    href='#'
-                    onClick={(e: React.MouseEvent) => {
-                        e.preventDefault();
-                        openPricingModal();
-                    }}
-                >
-                    {chunks}
-                </a>
-            ),
-        },
-    );
+    const description = intl.formatMessage({
+        id: 'workspace_limits.message_history.locked.description.admin',
+        defaultMessage: 'Full access to message history is not available on this server.',
+    });
 
     return (<div className='CenterMessageLock'>
         <div className='CenterMessageLock__left'>

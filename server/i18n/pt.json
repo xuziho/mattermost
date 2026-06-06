@@ -248,10 +248,6 @@
     "translation": "A sua licença não suporta a atualização do esquema de um canal"
   },
   {
-    "id": "api.cloud.license_error",
-    "translation": "A sua licença não suporta os pedidos da nuvem."
-  },
-  {
     "id": "api.command.disabled.app_error",
     "translation": "Os comandos foram desativados pelo administrador do sistema."
   },
@@ -296,20 +292,8 @@
     "translation": "Definir ou limpar o seu estado"
   },
   {
-    "id": "api.command_help.desc",
-    "translation": "Mostrar a mensagem da ajuda de Mattermost"
-  },
-  {
     "id": "api.command_groupmsg.permission.app_error",
     "translation": "Não tem as permissões apropriadas para criar uma nova mensagem de grupo."
-  },
-  {
-    "id": "api.command_help.name",
-    "translation": "ajuda"
-  },
-  {
-    "id": "api.command_help.success",
-    "translation": "Mattermost é uma plataforma de código aberto para uma comunicação segura, colaboração, e orquestração do trabalho entre ferramentas e equipas.\nMattermost contém duas ferramentas chave:\n\n**Canais** - Mantenha-se ligado com a sua equipa através de 1:1 e mensagem de grupo.\n**[Manuais](/playbooks)** - Crie e configure processos repetíveis para alcançar resultados específicos e previsíveis.\n\n[Veja a documentação e guias]({{.HelpLink}})"
   },
   {
     "id": "api.command_invite.permission.app_error",
@@ -850,5 +834,9 @@
       "one": "- {{.Count}} no canal {{.ChannelName}}. Motivo: {{.ErrorReason}}",
       "other": "- {{.Count}} no canal {{.ChannelName}}. Motivo: {{.ErrorReason}}"
     }
+  },
+  {
+    "id": "api.templates.license_up_for_renewal_review_license",
+    "translation": "Review license"
   }
 ]

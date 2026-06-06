@@ -17,8 +17,6 @@ func (api *API) InitPluginLocal() {
 	api.BaseRoutes.Plugin.Handle("", api.APILocal(removePlugin)).Methods(http.MethodDelete)
 	api.BaseRoutes.Plugin.Handle("/enable", api.APILocal(enablePlugin)).Methods(http.MethodPost)
 	api.BaseRoutes.Plugin.Handle("/disable", api.APILocal(disablePlugin)).Methods(http.MethodPost)
-	api.BaseRoutes.Plugins.Handle("/marketplace", api.APILocal(installMarketplacePlugin)).Methods(http.MethodPost)
-	api.BaseRoutes.Plugins.Handle("/marketplace", api.APILocal(getMarketplacePlugins)).Methods(http.MethodGet)
 	api.BaseRoutes.Plugins.Handle("/reattach", api.APILocal(reattachPlugin)).Methods(http.MethodPost)
 	api.BaseRoutes.Plugin.Handle("/detach", api.APILocal(detachPlugin)).Methods(http.MethodPost)
 }

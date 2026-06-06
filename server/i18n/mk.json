@@ -576,36 +576,12 @@
     "translation": "Вашата лиценца не поддржува ажурирање на шеми за дозволи"
   },
   {
-    "id": "api.cloud.app_error",
-    "translation": "Внатрешна грешка при клауд апи барање."
-  },
-  {
     "id": "api.channel.update_team_member_roles.scheme_role.app_error",
     "translation": "Наведената улога е менаџирана од Шема и поради тоа неможе да се аплицира директно на Член на Тимот."
   },
   {
     "id": "api.channel.update_team_member_roles.changing_guest_role.app_error",
     "translation": "Невалидно ажурирање на член на тимот: Не можете да додадете или отстранете гостинската улога рачно."
-  },
-  {
-    "id": "api.cloud.teams_limit_reached.create",
-    "translation": "Не може да се создаде тимот бидејќи се достигна ограничувањето за тимови"
-  },
-  {
-    "id": "api.cloud.request_error",
-    "translation": "Грешка при процесирање барањето на CWS."
-  },
-  {
-    "id": "api.cloud.notify_admin_to_upgrade_error.already_notified",
-    "translation": "Веќе е известен администраторот"
-  },
-  {
-    "id": "api.cloud.license_error",
-    "translation": "Вашата лиценца не поддржува клауд барања."
-  },
-  {
-    "id": "api.cloud.cws_webhook_event_missing_error",
-    "translation": "Веб кука настанот не беше обработен. Или недостига или не е валиден."
   },
   {
     "id": "api.command.execute_command.failed.app_error",
@@ -630,10 +606,6 @@
   {
     "id": "api.command.admin_only.app_error",
     "translation": "Интеграциите се ограничени само за администратори."
-  },
-  {
-    "id": "api.cloud.teams_limit_reached.restore",
-    "translation": "Не може да се врати тимот бидејќи ограничувањето за тимови беше достигнато"
   },
   {
     "id": "api.command.execute_command.format.app_error",
@@ -918,5 +890,9 @@
   {
     "id": "api.command_channel_rename.permission.app_error",
     "translation": "Немате соодветни дозволи за преименување на каналот."
+  },
+  {
+    "id": "api.templates.license_up_for_renewal_review_license",
+    "translation": "Review license"
   }
 ]

@@ -9,10 +9,8 @@ export type ClientConfig = {
     AllowCustomThemes: string;
     AllowSyncedDrafts: string;
     AllowedThemes: string;
-    AndroidAppDownloadLink: string;
     AndroidLatestVersion: string;
     AndroidMinVersion: string;
-    AppDownloadLink: string;
     AppsPluginEnabled: string;
     AsymmetricSigningPublicKey: string;
     AvailableLocales: string;
@@ -31,8 +29,6 @@ export type ClientConfig = {
     CustomTermsOfServiceId: string;
     CustomTermsOfServiceReAcceptancePeriod: string;
     CustomUrlSchemes: string;
-    CWSURL: string;
-    CWSMock: string;
     DataRetentionEnableFileDeletion: string;
     DataRetentionEnableMessageDeletion: string;
     DataRetentionFileRetentionHours: string;
@@ -47,7 +43,6 @@ export type ClientConfig = {
     EmailLoginButtonColor: string;
     EmailLoginButtonTextColor: string;
     EmailNotificationContentsType: string;
-    EnableAskCommunityLink: string;
     EnableBanner: string;
     EnableBotAccountCreation: string;
     EnableChannelViewedMessages: string;
@@ -69,7 +64,6 @@ export type ClientConfig = {
     EnableCustomTermsOfService: string;
     EnableDeveloper: string;
     EnableDiagnostics: string;
-    EnableDesktopLandingPage: 'true' | 'false';
     EnableEmailBatching: string;
     EnableEmailInvitations: string;
     EnableEmojiPicker: string;
@@ -84,7 +78,6 @@ export type ClientConfig = {
     EnableInlineLatex: string;
     EnableLdap: string;
     EnableLinkPreviews: string;
-    EnableMarketplace: string;
     EnableMetrics: string;
     EnableMobileFileDownload: string;
     EnableMobileFileUpload: string;
@@ -110,7 +103,6 @@ export type ClientConfig = {
     EnableTesting: string;
     EnableThemeSelection: string;
     EnableTutorial: string;
-    EnableOnboardingFlow: string;
     EnableUserAccessTokens: string;
     EnableUserCreation: string;
     EnableUserDeactivation: string;
@@ -123,10 +115,9 @@ export type ClientConfig = {
     ExperimentalEnablePostMetadata: string;
     ExperimentalGroupUnreadChannels: string;
     ExperimentalPrimaryTeam: string;
-    FileLevel: string;
-    FeatureFlagAppsEnabled: string;
-    FeatureFlagCallsEnabled: string;
-    FeatureFlagCustomProfileAttributes: string;
+	FileLevel: string;
+	FeatureFlagAppsEnabled: string;
+	FeatureFlagCustomProfileAttributes: string;
     FeatureFlagAttributeBasedAccessControl: string;
     FeatureFlagPermissionPolicies: string;
     FeatureFlagWebSocketEventScope: string;
@@ -139,13 +130,10 @@ export type ClientConfig = {
     GoogleDeveloperKey: string;
     GuestAccountsEnforceMultifactorAuthentication: string;
     HasImageProxy: string;
-    HelpLink: string;
     HideGuestTags: string;
-    IosAppDownloadLink: string;
     IosLatestVersion: string;
     IosMinVersion: string;
     InstallationDate: string;
-    IsDefaultMarketplace: string;
     LdapFirstNameAttributeSet: string;
     LdapLastNameAttributeSet: string;
     LdapLoginButtonBorderColor: string;
@@ -175,9 +163,6 @@ export type ClientConfig = {
     PluginsEnabled: string;
     PostEditTimeLimit: string;
     PrivacyPolicyLink: string;
-    ReportAProblemLink: string;
-    ReportAProblemType: string;
-    ReportAProblemMail: string;
     AllowDownloadLogs: string;
     RequireEmailVerification: string;
     RestrictDirectMessage: string;
@@ -296,24 +281,11 @@ export type LicenseFeatures = {
 
 export type ClientLicense = Record<string, string>;
 
-export type RequestLicenseBody = {
-    users: number;
-    terms_accepted: boolean;
-    receive_emails_accepted: boolean;
-    contact_name: string;
-    contact_email: string;
-    company_name: string;
-    company_size: string;
-    company_country: string;
-}
-
 export type DataRetentionPolicy = {
-    message_deletion_enabled: boolean;
-    file_deletion_enabled: boolean;
-    message_retention_cutoff: number;
-    file_retention_cutoff: number;
-    boards_retention_cutoff: number;
-    boards_deletion_enabled: boolean;
+	message_deletion_enabled: boolean;
+	file_deletion_enabled: boolean;
+	message_retention_cutoff: number;
+	file_retention_cutoff: number;
 };
 
 export type ServiceSettings = {
@@ -395,7 +367,6 @@ export type ServiceSettings = {
     ExperimentalEnableAuthenticationTransfer: boolean;
     ClusterLogTimeoutMilliseconds: number;
     EnableTutorial: boolean;
-    EnableOnboardingFlow: boolean;
     ExperimentalEnableDefaultChannelLeaveJoinMessages: boolean;
     ExperimentalGroupUnreadChannels: string;
     EnableAPITeamDeletion: boolean;
@@ -649,16 +620,11 @@ export type SupportSettings = {
     TermsOfServiceLink: string;
     PrivacyPolicyLink: string;
     AboutLink: string;
-    HelpLink: string;
-    ReportAProblemLink: string;
-    ReportAProblemType: string;
-    ReportAProblemMail: string;
     AllowDownloadLogs: boolean;
     ForgotPasswordLink: string;
     SupportEmail: string;
     CustomTermsOfServiceEnabled: boolean;
     CustomTermsOfServiceReAcceptancePeriod: number;
-    EnableAskCommunityLink: boolean;
 };
 
 export type AnnouncementSettings = {
@@ -923,16 +889,14 @@ export type DataRetentionSettings = {
     EnableMessageDeletion: boolean;
     EnableFileDeletion: boolean;
     MessageRetentionDays: number;
-    MessageRetentionHours: number;
-    FileRetentionDays: number;
-    FileRetentionHours: number;
-    DeletionJobStartTime: string;
-    BatchSize: number;
-    EnableBoardsDeletion: boolean;
-    BoardsRetentionDays: number;
-    TimeBetweenBatchesMilliseconds: number;
-    RetentionIdsBatchSize: number;
-    PreservePinnedPosts: boolean;
+	MessageRetentionHours: number;
+	FileRetentionDays: number;
+	FileRetentionHours: number;
+	DeletionJobStartTime: string;
+	BatchSize: number;
+	TimeBetweenBatchesMilliseconds: number;
+	RetentionIdsBatchSize: number;
+	PreservePinnedPosts: boolean;
 };
 
 export type MessageExportSettings = {
@@ -971,11 +935,7 @@ export type PluginSettings = {
     ClientDirectory: string;
     Plugins: Record<string, any>;
     PluginStates: Record<string, { Enable: boolean }>;
-    EnableMarketplace: boolean;
-    EnableRemoteMarketplace: boolean;
-    AutomaticPrepackagedPlugins: boolean;
     RequirePluginSignature: boolean;
-    MarketplaceURL: string;
     SignaturePublicKeyFiles: string[];
     ChimeraOAuthProxyURL: string;
 };
@@ -999,14 +959,6 @@ export type ImageProxySettings = {
     ImageProxyType: string;
     RemoteImageProxyURL: string;
     RemoteImageProxyOptions: string;
-};
-
-export type CloudSettings = {
-    CWSURL: string;
-    CWSAPIURL: string;
-    CWSMock: boolean;
-    Disable: boolean;
-    PreviewModalBucketURL: string;
 };
 
 export type FeatureFlags = Record<string, string | boolean>;
@@ -1095,8 +1047,7 @@ export type AdminConfig = {
     DisplaySettings: DisplaySettings;
     GuestAccountsSettings: GuestAccountsSettings;
     ImageProxySettings: ImageProxySettings;
-    CloudSettings: CloudSettings;
-    FeatureFlags: FeatureFlags;
+	FeatureFlags: FeatureFlags;
     ImportSettings: ImportSettings;
     ExportSettings: ExportSettings;
     WranglerSettings: WranglerSettings;

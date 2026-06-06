@@ -10,7 +10,7 @@ exports[`components/app_bar/app_bar should match snapshot on mount 1`] = `
     >
       <div
         class="app-bar__icon"
-        id="app-bar-icon-playbooks"
+        id="app-bar-icon-custom-plugin"
       >
         <div
           class="app-bar__old-icon app-bar__icon-inner app-bar__icon-inner--centered"
@@ -49,7 +49,7 @@ exports[`components/app_bar/app_bar should match snapshot on mount when App Bar 
     >
       <div
         class="app-bar__icon"
-        id="app-bar-icon-playbooks"
+        id="app-bar-icon-custom-plugin"
       >
         <div
           class="app-bar__old-icon app-bar__icon-inner app-bar__icon-inner--centered"

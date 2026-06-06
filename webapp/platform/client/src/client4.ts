@@ -28,19 +28,6 @@ import type {
 } from '@mattermost/types/channels';
 import type {Options, StatusOK, ClientResponse, FetchPaginatedThreadOptions, OptsSignalExt} from '@mattermost/types/client4';
 import {LogLevel} from '@mattermost/types/client4';
-import type {
-    Address,
-    Product,
-    CloudCustomer,
-    CloudCustomerPatch,
-    Invoice,
-    Limits,
-    NotifyAdminRequest,
-    Subscription,
-    ValidBusinessEmail,
-    Installation,
-    PreviewModalContentData,
-} from '@mattermost/types/cloud';
 import type {Compliance} from '@mattermost/types/compliance';
 import type {
     ClientConfig,
@@ -49,7 +36,6 @@ import type {
     License,
     AdminConfig,
     EnvironmentConfig,
-    RequestLicenseBody,
     AllowedIPRanges,
     AllowedIPRange,
     FetchIPResponse,
@@ -66,7 +52,6 @@ import type {Draft} from '@mattermost/types/drafts';
 import type {CustomEmoji} from '@mattermost/types/emojis';
 import type {ServerError} from '@mattermost/types/errors';
 import type {FileInfo, FileUploadResponse, FileSearchResults} from '@mattermost/types/files';
-import type {SystemSetting} from '@mattermost/types/general';
 import type {
     Group,
     GroupPatch,
@@ -98,10 +83,6 @@ import type {
 } from '@mattermost/types/integrations';
 import type {Job, JobType, JobTypeBase} from '@mattermost/types/jobs';
 import type {ServerLimits} from '@mattermost/types/limits';
-import type {
-    MarketplaceApp,
-    MarketplacePlugin,
-} from '@mattermost/types/marketplace';
 import type {MfaSecret} from '@mattermost/types/mfa';
 import type {
     ClientPluginManifest,
@@ -109,9 +90,8 @@ import type {
     PluginsResponse,
     PluginStatus,
 } from '@mattermost/types/plugins';
-import type {Post, PostList, PostSearchResults, PostsUsageResponse, TeamsUsageResponse, PaginatedPostList, FilesUsageResponse, PostAcknowledgement, PostAnalytics, PostInfo} from '@mattermost/types/posts';
+import type {Post, PostList, PostSearchResults, PaginatedPostList, PostAcknowledgement, PostAnalytics, PostInfo} from '@mattermost/types/posts';
 import type {PreferenceType} from '@mattermost/types/preferences';
-import type {ProductNotices} from '@mattermost/types/product_notices';
 import type {
     NameMappedPropertyFields,
     UserPropertyField,
@@ -128,7 +108,6 @@ import type {SamlCertificateStatus, SamlMetadataResponse} from '@mattermost/type
 import type {ScheduledPost} from '@mattermost/types/schedule_post';
 import type {Scheme} from '@mattermost/types/schemes';
 import type {Session} from '@mattermost/types/sessions';
-import type {CompleteOnboardingRequest} from '@mattermost/types/setup';
 import type {RemoteClusterInfo, SharedChannelRemote} from '@mattermost/types/shared_channels';
 import type {
     GetTeamMembersOpts,
@@ -474,10 +453,6 @@ export default class Client4 {
         return `${this.getPluginsRoute()}/${pluginId}`;
     }
 
-    getPluginsMarketplaceRoute() {
-        return `${this.getPluginsRoute()}/marketplace`;
-    }
-
     getRolesRoute() {
         return `${this.getBaseRoute()}/roles`;
     }
@@ -500,22 +475,6 @@ export default class Client4 {
 
     getGroupRoute(groupID: string) {
         return `${this.getGroupsRoute()}/${groupID}`;
-    }
-
-    getNoticesRoute() {
-        return `${this.getBaseRoute()}/system/notices`;
-    }
-
-    getCloudRoute() {
-        return `${this.getBaseRoute()}/cloud`;
-    }
-
-    getHostedCustomerRoute() {
-        return `${this.getBaseRoute()}/hosted_customer`;
-    }
-
-    getUsageRoute() {
-        return `${this.getBaseRoute()}/usage`;
     }
 
     getPermissionsRoute() {
@@ -2748,37 +2707,6 @@ export default class Client4 {
         );
     };
 
-    upgradeToEnterprise = async () => {
-        return this.doFetch<StatusOK>(
-            `${this.getBaseRoute()}/upgrade_to_enterprise`,
-            {method: 'post'},
-        );
-    };
-
-    upgradeToEnterpriseStatus = async () => {
-        return this.doFetch<{
-            percentage: number;
-            error: string | null;
-        }>(
-            `${this.getBaseRoute()}/upgrade_to_enterprise/status`,
-            {method: 'get'},
-        );
-    };
-
-    isAllowedToUpgradeToEnterprise = async () => {
-        return this.doFetch<StatusOK>(
-            `${this.getBaseRoute()}/upgrade_to_enterprise/allowed`,
-            {method: 'get'},
-        );
-    };
-
-    restartServer = async () => {
-        return this.doFetch<StatusOK>(
-            `${this.getBaseRoute()}/restart`,
-            {method: 'post'},
-        );
-    };
-
     logClientError = (message: string, level = LogLevel.Error) => {
         const url = `${this.getBaseRoute()}/logs`;
 
@@ -2817,27 +2745,6 @@ export default class Client4 {
             load: number;
         }>(
             `${this.getBaseRoute()}/license/load_metric`,
-            {method: 'get'},
-        );
-    };
-
-    setFirstAdminVisitMarketplaceStatus = async () => {
-        return this.doFetch<StatusOK>(
-            `${this.getPluginsRoute()}/marketplace/first_admin_visit`,
-            {method: 'post', body: JSON.stringify({first_admin_visit_marketplace_status: true})},
-        );
-    };
-
-    getFirstAdminVisitMarketplaceStatus = async () => {
-        return this.doFetch<SystemSetting>(
-            `${this.getPluginsRoute()}/marketplace/first_admin_visit`,
-            {method: 'get'},
-        );
-    };
-
-    getFirstAdminSetupComplete = async () => {
-        return this.doFetch<SystemSetting>(
-            `${this.getSystemRoute()}/onboarding/complete`,
             {method: 'get'},
         );
     };
@@ -3799,24 +3706,10 @@ export default class Client4 {
         );
     };
 
-    requestTrialLicense = (body: RequestLicenseBody) => {
-        return this.doFetchWithResponse<ClientLicense>(
-            `${this.getBaseRoute()}/trial-license`,
-            {method: 'POST', body: JSON.stringify(body)},
-        );
-    };
-
     removeLicense = () => {
         return this.doFetch<StatusOK>(
             `${this.getBaseRoute()}/license`,
             {method: 'delete'},
-        );
-    };
-
-    getPrevTrialLicense = () => {
-        return this.doFetch<ClientLicense>(
-            `${this.getBaseRoute()}/trial-license/prev`,
-            {method: 'get'},
         );
     };
 
@@ -3940,34 +3833,6 @@ export default class Client4 {
     getPlugins = () => {
         return this.doFetch<PluginsResponse>(
             this.getPluginsRoute(),
-            {method: 'get'},
-        );
-    };
-
-    getRemoteMarketplacePlugins = (filter: string) => {
-        return this.doFetch<MarketplacePlugin[]>(
-            `${this.getPluginsMarketplaceRoute()}${buildQueryString({filter: filter || '', remote_only: true})}`,
-            {method: 'get'},
-        );
-    };
-
-    getMarketplacePlugins = (filter: string, localOnly = false) => {
-        return this.doFetch<MarketplacePlugin[]>(
-            `${this.getPluginsMarketplaceRoute()}${buildQueryString({filter: filter || '', local_only: localOnly})}`,
-            {method: 'get'},
-        );
-    };
-
-    installMarketplacePlugin = (id: string) => {
-        return this.doFetch<MarketplacePlugin>(
-            `${this.getPluginsMarketplaceRoute()}`,
-            {method: 'post', body: JSON.stringify({id})},
-        );
-    };
-
-    getMarketplaceApps = (filter: string) => {
-        return this.doFetch<MarketplaceApp[]>(
-            `${this.getAppsProxyRoute()}/api/v1/marketplace${buildQueryString({filter: filter || ''})}`,
             {method: 'get'},
         );
     };
@@ -4287,126 +4152,7 @@ export default class Client4 {
         );
     };
 
-    // Cloud routes
-    getCloudProducts = (includeLegacyProducts?: boolean) => {
-        let query = '';
-        if (includeLegacyProducts) {
-            query = '?include_legacy=true';
-        }
-        return this.doFetch<Product[]>(
-            `${this.getCloudRoute()}/products${query}`, {method: 'get'},
-        );
-    };
-
-    cwsAvailabilityCheck = () => {
-        return this.doFetch<{status: string}>(
-            `${this.getCloudRoute()}/check-cws-connection`,
-            {method: 'get'},
-        );
-    };
-
-    getCloudCustomer = () => {
-        return this.doFetch<CloudCustomer>(
-            `${this.getCloudRoute()}/customer`, {method: 'get'},
-        );
-    };
-
-    updateCloudCustomer = (customerPatch: CloudCustomerPatch) => {
-        return this.doFetch<CloudCustomer>(
-            `${this.getCloudRoute()}/customer`,
-            {method: 'put', body: JSON.stringify(customerPatch)},
-        );
-    };
-
-    updateCloudCustomerAddress = (address: Address) => {
-        return this.doFetch<CloudCustomer>(
-            `${this.getCloudRoute()}/customer/address`,
-            {method: 'put', body: JSON.stringify(address)},
-        );
-    };
-
-    notifyAdmin = (req: NotifyAdminRequest) => {
-        return this.doFetchWithResponse<StatusOK>(
-            `${this.getUsersRoute()}/notify-admin`,
-            {method: 'post', body: JSON.stringify(req)},
-        );
-    };
-
-    validateBusinessEmail = (email = '') => {
-        return this.doFetchWithResponse<ValidBusinessEmail>(
-            `${this.getCloudRoute()}/validate-business-email`,
-            {method: 'post', body: JSON.stringify({email})},
-        );
-    };
-
-    validateWorkspaceBusinessEmail = () => {
-        return this.doFetchWithResponse<ValidBusinessEmail>(
-            `${this.getCloudRoute()}/validate-workspace-business-email`,
-            {method: 'post'},
-        );
-    };
-
-    getSubscription = () => {
-        return this.doFetch<Subscription>(
-            `${this.getCloudRoute()}/subscription`,
-            {method: 'get'},
-        );
-    };
-
-    getInstallation = () => {
-        return this.doFetch<Installation>(
-            `${this.getCloudRoute()}/installation`,
-            {method: 'get'},
-        );
-    };
-
-    getCloudPreviewModalData = () => {
-        return this.doFetch<PreviewModalContentData[]>(
-            `${this.getCloudRoute()}/preview/modal_data`,
-            {method: 'get'},
-        );
-    };
-
-    getInvoices = () => {
-        return this.doFetch<Invoice[]>(
-            `${this.getCloudRoute()}/subscription/invoices`,
-            {method: 'get'},
-        );
-    };
-
-    getInvoicePdfUrl = (invoiceId: string) => {
-        return `${this.getCloudRoute()}/subscription/invoices/${invoiceId}/pdf`;
-    };
-
-    getCloudLimits = () => {
-        return this.doFetch<Limits>(
-            `${this.getCloudRoute()}/limits`,
-            {method: 'get'},
-        );
-    };
-
-    getPostsUsage = () => {
-        return this.doFetch<PostsUsageResponse>(
-            `${this.getUsageRoute()}/posts`,
-            {method: 'get'},
-        );
-    };
-
-    getFilesUsage = () => {
-        return this.doFetch<FilesUsageResponse>(
-            `${this.getUsageRoute()}/storage`,
-            {method: 'get'},
-        );
-    };
-
-    getTeamsUsage = () => {
-        return this.doFetch<TeamsUsageResponse>(
-            `${this.getUsageRoute()}/teams`,
-            {method: 'get'},
-        );
-    };
-
-    teamMembersMinusGroupMembers = (teamID: string, groupIDs: string[], page: number, perPage: number) => {
+	teamMembersMinusGroupMembers = (teamID: string, groupIDs: string[], page: number, perPage: number) => {
         const query = `group_ids=${groupIDs.join(',')}&page=${page}&per_page=${perPage}`;
         return this.doFetch<UsersWithGroupsAndCount>(
             `${this.getTeamRoute(teamID)}/members_minus_group_members?${query}`,
@@ -4444,21 +4190,6 @@ export default class Client4 {
         );
     };
 
-    getInProductNotices = (teamId: string, client: string, clientVersion: string) => {
-        return this.doFetch<ProductNotices>(
-            `${this.getNoticesRoute()}/${teamId}?client=${client}&clientVersion=${clientVersion}`,
-            {method: 'get'},
-        );
-    };
-
-    updateNoticesAsViewed = (noticeIds: string[]) => {
-        // Only one notice is marked as viewed at a time so using 0 index
-        return this.doFetch<StatusOK>(
-            `${this.getNoticesRoute()}/view`,
-            {method: 'put', body: JSON.stringify(noticeIds)},
-        );
-    };
-
     getAncillaryPermissions = (subsectionPermissions: string[]) => {
         return this.doFetch<string[]>(
             `${this.getPermissionsRoute()}/ancillary`,
@@ -4466,23 +4197,9 @@ export default class Client4 {
         );
     };
 
-    completeSetup = (completeOnboardingRequest: CompleteOnboardingRequest) => {
-        return this.doFetch<StatusOK>(
-            `${this.getSystemRoute()}/onboarding/complete`,
-            {method: 'post', body: JSON.stringify(completeOnboardingRequest)},
-        );
-    };
-
     getAppliedSchemaMigrations = () => {
         return this.doFetch<SchemaMigration[]>(
             `${this.getSystemRoute()}/schema/version`,
-            {method: 'get'},
-        );
-    };
-
-    getCallsChannelState = (channelId: string) => {
-        return this.doFetch<{enabled: boolean; id: string}>(
-            `${this.url}/plugins/${'com.mattermost.calls'}/${channelId}`,
             {method: 'get'},
         );
     };

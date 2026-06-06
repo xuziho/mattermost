@@ -181,7 +181,6 @@ function plugins(state: IDMappedObjects<ClientPluginManifest> = {}, action: MMAc
 
 const initialComponents: PluginsState['components'] = {
     AppBar: [],
-    CallButton: [],
     FilePreview: [],
     LinkTooltip: [],
     MainMenu: [],
@@ -193,11 +192,9 @@ const initialComponents: PluginsState['components'] = {
     AIActionMenuItem: [],
     CodeBlockAction: [],
     NewMessagesSeparatorAction: [],
-    Product: [],
     RightHandSidebarComponent: [],
     FilesWillUploadHook: [],
     NeedsTeamComponent: [],
-    CreateBoardFromTemplate: [],
     DesktopNotificationHooks: [],
     BottomTeamSidebar: [],
     ChannelHeader: [],

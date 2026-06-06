@@ -298,14 +298,6 @@ export function isCustomGroupsEnabled(state: GlobalState): boolean {
     return getConfig(state).EnableCustomGroups === 'true';
 }
 
-export function getIsOnboardingFlowEnabled(state: GlobalState): boolean {
-    return getConfig(state).EnableOnboardingFlow === 'true';
-}
-
-export function getHasDismissedSystemConsoleLimitReached(state: GlobalState): boolean {
-    return getBool(state, Preferences.CATEGORY_UPGRADE_CLOUD, Preferences.SYSTEM_CONSOLE_LIMIT_REACHED, false);
-}
-
 export function syncedDraftsAreAllowed(state: GlobalState): boolean {
     return getConfig(state).AllowSyncedDrafts === 'true';
 }
@@ -322,17 +314,6 @@ export function getVisibleDmGmLimit(state: GlobalState, userPreferences?: Prefer
     return getInt(state, Preferences.CATEGORY_SIDEBAR_SETTINGS, Preferences.LIMIT_VISIBLE_DMS_GMS, defaultLimit, userPreferences);
 }
 
-export function onboardingTourTipsEnabled(state: GlobalState): boolean {
-    return getFeatureFlagValue(state, 'OnboardingTourTips') === 'true';
-}
-
 export function moveThreadsEnabled(state: GlobalState): boolean {
     return getFeatureFlagValue(state, 'MoveThreadsEnabled') === 'true' && getLicense(state).IsLicensed === 'true';
 }
-
-export function streamlinedMarketplaceEnabled(state: GlobalState): boolean {
-    return getFeatureFlagValue(state, 'StreamlinedMarketplace') === 'true';
-}
-
-export const getOverageBannerPreferences = makeGetCategory('getOverageBannerPreferences', Preferences.CATEGORY_OVERAGE_USERS_BANNER);
-export const getPostHistoryLimitBannerPreferences = makeGetCategory('getPostHistoryLimitBannerPreferences', Preferences.CATEGORY_POST_HISTORY_LIMIT_BANNER);

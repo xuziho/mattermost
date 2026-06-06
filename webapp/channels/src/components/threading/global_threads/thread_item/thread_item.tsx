@@ -6,6 +6,7 @@ import React, {memo, useCallback, useEffect, useMemo, useRef} from 'react';
 import type {MouseEvent, KeyboardEvent} from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
 import {useDispatch, useSelector} from 'react-redux';
+import type {AnyAction} from 'redux';
 
 import type {Channel} from '@mattermost/types/channels';
 import type {Post} from '@mattermost/types/posts';
@@ -138,7 +139,7 @@ function ThreadItem({
             const hasUnreads = thread ? Boolean(thread.unread_replies) : false;
             const lastViewedAt = hasUnreads ? Date.now() : unreadTimestamp;
 
-            dispatch(manuallyMarkThreadAsUnread(threadId, lastViewedAt ?? 0));
+            dispatch(manuallyMarkThreadAsUnread(threadId, lastViewedAt ?? 0) as AnyAction);
             if (hasUnreads) {
                 dispatch(updateThreadRead(currentUserId, currentTeamId, threadId, Date.now()));
             } else {

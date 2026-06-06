@@ -91,7 +91,7 @@ describe('components/post_view/ChannelIntroMessages', () => {
     } as any;
 
     describe('test Open Channel', () => {
-        test('should match component state, without boards', () => {
+        test('should match component state, without product suite', () => {
             renderWithContext(
                 <ChannelIntroMessage{...baseProps}/>, initialState,
             );

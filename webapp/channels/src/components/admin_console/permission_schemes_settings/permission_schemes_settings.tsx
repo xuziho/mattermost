@@ -147,16 +147,6 @@ export default class PermissionSchemesSettings extends React.PureComponent<Props
                 <div className='team-override-unavailable__inner'>
                     <FormattedMessage
                         {...message}
-                        values={{
-                            link: (chunks) => (
-                                <ExternalLink
-                                    href='https://docs.mattermost.com/administration/config-settings.html#jobs'
-                                    location='permission_scheme_settings'
-                                >
-                                    {chunks}
-                                </ExternalLink>
-                            ),
-                        }}
                     />
                 </div>
             </div>

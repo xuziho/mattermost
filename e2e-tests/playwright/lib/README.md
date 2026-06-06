@@ -178,7 +178,7 @@ test('verify channel header appearance', async ({pw, browserName, viewport}, tes
 
     // # Navigate and prepare page
     await channelsPage.goto();
-    await expect(channelsPage.appBar.playbooksIcon).toBeVisible();
+    await channelsPage.appBar.toBeVisible();
     await pw.hideDynamicChannelsContent(page);
 
     // * Take and verify snapshot

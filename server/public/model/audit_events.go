@@ -242,11 +242,10 @@ const (
 
 // Licensing
 const (
-	AuditEventAddLicense          = "addLicense"          // add license
-	AuditEventLocalAddLicense     = "localAddLicense"     // add license locally
-	AuditEventLocalRemoveLicense  = "localRemoveLicense"  // remove license locally
-	AuditEventRemoveLicense       = "removeLicense"       // remove license
-	AuditEventRequestTrialLicense = "requestTrialLicense" // request trial license
+	AuditEventAddLicense         = "addLicense"         // add license
+	AuditEventLocalAddLicense    = "localAddLicense"    // add license locally
+	AuditEventLocalRemoveLicense = "localRemoveLicense" // remove license locally
+	AuditEventRemoveLicense      = "removeLicense"      // remove license
 )
 
 // OAuth
@@ -273,14 +272,11 @@ const (
 
 // Plugins
 const (
-	AuditEventDisablePlugin                       = "disablePlugin"                       // disable installed plugin
-	AuditEventEnablePlugin                        = "enablePlugin"                        // enable installed plugin
-	AuditEventGetFirstAdminVisitMarketplaceStatus = "getFirstAdminVisitMarketplaceStatus" // get first admin visit status
-	AuditEventInstallMarketplacePlugin            = "installMarketplacePlugin"            // install plugin from official marketplace
-	AuditEventInstallPluginFromURL                = "installPluginFromURL"                // install plugin from external URL
-	AuditEventRemovePlugin                        = "removePlugin"                        // delete plugin
-	AuditEventSetFirstAdminVisitMarketplaceStatus = "setFirstAdminVisitMarketplaceStatus" // set first admin visit status
-	AuditEventUploadPlugin                        = "uploadPlugin"                        // upload plugin file to server for installation
+	AuditEventDisablePlugin        = "disablePlugin"        // disable installed plugin
+	AuditEventEnablePlugin         = "enablePlugin"         // enable installed plugin
+	AuditEventInstallPluginFromURL = "installPluginFromURL" // install plugin from external URL
+	AuditEventRemovePlugin         = "removePlugin"         // delete plugin
+	AuditEventUploadPlugin         = "uploadPlugin"         // upload plugin file to server for installation
 )
 
 // Posts
@@ -378,19 +374,16 @@ const (
 // Server Administration
 const (
 	AuditEventClearServerBusy            = "clearServerBusy"            // clear server busy status to allow normal operations
-	AuditEventCompleteOnboarding         = "completeOnboarding"         // complete system onboarding process
 	AuditEventDatabaseRecycle            = "databaseRecycle"            // closes active connections
 	AuditEventDownloadLogs               = "downloadLogs"               // download server log files
 	AuditEventGenerateSupportPacket      = "generateSupportPacket"      // generate support packet with server diagnostics and logs
 	AuditEventGetAppliedSchemaMigrations = "getAppliedSchemaMigrations" // get list of applied database schema migrations
 	AuditEventGetLogs                    = "getLogs"                    // get server log entries
-	AuditEventGetOnboarding              = "getOnboarding"              // get system onboarding status
 	AuditEventInvalidateCaches           = "invalidateCaches"           // clear server caches
 	AuditEventLocalCheckIntegrity        = "localCheckIntegrity"        // check database integrity locally
 	AuditEventQueryLogs                  = "queryLogs"                  // search server log entries
 	AuditEventRestartServer              = "restartServer"              // restart Mattermost server process
 	AuditEventSetServerBusy              = "setServerBusy"              // set server busy status to disallow any operations
-	AuditEventUpdateViewedProductNotices = "updateViewedProductNotices" // update viewed status of product notices
 	AuditEventUpgradeToEnterprise        = "upgradeToEnterprise"        // upgrade server to Enterprise edition
 )
 

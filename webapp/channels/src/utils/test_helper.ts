@@ -5,7 +5,6 @@ import type {Bot} from '@mattermost/types/bots';
 import {CategorySorting} from '@mattermost/types/channel_categories';
 import type {ChannelCategory} from '@mattermost/types/channel_categories';
 import type {Channel, ChannelMembership, ChannelNotifyProps, ChannelWithTeamData} from '@mattermost/types/channels';
-import type {Invoice, Product, Subscription, CloudCustomer} from '@mattermost/types/cloud';
 import type {ClientLicense} from '@mattermost/types/config';
 import type {SystemEmoji, CustomEmoji} from '@mattermost/types/emojis';
 import type {FileInfo} from '@mattermost/types/files';
@@ -24,7 +23,21 @@ import {CategoryTypes} from 'mattermost-redux/constants/channel_categories';
 import {getPreferenceKey} from 'mattermost-redux/utils/preference_utils';
 
 import type {PostDraft} from 'types/store/draft';
-import type {ProductComponent} from 'types/store/plugins';
+
+type Invoice = {
+    id: string;
+    number: string;
+    create_at: number;
+    total: number;
+    tax: number;
+    status: string;
+    description: string;
+    period_start: number;
+    period_end: number;
+    subscription_id: string;
+    line_items: unknown[];
+    current_product_name: string;
+};
 
 export class TestHelper {
     public static getPostDraftMock(override?: Partial<PostDraft>): PostDraft {
@@ -64,7 +77,6 @@ export class TestHelper {
                 comments: 'never',
                 desktop: 'default',
                 desktop_sound: 'false',
-                calls_desktop_sound: 'true',
                 email: 'false',
                 first_name: 'false',
                 mark_unread: 'mention',
@@ -418,24 +430,6 @@ export class TestHelper {
         return Object.assign({}, defaultSession, override);
     }
 
-    public static makeProduct(name: string): ProductComponent {
-        return {
-            id: name,
-            pluginId: '',
-            switcherIcon: `product-${name.toLowerCase()}` as ProductComponent['switcherIcon'],
-            switcherText: name,
-            baseURL: '',
-            switcherLinkURL: '',
-            mainComponent: () => null,
-            headerCentreComponent: () => null,
-            headerRightComponent: () => null,
-            showTeamSidebar: false,
-            showAppBar: false,
-            wrapped: true,
-            publicComponent: () => null,
-        };
-    }
-
     public static getCustomEmojiMock(override: Partial<CustomEmoji>): CustomEmoji {
         return {
             id: 'emoji_id',
@@ -463,13 +457,6 @@ export class TestHelper {
             ...override,
         };
     }
-    public static getCloudLicenseMock(override: ClientLicense = {}): ClientLicense {
-        return {
-            ...this.getLicenseMock(override),
-            Cloud: 'true',
-            ...override,
-        };
-    }
     public static getPreferencesMock(override: Array<{category: string; name: string; value: string}> = [], userId = ''): { [x: string]: PreferenceType } {
         const preferences: { [x: string]: PreferenceType } = {};
         override.forEach((p) => {
@@ -481,22 +468,6 @@ export class TestHelper {
             };
         });
         return preferences;
-    }
-    public static getSubscriptionMock(override: Partial<Subscription>): Subscription {
-        return {
-            id: '',
-            customer_id: '',
-            product_id: '',
-            add_ons: [],
-            start_at: 0,
-            end_at: 0,
-            create_at: 0,
-            seats: 0,
-            last_invoice: TestHelper.getInvoiceMock({subscription_id: override.id || ''}),
-            trial_end_at: 0,
-            is_free_trial: 'false',
-            ...override,
-        };
     }
     public static getInvoiceMock(override: Partial<Invoice>): Invoice {
         return {
@@ -515,60 +486,6 @@ export class TestHelper {
             ...override,
         };
     }
-    public static getProductMock(override: Partial<Product>): Product {
-        return {
-            id: '',
-            name: '',
-            description: '',
-            price_per_seat: 0,
-            add_ons: [],
-            product_family: '',
-            sku: '',
-            billing_scheme: '',
-            recurring_interval: '',
-            cross_sells_to: '',
-            ...override,
-        };
-    }
-
-    public static getCloudCustomerMock(override: Partial<CloudCustomer> = {}): CloudCustomer {
-        return {
-            id: '',
-            billing_address: {
-                city: '',
-                state: '',
-                country: '',
-                postal_code: '',
-                line1: '',
-                line2: '',
-            },
-            company_address: {
-                city: '',
-                state: '',
-                country: '',
-                postal_code: '',
-                line1: '',
-                line2: '',
-            },
-            payment_method: {
-                type: '',
-                last_four: '',
-                exp_month: 0,
-                exp_year: 0,
-                card_brand: '',
-                name: '',
-            },
-            name: '',
-            email: '',
-            contact_first_name: '',
-            contact_last_name: '',
-            create_at: 0,
-            creator_id: '',
-            num_employees: 100,
-            ...override,
-        };
-    }
-
     public static getReactionMock(override: Partial<Reaction> = {}): Reaction {
         return {
             user_id: '',

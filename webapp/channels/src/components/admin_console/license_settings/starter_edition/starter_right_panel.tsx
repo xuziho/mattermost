@@ -4,7 +4,6 @@
 import React, {memo} from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
 
-import ContactUsButton from 'components/announcement_bar/contact_sales/contact_us';
 import SetupSystemSvg from 'components/common/svg_images_components/setup_system_svg';
 
 const StarterRightPanel = () => {
@@ -21,11 +20,11 @@ const StarterRightPanel = () => {
         intl.formatMessage({
             id: 'admin.license.enterpriseToAdvancedAdvantage.adLdapGroupSync',
             defaultMessage: 'AD/LDAP group sync',
-        }),
-        intl.formatMessage({
-            id: 'admin.license.enterpriseToAdvancedAdvantage.advancedWorkflows',
-            defaultMessage: 'Advanced workflows with Playbooks',
-        }),
+		}),
+		intl.formatMessage({
+			id: 'admin.license.enterpriseToAdvancedAdvantage.advancedWorkflows',
+			defaultMessage: 'Advanced workflows',
+		}),
         intl.formatMessage({
             id: 'admin.license.enterpriseToAdvancedAdvantage.highAvailability',
             defaultMessage: 'High availability',
@@ -51,7 +50,7 @@ const StarterRightPanel = () => {
             <div className='upgrade-title'>
                 <FormattedMessage
                     id='admin.license.upgradeTitle'
-                    defaultMessage='Purchase one of our plans to unlock more features'
+                    defaultMessage='Upload a license to unlock more features'
                 />
             </div>
             <div className='advantages-list'>
@@ -66,11 +65,6 @@ const StarterRightPanel = () => {
                         </div>
                     );
                 })}
-            </div>
-            <div className='purchase_buttons'>
-                <ContactUsButton
-                    customClass='btn-tertiary btn-full'
-                />
             </div>
         </div>
     );

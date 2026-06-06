@@ -18,7 +18,6 @@ const (
 	TokenTypeVerifyEmail              = "verify_email"
 	TokenTypeTeamInvitation           = "team_invitation"
 	TokenTypeGuestInvitation          = "guest_invitation"
-	TokenTypeCWSAccess                = "cws_access_token"
 	TokenTypeGuestMagicLinkInvitation = "guest_magic_link_invitation"
 	TokenTypeGuestMagicLink           = "guest_magic_link"
 

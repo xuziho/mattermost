@@ -8,14 +8,12 @@ import {withRouter} from 'react-router-dom';
 import {bindActionCreators} from 'redux';
 import type {Dispatch} from 'redux';
 
-import {isCurrentLicenseCloud} from 'mattermost-redux/selectors/entities/cloud';
 import {getConfig} from 'mattermost-redux/selectors/entities/general';
 import {getTeam} from 'mattermost-redux/selectors/entities/teams';
 import {shouldShowTermsOfService, getCurrentUserId} from 'mattermost-redux/selectors/entities/users';
 
 import {loadRecentlyUsedCustomEmojis, migrateRecentEmojis} from 'actions/emoji_actions';
 import {isDevModeEnabled} from 'selectors/general';
-import {getShowLaunchingWorkspace} from 'selectors/onboarding';
 import {shouldShowAppBar} from 'selectors/plugins';
 import {
     getIsRhsExpanded,
@@ -24,14 +22,12 @@ import {
 } from 'selectors/rhs';
 import LocalStorageStore from 'stores/local_storage_store';
 
-import {initializeProducts} from 'plugins/products';
-
 import type {GlobalState} from 'types/store/index';
 
 import {
     loadConfigAndMe,
     handleLoginLogoutSignal,
-    redirectToOnboardingOrDefaultTeam,
+    redirectToDefaultTeam,
 } from './actions';
 import Root from './root';
 
@@ -39,7 +35,6 @@ function mapStateToProps(state: GlobalState) {
     const config = getConfig(state);
     const showTermsOfService = shouldShowTermsOfService(state);
     const plugins = state.plugins.components.CustomRouteComponent;
-    const products = state.plugins.components.Product;
     const userId = getCurrentUserId(state);
 
     const teamId = LocalStorageStore.getPreviousTeamId(userId);
@@ -54,20 +49,14 @@ function mapStateToProps(state: GlobalState) {
         telemetryId: config.DiagnosticId,
         serviceEnvironment: config.ServiceEnvironment,
         siteURL: config.SiteURL,
-        iosDownloadLink: config.IosAppDownloadLink,
-        androidDownloadLink: config.AndroidAppDownloadLink,
-        appDownloadLink: config.AppDownloadLink,
-        enableDesktopLandingPage: config.EnableDesktopLandingPage === 'true',
         permalinkRedirectTeamName: permalinkRedirectTeam ? permalinkRedirectTeam.name : '',
         showTermsOfService,
         plugins,
-        products,
-        showLaunchingWorkspace: getShowLaunchingWorkspace(state),
         rhsIsExpanded: getIsRhsExpanded(state),
         rhsIsOpen: getIsRhsOpen(state),
         rhsState: getRhsState(state),
         shouldShowAppBar: shouldShowAppBar(state),
-        isCloud: isCurrentLicenseCloud(state),
+        isCloud: false,
         isDevModeEnabled: isDevModeEnabled(state),
     };
 }
@@ -78,9 +67,8 @@ function mapDispatchToProps(dispatch: Dispatch) {
             loadConfigAndMe,
             loadRecentlyUsedCustomEmojis,
             migrateRecentEmojis,
-            initializeProducts,
             handleLoginLogoutSignal,
-            redirectToOnboardingOrDefaultTeam,
+            redirectToDefaultTeam,
         }, dispatch),
         dispatch,
     };

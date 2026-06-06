@@ -39,7 +39,6 @@ describe('components/more_direct_channels/list_item/user_details/UserDetails', (
             push: 'mention',
             desktop: 'mention',
             desktop_sound: 'true',
-            calls_desktop_sound: 'true',
             mark_unread: 'all',
             push_status: 'online',
             comments: 'never',

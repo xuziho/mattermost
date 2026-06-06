@@ -176,7 +176,6 @@ var config = {
                 {from: 'src/images/img_trans.gif', to: 'images'},
                 {from: 'src/images/logo-email.png', to: 'images'},
                 {from: 'src/images/favicon', to: 'images/favicon'},
-                {from: 'src/images/appIcons.png', to: 'images'},
                 {from: 'src/images/logo-email.png', to: 'images'},
                 {from: 'src/images/browser-icons', to: 'images/browser-icons'},
                 {from: 'src/images/cloud', to: 'images'},
@@ -191,7 +190,6 @@ var config = {
                 {from: 'src/images/c_avatar.png', to: 'images'},
                 {from: 'src/images/c_download.png', to: 'images'},
                 {from: 'src/images/c_socket.png', to: 'images'},
-                {from: 'src/images/admin-onboarding-background.jpg', to: 'images'},
                 {from: 'src/images/logo.svg', to: 'images'},
                 {from: 'src/images/alert.svg', to: 'images'},
                 {from: 'src/images/cloud-laptop.png', to: 'images'},
@@ -353,14 +351,7 @@ async function initializeModuleFederation() {
     }
 
     async function getRemoteContainers() {
-        const products = [];
-
-        const remotes = {};
-        for (const product of products) {
-            remotes[product.name] = `${product.name}@[window.basename]/static/products/${product.name}/remote_entry.js?bt=${buildTimestamp}`;
-        }
-
-        return {remotes};
+        return {remotes: {}};
     }
 
     const {remotes} = await getRemoteContainers();

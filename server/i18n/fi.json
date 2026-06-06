@@ -2932,10 +2932,6 @@
     "translation": "Ei voitu siirtää lisäosaa väliaikaishakemistosta kohteeseen. Toinen lisäosa saattaa käyttää samaa hakemistonimeä."
   },
   {
-    "id": "app.plugin.marketplace_disabled.app_error",
-    "translation": "Lisäosat on kytketty pois. Tarkista lokista lisätiedot."
-  },
-  {
     "id": "app.plugin.manifest.app_error",
     "translation": "Ei löydetty manifestia puretusta lisäosasta"
   },
@@ -3933,10 +3929,6 @@
     "translation": "Vahvista sähköposti"
   },
   {
-    "id": "api.templates.welcome_body.app_download_info",
-    "translation": "Parhaan kokemuksen saamiseksi lataa sovellukset Androidille, Macille, iOS:lle ja PC:lle."
-  },
-  {
     "id": "api.templates.verify_subject",
     "translation": "[{{ .SiteName }}] Sähköpostin vahvistus"
   },
@@ -4154,14 +4146,6 @@
   {
     "id": "api.command_invite.channel.app_error",
     "translation": "Virhe noudettaessa kanavaa."
-  },
-  {
-    "id": "api.command_help.name",
-    "translation": "ohje"
-  },
-  {
-    "id": "api.command_help.desc",
-    "translation": "Avaa Mattermostin ohjesivusto"
   },
   {
     "id": "api.command_groupmsg.permission.app_error",
@@ -4823,22 +4807,6 @@
     "translation": "tai"
   },
   {
-    "id": "api.cloud.request_error",
-    "translation": "Virhe käsiteltäessä pyyntöä CWS:lle."
-  },
-  {
-    "id": "api.cloud.notify_admin_to_upgrade_error.already_notified",
-    "translation": "Ilmoitettu jo järjestelmänvalvojalle"
-  },
-  {
-    "id": "api.cloud.cws_webhook_event_missing_error",
-    "translation": "Webhook-tapahtumaa ei käsitelty. Se joko puuttuu tai ei kelpaa."
-  },
-  {
-    "id": "api.cloud.app_error",
-    "translation": "Sisäinen virhe pilvirajapintapyynnön aikana."
-  },
-  {
     "id": "api.channel.update_team_member_roles.changing_guest_role.app_error",
     "translation": "Epäkelvollinen joukkuejäsenen päivitys: Et voi lisätä tai poistaa vierasroolia manuaalisesti."
   },
@@ -5157,5 +5125,9 @@
   {
     "id": "api.channel.create_group.remote_restricted.app_error",
     "translation": "Ryhmäkanavaa ei voi luoda etäkäyttäjien kanssa"
+  },
+  {
+    "id": "api.templates.license_up_for_renewal_review_license",
+    "translation": "Review license"
   }
 ]

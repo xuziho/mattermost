@@ -616,14 +616,6 @@
     "translation": "Nu aveți permisiunile corespunzătoare pentru a crea un nou mesaj de grup."
   },
   {
-    "id": "api.command_help.desc",
-    "translation": "Deschideți pagina de ajutor Mattermost"
-  },
-  {
-    "id": "api.command_help.name",
-    "translation": "ajutor"
-  },
-  {
     "id": "api.command_invite.channel.app_error",
     "translation": "Eroare la regăsirea canalul curent."
   },
@@ -1898,10 +1890,6 @@
   {
     "id": "api.templates.verify_subject",
     "translation": "[{{ .SiteName }}] Verificare e-mail"
-  },
-  {
-    "id": "api.templates.welcome_body.app_download_info",
-    "translation": "Pentru cea mai bună experiență, descărcați aplicațiile pentru PC, Mac, iOS și Android."
   },
   {
     "id": "api.templates.welcome_body.button",
@@ -4928,40 +4916,8 @@
     "translation": "Nu pot modifica fișierele saml."
   },
   {
-    "id": "app.plugin.marshal.app_error",
-    "translation": "Nu a reușit plugin-urile de pe piața Marshal."
-  },
-  {
-    "id": "app.plugin.marketplace_plugins.signature_not_found.app_error",
-    "translation": "Nu s-a putut găsi semnătura pluginului solicitată pentru piață."
-  },
-  {
-    "id": "app.plugin.marketplace_plugins.not_found.app_error",
-    "translation": "Nu a putut găsi pluginul solicitat pentru piață."
-  },
-  {
-    "id": "app.plugin.marketplace_plugin_request.app_error",
-    "translation": "Nu a reușit să decodeze cererea pluginului de pe piață."
-  },
-  {
-    "id": "app.plugin.marketplace_disabled.app_error",
-    "translation": "Piața a fost dezactivată. Vă rugăm să verificați jurnalele pentru detalii."
-  },
-  {
-    "id": "app.plugin.marketplace_client.failed_to_fetch",
-    "translation": "Eșecul de a primi pluginuri de pe serverul de pe piață."
-  },
-  {
-    "id": "app.plugin.marketplace_client.app_error",
-    "translation": "Nu a reușit să creeze clientul de pe piață."
-  },
-  {
     "id": "app.plugin.invalid_version.app_error",
     "translation": "Versiunea pluginului nu a putut fi analizată."
-  },
-  {
-    "id": "app.plugin.install_marketplace_plugin.app_error",
-    "translation": "Instalarea pluginului din repozitorul oficial nu a reușit."
   },
   {
     "id": "app.plugin.get_public_key.get_file.app_error",
@@ -6440,46 +6396,6 @@
     "translation": "Imposibil de obținut numărul de canale."
   },
   {
-    "id": "api.upgrade_to_enterprise_status.signature.app_error",
-    "translation": "Mattermost nu a reușit să facă upgrade la Enterprise Edition. Semnătura digitală a fișierului binar descărcat nu a putut fi verificată."
-  },
-  {
-    "id": "api.upgrade_to_enterprise_status.app_error",
-    "translation": "Mattermost nu a reușit să facă upgrade la Enterprise Edition."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.system_not_supported.app_error",
-    "translation": "Mattermost nu a reușit să facă upgrade la Enterprise Edition. Această caracteristică va funcționa numai pe sistemele Linux cu arhitectură x86-64."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-user.app_error",
-    "translation": "Mattermost nu a reușit să facă upgrade la Enterprise Edition. Utilizatorul sistemului Mattermost {{.MattermostUsername}} nu are acces la scriere la fișierul binar necesar. Un administrator de sistem poate actualiza permisiunile fișierului executând următoarea comandă pe serverul pe care este instalat Mattermost:\n\n```\nchown {{.MattermostUsername}} \"{{.Path}}\"\n```\n\nDupă modificarea permisiunilor fișierului, încercați să faceți upgrade Mattermost din nou. După ce ați făcut upgrade și reporniți, nu uitați să restaurați permisiunile originale ale fișierului binar:\n\n```\nchown {{.FileUsername}} \"{{.Path}}\"\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-user-and-permission.app_error",
-    "translation": "Mattermost nu a reușit să facă upgrade la Enterprise Edition. Utilizatorul sistemului Mattermost {{.MattermostUsername}} nu are acces la scriere la fișierul binar necesar. Un administrator de sistem poate actualiza permisiunile fișierului executând următoarea comandă pe serverul pe care este instalat Mattermost:\n\n```\nchown {{.MattermostUsername}} \"{{.Path}}\"\nchmod +w \"{{.Path}}\"\n```\n\nDupă modificarea permisiunilor fișierului, încercați să faceți upgrade Mattermost din nou. După ce ați făcut upgrade și reporniți, nu uitați să restaurați permisiunile originale ale fișierului binar:\n\n```\nchown {{.MattermostUsername}} \"{{.Path}}\"\nchmod +w \"{{.Path}}\"\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-permission.app_error",
-    "translation": "Mattermost nu a reușit să facă upgrade la Enterprise Edition. Utilizatorul sistemului Mattermost {{.MattermostUsername}} nu are acces la scriere la fișierul binar necesar. Un administrator de sistem poate actualiza permisiunile fișierului executând următoarea comandă pe serverul pe care este instalat Mattermost:\n\n```\nchmod +w \"{{.Path}}\"\n```\n\nDupă modificarea permisiunilor fișierului, încercați să faceți upgrade Mattermost din nou. După ce ați făcut upgrade și reporniți, nu uitați să restaurați permisiunile originale ale fișierului binar:\n\n```\nchmod +w \"{{.Path}}\"\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.generic_error.app_error",
-    "translation": "Mattermost nu a reușit să facă upgrade la Enterprise Edition."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.app_error",
-    "translation": "Un upgrade la Mattermost Enterprise Edition rulează deja."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.already-enterprise.app_error",
-    "translation": "Nu puteți face upgrade deoarece rulați deja Mattermost Enterprise Edition."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.already-done.app_error",
-    "translation": "Ați trecut deja la Mattermost Enterprise Edition. Reporniți serverul pentru a finaliza actualizarea."
-  },
-  {
     "id": "ent.elasticsearch.index_channels_batch.error",
     "translation": "Nu se poate obține lotul de canale pentru indexare."
   },
@@ -6592,10 +6508,6 @@
     "translation": "Nu pot posta şterse canal."
   },
   {
-    "id": "api.user.login_cws.license.error",
-    "translation": "Accesul la bot este interzis."
-  },
-  {
     "id": "api.roles.patch_roles.not_allowed_permission.error",
     "translation": "Una sau mai multe dintre următoarele permisiuni pe care încercați să le adăugați sau să le eliminați nu sunt permise"
   },
@@ -6610,18 +6522,6 @@
   {
     "id": "api.config.migrate_config.app_error",
     "translation": "Nu s-a reușit migrarea magazinului de configurare."
-  },
-  {
-    "id": "api.cloud.request_error",
-    "translation": "Eroare la procesarea cererii către CWS."
-  },
-  {
-    "id": "api.cloud.license_error",
-    "translation": "Licența dvs. nu acceptă cererile cloud."
-  },
-  {
-    "id": "api.cloud.app_error",
-    "translation": "Eroare internă la solicitarea api cloud."
   },
   {
     "id": "api.templates.email_us_anytime_at",
@@ -6870,10 +6770,6 @@
   {
     "id": "api.user.update_password.user_and_hashed.app_error",
     "translation": "Numai administratorii de sistem pot seta parole deja hash."
-  },
-  {
-    "id": "api.user.login_by_cws.invalid_token.app_error",
-    "translation": "Jetonul CWS nu este valid"
   },
   {
     "id": "api.user.get_uploads_for_user.forbidden.app_error",
@@ -7264,14 +7160,6 @@
     "translation": "Dacă nu ați fost dvs., puteți ignora în siguranță acest e-mail."
   },
   {
-    "id": "api.templates.welcome_body.app_download_title",
-    "translation": "Descărcați aplicațiile desktop și mobile"
-  },
-  {
-    "id": "api.templates.welcome_body.app_download_button",
-    "translation": "Descarca"
-  },
-  {
     "id": "api.templates.verify_body.subTitle2",
     "translation": "Faceți clic mai jos pentru a vă confirma adresa de e-mail."
   },
@@ -7302,10 +7190,6 @@
   {
     "id": "api.post.search_files.invalid_body.app_error",
     "translation": "Imposibil de analizat corpul solicitării."
-  },
-  {
-    "id": "api.cloud.cws_webhook_event_missing_error",
-    "translation": "Evenimentul Webhook nu a fost gestionat. Fie lipsește, fie nu este valid."
   },
   {
     "id": "api.command_remote.name.hint",
@@ -7424,10 +7308,6 @@
     "translation": "Câmpul '{{.Field}}' trebuie să fie setat prin intermediul furnizorului de logare al utilizatorului."
   },
   {
-    "id": "api.user.send_cloud_welcome_email.error",
-    "translation": "Nu s-a reușit trimiterea e-mailului de bun venit în cloud"
-  },
-  {
     "id": "api.user.patch_user.login_provider_attribute_set.app_error",
     "translation": "Câmpul '{{.Field}}' trebuie să fie setat prin intermediul furnizorului de logare al utilizatorului."
   },
@@ -7458,74 +7338,6 @@
   {
     "id": "api.templates.invite_body.subTitle",
     "translation": "Începeți să colaborați cu echipa dvs. pe Mattermost"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.title",
-    "translation": "Felicitări - spațiul tău de lucru {{.WorkSpace}} este gata de plecare!"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subtitle_info",
-    "translation": "Urmați următorii pași pentru a vă dezvolta echipele și pentru a profita la maximum de spațiul de lucru."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subtitle",
-    "translation": "Configurați-vă spațiul de lucru"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subject",
-    "translation": "Felicitări!"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.start_questions",
-    "translation": "Aveți întrebări despre cum să începeți? Trimiteți-ne un e-mail la"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.signin_sub_info2",
-    "translation": "pentru cea mai bună experiență pe PC, Mac, iOS și Android."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.signin_sub_info",
-    "translation": "Conectați-vă la spațiul de lucru pe site-ul nostru"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.mm_apps",
-    "translation": "aplicații mobile și desktop"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.invite_sub_info",
-    "translation": "Împărtășiți acest link pentru a vă invita membrii să se alăture {{.WorkSpace}}:"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.invite_info",
-    "translation": "Invitați oameni în spațiul dvs. de lucru"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.info2",
-    "translation": "Nu uitați să salvați sau să marcați linkul pentru utilizare ulterioară."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.info",
-    "translation": "Vă mulțumim pentru crearea "
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.download_mm_info",
-    "translation": "Descărcați aplicația Mattermost"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.button",
-    "translation": "Deschideți Mattermost"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.app_market_place",
-    "translation": "piața de aplicații."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.add_apps_sub_info",
-    "translation": "Simplificați-vă munca cu instrumente precum Github, Google Calendar și Chrome. Explorați toate integrările pe care le avem pe site-ul nostru"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.add_apps_info",
-    "translation": "Adăugați aplicații în spațiul de lucru"
   },
   {
     "id": "api.team.invite_guests_to_channels.invalid_body.app_error",
@@ -7574,14 +7386,6 @@
   {
     "id": "api.job.retrieve.nopermissions",
     "translation": "Tipurile de lucrări ale unei lucrări pe care încercați să le recuperați nu conțin permisiuni"
-  },
-  {
-    "id": "api.error_set_first_admin_visit_marketplace_status",
-    "translation": "Eroare la încercarea de a salva statutul primei vizite a administratorului pe piața din magazin."
-  },
-  {
-    "id": "api.error_get_first_admin_visit_marketplace_status",
-    "translation": "Eroare la încercarea de a prelua statutul primei vizite a administratorului pe piață din magazin."
   },
   {
     "id": "api.context.remote_id_missing.app_error",
@@ -7842,5 +7646,9 @@
   {
     "id": "api.command_channel_header.update_channel.max_length",
     "translation": "Textul introdus depășește limita de caractere. Antetul canalului este limitat la {{.MaxLength}} caractere."
+  },
+  {
+    "id": "api.templates.license_up_for_renewal_review_license",
+    "translation": "Review license"
   }
 ]

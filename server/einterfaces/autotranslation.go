@@ -32,7 +32,7 @@ type AutoTranslationInterface interface {
 	//
 	// Parameters:
 	//   - ctx: context for cancellation, deadlines, and request-scoped values (e.g., translation path for metrics)
-	//   - objectType: type of content being translated (e.g., "post", "playbook_run")
+	//   - objectType: type of content being translated (e.g., "post", "thread")
 	//   - objectID: unique identifier for the object
 	//   - channelID: channel containing the object
 	//   - userID: user requesting the translation

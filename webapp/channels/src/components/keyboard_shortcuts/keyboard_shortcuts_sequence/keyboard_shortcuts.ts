@@ -7,81 +7,6 @@ export type KeyboardShortcutDescriptor =
 	| MessageDescriptor
 	| {default: MessageDescriptor; mac?: MessageDescriptor};
 
-const callsKBShortcuts = {
-    global: {
-        callsJoinCall: defineMessages({
-            default: {
-                id: 'shortcuts.calls.join_call',
-                defaultMessage: 'Join call in current channel:\tCtrl|Alt|S',
-            },
-            mac: {
-                id: 'shortcuts.calls.join_call.mac',
-                defaultMessage: 'Join call in current channel:\t⌘|⌥|S',
-            },
-        }),
-    },
-    widget: {
-        callsMuteToggle: defineMessages({
-            default: {
-                id: 'shortcuts.calls.mute_toggle',
-                defaultMessage: 'Mute or unmute:\tCtrl|Shift|Space',
-            },
-            mac: {
-                id: 'shortcuts.calls.mute_toggle.mac',
-                defaultMessage: 'Mute or unmute:\t⌘|Shift|Space',
-            },
-        }),
-        callsRaiseHandToggle: defineMessages({
-            default: {
-                id: 'shortcuts.calls.raise_hand_toggle',
-                defaultMessage: 'Raise or lower hand:\tCtrl|Shift|Y',
-            },
-            mac: {
-                id: 'shortcuts.calls.raise_hand_toggle.mac',
-                defaultMessage: 'Raise or lower hand:\t⌘|Shift|Y',
-            },
-        }),
-        callsShareScreenToggle: defineMessages({
-            default: {
-                id: 'shortcuts.calls.share_screen_toggle',
-                defaultMessage: 'Share or unshare the screen:\tCtrl|Shift|E',
-            },
-            mac: {
-                id: 'shortcuts.calls.share_screen_toggle.mac',
-                defaultMessage: 'Share or unshare the screen:\t⌘|Shift|E',
-            },
-        }),
-        callsParticipantsListToggle: defineMessages({
-            default: {
-                id: 'shortcuts.calls.participants_list_toggle',
-                defaultMessage: 'Show or hide participants list:\tAlt|P\tCtrl|Shift|P',
-            },
-            mac: {
-                id: 'shortcuts.calls.participants_list_toggle.mac',
-                defaultMessage: 'Show or hide participants list:\t⌥|P\t⌘|Shift|P',
-            },
-        }),
-        callsLeaveCall: defineMessages({
-            default: {
-                id: 'shortcuts.calls.leave_call',
-                defaultMessage: 'Leave current call:\tCtrl|Shift|L',
-            },
-            mac: {
-                id: 'shortcuts.calls.leave_call.mac',
-                defaultMessage: 'Leave current call:\t⌘|Shift|L',
-            },
-        }),
-    },
-    popout: {
-        callsPushToTalk: defineMessages({
-            default: {
-                id: 'shortcuts.calls.push_to_talk',
-                defaultMessage: 'Hold to unmute (push to talk):\tSpace',
-            },
-        }),
-    },
-};
-
 export const KEYBOARD_SHORTCUTS = {
     mainHeader: defineMessages({
         default: {
@@ -515,5 +440,4 @@ export const KEYBOARD_SHORTCUTS = {
             defaultMessage: 'Message priority',
         },
     }),
-    calls: callsKBShortcuts,
 };

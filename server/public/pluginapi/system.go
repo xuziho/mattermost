@@ -7,7 +7,6 @@ import (
 	filePath "path"
 	"time"
 
-	"github.com/Masterminds/semver/v3"
 	"github.com/goccy/go-yaml"
 	"github.com/pkg/errors"
 
@@ -117,22 +116,6 @@ func (s *SystemService) GetDiagnosticID() string {
 // Minimum server version: 5.10
 func (s *SystemService) GetTelemetryID() string {
 	return s.api.GetTelemetryId()
-}
-
-// RequestTrialLicense requests a trial license and installs it in the server.
-// If the server version is lower than 5.36.0, an error is returned.
-//
-// Minimum server version: 5.36
-func (s *SystemService) RequestTrialLicense(requesterID string, users int, termsAccepted, receiveEmailsAccepted bool) error {
-	currentVersion := semver.MustParse(s.api.GetServerVersion())
-	requiredVersion := semver.MustParse("5.36.0")
-
-	if currentVersion.LessThan(requiredVersion) {
-		return errors.Errorf("current server version is lower than 5.36")
-	}
-
-	err := s.api.RequestTrialLicense(requesterID, users, termsAccepted, receiveEmailsAccepted)
-	return normalizeAppErr(err)
 }
 
 // GeneratePacketMetadata generates metadata for Customer Packets, encods it to YAML and saves it to a file

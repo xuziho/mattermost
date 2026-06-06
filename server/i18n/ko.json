@@ -614,14 +614,6 @@
     "translation": "사용자는 새로운 그룹 메시지를 만들 적절한 권한이 없습니다."
   },
   {
-    "id": "api.command_help.desc",
-    "translation": "Mattermost 도움말 보기"
-  },
-  {
-    "id": "api.command_help.name",
-    "translation": "도움말"
-  },
-  {
     "id": "api.command_invite.channel.app_error",
     "translation": "현재 채널 조회 중 오류가 발생하였습니다."
   },
@@ -1892,10 +1884,6 @@
   {
     "id": "api.templates.verify_subject",
     "translation": "[{{ .SiteName }}] 이메일 검증"
-  },
-  {
-    "id": "api.templates.welcome_body.app_download_info",
-    "translation": "최상의 경험을 위해 PC, Mac, iOS와 Android용 애플리케이션을 다운로드 받으세요."
   },
   {
     "id": "api.templates.welcome_body.button",
@@ -4922,40 +4910,8 @@
     "translation": "saml(sso) 파일을 수정할 수 없습니다."
   },
   {
-    "id": "app.plugin.marshal.app_error",
-    "translation": "마켓 플레이스 플러그인을 마샬링하지 못했습니다."
-  },
-  {
-    "id": "app.plugin.marketplace_plugins.signature_not_found.app_error",
-    "translation": "요청한 마켓플레이스 플러그인을 찾을 수 없습니다."
-  },
-  {
-    "id": "app.plugin.marketplace_plugins.not_found.app_error",
-    "translation": "요청한 마켓플레이스 플러그인을 찾을수 없습니다."
-  },
-  {
-    "id": "app.plugin.marketplace_plugin_request.app_error",
-    "translation": "마켓 플레이스 플러그인 요청을 디코딩하지 못했습니다."
-  },
-  {
-    "id": "app.plugin.marketplace_disabled.app_error",
-    "translation": "마켓플레이스가 비활성화 됐습니다. 로그에서 상세 사유를 확인하세요."
-  },
-  {
-    "id": "app.plugin.marketplace_client.failed_to_fetch",
-    "translation": "마켓 플레이스 서버에서 플러그인을 가져 오지 못했습니다."
-  },
-  {
-    "id": "app.plugin.marketplace_client.app_error",
-    "translation": "마켓 플레이스 클라이언트를 생성하지 못했습니다."
-  },
-  {
     "id": "app.plugin.invalid_version.app_error",
     "translation": "플러그인 버전을 파싱하지 못했습니다."
-  },
-  {
-    "id": "app.plugin.install_marketplace_plugin.app_error",
-    "translation": "마켓 플레이스 플러그인을 마샬링하지 못했습니다."
   },
   {
     "id": "app.plugin.get_public_key.get_file.app_error",
@@ -6354,34 +6310,6 @@
     "translation": "식별자에 따른 채널들을 가져올 수 없습니다."
   },
   {
-    "id": "api.upgrade_to_enterprise_status.signature.app_error",
-    "translation": "Mattermost를 엔터프라이즈 에디션으로 업그레이드하지 못했습니다. 다운로드된 바이너리 파일의 디지털 서명을 검증할 수 없습니다."
-  },
-  {
-    "id": "api.upgrade_to_enterprise_status.app_error",
-    "translation": "Mattermost를 엔터프라이즈 에디션으로 업그레이드하지 못했습니다."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.system_not_supported.app_error",
-    "translation": "Mattermost를 엔터프라이즈 에디션으로 업그레이드하지 못했습니다. 이 기능은 x86-64 아키텍처 기반의 리눅스 시스템에서만 동작합니다."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.generic_error.app_error",
-    "translation": "Mattermost를 엔터프라이즈 에디션으로 업그레이드하지 못했습니다."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.app_error",
-    "translation": "Mattermost 엔터프라이즈 에디션 업그레이드가 이미 실행 중입니다."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.already-enterprise.app_error",
-    "translation": "이미 Mattermost 엔터프라이즈 에디션이기 때문에 업그레이드를 할 수 없습니다."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.already-done.app_error",
-    "translation": "이미 Mattermost 엔터프라이즈 에디션으로 업그레이드 되었습니다. 업그레이드를 완료하기 위해서 서버를 재시작해주세요."
-  },
-  {
     "id": "ent.elasticsearch.index_channels_batch.error",
     "translation": "색인을 위한 채널 배치를 가져올 수 없습니다."
   },
@@ -6502,34 +6430,6 @@
     "translation": "시간 구간 이후의 게시글을 가져올 수 없습니다."
   },
   {
-    "id": "api.user.login_cws.license.error",
-    "translation": "CWS 로그인이 금지되어 있습니다."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-user.app_error",
-    "translation": "Mattermost를 엔터프라이즈 에디션으로 업그레이드하지 못했습니다. Mattermost 시스템 사용자인 {{.MattermostUsername}}가 필수 바이너리 파일에 대한 쓰기 권한이 없습니다. 시스템 관리자가 Mattermost가 설치된 서버에서 이하의 명령을 실행하여 파일 권한을 조정할 수 있습니다.\n\n```\nchown {{.MattermostUsername}} \"{{.Path}}\"\n```\n\n파일 권한이 변경된 후, Mattermost의 업그레이드를 다시 시도하세요. 업그레이드 완료 후 재시작되면 원래의 권한으로 복구하세요.\n\n```\nchown {{.FileUsername}} \"{{.Path}}\"\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-user-and-permission.app_error",
-    "translation": "Mattermost를 엔터프라이즈 에디션으로 업그레이드하지 못했습니다. Mattermost 시스템 사용자인 {{.MattermostUsername}}가 필수 바이너리 파일에 대한 쓰기 권한이 없습니다. 시스템 관리자가 Mattermost가 설치된 서버에서 이하의 명령을 실행하여 파일 권한을 조정할 수 있습니다.\n\n```\nchown {{.MattermostUsername}} \"{{.Path}}\"\nchmod +w \"{{.Path}}\"\n```\n\n파일 권한이 변경된 후, Mattermost의 업그레이드를 다시 시도하세요. 업그레이드 완료 후 재시작되면 원래의 권한으로 복구하세요.\n\n```\nchown {{.FileUsername}} \"{{.Path}}\"\nchmod -w \"{{.Path}}\"\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-permission.app_error",
-    "translation": "Mattermost를 엔터프라이즈 에디션으로 업그레이드하지 못했습니다. Mattermost 시스템 사용자인 {{.MattermostUsername}}가 필수 바이너리 파일에 대한 쓰기 권한이 없습니다. 시스템 관리자가 Mattermost가 설치된 서버에서 이하의 명령을 실행하여 파일 권한을 조정할 수 있습니다.\n\n```\nchmod +w \"{{.Path}}\"\n```\n\n파일 권한이 변경된 후, Mattermost의 업그레이드를 다시 시도하세요. 업그레이드 완료 후 재시작되면 원래의 권한으로 복구하세요.\n\n```\nchmod -w \"{{.Path}}\"\n```"
-  },
-  {
-    "id": "api.cloud.request_error",
-    "translation": "CWS 요청을 처리하는 중에 오류가 발생했습니다."
-  },
-  {
-    "id": "api.cloud.license_error",
-    "translation": "현재 라이선스는 클라우드 요청을 지원하지 않습니다."
-  },
-  {
-    "id": "api.cloud.app_error",
-    "translation": "클라우드 API 요청 중에 내부 오류가 발생했습니다."
-  },
-  {
     "id": "api.admin.ldap.not_available.app_error",
     "translation": "LDAP를 사용할 수 없습니다."
   },
@@ -6622,16 +6522,8 @@
     "translation": "{{ .ServerURL }}."
   },
   {
-    "id": "api.templates.welcome_body.app_download_title",
-    "translation": "데스크탑과 모바일 애플리케이션을 다운로드 받으세요"
-  },
-  {
     "id": "api.unable_to_create_zip_file",
     "translation": "zip 파일을 생성하는 동안 오류가 발생했습니다."
-  },
-  {
-    "id": "api.templates.welcome_body.app_download_button",
-    "translation": "다운로드"
   },
   {
     "id": "api.command_remote.invite_password.hint",
@@ -6708,10 +6600,6 @@
   {
     "id": "api.command_channel_header.update_channel.max_length",
     "translation": "입력한 텍스트가 글자수 제한을 초과했습니다. 채널 헤더는 {{.MaxLength}} 글자로 제한됩니다."
-  },
-  {
-    "id": "api.cloud.cws_webhook_event_missing_error",
-    "translation": "웹훅 이벤트가 처리되지 않았습니다. 누락되었거나 유효하지 않습니다."
   },
   {
     "id": "api.channel.patch_channel_moderations.cache_invalidation.error",
@@ -7062,10 +6950,6 @@
     "translation": "시스템"
   },
   {
-    "id": "api.templates.cloud_welcome_email.subject",
-    "translation": "축하합니다!"
-  },
-  {
     "id": "api.migrate_to_saml.error",
     "translation": "SAML을 이관할 수 없습니다."
   },
@@ -7314,10 +7198,6 @@
     "translation": "사용자 정의 그룹을 위한 라이선스가 없습니다"
   },
   {
-    "id": "api.cloud.notify_admin_to_upgrade_error.already_notified",
-    "translation": "이미 관리자에게 통지됨"
-  },
-  {
     "id": "api.custom_groups.feature_disabled",
     "translation": "사용자 정의 그룹 기능은 비활성화되어 있습니다"
   },
@@ -7326,28 +7206,8 @@
     "translation": "그룹 갯수를 세는 중 오류가 발생했습니다"
   },
   {
-    "id": "api.cloud.teams_limit_reached.restore",
-    "translation": "팀 제한에 도달했기 때문에 팀을 복원할 수 없습니다"
-  },
-  {
-    "id": "api.cloud.teams_limit_reached.create",
-    "translation": "팀 제한에 도달했기 때문에 팀을 만들 수 없습니다"
-  },
-  {
-    "id": "api.command_marketplace.desc",
-    "translation": "마켓플레이스 열기"
-  },
-  {
-    "id": "api.command_help.success",
-    "translation": "Mattermost는 도구와 팀을 넘나드는 안전한 소통, 협업, 작업 조율을 위한 오픈소스 플랫폼입니다.\nMattermost는 두가지 핵심 도구를 갖고 있습니다:\n\n**Channels** - 1:1 및 그룹 채팅을 통해 팀과의 소통을 유지하세요.\n**[Playbooks](/playbooks)** - 반복가능한 작업들을 구성하여 구체적이고 예측 가능한 결과를 만드세요.\n\n[문서 및 가이드 살펴보기]({{.HelpLink}})"
-  },
-  {
     "id": "api.error_set_first_admin_complete_setup",
     "translation": "스토어에서 첫 번째 관리자의 설정을 저장하는 동안 오류가 발생했습니다."
-  },
-  {
-    "id": "api.error_get_first_admin_visit_marketplace_status",
-    "translation": "스토어에서 첫 번째 관리자의 마켓플레이스 방문 상태를 검색하는 동안 오류가 발생했습니다."
   },
   {
     "id": "api.error_get_first_admin_complete_setup",
@@ -7356,14 +7216,6 @@
   {
     "id": "api.command_remote.invite_summary",
     "translation": "AES-256으로 암호화된 초대를 비밀번호와 함께 외부 Mattermost 시스템 관리자에게 보냅니다. 초대를 받기 위해 `{{.Command}}` 슬래시 명령어를 사용합니다.\n\n```\n{{.Invitation}}\n```\n\n**보안 연결이 다음 링크를 통해 Mattermost에 접근할 수 있는지 확인하세요** {{.SiteURL}}"
-  },
-  {
-    "id": "api.command_marketplace.unsupported.app_error",
-    "translation": "마켓플레이스 명령어는 현재 기기에서 지원하지 않습니다."
-  },
-  {
-    "id": "api.command_marketplace.name",
-    "translation": "마켓플레이스"
   },
   {
     "id": "sharedchannel.cannot_deliver_post",
@@ -7566,8 +7418,8 @@
     "translation": "라이선스 갱신 기간 만료"
   },
   {
-    "id": "api.templates.license_up_for_renewal_contact_sales",
-    "translation": "영업팀에 문의"
+    "id": "api.templates.license_up_for_renewal_review_license",
+    "translation": "Review license"
   },
   {
     "id": "api.templates.invite_body_guest.subTitle",
@@ -7622,28 +7474,12 @@
     "translation": "이미지 제한 확인에 실패했습니다. 해상도가 너무 높습니다."
   },
   {
-    "id": "api.templates.cloud_welcome_email.add_apps_info",
-    "translation": "워크스페이스에 앱들을 추가합니다"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.app_market_place",
-    "translation": "앱 마켓플레이스."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.button",
-    "translation": "매터모스트 열기"
-  },
-  {
     "id": "api.license.request-trial.can-start-trial.error",
     "translation": "평가판을 시작할 수 있는지 확인할 수 없습니다"
   },
   {
     "id": "api.file.test_connection_s3_settings_nil.app_error",
     "translation": "파일 저장소 설정에 설정되지 않은 값이 있습니다."
-  },
-  {
-    "id": "api.error_set_first_admin_visit_marketplace_status",
-    "translation": "스토어에 초기 관리자 마켓플레이스 방문 상태를 저장하는 동안 오류가 발생했습니다."
   },
   {
     "id": "api.acknowledgement.save.archived_channel.app_error",
@@ -7966,10 +7802,6 @@
     "translation": "파일 시작을 요청할 수 없습니다."
   },
   {
-    "id": "api.error_no_organization_name_provided_for_self_hosted_onboarding",
-    "translation": "셀프 호스팅 온보딩에 제공된 조직 이름이 없습니다."
-  },
-  {
     "id": "api.file.zip_file_reader.app_error",
     "translation": "zip 파일 리더를 사용할 수 없습니다."
   },
@@ -8142,14 +7974,6 @@
     "translation": "예약된 게시물 기능에는 라이선스가 필요합니다."
   },
   {
-    "id": "api.server.cws.disabled",
-    "translation": "시스템 관리자에 의해 가장 중요한 고객 포털과의 상호 작용이 비활성화되었습니다."
-  },
-  {
-    "id": "api.server.cws.needs_enterprise_edition",
-    "translation": "매터모스트 엔터프라이즈 에디션에서만 사용 가능한 서비스"
-  },
-  {
     "id": "api.server.hosted_signup_unavailable.error",
     "translation": "셀프 호스팅 가입 시 포털을 사용할 수 없습니다."
   },
@@ -8218,58 +8042,6 @@
     "translation": "사용자를 찾을 수 없습니다."
   },
   {
-    "id": "api.templates.cloud_welcome_email.add_apps_sub_info",
-    "translation": "GitHub, Jira 및 Zoom과 같은 도구로 작업을 간소화하세요. Atlassian의 모든 통합 기능을 살펴보세요."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.download_mm_info",
-    "translation": "Mattermost 앱 다운로드"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.info",
-    "translation": "만들어 주셔서 감사합니다. "
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.info2",
-    "translation": "나중에 사용할 수 있도록 링크를 저장하거나 북마크에 추가하세요."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.invite_info",
-    "translation": "사람들을 작업 공간에 초대하기"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.invite_sub_info",
-    "translation": "이 링크를 공유하여 {{.WorkSpace}}에 가입하도록 회원을 초대하세요:"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.mm_apps",
-    "translation": "모바일 및 데스크톱 앱"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.signin_sub_info",
-    "translation": "워크스페이스에 로그인"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.signin_sub_info2",
-    "translation": "Windows, Linux, Mac, iOS 및 Android에서 최상의 환경을 제공합니다."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.start_questions",
-    "translation": "시작하는 방법에 대해 궁금한 점이 있으신가요? 다음 주소로 이메일을 보내주세요."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subtitle",
-    "translation": "작업 공간 설정"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subtitle_info",
-    "translation": "다음 단계를 따라 팀을 구성하고 업무 공간을 최대한 활용하세요."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.title",
-    "translation": "작업 공간이 준비되었습니다!"
-  },
-  {
     "id": "api.templates.invite_body.title.reminder",
     "translation": "알림"
   },
@@ -8308,10 +8080,6 @@
   {
     "id": "api.templates.ip_filters_changed_footer.contact_support",
     "translation": "문의처"
-  },
-  {
-    "id": "api.templates.ip_filters_changed_footer.log_in_to_customer_portal",
-    "translation": "고객 포털에 로그인하여 IP 필터링 재설정하기"
   },
   {
     "id": "api.templates.ip_filters_changed_footer.send_an_email_to",
@@ -8410,10 +8178,6 @@
     "translation": "원격 사용자에게 로그인이 허용되지 않아 로그인에 실패했습니다."
   },
   {
-    "id": "api.user.login_by_cws.invalid_token.app_error",
-    "translation": "CWS 토큰이 유효하지 않습니다."
-  },
-  {
     "id": "api.user.login_with_desktop_token.not_oauth_or_saml_user.app_error",
     "translation": "사용자가 OAuth 또는 SAML 사용자가 아닙니다."
   },
@@ -8428,10 +8192,6 @@
   {
     "id": "api.user.reset_password_failed_attempts.permissions.app_error",
     "translation": "이 리소스를 업데이트할 수 있는 권한이 없습니다."
-  },
-  {
-    "id": "api.user.send_cloud_welcome_email.error",
-    "translation": "클라우드 환영 이메일을 보내지 못했습니다."
   },
   {
     "id": "api.user.update_active.cannot_modify_status_when_user_is_managed_by_ldap.app_error",
@@ -8858,10 +8618,6 @@
     "translation": "내보내는 동안 zip 아카이브에 파일을 추가하지 못했습니다."
   },
   {
-    "id": "app.file.cloud.get.app_error",
-    "translation": "클라우드 요금제의 한도를 초과한 파일이므로 파일을 가져올 수 없습니다."
-  },
-  {
     "id": "app.file_info.delete_for_post_ids.app_error",
     "translation": "데이터베이스에서 요청된 파일을 제거하지 못했습니다."
   },
@@ -9072,10 +8828,6 @@
   {
     "id": "app.job.update_status.app_error",
     "translation": "작업 상태를 업데이트할 수 없습니다. 잘못된 상태 설정"
-  },
-  {
-    "id": "app.last_accessible_file.app_error",
-    "translation": "마지막으로 액세스할 수 있는 파일 가져오기 오류"
   },
   {
     "id": "app.last_accessible_post.app_error",
@@ -9300,10 +9052,6 @@
   {
     "id": "app.post.analytics_teams_count.app_error",
     "translation": "팀 사용 권한을 얻을 수 없습니다."
-  },
-  {
-    "id": "app.post.cloud.get.app_error",
-    "translation": "클라우드의 요금제 한도를 초과했으므로 게시물을 가져올 수 없습니다."
   },
   {
     "id": "app.post.create_post.shared_dm_or_gm.app_error",
@@ -9572,18 +9320,6 @@
   {
     "id": "app.submit_interactive_dialog.read_body_error",
     "translation": "대화형 대화 상자 제출에서 응답 본문을 읽는 동안 오류가 발생했습니다."
-  },
-  {
-    "id": "app.system.complete_onboarding_request.app_error",
-    "translation": "전체 온보딩 요청을 디코딩하지 못했습니다."
-  },
-  {
-    "id": "app.system.complete_onboarding_request.no_first_user",
-    "translation": "온보딩은 시스템 관리자만 완료할 수 있습니다."
-  },
-  {
-    "id": "app.system.get_onboarding_request.app_error",
-    "translation": "온보딩 완료 상태를 가져오지 못했습니다."
   },
   {
     "id": "app.team.clear_cache.app_error",

@@ -116,41 +116,6 @@ export default class PermissionsTree extends React.PureComponent<Props, State> {
                 ],
             },
             {
-                id: 'playbook_public',
-                permissions: [
-                    Permissions.PLAYBOOK_PUBLIC_CREATE,
-                    Permissions.PLAYBOOK_PUBLIC_MANAGE_PROPERTIES,
-                    Permissions.PLAYBOOK_PUBLIC_MANAGE_MEMBERS,
-                ],
-                isVisible: isNonEnterpriseLicense,
-            },
-            {
-                id: 'playbook_public',
-                permissions: [
-                    Permissions.PLAYBOOK_PUBLIC_CREATE,
-                    Permissions.PLAYBOOK_PUBLIC_MANAGE_PROPERTIES,
-                    Permissions.PLAYBOOK_PUBLIC_MANAGE_MEMBERS,
-                    Permissions.PLAYBOOK_PUBLIC_MAKE_PRIVATE,
-                ],
-                isVisible: isEnterpriseLicense,
-            },
-            {
-                id: 'playbook_private',
-                permissions: [
-                    Permissions.PLAYBOOK_PRIVATE_CREATE,
-                    Permissions.PLAYBOOK_PRIVATE_MANAGE_PROPERTIES,
-                    Permissions.PLAYBOOK_PRIVATE_MANAGE_MEMBERS,
-                    Permissions.PLAYBOOK_PRIVATE_MAKE_PUBLIC,
-                ],
-                isVisible: isEnterpriseLicense,
-            },
-            {
-                id: 'runs',
-                permissions: [
-                    Permissions.RUN_CREATE,
-                ],
-            },
-            {
                 id: 'posts',
                 permissions: [
                     {
@@ -209,10 +174,10 @@ export default class PermissionsTree extends React.PureComponent<Props, State> {
         const teamsGroup = this.groups[0];
         const publicChannelsGroup = this.groups[1];
         const privateChannelsGroup = this.groups[2];
-        const postsGroup = this.groups[7];
-        const integrationsGroup = this.groups[8];
-        const sharedChannelsGroup = this.groups[9];
-        const customGroupsGroup = this.groups[10];
+        const postsGroup = this.groups[3];
+        const integrationsGroup = this.groups[4];
+        const sharedChannelsGroup = this.groups[5];
+        const customGroupsGroup = this.groups[6];
 
         if (config.EnableIncomingWebhooks === 'true') {
             const incomingWebhookGroup = {

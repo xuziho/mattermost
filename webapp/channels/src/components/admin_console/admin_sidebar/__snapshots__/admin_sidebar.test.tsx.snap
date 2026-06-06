@@ -632,36 +632,6 @@ c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V4z M20,4v5H4V4H20z M22,15v5c0,1.1-0.9,2-2,2H
                       </li>
                       <li
                         class="sidebar-category"
-                        data-testid="compliance"
-                      >
-                        <div
-                          class="category-title category-title--active"
-                        >
-                          <span
-                            class="category-icon"
-                          >
-                            <svg
-                              fill="currentColor"
-                              height="16"
-                              version="1.1"
-                              viewBox="0 0 24 24"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M7,5H21V7H7V5M7,13V11H21V13H7M4,4.5A1.5,1.5 0 0,1 5.5,6A1.5,1.5 0 0,1 4,7.5A1.5,1.5 0 0,1 2.5,6A1.5,1.5 0 0,1 4,4.5M4,10.5A1.5,1.5 0 0,1 5.5,12A1.5,1.5 0 0,1 4,13.5A1.5,1.5 0 0,1 2.5,12A1.5,1.5 0 0,1 4,10.5M7,19V17H21V19H7M4,16.5A1.5,1.5 0 0,1 5.5,18A1.5,1.5 0 0,1 4,19.5A1.5,1.5 0 0,1 2.5,18A1.5,1.5 0 0,1 4,16.5Z"
-                              />
-                            </svg>
-                          </span>
-                          <span
-                            class="category-title__text"
-                          >
-                            Compliance
-                          </span>
-                        </div>
-                      </li>
-                      <li
-                        class="sidebar-category"
                         data-testid="experimental"
                       >
                         <div
@@ -826,36 +796,6 @@ exports[`components/AdminSidebar should match snapshot with license with enterpr
                             class="category-title__text"
                           >
                             About
-                          </span>
-                        </div>
-                      </li>
-                      <li
-                        class="sidebar-category"
-                        data-testid="billing"
-                      >
-                        <div
-                          class="category-title category-title--active"
-                        >
-                          <span
-                            class="category-icon"
-                          >
-                            <svg
-                              fill="currentColor"
-                              height="16"
-                              version="1.1"
-                              viewBox="0 0 24 24"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M20,8H4V6H20M20,18H4V12H20M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z"
-                              />
-                            </svg>
-                          </span>
-                          <span
-                            class="category-title__text"
-                          >
-                            Billing & Account
                           </span>
                         </div>
                       </li>
@@ -1310,36 +1250,6 @@ exports[`components/AdminSidebar should match snapshot with license with enterpr
                             class="category-title__text"
                           >
                             About
-                          </span>
-                        </div>
-                      </li>
-                      <li
-                        class="sidebar-category"
-                        data-testid="billing"
-                      >
-                        <div
-                          class="category-title category-title--active"
-                        >
-                          <span
-                            class="category-icon"
-                          >
-                            <svg
-                              fill="currentColor"
-                              height="16"
-                              version="1.1"
-                              viewBox="0 0 24 24"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M20,8H4V6H20M20,18H4V12H20M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z"
-                              />
-                            </svg>
-                          </span>
-                          <span
-                            class="category-title__text"
-                          >
-                            Billing & Account
                           </span>
                         </div>
                       </li>
@@ -2024,36 +1934,6 @@ c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V4z M20,4v5H4V4H20z M22,15v5c0,1.1-0.9,2-2,2H
                       </li>
                       <li
                         class="sidebar-category"
-                        data-testid="compliance"
-                      >
-                        <div
-                          class="category-title category-title--active"
-                        >
-                          <span
-                            class="category-icon"
-                          >
-                            <svg
-                              fill="currentColor"
-                              height="16"
-                              version="1.1"
-                              viewBox="0 0 24 24"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M7,5H21V7H7V5M7,13V11H21V13H7M4,4.5A1.5,1.5 0 0,1 5.5,6A1.5,1.5 0 0,1 4,7.5A1.5,1.5 0 0,1 2.5,6A1.5,1.5 0 0,1 4,4.5M4,10.5A1.5,1.5 0 0,1 5.5,12A1.5,1.5 0 0,1 4,13.5A1.5,1.5 0 0,1 2.5,12A1.5,1.5 0 0,1 4,10.5M7,19V17H21V19H7M4,16.5A1.5,1.5 0 0,1 5.5,18A1.5,1.5 0 0,1 4,19.5A1.5,1.5 0 0,1 2.5,18A1.5,1.5 0 0,1 4,16.5Z"
-                              />
-                            </svg>
-                          </span>
-                          <span
-                            class="category-title__text"
-                          >
-                            Compliance
-                          </span>
-                        </div>
-                      </li>
-                      <li
-                        class="sidebar-category"
                         data-testid="experimental"
                       >
                         <div
@@ -2443,36 +2323,6 @@ c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V4z M20,4v5H4V4H20z M22,15v5c0,1.1-0.9,2-2,2H
                             class="category-title__text"
                           >
                             Integrations
-                          </span>
-                        </div>
-                      </li>
-                      <li
-                        class="sidebar-category"
-                        data-testid="compliance"
-                      >
-                        <div
-                          class="category-title category-title--active"
-                        >
-                          <span
-                            class="category-icon"
-                          >
-                            <svg
-                              fill="currentColor"
-                              height="16"
-                              version="1.1"
-                              viewBox="0 0 24 24"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M7,5H21V7H7V5M7,13V11H21V13H7M4,4.5A1.5,1.5 0 0,1 5.5,6A1.5,1.5 0 0,1 4,7.5A1.5,1.5 0 0,1 2.5,6A1.5,1.5 0 0,1 4,4.5M4,10.5A1.5,1.5 0 0,1 5.5,12A1.5,1.5 0 0,1 4,13.5A1.5,1.5 0 0,1 2.5,12A1.5,1.5 0 0,1 4,10.5M7,19V17H21V19H7M4,16.5A1.5,1.5 0 0,1 5.5,18A1.5,1.5 0 0,1 4,19.5A1.5,1.5 0 0,1 2.5,18A1.5,1.5 0 0,1 4,16.5Z"
-                              />
-                            </svg>
-                          </span>
-                          <span
-                            class="category-title__text"
-                          >
-                            Compliance
                           </span>
                         </div>
                       </li>
@@ -2980,36 +2830,6 @@ c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V4z M20,4v5H4V4H20z M22,15v5c0,1.1-0.9,2-2,2H
                       </li>
                       <li
                         class="sidebar-category"
-                        data-testid="compliance"
-                      >
-                        <div
-                          class="category-title category-title--active"
-                        >
-                          <span
-                            class="category-icon"
-                          >
-                            <svg
-                              fill="currentColor"
-                              height="16"
-                              version="1.1"
-                              viewBox="0 0 24 24"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M7,5H21V7H7V5M7,13V11H21V13H7M4,4.5A1.5,1.5 0 0,1 5.5,6A1.5,1.5 0 0,1 4,7.5A1.5,1.5 0 0,1 2.5,6A1.5,1.5 0 0,1 4,4.5M4,10.5A1.5,1.5 0 0,1 5.5,12A1.5,1.5 0 0,1 4,13.5A1.5,1.5 0 0,1 2.5,12A1.5,1.5 0 0,1 4,10.5M7,19V17H21V19H7M4,16.5A1.5,1.5 0 0,1 5.5,18A1.5,1.5 0 0,1 4,19.5A1.5,1.5 0 0,1 2.5,18A1.5,1.5 0 0,1 4,16.5Z"
-                              />
-                            </svg>
-                          </span>
-                          <span
-                            class="category-title__text"
-                          >
-                            Compliance
-                          </span>
-                        </div>
-                      </li>
-                      <li
-                        class="sidebar-category"
                         data-testid="experimental"
                       >
                         <div
@@ -3399,36 +3219,6 @@ c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V4z M20,4v5H4V4H20z M22,15v5c0,1.1-0.9,2-2,2H
                             class="category-title__text"
                           >
                             Integrations
-                          </span>
-                        </div>
-                      </li>
-                      <li
-                        class="sidebar-category"
-                        data-testid="compliance"
-                      >
-                        <div
-                          class="category-title category-title--active"
-                        >
-                          <span
-                            class="category-icon"
-                          >
-                            <svg
-                              fill="currentColor"
-                              height="16"
-                              version="1.1"
-                              viewBox="0 0 24 24"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M7,5H21V7H7V5M7,13V11H21V13H7M4,4.5A1.5,1.5 0 0,1 5.5,6A1.5,1.5 0 0,1 4,7.5A1.5,1.5 0 0,1 2.5,6A1.5,1.5 0 0,1 4,4.5M4,10.5A1.5,1.5 0 0,1 5.5,12A1.5,1.5 0 0,1 4,13.5A1.5,1.5 0 0,1 2.5,12A1.5,1.5 0 0,1 4,10.5M7,19V17H21V19H7M4,16.5A1.5,1.5 0 0,1 5.5,18A1.5,1.5 0 0,1 4,19.5A1.5,1.5 0 0,1 2.5,18A1.5,1.5 0 0,1 4,16.5Z"
-                              />
-                            </svg>
-                          </span>
-                          <span
-                            class="category-title__text"
-                          >
-                            Compliance
                           </span>
                         </div>
                       </li>
@@ -4247,36 +4037,6 @@ c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V4z M20,4v5H4V4H20z M22,15v5c0,1.1-0.9,2-2,2H
                             class="category-title__text"
                           >
                             Integrations
-                          </span>
-                        </div>
-                      </li>
-                      <li
-                        class="sidebar-category"
-                        data-testid="compliance"
-                      >
-                        <div
-                          class="category-title category-title--active"
-                        >
-                          <span
-                            class="category-icon"
-                          >
-                            <svg
-                              fill="currentColor"
-                              height="16"
-                              version="1.1"
-                              viewBox="0 0 24 24"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M7,5H21V7H7V5M7,13V11H21V13H7M4,4.5A1.5,1.5 0 0,1 5.5,6A1.5,1.5 0 0,1 4,7.5A1.5,1.5 0 0,1 2.5,6A1.5,1.5 0 0,1 4,4.5M4,10.5A1.5,1.5 0 0,1 5.5,12A1.5,1.5 0 0,1 4,13.5A1.5,1.5 0 0,1 2.5,12A1.5,1.5 0 0,1 4,10.5M7,19V17H21V19H7M4,16.5A1.5,1.5 0 0,1 5.5,18A1.5,1.5 0 0,1 4,19.5A1.5,1.5 0 0,1 2.5,18A1.5,1.5 0 0,1 4,16.5Z"
-                              />
-                            </svg>
-                          </span>
-                          <span
-                            class="category-title__text"
-                          >
-                            Compliance
                           </span>
                         </div>
                       </li>

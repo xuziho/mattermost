@@ -9,12 +9,10 @@ import type {Dispatch} from 'redux';
 import type {AppBinding} from '@mattermost/types/apps';
 import type {Post} from '@mattermost/types/posts';
 
-import {Permissions} from 'mattermost-redux/constants';
 import {AppBindingLocations} from 'mattermost-redux/constants/apps';
 import {appsEnabled} from 'mattermost-redux/selectors/entities/apps';
 import {getChannel} from 'mattermost-redux/selectors/entities/channels';
-import {isMarketplaceEnabled, getFeatureFlagValue} from 'mattermost-redux/selectors/entities/general';
-import {haveICurrentTeamPermission} from 'mattermost-redux/selectors/entities/roles';
+import {getFeatureFlagValue} from 'mattermost-redux/selectors/entities/general';
 import {getCurrentTeamId} from 'mattermost-redux/selectors/entities/teams';
 import {getCurrentUser} from 'mattermost-redux/selectors/entities/users';
 import {isCombinedUserActivityPost} from 'mattermost-redux/utils/post_list';
@@ -22,7 +20,6 @@ import {isSystemMessage} from 'mattermost-redux/utils/post_utils';
 import {isSystemAdmin} from 'mattermost-redux/utils/user_utils';
 
 import {makeFetchBindings, postEphemeralCallResponseForPost, handleBindingClick, openAppsModal} from 'actions/apps';
-import {openModal} from 'actions/views/modals';
 import {getIsMobileView} from 'selectors/views/browser';
 
 import type {GlobalState} from 'types/store';
@@ -70,10 +67,6 @@ function mapStateToProps(state: GlobalState, ownProps: Props) {
         pluginMenuItems: pluginItemsVisible ? state.plugins.components.PostDropdownMenu : [],
         teamId: getCurrentTeamId(state),
         isMobileView: getIsMobileView(state),
-        canOpenMarketplace: (
-            isMarketplaceEnabled(state) &&
-            haveICurrentTeamPermission(state, Permissions.SYSCONSOLE_WRITE_PLUGINS)
-        ),
     };
 }
 
@@ -82,7 +75,6 @@ function mapDispatchToProps(dispatch: Dispatch) {
         actions: bindActionCreators({
             handleBindingClick,
             fetchBindings,
-            openModal,
             openAppsModal,
             postEphemeralCallResponseForPost,
         }, dispatch),

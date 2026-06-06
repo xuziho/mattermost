@@ -28,7 +28,6 @@ describe('components/terms_of_service/TermsOfService', () => {
         location: {search: '', hash: '', pathname: '', state: ''},
         termsEnabled: true,
         emojiMap: {} as EmojiMap,
-        onboardingFlowEnabled: false,
         match: {} as any,
         history: {} as any,
     };

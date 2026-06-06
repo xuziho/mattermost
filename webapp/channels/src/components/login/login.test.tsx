@@ -375,7 +375,7 @@ describe('components/login/Login', () => {
     it('should redirect on login', async () => {
         LocalStorageStore.setWasLoggedIn(true);
 
-        const redirectPath = '/boards/team/teamID/boardID';
+		const redirectPath = '/team/channels/town-square';
 
         const history = createMemoryHistory({
             initialEntries: [

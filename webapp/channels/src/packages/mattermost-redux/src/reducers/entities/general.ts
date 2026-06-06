@@ -80,49 +80,9 @@ function serverVersion(state = '', action: MMReduxAction) {
     }
 }
 
-function firstAdminVisitMarketplaceStatus(state = false, action: MMReduxAction) {
-    switch (action.type) {
-    case GeneralTypes.FIRST_ADMIN_VISIT_MARKETPLACE_STATUS_RECEIVED:
-        return action.data;
-
-    default:
-        return state;
-    }
-}
-
-function firstAdminCompleteSetup(state = false, action: MMReduxAction) {
-    switch (action.type) {
-    case GeneralTypes.FIRST_ADMIN_COMPLETE_SETUP_RECEIVED:
-        return action.data;
-
-    default:
-        return state;
-    }
-}
-
-export type CWSAvailabilityState = 'pending' | 'available' | 'unavailable' | 'not_applicable';
-
-function cwsAvailability(state: CWSAvailabilityState = 'pending', action: MMReduxAction): CWSAvailabilityState {
-    switch (action.type) {
-    case GeneralTypes.CWS_AVAILABILITY_CHECK_REQUEST:
-        return 'pending';
-    case GeneralTypes.CWS_AVAILABILITY_CHECK_SUCCESS:
-        return action.data;
-    case GeneralTypes.CWS_AVAILABILITY_CHECK_FAILURE:
-        return 'unavailable';
-    case UserTypes.LOGOUT_SUCCESS:
-        return 'pending';
-    default:
-        return state;
-    }
-}
-
 export default combineReducers({
     config,
     license,
     customProfileAttributes,
     serverVersion,
-    firstAdminVisitMarketplaceStatus,
-    firstAdminCompleteSetup,
-    cwsAvailability,
 });

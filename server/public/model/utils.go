@@ -15,7 +15,6 @@ import (
 	"net"
 	"net/mail"
 	"net/url"
-	"os"
 	"regexp"
 	"slices"
 	"sort"
@@ -698,8 +697,6 @@ var reservedName = []string{
 	"plugins",
 	"post",
 	"signup",
-	"boards",
-	"playbooks",
 }
 
 func IsValidChannelIdentifier(s string) bool {
@@ -898,10 +895,6 @@ func filterBlocklist(r rune) rune {
 	}
 
 	return r
-}
-
-func IsCloud() bool {
-	return os.Getenv("MM_CLOUD_INSTALLATION_ID") != ""
 }
 
 func SliceToMapKey(s ...string) map[string]any {

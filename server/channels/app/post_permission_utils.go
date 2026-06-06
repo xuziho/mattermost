@@ -115,10 +115,9 @@ func userCreatePostPermissionCheckWithApp(rctx request.CTX, a *App, userId, chan
 	return nil
 }
 
-// PostCardTypeCheckWithApp validates whether a card post can be created
-// based on the IntegratedBoards feature flag.
+// PostCardTypeCheckWithApp rejects the retired Boards card post type.
 func PostCardTypeCheckWithApp(where string, a *App, postType string) *model.AppError {
-	if postType == model.PostTypeCard && !a.Config().FeatureFlags.IntegratedBoards {
+	if postType == model.PostTypeCard {
 		return model.NewAppError(where, "api.post.create_post.card_type_disabled.app_error", nil, "", http.StatusBadRequest)
 	}
 	return nil

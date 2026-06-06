@@ -74,7 +74,6 @@ func setupTestHelper(tb testing.TB, includeCacheLayer bool, options []app.Option
 	newConfig.SqlSettings = *mainHelper.GetSQLSettings()
 	*newConfig.AnnouncementSettings.AdminNoticesEnabled = false
 	*newConfig.AnnouncementSettings.UserNoticesEnabled = false
-	*newConfig.PluginSettings.AutomaticPrepackagedPlugins = false
 	*newConfig.LogSettings.EnableSentry = false // disable error reporting during tests
 	*newConfig.LogSettings.ConsoleJson = false
 
@@ -375,18 +374,10 @@ func TestStaticFilesCaching(t *testing.T) {
 </head>
 </html>`
 	fakeMainBundle := `module.exports = 'main';`
-	fakeRemoteEntry := `module.exports = 'remote';`
 
 	err := os.WriteFile("./client/root.html", []byte(fakeRootHTML), 0600)
 	require.NoError(t, err)
 	err = os.WriteFile("./client/"+fakeMainBundleName, []byte(fakeMainBundle), 0600)
-	require.NoError(t, err)
-	err = os.WriteFile("./client/remote_entry.js", []byte(fakeRemoteEntry), 0600)
-	require.NoError(t, err)
-
-	err = os.MkdirAll("./client/products/boards", 0777)
-	require.NoError(t, err)
-	err = os.WriteFile("./client/products/boards/remote_entry.js", []byte(fakeRemoteEntry), 0600)
 	require.NoError(t, err)
 
 	req, err := http.NewRequest("GET", "/", nil)
@@ -414,21 +405,6 @@ func TestStaticFilesCaching(t *testing.T) {
 	require.Equal(t, fakeMainBundle, res.Body.String())
 	require.Equal(t, []string{"max-age=31556926, public"}, res.Result().Header[http.CanonicalHeaderKey("Cache-Control")])
 
-	req, err = http.NewRequest("GET", "/static/remote_entry.js", nil)
-	require.NoError(t, err)
-	res = httptest.NewRecorder()
-	th.Web.MainRouter.ServeHTTP(res, req)
-	require.Equal(t, http.StatusOK, res.Code)
-	require.Equal(t, fakeRemoteEntry, res.Body.String())
-	require.Equal(t, []string{"no-cache, max-age=31556926, public"}, res.Result().Header[http.CanonicalHeaderKey("Cache-Control")])
-
-	req, err = http.NewRequest("GET", "/static/products/boards/remote_entry.js", nil)
-	require.NoError(t, err)
-	res = httptest.NewRecorder()
-	th.Web.MainRouter.ServeHTTP(res, req)
-	require.Equal(t, http.StatusOK, res.Code)
-	require.Equal(t, fakeRemoteEntry, res.Body.String())
-	require.Equal(t, []string{"no-cache, max-age=31556926, public"}, res.Result().Header[http.CanonicalHeaderKey("Cache-Control")])
 }
 
 func TestCheckClientCompatability(t *testing.T) {

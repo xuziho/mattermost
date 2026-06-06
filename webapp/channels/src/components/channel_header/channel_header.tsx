@@ -15,7 +15,6 @@ import Timestamp from 'components/timestamp';
 import Tag from 'components/widgets/tag/tag';
 import WithTooltip from 'components/with_tooltip';
 
-import CallButton from 'plugins/call_button';
 import ChannelHeaderPlug from 'plugins/channel_header_plug';
 import Pluggable from 'plugins/pluggable';
 import {getChannelRoutePathAndIdentifier} from 'utils/channel_utils';
@@ -432,13 +431,12 @@ class ChannelHeader extends React.PureComponent<Props> {
                     </div>
                     {(!channel.shared || this.props.sharedChannelsPluginsEnabled) && (
                         <>
-                            <ChannelHeaderPlug
-                                channel={channel}
-                                channelMember={channelMember}
-                            />
-                            <CallButton/>
-                        </>
-                    )}
+							<ChannelHeaderPlug
+								channel={channel}
+								channelMember={channelMember}
+							/>
+						</>
+					)}
                     {canPopout() && !isChannelPopoutWindow() && (
                         <PopoutButton
                             className='channel-header__icon'

@@ -2484,34 +2484,6 @@
     "translation": "Не мога да променя saml файлове."
   },
   {
-    "id": "app.plugin.marshal.app_error",
-    "translation": "Неуспешно организиране на приставките в пазара."
-  },
-  {
-    "id": "app.plugin.marketplace_plugins.signature_not_found.app_error",
-    "translation": "Не може да се намери исканият подпис на плъгин от пазара."
-  },
-  {
-    "id": "app.plugin.marketplace_plugins.not_found.app_error",
-    "translation": "Не може да се намери заявеният плъгин за пазара."
-  },
-  {
-    "id": "app.plugin.marketplace_plugin_request.app_error",
-    "translation": "Неуспешно декодиране на заявката за плъгин на пазара."
-  },
-  {
-    "id": "app.plugin.marketplace_disabled.app_error",
-    "translation": "Пазарът е забранен. Моля, проверете вашите дневници за подробности."
-  },
-  {
-    "id": "app.plugin.marketplace_client.failed_to_fetch",
-    "translation": "Неуспешно получаване на приставки от сървъра на пазара."
-  },
-  {
-    "id": "app.plugin.marketplace_client.app_error",
-    "translation": "Неуспешно създаване на клиент за пазара."
-  },
-  {
     "id": "app.plugin.manifest.app_error",
     "translation": "Не може да се намери манифест за извлечена приставка."
   },
@@ -2522,10 +2494,6 @@
   {
     "id": "app.plugin.invalid_id.app_error",
     "translation": "Идентификационният номер на приставката трябва да бъде най-малко {{.Min}} символа, най-много {{.Max}} символа и съответства на {{.Regex}}."
-  },
-  {
-    "id": "app.plugin.install_marketplace_plugin.app_error",
-    "translation": "Неуспешно инсталиране на приставка от пазара."
   },
   {
     "id": "app.plugin.install_id_failed_remove.app_error",
@@ -2976,42 +2944,6 @@
     "translation": "Не можа да се вземе качването."
   },
   {
-    "id": "api.upgrade_to_enterprise_status.signature.app_error",
-    "translation": "Mattermost не можа да надстрои до корпоративна версия. Цифровия подпис на сваления двоичен файл не може да се провери."
-  },
-  {
-    "id": "api.upgrade_to_enterprise_status.app_error",
-    "translation": "Mattermost не може да се надстрои до корпоративна версия."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.system_not_supported.app_error",
-    "translation": "Mattermost не можа да надстрои до корпоративна версия. Тази функция ще работи само в Linux системи с x86-64 архитектура."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-user.app_error",
-    "translation": "Mattermost не можа да надстрои до корпоративна версия. Системния потребител Mattermost {{.MattermostUsername}} няма права за запис до необходимия двоичен файл. Системният администратор може да актуализира правата за файлове, като изпълни следната команда на сървъра, където е инсталиран Mattermost:\n\n```\nchown {{.MattermostUsername}} \"{{.Path}}\"\n```\n\nСлед като промените правата за файлове, опитайте да надстроите отново Mattermost. След като надстроите и рестартирате, не забравяйте да възстановите оригиналните права на двоичния файл:\n\n```\nchown {{.FileUsername}} \"{{.Path}}\"\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-user-and-permission.app_error",
-    "translation": "Mattermost не можа да надстрои до корпоративна версия. Системния потребител Mattermost {{.MattermostUsername}} няма права за запис до необходимия двоичен файл. Системният администратор може да актуализира правата за файлове, като изпълни следната команда на сървъра, където е инсталиран Mattermost:\n\n```\nchown {{.MattermostUsername}} \"{{.Path}}\"\nchmod +w \"{{.Path}}\"\n```\n\nСлед като промените правата за файлове, опитайте да надстроите отново Mattermost. След като надстроите и рестартирате, не забравяйте да възстановите оригиналните права на двоичния файл:\n\n```\nchown {{.FileUsername}} \"{{.Path}}\"\nchmod -w \"{{.Path}}\"\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-permission.app_error",
-    "translation": "Mattermost не можа да надстрои до корпоративна версия. Системния потребител Mattermost {{.MattermostUsername}} няма права за запис до необходимия двоичен файл. Системният администратор може да актуализира разрешенията за файлове, като изпълни следната команда на сървъра, където е инсталиран Mattermost:\n\n```\nchmod +w \"{{.Path}}\"\n```\n\nСлед като промените правата за файлове, опитайте да надстроите отново Mattermost. След като надстроите и рестартирате, не забравяйте да възстановите оригиналните права на двоичния файл:\n\n```\nchmod -w \"{{.Path}}\"\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.generic_error.app_error",
-    "translation": "Mattermost не може да се надстрои до корпоративна версия."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.app_error",
-    "translation": "Надстройката до Mattermost корпоративна версия е вече пусната."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.already-enterprise.app_error",
-    "translation": "Не можете да надстроите, защото вече използвате Mattermost корпоративна версия."
-  },
-  {
     "id": "app.webhooks.get_outgoing.app_error",
     "translation": "Webhook не може да се получи."
   },
@@ -3456,10 +3388,6 @@
     "translation": "Не успяхме да вземем всички екипи."
   },
   {
-    "id": "api.upgrade_to_enterprise.already-done.app_error",
-    "translation": "Вече надградихте до Mattermost корпоративна версия. Моля, рестартирайте сървъра, за да завършите надстройката."
-  },
-  {
     "id": "api.templates.welcome_subject",
     "translation": "[{{.SiteName}}] Присъединихте се към {{.ServerURL}}"
   },
@@ -3474,10 +3402,6 @@
   {
     "id": "api.templates.welcome_body.button",
     "translation": "Потвърди ел.поща"
-  },
-  {
-    "id": "api.templates.welcome_body.app_download_info",
-    "translation": "За най-добро изживяване изтеглете приложенията за PC, Mac, iOS и Android."
   },
   {
     "id": "api.templates.verify_subject",
@@ -4610,10 +4534,6 @@
     "translation": "AD/LDAP не е наличен на този сървър."
   },
   {
-    "id": "api.user.login_cws.license.error",
-    "translation": "Входа в CWS е забранен."
-  },
-  {
     "id": "api.user.login_by_oauth.parse.app_error",
     "translation": "Не можаха да се анализират данните за автентичност от {{.Service}} потребителски обект."
   },
@@ -4624,10 +4544,6 @@
   {
     "id": "api.user.login_by_oauth.bot_login_forbidden.app_error",
     "translation": "Влизането на бот е забранено."
-  },
-  {
-    "id": "api.user.login_by_cws.invalid_token.app_error",
-    "translation": "CWS маркерът не е валиден"
   },
   {
     "id": "api.user.login.use_auth_service.app_error",
@@ -5523,14 +5439,6 @@
   {
     "id": "api.command_invite.channel.app_error",
     "translation": "Грешка при получаване на текущия канал."
-  },
-  {
-    "id": "api.command_help.name",
-    "translation": "помощ"
-  },
-  {
-    "id": "api.command_help.desc",
-    "translation": "Отвори помощната страница на Mattermost"
   },
   {
     "id": "api.command_groupmsg.permission.app_error",
@@ -6612,18 +6520,6 @@
     "translation": "Интеграциите са ограничени само до администраторите."
   },
   {
-    "id": "api.cloud.request_error",
-    "translation": "Грешка при обработка на заявката до CWS."
-  },
-  {
-    "id": "api.cloud.license_error",
-    "translation": "Вашият лиценз не поддържа заявки към облак."
-  },
-  {
-    "id": "api.cloud.app_error",
-    "translation": "Вътрешна грешка при на заявка към облачния API."
-  },
-  {
     "id": "api.channel.update_team_member_roles.scheme_role.app_error",
     "translation": "Предоставената роля се управлява от схема и следователно не може да се прилага директно към член на екипа."
   },
@@ -7276,14 +7172,6 @@
     "translation": "Ако не сте Вие, можете спокойно да игнорирате това писмо."
   },
   {
-    "id": "api.templates.welcome_body.app_download_title",
-    "translation": "Свали настолно и мобилно приложение"
-  },
-  {
-    "id": "api.templates.welcome_body.app_download_button",
-    "translation": "Свали"
-  },
-  {
     "id": "api.templates.verify_body.subTitle2",
     "translation": "Натиснете по-долу, за да потвърдите адреса си за ел.поща."
   },
@@ -7302,10 +7190,6 @@
   {
     "id": "api.team.invite_guests_to_channels.invalid_body.app_error",
     "translation": "Невалидно или липсващо тяло на заявката."
-  },
-  {
-    "id": "api.user.send_cloud_welcome_email.error",
-    "translation": "Неуспешно изпращане на ел.поща за добре дошли в облака"
   },
   {
     "id": "api.templates.reset_body.subTitle",
@@ -7334,78 +7218,6 @@
   {
     "id": "api.templates.invite_body.subTitle",
     "translation": "Започнете да сътрудничите с екипа си в Mattermost"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.title",
-    "translation": "Вашата 14-дневна пробна версия на работното пространство {{.WorkSpace}} е готова за работа!"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subtitle_info",
-    "translation": "Предприемете следните стъпки, за да изградите екипите си и да извлечете максимума от работното си пространство."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subtitle",
-    "translation": "Настройте работното си пространство"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subject",
-    "translation": "Поздравления!"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.start_questions",
-    "translation": "Имате въпроси относно стартирането? Изпратете ни ел.поща на"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.signin_sub_info2",
-    "translation": "за най-доброто изживяване на PC, Mac, iOS и Android."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.signin_sub_info",
-    "translation": "Влезте в работното си пространство на нашия"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.mm_apps",
-    "translation": "мобилно и настолно приложения"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.invite_sub_info",
-    "translation": "Споделете тази връзка, за да поканите членовете си да се присъединят към {{.WorkSpace}}:"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.invite_info",
-    "translation": "Поканете хора във вашето работно пространство"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.info2",
-    "translation": "Не забравяйте да запазите връзката си за бъдеща употреба."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.info",
-    "translation": "Благодаря за създаването "
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.download_mm_info",
-    "translation": "Изтеглете приложението Mattermost"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.button",
-    "translation": "Отворете Mattermost"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.app_market_place",
-    "translation": "пазар на приложения."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.add_apps_sub_info",
-    "translation": "Рационализирайте работата си с инструменти като Github, Google Calendar и Chrome. Разгледайте всички интеграции, които имаме в нашия"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.add_apps_info",
-    "translation": "Добавете приложения към работното си пространство"
-  },
-  {
-    "id": "api.cloud.cws_webhook_event_missing_error",
-    "translation": "Webhook събитието не беше обработено. Липсва или не е валидно."
   },
   {
     "id": "api.command_remote.add_remote.error",
@@ -7748,14 +7560,6 @@
     "translation": "Невъзможно свързване с S3. Проверете параметрите за удостоверяване на връзката с Amazon S3 и настройките за удостоверяване."
   },
   {
-    "id": "api.error_set_first_admin_visit_marketplace_status",
-    "translation": "Грешка при опит за запис в хранилището статуса първо администраторско посещение на пазара ."
-  },
-  {
-    "id": "api.error_get_first_admin_visit_marketplace_status",
-    "translation": "Грешка при опит за извличане от хранилището статуса първо администраторско посещение на пазара ."
-  },
-  {
     "id": "api.email_batching.send_batched_email_notification.time",
     "translation": "{{.Hour}}:{{.Minute}} {{.TimeZone}}"
   },
@@ -8084,14 +7888,6 @@
     "translation": "Невалидно обновяване член на канала: Гост не може да бъде зададен за един канал, системен администратор трябва да повиши или понижи потребителите до/от гости."
   },
   {
-    "id": "api.cloud.notify_admin_to_upgrade_error.already_notified",
-    "translation": "Администраторът вече е уведомен"
-  },
-  {
-    "id": "api.cloud.teams_limit_reached.create",
-    "translation": "Не може да се създаде екип, защото ограничението за екипи е достигнато"
-  },
-  {
     "id": "api.command_exportlink.desc",
     "translation": "Генериране на връзка за изтегляне на експорт."
   },
@@ -8114,10 +7910,6 @@
   {
     "id": "api.channel.create_channel.missing_team_id.error",
     "translation": "Липсва team_id в тялото на заявката"
-  },
-  {
-    "id": "api.cloud.teams_limit_reached.restore",
-    "translation": "Не може да се възстанови екип, защото ограничението за екипи е достигнато"
   },
   {
     "id": "api.channel.create_channel.direct_channel.remote_restricted.app_error",
@@ -8156,24 +7948,12 @@
     "translation": "Нямате достатъчно права, за да изпълните тази команда."
   },
   {
-    "id": "api.command_help.success",
-    "translation": "Mattermost е платформа с отворен код за сигурна комуникация, сътрудничество и организиране на работата между инструменти и екипи.\nMattermost съдържа два основни инструмента:\n\n**Канали** - поддържайте връзка с екипа си чрез 1:1 и групови съобщения.\n**[Playbooks](/playbooks)** - Изграждайте и конфигурирайте повтарящи се процеси за постигане на конкретни и предвидими резултати.\n\n[Преглед на документация и ръководства]({{.HelpLink}})"
-  },
-  {
     "id": "api.command_invite.successOverflow",
     "translation": "{{.FirstUser}} и {{.Others}}, добавени към канала {{.Channel}}."
   },
   {
     "id": "api.command_invite.user_already_in_channel.overflow",
     "translation": "{{.FirstUser}} и {{.Others}} други вече са в канала."
-  },
-  {
-    "id": "api.command_marketplace.desc",
-    "translation": "Отвори пазара"
-  },
-  {
-    "id": "api.command_marketplace.name",
-    "translation": "пазар"
   },
   {
     "id": "api.command_invite.channel_constrained_user_denied",
@@ -8190,10 +7970,6 @@
   {
     "id": "api.config.reload_config.app_error",
     "translation": "Неуспешно презареждане на конфигурацията."
-  },
-  {
-    "id": "api.command_marketplace.unsupported.app_error",
-    "translation": "Командата marketplace не се поддържа от вашето устройство."
   },
   {
     "id": "api.command_remote.confirm_invitation.error",
@@ -8306,5 +8082,9 @@
   {
     "id": "api.context.outgoing_oauth_connection.not_available.configuration_disabled",
     "translation": "Изходящите OAuth връзки са недостъпни на този сървър."
+  },
+  {
+    "id": "api.templates.license_up_for_renewal_review_license",
+    "translation": "Review license"
   }
 ]

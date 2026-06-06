@@ -12,15 +12,11 @@ type StorageUsage struct {
 }
 
 type TeamsUsage struct {
-	Active        int64 `json:"active"`
-	CloudArchived int64 `json:"cloud_archived"`
+	Active int64 `json:"active"`
 }
 
 var InstalledIntegrationsIgnoredPlugins = map[string]struct{}{
-	PluginIdPlaybooks:     {},
-	PluginIdFocalboard:    {},
 	PluginIdApps:          {},
-	PluginIdCalls:         {},
 	PluginIdNPS:           {},
 	PluginIdChannelExport: {},
 	PluginIdAI:            {},

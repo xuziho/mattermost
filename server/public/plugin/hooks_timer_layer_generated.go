@@ -248,12 +248,6 @@ func (hooks *hooksTimerLayer) OnSendDailyTelemetry() {
 	hooks.recordTime(startTime, "OnSendDailyTelemetry", true)
 }
 
-func (hooks *hooksTimerLayer) OnCloudLimitsUpdated(limits *model.ProductLimits) {
-	startTime := timePkg.Now()
-	hooks.hooksImpl.OnCloudLimitsUpdated(limits)
-	hooks.recordTime(startTime, "OnCloudLimitsUpdated", true)
-}
-
 func (hooks *hooksTimerLayer) ConfigurationWillBeSaved(newCfg *model.Config) (*model.Config, error) {
 	startTime := timePkg.Now()
 	_returnsA, _returnsB := hooks.hooksImpl.ConfigurationWillBeSaved(newCfg)

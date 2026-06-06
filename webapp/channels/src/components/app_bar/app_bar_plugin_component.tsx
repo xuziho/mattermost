@@ -12,11 +12,7 @@ import {getActiveRhsComponent} from 'selectors/rhs';
 import PluginIcon from 'components/widgets/icons/plugin_icon';
 import WithTooltip from 'components/with_tooltip';
 
-import {suitePluginIds} from 'utils/constants';
-
 import type {AppBarAction, ChannelHeaderButtonAction} from 'types/store/plugins';
-
-import NewChannelWithBoardTourTip from './new_channel_with_board_tour_tip';
 
 type AppBarComponentProps = {
     component: ChannelHeaderButtonAction | AppBarAction;
@@ -96,8 +92,6 @@ const AppBarPluginComponent = ({
         );
     }
 
-    const boardsEnabled = component.pluginId === suitePluginIds.focalboard;
-
     return (
         <WithTooltip
             title={tooltipText}
@@ -117,7 +111,6 @@ const AppBarPluginComponent = ({
                 }}
             >
                 {content}
-                {boardsEnabled && <NewChannelWithBoardTourTip/>}
             </div>
         </WithTooltip>
     );

@@ -9,8 +9,6 @@ import {Client4} from 'mattermost-redux/client';
 import TestHelper from '../../test/test_helper';
 import configureStore from '../../test/test_store';
 
-const OK_RESPONSE = {status: 'OK'};
-
 describe('Actions.General', () => {
     let store = configureStore();
     beforeAll(() => {
@@ -62,17 +60,6 @@ describe('Actions.General', () => {
         await TestHelper.wait(100);
         const {serverVersion} = store.getState().entities.general;
         expect(serverVersion).toEqual(version);
-    });
-
-    it('setFirstAdminVisitMarketplaceStatus', async () => {
-        nock(Client4.getPluginsRoute()).
-            post('/marketplace/first_admin_visit').
-            reply(200, OK_RESPONSE);
-
-        await store.dispatch(Actions.setFirstAdminVisitMarketplaceStatus());
-
-        const {firstAdminVisitMarketplaceStatus} = store.getState().entities.general;
-        expect(firstAdminVisitMarketplaceStatus).toEqual(true);
     });
 
     it('getCustomProfileAttributes', async () => {

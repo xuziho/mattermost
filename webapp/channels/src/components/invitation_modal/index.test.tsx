@@ -63,7 +63,6 @@ describe('mapStateToProps', () => {
                     test_user_role: {permissions: [Permissions.INVITE_GUEST]},
                 },
             },
-            cloud: {},
         },
         views: {
             modals: {

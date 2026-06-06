@@ -50,23 +50,14 @@ exports[`components/integrations/InstalledOutgoingWebhooks should match snapshot
     >
       Use outgoing webhooks to connect external tools to Mattermost. 
       <a
-        href="https://mattermost.com/pl/setup-outgoing-webhooks?utm_source=mattermost&utm_medium=in-product&utm_content=installed_outgoing_webhooks&uid=currentUserId&sid=&edition=team&server_version="
+        href="#official-link-removed"
         location="installed_outgoing_webhooks"
         rel="noopener noreferrer"
         target="_blank"
       >
         Build your own
       </a>
-       or visit the 
-      <a
-        href="https://mattermost.com/marketplace?utm_source=mattermost&utm_medium=in-product&utm_content=installed_outgoing_webhooks&uid=currentUserId&sid=&edition=team&server_version="
-        location="installed_outgoing_webhooks"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        App Directory
-      </a>
-       to find self-hosted, third-party apps and integrations.
+       for this workspace.
     </span>
     <div
       class="backstage-list"

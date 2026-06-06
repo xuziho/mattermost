@@ -1788,14 +1788,6 @@ components:
               type: string
             AboutLink:
               type: string
-            HelpLink:
-              type: string
-            ReportAProblemLink:
-              type: string
-            ReportAProblemType:
-              type: string
-            ReportAProblemMail:
-              type: string
             AllowDownloadLogs:
               type: boolean
             SupportEmail:
@@ -2267,14 +2259,6 @@ components:
             PrivacyPolicyLink:
               type: boolean
             AboutLink:
-              type: boolean
-            HelpLink:
-              type: boolean
-            ReportAProblemLink:
-              type: boolean
-            ReportAProblemType:
-              type: boolean
-            ReportAProblemMail:
               type: boolean
             AllowDownloadLogs:
               type: boolean
@@ -3017,34 +3001,6 @@ components:
         settings_schema:
           type: object
           description: Settings schema used to define the System Console UI for the plugin.
-    MarketplacePlugin:
-      type: object
-      properties:
-        homepage_url:
-          type: string
-          description: URL that leads to the homepage of the plugin.
-        icon_data:
-          type: string
-          description: Base64 encoding of a plugin icon SVG.
-        download_url:
-          type: string
-          description: URL to download the plugin.
-        release_notes_url:
-          type: string
-          description: URL that leads to the release notes of the plugin.
-        labels:
-          type: array
-          items:
-            type: string
-          description: A list of the plugin labels.
-        signature:
-          type: string
-          description: Base64 encoded signature of the plugin.
-        manifest:
-          $ref: "#/components/schemas/PluginManifest"
-        installed_version:
-          type: string
-          description: Version number of the already installed plugin, if any.
     PushNotification:
       type: object
       properties:
@@ -3268,121 +3224,6 @@ components:
           type: string
         price_per_seat:
           type: string
-    ProductLimits:
-      type: object
-      properties:
-        boards:
-          $ref: "#/components/schemas/BoardsLimits"
-          nullable: true
-        files:
-          $ref: "#/components/schemas/FilesLimits"
-          nullable: true
-        integrations:
-          $ref: "#/components/schemas/IntegrationsLimits"
-          nullable: true
-        messages:
-          $ref: "#/components/schemas/MessagesLimits"
-          nullable: true
-        teams:
-          $ref: "#/components/schemas/TeamsLimits"
-          nullable: true
-    BoardsLimits:
-      type: object
-      properties:
-        cards:
-          type: integer
-          nullable: true
-        views:
-          type: integer
-          nullable: true
-    FilesLimits:
-      type: object
-      properties:
-        total_storage:
-          type: integer
-          format: int64
-          nullable: true
-    IntegrationsLimits:
-      type: object
-      properties:
-        enabled:
-          type: integer
-          nullable: true
-    MessagesLimits:
-      type: object
-      properties:
-        history:
-          type: integer
-          nullable: true
-    TeamsLimits:
-      type: object
-      properties:
-        active:
-          type: integer
-          nullable: true
-    PaymentSetupIntent:
-      type: object
-      properties:
-        id:
-          type: string
-        client_secret:
-          type: string
-    PaymentMethod:
-      type: object
-      properties:
-        type:
-          type: string
-        last_four:
-          type: integer
-        exp_month:
-          type: integer
-        exp_year:
-          type: integer
-        card_brand:
-          type: string
-        name:
-          type: string
-    Address:
-      type: object
-      properties:
-        city:
-          type: string
-        country:
-          type: string
-        line1:
-          type: string
-        line2:
-          type: string
-        postal_code:
-          type: string
-        state:
-          type: string
-    CloudCustomer:
-      type: object
-      properties:
-        id:
-          type: string
-        creator_id:
-          type: string
-        create_at:
-          type: integer
-          format: int64
-        email:
-          type: string
-        name:
-          type: string
-        num_employees:
-          type: string
-        contact_first_name:
-          type: string
-        contact_last_name:
-          type: string
-        billing_address:
-          $ref: "#/components/schemas/Address"
-        company_address:
-          $ref: "#/components/schemas/Address"
-        payment_method:
-          $ref: "#/components/schemas/PaymentMethod"
     Subscription:
       type: object
       properties:
@@ -4385,37 +4226,6 @@ components:
           $ref: "#/components/schemas/AllowedIPRange"
         state:
           description: The current state of the installation
-          type: string
-    MessageDescriptor:
-      type: object
-      properties:
-        id:
-          description: The i18n message ID
-          type: string
-        defaultMessage:
-          description: The default message text
-          type: string
-        values:
-          description: Optional values for message interpolation
-          type: object
-          additionalProperties: true
-    PreviewModalContentData:
-      type: object
-      properties:
-        skuLabel:
-          $ref: "#/components/schemas/MessageDescriptor"
-        title:
-          $ref: "#/components/schemas/MessageDescriptor"
-        subtitle:
-          $ref: "#/components/schemas/MessageDescriptor"
-        videoUrl:
-          description: URL of the video content
-          type: string
-        videoPoster:
-          description: URL of the video poster/thumbnail image
-          type: string
-        useCase:
-          description: The use case category for this content
           type: string
     ServerLimits:
       type: object

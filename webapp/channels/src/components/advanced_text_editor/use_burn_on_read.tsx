@@ -17,7 +17,6 @@ import {
 
 import BurnOnReadButton from 'components/burn_on_read/burn_on_read_button';
 import BurnOnReadLabel from 'components/burn_on_read/burn_on_read_label';
-import BurnOnReadTourTip from 'components/burn_on_read/burn_on_read_tour_tip';
 
 import 'components/burn_on_read/burn_on_read_control.scss';
 
@@ -113,7 +112,7 @@ const useBurnOnRead = (
         ) : undefined
     ), [hasBurnOnReadSet, rootId, showIndividualCloseButton, shouldShowPreview, handleRemoveBurnOnRead, durationMinutes]);
 
-    // Button component with tour tip wrapper (in formatting bar)
+    // Button component in formatting bar
     const additionalControl = useMemo(() =>
         (!rootId && isEnabled && canSend && isAllowedInChannel ? (
             <div
@@ -126,10 +125,6 @@ const useBurnOnRead = (
                     onToggle={handleBurnOnReadApply}
                     disabled={shouldShowPreview}
                     durationMinutes={durationMinutes}
-                />
-                <BurnOnReadTourTip
-                    key='burn-on-read-tour-tip-key'
-                    onTryItOut={() => handleBurnOnReadApply(true)}
                 />
             </div>
         ) : undefined), [rootId, isEnabled, canSend, isAllowedInChannel, hasBurnOnReadSet, handleBurnOnReadApply, shouldShowPreview, durationMinutes]);

@@ -1,7 +1,6 @@
 // Copyright (c) 2015-present Mattermost, Inc. All Rights Reserved.
 // See LICENSE.txt for license information.
 
-import classNames from 'classnames';
 import React, {lazy} from 'react';
 import {Route, Switch, Redirect} from 'react-router-dom';
 import type {RouteComponentProps} from 'react-router-dom';
@@ -11,21 +10,16 @@ import {setUrl} from 'mattermost-redux/actions/general';
 import {Client4} from 'mattermost-redux/client';
 
 import {temporarilySetPageLoadContext} from 'actions/telemetry_actions.jsx';
-import BrowserStore from 'stores/browser_store';
 
 import {makeAsyncComponent, makeAsyncPluggableComponent} from 'components/async_load';
 import GlobalHeader from 'components/global_header/global_header';
 import {HFRoute} from 'components/header_footer_route/header_footer_route';
 import {HFTRoute, LoggedInHFTRoute} from 'components/header_footer_template_route';
 import InitialLoadingScreen from 'components/initial_loading_screen';
-import LoggedIn from 'components/logged_in';
 import LoggedInRoute from 'components/logged_in_route';
-import {LAUNCHING_WORKSPACE_FULLSCREEN_Z_INDEX} from 'components/preparing_workspace/launching_workspace';
-import {Animations} from 'components/preparing_workspace/steps';
 import Readout from 'components/readout/readout';
 import {WithUserTheme} from 'components/theme_provider';
 
-import webSocketClient from 'client/web_websocket_client';
 import {initializePlugins} from 'plugins';
 import 'utils/a11y_controller_instance';
 import {expirationScheduler} from 'utils/burn_on_read_expiration_scheduler';
@@ -34,7 +28,6 @@ import DesktopApp from 'utils/desktop_api';
 import {EmojiIndicesByAlias} from 'utils/emoji';
 import {TEAM_NAME_PATH_PATTERN} from 'utils/path';
 import {getSiteURL} from 'utils/url';
-import {isAndroidWeb, isChromebook, isDesktopApp, isIosWeb} from 'utils/user_agent';
 import {isTextDroppableEvent} from 'utils/utils';
 
 import LuxonController from './luxon_controller';
@@ -57,25 +50,20 @@ const ShouldVerifyEmail = makeAsyncComponent('ShouldVerifyEmail', lazy(() => imp
 const DoVerifyEmail = makeAsyncComponent('DoVerifyEmail', lazy(() => import('components/do_verify_email/do_verify_email')));
 const ClaimController = makeAsyncComponent('ClaimController', lazy(() => import('components/claim')));
 const TermsOfService = makeAsyncComponent('TermsOfService', lazy(() => import('components/terms_of_service')));
-const LinkingLandingPage = makeAsyncComponent('LinkingLandingPage', lazy(() => import('components/linking_landing_page')));
 const AdminConsole = makeAsyncComponent('AdminConsole', lazy(() => import('components/admin_console')));
 const SelectTeam = makeAsyncComponent('SelectTeam', lazy(() => import('components/select_team')));
 const Authorize = makeAsyncComponent('Authorize', lazy(() => import('components/authorize')));
 const CreateTeam = makeAsyncComponent('CreateTeam', lazy(() => import('components/create_team')));
 const Mfa = makeAsyncComponent('Mfa', lazy(() => import('components/mfa/mfa_controller')));
-const PreparingWorkspace = makeAsyncComponent('PreparingWorkspace', lazy(() => import('components/preparing_workspace')));
-const LaunchingWorkspace = makeAsyncComponent('LaunchingWorkspace', lazy(() => import('components/preparing_workspace/launching_workspace')));
 const TeamController = makeAsyncComponent('TeamController', lazy(() => import('components/team_controller')));
 const AnnouncementBarController = makeAsyncComponent('AnnouncementBarController', lazy(() => import('components/announcement_bar')));
 const SystemNotice = makeAsyncComponent('SystemNotice', lazy(() => import('components/system_notice')));
-const CloudEffects = makeAsyncComponent('CloudEffects', lazy(() => import('components/cloud_effects')));
 const TeamSidebar = makeAsyncComponent('TeamSidebar', lazy(() => import('components/team_sidebar')));
 const SidebarRight = makeAsyncComponent('SidebarRight', lazy(() => import('components/sidebar_right')));
 const ModalController = makeAsyncComponent('ModalController', lazy(() => import('components/modal_controller')));
 const AppBar = makeAsyncComponent('AppBar', lazy(() => import('components/app_bar/app_bar')));
 const ComponentLibrary = makeAsyncComponent('ComponentLibrary', lazy(() => import('components/component_library')));
 const PopoutController = makeAsyncComponent('PopoutController', lazy(() => import('components/popout_controller')));
-const Help = makeAsyncComponent('Help', lazy(() => import('components/help')));
 
 const Pluggable = makeAsyncPluggableComponent();
 
@@ -104,77 +92,12 @@ export default class Root extends React.PureComponent<Props, State> {
     }
 
     onConfigLoaded = () => {
-        Promise.all([
-            this.props.actions.initializeProducts(),
-            initializePlugins(),
-        ]).then(() => {
+        initializePlugins().then(() => {
             this.setState({shouldMountAppRoutes: true});
         });
 
         this.props.actions.migrateRecentEmojis();
         this.props.actions.loadRecentlyUsedCustomEmojis();
-        this.showLandingPageIfNecessary();
-    };
-
-    private showLandingPageIfNecessary = () => {
-        // Only show Landing Page if enabled
-        if (!this.props.enableDesktopLandingPage) {
-            return;
-        }
-
-        // We have nothing to redirect to if we're already on Desktop App
-        // Chromebook has no Desktop App to switch to
-        if (isDesktopApp() || isChromebook()) {
-            return;
-        }
-
-        // Nothing to link to if we've removed the Android App download link
-        if (isAndroidWeb() && !this.props.androidDownloadLink) {
-            return;
-        }
-
-        // Nothing to link to if we've removed the iOS App download link
-        if (isIosWeb() && !this.props.iosDownloadLink) {
-            return;
-        }
-
-        // Nothing to link to if we've removed the Desktop App download link
-        if (!this.props.appDownloadLink) {
-            return;
-        }
-
-        // Only show the landing page once
-        if (BrowserStore.hasSeenLandingPage()) {
-            return;
-        }
-
-        // We don't want to show when resetting the password
-        if (this.props.location.pathname === '/reset_password_complete') {
-            return;
-        }
-
-        // We don't want to show when we're doing Desktop App external login
-        if (this.props.location.pathname === '/login/desktop') {
-            return;
-        }
-
-        // Stop this infinitely redirecting
-        if (this.props.location.pathname.includes('/landing')) {
-            return;
-        }
-
-        // Disabled to avoid breaking the CWS flow
-        if (this.props.isCloud) {
-            return;
-        }
-
-        // Disable for Rainforest tests
-        if (window.location.hostname?.endsWith('.test.mattermost.com')) {
-            return;
-        }
-
-        this.props.history.push('/landing#' + this.props.location.pathname + this.props.location.search);
-        BrowserStore.setLandingPageSeen(true);
     };
 
     componentDidUpdate(prevProps: Props, prevState: State) {
@@ -234,7 +157,7 @@ export default class Root extends React.PureComponent<Props, State> {
 
             if (isUserAtRootRoute) {
                 if (isMeRequested) {
-                    this.props.actions.redirectToOnboardingOrDefaultTeam(this.props.history, new URLSearchParams(this.props.location.search));
+                    this.props.actions.redirectToDefaultTeam(new URLSearchParams(this.props.location.search));
                 } else if (this.props.noAccounts) {
                     this.props.history.push('/signup_user_complete');
                 }
@@ -252,7 +175,7 @@ export default class Root extends React.PureComponent<Props, State> {
     };
 
     handleDragOverEvent = (e: DragEvent) => {
-        if (!isTextDroppableEvent(e) && !document.body.classList.contains('focalboard-body')) {
+        if (!isTextDroppableEvent(e)) {
             e.preventDefault();
             e.stopPropagation();
         }
@@ -347,14 +270,6 @@ export default class Root extends React.PureComponent<Props, State> {
                         path={'/terms_of_service'}
                         component={TermsOfService}
                     />
-                    <Route
-                        path={'/help/:page?'}
-                        component={Help}
-                    />
-                    <Route
-                        path={'/landing'}
-                        component={LinkingLandingPage}
-                    />
                     {this.props.isDevModeEnabled && (
                         <Route
                             path={'/component_library'}
@@ -388,10 +303,6 @@ export default class Root extends React.PureComponent<Props, State> {
                         path={'/mfa'}
                         component={Mfa}
                     />
-                    <LoggedInRoute
-                        path={'/preparing-workspace'}
-                        component={PreparingWorkspace}
-                    />
                     <Redirect
                         from={'/_redirect/integrations/:subpath*'}
                         to={`/${this.props.permalinkRedirectTeamName}/integrations/:subpath*`}
@@ -405,70 +316,14 @@ export default class Root extends React.PureComponent<Props, State> {
                         component={PopoutController}
                     />
                     <WithUserTheme>
-                        {(this.props.showLaunchingWorkspace && !this.props.location.pathname.includes('/preparing-workspace') &&
-                            <LaunchingWorkspace
-                                fullscreen={true}
-                                zIndex={LAUNCHING_WORKSPACE_FULLSCREEN_Z_INDEX}
-                                show={true}
-                                transitionDirection={Animations.Reasons.EnterFromBefore}
-                            />
-                        )}
-
                         <WindowSizeObserver/>
                         <ModalController/>
                         <AnnouncementBarController/>
                         <SystemNotice/>
                         <GlobalHeader/>
-                        <CloudEffects/>
                         <TeamSidebar/>
                         <div className='main-wrapper'>
                             <Switch>
-                                {this.props.products?.filter((product) => Boolean(product.publicComponent)).map((product) => (
-                                    <Route
-                                        key={`${product.id}-public`}
-                                        path={`${product.baseURL}/public`}
-                                        render={(props) => {
-                                            return (
-                                                <Pluggable
-                                                    pluggableName={'Product'}
-                                                    subComponentName={'publicComponent'}
-                                                    pluggableId={product.id}
-                                                    css={{gridArea: 'center'}}
-                                                    {...props}
-                                                />
-                                            );
-                                        }}
-                                    />
-                                ))}
-                                {this.props.products?.map((product) => (
-                                    <Route
-                                        key={product.id}
-                                        path={product.baseURL}
-                                        render={(props) => {
-                                            let pluggable = (
-                                                <Pluggable
-                                                    pluggableName={'Product'}
-                                                    subComponentName={'mainComponent'}
-                                                    pluggableId={product.id}
-                                                    webSocketClient={webSocketClient}
-                                                    css={product.wrapped ? undefined : {gridArea: 'center'}}
-                                                />
-                                            );
-                                            if (product.wrapped) {
-                                                pluggable = (
-                                                    <div className={classNames(['product-wrapper', {wide: !product.showTeamSidebar}])}>
-                                                        {pluggable}
-                                                    </div>
-                                                );
-                                            }
-                                            return (
-                                                <LoggedIn {...props}>
-                                                    {pluggable}
-                                                </LoggedIn>
-                                            );
-                                        }}
-                                    />
-                                ))}
                                 {this.props.plugins?.map((plugin) => (
                                     <Route
                                         key={plugin.id}

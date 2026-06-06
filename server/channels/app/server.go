@@ -12,11 +12,9 @@ import (
 	"net/http"
 	"net/url"
 	"os"
-	"os/exec"
 	"path"
 	"strings"
 	"sync"
-	"syscall"
 	"time"
 
 	"github.com/getsentry/sentry-go"
@@ -50,17 +48,13 @@ import (
 	"github.com/mattermost/mattermost/server/v8/channels/jobs/export_process"
 	"github.com/mattermost/mattermost/server/v8/channels/jobs/export_users_to_csv"
 	"github.com/mattermost/mattermost/server/v8/channels/jobs/extract_content"
-	"github.com/mattermost/mattermost/server/v8/channels/jobs/hosted_purchase_screening"
 	"github.com/mattermost/mattermost/server/v8/channels/jobs/import_delete"
 	"github.com/mattermost/mattermost/server/v8/channels/jobs/import_process"
-	"github.com/mattermost/mattermost/server/v8/channels/jobs/last_accessible_file"
 	"github.com/mattermost/mattermost/server/v8/channels/jobs/last_accessible_post"
 	"github.com/mattermost/mattermost/server/v8/channels/jobs/migrations"
 	"github.com/mattermost/mattermost/server/v8/channels/jobs/mobile_session_metadata"
-	"github.com/mattermost/mattermost/server/v8/channels/jobs/notify_admin"
 	"github.com/mattermost/mattermost/server/v8/channels/jobs/plugins"
 	"github.com/mattermost/mattermost/server/v8/channels/jobs/post_persistent_notifications"
-	"github.com/mattermost/mattermost/server/v8/channels/jobs/product_notices"
 	"github.com/mattermost/mattermost/server/v8/channels/jobs/recap"
 	"github.com/mattermost/mattermost/server/v8/channels/jobs/refresh_materialized_views"
 	"github.com/mattermost/mattermost/server/v8/channels/jobs/resend_invitation_email"
@@ -69,12 +63,10 @@ import (
 	"github.com/mattermost/mattermost/server/v8/channels/utils"
 	"github.com/mattermost/mattermost/server/v8/config"
 	"github.com/mattermost/mattermost/server/v8/einterfaces"
-	"github.com/mattermost/mattermost/server/v8/platform/services/awsmeter"
 	"github.com/mattermost/mattermost/server/v8/platform/services/cache"
 	"github.com/mattermost/mattermost/server/v8/platform/services/remotecluster"
 	"github.com/mattermost/mattermost/server/v8/platform/services/sharedchannel"
 	"github.com/mattermost/mattermost/server/v8/platform/services/telemetry"
-	"github.com/mattermost/mattermost/server/v8/platform/services/upgrader"
 	"github.com/mattermost/mattermost/server/v8/platform/shared/filestore"
 	"github.com/mattermost/mattermost/server/v8/platform/shared/mail"
 	"github.com/mattermost/mattermost/server/v8/platform/shared/templates"
@@ -143,7 +135,6 @@ type Server struct {
 	joinCluster  bool
 	skipPostInit bool
 
-	Cloud                   einterfaces.CloudInterface
 	IPFiltering             einterfaces.IPFilteringInterface
 	OutgoingOAuthConnection einterfaces.OutgoingOAuthConnectionInterface
 	PushProxy               einterfaces.PushProxyInterface
@@ -152,22 +143,6 @@ type Server struct {
 	agentsBridgeOverride AgentsBridge
 
 	ch *Channels
-
-	// cwsTokenOverride overrides CWS_CLOUD_TOKEN for CWS login authentication.
-	cwsTokenOverride string
-
-	// notifyAdminCoolOffDaysOverride overrides MM_NOTIFY_ADMIN_COOL_OFF_DAYS.
-	notifyAdminCoolOffDaysOverride string
-}
-
-// SetCWSTokenOverride sets the CWS token override for CWS login authentication.
-func (s *Server) SetCWSTokenOverride(v string) {
-	s.cwsTokenOverride = v
-}
-
-// SetNotifyAdminCoolOffDaysOverride sets the cool-off period override for admin notifications.
-func (s *Server) SetNotifyAdminCoolOffDaysOverride(v string) {
-	s.notifyAdminCoolOffDaysOverride = v
 }
 
 func (s *Server) Store() store.Store {
@@ -463,16 +438,6 @@ func NewServer(options ...Option) (*Server, error) {
 		s.platform.EnableLoggingMetrics()
 	})
 
-	// if enabled - perform initial product notices fetch
-	if *s.platform.Config().AnnouncementSettings.AdminNoticesEnabled || *s.platform.Config().AnnouncementSettings.UserNoticesEnabled {
-		s.platform.Go(func() {
-			appInstance := New(ServerConnector(s.Channels()))
-			if err := appInstance.UpdateProductNotices(); err != nil {
-				mlog.Warn("Failed to perform initial product notices fetch", mlog.Err(err))
-			}
-		})
-	}
-
 	if s.skipPostInit {
 		return s, nil
 	}
@@ -560,10 +525,6 @@ func (s *Server) runJobs() {
 	s.Go(func() {
 		runConfigCleanupJob(s)
 	})
-	s.Go(func() {
-		runCloudUserCountReportJob(s)
-	})
-
 	if complianceI := s.Channels().Compliance; complianceI != nil {
 		go complianceI.StartComplianceDailyJob()
 	}
@@ -579,9 +540,6 @@ func (s *Server) runJobs() {
 		}
 	}
 
-	if *s.platform.Config().ServiceSettings.EnableAWSMetering {
-		runReportToAWSMeterJob(s)
-	}
 }
 
 // Global app options that should be applied to apps created by this server
@@ -774,45 +732,6 @@ func (s *Server) Shutdown() {
 	if err = s.Log().ShutdownWithTimeout(timeoutCtx); err != nil {
 		fmt.Fprintf(os.Stderr, "Error shutting down main logger: %v", err)
 	}
-}
-
-func (s *Server) Restart() error {
-	percentage, err := s.UpgradeToE0Status()
-	if err != nil || percentage != 100 {
-		return errors.Wrap(err, "unable to restart because the system has not been upgraded")
-	}
-	s.Shutdown()
-
-	argv0, err := exec.LookPath(os.Args[0])
-	if err != nil {
-		return err
-	}
-
-	if _, err = os.Stat(argv0); err != nil {
-		return err
-	}
-
-	mlog.Info("Restarting server")
-	return syscall.Exec(argv0, os.Args, os.Environ())
-}
-
-func (s *Server) CanIUpgradeToE0() error {
-	return upgrader.CanIUpgradeToE0()
-}
-
-func (s *Server) UpgradeToE0() error {
-	if err := upgrader.UpgradeToE0(); err != nil {
-		return err
-	}
-	upgradedFromTE := &model.System{Name: model.SystemUpgradedFromTeId, Value: "true"}
-	if err := s.Store().System().Save(upgradedFromTE); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *Server) UpgradeToE0Status() (int64, error) {
-	return upgrader.UpgradeToE0Status()
 }
 
 // Go creates a goroutine, but maintains a record of it to ensure that execution completes before
@@ -1250,39 +1169,8 @@ func (s *Server) runLicenseExpirationCheckJob() {
 	}, time.Hour*24)
 }
 
-func runReportToAWSMeterJob(s *Server) {
-	model.CreateRecurringTask("Collect and send usage report to AWS Metering Service", func() {
-		doReportUsageToAWSMeteringService(s)
-	}, time.Hour*model.AwsMeteringReportInterval)
-}
-
-func doReportUsageToAWSMeteringService(s *Server) {
-	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(*s.platform.Config().ServiceSettings.AWSMeteringTimeoutSeconds)*time.Second)
-	defer cancel()
-
-	awsMeter := awsmeter.New(ctx, s.Store(), s.platform.Config())
-	if awsMeter == nil {
-		mlog.Error("Cannot obtain instance of AWS Metering Service.")
-		return
-	}
-
-	dimensions := []string{model.AwsMeteringDimensionUsageHrs}
-	reports := awsMeter.GetUserCategoryUsage(dimensions, time.Now().UTC(), time.Now().Add(-model.AwsMeteringReportInterval*time.Hour).UTC())
-
-	if err := awsMeter.ReportUserCategoryUsage(ctx, reports); err != nil {
-		mlog.Error("Failed to report usage to AWS Metering Service", mlog.Err(err))
-	}
-}
-
 func doSecurity(s *Server) {
 	s.DoSecurityUpdateCheck()
-}
-
-// Reports activated user count to the CWS every 24 hours
-func runCloudUserCountReportJob(s *Server) {
-	model.CreateRecurringTask("Report user count for cloud subscription", func() {
-		s.doReportUserCountForCloudSubscriptionJob()
-	}, time.Hour*24)
 }
 
 func doTokenCleanup(s *Server) {
@@ -1375,25 +1263,6 @@ func (s *Server) sendLicenseUpForRenewalEmail(users map[string]*model.User, lice
 	return nil
 }
 
-func (s *Server) doReportUserCountForCloudSubscriptionJob() {
-	s.LoadLicense()
-
-	if !s.License().IsCloud() {
-		return
-	}
-
-	mlog.Debug("Reporting daily user count for cloud subscription.")
-
-	appInstance := New(ServerConnector(s.Channels()))
-
-	_, err := appInstance.SendSubscriptionHistoryEvent("")
-	if err != nil {
-		mlog.Error("an error occurred during daily user count reporting", mlog.Err(err))
-	}
-
-	mlog.Debug("Daily user count reported for cloud subscription.")
-}
-
 func (s *Server) doLicenseExpirationCheck() {
 	s.LoadLicense()
 
@@ -1412,7 +1281,7 @@ func (s *Server) doLicenseExpirationCheck() {
 		return
 	}
 
-	if license.IsCloud() || license.IsMattermostEntry() {
+	if license.IsMattermostEntry() {
 		return
 	}
 
@@ -1541,12 +1410,6 @@ func (s *Server) initJobs() {
 	)
 
 	s.Jobs.RegisterJobType(
-		model.JobTypeProductNotices,
-		product_notices.MakeWorker(s.Jobs, New(ServerConnector(s.Channels()))),
-		product_notices.MakeScheduler(s.Jobs),
-	)
-
-	s.Jobs.RegisterJobType(
 		model.JobTypeImportProcess,
 		import_process.MakeWorker(s.Jobs, New(ServerConnector(s.Channels()))),
 		nil,
@@ -1616,39 +1479,9 @@ func (s *Server) initJobs() {
 	)
 
 	s.Jobs.RegisterJobType(
-		model.JobTypeLastAccessibleFile,
-		last_accessible_file.MakeWorker(s.Jobs, s.License(), New(ServerConnector(s.Channels()))),
-		last_accessible_file.MakeScheduler(s.Jobs, s.License()),
-	)
-
-	s.Jobs.RegisterJobType(
-		model.JobTypeUpgradeNotifyAdmin,
-		notify_admin.MakeUpgradeNotifyWorker(s.Jobs, s.License(), New(ServerConnector(s.Channels()))),
-		notify_admin.MakeScheduler(s.Jobs, s.License(), model.JobTypeUpgradeNotifyAdmin),
-	)
-
-	s.Jobs.RegisterJobType(
-		model.JobTypeTrialNotifyAdmin,
-		notify_admin.MakeTrialNotifyWorker(s.Jobs, s.License(), New(ServerConnector(s.Channels()))),
-		notify_admin.MakeScheduler(s.Jobs, s.License(), model.JobTypeTrialNotifyAdmin),
-	)
-
-	s.Jobs.RegisterJobType(
 		model.JobTypePostPersistentNotifications,
 		post_persistent_notifications.MakeWorker(s.Jobs, New(ServerConnector(s.Channels()))),
 		post_persistent_notifications.MakeScheduler(s.Jobs, func() *model.License { return s.License() }),
-	)
-
-	s.Jobs.RegisterJobType(
-		model.JobTypeInstallPluginNotifyAdmin,
-		notify_admin.MakeInstallPluginNotifyWorker(s.Jobs, New(ServerConnector(s.Channels()))),
-		notify_admin.MakeInstallPluginScheduler(s.Jobs, s.License(), model.JobTypeInstallPluginNotifyAdmin),
-	)
-
-	s.Jobs.RegisterJobType(
-		model.JobTypeHostedPurchaseScreening,
-		hosted_purchase_screening.MakeWorker(s.Jobs, s.License(), s.Store().System()),
-		hosted_purchase_screening.MakeScheduler(s.Jobs, s.License()),
 	)
 
 	s.Jobs.RegisterJobType(

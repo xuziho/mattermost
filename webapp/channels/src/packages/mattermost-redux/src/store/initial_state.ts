@@ -16,10 +16,7 @@ const state: GlobalState = {
             config: {},
             license: {},
             serverVersion: '',
-            firstAdminVisitMarketplaceStatus: false,
-            firstAdminCompleteSetup: false,
             customProfileAttributes: {},
-            cwsAvailability: 'pending',
         },
         users: {
             currentUserId: '',
@@ -129,7 +126,6 @@ const state: GlobalState = {
             teamAnalytics: {},
             dataRetentionCustomPolicies: {},
             dataRetentionCustomPoliciesCount: 0,
-            prevTrialLicense: {},
             accessControlPolicies: {},
             channelsForAccessControlPolicy: {},
         },
@@ -199,34 +195,6 @@ const state: GlobalState = {
                 forms: {},
             },
             pluginEnabled: true,
-        },
-        cloud: {
-            limits: {
-                limits: {},
-                limitsLoaded: false,
-            },
-            errors: {},
-        },
-        hostedCustomer: {
-            products: {
-                products: {},
-                productsLoaded: false,
-            },
-        },
-        usage: {
-            files: {
-                totalStorage: 0,
-                totalStorageLoaded: false,
-            },
-            messages: {
-                history: 0,
-                historyLoaded: false,
-            },
-            teams: {
-                active: 0,
-                cloudArchived: 0,
-                teamsLoaded: false,
-            },
         },
         scheduledPosts: {
             byId: {},

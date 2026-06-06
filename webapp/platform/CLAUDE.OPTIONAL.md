@@ -1,7 +1,7 @@
 # CLAUDE: `webapp/platform/`
 
 ## Purpose
-- Shared packages consumed by every Mattermost web experience (Channels, Boards, Playbooks, plugins).
+- Shared packages consumed by the Channels web experience and plugins.
 - Changes here affect multiple products—coordinate across teams before merging.
 
 ## Packages

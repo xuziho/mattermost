@@ -132,21 +132,6 @@ export async function popoutChannel(
     return popoutListeners;
 }
 
-export async function popoutHelp() {
-    return popout(
-        '/_popout/help',
-        {
-
-            // Not really RHS, but this gives a desirable window size.
-            isRHS: true,
-
-            // Note: titleTemplate is intentionally omitted so that the desktop
-            // app uses document.title, allowing dynamic title updates as the
-            // user navigates between help pages.
-        },
-    );
-}
-
 /**
  * Below this is generic popout code
  * You likely do not need to add anything below this.

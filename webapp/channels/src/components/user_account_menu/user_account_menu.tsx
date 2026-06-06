@@ -126,9 +126,7 @@ export default function UserAccountMenu(props: Props) {
                 isStatusOffline={props.status === UserStatuses.OFFLINE}
             />
             <Menu.Separator/>
-            <UserAccountProfileMenuItem
-                userId={props.userId}
-            />
+            <UserAccountProfileMenuItem/>
             <Menu.Separator/>
             <UserAccountLogoutMenuItem/>
         </Menu.Container>

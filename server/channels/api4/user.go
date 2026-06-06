@@ -70,7 +70,6 @@ func (api *API) InitUser() {
 	api.BaseRoutes.Users.Handle("/login/sso/code-exchange", api.APIHandler(loginSSOCodeExchange)).Methods(http.MethodPost)
 	api.BaseRoutes.Users.Handle("/login/desktop_token", api.RateLimitedHandler(api.APIHandler(loginWithDesktopToken), model.RateLimitSettings{PerSec: model.NewPointer(2), MaxBurst: model.NewPointer(1)})).Methods(http.MethodPost)
 	api.BaseRoutes.Users.Handle("/login/switch", api.APIHandler(switchAccountType)).Methods(http.MethodPost)
-	api.BaseRoutes.Users.Handle("/login/cws", api.APIHandlerTrustRequester(loginCWS)).Methods(http.MethodPost)
 	api.BaseRoutes.Users.Handle("/login/type", api.APIHandler(getLoginType)).Methods(http.MethodPost)
 	api.BaseRoutes.Users.Handle("/logout", api.APIHandler(logout)).Methods(http.MethodPost)
 
@@ -112,8 +111,6 @@ func (api *API) InitUser() {
 	api.BaseRoutes.UserThread.Handle("/read/{timestamp:[0-9]+}", api.APISessionRequired(updateReadStateThreadByUser)).Methods(http.MethodPut)
 	api.BaseRoutes.UserThread.Handle("/set_unread/{post_id:[A-Za-z0-9]+}", api.APISessionRequired(setUnreadThreadByPostId)).Methods(http.MethodPost)
 
-	api.BaseRoutes.Users.Handle("/notify-admin", api.APISessionRequired(handleNotifyAdmin)).Methods(http.MethodPost)
-	api.BaseRoutes.Users.Handle("/trigger-notify-admin-posts", api.APISessionRequired(handleTriggerNotifyAdminPosts)).Methods(http.MethodPost)
 }
 
 // loginSSOCodeExchange exchanges a short-lived login_code for session tokens.
@@ -2180,85 +2177,6 @@ func loginWithDesktopToken(c *Context, w http.ResponseWriter, r *http.Request) {
 	if err := json.NewEncoder(w).Encode(user); err != nil {
 		c.Logger.Warn("Error while writing response", mlog.Err(err))
 	}
-}
-
-func loginCWS(c *Context, w http.ResponseWriter, r *http.Request) {
-	campaignToURL := map[string]string{
-		"focalboard": "/boards",
-	}
-
-	useCaseToURL := map[string]string{
-		"mission-ops":   "/mission-ops-hq",
-		"dev-sec-ops":   "/dev-sec-ops-hq",
-		"cyber-defense": "/cyber-defense-hq",
-	}
-
-	if !c.App.Channels().License().IsCloud() {
-		c.Err = model.NewAppError("loginCWS", "api.user.login_cws.license.error", nil, "", http.StatusUnauthorized)
-		return
-	}
-	if err := r.ParseForm(); err != nil {
-		c.Logger.Warn("Failed to parse form data", mlog.Err(err))
-	}
-	var loginID string
-	var token string
-	var campaign string
-	var useCase string
-	if len(r.Form) > 0 {
-		for key, value := range r.Form {
-			if key == "login_id" {
-				loginID = value[0]
-			}
-			if key == "cws_token" {
-				token = value[0]
-			}
-			if key == "utm_campaign" {
-				campaign = value[0]
-			}
-			if key == "use_case" {
-				useCase = value[0]
-			}
-		}
-	}
-
-	auditRec := c.MakeAuditRecord(model.AuditEventLogin, model.AuditStatusFail)
-	defer c.LogAuditRec(auditRec)
-	model.AddEventParameterToAuditRec(auditRec, "login_id", loginID)
-	user, err := c.App.AuthenticateUserForLogin(c.AppContext, "", loginID, "", "", token, false)
-	if err != nil {
-		c.LogAuditWithUserId("", "failure - login_id="+loginID)
-		c.LogErrorByCode(err)
-		http.Redirect(w, r, *c.App.Config().ServiceSettings.SiteURL, http.StatusFound)
-		return
-	}
-	model.AddEventParameterAuditableToAuditRec(auditRec, "user", user)
-	c.LogAuditWithUserId(user.Id, "authenticated")
-	isMobileDevice := utils.IsMobileRequest(r)
-	session, err := c.App.DoLogin(c.AppContext, w, r, user, "", isMobileDevice, false, false)
-	if err != nil {
-		c.LogErrorByCode(err)
-		http.Redirect(w, r, *c.App.Config().ServiceSettings.SiteURL, http.StatusFound)
-		return
-	}
-	c.AppContext = c.AppContext.WithSession(session)
-	c.LogAuditWithUserId(user.Id, "success")
-	c.App.AttachSessionCookies(c.AppContext, w, r)
-
-	redirectURL := *c.App.Config().ServiceSettings.SiteURL
-	if campaign != "" {
-		if url, ok := campaignToURL[campaign]; ok {
-			redirectURL += url
-		}
-	}
-
-	// If a cloud preview, redirect to the correct use case URL
-	if c.App.License().IsCloudPreview() && useCase != "" {
-		if url, ok := useCaseToURL[useCase]; ok {
-			redirectURL += url
-		}
-	}
-
-	http.Redirect(w, r, redirectURL, http.StatusFound)
 }
 
 func getLoginType(c *Context, w http.ResponseWriter, r *http.Request) {

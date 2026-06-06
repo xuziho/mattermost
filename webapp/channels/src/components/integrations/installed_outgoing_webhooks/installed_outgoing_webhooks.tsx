@@ -13,10 +13,9 @@ import type {IDMappedObjects} from '@mattermost/types/utilities';
 import type {ActionResult} from 'mattermost-redux/types/actions';
 
 import BackstageList from 'components/backstage/components/backstage_list';
-import ExternalLink from 'components/external_link';
 import InstalledOutgoingWebhook, {matchesFilter} from 'components/integrations/installed_outgoing_webhook';
 
-import {Constants, DeveloperLinks} from 'utils/constants';
+import {Constants} from 'utils/constants';
 import {localizeMessage} from 'utils/utils';
 
 export type Props = {
@@ -198,31 +197,7 @@ export default class InstalledOutgoingWebhooks extends React.PureComponent<Props
                 helpText={
                     <FormattedMessage
                         id='installed_outgoing_webhooks.help'
-                        defaultMessage='Use outgoing webhooks to connect external tools to Mattermost. {buildYourOwn} or visit the {appDirectory} to find self-hosted, third-party apps and integrations.'
-                        values={{
-                            buildYourOwn: (
-                                <ExternalLink
-                                    href={DeveloperLinks.SETUP_OUTGOING_WEBHOOKS}
-                                    location='installed_outgoing_webhooks'
-                                >
-                                    <FormattedMessage
-                                        id='installed_outgoing_webhooks.help.buildYourOwn'
-                                        defaultMessage='Build your own'
-                                    />
-                                </ExternalLink>
-                            ),
-                            appDirectory: (
-                                <ExternalLink
-                                    href='https://mattermost.com/marketplace'
-                                    location='installed_outgoing_webhooks'
-                                >
-                                    <FormattedMessage
-                                        id='installed_outgoing_webhooks.help.appDirectory'
-                                        defaultMessage='App Directory'
-                                    />
-                                </ExternalLink>
-                            ),
-                        }}
+                        defaultMessage='Use outgoing webhooks to connect external tools to this workspace.'
                     />
                 }
                 searchPlaceholder={localizeMessage({

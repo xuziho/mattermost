@@ -8,8 +8,6 @@ import type {Team} from '@mattermost/types/teams';
 import deepFreeze from 'mattermost-redux/utils/deep_freeze';
 
 import {renderWithContext, screen, userEvent} from 'tests/react_testing_utils';
-import {SelfHostedProducts} from 'utils/constants';
-import {TestHelper as TH} from 'utils/test_helper';
 import {generateId} from 'utils/utils';
 
 import {InviteType} from './invite_as';
@@ -36,7 +34,6 @@ const defaultProps: Props = deepFreeze({
     isAdmin: false,
     usersLoader: jest.fn(),
     onChangeUsersEmails: jest.fn(),
-    isCloud: false,
     emailInvitationsEnabled: true,
     onUsersInputChange: jest.fn(),
     headerClass: '',
@@ -66,11 +63,6 @@ let props = defaultProps;
 describe('InviteView', () => {
     const state = {
         entities: {
-            admin: {
-                prevTrialLicense: {
-                    IsLicensed: 'true',
-                },
-            },
             general: {
                 config: {
                     BuildEnterpriseReady: 'true',
@@ -79,12 +71,6 @@ describe('InviteView', () => {
                     IsLicensed: 'true',
                     Cloud: 'true',
                     Id: generateId(),
-                },
-            },
-            cloud: {
-                subscription: {
-                    is_free_trial: 'false',
-                    trial_end_at: 0,
                 },
             },
             users: {
@@ -102,19 +88,6 @@ describe('InviteView', () => {
             },
             preferences: {
                 myPreferences: {},
-            },
-            hostedCustomer: {
-                products: {
-                    productsLoaded: true,
-                    products: {
-                        prod_professional: TH.getProductMock({
-                            id: 'prod_professional',
-                            name: 'Professional',
-                            sku: SelfHostedProducts.PROFESSIONAL,
-                            price_per_seat: 7.5,
-                        }),
-                    },
-                },
             },
             limits: {
                 serverLimits: {},

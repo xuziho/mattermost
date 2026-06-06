@@ -539,53 +539,9 @@ export async function setSamlIdpCertificateFromMetadata(success, error, certData
     }
 }
 
-export function upgradeToE0() {
-    return async () => {
-        const data = await Client4.upgradeToEnterprise();
-        return data;
-    };
-}
-
-export function upgradeToE0Status() {
-    return async () => {
-        const data = await Client4.upgradeToEnterpriseStatus();
-        return data;
-    };
-}
-
-export function isAllowedToUpgradeToEnterprise() {
-    return async () => {
-        try {
-            await Client4.isAllowedToUpgradeToEnterprise();
-            return {data: true};
-        } catch (error) {
-            return {error};
-        }
-    };
-}
-
-export function restartServer() {
-    return async () => {
-        const data = await Client4.restartServer();
-        return data;
-    };
-}
-
 export function ping(getServerStatus, deviceId) {
     return async () => {
         const data = await Client4.ping(getServerStatus, deviceId);
         return data;
-    };
-}
-
-export function requestTrialLicense(requestLicenseBody) {
-    return async () => {
-        try {
-            const response = await Client4.requestTrialLicense(requestLicenseBody);
-            return {data: response};
-        } catch (e) {
-            // In the event that the status code returned is 451, this request has been blocked because it originated from an embargoed country_dropdown
-            return {error: e.message, data: {status: e.status_code}};
-        }
     };
 }

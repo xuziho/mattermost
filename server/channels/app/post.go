@@ -1433,14 +1433,6 @@ func (a *App) GetSinglePost(rctx request.CTX, postID string, includeDeleted bool
 		return nil, appErr
 	}
 
-	firstInaccessiblePostTime, appErr := a.isInaccessiblePost(post)
-	if appErr != nil {
-		return nil, appErr
-	}
-	if firstInaccessiblePostTime != 0 {
-		return nil, model.NewAppError("GetSinglePost", "app.post.cloud.get.app_error", nil, "", http.StatusForbidden)
-	}
-
 	a.applyPostWillBeConsumedHook(&post)
 
 	return post, nil
@@ -1841,7 +1833,7 @@ func (a *App) GetPostsForChannelAroundLastUnread(rctx request.CTX, channelID, us
 	// Reset order to only include the last unread post: if the thread appears in the centre
 	// channel organically, those replies will be added below.
 	postList.Order = []string{}
-	// Add lastUnreadPostId in order, only if it hasn't been filtered as per the cloud plan's limit
+	// Add lastUnreadPostId in order only if it is accessible.
 	if _, ok := postList.Posts[lastUnreadPostId]; ok {
 		postList.Order = []string{lastUnreadPostId}
 
@@ -2289,7 +2281,7 @@ func (a *App) GetFileInfosForPostWithMigration(rctx request.CTX, postID string, 
 	return infos, nil
 }
 
-// GetFileInfosForPost also returns firstInaccessibleFileTime based on cloud plan's limit.
+// GetFileInfosForPost also returns firstInaccessibleFileTime when files are not fully accessible.
 func (a *App) GetFileInfosForPost(rctx request.CTX, postID string, fromMaster bool, includeDeleted bool) ([]*model.FileInfo, int64, *model.AppError) {
 	fileInfos, err := a.Srv().Store().FileInfo().GetForPost(postID, fromMaster, includeDeleted, true)
 	if err != nil {
@@ -2539,7 +2531,7 @@ func isCommentMention(user *model.User, post *model.Post, otherPosts map[string]
 	}
 
 	if _, ok := otherPosts[post.RootId]; !ok {
-		mlog.Warn("Can't determine the comment mentions as the rootPost is past the cloud plan's limit", mlog.String("rootPostID", post.RootId), mlog.String("commentID", post.Id))
+		mlog.Warn("Can't determine the comment mentions because the root post is inaccessible", mlog.String("rootPostID", post.RootId), mlog.String("commentID", post.Id))
 
 		return false
 	}
@@ -2626,7 +2618,7 @@ func (a *App) GetPostIfAuthorized(rctx request.CTX, postID string, session *mode
 	return post, nil, isMember
 }
 
-// GetPostsByIds response bool value indicates, if the post is inaccessible due to cloud plan's limit.
+// GetPostsByIds returns posts and the first inaccessible post time.
 func (a *App) GetPostsByIds(postIDs []string) ([]*model.Post, int64, *model.AppError) {
 	posts, err := a.Srv().Store().Post().GetPostsByIds(postIDs)
 	if err != nil {

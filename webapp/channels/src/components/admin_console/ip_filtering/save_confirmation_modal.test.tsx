@@ -7,12 +7,6 @@ import {renderWithContext, userEvent} from 'tests/react_testing_utils';
 
 import SaveConfirmationModal from './save_confirmation_modal';
 
-jest.mock('components/external_link', () => {
-    return jest.fn().mockImplementation(({children, ...props}) => {
-        return <a {...props}>{children}</a>;
-    });
-});
-
 describe('SaveConfirmationModal', () => {
     const onExitedMock = jest.fn();
     const onConfirmMock = jest.fn();
@@ -47,7 +41,7 @@ describe('SaveConfirmationModal', () => {
             />,
         );
 
-        expect(getByText('Using the Customer Portal to restore access')).toBeInTheDocument();
+        expect(getByText('Restoring access if you block yourself')).toBeInTheDocument();
     });
 
     test('calls onClose when the cancel button is clicked', async () => {

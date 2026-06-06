@@ -1,7 +1,7 @@
 # CLAUDE: `platform/components/` (`@mattermost/components`)
 
 ## Purpose
-- Cross-product React components (GenericModal, tour tips, loaders, hooks) shared by Channels, Boards, Playbooks, and plugins.
+- Shared React components (GenericModal, tour tips, loaders, hooks) used by Channels and plugins.
 - Ensures consistent UX, theming, and accessibility across Mattermost surfaces.
 
 ## Implementation Guidelines
@@ -25,6 +25,5 @@
 
 ## References
 - `generic_modal/generic_modal.tsx`, `tour_tip/tour_tip.tsx`, `hooks/useFocusTrap.test.tsx`.
-
 
 

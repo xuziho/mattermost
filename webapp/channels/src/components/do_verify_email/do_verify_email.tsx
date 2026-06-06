@@ -8,7 +8,6 @@ import {useLocation, useHistory} from 'react-router-dom';
 
 import {clearErrors, logError, LogErrorBarMode} from 'mattermost-redux/actions/errors';
 import {verifyUserEmail, getMe} from 'mattermost-redux/actions/users';
-import {getIsOnboardingFlowEnabled} from 'mattermost-redux/selectors/entities/preferences';
 import {getCurrentUserId} from 'mattermost-redux/selectors/entities/users';
 
 import {redirectUserToDefaultTeam} from 'actions/global_actions';
@@ -36,7 +35,6 @@ const DoVerifyEmail = () => {
     const token = params.get('token') ?? '';
 
     const loggedIn = Boolean(useSelector(getCurrentUserId));
-    const onboardingFlowEnabled = useSelector(getIsOnboardingFlowEnabled);
 
     const [verifyStatus, setVerifyStatus] = useState(VerifyStatus.PENDING);
     const [serverError, setServerError] = useState('');
@@ -47,14 +45,6 @@ const DoVerifyEmail = () => {
 
     const handleRedirect = () => {
         if (loggedIn) {
-            if (onboardingFlowEnabled) {
-                // need info about whether admin or not,
-                // and whether admin has already completed
-                // first time onboarding. Instead of fetching and orchestrating that here,
-                // let the default root component handle it.
-                history.push('/');
-                return;
-            }
             redirectUserToDefaultTeam();
             return;
         }

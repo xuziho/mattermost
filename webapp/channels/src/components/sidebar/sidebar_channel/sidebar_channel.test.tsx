@@ -9,10 +9,6 @@ import SidebarChannel from 'components/sidebar/sidebar_channel/sidebar_channel';
 
 import {renderWithContext, screen} from 'tests/react_testing_utils';
 
-jest.mock('components/tours/onboarding_tour', () => ({
-    ChannelsAndDirectMessagesTour: () => null,
-}));
-
 jest.mock('components/sidebar/sidebar_channel/sidebar_direct_channel', () => () => <div>{'Direct Channel'}</div>);
 jest.mock('components/sidebar/sidebar_channel/sidebar_group_channel', () => () => <div>{'Group Channel'}</div>);
 

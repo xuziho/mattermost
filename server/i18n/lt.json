@@ -380,16 +380,8 @@
     "translation": "%s atnaujino kanalo antraštę iš %s į %s"
   },
   {
-    "id": "api.cloud.license_error",
-    "translation": "Jūsų licencija nepalaiko debesų užklausų."
-  },
-  {
     "id": "api.command.admin_only.app_error",
     "translation": "Integracijos buvo skirtos tik administratoriams."
-  },
-  {
-    "id": "api.cloud.cws_webhook_event_missing_error",
-    "translation": "Webhook įvykis nebuvo apdorotas. Arba jo nėra, arba jis negalioja."
   },
   {
     "id": "api.command.execute_command.create_post_failed.app_error",
@@ -498,26 +490,6 @@
   {
     "id": "api.channel.update_team_member_roles.scheme_role.app_error",
     "translation": "Suteiktas vaidmuo yra valdomas pagal schemą, todėl jo negalima tiesiogiai taikyti komandos nariui."
-  },
-  {
-    "id": "api.cloud.app_error",
-    "translation": "Vidinė klaida per debesies api užklausą."
-  },
-  {
-    "id": "api.cloud.notify_admin_to_upgrade_error.already_notified",
-    "translation": "Jau pranešta administratoriui"
-  },
-  {
-    "id": "api.cloud.request_error",
-    "translation": "Klaida apdorojant užklausą į CWS."
-  },
-  {
-    "id": "api.cloud.teams_limit_reached.create",
-    "translation": "Nepavyksta sukurti komandos, nes pasiektas komandų limitas"
-  },
-  {
-    "id": "api.cloud.teams_limit_reached.restore",
-    "translation": "Nepavyksta atkurti komandos, nes pasiektas komandų limitas"
   },
   {
     "id": "api.command.command_post.forbidden.app_error",
@@ -886,5 +858,9 @@
   {
     "id": "api.command.execute_command.deleted.error",
     "translation": "Negalima paleisti komandos ištrintame kanale."
+  },
+  {
+    "id": "api.templates.license_up_for_renewal_review_license",
+    "translation": "Review license"
   }
 ]

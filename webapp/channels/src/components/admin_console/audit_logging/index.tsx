@@ -1,14 +1,10 @@
 // Copyright (c) 2015-present Mattermost, Inc. All Rights Reserved.
 // See LICENSE.txt for license information.
 
-import type {ComponentType} from 'react';
 import React from 'react';
 import {useIntl} from 'react-intl';
 
 import {removeAuditCertificate, uploadAuditCertificate} from 'actions/admin_actions';
-
-import useGetCloudInstallationStatus from 'components/common/hooks/useGetCloudInstallationStatus';
-import WithTooltip from 'components/with_tooltip';
 
 import FileUploadSetting from '../file_upload_setting';
 import RemoveFileSetting from '../remove_file_setting';
@@ -33,8 +29,6 @@ const AuditLoggingCertificateUploadSetting: React.FC<Props> = (props: Props) => 
         helpText,
         value,
     } = props;
-
-    const {status: installationStatus, refetchStatus} = useGetCloudInstallationStatus(true);
 
     const {formatMessage} = useIntl();
 
@@ -63,43 +57,22 @@ const AuditLoggingCertificateUploadSetting: React.FC<Props> = (props: Props) => 
         uploadAuditCertificate(file, successCallback, errorCallback);
     };
 
-    const withTooltip = <P extends object>(Component: ComponentType<P>, tooltipText: string): React.FC<P> => {
-        if (disabled || installationStatus === 'stable') {
-            return (props: P) => <Component {...props}/>;
-        }
-
-        return (props: P) => (
-            <WithTooltip title={tooltipText}>
-                <div>
-                    <Component {...props}/>
-                </div>
-            </WithTooltip>
-        );
-    };
-
-    const tooltipText = formatMessage({id: 'admin.audit_logging_experimental.certificate.tooltip', defaultMessage: 'A previous update is still in progress. Please wait.'});
-
-    const WrappedRemoveFileSetting = withTooltip(RemoveFileSetting, tooltipText);
-    const WrappedFileUploadSetting = withTooltip(FileUploadSetting, tooltipText);
-
     if (fileValue) {
         const removeFile = (id: string, callback: () => void) => {
             const successCallback = () => {
                 handleChange(id, '');
                 setFileValue(null);
                 setFileError(null);
-                refetchStatus();
             };
             const errorCallback = (error: any) => {
                 callback();
                 setFileValue(null);
                 setFileError(error.message);
-                refetchStatus();
             };
             removeAction(successCallback, errorCallback);
         };
         return (
-            <WrappedRemoveFileSetting
+            <RemoveFileSetting
                 id={id}
                 label={label}
                 helpText={formatMessage({id: 'admin.audit_logging_experimental.certificate.remove_help_text', defaultMessage: 'Remove the certificate used for audit logging encryption.'})}
@@ -107,7 +80,7 @@ const AuditLoggingCertificateUploadSetting: React.FC<Props> = (props: Props) => 
                 removingText={formatMessage({id: 'admin.audit_logging_experimental.certificate.removing', defaultMessage: 'Removing Certificate...'})}
                 fileName={fileValue}
                 onSubmit={removeFile}
-                disabled={disabled || installationStatus !== 'stable'}
+                disabled={disabled}
                 setByEnv={setByEnv}
             />
         );
@@ -118,7 +91,6 @@ const AuditLoggingCertificateUploadSetting: React.FC<Props> = (props: Props) => 
             handleChange(id, filename);
             setFileValue(filename);
             setFileError(null);
-            refetchStatus();
             if (callback && typeof callback === 'function') {
                 callback();
             }
@@ -132,12 +104,12 @@ const AuditLoggingCertificateUploadSetting: React.FC<Props> = (props: Props) => 
     };
 
     return (
-        <WrappedFileUploadSetting
+        <FileUploadSetting
             id={id}
             label={label}
             helpText={helpText}
             uploadingText={formatMessage({id: 'admin.audit_logging_experimental.certificate.uploading', defaultMessage: 'Uploading Certificate...'})}
-            disabled={disabled || installationStatus !== 'stable'}
+            disabled={disabled}
             fileType={'.crt,.cer,.cert,.pem'}
             onSubmit={uploadFile}
             error={fileError || undefined} //now passes local error state

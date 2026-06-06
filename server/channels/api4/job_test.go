@@ -444,7 +444,7 @@ func TestDownloadJob(t *testing.T) {
 	jobName = model.NewId()
 	job = &model.Job{
 		Id:   jobName,
-		Type: model.JobTypeCloud,
+		Type: model.JobTypePlugins,
 		Data: map[string]string{
 			"export_type": "csv",
 		},

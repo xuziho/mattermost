@@ -4,7 +4,6 @@
 import React from 'react';
 
 import type {ChannelType} from '@mattermost/types/channels';
-import type {CloudUsage} from '@mattermost/types/cloud';
 
 import * as PostListUtils from 'mattermost-redux/utils/post_list';
 
@@ -61,7 +60,6 @@ describe('components/post_view/post_list_row', () => {
         channelLimitExceeded: false,
         limitsLoaded: false,
         limits: {},
-        usage: {} as CloudUsage,
         post: TestHelper.getPostMock({id: 'post_id_1'}),
         currentUserId: 'user_id_1',
         newMessagesSeparatorActions: [],

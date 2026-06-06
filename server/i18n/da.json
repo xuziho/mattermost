@@ -872,18 +872,6 @@
     "translation": "Den givne rolle administreres af et skema og kan derfor ikke anvendes direkte på et teammedlem."
   },
   {
-    "id": "api.cloud.app_error",
-    "translation": "Intern fejl under cloud API-anmodning."
-  },
-  {
-    "id": "api.cloud.teams_limit_reached.create",
-    "translation": "Kan ikke oprette team, fordi grænsen for antallet af teams er nået"
-  },
-  {
-    "id": "api.cloud.teams_limit_reached.restore",
-    "translation": "Kan ikke genskabe team, fordi grænsen for antallet af teams er nået"
-  },
-  {
     "id": "api.command.execute_command.create_post_failed.app_error",
     "translation": "Kommandoen '{{.Trigger}}' kunne ikke sende svar. Kontakt venligst din systemadministrator."
   },
@@ -970,22 +958,6 @@
   {
     "id": "api.command_exportlink.hint",
     "translation": "[job-id|zip filnavn|{{.LatestMsg}}]"
-  },
-  {
-    "id": "api.cloud.cws_webhook_event_missing_error",
-    "translation": "Webhook-hændelsen blev ikke håndteret. Enten mangler den, eller også er den ikke gyldig."
-  },
-  {
-    "id": "api.cloud.license_error",
-    "translation": "Din licens understøtter ikke cloud-anmodninger."
-  },
-  {
-    "id": "api.cloud.notify_admin_to_upgrade_error.already_notified",
-    "translation": "Har allerede givet besked til administrator"
-  },
-  {
-    "id": "api.cloud.request_error",
-    "translation": "Fejl ved behandling af anmodning til CWS."
   },
   {
     "id": "api.command.execute_command.failed.app_error",
@@ -1102,5 +1074,9 @@
   {
     "id": "api.custom_profile_attributes.license_error",
     "translation": "Din licens understøtter ikke brugerdefinerede profilattributter."
+  },
+  {
+    "id": "api.templates.license_up_for_renewal_review_license",
+    "translation": "Review license"
   }
 ]

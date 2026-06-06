@@ -1076,10 +1076,6 @@
     "translation": "Vtičnika iz začasne mape ni mogoče premakniti v končno mapo. Drugi vtičnik morda uporablja isto ime mape."
   },
   {
-    "id": "app.plugin.marketplace_disabled.app_error",
-    "translation": "Vtičniki so onemogočeni. Za podrobnosti preverite svoje dnevnike."
-  },
-  {
     "id": "app.plugin.manifest.app_error",
     "translation": "Manifesta za izvoženi vtičnik ni mogoče najti"
   },
@@ -2250,10 +2246,6 @@
   {
     "id": "api.templates.welcome_body.button",
     "translation": "Potrdite vašo e-pošto"
-  },
-  {
-    "id": "api.templates.welcome_body.app_download_info",
-    "translation": "Za najboljšo izkušnjo prenesite aplikacije za PC, Mac, iOS in Android iz:"
   },
   {
     "id": "api.templates.verify_subject",
@@ -3751,14 +3743,6 @@
     "translation": "Napaka pridobivanja trenutnega kanala."
   },
   {
-    "id": "api.command_help.name",
-    "translation": "pomoč"
-  },
-  {
-    "id": "api.command_help.desc",
-    "translation": "Odpri Mattermost pomoč"
-  },
-  {
     "id": "api.command_groupmsg.permission.app_error",
     "translation": "Nimate potrebnih pravic za izdelavo novega sporočila skupine."
   },
@@ -4474,5 +4458,9 @@
   {
     "id": "api.admin.ldap.not_available.app_error",
     "translation": "LDAP ni na voljo."
+  },
+  {
+    "id": "api.templates.license_up_for_renewal_review_license",
+    "translation": "Review license"
   }
 ]

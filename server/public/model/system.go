@@ -32,15 +32,9 @@ const (
 	SystemWarnMetricNumberOfActiveUsers500 = "warn_metric_number_of_active_users_500"
 	SystemWarnMetricNumberOfPosts2m        = "warn_metric_number_of_posts_2M"
 	SystemWarnMetricLastRunTimestampKey    = "LastWarnMetricRunTimestamp"
-	SystemFirstAdminVisitMarketplace       = "FirstAdminVisitMarketplace"
 	SystemFirstAdminSetupComplete          = "FirstAdminSetupComplete"
 	SystemLastAccessiblePostTime           = "LastAccessiblePostTime"
-	SystemLastAccessibleFileTime           = "LastAccessibleFileTime"
-	SystemHostedPurchaseNeedsScreening     = "HostedPurchaseNeedsScreening"
 	SystemPostChannelTypeBackfillComplete  = "PostChannelTypeBackfillComplete"
-	AwsMeteringReportInterval              = 1
-	AwsMeteringDimensionUsageHrs           = "UsageHrs"
-	CloudRenewalEmail                      = "CloudRenewalEmail"
 )
 
 const (

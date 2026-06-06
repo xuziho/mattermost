@@ -48,10 +48,6 @@ describe('components/admin_console/permission_schemes_settings/permission_system
             system_admin: defaultRole,
             team_admin: defaultRole,
             channel_admin: defaultRole,
-            playbook_admin: defaultRole,
-            playbook_member: defaultRole,
-            run_admin: defaultRole,
-            run_member: defaultRole,
         },
         actions: {
             loadRolesIfNeeded: jest.fn().mockReturnValue(Promise.resolve()),
@@ -162,7 +158,7 @@ describe('components/admin_console/permission_schemes_settings/permission_system
         await act(async () => {
             await (ref.current as any).handleSubmit();
         });
-        expect(editRole).toHaveBeenCalledTimes(11);
+        expect(editRole).toHaveBeenCalledTimes(8);
     });
 
     test('should save roles based on license', async () => {
@@ -187,7 +183,7 @@ describe('components/admin_console/permission_schemes_settings/permission_system
         await act(async () => {
             await (ref.current as any).handleSubmit();
         });
-        expect(editRole).toHaveBeenCalledTimes(8);
+        expect(editRole).toHaveBeenCalledTimes(5);
         license.GuestAccountsPermissions = 'true';
         editRole = jest.fn().mockImplementation(() => Promise.resolve({data: {}}));
         const ref2 = React.createRef<InstanceType<typeof PermissionSystemSchemeSettings>>();
@@ -205,7 +201,7 @@ describe('components/admin_console/permission_schemes_settings/permission_system
         await act(async () => {
             await (ref2.current as any).handleSubmit();
         });
-        expect(editRole).toHaveBeenCalledTimes(11);
+        expect(editRole).toHaveBeenCalledTimes(8);
     });
 
     test('should show error if editRole fails', async () => {
@@ -330,7 +326,6 @@ describe('components/admin_console/permission_schemes_settings/permission_system
         expect(ref.current!.state.roles.all_users.permissions.indexOf(Permissions.CREATE_POST)).toBeGreaterThan(-1);
         expect(ref.current!.state.roles.channel_admin.permissions.indexOf(Permissions.CREATE_POST)).toBeGreaterThan(-1);
         expect(ref.current!.state.roles.team_admin.permissions.indexOf(Permissions.CREATE_POST)).toBeGreaterThan(-1);
-        expect(ref.current!.state.roles.playbook_admin.permissions.indexOf(Permissions.CREATE_POST)).toEqual(-1);
 
         // Changing a non-moderated permission should NOT set team/channel admins
         act(() => {
@@ -339,6 +334,5 @@ describe('components/admin_console/permission_schemes_settings/permission_system
         expect(ref.current!.state.roles.all_users.permissions.indexOf(Permissions.EDIT_OTHERS_POSTS)).toBeGreaterThan(-1);
         expect(ref.current!.state.roles.channel_admin.permissions.indexOf(Permissions.EDIT_OTHERS_POSTS)).toEqual(-1);
         expect(ref.current!.state.roles.team_admin.permissions.indexOf(Permissions.EDIT_OTHERS_POSTS)).toEqual(-1);
-        expect(ref.current!.state.roles.playbook_admin.permissions.indexOf(Permissions.EDIT_OTHERS_POSTS)).toEqual(-1);
     });
 });

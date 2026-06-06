@@ -5,7 +5,7 @@ import React, {lazy} from 'react';
 
 import type {PluggableComponentType, PluggableProps} from 'plugins/pluggable/pluggable';
 
-import type {PluginsState, ProductSubComponentNames} from 'types/store/plugins';
+import type {PluginsState} from 'types/store/plugins';
 
 export function makeAsyncComponent<ComponentProps>(displayName: string, LazyComponent: React.ComponentType<ComponentProps>, fallback: React.ReactNode = null) {
     const Component = (props: ComponentProps & React.JSX.IntrinsicAttributes) => (
@@ -20,9 +20,9 @@ export function makeAsyncComponent<ComponentProps>(displayName: string, LazyComp
 export function makeAsyncPluggableComponent() {
     const LazyComponent = lazy(() => import('plugins/pluggable')) as PluggableComponentType;
 
-    const Component = <T extends keyof PluginsState['components'], U extends ProductSubComponentNames>(props: PluggableProps<T, U>) => (
+    const Component = <T extends keyof PluginsState['components']>(props: PluggableProps<T>) => (
         <React.Suspense fallback={null}>
-            <LazyComponent<T, U> {...props}/>
+            <LazyComponent<T> {...props}/>
         </React.Suspense>
     );
 

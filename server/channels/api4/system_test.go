@@ -6,14 +6,12 @@ package api4
 import (
 	"bytes"
 	"context"
-	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
 	"net/http/httptest"
 	"os"
-	"path/filepath"
 	"strconv"
 	"strings"
 	"testing"
@@ -23,7 +21,6 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"github.com/mattermost/mattermost/server/public/model"
-	"github.com/mattermost/mattermost/server/v8/channels/utils/fileutils"
 )
 
 func TestGetPing(t *testing.T) {
@@ -1009,139 +1006,6 @@ func TestPushNotificationAck(t *testing.T) {
 			assert.Equal(t, tc.expectedValue, storeSession.Props[model.SessionPropDeviceNotificationDisabled])
 		})
 	}
-}
-
-func TestCompleteOnboarding(t *testing.T) {
-	mainHelper.Parallel(t)
-	th := Setup(t)
-
-	path, _ := fileutils.FindDir("tests")
-	signatureFilename := "testplugin2.tar.gz.sig"
-	signatureFileReader, err := os.Open(filepath.Join(path, signatureFilename))
-	require.NoError(t, err)
-	sigFile, err := io.ReadAll(signatureFileReader)
-	require.NoError(t, err)
-	pluginSignature := base64.StdEncoding.EncodeToString(sigFile)
-
-	tarData, err := os.ReadFile(filepath.Join(path, "testplugin2.tar.gz"))
-	require.NoError(t, err)
-	pluginServer := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-		res.WriteHeader(http.StatusOK)
-		_, err = res.Write(tarData)
-		require.NoError(t, err)
-	}))
-	defer pluginServer.Close()
-
-	samplePlugins := []*model.MarketplacePlugin{{
-		BaseMarketplacePlugin: &model.BaseMarketplacePlugin{
-			HomepageURL: "https://example.com/mattermost/mattermost-plugin-nps",
-			IconData:    "https://example.com/icon.svg",
-			DownloadURL: pluginServer.URL,
-			Manifest: &model.Manifest{
-				Id:               "testplugin2",
-				Name:             "testplugin2",
-				Description:      "a second plugin",
-				Version:          "1.2.3",
-				MinServerVersion: "",
-			},
-			Signature: pluginSignature,
-		},
-		InstalledVersion: "",
-	}}
-
-	marketplaceServer := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-		res.WriteHeader(http.StatusOK)
-		var data []byte
-		data, err = json.Marshal(samplePlugins)
-		require.NoError(t, err)
-		_, err = res.Write(data)
-		require.NoError(t, err)
-	}))
-	defer marketplaceServer.Close()
-
-	th.App.UpdateConfig(func(cfg *model.Config) {
-		*cfg.PluginSettings.Enable = true
-		*cfg.PluginSettings.EnableMarketplace = false
-		*cfg.PluginSettings.EnableRemoteMarketplace = true
-		*cfg.PluginSettings.MarketplaceURL = marketplaceServer.URL
-		*cfg.PluginSettings.AllowInsecureDownloadURL = true
-	})
-
-	key, err := os.Open(filepath.Join(path, "development-private-key.asc"))
-	require.NoError(t, err)
-	appErr := th.App.AddPublicKey("pub_key", key)
-	require.Nil(t, appErr)
-
-	t.Cleanup(func() {
-		appErr = th.App.DeletePublicKey("pub_key")
-		require.Nil(t, appErr)
-	})
-
-	req := &model.CompleteOnboardingRequest{
-		InstallPlugins: []string{"testplugin2"},
-		Organization:   "my-org",
-	}
-
-	t.Run("as a regular user", func(t *testing.T) {
-		resp, err := th.Client.CompleteOnboarding(context.Background(), req)
-		require.Error(t, err)
-		CheckForbiddenStatus(t, resp)
-	})
-
-	t.Run("as a system admin", func(t *testing.T) {
-		resp, err := th.SystemAdminClient.CompleteOnboarding(context.Background(), req)
-		require.NoError(t, err)
-		CheckOKStatus(t, resp)
-
-		t.Cleanup(func() {
-			resp, err = th.SystemAdminClient.RemovePlugin(context.Background(), "testplugin2")
-			require.NoError(t, err)
-			CheckOKStatus(t, resp)
-		})
-
-		received := make(chan struct{})
-
-		go func() {
-			for {
-				installedPlugins, resp, err := th.SystemAdminClient.GetPlugins(context.Background())
-				if err != nil || resp.StatusCode != http.StatusOK {
-					time.Sleep(500 * time.Millisecond)
-					continue
-				}
-
-				for _, p := range installedPlugins.Active {
-					if p.Id == "testplugin2" {
-						received <- struct{}{}
-						return
-					}
-				}
-				time.Sleep(500 * time.Millisecond)
-			}
-		}()
-
-		select {
-		case <-received:
-			break
-		case <-time.After(15 * time.Second):
-			require.Fail(t, "timed out waiting testplugin2 to be installed and enabled ")
-		}
-	})
-
-	t.Run("as a system admin when plugins are disabled", func(t *testing.T) {
-		th.App.UpdateConfig(func(cfg *model.Config) {
-			*cfg.PluginSettings.Enable = false
-		})
-
-		t.Cleanup(func() {
-			th.App.UpdateConfig(func(cfg *model.Config) {
-				*cfg.PluginSettings.Enable = true
-			})
-		})
-
-		resp, err := th.SystemAdminClient.CompleteOnboarding(context.Background(), req)
-		require.NoError(t, err)
-		CheckOKStatus(t, resp)
-	})
 }
 
 func TestGetAppliedSchemaMigrations(t *testing.T) {

@@ -1088,30 +1088,6 @@
     "translation": "Nem lehet módosítani a saml fájlokat."
   },
   {
-    "id": "app.plugin.marketplace_plugins.signature_not_found.app_error",
-    "translation": "Nem található a kért piactér plugin aláírás."
-  },
-  {
-    "id": "app.plugin.marketplace_plugins.not_found.app_error",
-    "translation": "Nem található a kért piactér plugin."
-  },
-  {
-    "id": "app.plugin.marketplace_plugin_request.app_error",
-    "translation": "Nem sikerült dekódolni a piactér plugin kérést."
-  },
-  {
-    "id": "app.plugin.marketplace_disabled.app_error",
-    "translation": "A piactér le van tiltva. Kérjük ellenőrizze a naplókat a részletekért."
-  },
-  {
-    "id": "app.plugin.marketplace_client.failed_to_fetch",
-    "translation": "Nem sikerült lekérni a pluginokat a piactér szerverről."
-  },
-  {
-    "id": "app.plugin.marketplace_client.app_error",
-    "translation": "Nem sikerült létrehozni a piactér klienst."
-  },
-  {
     "id": "app.plugin.manifest.app_error",
     "translation": "Nem található a kibontott plugin manifestje."
   },
@@ -1122,10 +1098,6 @@
   {
     "id": "app.plugin.invalid_id.app_error",
     "translation": "A plugin azonosító legalább {{.Min}} karakter, legfeljebb {{.Max}} karakter lehet és egyeznie kell {{.Regex}} mintára."
-  },
-  {
-    "id": "app.plugin.install_marketplace_plugin.app_error",
-    "translation": "Nem sikerült telepíteni a piactér plugint."
   },
   {
     "id": "app.plugin.install_id_failed_remove.app_error",
@@ -4264,10 +4236,6 @@
     "translation": "Az e-mail változtatás megerősítés e-mail küldése sikertelen volt"
   },
   {
-    "id": "api.user.send_cloud_welcome_email.error",
-    "translation": "Nem sikerült elküldeni a Cloud üdvözlő e-mailt"
-  },
-  {
     "id": "api.user.saml.not_available.app_error",
     "translation": "SAML 2.0 nincs beállítva vagy támogatva ezen a szerveren."
   },
@@ -4316,10 +4284,6 @@
     "translation": "AD/LDAP nem elérhető ezen a szerveren."
   },
   {
-    "id": "api.user.login_cws.license.error",
-    "translation": "CWS bejelentkezés tiltott."
-  },
-  {
     "id": "api.user.login_by_oauth.parse.app_error",
     "translation": "Nem sikerült értelmezni a {{.Service}} felhasználói objektum hitelesítési adatait."
   },
@@ -4330,10 +4294,6 @@
   {
     "id": "api.user.login_by_oauth.bot_login_forbidden.app_error",
     "translation": "Bot bejelentkezés tiltott."
-  },
-  {
-    "id": "api.user.login_by_cws.invalid_token.app_error",
-    "translation": "CWS token nem érvényes"
   },
   {
     "id": "api.user.login.use_auth_service.app_error",
@@ -4568,46 +4528,6 @@
     "translation": "Nem sikerült lekérni a feltöltést."
   },
   {
-    "id": "api.upgrade_to_enterprise_status.signature.app_error",
-    "translation": "A Mattermost nem tudott frissíteni az Enterprise Edition-re. A letöltött bináris fájl digitális aláírását nem sikerült ellenőrizni."
-  },
-  {
-    "id": "api.upgrade_to_enterprise_status.app_error",
-    "translation": "A Mattermost nem tudott frissíteni az Enterprise Edition-re."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.system_not_supported.app_error",
-    "translation": "A Mattermost nem tudott frissíteni az Enterprise Edition-re. Ez a szolgáltatás csak x86-64 architektúrájú Linux rendszereken működik."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-user.app_error",
-    "translation": "A Mattermost nem tudott frissíteni az Enterprise Kuadásra. A {{.MattermostUsername}} Mattermost rendszer felhasználó nem rendelkezik írási engedéllyel a szükséges bináris fájlhoz. A rendszergazda frissítheti a fájl engedélyeket a következő parancs végrehajtásával azon a kiszolgálón, amelyre a Mattermost telepítve van:\n\n```\nchown {{.MattermostUsername}} \"{{.Path}}\"\n```\n\nA fájl engedélyek megváltoztatása után próbálkozzon újra a Mattermost frissítésével. Ha frissített és újraindított, ne felejtse el visszaállítani az eredeti fájl engedélyeket:\n\n```\nchown {{.FileUsername}} \"{{.Path}}\"\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-user-and-permission.app_error",
-    "translation": "A Mattermost nem tudott frissíteni az Enterprise Kiadásra. A {{.MattermostUsername}} Mattermost rendszer felhasználó nem rendelkezik írási engedéllyel a szükséges bináris fájlhoz. A rendszergazda frissítheti a fájl engedélyeket a következő parancs végrehajtásával azon a kiszolgálón, amelyre a Mattermost telepítve van:\n\n```\nchown {{.MattermostUsername}} \"{{.Path}}\"\nchmod +w \"{{.Path}}\"\n```\n\nA fájl engedélyek megváltoztatása után próbálkozzon újra a Mattermost frissítésével. Ha frissített és újraindított, ne felejtse el visszaállítani az eredeti fájl engedélyeket:\n\n```\nchown {{.FileUsername}} \"{{.Path}}\"\nchmod -w \"{{.Path}}\"\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-permission.app_error",
-    "translation": "A Mattermost nem tudott frissíteni az Enterprise Kiadásra. A {{.MattermostUsername}} Mattermost rendszer felhasználó nem rendelkezik írási jogosultsággal a szükséges bináris fájlhoz. A rendszergazda frissítheti a fájl engedélyeket a következő parancs végrehajtásával azon a szerveren, amelyre a Mattermost telepítve van:\n\n```\nchmod +w \"{{.Path}}\"\n```\n\nA fájl engedélyek megváltoztatása után próbálkozzon újra a Mattermost frissítésével. Ha frissített és újraindított, ne felejtse el visszaállítani az eredeti fájl engedélyeket:\n\n```\nchmod -w \"{{.Path}}\"\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.generic_error.app_error",
-    "translation": "A Mattermost nem tudott frissíteni az Enterprise Edition-re."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.app_error",
-    "translation": "A Mattermost Enterprise Edition frissítése már fut."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.already-enterprise.app_error",
-    "translation": "Nem frissíthet, mert már a Mattermost Enterprise Edition -t használja."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.already-done.app_error",
-    "translation": "Sikeresen frissített a Mattermost Enterprise Edition-re. Kérjük, indítsa újra a szervert a frissítés befejezéséhez."
-  },
-  {
     "id": "api.unable_to_create_zip_file",
     "translation": "Hiba történt a zip fájl létrehozásakor."
   },
@@ -4642,18 +4562,6 @@
   {
     "id": "api.templates.welcome_body.button",
     "translation": "E-mail megerősítése"
-  },
-  {
-    "id": "api.templates.welcome_body.app_download_title",
-    "translation": "Töltse le asztali és mobil alkalmazásainkat"
-  },
-  {
-    "id": "api.templates.welcome_body.app_download_info",
-    "translation": "A legjobb élmény érdekében töltse le az alkalmazásokat PC-re, Mac-re, iOS-re és Androidra."
-  },
-  {
-    "id": "api.templates.welcome_body.app_download_button",
-    "translation": "Letöltés"
   },
   {
     "id": "api.templates.verify_subject",
@@ -5086,46 +4994,6 @@
   {
     "id": "api.templates.deactivate_subject",
     "translation": "[{{ .SiteName }}] A fiókját a {{ .ServerURL }} oldalon deaktiválták"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.mm_apps",
-    "translation": "mobil és asztali alkalmazásokkal"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.invite_sub_info",
-    "translation": "Ossza meg ezt a linket, hogy meghívja tagjait a {{.WorkSpace}} munakterületre:"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.invite_info",
-    "translation": "Hívjon meg másokat a munkaterületére"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.info2",
-    "translation": "Ne felejtse el elmenteni vagy könyvjelzővel ellátni a linket későbbi használatra."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.info",
-    "translation": "Köszönjük, hogy létrehozta "
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.download_mm_info",
-    "translation": "Mattermost alkalmazás letöltése"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.button",
-    "translation": "Mattermost megnyitása"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.app_market_place",
-    "translation": "az alkalmazás piacon."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.add_apps_sub_info",
-    "translation": "Egyszerűsítse munkáját olyan eszközökkel mint GitHub, Jira és Zoom. Fedezze fel további integrációinkat"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.add_apps_info",
-    "translation": "Adjon hozzá alkalmazásokat a munkaterületéhez"
   },
   {
     "id": "api.team.update_team_scheme.scheme_scope.error",
@@ -5748,14 +5616,6 @@
     "translation": "Nem található export fájl."
   },
   {
-    "id": "api.error_set_first_admin_visit_marketplace_status",
-    "translation": "Hiba történt a piactér első rendszergazdai látogatás állapotának mentése során."
-  },
-  {
-    "id": "api.error_get_first_admin_visit_marketplace_status",
-    "translation": "Hiba történt az első rendszergazda látogatás piactér állapot lekérésekor az áruházból."
-  },
-  {
     "id": "api.emoji.upload.open.app_error",
     "translation": "Nem lehet létrehozni az emoji-t. Hiba történt a csatolt kép megnyitásakor."
   },
@@ -6085,34 +5945,6 @@
   {
     "id": "api.templates.deactivate_body.info",
     "translation": "Deaktiválta a fiókját a {{ .SiteURL }} oldalon."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.title",
-    "translation": "A munkaterülete készen áll a használatra!"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subtitle_info",
-    "translation": "Tegye meg a következő lépéseket csapatai felépítéséhez és a lehető legtöbb kihozásához a munkaterületből."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subtitle",
-    "translation": "Állítsa be munkaterületét"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subject",
-    "translation": "Gratulálunk!"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.start_questions",
-    "translation": "Kérdései vannak az indulásról? Írjon nekünk a következő címre"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.signin_sub_info2",
-    "translation": "a legjobb élmény érdekében Windows-on, Linux-on, Mac-en, iOS-en és Androidon."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.signin_sub_info",
-    "translation": "Jelentkezzen be a munkaterületére a"
   },
   {
     "id": "api.command_share.fetch_remote.error",
@@ -6577,22 +6409,6 @@
   {
     "id": "api.command.admin_only.app_error",
     "translation": "Az integrációk csak a rendszergazdáknak engedélyezettek."
-  },
-  {
-    "id": "api.cloud.request_error",
-    "translation": "Hiba történt a CWS-re irányuló kérelem feldolgozása során."
-  },
-  {
-    "id": "api.cloud.license_error",
-    "translation": "A licence nem támogatja a felhőalapú kéréseket."
-  },
-  {
-    "id": "api.cloud.cws_webhook_event_missing_error",
-    "translation": "Webhook esemény nem lett lekezelve. Vagy hiányzik vagy érvénytelen."
-  },
-  {
-    "id": "api.cloud.app_error",
-    "translation": "Belső hiba cloud api kérés közben."
   },
   {
     "id": "api.channel.update_team_member_roles.scheme_role.app_error",
@@ -7524,14 +7340,6 @@
     "translation": "Hiba történt az aktuális csatorna lekérésekor."
   },
   {
-    "id": "api.command_help.name",
-    "translation": "súgó"
-  },
-  {
-    "id": "api.command_help.desc",
-    "translation": "Mattermost súgó üzenet megjelenítése"
-  },
-  {
     "id": "api.command_groupmsg.permission.app_error",
     "translation": "Nincs megfelelő jogosultsága új csoportos üzenet létrehozásához."
   },
@@ -7891,10 +7699,6 @@
     "translation": "Nem sikerült lekérni a közös csapat azonosítókat."
   },
   {
-    "id": "app.plugin.marshal.app_error",
-    "translation": "A piactéri bővítményeket nem sikerült becsomagolni."
-  },
-  {
     "id": "app.notification.body.dm.time",
     "translation": "{{.Hour}}:{{.Minute}} {{.TimeZone}}"
   },
@@ -8123,20 +7927,8 @@
     "translation": "SAML válasz túl hosszú"
   },
   {
-    "id": "app.system.complete_onboarding_request.app_error",
-    "translation": "Nem sikerült dekódolni a teljes rendszerbeszállási kérelmet."
-  },
-  {
-    "id": "app.system.complete_onboarding_request.no_first_user",
-    "translation": "A rendszerbeállítást csak egy rendszergazda végezheti el."
-  },
-  {
     "id": "model.emoji.system_emoji_name.app_error",
     "translation": "A név ütközik egy meglévő rendszer emoji nevével."
-  },
-  {
-    "id": "app.system.get_onboarding_request.app_error",
-    "translation": "Nem sikerült lekérni az induló beállítás állapotát."
   },
   {
     "id": "api.error_set_first_admin_complete_setup",
@@ -8283,20 +8075,8 @@
     "translation": "Nem kérdezhető le a csapat használtság"
   },
   {
-    "id": "api.cloud.teams_limit_reached.restore",
-    "translation": "Nem lehet visszaállítani a csapatot, mert a csapatok száma elérte a korlátot"
-  },
-  {
-    "id": "api.cloud.teams_limit_reached.create",
-    "translation": "Nem lehet csapatot létrehozni, mert a csapatok száma elérte a korlátot"
-  },
-  {
     "id": "model.config.is_valid.image_decoder_concurrency.app_error",
     "translation": "Érvénytelen dekódoló párhuzamosság {{.Value}}. Pozitív számnak vagy -1-nek kell lennie."
-  },
-  {
-    "id": "app.post.cloud.get.app_error",
-    "translation": "Nem lehetséges a bejegyzés lekérése, mivel a felhő csomagjának korlátján túl van."
   },
   {
     "id": "app.last_accessible_post.app_error",
@@ -8305,10 +8085,6 @@
   {
     "id": "common.parse_error_int64",
     "translation": "Nem sikerült értelmezni az értéket:{{.Value}} mint int64"
-  },
-  {
-    "id": "api.cloud.notify_admin_to_upgrade_error.already_notified",
-    "translation": "Már korábban értesítettük a rendszergazdát"
   },
   {
     "id": "app.upload.upload_data.gen_info.app_error",
@@ -8327,22 +8103,6 @@
     "translation": "Hiba a csapattagok gyorsítótárának törlésében"
   },
   {
-    "id": "api.command_help.success",
-    "translation": "A Mattermost egy nyílt forráskódú platform a biztonságos kommunikációhoz, együttműködéshez és az eszközök és csapatok közötti munka összehangolásához.\nA Mattermost két kulcsfontosságú eszközt tartalmaz:\n\n**Csatornák** - Maradjon kapcsolatban csapatával 1:1 és csoportos üzenetküldéssel.\n**[Forgatókönyvek](/playbooks)** - Építsen és konfiguráljon megismételhető folyamatokat meghatározott és kiszámítható eredmények elérése érdekében.\n\n[Dokumentáció és útmutatók megtekintése]({{.HelpLink}})"
-  },
-  {
-    "id": "api.command_marketplace.desc",
-    "translation": "Piactér megnyitása"
-  },
-  {
-    "id": "api.command_marketplace.unsupported.app_error",
-    "translation": "A marketplace parancs nem támogatott az Ön eszközén."
-  },
-  {
-    "id": "api.command_marketplace.name",
-    "translation": "marketplace"
-  },
-  {
     "id": "app.notify_admin.send_notification_post.app_error",
     "translation": "Nem sikerült elküldeni az értesítési bejegyzést."
   },
@@ -8353,10 +8113,6 @@
   {
     "id": "app.job.error",
     "translation": "Hiba a művelet végrehajtása közben."
-  },
-  {
-    "id": "app.file.cloud.get.app_error",
-    "translation": "Nem sikerült lekérni a fájlt, mivel az meghaladta a felhőcsomag határértékét."
   },
   {
     "id": "app.user.get_badge_count.app_error",
@@ -8475,10 +8231,6 @@
     "translation": "Az IP-szűrés nem érhető el ezen a kiszolgálón"
   },
   {
-    "id": "api.error_no_organization_name_provided_for_self_hosted_onboarding",
-    "translation": "Hiba nincs megadva a szervezet neve a saját üzemeltetésű induló beállításokhoz."
-  },
-  {
     "id": "api.command_invite.channel_constrained_user_denied",
     "translation": "Ezt a csatornát csoportok kezelik.  Ez a felhasználó nem része annak a csoportnak, amelyet ezzel a csatornával szinkronizáltak."
   },
@@ -8501,5 +8253,9 @@
   {
     "id": "api.drafts.disabled.app_error",
     "translation": "Tervezetek szolgáltatás le van tiltva."
+  },
+  {
+    "id": "api.templates.license_up_for_renewal_review_license",
+    "translation": "Review license"
   }
 ]

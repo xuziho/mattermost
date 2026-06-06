@@ -77,51 +77,20 @@
                 .message a:hover {
                     color: #1C6FBC;
                 }
-                .download-container {
-                    margin: 43px 0;
-                }
-                .download-button {
-                    display: inline-block;
-                    padding: 12px 28px;
-                    border: 0;
-                    border-radius: 4px;
-                    background-color: #2962FF;
-                    color: #FFFFFF;
-                    font-family: inherit;
-                    font-size: 14px;
-                    font-weight: 600;
-                    line-height: 20px;
-                    text-decoration: none;
-                    cursor: pointer;
-                }
-                .download-button:hover {
-                    background-color: #1E53E6;
-                }
                 .assistance {
                     margin: 0;
                     font-size: 14px;
                     line-height: 1.4;
                     color: rgba(63, 67, 80, 0.64);
                 }
-                .footer,
-                .footer-links {
+                .footer {
                     display: inline-flex;
                     align-items: center;
-                    gap: 24px;
-                }
-                .footer {
                     padding: 16px 40px;
                     font-size: 11px;
                     line-height: 16px;
                     letter-spacing: 0.22px;
                     color: rgba(63, 67, 80, 0.56);
-                }
-                .footer-links a {
-                    color: inherit;
-                    text-decoration: none;
-                }
-                .footer-links a:hover {
-                    text-decoration: underline;
                 }
             </style>
             <style>
@@ -152,20 +121,11 @@
                     <img class="warning-icon" src="static/images/alert.svg" alt="" />
                     <h1 class="title">{{.Props.Title}}</h1>
                     <div class="message">{{.Props.MessageString}}</div>
-                    <div class="download-container">
-                        <a class="download-button" href="{{.Props.DownloadLink}}" target="_blank" rel="noopener noreferrer">{{.Props.DownloadButtonLabel}}</a>
-                    </div>
                     <p class="assistance">{{.Props.AssistanceString}}</p>
                 </div>
             </main>
             <footer class="footer">
                 <span>© {{.Props.CopyrightYear}} Mattermost Inc.</span>
-                <span class="footer-links">
-                    {{if .Props.AboutLink}}<a href="{{.Props.AboutLink}}" target="_blank" rel="noopener noreferrer">{{.Props.FooterAboutLabel}}</a>{{end}}
-                    {{if .Props.PrivacyPolicyLink}}<a href="{{.Props.PrivacyPolicyLink}}" target="_blank" rel="noopener noreferrer">{{.Props.FooterPrivacyLabel}}</a>{{end}}
-                    {{if .Props.TermsOfServiceLink}}<a href="{{.Props.TermsOfServiceLink}}" target="_blank" rel="noopener noreferrer">{{.Props.FooterTermsLabel}}</a>{{end}}
-                    {{if .Props.HelpLink}}<a href="{{.Props.HelpLink}}" target="_blank" rel="noopener noreferrer">{{.Props.FooterHelpLabel}}</a>{{end}}
-                </span>
             </footer>
         </body>
     </html>

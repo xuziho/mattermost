@@ -112,32 +112,6 @@ func TestGetClientConfig(t *testing.T) {
 			},
 		},
 		{
-			"default marketplace",
-			&model.Config{
-				PluginSettings: model.PluginSettings{
-					MarketplaceURL: model.NewPointer(model.PluginSettingsDefaultMarketplaceURL),
-				},
-			},
-			"tag1",
-			nil,
-			map[string]string{
-				"IsDefaultMarketplace": "true",
-			},
-		},
-		{
-			"non-default marketplace",
-			&model.Config{
-				PluginSettings: model.PluginSettings{
-					MarketplaceURL: model.NewPointer("http://example.com"),
-				},
-			},
-			"tag1",
-			nil,
-			map[string]string{
-				"IsDefaultMarketplace": "false",
-			},
-		},
-		{
 			"enable ShowFullName prop",
 			&model.Config{
 				PrivacySettings: model.PrivacySettings{
@@ -333,22 +307,16 @@ func TestGetClientConfig(t *testing.T) {
 			},
 		},
 		{
-			"report a problem values",
+			"mobile log download value",
 			&model.Config{
 				SupportSettings: model.SupportSettings{
-					ReportAProblemType: model.NewPointer("type"),
-					ReportAProblemLink: model.NewPointer("http://example.com"),
-					ReportAProblemMail: model.NewPointer("mail"),
-					AllowDownloadLogs:  model.NewPointer(true),
+					AllowDownloadLogs: model.NewPointer(true),
 				},
 			},
 			"",
 			nil,
 			map[string]string{
-				"ReportAProblemType": "type",
-				"ReportAProblemLink": "http://example.com",
-				"ReportAProblemMail": "mail",
-				"AllowDownloadLogs":  "true",
+				"AllowDownloadLogs": "true",
 			},
 		},
 		{

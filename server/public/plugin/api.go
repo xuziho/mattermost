@@ -1184,16 +1184,6 @@ type API interface {
 	// Minimum server version: 5.36
 	PublishPluginClusterEvent(ev model.PluginClusterEvent, opts model.PluginClusterEventSendOptions) error
 
-	// RequestTrialLicense requests a trial license and installs it in the server
-	//
-	// Minimum server version: 5.36
-	RequestTrialLicense(requesterID string, users int, termsAccepted bool, receiveEmailsAccepted bool) *model.AppError
-
-	// GetCloudLimits gets limits associated with a cloud workspace, if any
-	//
-	// Minimum server version: 7.0
-	GetCloudLimits() (*model.ProductLimits, error)
-
 	// EnsureBotUser updates the bot if it exists, otherwise creates it.
 	//
 	// Minimum server version: 7.1

@@ -41,7 +41,6 @@ type RetryLayer struct {
 	JobStore                        store.JobStore
 	LicenseStore                    store.LicenseStore
 	LinkMetadataStore               store.LinkMetadataStore
-	NotifyAdminStore                store.NotifyAdminStore
 	OAuthStore                      store.OAuthStore
 	OutgoingOAuthConnectionStore    store.OutgoingOAuthConnectionStore
 	PluginStore                     store.PluginStore
@@ -50,7 +49,6 @@ type RetryLayer struct {
 	PostPersistentNotificationStore store.PostPersistentNotificationStore
 	PostPriorityStore               store.PostPriorityStore
 	PreferenceStore                 store.PreferenceStore
-	ProductNoticesStore             store.ProductNoticesStore
 	PropertyFieldStore              store.PropertyFieldStore
 	PropertyGroupStore              store.PropertyGroupStore
 	PropertyValueStore              store.PropertyValueStore
@@ -163,10 +161,6 @@ func (s *RetryLayer) LinkMetadata() store.LinkMetadataStore {
 	return s.LinkMetadataStore
 }
 
-func (s *RetryLayer) NotifyAdmin() store.NotifyAdminStore {
-	return s.NotifyAdminStore
-}
-
 func (s *RetryLayer) OAuth() store.OAuthStore {
 	return s.OAuthStore
 }
@@ -197,10 +191,6 @@ func (s *RetryLayer) PostPriority() store.PostPriorityStore {
 
 func (s *RetryLayer) Preference() store.PreferenceStore {
 	return s.PreferenceStore
-}
-
-func (s *RetryLayer) ProductNotices() store.ProductNoticesStore {
-	return s.ProductNoticesStore
 }
 
 func (s *RetryLayer) PropertyField() store.PropertyFieldStore {
@@ -412,11 +402,6 @@ type RetryLayerLinkMetadataStore struct {
 	Root *RetryLayer
 }
 
-type RetryLayerNotifyAdminStore struct {
-	store.NotifyAdminStore
-	Root *RetryLayer
-}
-
 type RetryLayerOAuthStore struct {
 	store.OAuthStore
 	Root *RetryLayer
@@ -454,11 +439,6 @@ type RetryLayerPostPriorityStore struct {
 
 type RetryLayerPreferenceStore struct {
 	store.PreferenceStore
-	Root *RetryLayer
-}
-
-type RetryLayerProductNoticesStore struct {
-	store.ProductNoticesStore
 	Root *RetryLayer
 }
 
@@ -7158,111 +7138,6 @@ func (s *RetryLayerLinkMetadataStore) Save(linkMetadata *model.LinkMetadata) (*m
 
 }
 
-func (s *RetryLayerNotifyAdminStore) DeleteBefore(trial bool, now int64) error {
-
-	tries := 0
-	for {
-		err := s.NotifyAdminStore.DeleteBefore(trial, now)
-		if err == nil {
-			return nil
-		}
-		if !isRepeatableError(err) {
-			return err
-		}
-		tries++
-		if tries >= 3 {
-			err = errors.Wrap(err, "giving up after 3 consecutive repeatable transaction failures")
-			return err
-		}
-		timepkg.Sleep(100 * timepkg.Millisecond)
-	}
-
-}
-
-func (s *RetryLayerNotifyAdminStore) Get(trial bool) ([]*model.NotifyAdminData, error) {
-
-	tries := 0
-	for {
-		result, err := s.NotifyAdminStore.Get(trial)
-		if err == nil {
-			return result, nil
-		}
-		if !isRepeatableError(err) {
-			return result, err
-		}
-		tries++
-		if tries >= 3 {
-			err = errors.Wrap(err, "giving up after 3 consecutive repeatable transaction failures")
-			return result, err
-		}
-		timepkg.Sleep(100 * timepkg.Millisecond)
-	}
-
-}
-
-func (s *RetryLayerNotifyAdminStore) GetDataByUserIdAndFeature(userID string, feature model.MattermostFeature) ([]*model.NotifyAdminData, error) {
-
-	tries := 0
-	for {
-		result, err := s.NotifyAdminStore.GetDataByUserIdAndFeature(userID, feature)
-		if err == nil {
-			return result, nil
-		}
-		if !isRepeatableError(err) {
-			return result, err
-		}
-		tries++
-		if tries >= 3 {
-			err = errors.Wrap(err, "giving up after 3 consecutive repeatable transaction failures")
-			return result, err
-		}
-		timepkg.Sleep(100 * timepkg.Millisecond)
-	}
-
-}
-
-func (s *RetryLayerNotifyAdminStore) Save(data *model.NotifyAdminData) (*model.NotifyAdminData, error) {
-
-	tries := 0
-	for {
-		result, err := s.NotifyAdminStore.Save(data)
-		if err == nil {
-			return result, nil
-		}
-		if !isRepeatableError(err) {
-			return result, err
-		}
-		tries++
-		if tries >= 3 {
-			err = errors.Wrap(err, "giving up after 3 consecutive repeatable transaction failures")
-			return result, err
-		}
-		timepkg.Sleep(100 * timepkg.Millisecond)
-	}
-
-}
-
-func (s *RetryLayerNotifyAdminStore) Update(userID string, requiredPlan string, requiredFeature model.MattermostFeature, now int64) error {
-
-	tries := 0
-	for {
-		err := s.NotifyAdminStore.Update(userID, requiredPlan, requiredFeature, now)
-		if err == nil {
-			return nil
-		}
-		if !isRepeatableError(err) {
-			return err
-		}
-		tries++
-		if tries >= 3 {
-			err = errors.Wrap(err, "giving up after 3 consecutive repeatable transaction failures")
-			return err
-		}
-		timepkg.Sleep(100 * timepkg.Millisecond)
-	}
-
-}
-
 func (s *RetryLayerOAuthStore) DeleteApp(id string) error {
 
 	tries := 0
@@ -9770,90 +9645,6 @@ func (s *RetryLayerPreferenceStore) Save(preferences model.Preferences) error {
 	tries := 0
 	for {
 		err := s.PreferenceStore.Save(preferences)
-		if err == nil {
-			return nil
-		}
-		if !isRepeatableError(err) {
-			return err
-		}
-		tries++
-		if tries >= 3 {
-			err = errors.Wrap(err, "giving up after 3 consecutive repeatable transaction failures")
-			return err
-		}
-		timepkg.Sleep(100 * timepkg.Millisecond)
-	}
-
-}
-
-func (s *RetryLayerProductNoticesStore) Clear(notices []string) error {
-
-	tries := 0
-	for {
-		err := s.ProductNoticesStore.Clear(notices)
-		if err == nil {
-			return nil
-		}
-		if !isRepeatableError(err) {
-			return err
-		}
-		tries++
-		if tries >= 3 {
-			err = errors.Wrap(err, "giving up after 3 consecutive repeatable transaction failures")
-			return err
-		}
-		timepkg.Sleep(100 * timepkg.Millisecond)
-	}
-
-}
-
-func (s *RetryLayerProductNoticesStore) ClearOldNotices(currentNotices model.ProductNotices) error {
-
-	tries := 0
-	for {
-		err := s.ProductNoticesStore.ClearOldNotices(currentNotices)
-		if err == nil {
-			return nil
-		}
-		if !isRepeatableError(err) {
-			return err
-		}
-		tries++
-		if tries >= 3 {
-			err = errors.Wrap(err, "giving up after 3 consecutive repeatable transaction failures")
-			return err
-		}
-		timepkg.Sleep(100 * timepkg.Millisecond)
-	}
-
-}
-
-func (s *RetryLayerProductNoticesStore) GetViews(userID string) ([]model.ProductNoticeViewState, error) {
-
-	tries := 0
-	for {
-		result, err := s.ProductNoticesStore.GetViews(userID)
-		if err == nil {
-			return result, nil
-		}
-		if !isRepeatableError(err) {
-			return result, err
-		}
-		tries++
-		if tries >= 3 {
-			err = errors.Wrap(err, "giving up after 3 consecutive repeatable transaction failures")
-			return result, err
-		}
-		timepkg.Sleep(100 * timepkg.Millisecond)
-	}
-
-}
-
-func (s *RetryLayerProductNoticesStore) View(userID string, notices []string) error {
-
-	tries := 0
-	for {
-		err := s.ProductNoticesStore.View(userID, notices)
 		if err == nil {
 			return nil
 		}
@@ -18250,7 +18041,6 @@ func New(childStore store.Store) *RetryLayer {
 	newStore.JobStore = &RetryLayerJobStore{JobStore: childStore.Job(), Root: &newStore}
 	newStore.LicenseStore = &RetryLayerLicenseStore{LicenseStore: childStore.License(), Root: &newStore}
 	newStore.LinkMetadataStore = &RetryLayerLinkMetadataStore{LinkMetadataStore: childStore.LinkMetadata(), Root: &newStore}
-	newStore.NotifyAdminStore = &RetryLayerNotifyAdminStore{NotifyAdminStore: childStore.NotifyAdmin(), Root: &newStore}
 	newStore.OAuthStore = &RetryLayerOAuthStore{OAuthStore: childStore.OAuth(), Root: &newStore}
 	newStore.OutgoingOAuthConnectionStore = &RetryLayerOutgoingOAuthConnectionStore{OutgoingOAuthConnectionStore: childStore.OutgoingOAuthConnection(), Root: &newStore}
 	newStore.PluginStore = &RetryLayerPluginStore{PluginStore: childStore.Plugin(), Root: &newStore}
@@ -18259,7 +18049,6 @@ func New(childStore store.Store) *RetryLayer {
 	newStore.PostPersistentNotificationStore = &RetryLayerPostPersistentNotificationStore{PostPersistentNotificationStore: childStore.PostPersistentNotification(), Root: &newStore}
 	newStore.PostPriorityStore = &RetryLayerPostPriorityStore{PostPriorityStore: childStore.PostPriority(), Root: &newStore}
 	newStore.PreferenceStore = &RetryLayerPreferenceStore{PreferenceStore: childStore.Preference(), Root: &newStore}
-	newStore.ProductNoticesStore = &RetryLayerProductNoticesStore{ProductNoticesStore: childStore.ProductNotices(), Root: &newStore}
 	newStore.PropertyFieldStore = &RetryLayerPropertyFieldStore{PropertyFieldStore: childStore.PropertyField(), Root: &newStore}
 	newStore.PropertyGroupStore = &RetryLayerPropertyGroupStore{PropertyGroupStore: childStore.PropertyGroup(), Root: &newStore}
 	newStore.PropertyValueStore = &RetryLayerPropertyValueStore{PropertyValueStore: childStore.PropertyValue(), Root: &newStore}

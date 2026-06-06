@@ -143,7 +143,7 @@ func (es *Service) prepareNotificationMessageForEmail(postMessage, teamName, sit
 		mdPostMessage = postMessage
 	}
 
-	landingURL := siteURL + "/landing#/" + teamName
+	landingURL := siteURL + "/" + teamName
 	normalizedPostMessage, err := es.GenerateHyperlinkForChannels(mdPostMessage, teamName, landingURL)
 	if err != nil {
 		mlog.Warn("Encountered error while generating hyperlink for channels", mlog.String("team_name", teamName), mlog.Err(err))

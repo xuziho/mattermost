@@ -9,7 +9,6 @@ import type {
     IntlShape,
 } from 'react-intl';
 
-import type {CloudState, Product} from '@mattermost/types/cloud';
 import type {AdminConfig, ClientLicense} from '@mattermost/types/config';
 import type {JobType} from '@mattermost/types/jobs';
 
@@ -197,8 +196,8 @@ export type AdminDefinitionConfigSchemaSection = {
 }
 
 type RestrictedIndicatorType = {
-    value: (cloud: CloudState) => JSX.Element;
-    shouldDisplay: (license: ClientLicense, subscriptionProduct: Product|undefined) => boolean;
+    value: () => JSX.Element;
+    shouldDisplay: () => boolean;
 }
 
 export type AdminDefinitionSubSectionSchema = AdminDefinitionConfigSchemaComponent | AdminDefinitionConfigSchemaSettings;
@@ -229,4 +228,4 @@ export type SearchableStrings = Array<string | MessageDescriptor | Parameters<ty
 
 export type AdminDefinition = {[key: string]: AdminDefinitionSection}
 
-export type Check = boolean | ((config: Partial<AdminConfig>, state: any, license?: ClientLicense, enterpriseReady?: boolean, consoleAccess?: ConsoleAccess, cloud?: CloudState, isSystemAdmin?: boolean) => boolean)
+export type Check = boolean | ((config: Partial<AdminConfig>, state: any, license?: ClientLicense, enterpriseReady?: boolean, consoleAccess?: ConsoleAccess, isSystemAdmin?: boolean) => boolean)

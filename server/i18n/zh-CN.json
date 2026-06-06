@@ -614,14 +614,6 @@
     "translation": "您没有合适的权限创建新的群消息。"
   },
   {
-    "id": "api.command_help.desc",
-    "translation": "显示 Mattermost 帮助信息"
-  },
-  {
-    "id": "api.command_help.name",
-    "translation": "帮助"
-  },
-  {
     "id": "api.command_invite.channel.app_error",
     "translation": "获取当前频道错误。"
   },
@@ -1892,10 +1884,6 @@
   {
     "id": "api.templates.verify_subject",
     "translation": "[{{ .SiteName }}] 电子邮件地址验证"
-  },
-  {
-    "id": "api.templates.welcome_body.app_download_info",
-    "translation": "为了更好的体验，请下载 PC、Mac、iOS、安卓平台应用。"
   },
   {
     "id": "api.templates.welcome_body.button",
@@ -4590,36 +4578,8 @@
     "translation": "从储存获取公钥时遇到错误。"
   },
   {
-    "id": "app.plugin.install_marketplace_plugin.app_error",
-    "translation": "安装市场插件失败。"
-  },
-  {
     "id": "app.plugin.invalid_version.app_error",
     "translation": "无法解析插件版本。"
-  },
-  {
-    "id": "app.plugin.marketplace_client.app_error",
-    "translation": "创建市场客户端失败。"
-  },
-  {
-    "id": "app.plugin.marketplace_disabled.app_error",
-    "translation": "市场已停用。请检查您的日志了解详情。"
-  },
-  {
-    "id": "app.plugin.marketplace_plugin_request.app_error",
-    "translation": "无法解码市场插件请求。"
-  },
-  {
-    "id": "app.plugin.marketplace_plugins.not_found.app_error",
-    "translation": "无法找到请求的市场插件。"
-  },
-  {
-    "id": "app.plugin.marketplace_plugins.signature_not_found.app_error",
-    "translation": "无法找到请求的市场插件签字。"
-  },
-  {
-    "id": "app.plugin.marshal.app_error",
-    "translation": "封装市场插件失败。"
   },
   {
     "id": "app.plugin.modify_saml.app_error",
@@ -4988,10 +4948,6 @@
   {
     "id": "app.plugin.delete_public_key.delete.app_error",
     "translation": "删除公钥时遇到错误。"
-  },
-  {
-    "id": "app.plugin.marketplace_client.failed_to_fetch",
-    "translation": "从市场服务器获取插件失败。"
   },
   {
     "id": "app.plugin.remove_bundle.app_error",
@@ -6470,14 +6426,6 @@
     "translation": "只有系统管理员才能设置已哈希过的的密码。"
   },
   {
-    "id": "api.user.login_cws.license.error",
-    "translation": "禁止 CWS 登入。"
-  },
-  {
-    "id": "api.user.login_by_cws.invalid_token.app_error",
-    "translation": "无效的 CWS 令牌"
-  },
-  {
     "id": "api.user.get_uploads_for_user.forbidden.app_error",
     "translation": "获取上传失败。"
   },
@@ -6496,46 +6444,6 @@
   {
     "id": "api.upload.get_upload.forbidden.app_error",
     "translation": "获取上传失败。"
-  },
-  {
-    "id": "api.upgrade_to_enterprise_status.signature.app_error",
-    "translation": "Mattermost 无法升级至企业版。无法验证下载的二进制文件的数字签名。"
-  },
-  {
-    "id": "api.upgrade_to_enterprise_status.app_error",
-    "translation": "Mattermost 无法升级至企业版。"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.system_not_supported.app_error",
-    "translation": "Mattermost 无法升级至企业版。此功能只能用于 x86-64 构架的 Linux 系统。"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-user.app_error",
-    "translation": "Mattermost 无法升级至企业版。Mattermost 系统用户 {{.MattermostUsername}} 没有写入必需的二进制文件的权限。系统管理员可在服务器上运行以下命令以更新文件权限：\n\n```\nchown {{.MattermostUsername}} \"{{.Path}}\"\n```\n\n更改文件权限后，请重新尝试升级 Mattermost。当您升级并重启后，请务必恢复二进制文件权限：\n\n```\nchown {{.FileUsername}} \"{{.Path}}\"\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-user-and-permission.app_error",
-    "translation": "Mattermost 无法升级至企业版。Mattermost 系统用户 {{.MattermostUsername}} 没有写入必需的二进制文件的权限。系统管理员可在服务器上运行以下命令以更新文件权限：\n\n```\nchown {{.MattermostUsername}} \"{{.Path}}\"\nchmod +w \"{{.Path}}\"\n```\n\n更改文件权限后，请重新尝试升级 Mattermost。当您升级并重启后，请务必恢复二进制文件权限：\n\n```\nchown {{.FileUsername}} \"{{.Path}}\"\nchmod -w \"{{.Path}}\"\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-permission.app_error",
-    "translation": "Mattermost 无法升级至企业版。Mattermost 系统用户 {{.MattermostUsername}} 没有写入必需的二进制文件的权限。系统管理员可在服务器上运行以下命令以更新文件权限：\n\n```\nchmod +w \"{{.Path}}\"\n```\n\n更改文件权限后，请重新尝试升级 Mattermost。当您升级并重启后，请务必恢复二进制文件权限：\n\n```\nchmod -w \"{{.Path}}\"\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.generic_error.app_error",
-    "translation": "Mattermost 无法升级至企业版。"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.app_error",
-    "translation": "升级至企业版已在进行中。"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.already-enterprise.app_error",
-    "translation": "您不能升级因为您已正在运行 Mattermost 企业版。"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.already-done.app_error",
-    "translation": "您已升级至 Mattermost 企业版。请重启以完成升级。"
   },
   {
     "id": "api.team.add_team_member.invalid_body.app_error",
@@ -6564,18 +6472,6 @@
   {
     "id": "api.preference.delete_preferences.update_sidebar.app_error",
     "translation": "无法更新侧栏以匹配删除的偏好设定"
-  },
-  {
-    "id": "api.cloud.request_error",
-    "translation": "处理对 CWS 的请求时出错。"
-  },
-  {
-    "id": "api.cloud.license_error",
-    "translation": "您的许可证不支持云请求。"
-  },
-  {
-    "id": "api.cloud.app_error",
-    "translation": "云 API 请求时发生内部错误。"
   },
   {
     "id": "app.upload.get_for_user.app_error",
@@ -7242,10 +7138,6 @@
     "translation": "无法解析请求内容。"
   },
   {
-    "id": "api.cloud.cws_webhook_event_missing_error",
-    "translation": "Webhook 事件未处理。它丢失或无效。"
-  },
-  {
     "id": "api.templates.welcome_body.subTitle2",
     "translation": "单击下方按钮以验证您的邮箱地址。"
   },
@@ -7260,14 +7152,6 @@
   {
     "id": "api.templates.welcome_body.info1",
     "translation": "如果不是您想创建账号，则可以放心地忽略此邮件。"
-  },
-  {
-    "id": "api.templates.welcome_body.app_download_title",
-    "translation": "下载桌面和移动应用"
-  },
-  {
-    "id": "api.templates.welcome_body.app_download_button",
-    "translation": "下载"
   },
   {
     "id": "api.templates.verify_body.subTitle2",
@@ -7318,54 +7202,6 @@
     "translation": "© 2015 - {{ .CurrentYear }} Mattermost, Inc. 2100 Geng Road, Suite 210, Palo Alto, CA, 94303"
   },
   {
-    "id": "api.templates.cloud_welcome_email.title",
-    "translation": "您工作区的 14 天试用已准备就绪！"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subtitle_info",
-    "translation": "采取以下步骤建立团队，并充分利用您的工作空间。"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subtitle",
-    "translation": "设置您的工作区"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subject",
-    "translation": "恭喜！"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.mm_apps",
-    "translation": "移动和桌面应用"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.invite_info",
-    "translation": "邀请他人进入您的工作区"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.info2",
-    "translation": "确保保存或添加书签以供将来使用。"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.download_mm_info",
-    "translation": "下载 Mattermost 应用"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.button",
-    "translation": "打开 Mattermost"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.app_market_place",
-    "translation": "应用市场。"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.add_apps_sub_info",
-    "translation": "使用 Github、Jira 以及 Zoom 等工具简化您的工作.探索我们的所有集成产品"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.add_apps_info",
-    "translation": "将应用程序添加到您的工作区"
-  },
-  {
     "id": "store.sql_file_info.search.disabled",
     "translation": "搜索文件在此服务器上已被禁用。请与您的系统管理员联系。"
   },
@@ -7386,32 +7222,8 @@
     "translation": "个人资料图片必须通过用户的登录提供者设置。"
   },
   {
-    "id": "api.user.send_cloud_welcome_email.error",
-    "translation": "无法发送云欢迎电子邮件"
-  },
-  {
     "id": "api.templates.questions_footer.info",
     "translation": "需要我们提供帮助吗？给我们发邮件: "
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.start_questions",
-    "translation": "对入门有疑问吗？给我们发电子邮件"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.invite_sub_info",
-    "translation": "分享此链接以邀请您的成员加入{{.WorkSpace}}："
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.info",
-    "translation": "感谢创建 "
-  },
-  {
-    "id": "api.error_set_first_admin_visit_marketplace_status",
-    "translation": "尝试保存商店中检索第一个管理员访问市场状态时出错。"
-  },
-  {
-    "id": "api.error_get_first_admin_visit_marketplace_status",
-    "translation": "尝试从商店中检索第一个管理员访问市场状态时出错。"
   },
   {
     "id": "api.channel.patch_channel_moderations.cache_invalidation.error",
@@ -7986,14 +7798,6 @@
     "translation": "功能需要升级到企业版。"
   },
   {
-    "id": "api.templates.cloud_welcome_email.signin_sub_info2",
-    "translation": "以在 Windows、Linux、Mac、iOS 以及 Android 上获得最好体验。"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.signin_sub_info",
-    "translation": "在我们的"
-  },
-  {
     "id": "app.user.store_is_empty.app_error",
     "translation": "检查用户储存是否为空失败。"
   },
@@ -8116,18 +7920,6 @@
   {
     "id": "model.channel.is_valid.1_or_more.app_error",
     "translation": "名字必须是1个或者多个小写字母的字串。"
-  },
-  {
-    "id": "app.system.get_onboarding_request.app_error",
-    "translation": "获取导引完成状态时失败。"
-  },
-  {
-    "id": "app.system.complete_onboarding_request.no_first_user",
-    "translation": "只能由系统管理员来完成这项导引。"
-  },
-  {
-    "id": "app.system.complete_onboarding_request.app_error",
-    "translation": "无法完整的解码该导引请求。"
   },
   {
     "id": "app.prepackged-plugin.invalid_version.app_error",
@@ -8266,18 +8058,6 @@
     "translation": "不支持通过 mmctl 上传到 Cloud 实例。 请在此处查看文档：https://docs.mattermost.com/manage/cloud-data-export.html。"
   },
   {
-    "id": "api.cloud.teams_limit_reached.restore",
-    "translation": "无法恢复团队，因为已达到团队限制"
-  },
-  {
-    "id": "api.cloud.teams_limit_reached.create",
-    "translation": "无法创建团队，因为已达到团队限制"
-  },
-  {
-    "id": "api.cloud.notify_admin_to_upgrade_error.already_notified",
-    "translation": "已通知管理员"
-  },
-  {
     "id": "model.config.is_valid.image_decoder_concurrency.app_error",
     "translation": "无效的解码器并发 {{.Value}}。 应该是正数或 -1。"
   },
@@ -8314,10 +8094,6 @@
     "translation": "清除团队成员缓存时出错"
   },
   {
-    "id": "app.post.cloud.get.app_error",
-    "translation": "无法获取消息，因为它超过了云的计划限制。"
-  },
-  {
     "id": "app.last_accessible_post.app_error",
     "translation": "获取最后可访问的消息时出错"
   },
@@ -8326,20 +8102,8 @@
     "translation": "您的许可证不支持访客帐号"
   },
   {
-    "id": "api.command_help.success",
-    "translation": "Mattermost 是一个开源平台，用于跨工具和团队的安全通信、协作和工作编排。\nMattermost 包含两个关键工具：\n\n**频道** - 通过 1:1 和群组消息与您的团队保持联系。\n**[Playbooks](/playbooks)** - 构建和配置可重复的流程以实现特定且可预测的结果。\n\n[查看文档和指南]({{.HelpLink}})"
-  },
-  {
     "id": "api.team.invite_guests_to_channels.disabled.error",
     "translation": "访客帐户已禁用"
-  },
-  {
-    "id": "api.command_marketplace.name",
-    "translation": "市场"
-  },
-  {
-    "id": "api.command_marketplace.desc",
-    "translation": "打开市场"
   },
   {
     "id": "api.drafts.disabled.app_error",
@@ -8352,10 +8116,6 @@
   {
     "id": "api.config.update_config.translations.app_error",
     "translation": "服务器翻译文件更新失败。"
-  },
-  {
-    "id": "api.command_marketplace.unsupported.app_error",
-    "translation": "marketplace 命令在您的设备上不受支持。"
   },
   {
     "id": "api.admin.syncables_error",
@@ -8454,10 +8214,6 @@
     "translation": "无法保存通知数据。"
   },
   {
-    "id": "app.last_accessible_file.app_error",
-    "translation": "在取得最后访问的文件时发生错误"
-  },
-  {
     "id": "app.job.error",
     "translation": "作业执行过程中发生错误。"
   },
@@ -8468,10 +8224,6 @@
   {
     "id": "app.group.username_conflict",
     "translation": "用户名为“{{.Username}}”的用户已存在。"
-  },
-  {
-    "id": "app.file.cloud.get.app_error",
-    "translation": "由于云订阅的限制，无法取得文件。"
   },
   {
     "id": "app.draft.save.app_error",
@@ -8558,24 +8310,16 @@
     "translation": "Portal 无法在自托管实例中使用。"
   },
   {
-    "id": "api.server.cws.needs_enterprise_edition",
-    "translation": "该服务仅在 Mattermost Enterprise 版本中可用"
-  },
-  {
     "id": "app.oauth.remove_auth_data_by_client_id.app_error",
     "translation": "不能删除oauth认证信息。"
   },
   {
-    "id": "api.templates.license_up_for_renewal_contact_sales",
-    "translation": "联系销售"
+    "id": "api.templates.license_up_for_renewal_review_license",
+    "translation": "Review license"
   },
   {
     "id": "api.license.request-trial.bad-request.business-email",
     "translation": "无效的用于试用的商务邮箱"
-  },
-  {
-    "id": "api.error_no_organization_name_provided_for_self_hosted_onboarding",
-    "translation": "未提供自助托管引导的组织名称。"
   },
   {
     "id": "app.plugin.skip_installation.app_error",
@@ -8912,10 +8656,6 @@
   {
     "id": "api.templates.ip_filters_changed_footer.contact_support",
     "translation": "联系支持"
-  },
-  {
-    "id": "api.templates.ip_filters_changed_footer.log_in_to_customer_portal",
-    "translation": "登录至客户门户以重置 IP 过滤"
   },
   {
     "id": "api.templates.ip_filters_changed_footer.send_an_email_to",
@@ -9316,10 +9056,6 @@
   {
     "id": "model.user.is_valid.invalidProperty.app_error",
     "translation": "无效的属性（自定义状态）"
-  },
-  {
-    "id": "api.server.cws.disabled",
-    "translation": "与 Mattermost 客户门户的交互已被系统管理员禁用。"
   },
   {
     "id": "api.command_share.invite_remote_to_channel.error",

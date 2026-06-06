@@ -1,7 +1,7 @@
 // Copyright (c) 2015-present Mattermost, Inc. All Rights Reserved.
 // See LICENSE.txt for license information.
 
-import {expect, test} from '@mattermost/playwright-lib';
+import {test} from '@mattermost/playwright-lib';
 
 /**
  * @objective Capture visual snapshot of the intro channel view for a regular user
@@ -20,8 +20,8 @@ test(
         await channelsPage.goto();
         await channelsPage.toBeVisible();
 
-        // # Wait for Playbooks icon to be loaded in App bar
-        await expect(channelsPage.appBar.playbooksIcon).toBeVisible();
+        // # Wait for the App Bar to finish rendering
+        await channelsPage.appBar.toBeVisible();
 
         // # Hide dynamic elements of Channels page
         await pw.hideDynamicChannelsContent(page);

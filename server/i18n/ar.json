@@ -70,5 +70,9 @@
   {
     "id": "api.admin.add_certificate.app_error",
     "translation": "فشل في إضافة الشهادة."
+  },
+  {
+    "id": "api.templates.license_up_for_renewal_review_license",
+    "translation": "Review license"
   }
 ]

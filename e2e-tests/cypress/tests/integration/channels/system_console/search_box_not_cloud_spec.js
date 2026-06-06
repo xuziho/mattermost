@@ -25,9 +25,6 @@ describe('System console', () => {
         cy.apiUpdateConfig({
             PluginSettings: {
                 Enable: true,
-                EnableMarketplace: true,
-                EnableRemoteMarketplace: true,
-                MarketplaceURL: 'https://api.integrations.mattermost.com',
             },
         });
 

@@ -55,12 +55,9 @@ type Channels struct {
 	agentsBridge AgentsBridge
 
 	// cached counts that are used during notice condition validation
-	cachedPostCount   int64
-	cachedUserCount   int64
-	cachedDBMSVersion string
-	// previously fetched notices
-	cachedNotices model.ProductNotices
-
+	cachedPostCount        int64
+	cachedUserCount        int64
+	cachedDBMSVersion      string
 	managedCategoryGroupID string
 	managedCategoryFieldID string
 

@@ -9,8 +9,6 @@ import {General} from 'mattermost-redux/constants';
 import {createSelector} from 'mattermost-redux/selectors/create_selector';
 import {isMinimumServerVersion} from 'mattermost-redux/utils/helpers';
 
-import type {CWSAvailabilityState} from '../../reducers/entities/general';
-
 export function getConfig(state: GlobalState): Partial<ClientConfig> {
     return state.entities.general.config;
 }
@@ -55,12 +53,6 @@ export const getPasswordConfig: (state: GlobalState) => PasswordConfig = createS
 export function getLicense(state: GlobalState): ClientLicense {
     return state.entities.general.license;
 }
-
-export const isCloudLicense: (state: GlobalState) => boolean = createSelector(
-    'isCloudLicense',
-    getLicense,
-    (license: ClientLicense) => license?.Cloud === 'true',
-);
 
 export function isCompatibleWithJoinViewTeamPermissions(state: GlobalState): boolean {
     const version = state.entities.general.serverVersion;
@@ -121,25 +113,9 @@ export const getServerVersion = (state: GlobalState): string => {
     return state.entities.general.serverVersion;
 };
 
-export function getFirstAdminVisitMarketplaceStatus(state: GlobalState): boolean {
-    return state.entities.general.firstAdminVisitMarketplaceStatus;
-}
-
-export function getFirstAdminSetupComplete(state: GlobalState): boolean {
-    return state.entities.general.firstAdminCompleteSetup;
-}
-
 export function isPerformanceDebuggingEnabled(state: GlobalState): boolean {
     return state.entities.general.config.EnableClientPerformanceDebugging === 'true';
 }
-
-export const isMarketplaceEnabled: (state: GlobalState) => boolean = createSelector(
-    'isMarketplaceEnabled',
-    getConfig,
-    (config) => {
-        return config.PluginsEnabled === 'true' && config.EnableMarketplace === 'true';
-    },
-);
 
 export const getUsersStatusAndProfileFetchingPollInterval: (state: GlobalState) => number | null = createSelector(
     'getUsersStatusAndProfileFetchingPollInterval',
@@ -172,8 +148,4 @@ export const getCustomProfileAttributes: (state: GlobalState) => UserPropertyFie
 
 export function getIsCrossTeamSearchEnabled(state: GlobalState): boolean {
     return state.entities.general.config.EnableCrossTeamSearch === 'true';
-}
-
-export function getCWSAvailability(state: GlobalState): CWSAvailabilityState {
-    return state.entities.general.cwsAvailability;
 }

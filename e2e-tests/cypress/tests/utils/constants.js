@@ -10,7 +10,6 @@ export const REPORT_A_PROBLEM_LINK = 'https://mattermost.com/pl/report-a-bug';
 export const TERMS_OF_SERVICE_LINK = 'https://mattermost.com/pl/terms-of-use/';
 export const MATTERMOST_USER_GUIDE = 'https://docs.mattermost.com/guides/use-mattermost.html';
 
-export const CLOUD = 'Cloud';
 export const E20 = 'E20';
 export const TEAM = 'Team';
 
@@ -29,7 +28,7 @@ export const SupportSettings = {
     MATTERMOST_USER_GUIDE,
 };
 
-export const FixedCloudConfig = {
+export const FixedDefaultConfig = {
     EmailSettings: {
         FEEDBACK_EMAIL,
     },
@@ -37,13 +36,12 @@ export const FixedCloudConfig = {
 };
 
 export const ServerEdition = {
-    CLOUD,
     E20,
     TEAM,
 };
 
 export const Constants = {
-    FixedCloudConfig,
+    FixedDefaultConfig,
     ServerEdition,
 };
 

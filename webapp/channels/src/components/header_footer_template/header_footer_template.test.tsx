@@ -5,7 +5,6 @@ import React from 'react';
 
 import type {DeepPartial} from '@mattermost/types/utilities';
 
-import mergeObjects from 'packages/mattermost-redux/test/merge_objects';
 import {renderWithContext} from 'tests/react_testing_utils';
 
 import type {GlobalState} from 'types/store';
@@ -79,99 +78,9 @@ describe('components/HeaderFooterTemplate', () => {
         expect(container).toMatchSnapshot();
     });
 
-    test('should match snapshot with help link', () => {
-        const state = mergeObjects(initialState, {
-            entities: {
-                general: {
-                    config: {
-                        HelpLink: 'http://testhelplink',
-                    },
-                },
-            },
-        });
-
-        const {container} = renderWithContext(<HeaderFooterNotLoggedIn/>, state);
-        expect(container).toMatchSnapshot();
-    });
-
-    test('should match snapshot with term of service link', () => {
-        const state = mergeObjects(initialState, {
-            entities: {
-                general: {
-                    config: {
-                        TermsOfServiceLink: 'http://testtermsofservicelink',
-                    },
-                },
-            },
-        });
-
-        const {container} = renderWithContext(<HeaderFooterNotLoggedIn/>, state);
-        expect(container).toMatchSnapshot();
-    });
-
-    test('should match snapshot with privacy policy link', () => {
-        const state = mergeObjects(initialState, {
-            entities: {
-                general: {
-                    config: {
-                        PrivacyPolicyLink: 'http://testprivacypolicylink',
-                    },
-                },
-            },
-        });
-
-        const {container} = renderWithContext(<HeaderFooterNotLoggedIn/>, state);
-        expect(container).toMatchSnapshot();
-    });
-
-    test('should match snapshot with about link', () => {
-        const state = mergeObjects(initialState, {
-            entities: {
-                general: {
-                    config: {
-                        AboutLink: 'http://testaboutlink',
-                    },
-                },
-            },
-        });
-
-        const {container} = renderWithContext(<HeaderFooterNotLoggedIn/>, state);
-        expect(container).toMatchSnapshot();
-    });
-
-    test('should match snapshot with all links', () => {
-        const state = mergeObjects(initialState, {
-            entities: {
-                general: {
-                    config: {
-                        HelpLink: 'http://testhelplink',
-                        TermsOfServiceLink: 'http://testtermsofservicelink',
-                        PrivacyPolicyLink: 'http://testprivacypolicylink',
-                        AboutLink: 'http://testaboutlink',
-                    },
-                },
-            },
-        });
-
-        const {container} = renderWithContext(<HeaderFooterNotLoggedIn/>, state);
-        expect(container).toMatchSnapshot();
-    });
-
     test('should set classes on body and #root on mount and unset on unmount', () => {
-        const state = mergeObjects(initialState, {
-            entities: {
-                general: {
-                    config: {
-                        HelpLink: 'http://testhelplink',
-                        TermsOfServiceLink: 'http://testtermsofservicelink',
-                        PrivacyPolicyLink: 'http://testprivacypolicylink',
-                        AboutLink: 'http://testaboutlink',
-                    },
-                },
-            },
-        });
         expect(document.body.classList.contains('sticky')).toBe(false);
-        const {container, unmount} = renderWithContext(<HeaderFooterNotLoggedIn/>, state);
+        const {container, unmount} = renderWithContext(<HeaderFooterNotLoggedIn/>, initialState);
         expect(container).toMatchSnapshot();
         expect(document.body.classList.contains('sticky')).toBe(true);
 

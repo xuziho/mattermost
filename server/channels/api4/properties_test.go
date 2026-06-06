@@ -18,7 +18,7 @@ import (
 func TestCreatePropertyField(t *testing.T) {
 	mainHelper.Parallel(t)
 	th := SetupConfig(t, func(cfg *model.Config) {
-		cfg.FeatureFlags.IntegratedBoards = true
+		cfg.FeatureFlags.ManagedChannelCategories = true
 	}).InitBasic(t)
 
 	// Register a property group for testing
@@ -374,7 +374,7 @@ func TestCreatePropertyField(t *testing.T) {
 func TestGetPropertyFields(t *testing.T) {
 	mainHelper.Parallel(t)
 	th := SetupConfig(t, func(cfg *model.Config) {
-		cfg.FeatureFlags.IntegratedBoards = true
+		cfg.FeatureFlags.ManagedChannelCategories = true
 	}).InitBasic(t)
 
 	// Register property groups for testing
@@ -534,7 +534,7 @@ func TestGetPropertyFields(t *testing.T) {
 func TestGetPropertyFieldsScopeAccess(t *testing.T) {
 	mainHelper.Parallel(t)
 	th := SetupConfig(t, func(cfg *model.Config) {
-		cfg.FeatureFlags.IntegratedBoards = true
+		cfg.FeatureFlags.ManagedChannelCategories = true
 	}).InitBasic(t)
 
 	group, err := th.App.RegisterPropertyGroup(th.Context, "test_properties_scope")
@@ -644,7 +644,7 @@ func TestGetPropertyFieldsScopeAccess(t *testing.T) {
 func TestGetPropertyFieldsFiltering(t *testing.T) {
 	mainHelper.Parallel(t)
 	th := SetupConfig(t, func(cfg *model.Config) {
-		cfg.FeatureFlags.IntegratedBoards = true
+		cfg.FeatureFlags.ManagedChannelCategories = true
 	}).InitBasic(t)
 
 	group, err := th.App.RegisterPropertyGroup(th.Context, "test_properties_filter")
@@ -771,7 +771,7 @@ func TestGetPropertyFieldsFiltering(t *testing.T) {
 func TestPatchPropertyField(t *testing.T) {
 	mainHelper.Parallel(t)
 	th := SetupConfig(t, func(cfg *model.Config) {
-		cfg.FeatureFlags.IntegratedBoards = true
+		cfg.FeatureFlags.ManagedChannelCategories = true
 	}).InitBasic(t)
 
 	// Register property groups for testing
@@ -1324,7 +1324,7 @@ func TestPatchPropertyField(t *testing.T) {
 func TestDeletePropertyField(t *testing.T) {
 	mainHelper.Parallel(t)
 	th := SetupConfig(t, func(cfg *model.Config) {
-		cfg.FeatureFlags.IntegratedBoards = true
+		cfg.FeatureFlags.ManagedChannelCategories = true
 	}).InitBasic(t)
 
 	// Register property groups for testing
@@ -1546,7 +1546,7 @@ func TestIsOptionsOnlyPatch(t *testing.T) {
 func TestGetPropertyValues(t *testing.T) {
 	mainHelper.Parallel(t)
 	th := SetupConfig(t, func(cfg *model.Config) {
-		cfg.FeatureFlags.IntegratedBoards = true
+		cfg.FeatureFlags.ManagedChannelCategories = true
 	}).InitBasic(t)
 
 	group, err := th.App.RegisterPropertyGroup(th.Context, "test_values_get")
@@ -1701,7 +1701,7 @@ func TestGetPropertyValues(t *testing.T) {
 func TestPatchPropertyValues(t *testing.T) {
 	mainHelper.Parallel(t)
 	th := SetupConfig(t, func(cfg *model.Config) {
-		cfg.FeatureFlags.IntegratedBoards = true
+		cfg.FeatureFlags.ManagedChannelCategories = true
 	}).InitBasic(t)
 
 	group, err := th.App.RegisterPropertyGroup(th.Context, "test_values_patch")
@@ -2099,7 +2099,7 @@ func TestPatchPropertyValues(t *testing.T) {
 func TestGetPropertyValuesUserTargetAccess(t *testing.T) {
 	mainHelper.Parallel(t)
 	th := SetupConfig(t, func(cfg *model.Config) {
-		cfg.FeatureFlags.IntegratedBoards = true
+		cfg.FeatureFlags.ManagedChannelCategories = true
 	}).InitBasic(t)
 
 	group, err := th.App.RegisterPropertyGroup(th.Context, "test_user_get_access")
@@ -2164,7 +2164,7 @@ func TestGetPropertyValuesUserTargetAccess(t *testing.T) {
 func TestPatchPropertyValuesUserTargetAccess(t *testing.T) {
 	mainHelper.Parallel(t)
 	th := SetupConfig(t, func(cfg *model.Config) {
-		cfg.FeatureFlags.IntegratedBoards = true
+		cfg.FeatureFlags.ManagedChannelCategories = true
 	}).InitBasic(t)
 
 	group, err := th.App.RegisterPropertyGroup(th.Context, "test_user_patch_access")
@@ -2227,7 +2227,7 @@ func TestPatchPropertyValuesUserTargetAccess(t *testing.T) {
 func TestGetPropertyValuesChannelTargetAccess(t *testing.T) {
 	mainHelper.Parallel(t)
 	th := SetupConfig(t, func(cfg *model.Config) {
-		cfg.FeatureFlags.IntegratedBoards = true
+		cfg.FeatureFlags.ManagedChannelCategories = true
 	}).InitBasic(t)
 
 	group, appErr := th.App.RegisterPropertyGroup(th.Context, "test_chan_get_access")
@@ -2346,7 +2346,7 @@ func TestGetPropertyValuesChannelTargetAccess(t *testing.T) {
 func TestPatchPropertyValuesChannelTargetAccess(t *testing.T) {
 	mainHelper.Parallel(t)
 	th := SetupConfig(t, func(cfg *model.Config) {
-		cfg.FeatureFlags.IntegratedBoards = true
+		cfg.FeatureFlags.ManagedChannelCategories = true
 	}).InitBasic(t)
 
 	group, appErr := th.App.RegisterPropertyGroup(th.Context, "test_chan_patch_access")
@@ -2483,7 +2483,7 @@ func TestPatchPropertyValuesChannelTargetAccess(t *testing.T) {
 func TestCreatePropertyFieldTeamScopedBroadcast(t *testing.T) {
 	mainHelper.Parallel(t)
 	th := SetupConfig(t, func(cfg *model.Config) {
-		cfg.FeatureFlags.IntegratedBoards = true
+		cfg.FeatureFlags.ManagedChannelCategories = true
 	}).InitBasic(t)
 
 	group, err := th.App.RegisterPropertyGroup(th.Context, "test_team_broadcast")
@@ -2534,7 +2534,7 @@ func TestCreatePropertyFieldTeamScopedBroadcast(t *testing.T) {
 func TestPatchPropertyValuesChannelObjectTypeBroadcast(t *testing.T) {
 	mainHelper.Parallel(t)
 	th := SetupConfig(t, func(cfg *model.Config) {
-		cfg.FeatureFlags.IntegratedBoards = true
+		cfg.FeatureFlags.ManagedChannelCategories = true
 	}).InitBasic(t)
 
 	group, err := th.App.RegisterPropertyGroup(th.Context, "test_channel_val_broadcast")
@@ -2588,7 +2588,7 @@ func TestPatchPropertyValuesChannelObjectTypeBroadcast(t *testing.T) {
 func TestPatchPropertyValuesUserObjectTypeBroadcast(t *testing.T) {
 	mainHelper.Parallel(t)
 	th := SetupConfig(t, func(cfg *model.Config) {
-		cfg.FeatureFlags.IntegratedBoards = true
+		cfg.FeatureFlags.ManagedChannelCategories = true
 	}).InitBasic(t)
 
 	group, err := th.App.RegisterPropertyGroup(th.Context, "test_user_val_broadcast")
@@ -2642,7 +2642,7 @@ func TestPatchPropertyValuesUserObjectTypeBroadcast(t *testing.T) {
 func TestUpsertPropertyValuesPSAv1OptOut(t *testing.T) {
 	mainHelper.Parallel(t)
 	th := SetupConfig(t, func(cfg *model.Config) {
-		cfg.FeatureFlags.IntegratedBoards = true
+		cfg.FeatureFlags.ManagedChannelCategories = true
 	}).InitBasic(t)
 
 	group, err := th.App.RegisterPropertyGroup(th.Context, "test_psav1_optout")
@@ -2721,7 +2721,7 @@ func TestUpsertPropertyValuesPSAv1OptOut(t *testing.T) {
 func TestPatchPropertyValuesMultiValuePayload(t *testing.T) {
 	mainHelper.Parallel(t)
 	th := SetupConfig(t, func(cfg *model.Config) {
-		cfg.FeatureFlags.IntegratedBoards = true
+		cfg.FeatureFlags.ManagedChannelCategories = true
 	}).InitBasic(t)
 
 	group, err := th.App.RegisterPropertyGroup(th.Context, "test_multi_val_payload")

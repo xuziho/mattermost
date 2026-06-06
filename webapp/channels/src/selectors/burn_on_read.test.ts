@@ -1,8 +1,6 @@
 // Copyright (c) 2015-present Mattermost, Inc. All Rights Reserved.
 // See LICENSE.txt for license information.
 
-import {getPreferenceKey} from 'mattermost-redux/utils/preference_utils';
-
 import TestHelper from 'packages/mattermost-redux/test/test_helper';
 import {LicenseSkus} from 'utils/constants';
 import {TestHelper as WebappTestHelper} from 'utils/test_helper';
@@ -13,8 +11,6 @@ import {
     isBurnOnReadEnabled,
     getBurnOnReadDurationMinutes,
     canUserSendBurnOnRead,
-    hasSeenBurnOnReadTourTip,
-    BURN_ON_READ_TOUR_TIP_PREFERENCE,
 } from './burn_on_read';
 
 describe('selectors/burn_on_read', () => {
@@ -170,45 +166,6 @@ describe('selectors/burn_on_read', () => {
 
         it('should return false when feature is not configured', () => {
             const result = canUserSendBurnOnRead(state);
-            expect(result).toBe(false);
-        });
-    });
-
-    describe('hasSeenBurnOnReadTourTip', () => {
-        it('should return false when user has not seen tour tip', () => {
-            const result = hasSeenBurnOnReadTourTip(state);
-            expect(result).toBe(false);
-        });
-
-        it('should return true when user has seen tour tip', () => {
-            const pref = {
-                category: BURN_ON_READ_TOUR_TIP_PREFERENCE,
-                name: user.id,
-                user_id: user.id,
-                value: '1',
-            };
-
-            state.entities.preferences.myPreferences = {
-                [getPreferenceKey(BURN_ON_READ_TOUR_TIP_PREFERENCE, user.id)]: pref,
-            };
-
-            const result = hasSeenBurnOnReadTourTip(state);
-            expect(result).toBe(true);
-        });
-
-        it('should return false when preference value is 0', () => {
-            const pref = {
-                category: BURN_ON_READ_TOUR_TIP_PREFERENCE,
-                name: user.id,
-                user_id: user.id,
-                value: '0',
-            };
-
-            state.entities.preferences.myPreferences = {
-                [getPreferenceKey(BURN_ON_READ_TOUR_TIP_PREFERENCE, user.id)]: pref,
-            };
-
-            const result = hasSeenBurnOnReadTourTip(state);
             expect(result).toBe(false);
         });
     });

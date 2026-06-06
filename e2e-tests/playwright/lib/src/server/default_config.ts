@@ -60,14 +60,8 @@ const onPremServerConfig = (): Partial<TestAdminConfig> => {
         PluginSettings: {
             EnableUploads: true,
             PluginStates: {
-                'com.mattermost.calls': {
-                    Enable: false,
-                },
                 'com.mattermost.nps': {
                     Enable: false,
-                },
-                playbooks: {
-                    Enable: true,
                 },
             },
         },
@@ -658,12 +652,10 @@ const defaultServerConfig: AdminConfig = {
     DataRetentionSettings: {
         EnableMessageDeletion: false,
         EnableFileDeletion: false,
-        EnableBoardsDeletion: false,
         MessageRetentionDays: 365,
         MessageRetentionHours: 0,
         FileRetentionDays: 365,
         FileRetentionHours: 0,
-        BoardsRetentionDays: 365,
         DeletionJobStartTime: '02:00',
         BatchSize: 3000,
         TimeBetweenBatchesMilliseconds: 100,
@@ -704,24 +696,14 @@ const defaultServerConfig: AdminConfig = {
         ClientDirectory: './client/plugins',
         Plugins: {},
         PluginStates: {
-            'com.mattermost.calls': {
-                Enable: true,
-            },
             'com.mattermost.nps': {
                 Enable: true,
             },
             'mattermost-ai': {
                 Enable: true,
             },
-            playbooks: {
-                Enable: true,
-            },
         },
-        EnableMarketplace: true,
-        EnableRemoteMarketplace: true,
-        AutomaticPrepackagedPlugins: true,
         RequirePluginSignature: false,
-        MarketplaceURL: 'https://api.integrations.mattermost.com',
         SignaturePublicKeyFiles: [],
         ChimeraOAuthProxyURL: '',
     },

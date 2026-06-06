@@ -122,9 +122,6 @@ before(() => {
         }
 
         switch (Cypress.env('serverEdition')) {
-        case 'Cloud':
-            cy.apiRequireLicenseForFeature('Cloud');
-            break;
         case 'E20':
             cy.apiRequireLicense();
             break;
@@ -163,7 +160,6 @@ function printLicenseStatus() {
   - IsTrial         = ${license.IsTrial}
   - SkuName         = ${license.SkuName}
   - SkuShortName    = ${license.SkuShortName}
-  - Cloud           = ${license.Cloud}
   - Users           = ${license.Users}`);
     });
 }
@@ -260,7 +256,6 @@ function resetUserPreference(userId) {
     cy.apiSaveTutorialStep(userId, '999');
     cy.apiSaveOnboardingTaskListPreference(userId, 'onboarding_task_list_open', 'false');
     cy.apiSaveOnboardingTaskListPreference(userId, 'onboarding_task_list_show', 'false');
-    cy.apiSaveCloudTrialBannerPreference(userId, 'trial', 'max_days_banner');
     cy.apiSaveSkipStepsPreference(userId, 'true');
     cy.apiSaveStartTrialModal(userId, 'true');
     cy.apiSaveUnreadScrollPositionPreference(userId, 'start_from_left_off');

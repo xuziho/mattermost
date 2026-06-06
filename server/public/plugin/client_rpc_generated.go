@@ -882,39 +882,6 @@ func (s *hooksRPCServer) OnSendDailyTelemetry(args *Z_OnSendDailyTelemetryArgs, 
 }
 
 func init() {
-	hookNameToId["OnCloudLimitsUpdated"] = OnCloudLimitsUpdatedID
-}
-
-type Z_OnCloudLimitsUpdatedArgs struct {
-	A *model.ProductLimits
-}
-
-type Z_OnCloudLimitsUpdatedReturns struct {
-}
-
-func (g *hooksRPCClient) OnCloudLimitsUpdated(limits *model.ProductLimits) {
-	_args := &Z_OnCloudLimitsUpdatedArgs{limits}
-	_returns := &Z_OnCloudLimitsUpdatedReturns{}
-	if g.implemented[OnCloudLimitsUpdatedID] {
-		if err := g.client.Call("Plugin.OnCloudLimitsUpdated", _args, _returns); err != nil {
-			g.log.Error("RPC call OnCloudLimitsUpdated to plugin failed.", mlog.Err(err))
-		}
-	}
-
-}
-
-func (s *hooksRPCServer) OnCloudLimitsUpdated(args *Z_OnCloudLimitsUpdatedArgs, returns *Z_OnCloudLimitsUpdatedReturns) error {
-	if hook, ok := s.impl.(interface {
-		OnCloudLimitsUpdated(limits *model.ProductLimits)
-	}); ok {
-		hook.OnCloudLimitsUpdated(args.A)
-	} else {
-		return encodableError(fmt.Errorf("Hook OnCloudLimitsUpdated called but not implemented."))
-	}
-	return nil
-}
-
-func init() {
 	hookNameToId["ConfigurationWillBeSaved"] = ConfigurationWillBeSavedID
 }
 
@@ -6263,66 +6230,6 @@ func (s *apiRPCServer) PublishPluginClusterEvent(args *Z_PublishPluginClusterEve
 		returns.A = encodableError(returns.A)
 	} else {
 		return encodableError(fmt.Errorf("API PublishPluginClusterEvent called but not implemented."))
-	}
-	return nil
-}
-
-type Z_RequestTrialLicenseArgs struct {
-	A string
-	B int
-	C bool
-	D bool
-}
-
-type Z_RequestTrialLicenseReturns struct {
-	A *model.AppError
-}
-
-func (g *apiRPCClient) RequestTrialLicense(requesterID string, users int, termsAccepted bool, receiveEmailsAccepted bool) *model.AppError {
-	_args := &Z_RequestTrialLicenseArgs{requesterID, users, termsAccepted, receiveEmailsAccepted}
-	_returns := &Z_RequestTrialLicenseReturns{}
-	if err := g.client.Call("Plugin.RequestTrialLicense", _args, _returns); err != nil {
-		log.Printf("RPC call to RequestTrialLicense API failed: %s", err.Error())
-	}
-	return _returns.A
-}
-
-func (s *apiRPCServer) RequestTrialLicense(args *Z_RequestTrialLicenseArgs, returns *Z_RequestTrialLicenseReturns) error {
-	if hook, ok := s.impl.(interface {
-		RequestTrialLicense(requesterID string, users int, termsAccepted bool, receiveEmailsAccepted bool) *model.AppError
-	}); ok {
-		returns.A = hook.RequestTrialLicense(args.A, args.B, args.C, args.D)
-	} else {
-		return encodableError(fmt.Errorf("API RequestTrialLicense called but not implemented."))
-	}
-	return nil
-}
-
-type Z_GetCloudLimitsArgs struct {
-}
-
-type Z_GetCloudLimitsReturns struct {
-	A *model.ProductLimits
-	B error
-}
-
-func (g *apiRPCClient) GetCloudLimits() (*model.ProductLimits, error) {
-	_args := &Z_GetCloudLimitsArgs{}
-	_returns := &Z_GetCloudLimitsReturns{}
-	if err := g.client.Call("Plugin.GetCloudLimits", _args, _returns); err != nil {
-		log.Printf("RPC call to GetCloudLimits API failed: %s", err.Error())
-	}
-	return _returns.A, _returns.B
-}
-
-func (s *apiRPCServer) GetCloudLimits(args *Z_GetCloudLimitsArgs, returns *Z_GetCloudLimitsReturns) error {
-	if hook, ok := s.impl.(interface {
-		GetCloudLimits() (*model.ProductLimits, error)
-	}); ok {
-		returns.A, returns.B = hook.GetCloudLimits()
-		returns.B = encodableError(returns.B)
-	} else {
-		return encodableError(fmt.Errorf("API GetCloudLimits called but not implemented."))
 	}
 	return nil
 }

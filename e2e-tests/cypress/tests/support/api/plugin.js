@@ -165,7 +165,6 @@ const prepackagedPlugins = [
     'com.mattermost.nps',
     'com.mattermost.welcomebot',
     'zoom',
-    'playbooks',
 ];
 
 Cypress.Commands.add('apiDisableNonPrepackagedPlugins', () => {

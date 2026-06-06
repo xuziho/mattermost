@@ -6,19 +6,8 @@ import os from 'node:os';
 import {expect, test} from '@playwright/test';
 import {PluginManifest} from '@mattermost/types/plugins';
 
-import {callsPluginId} from './constant';
 import {getAdminClient} from './server/init';
 import {testConfig} from './test_config';
-
-export async function shouldHaveCallsEnabled(enabled = true) {
-    const {adminClient} = await getAdminClient();
-    const config = await adminClient.getConfig();
-
-    const callsEnabled = config.PluginSettings.PluginStates[callsPluginId].Enable;
-
-    const matched = callsEnabled === enabled;
-    expect(matched, matched ? '' : `Calls expect "${enabled}" but actual "${callsEnabled}"`).toBeTruthy();
-}
 
 export async function shouldHaveFeatureFlag(name: string, value: string | boolean) {
     const {adminClient} = await getAdminClient();

@@ -15,14 +15,13 @@ import type {ActionResult} from 'mattermost-redux/types/actions';
 import * as UserUtils from 'mattermost-redux/utils/user_utils';
 
 import BackstageHeader from 'components/backstage/components/backstage_header';
-import ExternalLink from 'components/external_link';
 import FormError from 'components/form_error';
 import SpinnerButton from 'components/spinner_button';
 import WithTooltip from 'components/with_tooltip';
 
 import BotDefaultIcon from 'images/bot_default_icon.png';
 import {getHistory} from 'utils/browser_history';
-import {AcceptedProfileImageTypes, Constants, DeveloperLinks, ValidationErrors} from 'utils/constants';
+import {AcceptedProfileImageTypes, Constants, ValidationErrors} from 'utils/constants';
 import * as FileUtils from 'utils/file_utils';
 import * as Utils from 'utils/utils';
 
@@ -626,17 +625,7 @@ export default class AddBot extends React.PureComponent<Props, State> {
                             <div className='col-md-5 col-sm-8 col-sm-offset-4'>
                                 <FormattedMessage
                                     id='admin.manage_roles.botAdditionalRoles'
-                                    defaultMessage='Select additional permissions for the account. <link>Read more about roles and permissions</link>.'
-                                    values={{
-                                        link: (msg: React.ReactNode) => (
-                                            <ExternalLink
-                                                href={DeveloperLinks.PERSONAL_ACCESS_TOKENS}
-                                                location='add_bot'
-                                            >
-                                                {msg}
-                                            </ExternalLink>
-                                        ),
-                                    }}
+                                    defaultMessage='Select additional permissions for the account.'
                                 />
                             </div>
                         </div>

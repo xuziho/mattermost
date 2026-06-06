@@ -616,14 +616,6 @@
     "translation": "Ви не маєте відповідних прав для створення нового повідомлення групи."
   },
   {
-    "id": "api.command_help.desc",
-    "translation": "Показати повідомлення довідки Mattermost"
-  },
-  {
-    "id": "api.command_help.name",
-    "translation": "допомога"
-  },
-  {
     "id": "api.command_invite.channel.app_error",
     "translation": "Помилка завантаження поточного каналу."
   },
@@ -1902,10 +1894,6 @@
   {
     "id": "api.templates.verify_subject",
     "translation": "[{{ .SiteName }}] Перевірка електронної пошти"
-  },
-  {
-    "id": "api.templates.welcome_body.app_download_info",
-    "translation": "Для найкращого досвіду завантажте додатки для ПК, Mac, iOS та Android."
   },
   {
     "id": "api.templates.welcome_body.button",
@@ -4932,40 +4920,8 @@
     "translation": "Не вдалось модифікувати saml-файли."
   },
   {
-    "id": "app.plugin.marshal.app_error",
-    "translation": "Не вдалося впорядкувати плагіни Магазину плагінів."
-  },
-  {
-    "id": "app.plugin.marketplace_plugins.signature_not_found.app_error",
-    "translation": "Не вдалося знайти запитуваний підпис плагіна із Магазина плагінів."
-  },
-  {
-    "id": "app.plugin.marketplace_plugins.not_found.app_error",
-    "translation": "Не вдалося знайти запитуваний плагін із Магазину плагінів."
-  },
-  {
-    "id": "app.plugin.marketplace_plugin_request.app_error",
-    "translation": "Не вдалося розшифрувати запит на плагін із маркетплейсу."
-  },
-  {
-    "id": "app.plugin.marketplace_disabled.app_error",
-    "translation": "Магазин плагінів було вимкнено. Будь ласка, перевірте свої журнали для отримання детальної інформації."
-  },
-  {
-    "id": "app.plugin.marketplace_client.failed_to_fetch",
-    "translation": "Не вдалося отримати плагіни з сервера Магазину плагінів."
-  },
-  {
-    "id": "app.plugin.marketplace_client.app_error",
-    "translation": "Не вдалося створити Магазин плагінів клієнта."
-  },
-  {
     "id": "app.plugin.invalid_version.app_error",
     "translation": "Версію плагіна не вдалося проаналізувати."
-  },
-  {
-    "id": "app.plugin.install_marketplace_plugin.app_error",
-    "translation": "Не вдалося встановити плагін з магазину плагінів."
   },
   {
     "id": "app.plugin.get_public_key.get_file.app_error",
@@ -6352,10 +6308,6 @@
     "translation": "Неможливо порахувати команди."
   },
   {
-    "id": "api.user.login_cws.license.error",
-    "translation": "Вхід через CWS заборонено."
-  },
-  {
     "id": "api.slackimport.slack_import.zip.file_too_large",
     "translation": "{{.Filename}} у zip-архіві завеликий для обробки для імпорту із Slack\n"
   },
@@ -6392,18 +6344,6 @@
     "translation": "Не вдалося об'єднати задану конфігурацію."
   },
   {
-    "id": "api.cloud.request_error",
-    "translation": "Помилка обробки запиту до CWS."
-  },
-  {
-    "id": "api.cloud.license_error",
-    "translation": "Ваша ліцензія не підтримує хмарні запити."
-  },
-  {
-    "id": "api.cloud.app_error",
-    "translation": "Внутрішня помилка під час запиту до хмарного API."
-  },
-  {
     "id": "api.admin.ldap.not_available.app_error",
     "translation": "LDAP недоступний."
   },
@@ -6418,10 +6358,6 @@
   {
     "id": "api.back_to_app",
     "translation": "Назад до {{.SiteName}}"
-  },
-  {
-    "id": "api.cloud.cws_webhook_event_missing_error",
-    "translation": "Подія вебхука не була оброблена. Вона або відсутня, або є недійсною."
   },
   {
     "id": "api.channel.create_channel.direct_channel.team_restricted_error",
@@ -6512,22 +6448,6 @@
     "translation": "Прийняти запрошення від зовнішнього екземпляра Mattermost"
   },
   {
-    "id": "api.command_marketplace.unsupported.app_error",
-    "translation": "Команда marketplace не підтримується на вашому пристрої."
-  },
-  {
-    "id": "api.command_marketplace.name",
-    "translation": "магазин плагінів"
-  },
-  {
-    "id": "api.command_marketplace.desc",
-    "translation": "Відкрийте Маркетплейс"
-  },
-  {
-    "id": "api.command_help.success",
-    "translation": "Mattermost – це платформа з відкритим вихідним кодом для безпечного спілкування, співробітництва та організації роботи між командами з використанням різноманітних інструментів.\nMattermost складається з трьох ключових інструментів:\n\n**Channels** - залишайтеся на зв’язку зі своєю командою за допомогою індивідуальних і групових повідомлень.\n**[Playbooks](/playbooks)** - створіть і налаштуйте повторювані процеси для досягнення конкретних і передбачуваних результатів.\n\n[Переглянути документацію та посібники]({{.HelpLink}})"
-  },
-  {
     "id": "api.command_custom_status.success",
     "translation": "Ваш статус встановлено на \"{{.EmojiName}} {{.StatusMessage}}\". Ви можете змінити свій статус у спливаючому вікні статусу в заголовку бічної панелі каналу."
   },
@@ -6562,18 +6482,6 @@
   {
     "id": "api.command_channel_header.update_channel.max_length",
     "translation": "Введений текст перевищує ліміт символів. Заголовок каналу обмежено {{.MaxLength}} символами."
-  },
-  {
-    "id": "api.cloud.teams_limit_reached.restore",
-    "translation": "Неможливо відновити команду, оскільки досягнуто ліміт команд"
-  },
-  {
-    "id": "api.cloud.teams_limit_reached.create",
-    "translation": "Неможливо створити команду, оскільки досягнуто ліміт команд"
-  },
-  {
-    "id": "api.cloud.notify_admin_to_upgrade_error.already_notified",
-    "translation": "Адміністратор вже сповіщений"
   },
   {
     "id": "api.channel.create_group.remote_restricted.app_error",
@@ -6868,14 +6776,6 @@
     "translation": "Помилка під час спроби отримати перше завершення налаштування адміністратора з магазину."
   },
   {
-    "id": "api.error_no_organization_name_provided_for_self_hosted_onboarding",
-    "translation": "Помилка: не вказано назву організації для самостійного налаштування."
-  },
-  {
-    "id": "api.error_get_first_admin_visit_marketplace_status",
-    "translation": "Помилка при спробі отримати з магазину статус першого візиту адміністратора на маркетплейс."
-  },
-  {
     "id": "api.command_remote.invite_summary",
     "translation": "Надішліть запрошення, зашифроване за допомогою AES 256-біт, адміністратору зовнішньої системи Mattermost разом із паролем. Для прийняття запрошення він використає слеш-команду `{{.Command}}`.\n\n```\n{{.Invitation}}\n```\n\n**Перевірте, що ваш Mattermost доступний через захищене з'єднання за адресою** {{.SiteURL}}"
   },
@@ -7106,10 +7006,6 @@
   {
     "id": "api.emoji.get_multiple_by_name_too_many.request_error",
     "translation": "Неможливо отримати таку кількість смайликів за іменем. За один раз можна запросити лише {{.MaxNames}} емодзі."
-  },
-  {
-    "id": "api.error_set_first_admin_visit_marketplace_status",
-    "translation": "Помилка під час спроби зберегти статус першого відвідування ринку адміністратором у магазині."
   },
   {
     "id": "api.export.export_not_found.app_error",
@@ -7596,14 +7492,6 @@
     "translation": "Невірний email_token"
   },
   {
-    "id": "api.server.cws.disabled",
-    "translation": "Взаємодія з клієнтським порталом Mattermost була відключена системним адміністратором."
-  },
-  {
-    "id": "api.server.cws.needs_enterprise_edition",
-    "translation": "Послуга доступна лише у версії Mattermost Enterprise"
-  },
-  {
     "id": "api.roles.patch_roles.not_allowed_permission.error",
     "translation": "Один або кілька з наступних дозволів, які ви намагаєтесь додати або видалити, не дозволені"
   },
@@ -7632,24 +7520,12 @@
     "translation": "Не вдалося запросити віддалений доступ до каналу"
   },
   {
-    "id": "api.templates.cloud_welcome_email.mm_apps",
-    "translation": "мобільні та десктопні додатки"
-  },
-  {
     "id": "api.team.set_team_icon.check_image_limits.app_error",
     "translation": "Не вдалося перевірити межі зображення. Роздільна здатність занадто висока."
   },
   {
     "id": "api.team.update_team_member_roles.guest.app_error",
     "translation": "Недійсне оновлення учасника команди: гість не може стати учасником команди або адміністратором команди, спочатку підвищте його до користувача."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subtitle",
-    "translation": "Налаштуйте свій робочий простір"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subject",
-    "translation": "Вітаємо!"
   },
   {
     "id": "api.templates.email_footer_v2",
@@ -7676,30 +7552,6 @@
     "translation": "Неправильне тіло запиту."
   },
   {
-    "id": "api.templates.cloud_welcome_email.invite_info",
-    "translation": "Запросити людей до свого робочого простору"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.info2",
-    "translation": "Обов'язково збережіть посилання або зробіть закладку для подальшого використання."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.info",
-    "translation": "Дякуємо за створення "
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.start_questions",
-    "translation": "Маєте питання щодо початку роботи? Напишіть нам за адресою"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.signin_sub_info2",
-    "translation": "для найкращого досвіду роботи на Windows, Linux, Mac, iOS та Android."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.title",
-    "translation": "Ваш робочий простір готовий до роботи!"
-  },
-  {
     "id": "api.templates.invite_body.subTitle",
     "translation": "Почніть співпрацювати зі своєю командою на Mattermost"
   },
@@ -7720,10 +7572,6 @@
     "translation": "Зверніться до служби технічної підтримки"
   },
   {
-    "id": "api.templates.ip_filters_changed_footer.log_in_to_customer_portal",
-    "translation": "Увійдіть до клієнтського порталу, щоб скинути IP-фільтрацію"
-  },
-  {
     "id": "api.templates.ip_filters_changed_footer.send_an_email_to",
     "translation": "Надішліть листа на електронну адресу {{ .InitiatingUserEmail }}"
   },
@@ -7736,32 +7584,8 @@
     "translation": "Виникли проблеми з доступом до робочого простору?"
   },
   {
-    "id": "api.templates.license_up_for_renewal_contact_sales",
-    "translation": "Звернутися до відділу продажів"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.app_market_place",
-    "translation": "на маркетплейсі додатків."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.add_apps_sub_info",
-    "translation": "Оптимізуйте свою роботу за допомогою таких інструментів, як GitHub, Jira та Zoom. Ознайомтеся з усіма інтеграціями, які ми пропонуємо на нашому"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.add_apps_info",
-    "translation": "Додати додатки до вашого робочого простору"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.button",
-    "translation": "Відкрити Mattermost"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.signin_sub_info",
-    "translation": "Увійдіть у свій робочий простір на нашому"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subtitle_info",
-    "translation": "Зробіть наступні кроки, щоб сформувати свою команду та отримати максимум користі від робочого простору."
+    "id": "api.templates.license_up_for_renewal_review_license",
+    "translation": "Review license"
   },
   {
     "id": "api.templates.invite_body_footer.info",
@@ -7784,16 +7608,8 @@
     "translation": "Що таке Mattermost?"
   },
   {
-    "id": "api.templates.cloud_welcome_email.invite_sub_info",
-    "translation": "Поділіться цим посиланням, щоб запросити учасників приєднатися до {{.WorkSpace}}:"
-  },
-  {
     "id": "api.team.user.missing_account",
     "translation": "Неможливо знайти користувача."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.download_mm_info",
-    "translation": "Завантажити додаток Mattermost"
   },
   {
     "id": "api.team.update_team_member_roles.user_and_guest.app_error",
@@ -7816,10 +7632,6 @@
     "translation": "Потрібна допомога чи маєте запитання? Напишіть нам за електронною адресою "
   },
   {
-    "id": "api.templates.welcome_body.app_download_title",
-    "translation": "Завантажити десктопний та мобільний додатки"
-  },
-  {
     "id": "api.templates.license_up_for_renewal_subtitle",
     "translation": "{{.UserName}}, термін дії вашої підписки закінчується через {{.Days}} днів. Ми сподіваємося, що ви насолоджуєтесь гнучкою та безпечною командною співпрацею, яку забезпечує Mattermost. Поновіть свою підписку якнайшвидше, щоб ваша команда могла продовжувати користуватися цими перевагами."
   },
@@ -7834,10 +7646,6 @@
   {
     "id": "api.templates.verify_body.info1",
     "translation": "Якщо це не ви, можете сміливо ігнорувати цей електронний лист."
-  },
-  {
-    "id": "api.templates.welcome_body.app_download_button",
-    "translation": "Завантажити"
   },
   {
     "id": "api.templates.welcome_body.info1",
@@ -7868,24 +7676,8 @@
     "translation": "{{ .ServerURL }}."
   },
   {
-    "id": "api.upgrade_to_enterprise.already-done.app_error",
-    "translation": "Ви вже оновилися до Mattermost Enterprise Edition. Будь ласка, перезапустіть сервер, щоб завершити оновлення."
-  },
-  {
     "id": "api.unable_to_create_zip_file",
     "translation": "Помилка створення zip-файлу."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.generic_error.app_error",
-    "translation": "Mattermost не зміг оновитися до Корпоративної версії."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.already-enterprise.app_error",
-    "translation": "Ви не можете оновитися, оскільки у вас вже працює Mattermost Enterprise Edition."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.app_error",
-    "translation": "Оновлення до Mattermost Enterprise Edition вже виконується."
   },
   {
     "id": "api.templates.welcome_body.subTitle1",
@@ -7924,18 +7716,6 @@
     "translation": "Не вдалося завантажити файл. Канал завантаження не є спільним з віддаленим користувачем."
   },
   {
-    "id": "api.upgrade_to_enterprise.invalid-user-and-permission.app_error",
-    "translation": "Mattermost не вдалося оновити до корпоративної версії. Системний користувач Mattermost {{.MattermostUsername}} не має прав запису до необхідного двійкового файлу. Системний адміністратор може оновити дозволи файлу, виконавши наступну команду на сервері, де встановлено Mattermost:\n\n```\nchown {{.MattermostUsername}} \"{{.Path}}\"\nchmod +w \"{{.Path}}\"\n```\n\nПісля зміни дозволів файлу спробуйте знову оновити Mattermost. Після завершення оновлення та перезапуску системи не забудьте відновити початкові дозволи для двійкового файлу:\n\n```\nchown {{.FileUsername}} \"{{.Path}}\"\nchmod -w \"{{.Path}}\"\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-user.app_error",
-    "translation": "Mattermost не вдалося оновити до корпоративної версії. Системний користувач Mattermost {{.MattermostUsername}} не має прав запису до необхідного двійкового файлу. Системний адміністратор може оновити дозволи файлу, виконавши наступну команду на сервері, де встановлено Mattermost:\n\n```\nchown {{.MattermostUsername}} \"{{.Path}}\"\n```\n\nПісля зміни дозволів файлу спробуйте знову оновити Mattermost. Після завершення оновлення та перезапуску системи не забудьте відновити початкові дозволи для двійкового файлу:\n\n```\nchown {{.FileUsername}} \"{{.Path}}\"\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-permission.app_error",
-    "translation": "Mattermost не вдалося оновити до корпоративної версії. Системний користувач Mattermost {{.MattermostUsername}} не має прав запису до необхідного двійкового файлу. Системний адміністратор може оновити дозволи файлу, виконавши наступну команду на сервері, де встановлено Mattermost:\n\n```\nchmod +w \"{{.Path}}\"\n```\n\nПісля зміни дозволів файлу спробуйте знову оновити Mattermost. Після завершення оновлення та перезапуску системи не забудьте відновити початкові дозволи для двійкового файлу:\n\n```\nchmod -w \"{{.Path}}\"\n```"
-  },
-  {
     "id": "api.team.import_team.unknown_import_from.app_error",
     "translation": "Невідоме джерело імпорту."
   },
@@ -7968,24 +7748,12 @@
     "translation": "Не вдалося розібрати тіло запиту."
   },
   {
-    "id": "api.upgrade_to_enterprise_status.app_error",
-    "translation": "Mattermost не вдалось оновитися до корпоративної версії."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.system_not_supported.app_error",
-    "translation": "Mattermost не вдалося оновити до корпоративної версії. Ця функція працюватиме лише на системах Linux з архітектурою x86-64."
-  },
-  {
     "id": "api.upload.create.upload_too_large.app_error",
     "translation": "Не вдалося завантажити файл. Файл занадто великий."
   },
   {
     "id": "api.upload.get_upload.forbidden.app_error",
     "translation": "Помилка завантаження."
-  },
-  {
-    "id": "api.upgrade_to_enterprise_status.signature.app_error",
-    "translation": "Mattermost не вдалося оновити до корпоративної версії. Цифровий підпис завантаженого бінарного файлу не вдалося перевірити."
   },
   {
     "id": "api.system.update_notices.validating_failed",
@@ -8150,14 +7918,6 @@
   {
     "id": "api.user.invalidate_password_recovery_tokens.error",
     "translation": "Неможливо отримати токени за типом під час анулювання токенів відновлення паролів"
-  },
-  {
-    "id": "api.user.login_by_cws.invalid_token.app_error",
-    "translation": "Токен CWS не дійсний"
-  },
-  {
-    "id": "api.user.send_cloud_welcome_email.error",
-    "translation": "Не вдалося надіслати привітальний лист для хмарного сервісу"
   },
   {
     "id": "api.user.update_user_roles.license.app_error",
@@ -8448,10 +8208,6 @@
     "translation": "Не вдалося отримати чернетки користувача."
   },
   {
-    "id": "app.file.cloud.get.app_error",
-    "translation": "Не вдається отримати файл, оскільки він перевищив ліміт хмарного плану."
-  },
-  {
     "id": "app.import.import_user_teams.save_members.conflict.app_error",
     "translation": "Неможливо імпортувати новий склад команди, оскільки він вже існує"
   },
@@ -8600,10 +8356,6 @@
     "translation": "Помилка при отриманні останнього доступного допису"
   },
   {
-    "id": "app.last_accessible_file.app_error",
-    "translation": "Помилка при отриманні останнього доступного файлу"
-  },
-  {
     "id": "app.login.doLogin.updateLastLogin.error",
     "translation": "Не вдалося оновити мітку часу останнього входу"
   },
@@ -8638,10 +8390,6 @@
   {
     "id": "app.plugin.skip_installation.app_error",
     "translation": "Пропуск встановлення плагіна {{.Id}}, оскільки наявна версія є ідентичною вже встановленої або новішою."
-  },
-  {
-    "id": "app.post.cloud.get.app_error",
-    "translation": "Неможливо отримати допис, оскільки він перевищив ліміт плану хмари."
   },
   {
     "id": "app.post.move_thread_command.error",
@@ -8806,10 +8554,6 @@
   {
     "id": "app.session.set_extra_session_prop.app_error",
     "translation": "Не вдалося оновити властивості додаткового сеансу."
-  },
-  {
-    "id": "app.system.complete_onboarding_request.app_error",
-    "translation": "Не вдалося розшифрувати повний запит на приєднання."
   },
   {
     "id": "app.teams.analytics_teams_count.app_error",
@@ -8982,14 +8726,6 @@
   {
     "id": "app.session.extend_session_expiry.app_error",
     "translation": "Неможливо збільшити тривалість сеансу"
-  },
-  {
-    "id": "app.system.get_onboarding_request.app_error",
-    "translation": "Не вдалося отримати статус завершення реєстрації."
-  },
-  {
-    "id": "app.system.complete_onboarding_request.no_first_user",
-    "translation": "Завершити реєстрацію може лише системний адміністратор."
   },
   {
     "id": "app.team.get_common_team_ids_for_users.app_error",

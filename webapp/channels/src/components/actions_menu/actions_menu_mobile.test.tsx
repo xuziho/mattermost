@@ -32,7 +32,6 @@ describe('components/actions_menu/ActionsMenu on mobile view', () => {
             handleDropdownOpened: jest.fn(),
             isMenuOpen: true,
             actions: {
-                openModal: jest.fn(),
                 openAppsModal: jest.fn(),
                 handleBindingClick: jest.fn(),
                 postEphemeralCallResponseForPost: jest.fn(),
@@ -42,7 +41,6 @@ describe('components/actions_menu/ActionsMenu on mobile view', () => {
             pluginMenuItems: [],
             appsEnabled: false,
             isSysAdmin: true,
-            canOpenMarketplace: false,
             pluginMenuItemComponents: [],
         };
 

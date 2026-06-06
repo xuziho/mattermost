@@ -43,31 +43,30 @@ const (
 	RunDataRetentionID                        = 24
 	OnInstallID                               = 25
 	OnSendDailyTelemetryID                    = 26
-	OnCloudLimitsUpdatedID                    = 27
-	deprecatedUserHasPermissionToCollectionID = 28
-	deprecatedGetAllUserIdsForCollectionID    = 29
-	deprecatedGetAllCollectionIDsForUserID    = 30
-	deprecatedGetTopicRedirectID              = 31
-	deprecatedGetCollectionMetadataByIdsID    = 32
-	deprecatedGetTopicMetadataByIdsID         = 33
-	ConfigurationWillBeSavedID                = 34
-	NotificationWillBePushedID                = 35
-	UserHasBeenDeactivatedID                  = 36
-	MessageHasBeenDeletedID                   = 37
-	MessagesWillBeConsumedID                  = 38
-	ServeMetricsID                            = 39
-	OnSharedChannelsSyncMsgID                 = 40
-	OnSharedChannelsPingID                    = 41
-	PreferencesHaveChangedID                  = 42
-	OnSharedChannelsAttachmentSyncMsgID       = 43
-	OnSharedChannelsProfileImageSyncMsgID     = 44
-	GenerateSupportDataID                     = 45
-	OnSAMLLoginID                             = 46
-	EmailNotificationWillBeSentID             = 47
-	FileWillBeDownloadedID                    = 48
-	ChannelMemberWillBeAddedID                = 49
-	TeamMemberWillBeAddedID                   = 50
-	ChannelWillBeArchivedID                   = 51
+	deprecatedUserHasPermissionToCollectionID = 27
+	deprecatedGetAllUserIdsForCollectionID    = 28
+	deprecatedGetAllCollectionIDsForUserID    = 29
+	deprecatedGetTopicRedirectID              = 30
+	deprecatedGetCollectionMetadataByIdsID    = 31
+	deprecatedGetTopicMetadataByIdsID         = 32
+	ConfigurationWillBeSavedID                = 33
+	NotificationWillBePushedID                = 34
+	UserHasBeenDeactivatedID                  = 35
+	MessageHasBeenDeletedID                   = 36
+	MessagesWillBeConsumedID                  = 37
+	ServeMetricsID                            = 38
+	OnSharedChannelsSyncMsgID                 = 39
+	OnSharedChannelsPingID                    = 40
+	PreferencesHaveChangedID                  = 41
+	OnSharedChannelsAttachmentSyncMsgID       = 42
+	OnSharedChannelsProfileImageSyncMsgID     = 43
+	GenerateSupportDataID                     = 44
+	OnSAMLLoginID                             = 45
+	EmailNotificationWillBeSentID             = 46
+	FileWillBeDownloadedID                    = 47
+	ChannelMemberWillBeAddedID                = 48
+	TeamMemberWillBeAddedID                   = 49
+	ChannelWillBeArchivedID                   = 50
 	TotalHooksID                              = iota
 )
 
@@ -340,8 +339,6 @@ type Hooks interface {
 	// OnInstall is invoked after the installation of a plugin as part of the onboarding.
 	// It's called on every installation, not only once.
 	//
-	// In the future, other plugin installation methods will trigger this hook, e.g. an installation via the Marketplace.
-	//
 	// Minimum server version: 6.5
 	OnInstall(c *Context, event model.OnInstallEvent) error
 
@@ -349,11 +346,6 @@ type Hooks interface {
 	//
 	// Minimum server version: 6.5
 	OnSendDailyTelemetry()
-
-	// OnCloudLimitsUpdated is invoked product limits change, for example when plan tiers change
-	//
-	// Minimum server version: 7.0
-	OnCloudLimitsUpdated(limits *model.ProductLimits)
 
 	// ConfigurationWillBeSaved is invoked before saving the configuration to the
 	// backing store.

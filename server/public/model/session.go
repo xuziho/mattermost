@@ -15,7 +15,6 @@ const (
 	SessionCookieToken                    = "MMAUTHTOKEN"
 	SessionCookieUser                     = "MMUSERID"
 	SessionCookieCsrf                     = "MMCSRF"
-	SessionCookieCloudUrl                 = "MMCLOUDURL"
 	SessionCacheSize                      = 35000
 	SessionPropPlatform                   = "platform"
 	SessionPropOs                         = "os"
@@ -30,7 +29,6 @@ const (
 	SessionPropDeviceNotificationDisabled = "device_notification_disabled"
 	SessionPropMobileVersion              = "mobile_version"
 	SessionTypeUserAccessToken            = "UserAccessToken"
-	SessionTypeCloudKey                   = "CloudKey"
 	SessionTypeRemoteclusterToken         = "RemoteClusterToken"
 	SessionPropIsGuest                    = "is_guest"
 	SessionActivityTimeout                = 1000 * 60 * 5  // 5 minutes

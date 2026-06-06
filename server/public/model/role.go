@@ -49,11 +49,6 @@ func init() {
 		ChannelAdminRoleId,
 
 		CustomGroupUserRoleId,
-
-		PlaybookAdminRoleId,
-		PlaybookMemberRoleId,
-		RunAdminRoleId,
-		RunMemberRoleId,
 	}, NewSystemRoleIDs...)
 
 	// When updating the values here, the values in mattermost-redux must also be updated.
@@ -264,7 +259,6 @@ func init() {
 		PermissionSysconsoleReadComplianceCustomTermsOfService.Id,
 		PermissionSysconsoleReadExperimentalFeatures.Id,
 		PermissionSysconsoleReadExperimentalFeatureFlags.Id,
-		PermissionSysconsoleReadProductsBoards.Id,
 	}
 
 	SystemManagerDefaultPermissions = []string{
@@ -343,8 +337,6 @@ func init() {
 		PermissionSysconsoleWriteIntegrationsBotAccounts.Id,
 		PermissionSysconsoleWriteIntegrationsGif.Id,
 		PermissionSysconsoleWriteIntegrationsCors.Id,
-		PermissionSysconsoleReadProductsBoards.Id,
-		PermissionSysconsoleWriteProductsBoards.Id,
 		PermissionManageOutgoingOAuthConnections.Id,
 	}
 
@@ -394,11 +386,6 @@ const (
 	ChannelAdminRoleId = "channel_admin"
 
 	CustomGroupUserRoleId = "custom_group_user"
-
-	PlaybookAdminRoleId  = "playbook_admin"
-	PlaybookMemberRoleId = "playbook_member"
-	RunAdminRoleId       = "run_admin"
-	RunMemberRoleId      = "run_member"
 
 	RoleNameMaxLength        = 64
 	RoleDisplayNameMaxLength = 128
@@ -1021,63 +1008,6 @@ func MakeDefaultRoles() map[string]*Role {
 			PermissionManagePublicChannelBanner.Id,
 			PermissionManagePrivateChannelBanner.Id,
 			PermissionManageChannelAccessRules.Id,
-		},
-		SchemeManaged: true,
-		BuiltIn:       true,
-	}
-
-	roles[PlaybookAdminRoleId] = &Role{
-		Name:        PlaybookAdminRoleId,
-		DisplayName: "authentication.roles.playbook_admin.name",
-		Description: "authentication.roles.playbook_admin.description",
-		Permissions: []string{
-			PermissionPublicPlaybookManageMembers.Id,
-			PermissionPublicPlaybookManageRoles.Id,
-			PermissionPublicPlaybookManageProperties.Id,
-			PermissionPrivatePlaybookManageMembers.Id,
-			PermissionPrivatePlaybookManageRoles.Id,
-			PermissionPrivatePlaybookManageProperties.Id,
-			PermissionPublicPlaybookMakePrivate.Id,
-		},
-		SchemeManaged: true,
-		BuiltIn:       true,
-	}
-
-	roles[PlaybookMemberRoleId] = &Role{
-		Name:        PlaybookMemberRoleId,
-		DisplayName: "authentication.roles.playbook_member.name",
-		Description: "authentication.roles.playbook_member.description",
-		Permissions: []string{
-			PermissionPublicPlaybookView.Id,
-			PermissionPublicPlaybookManageMembers.Id,
-			PermissionPublicPlaybookManageProperties.Id,
-			PermissionPrivatePlaybookView.Id,
-			PermissionPrivatePlaybookManageMembers.Id,
-			PermissionPrivatePlaybookManageProperties.Id,
-			PermissionRunCreate.Id,
-		},
-		SchemeManaged: true,
-		BuiltIn:       true,
-	}
-
-	roles[RunAdminRoleId] = &Role{
-		Name:        RunAdminRoleId,
-		DisplayName: "authentication.roles.run_admin.name",
-		Description: "authentication.roles.run_admin.description",
-		Permissions: []string{
-			PermissionRunManageMembers.Id,
-			PermissionRunManageProperties.Id,
-		},
-		SchemeManaged: true,
-		BuiltIn:       true,
-	}
-
-	roles[RunMemberRoleId] = &Role{
-		Name:        RunMemberRoleId,
-		DisplayName: "authentication.roles.run_member.name",
-		Description: "authentication.roles.run_member.description",
-		Permissions: []string{
-			PermissionRunView.Id,
 		},
 		SchemeManaged: true,
 		BuiltIn:       true,

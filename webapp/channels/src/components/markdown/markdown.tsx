@@ -75,9 +75,6 @@ export type OwnProps = {
     postType?: PostType;
     emojiMap?: EmojiMap;
 
-    /**
-     * Some components processed by messageHtmlToComponent e.g. AtSumOfMembersMention require to have a list of userIds
-     */
     userIds?: string[];
 
     /**
@@ -150,7 +147,6 @@ function Markdown({
         mentionHighlight: options?.mentionHighlight,
         disableGroupHighlight: options?.disableGroupHighlight,
         editedAt,
-        atSumOfMembersMentions: options?.atSumOfMembersMentions,
         atPlanMentions: options?.atPlanMentions,
     });
 }

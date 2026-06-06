@@ -616,14 +616,6 @@
     "translation": "Nie posiadasz odpowiednich uprawnień do utworzenia nowej wiadomości grupowej."
   },
   {
-    "id": "api.command_help.desc",
-    "translation": "Pokaż komunikat pomocy Mattermost"
-  },
-  {
-    "id": "api.command_help.name",
-    "translation": "pomoc"
-  },
-  {
     "id": "api.command_invite.channel.app_error",
     "translation": "Błąd pobierania aktualnego kanału."
   },
@@ -1902,10 +1894,6 @@
   {
     "id": "api.templates.verify_subject",
     "translation": "[{{ .SiteName }}] Weryfikacja adresu email"
-  },
-  {
-    "id": "api.templates.welcome_body.app_download_info",
-    "translation": "W celu wygodniejszego użytkowania pobierz aplikacje dla PC, Mac, iOS i Android."
   },
   {
     "id": "api.templates.welcome_body.button",
@@ -4932,40 +4920,8 @@
     "translation": "Nie można modyfikować plików saml."
   },
   {
-    "id": "app.plugin.marshal.app_error",
-    "translation": "Nie udało się wprowadzić wtyczek ze sklepu."
-  },
-  {
-    "id": "app.plugin.marketplace_plugins.signature_not_found.app_error",
-    "translation": "Nie udało się znaleźć żądanej wtyczki w sklepie."
-  },
-  {
-    "id": "app.plugin.marketplace_plugins.not_found.app_error",
-    "translation": "Nie udało się znaleźć żądanej wtyczki w sklepie."
-  },
-  {
-    "id": "app.plugin.marketplace_plugin_request.app_error",
-    "translation": "Nie udało się zdekodować żądania wtyczki ze sklepu."
-  },
-  {
-    "id": "app.plugin.marketplace_disabled.app_error",
-    "translation": "Sklep rozszerzeń został wyłączony. Sprawdź swoje logi, aby poznać szczegóły."
-  },
-  {
-    "id": "app.plugin.marketplace_client.failed_to_fetch",
-    "translation": "Nie udało się pobrać wtyczek z serwera sklepu."
-  },
-  {
-    "id": "app.plugin.marketplace_client.app_error",
-    "translation": "Nie udało się stworzyć klienta sklepu."
-  },
-  {
     "id": "app.plugin.invalid_version.app_error",
     "translation": "Wersja wtyczki nie mogła zostać poddana parsowaniu."
-  },
-  {
-    "id": "app.plugin.install_marketplace_plugin.app_error",
-    "translation": "Nie udało się wprowadzić wtyczek ze sklepu."
   },
   {
     "id": "app.plugin.get_public_key.get_file.app_error",
@@ -6368,10 +6324,6 @@
     "translation": "Nie można policzyć zespołów."
   },
   {
-    "id": "api.user.login_cws.license.error",
-    "translation": "Logowanie bota jest zabronione."
-  },
-  {
     "id": "api.admin.ldap.not_available.app_error",
     "translation": "LDAP jest niedostępne."
   },
@@ -6382,22 +6334,6 @@
   {
     "id": "api.command_channel_header.update_channel.max_length",
     "translation": "Wprowadzony tekst przekracza limit znaków. Nagłówek kanału jest ograniczony do {{.MaxLength}} znaków."
-  },
-  {
-    "id": "api.cloud.request_error",
-    "translation": "Błąd przetwarzania żądania do CWS."
-  },
-  {
-    "id": "api.cloud.license_error",
-    "translation": "Twoja licencja nie wspiera żądań chmurowych."
-  },
-  {
-    "id": "api.cloud.cws_webhook_event_missing_error",
-    "translation": "Zdarzenie Webhook nie zostało obsłużone. Albo go brakuje, albo nie jest poprawne."
-  },
-  {
-    "id": "api.cloud.app_error",
-    "translation": "Błąd wewnętrzny podczas żądania chmury api."
   },
   {
     "id": "api.channel.patch_channel_moderations.cache_invalidation.error",
@@ -6434,14 +6370,6 @@
   {
     "id": "api.export.export_not_found.app_error",
     "translation": "Nie można znaleźć eksportowanego pliku."
-  },
-  {
-    "id": "api.error_set_first_admin_visit_marketplace_status",
-    "translation": "Błąd przy próbie zapisania pierwszego statusu wizyty administratora w sklepie."
-  },
-  {
-    "id": "api.error_get_first_admin_visit_marketplace_status",
-    "translation": "Błąd przy próbie pobrania statusu pierwszej wizyty administratora w sklepie."
   },
   {
     "id": "api.email_batching.send_batched_email_notification.title",
@@ -7080,18 +7008,6 @@
     "translation": "© 2015 - {{ .CurrentYear }} Mattermost, Inc. 2100 Geng Road, Suite 210, Palo Alto, CA, 94303"
   },
   {
-    "id": "api.templates.cloud_welcome_email.invite_info",
-    "translation": "Zaproś osoby do swojego obszaru roboczego"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.button",
-    "translation": "Otwórz Mattermost"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.add_apps_info",
-    "translation": "Dodaj aplikacje do swojego obszaru roboczego"
-  },
-  {
     "id": "api.templates.license_up_for_renewal_title",
     "translation": "Twoja subskrypcja Mattermost wymaga przedłużenia"
   },
@@ -7106,62 +7022,6 @@
   {
     "id": "api.templates.invite_body.subTitle",
     "translation": "Rozpocznij współpracę z zespołem w serwisie Mattermost"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.title",
-    "translation": "Twoja przestrzeń robocza jest gotowa do pracy!"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subtitle_info",
-    "translation": "Podejmij następujące kroki, aby rozbudować swoje zespoły i w pełni wykorzystać przestrzeń roboczą."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subtitle",
-    "translation": "Skonfiguruj swój obszar roboczy"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subject",
-    "translation": "Gratulacje!"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.start_questions",
-    "translation": "Masz pytania dotyczące rozpoczęcia pracy? Wyślij do nas e-mail na adres"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.signin_sub_info2",
-    "translation": "aby uzyskać najlepsze działanie na komputerach z Windows, Linux, Mac, iOS i Android."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.signin_sub_info",
-    "translation": "Zaloguj się do swojego obszaru roboczego na naszej stronie"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.mm_apps",
-    "translation": "aplikacje mobilne i desktopowe"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.invite_sub_info",
-    "translation": "Udostępnij ten link, aby zaprosić swoich członków do dołączenia do {{.WorkSpace}}:"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.info2",
-    "translation": "Upewnij się, że zapisujesz swoją zakładkę do wykorzystania w przyszłości."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.info",
-    "translation": "Dzięki za stworzenie "
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.download_mm_info",
-    "translation": "Pobierz aplikację Mattermost"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.app_market_place",
-    "translation": "sklep z aplikacjami."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.add_apps_sub_info",
-    "translation": "Usprawnij swoją pracę dzięki narzędziom takim jak GitHub, Jira i Zoom. Poznaj wszystkie integracje, które mamy na naszej stronie"
   },
   {
     "id": "api.team.set_team_icon.check_image_limits.app_error",
@@ -7222,10 +7082,6 @@
   {
     "id": "api.user.delete_channel.not_enabled.app_error",
     "translation": "Funkcja trwałego usuwania kanałów nie jest włączona. Proszę skontaktować się z Administratorem Systemu."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.already-done.app_error",
-    "translation": "Przeprowadzono już aktualizację do wersji Mattermost Enterprise Edition. Proszę ponownie uruchomić serwer, aby zakończyć aktualizację."
   },
   {
     "id": "api.unable_to_create_zip_file",
@@ -7292,16 +7148,8 @@
     "translation": "Tylko administratorzy systemu mogą ustawiać już zaszyfrowane hasła."
   },
   {
-    "id": "api.user.send_cloud_welcome_email.error",
-    "translation": "Nie udało się wysłać powitalnej wiadomości e-mail dotyczącej chmury"
-  },
-  {
     "id": "api.user.patch_user.login_provider_attribute_set.app_error",
     "translation": "Pole '{{.Field}}' musi być ustawione przez żytkownika."
-  },
-  {
-    "id": "api.user.login_by_cws.invalid_token.app_error",
-    "translation": "Token CWS nie jest ważny"
   },
   {
     "id": "api.user.invalidate_verify_email_tokens_delete.error",
@@ -7344,42 +7192,6 @@
     "translation": "Nie udało się przesłać danych."
   },
   {
-    "id": "api.upgrade_to_enterprise_status.signature.app_error",
-    "translation": "Mattermost nie mógł uaktualnić się do wersji Enterprise Edition. Nie można było zweryfikować podpisu cyfrowego pobranego pliku binarnego."
-  },
-  {
-    "id": "api.upgrade_to_enterprise_status.app_error",
-    "translation": "Nie można było uaktualnić Mattermost do wersji Enterprise Edition."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.system_not_supported.app_error",
-    "translation": "Mattermost nie był w stanie uaktualnić się do wersji Enterprise Edition. Ta funkcja będzie działać tylko na systemach Linux z architekturą x86-64."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-user.app_error",
-    "translation": "Nie udało się uaktualnić Mattermost do wersji Enterprise Edition. Użytkownik systemu Mattermost {{.MattermostUsername}} nie ma dostępu do zapisu w niezbędnym pliku binarnym. Administrator systemu może zaktualizować uprawnienia do pliku, wykonując następujące polecenie na serwerze, na którym zainstalowano program Mattermost:\n\n```\nchown {{.MattermostUsername}} \"{{.Path}}\"\n```\n\nPo zmianie uprawnień do plików, spróbuj ponownie zaktualizować Mattermost. Po uaktualnieniu i ponownym uruchomieniu, pamiętaj, aby przywrócić oryginalne uprawnienia do plików binarnych:\n\n```\nchown {{.FileUsername}} \"{{.Path}}\"\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-user-and-permission.app_error",
-    "translation": "Nie udało się uaktualnić Mattermost do wersji Enterprise Edition. Użytkownik systemu Mattermost {{.MattermostUsername}} nie ma dostępu do zapisu w niezbędnym pliku binarnym. Administrator Systemu może zaktualizować uprawnienia do pliku, wykonując następujące polecenie na serwerze, na którym zainstalowano program Mattermost:\n\n```\nchown {{.MattermostUsername}} \"{{.Path}}\"\nchmod +w \"{{.Path}}\"\n```\n\nPo zmianie uprawnień do plików, spróbuj ponownie zaktualizować Mattermost. Po uaktualnieniu i ponownym uruchomieniu, pamiętaj, aby przywrócić oryginalne uprawnienia do plików binarnych:\n\n```\nchown {{.FileUsername}} \"{{.Path}}\"\nchmod -w \"{{.Path}}\"\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-permission.app_error",
-    "translation": "Nie udało się uaktualnić Mattermost do wersji Enterprise Edition. Użytkownik systemu Mattermost {{.MattermostUsername}} nie ma dostępu do zapisu w niezbędnym pliku binarnym. Administrator systemu może zaktualizować uprawnienia do pliku, wykonując następujące polecenie na serwerze, na którym zainstalowano program Mattermost:\n\n```\nchmod +w \"{{.Path}}\"\n```\n\nPo zmianie uprawnień do plików, spróbuj ponownie zaktualizować Mattermost. Po uaktualnieniu i ponownym uruchomieniu, pamiętaj, aby przywrócić oryginalne uprawnienia do plików binarnych:\n\n```\nchmod -w \"{{.Path}}\"\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.generic_error.app_error",
-    "translation": "Nie można było uaktualnić Mattermost do wersji Enterprise Edition."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.app_error",
-    "translation": "Aktualizacja do Mattermost Enterprise Edition jest w toku."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.already-enterprise.app_error",
-    "translation": "Nie można uaktualnić, ponieważ Mattermost Enterprise Edition już działa."
-  },
-  {
     "id": "api.unmarshal_error",
     "translation": "Nie udało się zorganizować."
   },
@@ -7394,14 +7206,6 @@
   {
     "id": "api.templates.welcome_body.info1",
     "translation": "Jeśli to nie byłeś Ty, możesz spokojnie zignorować tego maila."
-  },
-  {
-    "id": "api.templates.welcome_body.app_download_title",
-    "translation": "Pobierz aplikację desktopową i mobilną"
-  },
-  {
-    "id": "api.templates.welcome_body.app_download_button",
-    "translation": "Pobierz"
   },
   {
     "id": "api.templates.verify_body.subTitle1",
@@ -8128,20 +7932,8 @@
     "translation": "Odpowiedź SAML jest zbyt długa"
   },
   {
-    "id": "app.system.complete_onboarding_request.no_first_user",
-    "translation": "Onboarding może być ukończony tylko przez administratora systemu."
-  },
-  {
-    "id": "app.system.complete_onboarding_request.app_error",
-    "translation": "Nie udało się zdekodować kompletnego żądania."
-  },
-  {
     "id": "model.emoji.system_emoji_name.app_error",
     "translation": "Nazwa koliduje z istniejącą nazwą systemową emoji."
-  },
-  {
-    "id": "app.system.get_onboarding_request.app_error",
-    "translation": "Nie udało się uzyskać statusu ukończenia onboardingu."
   },
   {
     "id": "api.error_set_first_admin_complete_setup",
@@ -8284,14 +8076,6 @@
     "translation": "Nie można uzyskać możliwości korzystania z zespołów"
   },
   {
-    "id": "api.cloud.teams_limit_reached.restore",
-    "translation": "Nie można przywrócić zespołu, ponieważ osiągnięto limit zespołów"
-  },
-  {
-    "id": "api.cloud.teams_limit_reached.create",
-    "translation": "Nie można utworzyć zespołu, ponieważ osiągnięto limit zespołów"
-  },
-  {
     "id": "app.usage.get_storage_usage.app_error",
     "translation": "Nie udało się uzyskać informacji o wykorzystaniu pamięci masowej."
   },
@@ -8300,16 +8084,8 @@
     "translation": "Nieprawidłowa współbieżność dekodera {{.Value}}. Powinna być liczbą dodatnią lub -1."
   },
   {
-    "id": "api.cloud.notify_admin_to_upgrade_error.already_notified",
-    "translation": "Administrator został już powiadomiony"
-  },
-  {
     "id": "common.parse_error_int64",
     "translation": "Nie można przetworzyć wartości:{{.Value}} na int64"
-  },
-  {
-    "id": "app.post.cloud.get.app_error",
-    "translation": "Nie można pobrać postu, ponieważ przekroczony został limit planu chmury'y."
   },
   {
     "id": "app.last_accessible_post.app_error",
@@ -8330,22 +8106,6 @@
   {
     "id": "app.team.clear_cache.app_error",
     "translation": "Błąd czyszczenia pamięci podręcznej członków zespołu"
-  },
-  {
-    "id": "api.command_marketplace.unsupported.app_error",
-    "translation": "Polecenie marketplace nie jest obsługiwane w Twoim urządzeniu."
-  },
-  {
-    "id": "api.command_marketplace.name",
-    "translation": "Sklep"
-  },
-  {
-    "id": "api.command_marketplace.desc",
-    "translation": "Otwórz Sklep"
-  },
-  {
-    "id": "api.command_help.success",
-    "translation": "Mattermost to platforma open source do bezpiecznej komunikacji, współpracy i orkiestracji pracy między narzędziami i zespołami.\nMattermost zawiera dwa kluczowe narzędzia:\n\n**Kanały** - Pozostań w kontakcie ze swoim zespołem poprzez wiadomości 1:1 i grupowe.\n**[Playbooki](/playbooki)** - Twórz i konfiguruj powtarzalne procesy, aby osiągnąć określone i przewidywalne wyniki.\n\n[Zobacz dokumentację i przewodniki]({{.HelpLink}})"
   },
   {
     "id": "app.notify_admin.send_notification_post.app_error",
@@ -8382,14 +8142,6 @@
   {
     "id": "app.job.error",
     "translation": "Błąd podczas wykonywania zadania."
-  },
-  {
-    "id": "app.last_accessible_file.app_error",
-    "translation": "Błąd pobierania ostatniego dostępnego pliku"
-  },
-  {
-    "id": "app.file.cloud.get.app_error",
-    "translation": "Nie można pobrać pliku, ponieważ przekroczony został limit planu chmury."
   },
   {
     "id": "model.group.name.reserved_name.app_error",
@@ -8564,16 +8316,12 @@
     "translation": "Nieprawidłowy serwis autentykacji: {{.AuthService}}"
   },
   {
-    "id": "api.server.cws.needs_enterprise_edition",
-    "translation": "Usługa dostępna tylko w edycji Mattermost Enterprise"
-  },
-  {
     "id": "api.system.logs.invalidFilter",
     "translation": "Nieprawidłowy filtr dziennika"
   },
   {
-    "id": "api.templates.license_up_for_renewal_contact_sales",
-    "translation": "Kontakt ze sprzedażą"
+    "id": "api.templates.license_up_for_renewal_review_license",
+    "translation": "Review license"
   },
   {
     "id": "app.oauth.remove_auth_data_by_client_id.app_error",
@@ -8726,10 +8474,6 @@
   {
     "id": "app.save_config.plugin_hook_error",
     "translation": "Wystąpił błąd podczas uruchamiania hooka wtyczki przy zapisywaniu konfiguracji."
-  },
-  {
-    "id": "api.error_no_organization_name_provided_for_self_hosted_onboarding",
-    "translation": "Błąd brak podanej nazwy organizacji dla samodzielnego hostowania onboardingu."
   },
   {
     "id": "api.user.invalidate_password_recovery_tokens.error",
@@ -8926,10 +8670,6 @@
   {
     "id": "api.templates.ip_filters_changed_footer.contact_support",
     "translation": "Skontaktuj się ze Wsparciem"
-  },
-  {
-    "id": "api.templates.ip_filters_changed_footer.log_in_to_customer_portal",
-    "translation": "Zaloguj się do portalu klienta, aby zresetować filtrowanie adresów IP"
   },
   {
     "id": "api.templates.ip_filters_changed_footer.title",
@@ -9330,10 +9070,6 @@
   {
     "id": "api.command_share.invite_remote_to_channel.error",
     "translation": "Nie można zaprosić zdalnego do kanału: {{.Error}}"
-  },
-  {
-    "id": "api.server.cws.disabled",
-    "translation": "Interakcje z portalem klienta Mattermost zostały wyłączone przez administratora systemu."
   },
   {
     "id": "api.channel.bookmark.channel_bookmark.license.error",
@@ -11978,26 +11714,6 @@
   {
     "id": "web.error.unsupported_desktop_app.assistance",
     "translation": "Jeśli potrzebujesz dalszej pomocy, skontaktuj się z administratorem systemu."
-  },
-  {
-    "id": "web.error.unsupported_desktop_app.download_button",
-    "translation": "Pobierz zaktualizowaną aplikację"
-  },
-  {
-    "id": "web.error.unsupported_desktop_app.footer_about",
-    "translation": "O"
-  },
-  {
-    "id": "web.error.unsupported_desktop_app.footer_help",
-    "translation": "Pomoc"
-  },
-  {
-    "id": "web.error.unsupported_desktop_app.footer_privacy",
-    "translation": "Polityka Prywatności"
-  },
-  {
-    "id": "web.error.unsupported_desktop_app.footer_terms",
-    "translation": "Warunki"
   },
   {
     "id": "web.error.unsupported_desktop_app.message",

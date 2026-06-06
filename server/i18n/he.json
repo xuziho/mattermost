@@ -182,5 +182,9 @@
   {
     "id": "web.error.unsupported_browser.download",
     "translation": "הורד את היישומון"
+  },
+  {
+    "id": "api.templates.license_up_for_renewal_review_license",
+    "translation": "Review license"
   }
 ]

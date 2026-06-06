@@ -1,23 +1,18 @@
 // Copyright (c) 2015-present Mattermost, Inc. All Rights Reserved.
 // See LICENSE.txt for license information.
 
-import type {History} from 'history';
-
 import type {ServerError} from '@mattermost/types/errors';
-import type {UserProfile} from '@mattermost/types/users';
 
 import {GeneralTypes} from 'mattermost-redux/action_types';
 import {logError} from 'mattermost-redux/actions/errors';
-import {getClientConfig, getLicenseConfig, getFirstAdminSetupComplete} from 'mattermost-redux/actions/general';
+import {getClientConfig, getLicenseConfig} from 'mattermost-redux/actions/general';
 import {getServerLimits} from 'mattermost-redux/actions/limits';
 import {getMyPreferences} from 'mattermost-redux/actions/preferences';
 import {getMyTeamMembers, getMyTeams, getMyTeamUnreads} from 'mattermost-redux/actions/teams';
-import {getMe, getProfiles} from 'mattermost-redux/actions/users';
+import {getMe} from 'mattermost-redux/actions/users';
 import {Client4} from 'mattermost-redux/client';
-import {General} from 'mattermost-redux/constants';
-import {isCollapsedThreadsEnabled, getIsOnboardingFlowEnabled} from 'mattermost-redux/selectors/entities/preferences';
-import {getActiveTeamsList} from 'mattermost-redux/selectors/entities/teams';
-import {checkIsFirstAdmin, getCurrentUser, isCurrentUserSystemAdmin} from 'mattermost-redux/selectors/entities/users';
+import {isCollapsedThreadsEnabled} from 'mattermost-redux/selectors/entities/preferences';
+import {getCurrentUser} from 'mattermost-redux/selectors/entities/users';
 
 import {redirectUserToDefaultTeam, emitUserLoggedOutEvent} from 'actions/global_actions';
 
@@ -84,48 +79,8 @@ export function loadConfigAndMe(): ThunkActionFunc<Promise<{isLoaded: boolean; i
     };
 }
 
-export function redirectToOnboardingOrDefaultTeam(history: History, searchParams?: URLSearchParams): ThunkActionFunc<void> {
-    return async (dispatch, getState) => {
-        const state = getState();
-        const isUserAdmin = isCurrentUserSystemAdmin(state);
-        if (!isUserAdmin) {
-            redirectUserToDefaultTeam(searchParams);
-            return;
-        }
-
-        const teams = getActiveTeamsList(state);
-
-        const onboardingFlowEnabled = getIsOnboardingFlowEnabled(state);
-
-        if (teams.length > 0 || !onboardingFlowEnabled) {
-            redirectUserToDefaultTeam(searchParams);
-            return;
-        }
-
-        const firstAdminSetupComplete = await dispatch(getFirstAdminSetupComplete());
-        if (firstAdminSetupComplete?.data) {
-            redirectUserToDefaultTeam(searchParams);
-            return;
-        }
-
-        const profilesResult = await dispatch(getProfiles(0, General.PROFILE_CHUNK_SIZE, {roles: General.SYSTEM_ADMIN_ROLE}));
-        if (profilesResult.error) {
-            redirectUserToDefaultTeam(searchParams);
-            return;
-        }
-        const currentUser = getCurrentUser(getState());
-        const adminProfiles = profilesResult.data?.reduce(
-            (acc: Record<string, UserProfile>, curr: UserProfile) => {
-                acc[curr.id] = curr;
-                return acc;
-            },
-            {},
-        );
-        if (adminProfiles && checkIsFirstAdmin(currentUser, adminProfiles)) {
-            history.push('/preparing-workspace');
-            return;
-        }
-
+export function redirectToDefaultTeam(searchParams?: URLSearchParams): ThunkActionFunc<void> {
+    return async () => {
         redirectUserToDefaultTeam(searchParams);
     };
 }

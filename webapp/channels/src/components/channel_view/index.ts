@@ -13,10 +13,9 @@ import {
     getMyChannelMembership,
     isDeactivatedDirectChannel,
 } from 'mattermost-redux/selectors/entities/channels';
-import {getConfig, getLicense} from 'mattermost-redux/selectors/entities/general';
+import {getConfig} from 'mattermost-redux/selectors/entities/general';
 import {getRoles} from 'mattermost-redux/selectors/entities/roles_helpers';
 import {getCurrentRelativeTeamUrl} from 'mattermost-redux/selectors/entities/teams';
-import {isFirstAdmin} from 'mattermost-redux/selectors/entities/users';
 
 import {goToLastViewedChannel} from 'actions/views/channel';
 import {closeCenterThread} from 'actions/views/thread_room';
@@ -41,7 +40,6 @@ function mapStateToProps(state: GlobalState) {
 
     const config = getConfig(state);
 
-    const enableOnboardingFlow = config.EnableOnboardingFlow === 'true';
     const enableWebSocketEventScope = config.FeatureFlagWebSocketEventScope === 'true';
 
     const missingChannelRole = isMissingChannelRoles(state, channel);
@@ -49,11 +47,9 @@ function mapStateToProps(state: GlobalState) {
     return {
         channelId: channel ? channel.id : '',
         deactivatedChannel: channel ? isDeactivatedDirectChannel(state, channel.id) : false,
-        enableOnboardingFlow,
         channelIsArchived: channel ? channel.delete_at !== 0 : false,
-        isCloud: getLicense(state).Cloud === 'true',
+        isCloud: false,
         teamUrl: getCurrentRelativeTeamUrl(state),
-        isFirstAdmin: isFirstAdmin(state),
         enableWebSocketEventScope,
         canRestrictDirectMessage: config.RestrictDirectMessage === 'team' && (channel?.type === 'D' || channel?.type === 'G'),
         restrictDirectMessage: channel ? state.entities.channels.restrictedDMs[channel.id] : false,

@@ -39,8 +39,6 @@ channels/db/migrations/postgres/000019_create_licenses.down.sql
 channels/db/migrations/postgres/000019_create_licenses.up.sql
 channels/db/migrations/postgres/000020_create_posts.down.sql
 channels/db/migrations/postgres/000020_create_posts.up.sql
-channels/db/migrations/postgres/000021_create_product_notice_view_state.down.sql
-channels/db/migrations/postgres/000021_create_product_notice_view_state.up.sql
 channels/db/migrations/postgres/000022_create_sessions.down.sql
 channels/db/migrations/postgres/000022_create_sessions.up.sql
 channels/db/migrations/postgres/000023_create_terms_of_service.down.sql
@@ -169,8 +167,6 @@ channels/db/migrations/postgres/000084_recent_searches.down.sql
 channels/db/migrations/postgres/000084_recent_searches.up.sql
 channels/db/migrations/postgres/000085_fileinfo_add_archived_column.down.sql
 channels/db/migrations/postgres/000085_fileinfo_add_archived_column.up.sql
-channels/db/migrations/postgres/000086_add_cloud_limits_archived.down.sql
-channels/db/migrations/postgres/000086_add_cloud_limits_archived.up.sql
 channels/db/migrations/postgres/000087_sidebar_categories_index.down.sql
 channels/db/migrations/postgres/000087_sidebar_categories_index.up.sql
 channels/db/migrations/postgres/000088_remaining_migrations.down.sql
@@ -183,8 +179,6 @@ channels/db/migrations/postgres/000091_create_post_reminder.down.sql
 channels/db/migrations/postgres/000091_create_post_reminder.up.sql
 channels/db/migrations/postgres/000092_add_createat_to_teamembers.down.sql
 channels/db/migrations/postgres/000092_add_createat_to_teamembers.up.sql
-channels/db/migrations/postgres/000093_notify_admin.down.sql
-channels/db/migrations/postgres/000093_notify_admin.up.sql
 channels/db/migrations/postgres/000094_threads_teamid.down.sql
 channels/db/migrations/postgres/000094_threads_teamid.up.sql
 channels/db/migrations/postgres/000095_remove_posts_parentid.down.sql
@@ -203,10 +197,6 @@ channels/db/migrations/postgres/000101_create_true_up_review_history.down.sql
 channels/db/migrations/postgres/000101_create_true_up_review_history.up.sql
 channels/db/migrations/postgres/000102_posts_originalid_index.down.sql
 channels/db/migrations/postgres/000102_posts_originalid_index.up.sql
-channels/db/migrations/postgres/000103_add_sentat_to_notifyadmin.down.sql
-channels/db/migrations/postgres/000103_add_sentat_to_notifyadmin.up.sql
-channels/db/migrations/postgres/000104_upgrade_notifyadmin.down.sql
-channels/db/migrations/postgres/000104_upgrade_notifyadmin.up.sql
 channels/db/migrations/postgres/000105_remove_tokens.down.sql
 channels/db/migrations/postgres/000105_remove_tokens.up.sql
 channels/db/migrations/postgres/000106_fileinfo_channelid.down.sql

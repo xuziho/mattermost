@@ -12,11 +12,9 @@ import type {Team} from '@mattermost/types/teams';
 
 import BackstageHeader from 'components/backstage/components/backstage_header';
 import ChannelSelect from 'components/channel_select';
-import ExternalLink from 'components/external_link';
 import FormError from 'components/form_error';
 import SpinnerButton from 'components/spinner_button';
 
-import {DocLinks} from 'utils/constants';
 import {localizeMessage} from 'utils/utils';
 
 interface State {
@@ -500,20 +498,7 @@ export default class AbstractOutgoingWebhook extends React.PureComponent<Props, 
                                 <div className='form__help'>
                                     <FormattedMessage
                                         id='add_outgoing_webhook.callbackUrls.help'
-                                        defaultMessage='Specify the URL that the messages will be sent to. If the URL is private, add it as a {link}.'
-                                        values={{
-                                            link: (
-                                                <ExternalLink
-                                                    href={DocLinks.TRUSTED_CONNECTION}
-                                                    location='abstract_outgoing_webhook'
-                                                >
-                                                    <FormattedMessage
-                                                        id='add_outgoing_webhook.callbackUrls.helpLinkText'
-                                                        defaultMessage='trusted internal connection'
-                                                    />
-                                                </ExternalLink>
-                                            ),
-                                        }}
+                                        defaultMessage='Specify the URL that the messages will be sent to. If the URL is private, add it as a trusted internal connection.'
                                     />
                                 </div>
                             </div>

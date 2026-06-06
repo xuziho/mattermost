@@ -686,26 +686,6 @@ func (_m *Store) MarkSystemRanUnitTests() {
 	_m.Called()
 }
 
-// NotifyAdmin provides a mock function with no fields
-func (_m *Store) NotifyAdmin() store.NotifyAdminStore {
-	ret := _m.Called()
-
-	if len(ret) == 0 {
-		panic("no return value specified for NotifyAdmin")
-	}
-
-	var r0 store.NotifyAdminStore
-	if rf, ok := ret.Get(0).(func() store.NotifyAdminStore); ok {
-		r0 = rf()
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(store.NotifyAdminStore)
-		}
-	}
-
-	return r0
-}
-
 // OAuth provides a mock function with no fields
 func (_m *Store) OAuth() store.OAuthStore {
 	ret := _m.Called()
@@ -860,26 +840,6 @@ func (_m *Store) Preference() store.PreferenceStore {
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(store.PreferenceStore)
-		}
-	}
-
-	return r0
-}
-
-// ProductNotices provides a mock function with no fields
-func (_m *Store) ProductNotices() store.ProductNoticesStore {
-	ret := _m.Called()
-
-	if len(ret) == 0 {
-		panic("no return value specified for ProductNotices")
-	}
-
-	var r0 store.ProductNoticesStore
-	if rf, ok := ret.Get(0).(func() store.ProductNoticesStore); ok {
-		r0 = rf()
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(store.ProductNoticesStore)
 		}
 	}
 

@@ -25,7 +25,6 @@ import {isMinimumProfessionalLicense} from 'utils/license_utils';
 
 import {ExportErrorModal} from './export_error_modal';
 import {ExportUserDataModal} from './export_user_data_modal';
-import {UpgradeExportDataModal} from './upgrade_export_data_modal';
 
 import {convertTableOptionsToUserReportOptions} from '../utils';
 
@@ -77,11 +76,6 @@ export function SystemUsersExport(props: Props) {
             return;
         }
         if (!isLicensed) {
-            dispatch(openModal({
-                modalId: ModalIdentifiers.UPGRADE_EXPORT_DATA_MODAL,
-                dialogType: UpgradeExportDataModal,
-                dialogProps: {},
-            }));
             return;
         }
 
@@ -115,8 +109,8 @@ export function SystemUsersExport(props: Props) {
         return (
             <>
                 <WithTooltip
-                    title={formatMessage({id: 'admin.system_users.exportButton.notLicensed.title', defaultMessage: 'Professional feature'})}
-                    hint={formatMessage({id: 'admin.system_users.exportButton.notLicensed.hint', defaultMessage: 'This feature is available on the professional plan'})}
+                    title={formatMessage({id: 'admin.system_users.exportButton.notLicensed.title', defaultMessage: 'Unavailable feature'})}
+                    hint={formatMessage({id: 'admin.system_users.exportButton.notLicensed.hint', defaultMessage: 'User data export is not available on this server.'})}
                 >
                     {button}
                 </WithTooltip>

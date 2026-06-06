@@ -15,7 +15,6 @@ import {loadMe} from 'mattermost-redux/actions/users';
 import {Client4} from 'mattermost-redux/client';
 import {RequestStatus} from 'mattermost-redux/constants';
 import {getConfig, getLicense} from 'mattermost-redux/selectors/entities/general';
-import {getIsOnboardingFlowEnabled} from 'mattermost-redux/selectors/entities/preferences';
 import {getTeamByName, getMyTeamMember} from 'mattermost-redux/selectors/entities/teams';
 import {getCurrentUser} from 'mattermost-redux/selectors/entities/users';
 
@@ -109,7 +108,6 @@ const Login = ({onCustomizeHeader}: LoginProps) => {
     const currentUser = useSelector(getCurrentUser);
     const experimentalPrimaryTeam = useSelector((state: GlobalState) => (ExperimentalPrimaryTeam ? getTeamByName(state, ExperimentalPrimaryTeam) : undefined));
     const experimentalPrimaryTeamMember = useSelector((state: GlobalState) => (experimentalPrimaryTeam ? getMyTeamMember(state, experimentalPrimaryTeam.id) : undefined));
-    const onboardingFlowEnabled = useSelector(getIsOnboardingFlowEnabled);
 
     const loginIdInput = useRef<HTMLInputElement>(null);
     const passwordInput = useRef<HTMLInputElement>(null);
@@ -799,12 +797,6 @@ const Login = ({onCustomizeHeader}: LoginProps) => {
         } else if (experimentalPrimaryTeamMember?.team_id) {
             // Only set experimental team if user is on that team
             history.push(`/${ExperimentalPrimaryTeam}`);
-        } else if (onboardingFlowEnabled) {
-            // need info about whether admin or not,
-            // and whether admin has already completed
-            // first time onboarding. Instead of fetching and orchestrating that here,
-            // let the default root component handle it.
-            history.push('/');
         } else {
             redirectUserToDefaultTeam();
         }

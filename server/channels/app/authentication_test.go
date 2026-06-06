@@ -37,7 +37,6 @@ func TestParseAuthTokenFromRequest(t *testing.T) {
 		{"", "mytoken", "", "mytoken", TokenLocationCookie},
 		{"", "a very large token to test out tokentokentokentokentokentokentokentokentokentokentokentokentoken", "", "a very large token to test out tokentokentokentoke", TokenLocationCookie},
 		{"", "", "mytoken", "mytoken", TokenLocationQueryString},
-		{"mytoken", "", "", "mytoken", TokenLocationCloudHeader},
 	}
 
 	for testnum, tc := range cases {
@@ -49,8 +48,6 @@ func TestParseAuthTokenFromRequest(t *testing.T) {
 		switch tc.expectedLocation {
 		case TokenLocationHeader:
 			req.Header.Add(model.HeaderAuth, tc.header)
-		case TokenLocationCloudHeader:
-			req.Header.Add(model.HeaderCloudToken, tc.header)
 		case TokenLocationCookie:
 			req.AddCookie(&http.Cookie{
 				Name:  model.SessionCookieToken,

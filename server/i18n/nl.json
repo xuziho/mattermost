@@ -615,14 +615,6 @@
     "translation": "Je hebt niet voldoende rechten om een nieuw groepsbericht aan te maken."
   },
   {
-    "id": "api.command_help.desc",
-    "translation": "Toon Mattermost-help bericht"
-  },
-  {
-    "id": "api.command_help.name",
-    "translation": "help"
-  },
-  {
     "id": "api.command_invite.channel.app_error",
     "translation": "Fout bij het ophalen van het huidig kanaal."
   },
@@ -1897,10 +1889,6 @@
   {
     "id": "api.templates.verify_subject",
     "translation": "[{{ .SiteName }}] Email Verificatie"
-  },
-  {
-    "id": "api.templates.welcome_body.app_download_info",
-    "translation": "Voor de beste ervaring, download de apps voor PC, Mac, iOS en Android."
   },
   {
     "id": "api.templates.welcome_body.button",
@@ -4951,40 +4939,8 @@
     "translation": "Kan saml-bestanden niet wijzigen."
   },
   {
-    "id": "app.plugin.marshal.app_error",
-    "translation": "Samenstellen marketplace-plugins is mislukt."
-  },
-  {
-    "id": "app.plugin.marketplace_plugins.signature_not_found.app_error",
-    "translation": "Kon de gevraagde handtekening voor de marktplace plugin niet vinden."
-  },
-  {
-    "id": "app.plugin.marketplace_plugins.not_found.app_error",
-    "translation": "Kon de gevraagde marketplace plugin niet vinden."
-  },
-  {
-    "id": "app.plugin.marketplace_plugin_request.app_error",
-    "translation": "Fout bij decoderen van aanvraag voor marketplace plugin."
-  },
-  {
-    "id": "app.plugin.marketplace_disabled.app_error",
-    "translation": "Marketplace is uitgeschakeld. Bekijk de logs voor meer informatie."
-  },
-  {
-    "id": "app.plugin.marketplace_client.failed_to_fetch",
-    "translation": "Het ophalen van plugins van de marketplaceserver is mislukt."
-  },
-  {
-    "id": "app.plugin.marketplace_client.app_error",
-    "translation": "Maken van markketplaceclient is mislukt."
-  },
-  {
     "id": "app.plugin.invalid_version.app_error",
     "translation": "Plugin-versie kon niet worden verwerkt."
-  },
-  {
-    "id": "app.plugin.install_marketplace_plugin.app_error",
-    "translation": "Fout bij het installeren van de marketplace plugin."
   },
   {
     "id": "app.plugin.get_public_key.get_file.app_error",
@@ -6187,10 +6143,6 @@
     "translation": "Definitief verwijderen van de teams is niet ingeschakeld. Contacteer je systeembeheerder."
   },
   {
-    "id": "api.upgrade_to_enterprise.already-done.app_error",
-    "translation": "Je hebt reeds geüpgraded naar de Mattermost Enterprise Editie. Gelieve de server te herstarten om de upgrade te beëindigen."
-  },
-  {
     "id": "api.config.migrate_config.app_error",
     "translation": "Fout bij het migreren van de configuratie-opslag."
   },
@@ -6295,26 +6247,6 @@
     "translation": "Ongeldig Content-Type voor multipart upload."
   },
   {
-    "id": "api.upgrade_to_enterprise_status.app_error",
-    "translation": "Mattermost kon niet worden geüpgraded naar de Enterprise Editie."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-user.app_error",
-    "translation": "Mattermost kon niet upgraden naar de Enterprise Editie. De Mattermost systeemgebruiker {{.MattermostUsername}} heeft geen schrijfrechten op het nodige programmabestand. Een systeembeheerder kan de toegangsrechten wijzigen door volgende opdracht uit te voeren op de server waarop Mattermost geïnstalleerd is:\n\n```\nchown {{.MattermostUsername}} \"{{.Path}}\"\n```\n\nNa het wijzigen van de toegangsrechten, kan je opnieuw proberen Mattermost te upgraden. Na de upgrade en het herstarten, vergeet niet om opnieuw de originele toegangsrechten opnieuw in te stellen:\n\n```\nchown {{.FileUsername}} \"{{.Path}}\"\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-permission.app_error",
-    "translation": "Mattermost kon niet upgraden naar de Enterprise Editie. De Mattermost systeemgebruiker {{.MattermostUsername}} heeft geen schrijfrechten op het noodzakelijke binaire bestand. Een systeembeheerder kan de bestandsrechten wijzigen door de volgende opdracht uit te voeren op de server waarop Mattermost is geïnstalleerd:\n\n```\nchmod +w \"{{.Path}}\"\n```\n\nNa het wijzigen van de bestandsrechten, probeer opnieuw Mattermost te upgraden. Na de upgrade en herstart, denk er aan om dan de bestandsrechten opnieuw te herstellen naar de originele bestandsrechten: \n\n```\nchmod -w \"{{.Path}}\"\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.app_error",
-    "translation": "Een upgrade naar de Mattermost Enterprise editie wordt reeds uitgevoerd."
-  },
-  {
-    "id": "api.user.login_cws.license.error",
-    "translation": "CWS login is verboden."
-  },
-  {
     "id": "app.channel.get_channel_counts.get.app_error",
     "translation": "Kan het aantal kanalen niet tellen."
   },
@@ -6327,36 +6259,12 @@
     "translation": "Alleen systeembeheerders kunnen reeds gehashte wachtwoorden instellen."
   },
   {
-    "id": "api.user.login_by_cws.invalid_token.app_error",
-    "translation": "CWS token is niet geldig"
-  },
-  {
     "id": "api.upload.upload_data.multipart_error",
     "translation": "De multipart data zijn niet verwerkt."
   },
   {
     "id": "api.upload.upload_data.invalid_content_length",
     "translation": "Ongeldige Content-Length."
-  },
-  {
-    "id": "api.upgrade_to_enterprise_status.signature.app_error",
-    "translation": "Mattermost kon niet upgraden naar de Enterprise editie. De digitale handtekening van het gedownloade bestand kon niet worden geverifieerd."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.system_not_supported.app_error",
-    "translation": "Mattermost kont niet upgraden naar de Enterprise editie. Dit werkt enkel op Linuxsystemen met een X86-64 architectuur."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.invalid-user-and-permission.app_error",
-    "translation": "Mattermost kon niet upgraden naar de Enterprise Editie. De Mattermost systeemgebruiker {{.MattermostUsername}} heeft geen schrijfrechten op het nodige programmabestand. Een systeembeheerder kan de toegangsrechten wijzigen door volgende opdracht uit te voeren op de server waarop Mattermost geïnstalleerd is:\n\n```\nchown {{.MattermostUsername}} \"{{.Path}}\"\nchmod +w \"{{.Path}}\"\n```\n\nNa het wijzigen van de toegangsrechten, kan je opnieuw proberen Mattermost te upgraden. Na de upgrade en het herstarten, vergeet niet om opnieuw de originele toegangsrechten opnieuw in te stellen:\n\n```\nchown {{.FileUsername}} \"{{.Path}}\"\nchmod -w \"{{.Path}}\"\n```"
-  },
-  {
-    "id": "api.upgrade_to_enterprise.generic_error.app_error",
-    "translation": "Mattermost kon niet worden geüpgraded naar de Enterprise Editie."
-  },
-  {
-    "id": "api.upgrade_to_enterprise.already-enterprise.app_error",
-    "translation": "Je kan niet upgraden omdat je reeds werkt met de Mattermost Enterprise editie."
   },
   {
     "id": "api.team.add_team_member.invalid_body.app_error",
@@ -6643,14 +6551,6 @@
     "translation": "De laatst bekeken tijd kon niet worden bijgewerkt."
   },
   {
-    "id": "api.cloud.license_error",
-    "translation": "Je licentie ondersteunt geen cloudverzoeken."
-  },
-  {
-    "id": "api.cloud.app_error",
-    "translation": "Interne fout gedurende cloud api request."
-  },
-  {
     "id": "ent.elasticsearch.index_channels_batch.error",
     "translation": "De kanelenbatch voor indexering kan niet worden opgehaald."
   },
@@ -6757,10 +6657,6 @@
   {
     "id": "ent.saml.do_login.invalid_signature.app_error",
     "translation": "We hebben een ongeldige handtekening ontvangen in het antwoord van de Identiteitsaanbieder. Neem contact op met jouw systeembeheerder."
-  },
-  {
-    "id": "api.cloud.request_error",
-    "translation": "Fout bij het verwerken van het verzoek naar CWS."
   },
   {
     "id": "app.channel.autofollow.app_error",
@@ -7263,14 +7159,6 @@
     "translation": "Als het niet jij niet was, mag je deze e-mail gerust negeren."
   },
   {
-    "id": "api.templates.welcome_body.app_download_title",
-    "translation": "Download de desktop- of mobiele apps"
-  },
-  {
-    "id": "api.templates.welcome_body.app_download_button",
-    "translation": "Downloaden"
-  },
-  {
     "id": "api.templates.verify_body.subTitle2",
     "translation": "Klik hieronder om jouw e-mailadres te verifiëren."
   },
@@ -7335,82 +7223,6 @@
     "translation": "Ongeldige of ontbrekende request body."
   },
   {
-    "id": "api.user.send_cloud_welcome_email.error",
-    "translation": "Kan geen welkomstmail naar de cloud sturen"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.title",
-    "translation": "Jouw werkruimte is klaar voor gebruik!"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subtitle_info",
-    "translation": "Neem de volgende stappen om jouw teams samen te stellen en het meeste uit jouw werkruimte te halen."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subtitle",
-    "translation": "Richt jouw werkruimte in"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.subject",
-    "translation": "Gefeliciteerd!"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.start_questions",
-    "translation": "Vragen over hoe te beginnen? E-mail ons op"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.signin_sub_info2",
-    "translation": "voor de beste ervaring op Windows, Linux, Mac, iOS en Android."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.signin_sub_info",
-    "translation": "Meld je aan op jouw werkruimte op onze"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.mm_apps",
-    "translation": "Mobiele en desktop apps"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.invite_sub_info",
-    "translation": "Deel deze link om jouw leden uit te nodigen om lid te worden van {{.WorkSpace}}:"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.invite_info",
-    "translation": "Nodig mensen uit op je werkplek"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.info2",
-    "translation": "Zorg ervoor dat je jouw link opslaat of bewaard als bladwijzer voor toekomstig gebruik."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.info",
-    "translation": "Bedankt voor het maken van "
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.download_mm_info",
-    "translation": "Download de Mattermost-app"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.button",
-    "translation": "Mattermost openen"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.app_market_place",
-    "translation": "app marktplaats."
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.add_apps_sub_info",
-    "translation": "Stroomlijn je werk met tools al GitHub, Jira and Zoom. Verken al onze integraties die we hebben in onze"
-  },
-  {
-    "id": "api.templates.cloud_welcome_email.add_apps_info",
-    "translation": "Apps toevoegen aan jouw werkruimte"
-  },
-  {
-    "id": "api.cloud.cws_webhook_event_missing_error",
-    "translation": "Webhook gebeurtenis werd niet behandeld. Ofwel ontbreekt het, ofwel is het niet geldig."
-  },
-  {
     "id": "api.user.upload_profile_user.login_provider_attribute_set.app_error",
     "translation": "De profielfoto moet worden ingesteld via de aanmeldingsprovider van de gebruiker."
   },
@@ -7429,14 +7241,6 @@
   {
     "id": "app.import.generate_password.app_error",
     "translation": "Fout bij het genereren van het wachtwoord."
-  },
-  {
-    "id": "api.error_set_first_admin_visit_marketplace_status",
-    "translation": "Fout bij het opslaan van de eerste-admin-bezoek-marktplaats-status in de winkel."
-  },
-  {
-    "id": "api.error_get_first_admin_visit_marketplace_status",
-    "translation": "Fout bij het ophalen van de eerste adminbezoek-marktplaats-status van de winkel."
   },
   {
     "id": "api.channel.patch_channel_moderations.cache_invalidation.error",
@@ -8126,20 +7930,8 @@
     "translation": "SAML antwoord is te lang"
   },
   {
-    "id": "app.system.complete_onboarding_request.no_first_user",
-    "translation": "Onboarding kan alleen worden voltooid door een systeembeheerder."
-  },
-  {
-    "id": "app.system.complete_onboarding_request.app_error",
-    "translation": "Het is niet gelukt om de volledige onboarding-request te decoderen."
-  },
-  {
     "id": "model.emoji.system_emoji_name.app_error",
     "translation": "Naam conflicteert met bestaande systeem emoticonnaam."
-  },
-  {
-    "id": "app.system.get_onboarding_request.app_error",
-    "translation": "Fout bij het ophalen van de status van het voltooien van de verwelkoming."
   },
   {
     "id": "app.member_count",
@@ -8290,28 +8082,12 @@
     "translation": "Niet gelukt om het aan aantal teams op te halen"
   },
   {
-    "id": "api.cloud.teams_limit_reached.restore",
-    "translation": "Kan het team niet herstellen omdat de teamlimiet bereikt is"
-  },
-  {
-    "id": "api.cloud.teams_limit_reached.create",
-    "translation": "Kan geen team aanmaken omdat de teamlimiet bereikt is"
-  },
-  {
     "id": "common.parse_error_int64",
     "translation": "Mislukt om de waarde te ontleden:{{.Value}} naar int64"
   },
   {
-    "id": "app.post.cloud.get.app_error",
-    "translation": "Kan het bericht niet ophalen omdat het de limiet van het cloud plan overschreden is."
-  },
-  {
     "id": "app.last_accessible_post.app_error",
     "translation": "Fout bij ophalen van het laatste toegankelijke bericht"
-  },
-  {
-    "id": "api.cloud.notify_admin_to_upgrade_error.already_notified",
-    "translation": "Reeds verwittigde admin"
   },
   {
     "id": "app.upload.upload_data.gen_info.app_error",
@@ -8328,22 +8104,6 @@
   {
     "id": "app.team.clear_cache.app_error",
     "translation": "Fout bij het wissen van de cache van teamleden"
-  },
-  {
-    "id": "api.command_marketplace.unsupported.app_error",
-    "translation": "De opdracht marktplaats wordt niet ondersteund op jouw toestel."
-  },
-  {
-    "id": "api.command_marketplace.name",
-    "translation": "marktplaats"
-  },
-  {
-    "id": "api.command_marketplace.desc",
-    "translation": "Open de Marktplaats"
-  },
-  {
-    "id": "api.command_help.success",
-    "translation": "Mattermost is een open source platform voor veilige communicatie, samenwerking, en regie van werk over tools en teams heen.\nMattermost bevat twee belangrijke tools:\n\n**Channels** - Blijf verbonden met je team via 1:1 en groepsberichten.\n**[Playbooks](/playbooks)** - Bouw en configureer herhaalbare processen om specifieke en voorspelbare resultaten te bereiken.\n\n[Documentatie en leidraden bekijken]({{.HelpLink}})"
   },
   {
     "id": "ent.saml.configure.certificate_parse_error.app_error",
@@ -8384,14 +8144,6 @@
   {
     "id": "model.group.name.reserved_name.app_error",
     "translation": "groepsnaam bestaat al als een gereserveerde naam"
-  },
-  {
-    "id": "app.last_accessible_file.app_error",
-    "translation": "Fout bij het ophalen van het laatst toegankelijke bestand"
-  },
-  {
-    "id": "app.file.cloud.get.app_error",
-    "translation": "Kan het bestand niet ophalen omdat dit bestand over de limiet van het cloud plan is."
   },
   {
     "id": "api.team.invite_guests_to_channels.license.error",
@@ -8570,12 +8322,8 @@
     "translation": "Kan oauth gegevens niet verwijderen."
   },
   {
-    "id": "api.templates.license_up_for_renewal_contact_sales",
-    "translation": "Contacteer de verkoopsafdeling"
-  },
-  {
-    "id": "api.server.cws.needs_enterprise_edition",
-    "translation": "Dienst alleen beschikbaar in Mattermost Enterprise editie"
+    "id": "api.templates.license_up_for_renewal_review_license",
+    "translation": "Review license"
   },
   {
     "id": "api.license.request-trial.bad-request.business-email",
@@ -8748,10 +8496,6 @@
   {
     "id": "model.config.is_valid.local_mode_socket.app_error",
     "translation": "Kan lokale socket-bestandsmap niet vinden."
-  },
-  {
-    "id": "api.error_no_organization_name_provided_for_self_hosted_onboarding",
-    "translation": "Fout geen organisatienaam opgegeven bij self hosted introductie."
   },
   {
     "id": "app.file_info.get.gif.app_error",
@@ -8944,10 +8688,6 @@
   {
     "id": "api.templates.ip_filters_changed_footer.contact_support",
     "translation": "Neem contact met de helpdesk"
-  },
-  {
-    "id": "api.templates.ip_filters_changed_footer.log_in_to_customer_portal",
-    "translation": "Log in op het klantenportaal om de IP-filtering opnieuw in te stellen"
   },
   {
     "id": "api.templates.ip_filters_changed_footer.title",
@@ -9336,10 +9076,6 @@
   {
     "id": "api.command_share.invite_remote_to_channel.error",
     "translation": "Kan externe gebruiker niet uitnodigen tot het kanaal: {{.Error}}"
-  },
-  {
-    "id": "api.server.cws.disabled",
-    "translation": "Interacties met het Mattermost Klantenportaal zijn uitgeschakeld door de systeembeheerder."
   },
   {
     "id": "basic_security_check.url.too_long_error",
@@ -11970,26 +11706,6 @@
   {
     "id": "web.error.unsupported_desktop_app.assistance",
     "translation": "Neem contact op met je systeembeheerder als je meer hulp nodig hebt."
-  },
-  {
-    "id": "web.error.unsupported_desktop_app.download_button",
-    "translation": "Bijgewerkte app downloaden"
-  },
-  {
-    "id": "web.error.unsupported_desktop_app.footer_about",
-    "translation": "Over"
-  },
-  {
-    "id": "web.error.unsupported_desktop_app.footer_help",
-    "translation": "Help"
-  },
-  {
-    "id": "web.error.unsupported_desktop_app.footer_privacy",
-    "translation": "Privacybeleid"
-  },
-  {
-    "id": "web.error.unsupported_desktop_app.footer_terms",
-    "translation": "Gebruiksvoorwaarden"
   },
   {
     "id": "web.error.unsupported_desktop_app.message",

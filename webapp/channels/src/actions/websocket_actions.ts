@@ -39,12 +39,10 @@ import {
     IntegrationTypes,
     PreferenceTypes,
     AppsTypes,
-    CloudTypes,
     ChannelBookmarkTypes,
     ScheduledPostTypes,
     ContentFlaggingTypes,
 } from 'mattermost-redux/action_types';
-import {getStandardAnalytics} from 'mattermost-redux/actions/admin';
 import {fetchAppBindings, fetchRHSAppsBindings} from 'mattermost-redux/actions/apps';
 import {addChannelToInitialCategory, fetchMyCategories, handleManagedCategoryPropertyValuesUpdated, receivedCategoryOrder} from 'mattermost-redux/actions/channel_categories';
 import {
@@ -122,15 +120,12 @@ import {
     getRelativeTeamUrl,
 } from 'mattermost-redux/selectors/entities/teams';
 import {getNewestThreadInTeam, getThread, getThreads} from 'mattermost-redux/selectors/entities/threads';
-import {getCurrentUser, getCurrentUserId, getUser, getIsManualStatusForUserId, isCurrentUserSystemAdmin} from 'mattermost-redux/selectors/entities/users';
+import {getCurrentUser, getCurrentUserId, getUser, getIsManualStatusForUserId} from 'mattermost-redux/selectors/entities/users';
 import {isGuest} from 'mattermost-redux/utils/user_utils';
 
 import {handlePostExpired} from 'actions/burn_on_read_deletion';
 import {handleBurnOnReadPostRevealed, handleBurnOnReadAllRevealed} from 'actions/burn_on_read_websocket';
 import {loadChannelsForCurrentUser} from 'actions/channel_actions';
-import {
-    getTeamsUsage,
-} from 'actions/cloud';
 import {loadCustomEmojisIfNeeded} from 'actions/emoji_actions';
 import {redirectUserToDefaultTeam} from 'actions/global_actions';
 import {sendDesktopNotification} from 'actions/notification_actions';
@@ -163,7 +158,7 @@ import {isEnterpriseLicense} from 'utils/license_utils';
 import {isChannelPopoutWindow} from 'utils/popouts/popout_windows';
 import {getSiteURL} from 'utils/url';
 
-import type {ActionFunc, ThunkActionFunc} from 'types/store';
+import type {ThunkActionFunc} from 'types/store';
 
 import {temporarilySetPageLoadContext} from './telemetry_actions';
 
@@ -639,12 +634,6 @@ export function handleEvent(msg: WebSocketMessage) {
     case WebSocketEvents.UserActivationStatusChange:
         dispatch(handleUserActivationStatusChange());
         break;
-    case WebSocketEvents.CloudSubscriptionChanged:
-        dispatch(handleCloudSubscriptionChanged(msg));
-        break;
-    case WebSocketEvents.FirstAdminVisitMarketplaceStatusReceived:
-        handleFirstAdminVisitMarketplaceStatusReceivedEvent(msg);
-        break;
     case WebSocketEvents.ThreadFollowChanged:
         dispatch(handleThreadFollowChanged(msg));
         break;
@@ -1006,10 +995,6 @@ async function handleTeamAddedEvent(msg: WebSocketMessages.UserAddedToTeam) {
     const state = getState();
     await dispatch(TeamActions.getMyTeamUnreads(isCollapsedThreadsEnabled(state)));
     await dispatch(fetchChannelsAndMembers(msg.data.team_id));
-    const license = getLicense(state);
-    if (license.Cloud === 'true') {
-        dispatch(getTeamsUsage());
-    }
 }
 
 export function handleLeaveTeamEvent(msg: WebSocketMessages.UserRemovedFromTeam) {
@@ -1077,12 +1062,7 @@ export function handleLeaveTeamEvent(msg: WebSocketMessages.UserRemovedFromTeam)
 }
 
 function handleUpdateTeamEvent(msg: WebSocketMessages.Team) {
-    const state = store.getState();
-    const license = getLicense(state);
     dispatch({type: TeamTypes.UPDATED_TEAM, data: JSON.parse(msg.data.team) as Team});
-    if (license.Cloud === 'true') {
-        dispatch(getTeamsUsage());
-    }
 }
 
 function handleUpdateTeamSchemeEvent() {
@@ -1093,10 +1073,6 @@ function handleDeleteTeamEvent(msg: WebSocketMessages.Team) {
     const deletedTeam = JSON.parse(msg.data.team) as Team;
     const state = store.getState();
     const {teams} = state.entities.teams;
-    const license = getLicense(state);
-    if (license.Cloud === 'true') {
-        dispatch(getTeamsUsage());
-    }
     if (
         deletedTeam &&
         teams &&
@@ -1195,11 +1171,6 @@ function handleUserAddedEvent(msg: WebSocketMessages.UserAddedToChannel): ThunkA
         const currentUserId = getCurrentUserId(doGetState());
         if (currentUserId === msg.data.user_id) {
             doDispatch(fetchChannelAndAddToSidebar(msg.broadcast.channel_id));
-        }
-
-        // This event is fired when a user first joins the server, so refresh analytics to see if we're now over the user limit
-        if (license.Cloud === 'true' && isCurrentUserSystemAdmin(doGetState())) {
-            doDispatch(getStandardAnalytics());
         }
 
         if (msg.data.team_id && config.RestrictDirectMessage === 'team') {
@@ -1759,41 +1730,7 @@ function handleSidebarCategoryOrderUpdated(msg: WebSocketMessages.SidebarCategor
 }
 
 export function handleUserActivationStatusChange(): ThunkActionFunc<void> {
-    return (doDispatch, doGetState) => {
-        const state = doGetState();
-        const license = getLicense(state);
-
-        // This event is fired when a user first joins the server, so refresh analytics to see if we're now over the user limit
-        if (license.Cloud === 'true') {
-            if (isCurrentUserSystemAdmin(state)) {
-                doDispatch(getStandardAnalytics());
-            }
-        }
-    };
-}
-
-export function handleCloudSubscriptionChanged(msg: WebSocketMessages.CloudSubscriptionChanged): ActionFunc<boolean> {
-    return (doDispatch, doGetState) => {
-        const state = doGetState();
-        const license = getLicense(state);
-
-        if (license.Cloud === 'true') {
-            if (msg.data.limits) {
-                doDispatch({
-                    type: CloudTypes.RECEIVED_CLOUD_LIMITS,
-                    data: msg.data.limits,
-                });
-            }
-
-            if (msg.data.subscription) {
-                doDispatch({
-                    type: CloudTypes.RECEIVED_CLOUD_SUBSCRIPTION,
-                    data: msg.data.subscription,
-                });
-            }
-        }
-        return {data: true};
-    };
+    return () => {};
 }
 
 function handleRefreshAppsBindings(): ThunkActionFunc<void> {
@@ -1839,11 +1776,6 @@ export function handleAppsPluginDisabled() {
     return {
         type: AppsTypes.APPS_PLUGIN_DISABLED,
     };
-}
-
-function handleFirstAdminVisitMarketplaceStatusReceivedEvent(msg: WebSocketMessages.FirstAdminVisitMarketplaceStatusReceived) {
-    const receivedData = JSON.parse(msg.data.firstAdminVisitMarketplaceStatus) as boolean;
-    store.dispatch({type: GeneralTypes.FIRST_ADMIN_VISIT_MARKETPLACE_STATUS_RECEIVED, data: receivedData});
 }
 
 function handleThreadReadChanged(msg: WebSocketMessages.ThreadReadChanged): ThunkActionFunc<void> {
