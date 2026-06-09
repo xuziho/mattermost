@@ -6,8 +6,6 @@ import {FormattedMessage, useIntl} from 'react-intl';
 
 import type {ClientLicense} from '@mattermost/types/config';
 
-import SetupSystemSvg from 'components/common/svg_images_components/setup_system_svg';
-
 import {LicenseSkus} from 'utils/constants';
 
 export interface EnterpriseEditionProps {
@@ -89,20 +87,6 @@ const EnterpriseEditionRightPanel = ({
         );
     };
 
-    const svgImage = () => {
-        if (isEnterpriseAdvanced) {
-            return null; //No image
-        }
-
-        // Show the setup system image for Entry SKU and other SKUs
-        return (
-            <SetupSystemSvg
-                width={197}
-                height={120}
-            />
-        );
-    };
-
     const subtitle = () => {
         if (isTrialLicense) {
             return (
@@ -149,9 +133,6 @@ const EnterpriseEditionRightPanel = ({
     if (isEntry) {
         return (
             <div className='EnterpriseEditionRightPannel entry'>
-                <div className='svg-image'>
-                    {svgImage()}
-                </div>
                 <div className='license-title'>
                     {title()}
                 </div>
@@ -164,9 +145,6 @@ const EnterpriseEditionRightPanel = ({
 
     return (
         <div className='EnterpriseEditionRightPannel'>
-            <div className='svg-image'>
-                {svgImage()}
-            </div>
             <div className='license-title'>
                 {title()}
             </div>

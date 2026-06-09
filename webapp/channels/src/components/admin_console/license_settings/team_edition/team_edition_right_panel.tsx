@@ -4,8 +4,6 @@
 import React from 'react';
 import {FormattedMessage} from 'react-intl';
 
-import SetupSystemSvg from 'components/common/svg_images_components/setup_system_svg';
-
 const TeamEditionRightPanel: React.FC = () => {
     const licensedFeatures = [
         'Optional local license file support',
@@ -15,24 +13,18 @@ const TeamEditionRightPanel: React.FC = () => {
 
     return (
         <div className='TeamEditionRightPanel'>
-            <div className='svg-image'>
-                <SetupSystemSvg
-                    width={197}
-                    height={120}
+            <div className='license-title'>
+                <FormattedMessage
+                    id='admin.license.enterprise.localLicenseFeatures'
+                    defaultMessage='Local license management'
                 />
             </div>
-	            <div className='license-title'>
-	                <FormattedMessage
-	                    id='admin.license.enterprise.localLicenseFeatures'
-	                    defaultMessage='Local license management'
-	                />
-	            </div>
-	            <div className='license-subtitle'>
-	                <FormattedMessage
-	                    id='admin.license.enterprise.localLicenseOptional'
-	                    defaultMessage='Upload a local license file only if this AgentCompanyOS deployment needs one.'
-	                />
-	            </div>
+            <div className='license-subtitle'>
+                <FormattedMessage
+                    id='admin.license.enterprise.localLicenseOptional'
+                    defaultMessage='Upload a local license file only if this AgentCompanyOS deployment needs one.'
+                />
+            </div>
             <div className='advantages-list'>
                 {licensedFeatures.map((item: string) => {
                     return (
