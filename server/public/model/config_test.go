@@ -2872,8 +2872,8 @@ func TestNativeAppSettingsIsValid(t *testing.T) {
 		cfg := Config{}
 		cfg.SetDefaults()
 		*cfg.NativeAppSettings.AppDownloadLink = "https://example.com/download"
-		*cfg.NativeAppSettings.AndroidAppDownloadLink = "https://play.google.com/store/apps/details?id=com.mattermost.rn"
-		*cfg.NativeAppSettings.IosAppDownloadLink = "https://apps.apple.com/us/app/mattermost/id1257222717"
+		*cfg.NativeAppSettings.AndroidAppDownloadLink = "https://example.com/android"
+		*cfg.NativeAppSettings.IosAppDownloadLink = "https://example.com/ios"
 		require.Nil(t, cfg.NativeAppSettings.AreDownloadLinksValid())
 	})
 

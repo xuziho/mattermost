@@ -297,9 +297,9 @@
         "LoginButtonTextColor": ""
     },
     "NativeAppSettings": {
-        "AppDownloadLink": "https://mattermost.com/download/",
-        "AndroidAppDownloadLink": "https://mattermost.com/pl/android-app/",
-        "IosAppDownloadLink": "https://mattermost.com/pl/ios-app/"
+        "AppDownloadLink": "",
+        "AndroidAppDownloadLink": "",
+        "IosAppDownloadLink": ""
     },
     "ClusterSettings": {
         "Enable": false,
