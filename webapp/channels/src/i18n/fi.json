@@ -15,7 +15,6 @@
   "about.serverUnknown": "palvelin ei toimittanut isäntänimeä",
   "about.teamEditionSt": "Kaikki joukkueesi viestintä yhdessä paikassa, heti haettavissa ja käytettävissä missä tahansa.",
   "about.teamEditiont0": "Joukkuemuunnelma",
-  "about.teamEditiont1": "Yritysmuunnelma",
   "about.title": "Tietoja {appTitle}:sta",
   "about.version": "Mattermost-versio:",
   "access_history.title": "Pääsytiedot",

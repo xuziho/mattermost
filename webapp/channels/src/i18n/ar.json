@@ -4,7 +4,6 @@
   "about.database": "قاعدة البيانات:",
   "about.date": "تاريخ الاصدار:",
   "about.teamEditiont0": "النسخة المحددة للفريق",
-  "about.teamEditiont1": "النسخة المؤسسية",
   "admin.system_users.exportButton.notLicensed.hint": "User data export is not available on this server.",
   "admin.system_users.exportButton.notLicensed.title": "Unavailable feature"
 }
