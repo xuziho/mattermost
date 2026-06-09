@@ -76,12 +76,11 @@ function DraftsLink() {
     useEffect(() => {
         const loadDMsAndGMs = !initialScheduledPostsLoaded.current;
 
-        if (isScheduledPostEnabled) {
+        if (isScheduledPostEnabled && urlMatches) {
             dispatch(fetchTeamScheduledPosts(teamId, loadDMsAndGMs));
+            initialScheduledPostsLoaded.current = true;
         }
-
-        initialScheduledPostsLoaded.current = true;
-    }, [dispatch, isScheduledPostEnabled, teamId]);
+    }, [dispatch, isScheduledPostEnabled, teamId, urlMatches]);
 
     const showScheduledPostCount = isScheduledPostEnabled && teamScheduledPostCount > 0;
 

@@ -73,7 +73,6 @@ import {
 } from 'mattermost-redux/actions/posts';
 import {getRecap} from 'mattermost-redux/actions/recaps';
 import {loadRolesIfNeeded} from 'mattermost-redux/actions/roles';
-import {fetchTeamScheduledPosts} from 'mattermost-redux/actions/scheduled_posts';
 import {fetchChannelRemotes} from 'mattermost-redux/actions/shared_channels';
 import {batchFetchStatusesProfilesGroupsFromPosts} from 'mattermost-redux/actions/status_profile_polling';
 import * as TeamActions from 'mattermost-redux/actions/teams';
@@ -111,7 +110,6 @@ import {getGroup} from 'mattermost-redux/selectors/entities/groups';
 import {getPost, getMostRecentPostIdInChannel, getTeamIdFromPost} from 'mattermost-redux/selectors/entities/posts';
 import {isCollapsedThreadsEnabled} from 'mattermost-redux/selectors/entities/preferences';
 import {haveISystemPermission, haveITeamPermission} from 'mattermost-redux/selectors/entities/roles';
-import {isScheduledPostsEnabled} from 'mattermost-redux/selectors/entities/scheduled_posts';
 import {
     getTeamIdByChannelId,
     getMyTeams,
@@ -273,9 +271,6 @@ export function reconnect() {
         }
 
         dispatch(fetchAllMyTeamsChannels());
-        if (isScheduledPostsEnabled(state)) {
-            dispatch(fetchTeamScheduledPosts(currentTeamId, true, true));
-        }
         dispatch(fetchAllMyChannelMembers());
         dispatch(fetchMyCategories(currentTeamId));
         loadProfilesForSidebar();

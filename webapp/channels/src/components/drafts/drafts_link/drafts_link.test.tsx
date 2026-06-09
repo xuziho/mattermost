@@ -83,6 +83,10 @@ const renderWithRouter = (state: any, initialEntries = ['/team1/channels/town-sq
 };
 
 describe('components/drafts/drafts_link', () => {
+    beforeEach(() => {
+        jest.clearAllMocks();
+    });
+
     it('should not render when no drafts or scheduled posts exist', () => {
         renderWithRouter(baseState);
 
@@ -192,10 +196,18 @@ describe('components/drafts/drafts_link', () => {
         expect(badge).toHaveClass('persistent');
     });
 
-    it('should fetch scheduled posts when component mounts', async () => {
+    it('should not fetch scheduled posts on the channel route', () => {
         const fetchTeamScheduledPosts = require('mattermost-redux/actions/scheduled_posts').fetchTeamScheduledPosts;
 
         renderWithRouter(baseState);
+
+        expect(fetchTeamScheduledPosts).not.toHaveBeenCalled();
+    });
+
+    it('should fetch scheduled posts when viewing drafts or scheduled posts', async () => {
+        const fetchTeamScheduledPosts = require('mattermost-redux/actions/scheduled_posts').fetchTeamScheduledPosts;
+
+        renderWithRouter(baseState, ['/team1/drafts']);
 
         await waitFor(() => {
             expect(fetchTeamScheduledPosts).toHaveBeenCalledWith('team1', true);
