@@ -753,7 +753,6 @@ export const AnnouncementBarMessages = {
     LICENSE_PAST_GRACE: 'announcement_bar.error.past_grace',
     PREVIEW_MODE: 'announcement_bar.error.preview_mode',
     WEBSOCKET_PORT_ERROR: 'channel_loader.socketError',
-    TRIAL_LICENSE_EXPIRING: 'announcement_bar.error.trial_license_expiring',
 };
 
 // These messages correspond to AnnouncementBarMessages above
@@ -785,10 +784,6 @@ defineMessages({
     socketError: {
         id: 'channel_loader.socketError',
         defaultMessage: 'Please check connection, Mattermost unreachable. If issue persists, ask administrator to check the WebSocket port.',
-    },
-    trialLicenseExpiring: {
-        id: 'announcement_bar.error.trial_license_expiring',
-        defaultMessage: 'There are {days} days left on your free trial.',
     },
 });
 

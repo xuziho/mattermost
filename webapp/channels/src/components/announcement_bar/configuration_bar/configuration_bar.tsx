@@ -16,10 +16,9 @@ import ExternalLink from 'components/external_link';
 
 import alertIcon from 'images/icons/round-white-info-icon.svg';
 import warningIcon from 'images/icons/warning-icon.svg';
-import {AnnouncementBarTypes, AnnouncementBarMessages, Preferences, ConfigurationBanners, Constants} from 'utils/constants';
+import {AnnouncementBarTypes, AnnouncementBarMessages, Preferences, ConfigurationBanners} from 'utils/constants';
 import {daysToLicenseExpire, isLicenseExpired, isLicenseExpiring, isLicensePastGracePeriod, isTrialLicense} from 'utils/license_utils';
 import {getSkuDisplayName} from 'utils/subscription';
-import {getViewportSize} from 'utils/utils';
 
 import AnnouncementBar from '../default_announcement_bar';
 import TextDismissableBar from '../text_dismissable_bar';
@@ -29,7 +28,6 @@ type Props = {
     intl: IntlShape;
     license?: any;
     canViewSystemErrors: boolean;
-    dismissedExpiringTrialLicense?: boolean;
     dismissedExpiringLicense?: boolean;
     dismissedExpiredLicense?: boolean;
     siteURL: string;
@@ -54,10 +52,6 @@ const ConfigurationAnnouncementBar = (props: Props) => {
             name: ConfigurationBanners.LICENSE_EXPIRED,
             value: 'true',
         }]);
-    };
-
-    const dismissExpiringTrialLicense = () => {
-        props.actions.dismissNotice(AnnouncementBarMessages.TRIAL_LICENSE_EXPIRING);
     };
 
     // System administrators
@@ -92,62 +86,6 @@ const ConfigurationAnnouncementBar = (props: Props) => {
         }
 
         const daysUntilLicenseExpires = daysToLicenseExpire(props.license);
-        if (isTrialLicense(props.license) && typeof daysUntilLicenseExpires !== 'undefined' && daysUntilLicenseExpires <= 14 && !props.dismissedExpiringTrialLicense) {
-            let message = (
-                <>
-                    <img
-                        className='advisor-icon'
-                        src={alertIcon}
-                    />
-                    <FormattedMessage
-                        id='announcement_bar.error.trial_license_expiring'
-                        defaultMessage='There are {days} days left on this server license.'
-                        tagName='strong'
-                        values={{
-                            days: daysUntilLicenseExpires,
-                        }}
-                    />
-                </>
-            );
-
-            let announcementBarType = AnnouncementBarTypes.ANNOUNCEMENT;
-
-            const {w: width} = getViewportSize();
-            if (daysUntilLicenseExpires < 1) {
-                const viewportBasedMessage = width < Constants.MOBILE_SCREEN_WIDTH ? formatMessage({
-                    id: 'announcement_bar.error.trial_license_expiring_last_day.short',
-                    defaultMessage: 'This server license expires today.'},
-                ) : formatMessage({
-                    id: 'announcement_bar.error.trial_license_expiring_last_day',
-                    defaultMessage: 'This server license expires today. Some licensed features may be unavailable after it expires.',
-                });
-                message = (
-                    <>
-                        <img
-                            className='advisor-icon'
-                            src={warningIcon}
-                        />
-                        {viewportBasedMessage}
-                    </>
-                );
-                announcementBarType = AnnouncementBarTypes.CRITICAL;
-            }
-
-            return (
-                <AnnouncementBar
-                    showCloseButton={true}
-                    handleClose={dismissExpiringTrialLicense}
-                    type={announcementBarType}
-                    message={
-                        <div className='announcement-bar__configuration'>
-                            {message}
-                        </div>
-                    }
-                    tooltipMsg={message}
-                />
-            );
-        }
-
         if (!isTrialLicense(props.license) && isLicenseExpiring(props.license) && !props.dismissedExpiringLicense) {
             const message = (<>
                 <img

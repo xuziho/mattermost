@@ -69,35 +69,4 @@ describe('components/ConfigurationBar', () => {
         expect(container).toMatchSnapshot();
     });
 
-    test('should match snapshot, expiring, trial license, mobile viewport', () => {
-        Object.defineProperty(window, 'innerWidth', {
-            writable: true,
-            configurable: true,
-            value: 150,
-        });
-
-        window.dispatchEvent(new Event('500'));
-        const props = {...baseProps, canViewSystemErrors: true, license: {Id: '1234', IsLicensed: 'true', IsTrial: 'true', ExpiresAt: Date.now() + 1}};
-        const {container} = renderWithContext(
-            <ConfigurationBar {...props}/>,
-        );
-
-        expect(container).toMatchSnapshot();
-    });
-
-    test('should match snapshot, expiring, trial license', () => {
-        Object.defineProperty(window, 'innerWidth', {
-            writable: true,
-            configurable: true,
-            value: 1000,
-        });
-
-        window.dispatchEvent(new Event('500'));
-        const props = {...baseProps, canViewSystemErrors: true, license: {Id: '1234', IsLicensed: 'true', IsTrial: 'true', ExpiresAt: Date.now() + 1}};
-        const {container} = renderWithContext(
-            <ConfigurationBar {...props}/>,
-        );
-
-        expect(container).toMatchSnapshot();
-    });
 });
