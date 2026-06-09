@@ -8116,22 +8116,6 @@
     "translation": "Nie można zapisać danych powiadomienia."
   },
   {
-    "id": "app.cloud.upgrade_plan_bot_message_single",
-    "translation": "{{.UsersNum}} członkowie obszaru roboczego {{.WorkspaceName}} zażądali aktualizacji obszaru roboczego dla: "
-  },
-  {
-    "id": "app.cloud.upgrade_plan_bot_message",
-    "translation": "{{.UsersNum}} członkowie obszaru roboczego {{.WorkspaceName}} zażądali aktualizacji obszaru roboczego dla: "
-  },
-  {
-    "id": "app.cloud.trial_plan_bot_message_single",
-    "translation": "{{.UsersNum}} członkowie obszaru roboczego {{.WorkspaceName}} zażądali rozpoczęcia wersji próbnej Enterprise w celu uzyskania dostępu do: "
-  },
-  {
-    "id": "app.cloud.trial_plan_bot_message",
-    "translation": "{{.UsersNum}} członkowie obszaru roboczego {{.WorkspaceName}} zażądali rozpoczęcia wersji próbnej Enterprise w celu uzyskania dostępu do: "
-  },
-  {
     "id": "ent.saml.configure.certificate_parse_error.app_error",
     "translation": "SAML nie mógł pomyślnie załadować Identity Provider Public Certificate, skontaktuj się z administratorem systemu."
   },

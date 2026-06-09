@@ -8104,10 +8104,6 @@
     "translation": "Las cuentas de invitado están deshabilitadas"
   },
   {
-    "id": "app.cloud.trial_plan_bot_message",
-    "translation": "los miembros {{.UsersNum}} del espacio de trabajo {{.WorkspaceName}} han solicitado comenzar la prueba Enterprise para acceder a: "
-  },
-  {
     "id": "model.group.name.reserved_name.app_error",
     "translation": "el nombre de grupo ya existe como un nombre reservado"
   },
@@ -8142,18 +8138,6 @@
   {
     "id": "app.job.error",
     "translation": "Error durante la ejecución del job."
-  },
-  {
-    "id": "app.cloud.upgrade_plan_bot_message_single",
-    "translation": "el miembro {{.UsersNum}} del workspace {{.WorkspaceName}} ha solicitado una actualización del workspace para: "
-  },
-  {
-    "id": "app.cloud.upgrade_plan_bot_message",
-    "translation": "los miembros {{.UsersNum}} del workspace {{.WorkspaceName}} han solicitado una actualización del workspace para: "
-  },
-  {
-    "id": "app.cloud.trial_plan_bot_message_single",
-    "translation": "el miembro {{.UsersNum}} del workspace {{.WorkspaceName}} ha solicitado comenzar la prueba Enterprise para acceder a: "
   },
   {
     "id": "api.user.add_user_to_group_syncables.not_ldap_user.app_error",

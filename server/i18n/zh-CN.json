@@ -8250,22 +8250,6 @@
     "translation": "无法删除草稿。"
   },
   {
-    "id": "app.cloud.upgrade_plan_bot_message_single",
-    "translation": "来自工作区 {{.WorkspaceName}} 的 {{.UsersNum}} 位成员已申请工作区的升级： "
-  },
-  {
-    "id": "app.cloud.upgrade_plan_bot_message",
-    "translation": "来自工作区 {{.WorkspaceName}} 的 {{.UsersNum}} 位成员已要求工作区的升级： "
-  },
-  {
-    "id": "app.cloud.trial_plan_bot_message_single",
-    "translation": "来自工作区 {{.WorkspaceName}} 的 {{.UsersNum}} 位成员已申请 Enterprise 版的试用： "
-  },
-  {
-    "id": "app.cloud.trial_plan_bot_message",
-    "translation": "来自工作区 {{.WorkspaceName}} 的 {{.UsersNum}} 位成员已申请 Enterprise 版的试用： "
-  },
-  {
     "id": "app.channel.get_priority_for_posts.app_error",
     "translation": "无法取得消息的优先级"
   },

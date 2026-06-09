@@ -8114,22 +8114,6 @@
     "translation": "Bildirim verileri kaydedilemedi."
   },
   {
-    "id": "app.cloud.upgrade_plan_bot_message_single",
-    "translation": "{{.WorkspaceName}} çalışma alanının {{.UsersNum}} üyesi şu çalışma alanının üst tarifeye geçirilmesini istedi: "
-  },
-  {
-    "id": "app.cloud.upgrade_plan_bot_message",
-    "translation": "{{.WorkspaceName}} çalışma alanının {{.UsersNum}} üyesi şu çalışma alanının üst tarifeye geçirilmesini istedi: "
-  },
-  {
-    "id": "app.cloud.trial_plan_bot_message_single",
-    "translation": "{{.WorkspaceName}} çalışma alanının {{.UsersNum}} üyesi şuraya erişmek için Enterprise sürümü deneme süresinin başlatılmasını istedi: "
-  },
-  {
-    "id": "app.cloud.trial_plan_bot_message",
-    "translation": "{{.WorkspaceName}} çalışma alanının {{.UsersNum}} üyesi şuraya erişmek için Enterprise sürümü deneme süresinin başlatılmasını istedi: "
-  },
-  {
     "id": "ent.saml.configure.certificate_parse_error.app_error",
     "translation": "SAML, herkese açık kimlik hizmeti sağlayıcı sertifikasını yükleyemedi. Lütfen sistem yöneticiniz ile görüşün."
   },

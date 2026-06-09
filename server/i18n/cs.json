@@ -7880,10 +7880,6 @@
     "translation": "{{.SenderName}} vám poslal/a novou zprávu"
   },
   {
-    "id": "app.cloud.trial_plan_bot_message",
-    "translation": "{{.UsersNum}} členů pracovního prostoru {{.WorkspaceName}} požádalo o zahájení zkušební verze Enterprise pro přístup k: "
-  },
-  {
     "id": "app.plugin.reattach.app_error",
     "translation": "Nepodařilo se znovu připojit plugin"
   },
@@ -8064,14 +8060,6 @@
     "translation": "Nepodařilo se aktualizovat člena kanálu, překročený limit velikosti vlastností upozornění."
   },
   {
-    "id": "app.cloud.upgrade_plan_bot_message",
-    "translation": "{{.UsersNum}} členů pracovního prostoru {{.WorkspaceName}} požádalo o upgrade pracovního prostoru pro: "
-  },
-  {
-    "id": "app.cloud.trial_plan_bot_message_single",
-    "translation": "{{.UsersNum}} člen pracovního prostoru {{.WorkspaceName}} požádal o zahájení zkušební verze Enterprise pro přístup k: "
-  },
-  {
     "id": "app.custom_group.unique_name",
     "translation": "Název skupiny není unikátní"
   },
@@ -8246,10 +8234,6 @@
   {
     "id": "app.post.marshal.app_error",
     "translation": "Nepodařilo se zpracovat příspěvek."
-  },
-  {
-    "id": "app.cloud.upgrade_plan_bot_message_single",
-    "translation": "{{.UsersNum}} člen pracovního prostoru {{.WorkspaceName}} požádal o upgrade pracovního prostoru pro: "
   },
   {
     "id": "app.compile_csv_chunks.header_error",

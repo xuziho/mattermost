@@ -8140,22 +8140,6 @@
     "translation": "Ошибка во время выполнения задания."
   },
   {
-    "id": "app.cloud.upgrade_plan_bot_message_single",
-    "translation": "{{.UsersNum}} пользователя(ей) рабочего пространства {{.WorkspaceName}} запросили обновление рабочего пространства для: "
-  },
-  {
-    "id": "app.cloud.upgrade_plan_bot_message",
-    "translation": "{{.UsersNum}} пользователя(ей) рабочего пространства {{.WorkspaceName}} запросили обновление рабочего пространства для: "
-  },
-  {
-    "id": "app.cloud.trial_plan_bot_message",
-    "translation": "{{.UsersNum}} пользователя(ей) рабочего пространства {{.WorkspaceName}} запросили включение пробной версии Enterprise для доступа к: "
-  },
-  {
-    "id": "app.cloud.trial_plan_bot_message_single",
-    "translation": "{{.UsersNum}} пользователя(ей) рабочего пространства {{.WorkspaceName}} запросили включение пробной версии Enterprise для доступа к: "
-  },
-  {
     "id": "api.user.add_user_to_group_syncables.not_ldap_user.app_error",
     "translation": "не является пользователем ldap"
   },

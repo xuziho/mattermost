@@ -7170,10 +7170,6 @@
     "translation": "Không thể có được các thành viên kênh."
   },
   {
-    "id": "app.cloud.trial_plan_bot_message",
-    "translation": "{{.UsersNum}} thành viên của không gian làm việc {{.WorkspaceName}} đã yêu cầu bắt đầu dùng thử Enterprise để có quyền truy cập vào: "
-  },
-  {
     "id": "app.channel.get_priority_for_posts.app_error",
     "translation": "Không thể có được mức độ ưu tiên cho bài viết"
   },
@@ -7962,10 +7958,6 @@
     "translation": "Kiểm tra giới hạn hình ảnh không thành công. Độ phân giải quá cao."
   },
   {
-    "id": "app.cloud.upgrade_plan_bot_message",
-    "translation": "{{.UsersNum}} thành viên của không gian làm việc {{.WorkspaceName}} đã yêu cầu nâng cấp không gian làm việc cho: "
-  },
-  {
     "id": "app.command_webhook.create_command_webhook.existing",
     "translation": "Bạn không thể cập nhật CommandWebhook hiện có."
   },
@@ -8064,10 +8056,6 @@
   {
     "id": "app.channel.get_channels_member_count.existing.app_error",
     "translation": "Không thể tìm thấy số lượng thành viên cho các kênh nhất định."
-  },
-  {
-    "id": "app.cloud.trial_plan_bot_message_single",
-    "translation": "Thành viên {{.UsersNum}} của không gian làm việc {{.WorkspaceName}} đã yêu cầu bắt đầu dùng thử Enterprise để có quyền truy cập vào: "
   },
   {
     "id": "app.analytics.getanalytics.internal_error",
@@ -8192,10 +8180,6 @@
   {
     "id": "app.channel.get_channels_with_unreads_and_with_mentions.app_error",
     "translation": "Không thể kiểm tra chưa đọc và đề cập"
-  },
-  {
-    "id": "app.cloud.upgrade_plan_bot_message_single",
-    "translation": "Thành viên {{.UsersNum}} của không gian làm việc {{.WorkspaceName}} đã yêu cầu nâng cấp không gian làm việc cho: "
   },
   {
     "id": "app.command.listteamcommands.internal_error",

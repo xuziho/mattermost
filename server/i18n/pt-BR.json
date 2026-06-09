@@ -8632,22 +8632,6 @@
     "translation": "Não foi possível atualizar tantos membros do canal. Somente {{.Max}} membros do canal podem ser atualizados de uma vez."
   },
   {
-    "id": "app.cloud.trial_plan_bot_message",
-    "translation": "{{.UsersNum}} membros do espaço de trabalho {{.WorkspaceName}} solicitaram o início da avaliação Enterprise para acesso a: "
-  },
-  {
-    "id": "app.cloud.upgrade_plan_bot_message",
-    "translation": "{{.UsersNum}} membros do espaço de trabalho {{.WorkspaceName}} solicitaram uma atualização do espaço de trabalho para: "
-  },
-  {
-    "id": "app.cloud.trial_plan_bot_message_single",
-    "translation": "O membro {{.UsersNum}} do espaço de trabalho {{.WorkspaceName}} solicitou o início da avaliação Enterprise para acesso a: "
-  },
-  {
-    "id": "app.cloud.upgrade_plan_bot_message_single",
-    "translation": "O membro {{.UsersNum}} do espaço de trabalho {{.WorkspaceName}} solicitou uma atualização do espaço de trabalho para: "
-  },
-  {
     "id": "app.draft.get_drafts.app_error",
     "translation": "Não foi possível obter os Rascunhos do usuário."
   },

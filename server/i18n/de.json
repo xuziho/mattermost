@@ -8114,22 +8114,6 @@
     "translation": "Kann Benachrichtigungsdaten nicht speichern."
   },
   {
-    "id": "app.cloud.upgrade_plan_bot_message_single",
-    "translation": "{{.UsersNum}} Mitglied des {{.WorkspaceName}} Arbeitsbereichs hat ein Arbeitsbereich-Upgrade angefragt für: "
-  },
-  {
-    "id": "app.cloud.upgrade_plan_bot_message",
-    "translation": "{{.UsersNum}} Mitglieder des {{.WorkspaceName}} Arbeitsbereichs haben ein Arbeitsbereich-Upgrade angefragt für: "
-  },
-  {
-    "id": "app.cloud.trial_plan_bot_message_single",
-    "translation": "{{.UsersNum}} Mitglied des {{.WorkspaceName}} Arbeitsbereichs hat den Start des Enterprise-Tests angefragt für Zugriff auf: "
-  },
-  {
-    "id": "app.cloud.trial_plan_bot_message",
-    "translation": "{{.UsersNum}} Mitglieder des {{.WorkspaceName}} Arbeitsbereichs haben den Start des Enterprise-Tests angefragt für Zugriff auf: "
-  },
-  {
     "id": "ent.saml.configure.certificate_parse_error.app_error",
     "translation": "SAML konnte das öffentliche Zertifikat des Identity Providers nicht erfolgreich laden. Bitte kontaktiere deinen Systemadmin."
   },

@@ -8122,22 +8122,6 @@
     "translation": "Det går inte att spara uppgifter om notifiering."
   },
   {
-    "id": "app.cloud.upgrade_plan_bot_message_single",
-    "translation": "{{.UsersNum}} medlemmar i arbetsytan {{.WorkspaceName}} har önskat en uppgradering för att få tillgång till: "
-  },
-  {
-    "id": "app.cloud.upgrade_plan_bot_message",
-    "translation": "{{.UsersNum}} medlemmar i arbetsytan {{.WorkspaceName}} har önskat en uppgradering för att få tillgång till: "
-  },
-  {
-    "id": "app.cloud.trial_plan_bot_message_single",
-    "translation": "{{.UsersNum}} medlemmar i arbetsytan {{.WorkspaceName}} har önskat starta Enterprise trial för att få tillgång till: "
-  },
-  {
-    "id": "app.cloud.trial_plan_bot_message",
-    "translation": "{{.UsersNum}} medlemmar i arbetsytan {{.WorkspaceName}} har önskat starta Enterprise trial för att få tillgång till: "
-  },
-  {
     "id": "app.job.error",
     "translation": "Fel under utförandet av jobbet."
   },

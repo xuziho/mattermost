@@ -8476,18 +8476,6 @@
     "translation": "Немагчыма абнавіць удзельніка канала, перавышаны ліміт памеру параметраў апавяшчэнняў."
   },
   {
-    "id": "app.cloud.trial_plan_bot_message",
-    "translation": "{{.UsersNum}} удзельнікаў працоўнай прасторы {{.WorkspaceName}} запыталі пачаць пробную версію Enterprise для доступу да: "
-  },
-  {
-    "id": "app.cloud.trial_plan_bot_message_single",
-    "translation": "{{.UsersNum}} удзельнік працоўнай прасторы {{.WorkspaceName}} запытаў пачаць пробную версію Enterprise для доступу да: "
-  },
-  {
-    "id": "app.cloud.upgrade_plan_bot_message",
-    "translation": "{{.UsersNum}} удзельнікаў працоўнай прасторы {{.WorkspaceName}} запыталі абнаўленне працоўнай прасторы для: "
-  },
-  {
     "id": "app.import.validate_user_teams_import_data.invalid_auth_service.error",
     "translation": "Няправільны сэрвіс аўтарызацыі: {{.AuthService}}"
   },
@@ -8502,10 +8490,6 @@
   {
     "id": "app.login.doLogin.updateLastLogin.error",
     "translation": "Немагчыма абнавіць часовую метку апошняга ўваходу"
-  },
-  {
-    "id": "app.cloud.upgrade_plan_bot_message_single",
-    "translation": "{{.UsersNum}} удзельнік(ца) працоўнай прасторы {{.WorkspaceName}} запытаў(ла) абнаўленне працоўнай прасторы для: "
   },
   {
     "id": "app.compile_csv_chunks.header_error",

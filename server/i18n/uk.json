@@ -8028,14 +8028,6 @@
     "translation": "Учасник каналу з таким ідентифікатором вже існує."
   },
   {
-    "id": "app.cloud.trial_plan_bot_message",
-    "translation": "{{.UsersNum}} користувачів робочого простору {{.WorkspaceName}} подали запит на доступ до ознайомлювальної версії Enterprise: "
-  },
-  {
-    "id": "app.cloud.trial_plan_bot_message_single",
-    "translation": "{{.UsersNum}} користувач(ів) з робочого простору {{.WorkspaceName}} подав(ли) запит на доступ до ознайомлювальної версії Enterprise: "
-  },
-  {
     "id": "app.job.update_status.app_error",
     "translation": "Неможливо оновити статус завдання. Встановлено невірний статус"
   },
@@ -8102,10 +8094,6 @@
   {
     "id": "app.group.username_conflict",
     "translation": "користувач з іменем \"{{.Username}}\" вже існує."
-  },
-  {
-    "id": "app.cloud.upgrade_plan_bot_message",
-    "translation": "{{.UsersNum}} користувачів робочого простору {{.WorkspaceName}} подали запит на оновлення робочого простору: "
   },
   {
     "id": "app.delete_scheduled_post.delete_error",
@@ -8446,10 +8434,6 @@
   {
     "id": "app.eport.generate_presigned_url.fileexist.app_error",
     "translation": "Неможливо перевірити, чи існує файл."
-  },
-  {
-    "id": "app.cloud.upgrade_plan_bot_message_single",
-    "translation": "{{.UsersNum}} користувач робочого простору {{.WorkspaceName}} подав(ла) запит на оновлення робочого простору: "
   },
   {
     "id": "app.desktop_token.validate.no_user",

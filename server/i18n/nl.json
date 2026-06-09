@@ -8122,22 +8122,6 @@
     "translation": "Kon geen notificatie-data opslaan."
   },
   {
-    "id": "app.cloud.upgrade_plan_bot_message_single",
-    "translation": "{{.UsersNum}} lid van de {{.WorkspaceName}} werkruimte heeft een werkruimte upgrade aangevraagd voor: "
-  },
-  {
-    "id": "app.cloud.upgrade_plan_bot_message",
-    "translation": "{{.UsersNum}} leden van de {{.WorkspaceName}} werkruimte hebben een werkruimte upgrade aangevraagd voor: "
-  },
-  {
-    "id": "app.cloud.trial_plan_bot_message_single",
-    "translation": "{{.UsersNum}} lid van de {{.WorkspaceName}} werkruimte heeft gevraagd om de Enterprise-proefperiode te starten om toegang te krijgen tot: "
-  },
-  {
-    "id": "app.cloud.trial_plan_bot_message",
-    "translation": "{{.UsersNum}} leden van de {{.WorkspaceName}} werkruimte hebben gevraagd om de Enterprise-proefperiode te starten om toegang te krijgen tot: "
-  },
-  {
     "id": "app.job.error",
     "translation": "Fout tijdens het uitvoeren van de opdracht."
   },

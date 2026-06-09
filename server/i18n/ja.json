@@ -8114,22 +8114,6 @@
     "translation": "通知データを保存できませんでした。"
   },
   {
-    "id": "app.cloud.upgrade_plan_bot_message_single",
-    "translation": "{{.WorkspaceName}}ワークスペースの{{.UsersNum}}メンバーから、ワークスペースをアップグレードするようリクエストがありました: "
-  },
-  {
-    "id": "app.cloud.upgrade_plan_bot_message",
-    "translation": "{{.WorkspaceName}}ワークスペースの{{.UsersNum}}メンバーから、ワークスペースをアップグレードするようリクエストがありました: "
-  },
-  {
-    "id": "app.cloud.trial_plan_bot_message_single",
-    "translation": "{{.WorkspaceName}}ワークスペースの{{.UsersNum}}メンバーから、以下にアクセスするためにEnterpriseトライアルを開始するようリクエストがありました: "
-  },
-  {
-    "id": "app.cloud.trial_plan_bot_message",
-    "translation": "{{.WorkspaceName}}ワークスペースの{{.UsersNum}}メンバーから、以下にアクセスするためにEnterpriseトライアルを開始するようリクエストがありました: "
-  },
-  {
     "id": "app.job.error",
     "translation": "ジョブ実行中にエラーが発生しました。"
   },

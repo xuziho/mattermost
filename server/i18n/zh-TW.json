@@ -8024,14 +8024,6 @@
     "translation": "找不到成員數量。"
   },
   {
-    "id": "app.cloud.trial_plan_bot_message",
-    "translation": "{{.WorkspaceName}} 工作區的 {{.UsersNum}} 位成員已申請企業版試用： "
-  },
-  {
-    "id": "app.cloud.trial_plan_bot_message_single",
-    "translation": "{{.WorkspaceName}} 工作區的 {{.UsersNum}} 位成員已申請企業版試用： "
-  },
-  {
     "id": "app.custom_group.unique_name",
     "translation": "群組名稱不是唯一的"
   },
@@ -8506,14 +8498,6 @@
   {
     "id": "app.channel.update_member.notify_props_limit_exceeded.app_error",
     "translation": "無法更新頻道成員，通知屬性的大小超過限制。"
-  },
-  {
-    "id": "app.cloud.upgrade_plan_bot_message",
-    "translation": "{{.WorkspaceName}} 工作區的 {{.UsersNum}} 位成員已申請升級工作區： "
-  },
-  {
-    "id": "app.cloud.upgrade_plan_bot_message_single",
-    "translation": "{{.WorkspaceName}} 工作區的 {{.UsersNum}} 位成員已申請升級工作區： "
   },
   {
     "id": "app.eport.generate_presigned_url.fileexist.app_error",

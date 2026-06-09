@@ -8114,22 +8114,6 @@
     "translation": "Unable to save notify data."
   },
   {
-    "id": "app.cloud.upgrade_plan_bot_message_single",
-    "translation": "{{.UsersNum}} member of the {{.WorkspaceName}} workspace has requested a workspace upgrade for: "
-  },
-  {
-    "id": "app.cloud.upgrade_plan_bot_message",
-    "translation": "{{.UsersNum}} members of the {{.WorkspaceName}} workspace have requested a workspace upgrade for: "
-  },
-  {
-    "id": "app.cloud.trial_plan_bot_message_single",
-    "translation": "{{.UsersNum}} member of the {{.WorkspaceName}} workspace has requested starting the Enterprise trial for access to: "
-  },
-  {
-    "id": "app.cloud.trial_plan_bot_message",
-    "translation": "{{.UsersNum}} members of the {{.WorkspaceName}} workspace have requested starting the Enterprise trial for access to: "
-  },
-  {
     "id": "ent.saml.configure.certificate_parse_error.app_error",
     "translation": "SAML could not load Identity Provider Public Certificate successfully, please contact your system administrator."
   },

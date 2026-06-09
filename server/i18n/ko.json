@@ -8394,22 +8394,6 @@
     "translation": "미리 보기 모달 데이터 구문 분석에 실패했습니다."
   },
   {
-    "id": "app.cloud.trial_plan_bot_message",
-    "translation": "{{.WorkspaceName}} 워크스페이스의 {{.UsersNum}} 구성원이 엔터프라이즈 평가판 시작을 요청하여 액세스 권한을 얻었습니다: "
-  },
-  {
-    "id": "app.cloud.trial_plan_bot_message_single",
-    "translation": "{{.WorkspaceName}} 워크스페이스의 {{.UsersNum}} 구성원이 엔터프라이즈 평가판 시작을 요청하여 액세스 권한을 얻었습니다: "
-  },
-  {
-    "id": "app.cloud.upgrade_plan_bot_message",
-    "translation": "{{.WorkspaceName}} 워크스페이스의 {{.UsersNum}} 구성원이 워크스페이스에 대한 업그레이드를 요청했습니다: "
-  },
-  {
-    "id": "app.cloud.upgrade_plan_bot_message_single",
-    "translation": "{{.WorkspaceName}} 워크스페이스의 {{.UsersNum}} 구성원이 워크스페이스 업그레이드를 요청했습니다: "
-  },
-  {
     "id": "app.compile_csv_chunks.header_error",
     "translation": "CSV 헤더를 작성하지 못했습니다."
   },
