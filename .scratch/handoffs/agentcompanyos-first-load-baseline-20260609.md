@@ -69,3 +69,51 @@ Next performance targets:
 - Check whether `@mattermost/compass-icons` imports remain tree-shaken or pull in a broad icon surface.
 - Check whether crypto/browser polyfills are still in first-load chunks.
 - Defer non-essential startup requests for drafts, threads, stats, agent status, and plugin webapp surfaces where safe.
+
+## Updated baseline after official help/download cleanup - 2026-06-10
+
+Commit: `8cb9fabd Remove official help link remnants`
+
+Command:
+
+```bash
+cd /home/ziho/CodeXProject/mattermost-slimming-windows
+source tools/agentcompanyos-slimming-env.sh
+cd webapp/channels
+npm run build
+```
+
+Build result:
+
+- `webpack 5.103.0 compiled with 97 warnings`
+- Entrypoint `main`: `22.3 KiB`, including `main.ed93b3bed01cbe431f53.css` at `3.6 KiB` and `main.c4ea2745ecd9af630158.js` at `18.7 KiB`.
+- Entrypoint `mattermost_webapp`: `19.2 KiB`, via `remote_entry.js`.
+- `webapp/channels/dist`: `95M`
+- JS files at dist root: `267`
+- CSS files at dist root: `47`
+- i18n JSON files: `62`
+- PNG files in dist: `84`
+- Emoji-specific PNG files found by path/name scan: `0`
+
+Largest current JS/CSS/i18n assets:
+
+```text
+3606.9 KiB webapp/channels/dist/6838.a81c009148541c0e59b1.js
+1613.4 KiB webapp/channels/dist/1959.f005c04884f96f3626e2.js
+1211.8 KiB webapp/channels/dist/9041.f25b83d3c3f472f1efd3.js
+1060.9 KiB webapp/channels/dist/6713.749dcac7956f24da1fc8.js
+1052.9 KiB webapp/channels/dist/4623.39b80a28fa9c63c6359c.js
+745.7 KiB webapp/channels/dist/i18n/be.79e4bfef9c411d8207a8.json
+672.1 KiB webapp/channels/dist/i18n/uk.5ee6bff589b7db5c06ef.json
+651.8 KiB webapp/channels/dist/i18n/ru.d639b77ef901e17a3f0a.json
+641.4 KiB webapp/channels/dist/editor.worker.js
+606.1 KiB webapp/channels/dist/i18n/ja.dd96b07516c3c2067935.json
+598.3 KiB webapp/channels/dist/i18n/de.d1d90213541ac338fab0.json
+597.0 KiB webapp/channels/dist/8571.b0802b80796b51929e8e.js
+```
+
+Updated performance targets:
+
+- Emoji PNG payload no longer appears as the largest static asset family in this build; verify source-level emoji data imports before spending more effort there.
+- The largest remaining targets are numbered JS chunks, i18n JSON payloads, and `editor.worker.js`.
+- Next source-level audits should focus on `moment`/timezone locales, broad icon imports, browser crypto polyfills, and lazy-loading boundaries for drafts, global threads, stats, agents status, and plugin webapp startup calls.
