@@ -8089,7 +8089,7 @@
   },
   {
     "id": "api.license.request-trial.can-start-trial.not-allowed",
-    "translation": "Falha ao aplicar a nova licença de teste, pois seu espaço de trabalho já aplicou uma licença de teste. Se desejar estender seu período de teste, por favor [entre em contato com nossa equipe de vendas](https://mattermost.com/contact-us/)."
+    "translation": "Falha ao aplicar a nova licença de teste, pois seu espaço de trabalho já aplicou uma licença de teste."
   },
   {
     "id": "api.license.request_trial_license.embargoed",

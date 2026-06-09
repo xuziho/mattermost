@@ -7759,7 +7759,7 @@
   },
   {
     "id": "api.license.request-trial.can-start-trial.not-allowed",
-    "translation": "すでにワークスペースにトライアルライセンスが適用されているため、新しいトライアルライセンスを適用できませんでした。トライアル期間の延長をご希望の場合は[営業までご連絡ください](https://mattermost.com/contact-us/)。"
+    "translation": "すでにワークスペースにトライアルライセンスが適用されているため、新しいトライアルライセンスを適用できませんでした。"
   },
   {
     "id": "api.license.request-trial.can-start-trial.error",

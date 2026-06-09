@@ -6725,7 +6725,7 @@
   },
   {
     "id": "api.license.request-trial.can-start-trial.not-allowed",
-    "translation": "La clé de licence d'essai pour Mattermost Version Entreprise a expiré et n'est plus valide. Si vous voulez étendre votre période d'essai, veuillez [contacter notre équipe des ventes](https://mattermost.com/contact-us/)."
+    "translation": "La clé de licence d'essai pour Mattermost Version Entreprise a expiré et n'est plus valide."
   },
   {
     "id": "api.license.request-trial.can-start-trial.error",

@@ -5823,7 +5823,7 @@
   },
   {
     "id": "api.license.request-trial.can-start-trial.not-allowed",
-    "translation": "نمی‌توان مجوز دوره آزمایشی جدیدی اعمال کرد. شما از قبل یک مجوز دوره آزمایشی در این مترموست اعمال کرده‌اید. اگر می‌خواهید دوره آزمایشی خود را تمدید کنید، لطفاً [با بخش فروش ما تماس بگیرید] (https://mattermost.com/contact-us/)."
+    "translation": "نمی‌توان مجوز دوره آزمایشی جدیدی اعمال کرد. شما از قبل یک مجوز دوره آزمایشی در این مترموست اعمال کرده‌اید."
   },
   {
     "id": "api.license.request-trial.can-start-trial.error",

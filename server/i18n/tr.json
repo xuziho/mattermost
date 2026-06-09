@@ -7763,7 +7763,7 @@
   },
   {
     "id": "api.license.request-trial.can-start-trial.not-allowed",
-    "translation": "Çalışma alanınız daha önce bir deneme lisansı kullandığı için yeni deneme lisansı için başvurulamadı. Deneme sürenizi uzatmak istiyorsanız [satış ekibimizle](https://mattermost.com/contact-us/) görüşebilirsiniz."
+    "translation": "Çalışma alanınız daha önce bir deneme lisansı kullandığı için yeni deneme lisansı için başvurulamadı."
   },
   {
     "id": "api.license.request-trial.can-start-trial.error",

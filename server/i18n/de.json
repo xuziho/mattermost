@@ -6752,7 +6752,7 @@
   },
   {
     "id": "api.license.request-trial.can-start-trial.not-allowed",
-    "translation": "Die Anwendung einer neuen Testlizenz ist fehlgeschlagen, da dein Arbeitsbereich bereits eine Testlizenz hat. Wenn du deinen Testzeitraum verlängern möchtest, wende dich bitte [an unser Vertriebsteam](https://mattermost.com/contact-us/)."
+    "translation": "Die Anwendung einer neuen Testlizenz ist fehlgeschlagen, da dein Arbeitsbereich bereits eine Testlizenz hat."
   },
   {
     "id": "api.license.request-trial.can-start-trial.error",

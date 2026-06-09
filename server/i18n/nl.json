@@ -7763,7 +7763,7 @@
   },
   {
     "id": "api.license.request-trial.can-start-trial.not-allowed",
-    "translation": "Het is niet gelukt om een nieuwe proeflicentie toe te passen omdat je werkruimte al een proeflicentie heeft. Als je je proefperiode wilt verlengen, neem dan [contact op met ons verkoopteam](https://mattermost.com/contact-us/)."
+    "translation": "Het is niet gelukt om een nieuwe proeflicentie toe te passen omdat je werkruimte al een proeflicentie heeft."
   },
   {
     "id": "api.license.request-trial.can-start-trial.error",

@@ -7763,7 +7763,7 @@
   },
   {
     "id": "api.license.request-trial.can-start-trial.not-allowed",
-    "translation": "Failed to apply new trial licence as your workspace has already applied a trial licence. If you would like to extend your trial period please [contact the sales team](https://mattermost.com/contact-us/)."
+    "translation": "Failed to apply new trial licence as your workspace has already applied a trial licence."
   },
   {
     "id": "api.license.request-trial.can-start-trial.error",

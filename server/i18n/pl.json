@@ -6825,7 +6825,7 @@
   },
   {
     "id": "api.license.request-trial.can-start-trial.not-allowed",
-    "translation": "Nie udało się zastosować nowej licencji próbnej, ponieważ Twój obszar roboczy ma już licencję próbną. Jeśli chcesz przedłużyć okres próbny, skontaktuj się z naszym zespołem sprzedaży (https://mattermost.com/contact-us/)."
+    "translation": "Nie udało się zastosować nowej licencji próbnej, ponieważ Twój obszar roboczy ma już licencję próbną."
   },
   {
     "id": "api.license.request-trial.can-start-trial.error",

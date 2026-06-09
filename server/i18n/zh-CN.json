@@ -7539,7 +7539,7 @@
   },
   {
     "id": "api.license.request-trial.can-start-trial.not-allowed",
-    "translation": "由于您的工作区已申请了试用版许可证，无法应用新的试用版许可证。如果您想延长试用期，请[联系我们的销售团队](https://mattermost.com/contact-us/)。"
+    "translation": "由于您的工作区已申请了试用版许可证，无法应用新的试用版许可证。"
   },
   {
     "id": "api.license.request-trial.can-start-trial.error",

@@ -3237,7 +3237,7 @@
   },
   {
     "id": "api.license.request-trial.can-start-trial.not-allowed",
-    "translation": "मैटरमॉस्ट एंटरप्राइज संस्करण के लिए यह परीक्षण लाइसेंस कुंजी समाप्त हो गई है और अब मान्य नहीं है। यदि आप अपनी परीक्षण अवधि बढ़ाना चाहते हैं तो कृपया [हमारी सेल्स टीम से संपर्क करें](https://mattermost.com/contact-us/)।"
+    "translation": "मैटरमॉस्ट एंटरप्राइज संस्करण के लिए यह परीक्षण लाइसेंस कुंजी समाप्त हो गई है और अब मान्य नहीं है।"
   },
   {
     "id": "api.license.request-trial.can-start-trial.error",

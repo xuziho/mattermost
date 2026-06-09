@@ -7753,7 +7753,7 @@
   },
   {
     "id": "api.license.request-trial.can-start-trial.not-allowed",
-    "translation": "Този лицензен ключ за пробен период на Mattermost Enterprise Edition е изтекъл и вече не е валиден. Ако желаете да удължите пробния си период, моля [свържете се с нашия екип по продажбите](https://mattermost.com/contact-us/)."
+    "translation": "Този лицензен ключ за пробен период на Mattermost Enterprise Edition е изтекъл и вече не е валиден."
   },
   {
     "id": "api.license.request-trial.can-start-trial.error",

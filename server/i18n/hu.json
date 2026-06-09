@@ -7756,7 +7756,7 @@
   },
   {
     "id": "api.license.request-trial.can-start-trial.not-allowed",
-    "translation": "Ez a teszt kulcs a Mattermost Enterprise kiadáshoz lejárt és már nem érvényes. Ha szeretné meghosszabbítani a próba időszakot, kérjük [vegye fel a kapcsolatot értékesítési csapatunkkal](https://mattermost.com/contact-us/)."
+    "translation": "Ez a teszt kulcs a Mattermost Enterprise kiadáshoz lejárt és már nem érvényes."
   },
   {
     "id": "api.license.request-trial.can-start-trial.error",

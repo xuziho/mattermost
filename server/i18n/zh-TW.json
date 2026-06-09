@@ -7789,7 +7789,7 @@
   },
   {
     "id": "api.license.request-trial.can-start-trial.not-allowed",
-    "translation": "無法套用新的試用授權。您先前已在此 Mattermost 個體套用過試用授權…若您想延長試用期，請[洽我們的銷售團隊](https://mattermost.com/contact-us/)。"
+    "translation": "無法套用新的試用授權。您先前已在此 Mattermost 個體套用過試用授權。"
   },
   {
     "id": "api.license_error",

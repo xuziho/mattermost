@@ -7229,7 +7229,7 @@
   },
   {
     "id": "api.license.request-trial.can-start-trial.not-allowed",
-    "translation": "Esta licencia de prueba para Mattermost Enterprise Edition ha caducado y ya no es válida. Si desea ampliar el periodo de prueba, póngase en contacto con [nuestro equipo de ventas](https://mattermost.com/contact-us/)."
+    "translation": "Esta licencia de prueba para Mattermost Enterprise Edition ha caducado y ya no es válida."
   },
   {
     "id": "api.license.request-trial.can-start-trial.error",

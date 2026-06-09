@@ -2948,7 +2948,7 @@
   },
   {
     "id": "api.license.request-trial.can-start-trial.not-allowed",
-    "translation": "Αυτή η δοκιμαστική άδεια χρήσης για το Mattermost Enterprise Edition έχει λήξει και δεν είναι πλέον έγκυρη. Εάν θέλετε να παρατείνετε τη δοκιμαστική περίοδο, παρακαλούμε [επικοινωνήστε με την ομάδα πωλήσεών μας](https://mattermost.com/contact-us/)."
+    "translation": "Αυτή η δοκιμαστική άδεια χρήσης για το Mattermost Enterprise Edition έχει λήξει και δεν είναι πλέον έγκυρη."
   },
   {
     "id": "api.templates.welcome_subject",

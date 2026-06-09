@@ -7763,7 +7763,7 @@
   },
   {
     "id": "api.license.request-trial.can-start-trial.not-allowed",
-    "translation": "Misslyckades med att installera ny testlicens eftersom din arbetsyta tidigare använt en testlicens. [Kontakta försäljningsteamet] (https://mattermost.com/contact-us/) om du vill utöka testperioden."
+    "translation": "Misslyckades med att installera ny testlicens eftersom din arbetsyta tidigare använt en testlicens."
   },
   {
     "id": "api.license.request-trial.can-start-trial.error",

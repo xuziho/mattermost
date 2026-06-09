@@ -6903,7 +6903,7 @@
   },
   {
     "id": "api.license.request-trial.can-start-trial.not-allowed",
-    "translation": "Không thể áp dụng giấy phép dùng thử mới. Trước đây, bạn đã đăng ký giấy phép dùng thử cho phiên bản Matter Extreme này. Nếu bạn muốn kéo dài thời gian dùng thử, vui lòng [liên hệ với nhóm bán hàng của chúng tôi](https://mattermost.com/contact-us/)."
+    "translation": "Không thể áp dụng giấy phép dùng thử mới. Trước đây, bạn đã đăng ký giấy phép dùng thử cho phiên bản Matter Extreme này."
   },
   {
     "id": "api.license.request_trial_license.app_error",

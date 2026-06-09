@@ -7151,7 +7151,7 @@
   },
   {
     "id": "api.license.request-trial.can-start-trial.not-allowed",
-    "translation": "새로운 체험판 라이선스를 적용하는데 실패하였습니다. 이 Mattermost 인스턴스에는 이전에 적용된 체험판 라이센스를 유지합니다. 체험 기간을 연장하시려면 [저희 영업 팀에 연락해주세요](https://mattermost.com/contact-us/)."
+    "translation": "새로운 체험판 라이선스를 적용하는데 실패하였습니다. 이 Mattermost 인스턴스에는 이전에 적용된 체험판 라이센스를 유지합니다."
   },
   {
     "id": "api.file.test_connection_s3_bucket_does_not_exist.app_error",
