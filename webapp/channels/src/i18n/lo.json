@@ -208,7 +208,6 @@
   "admin.file.enableMobileDownloadTitle": "ອະນຸຍາດດາວໂຫລດໄຟຣ໌ເທິງມືຖື:",
   "admin.file.enableMobileUploadDesc": "ເມື່ອຜິດ, ປິດການໃຊ້ອັບໂຫລດໄຟຣ໌ເທິງແອັບມືຖື. ຖ້າອະນຸຍາດໃຊ້ໄຟຣ໌ຮ່ວມກັນຖືກຕັ້ງຄ່າເປັນ ຖືກ, ຜູ້ໃຊ້ຍັງສາມາດອັບໂຫລດໄຟຣ໌ຈາກເວັບບາວເຊີມືຖື.",
   "admin.file.enableMobileUploadTitle": "ອະນຸຍາດອັບໂຫລດໄຟຣ໌ເທິງມືຖື:",
-  "admin.general.localization.availableLocalesDescription": "ຕັ້ງຄ່າພາສາທີ່ຈະໃຊ້ສໍາລັບຜູ້ໃຊ້ໃນການຕັ້ງຄ່າບັນຊີຜູ້ໃຊ້ (ປ່ອຍພື້ນທີ່ນີ້ໃຫ້ວ່າງເພື່ອສາມາດໃຊ້ໄດ້ທຸກພາສາທັງຫມົດທີ່ມີຢູ່). ຖ້າທ່ານກຳລັງເພີ່ມພາສາໃໝ່ດ້ວຍຕົວທ່ານເອງຕ້ອງເພີ່ມ, **ຄ່າເລີ່ມຕົ້ນພາສາຜູ້ໃຊ້** ກ່ອນທີ່ຈະບັນທຶກການຕັ້ງຄ່ານີ້.\n \nຕ້ອງການຊ່ວຍແປຫຼືບໍ່? ເຂົ້າຮ່ວມ (!https://translate.mattermost.com/) [ເຄື່ອງແມ່ຂ່າຍການແປ Mattermost]ເພື່ອປະກອບສ່ວນ.",
   "admin.general.localization.availableLocalesNoResults": "ບໍ່ພົບຜົນໄດ້ຮັບ",
   "admin.general.localization.availableLocalesTitle": "ພາສາທີ່ມີຢູ່ພ້ອມໃຊ້:",
   "admin.general.localization.clientLocaleDescription": "ຄ່າເລີ່ມຕົ້ນພາສາສຳລັບຜູ້ໃຊ້ແລະໜ້າທີ່ສ້າງຂື້ນໃໝ່ທີ່ຜູ້ໃຊ້ບໍ່ໄດ້ລົງຊື່ເຂົ້າໃຊ້.",

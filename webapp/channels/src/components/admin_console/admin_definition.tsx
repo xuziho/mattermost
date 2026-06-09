@@ -958,18 +958,7 @@ const AdminDefinition: AdminDefinitionType = {
                             type: 'bool',
                             key: 'FileSettings.ExtractContent',
                             label: defineMessage({id: 'admin.image.extractContentTitle', defaultMessage: 'Enable document search by content:'}),
-                            help_text: defineMessage({id: 'admin.image.extractContentDescription', defaultMessage: 'When enabled, supported document types are searchable by their content. Search results for existing documents may be incomplete <link>until a data migration is executed</link>.'}), // eslint-disable-line formatjs/enforce-placeholders -- link provided via help_text_values
-                            help_text_markdown: false,
-                            help_text_values: {
-                                link: (msg: string) => (
-                                    <ExternalLink
-                                        location='admin_console'
-                                        href={DocLinks.CONFIGURE_DOCUMENT_CONTENT_SEARCH}
-                                    >
-                                        {msg}
-                                    </ExternalLink>
-                                ),
-                            },
+                            help_text: defineMessage({id: 'admin.image.extractContentDescription', defaultMessage: 'When enabled, supported document types are searchable by their content. Search results for existing documents may be incomplete until a data migration is executed.'}),
                             isDisabled: it.any(
                                 it.not(it.userHasWritePermissionOnResource(RESOURCE_KEYS.ENVIRONMENT.FILE_STORAGE)),
                             ),

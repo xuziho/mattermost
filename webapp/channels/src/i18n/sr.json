@@ -306,7 +306,6 @@
   "admin.file.enableMobileDownloadTitle": "Дозволи преузимање датотека на мобилним:",
   "admin.file.enableMobileUploadDesc": "Када је нетачно, онемогућено је преузимање датотека на мобилним апликацијама. Ако је „Дозволи дељење датотека“ подешено на тачно, корисници ће и даље моћи да отпремају датотеке са мобилног веб прегледача.",
   "admin.file.enableMobileUploadTitle": "Дозволи отпремање датотека на мобилним:",
-  "admin.general.localization.availableLocalesDescription": "Podesite koji su jezici dostupni korisnicima u <strong>Podešavanja > Prikaz > Jezik</strong> (ostavite ovo polje prazno da bi svi podržani jezici bili dostupni). Ako ručno dodajete nove jezike, <strong>Podrazumevani jezik klijenta</strong> mora biti dodat pre čuvanja ovog podešavanja.\n\nDa li želite da pomognete sa prevodima? Pridružite se <link>Mattermost Translation Server</link> da biste doprineli.",
   "admin.general.localization.availableLocalesNoResults": "Нема резултата",
   "admin.general.localization.availableLocalesTitle": "Доступни језици:",
   "admin.general.localization.clientLocaleDescription": "Подразумевани језик за новонаправљене кориснике и странице где се корисник још није пријавио.",

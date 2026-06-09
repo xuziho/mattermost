@@ -800,7 +800,6 @@
   "admin.filter.filters": "Сүзгілер",
   "admin.filter.reset": "Сүзгілерді қайта орнату",
   "admin.filter.title": "Бойынша сүзгілеу",
-  "admin.general.localization.availableLocalesDescription": "<strong>Баптаулар > Бейнелеу > Тіл</strong> жерінде қолданушыларға қандай тілдер қол жетімді екенін орнатыңыз. Егер жаңа тілдерді қолмен қоссаңыз, бұл баптауды сақтау алдында <strong>Әдепкі клиент тілі</strong> қосылу керек.\n \nАударыммен көмектескіңіз келеді ме? Жәрдемдесу үшін <link>Mattermost аударым серверіне</link> қосылыңыз.",
   "admin.general.localization.availableLocalesNoResults": "Еш нәтиже табылмады",
   "admin.general.localization.availableLocalesTitle": "Қол жетімді тілдер:",
   "admin.general.localization.clientLocaleDescription": "Қолданушы кіре қоймаған жаңадан қосылған қолданушылар мен парақшалардың әдепкі тілі.",

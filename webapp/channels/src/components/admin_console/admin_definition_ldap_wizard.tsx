@@ -650,18 +650,7 @@ export const ldapWizardAdminDefinition: LDAPAdminDefinitionConfigSchemaSettings 
                 type: 'jobstable',
                 job_type: Constants.JobTypes.LDAP_SYNC,
                 label: defineMessage({id: 'admin.ldap.sync_button', defaultMessage: 'AD/LDAP Synchronize Now'}),
-                help_text: defineMessage({id: 'admin.ldap.syncNowHelpText', defaultMessage: 'Initiates an AD/LDAP synchronization immediately. See the table below for status of each synchronization. Please review "System Console > Logs" and <link>documentation</link> to troubleshoot errors.'}),
-                help_text_markdown: false,
-                help_text_values: {
-                    link: (msg: string) => (
-                        <ExternalLink
-                            location='admin_console'
-                            href={DocLinks.SETUP_LDAP}
-                        >
-                            {msg}
-                        </ExternalLink>
-                    ),
-                },
+                help_text: defineMessage({id: 'admin.ldap.syncNowHelpText', defaultMessage: 'Initiates an AD/LDAP synchronization immediately. See the table below for status of each synchronization. Review "System Console > Logs" to troubleshoot errors.'}),
                 isDisabled: it.any(
                     it.not(it.userHasWritePermissionOnResource(RESOURCE_KEYS.AUTHENTICATION.LDAP)),
                     it.stateIsFalse('LdapSettings.EnableSync'),
