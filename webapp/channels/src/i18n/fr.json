@@ -2854,7 +2854,6 @@
   "feedback.downgradeWorkspace.downgrade": "Rétrograder",
   "feedback.downgradeWorkspace.exploringOptions": "Exploration d’autres solutions",
   "feedback.downgradeWorkspace.feedbackTitle": "Veuillez partager la raison de cette rétrogradation",
-  "feedback.downgradeWorkspace.noLongerNeeded": "Plus besoin des fonctionnalités du Cloud Professionnel",
   "feedback.downgradeWorkspace.technicalIssues": "Rencontre des problèmes techniques",
   "feedback.downgradeWorkspace.tooExpensive": "Trop cher",
   "feedback.other": "Autre",

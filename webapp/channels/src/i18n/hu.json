@@ -3870,7 +3870,6 @@
   "web.header.logout": "Kijelentkezés",
   "web.root.signup_info": "Az összes csapaton belüli kommunikáció egy helyen, azonnal kereshetően és bárhonnan hozzáférhetően",
   "webapp.mattermost.feature.all_enterprise": "Összes Enterprise szolgáltatás",
-  "webapp.mattermost.feature.all_professional": "Összes Professional szolgáltatás",
   "webapp.mattermost.feature.create_multiple_teams": "Hozzon létre több csapatot",
   "webapp.mattermost.feature.custom_user_groups": "Egyéni felhasználói csoportok",
   "webapp.mattermost.feature.guest_accounts": "Vendék fiókok",

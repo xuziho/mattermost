@@ -1703,7 +1703,6 @@
   "web.header.logout": "Terminar sessão",
   "web.root.signup_info": "Toda a comunicação da equipa num só lugar, pesquisável e acessível em qualquer lugar",
   "webapp.mattermost.feature.all_enterprise": "Todas as funcionalidades de Empresa",
-  "webapp.mattermost.feature.all_professional": "Todas as funcionalidades Profissionais",
   "webapp.mattermost.feature.create_multiple_teams": "Criar Múltiplas Equipas",
   "webapp.mattermost.feature.guest_accounts": "Contas de Convidado",
   "webapp.mattermost.feature.unlimited_file_storage": "Armazenamento de Ficheiro Ilimitado",

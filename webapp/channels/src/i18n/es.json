@@ -4002,7 +4002,6 @@
   "web.header.logout": "Cerrar sesión",
   "web.root.signup_info": "Todas las comunicaciones del equipo en un sólo lugar, con búsquedas y accesible desde cualquier parte",
   "webapp.mattermost.feature.all_enterprise": "Todas las características Enterprise",
-  "webapp.mattermost.feature.all_professional": "Todas las características Professional",
   "webapp.mattermost.feature.create_multiple_teams": "Crea varios Equipos",
   "webapp.mattermost.feature.custom_user_groups": "Grupos de usuarios personalizados",
   "webapp.mattermost.feature.guest_accounts": "Cuentas de invitados",
