@@ -788,7 +788,6 @@
   "admin.license.confirm-license-removal.confirm": "Confirmar",
   "admin.license.confirm-license-removal.title": "Tem a certeza?",
   "admin.license.enterprise.restarting": "A reiniciar",
-  "admin.license.entryPlanSubtitle": "Compre um plano para desbloquear o acesso completo, ou <link>inicie uma versão de testes</link> para remover os limites enquanto avalia o Enterprise Advanced.",
   "admin.license.freeEdition.title": "Gratuita",
   "admin.license.key": "Código da licença: ",
   "admin.license.keyAddNew": "Adicionar uma nova licença",
@@ -807,7 +806,6 @@
   "admin.license.upload-modal.title": "Enviar um Código da Licença",
   "admin.license.uploadFile": "Enviar Ficheiro",
   "admin.license.userSeatAlert.closeBtnTooltip": "Ignorar",
-  "admin.license.userSeatAlert.successMessage": "Parabéns! A adoção da plataforma é forte na sua organização. Para assegurar um crescimento ininterrupto, a nossa equipa pode assistir no dimensionamento da sua licença para corresponder aos requisitos operacionais.",
   "admin.log.Level": "Nível",
   "admin.log.levelOptions.DEBUG": "DEPURAR",
   "admin.log.levelOptions.ERROR": "ERRO",
@@ -970,7 +968,6 @@
   "admin.permissions.sysconsole_section_authentication_password.name": "Palavra-passe",
   "admin.permissions.sysconsole_section_authentication_saml.name": "SAML 2.0",
   "admin.permissions.sysconsole_section_authentication_signup.name": "Registar",
-  "admin.permissions.sysconsole_section_billing.description": "Access local license account details.",
   "admin.permissions.sysconsole_section_environment.name": "Ambiente",
   "admin.permissions.sysconsole_section_environment_database.name": "Base de Dados",
   "admin.permissions.sysconsole_section_environment_developer.name": "Programador",
@@ -1729,11 +1726,6 @@
   "workspace_limits.archived_file.archived_compact": "(arquivado)",
   "workspace_limits.archived_file.tooltip_title": "This file is archived",
   "yourcomputer": "O seu computador",
-  "admin.license.additionalLicensedFeatures": "Additional licensed features",
-  "admin.license.enterprisePlanTitle": "Licensed seat count",
-  "admin.license.enterprisePlanSubtitle": "Upload an updated license if you need to increase your licensed headcount.",
   "admin.system_users.exportButton.notLicensed.hint": "User data export is not available on this server.",
-  "admin.system_users.exportButton.notLicensed.title": "Unavailable feature",
-  "admin.license.renewalCard.description.renew_license": "Renew your {licenseSku} license to avoid any disruption.",
-  "admin.permissions.sysconsole_section_billing.name": "License account"
+  "admin.system_users.exportButton.notLicensed.title": "Unavailable feature"
 }

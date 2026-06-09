@@ -1125,10 +1125,6 @@
   "admin.license.confirm-license-removal.subtitle": "刪除授權會將您的伺服器從 {currentSKU} 降級為免費。您可能遺失資訊。 ",
   "admin.license.confirm-license-removal.title": "您確定嗎？",
   "admin.license.enterprise.restarting": "正在重新啟動",
-  "admin.license.enterpriseEdition.add.seats": "+ 擴增員額",
-  "admin.license.enterprisePlanSubtitle": "Upload an updated license if you need to increase your licensed headcount.",
-  "admin.license.enterprisePlanTitle": "Licensed seat count",
-  "admin.license.freeEdition.subtitle": "購買專業版或企業版以解鎖企業用功能。",
   "admin.license.freeEdition.title": "免費版",
   "admin.license.key": "授權金鑰： ",
   "admin.license.keyAddNew": "新增授權",
@@ -1490,8 +1486,6 @@
   "admin.permissions.sysconsole_section_authentication_password.name": "密碼",
   "admin.permissions.sysconsole_section_authentication_saml.name": "SAML 2.0",
   "admin.permissions.sysconsole_section_authentication_signup.name": "註冊",
-  "admin.permissions.sysconsole_section_billing.description": "Access local license account details.",
-  "admin.permissions.sysconsole_section_billing.name": "License account",
   "admin.permissions.sysconsole_section_compliance.description": "查看保留、匯出和活動紀錄檔等合規性設定。",
   "admin.permissions.sysconsole_section_compliance.name": "合規性",
   "admin.permissions.sysconsole_section_compliance_compliance_export.name": "合規性報告匯出",
@@ -4980,8 +4974,6 @@
   "workspace_limits.message_history.locked.description.admin": "Full access to message history is not available on this server.",
   "workspace_limits.message_history.locked.title.admin": "Limited history is displayed",
   "yourcomputer": "您的電腦",
-  "admin.license.additionalLicensedFeatures": "Additional licensed features",
   "admin.system_users.exportButton.notLicensed.hint": "User data export is not available on this server.",
-  "admin.system_users.exportButton.notLicensed.title": "Unavailable feature",
-  "admin.license.renewalCard.description.renew_license": "Renew your {licenseSku} license to avoid any disruption."
+  "admin.system_users.exportButton.notLicensed.title": "Unavailable feature"
 }

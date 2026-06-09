@@ -119,12 +119,6 @@
   "user.settings.security.passwordError": "La contrasenya cal que tingui entre {min} i {max} caràcters",
   "web.header.logout": "Tanca sessió",
   "web.root.signup_info": "Tota la comunicació del teu equip en un lloc, amb cerca instantània i accessible des de qualsevol lloc.",
-  "admin.license.additionalLicensedFeatures": "Additional licensed features",
-  "admin.license.enterprisePlanTitle": "Licensed seat count",
-  "admin.license.enterprisePlanSubtitle": "Upload an updated license if you need to increase your licensed headcount.",
   "admin.system_users.exportButton.notLicensed.hint": "User data export is not available on this server.",
-  "admin.system_users.exportButton.notLicensed.title": "Unavailable feature",
-  "admin.license.renewalCard.description.renew_license": "Renew your {licenseSku} license to avoid any disruption.",
-  "admin.permissions.sysconsole_section_billing.name": "License account",
-  "admin.permissions.sysconsole_section_billing.description": "Access local license account details."
+  "admin.system_users.exportButton.notLicensed.title": "Unavailable feature"
 }

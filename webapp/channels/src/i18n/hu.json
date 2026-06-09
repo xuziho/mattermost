@@ -928,8 +928,6 @@
   "admin.license.confirm-license-removal.subtitle": "A licenc eltávolításával a kiszolgálót {currentSKU}-ról ingyenesre minősíti vissza. Elveszíthet adott információkat. ",
   "admin.license.confirm-license-removal.title": "Biztos benne?",
   "admin.license.enterprise.restarting": "Újraindítás",
-  "admin.license.enterprisePlanSubtitle": "Upload an updated license if you need to increase your licensed headcount.",
-  "admin.license.enterprisePlanTitle": "Licensed seat count",
   "admin.license.key": "Licence kulcs: ",
   "admin.license.keyAddNew": "Új licenc hozzáadása",
   "admin.license.keyRemove": "Licenc eltávolítása és szerver leminősítése",
@@ -1248,8 +1246,6 @@
   "admin.permissions.sysconsole_section_authentication_password.name": "Jelszó",
   "admin.permissions.sysconsole_section_authentication_saml.name": "SAML 2.0",
   "admin.permissions.sysconsole_section_authentication_signup.name": "Regisztráció",
-  "admin.permissions.sysconsole_section_billing.description": "Access local license account details.",
-  "admin.permissions.sysconsole_section_billing.name": "License account",
   "admin.permissions.sysconsole_section_compliance.description": "Ellenőrizze a megfelelőségi beállításokat, mint például az adatmegőrzés, az exportálás és a tevékenységi naplók.",
   "admin.permissions.sysconsole_section_compliance.name": "Megfelelés",
   "admin.permissions.sysconsole_section_compliance_compliance_export.name": "Megfelelősségi export",
@@ -3906,8 +3902,6 @@
   "workspace_limits.message_history.locked.description.admin": "Full access to message history is not available on this server.",
   "workspace_limits.message_history.locked.title.admin": "Limited history is displayed",
   "yourcomputer": "A számítógéped",
-  "admin.license.additionalLicensedFeatures": "Additional licensed features",
   "admin.system_users.exportButton.notLicensed.hint": "User data export is not available on this server.",
-  "admin.system_users.exportButton.notLicensed.title": "Unavailable feature",
-  "admin.license.renewalCard.description.renew_license": "Renew your {licenseSku} license to avoid any disruption."
+  "admin.system_users.exportButton.notLicensed.title": "Unavailable feature"
 }

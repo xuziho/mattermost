@@ -943,9 +943,6 @@
   "admin.license.confirm-license-removal.subtitle": "Pašalinus licenciją, serveris bus ankstesnis iš {currentSKU} į nemokamą. Galite prarasti informaciją ",
   "admin.license.confirm-license-removal.title": "Ar esate tuo tikras?",
   "admin.license.enterprise.restarting": "Paleidimas iš naujo",
-  "admin.license.enterprisePlanSubtitle": "Upload an updated license if you need to increase your licensed headcount.",
-  "admin.license.enterprisePlanTitle": "Licensed seat count",
-  "admin.license.freeEdition.subtitle": "Įsigykite Professional arba Enterprise, kad atrakintumėte įmonės funkcijas.",
   "admin.license.freeEdition.title": "Laisvas",
   "admin.license.key": "Licencijos raktas: ",
   "admin.license.keyAddNew": "Pridėti naują licenciją",
@@ -1278,8 +1275,6 @@
   "admin.permissions.sysconsole_section_authentication_password.name": "Slaptažodis",
   "admin.permissions.sysconsole_section_authentication_saml.name": "SAML 2.0",
   "admin.permissions.sysconsole_section_authentication_signup.name": "Registruotis",
-  "admin.permissions.sysconsole_section_billing.description": "Access local license account details.",
-  "admin.permissions.sysconsole_section_billing.name": "License account",
   "admin.permissions.sysconsole_section_compliance.description": "Peržiūrėkite atitikties nustatymus, pvz., saugojimą, eksportavimą ir veiklos žurnalus.",
   "admin.permissions.sysconsole_section_compliance.name": "Laikymasis",
   "admin.permissions.sysconsole_section_compliance_compliance_export.name": "Atitikties eksportas",
@@ -4128,8 +4123,6 @@
   "workspace_limits.message_history.locked.description.admin": "Full access to message history is not available on this server.",
   "workspace_limits.message_history.locked.title.admin": "Limited history is displayed",
   "yourcomputer": "Jūsų kompiuteris",
-  "admin.license.additionalLicensedFeatures": "Additional licensed features",
   "admin.system_users.exportButton.notLicensed.hint": "User data export is not available on this server.",
-  "admin.system_users.exportButton.notLicensed.title": "Unavailable feature",
-  "admin.license.renewalCard.description.renew_license": "Renew your {licenseSku} license to avoid any disruption."
+  "admin.system_users.exportButton.notLicensed.title": "Unavailable feature"
 }

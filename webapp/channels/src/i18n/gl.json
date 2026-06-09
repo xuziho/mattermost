@@ -1075,7 +1075,6 @@
   "admin.permissions.roles.team_admin.name": "Administrador do equipo",
   "admin.permissions.roles.team_user.name": "Usuario do equipo",
   "admin.permissions.sysconsole_section_authentication.name": "Autenticación",
-  "admin.permissions.sysconsole_section_billing.name": "License account",
   "admin.permissions.sysconsole_section_compliance.name": "Conformidade",
   "admin.permissions.sysconsole_section_environment.name": "Contorno",
   "admin.permissions.sysconsole_section_experimental.name": "Experimental",
@@ -1411,11 +1410,6 @@
   "user.settings.tokens.tokenLoading": "Cargando…",
   "view_image_popover.download": "Descargar",
   "yourcomputer": "O seu computador",
-  "admin.license.additionalLicensedFeatures": "Additional licensed features",
-  "admin.license.enterprisePlanTitle": "Licensed seat count",
-  "admin.license.enterprisePlanSubtitle": "Upload an updated license if you need to increase your licensed headcount.",
   "admin.system_users.exportButton.notLicensed.hint": "User data export is not available on this server.",
-  "admin.system_users.exportButton.notLicensed.title": "Unavailable feature",
-  "admin.license.renewalCard.description.renew_license": "Renew your {licenseSku} license to avoid any disruption.",
-  "admin.permissions.sysconsole_section_billing.description": "Access local license account details."
+  "admin.system_users.exportButton.notLicensed.title": "Unavailable feature"
 }

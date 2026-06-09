@@ -926,8 +926,6 @@
   "admin.license.confirm-license-removal.subtitle": "लाइसेंस को हटाने से आपका सर्वर एंटरप्राइज से स्टार्टर में डाउनग्रेड हो जाएगा। आप जानकारी खो सकते हैं। ",
   "admin.license.confirm-license-removal.title": "क्या आपको यकीन है?",
   "admin.license.enterprise.restarting": "पुन: प्रारंभ हो",
-  "admin.license.enterprisePlanSubtitle": "Upload an updated license if you need to increase your licensed headcount.",
-  "admin.license.enterprisePlanTitle": "Licensed seat count",
   "admin.license.key": "लाइसेंस कुंजी: ",
   "admin.license.keyAddNew": "एक नया लाइसेंस जोड़ें",
   "admin.license.keyRemove": "लाइसेंस निकालें और सर्वर डाउनग्रेड करें",
@@ -1754,10 +1752,6 @@
   "widgets.channels_input.loading": "लोडिंग",
   "widgets.users_emails_input.loading": "लोडिंग",
   "yourcomputer": "आपका कंप्यूटर",
-  "admin.license.additionalLicensedFeatures": "Additional licensed features",
   "admin.system_users.exportButton.notLicensed.hint": "User data export is not available on this server.",
-  "admin.system_users.exportButton.notLicensed.title": "Unavailable feature",
-  "admin.license.renewalCard.description.renew_license": "Renew your {licenseSku} license to avoid any disruption.",
-  "admin.permissions.sysconsole_section_billing.name": "License account",
-  "admin.permissions.sysconsole_section_billing.description": "Access local license account details."
+  "admin.system_users.exportButton.notLicensed.title": "Unavailable feature"
 }

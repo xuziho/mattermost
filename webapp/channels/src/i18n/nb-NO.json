@@ -1109,13 +1109,9 @@
   "admin.license.confirm-license-removal.subtitle": "Hvis du fjerner lisensen, nedgraderes serveren din fra {currentSKU} til Free. Du kan miste informasjon. ",
   "admin.license.confirm-license-removal.title": "Er du sikker?",
   "admin.license.enterprise.restarting": "Starter på nytt",
-  "admin.license.enterpriseEdition.add.seats": "+ Legg til seter",
-  "admin.license.enterprisePlanSubtitle": "Upload an updated license if you need to increase your licensed headcount.",
-  "admin.license.enterprisePlanTitle": "Licensed seat count",
   "admin.license.enterpriseToAdvancedAdvantage.attributeBasedAccess": "Attributtbasert tilgangskontroll",
   "admin.license.enterpriseToAdvancedAdvantage.channelWarningBanners": "Advarselsbannere for kanaler",
   "admin.license.enterpriseToAdvancedAdvantage.highAvailability": "Høy tilgjengelighet",
-  "admin.license.freeEdition.subtitle": "Dette er en server uten lisens og har ikke kommersiell støtte. Kjøp et Professional-, Enterprise- eller Enterprise Advanced-abonnement for å låse opp betalte funksjoner.",
   "admin.license.freeEdition.title": "Gratis",
   "admin.license.key": "Lisensnøkkel: ",
   "admin.license.keyAddNew": "Legg til en ny lisens",
@@ -1448,8 +1444,6 @@
   "admin.permissions.sysconsole_section_authentication_password.name": "Passord",
   "admin.permissions.sysconsole_section_authentication_saml.name": "SAML 2.0",
   "admin.permissions.sysconsole_section_authentication_signup.name": "Registrer deg",
-  "admin.permissions.sysconsole_section_billing.description": "Access local license account details.",
-  "admin.permissions.sysconsole_section_billing.name": "License account",
   "admin.permissions.sysconsole_section_compliance.description": "Gjennomgå compliance-innstillinger som oppbevaring, eksporter og aktivitetslogger.",
   "admin.permissions.sysconsole_section_compliance.name": "Compliance",
   "admin.permissions.sysconsole_section_compliance_compliance_export.name": "Compliance eksport",
@@ -4912,8 +4906,6 @@
   "youtube_video.play.aria_label": "Spill {videoTitle} på YouTube",
   "youtube_video.play_button.aria_label": "Spill av video",
   "youtube_video.thumbnail.alt_text": "Miniatyrbilde for {videoTitle} på YouTube",
-  "admin.license.additionalLicensedFeatures": "Additional licensed features",
   "admin.system_users.exportButton.notLicensed.hint": "User data export is not available on this server.",
-  "admin.system_users.exportButton.notLicensed.title": "Unavailable feature",
-  "admin.license.renewalCard.description.renew_license": "Renew your {licenseSku} license to avoid any disruption."
+  "admin.system_users.exportButton.notLicensed.title": "Unavailable feature"
 }

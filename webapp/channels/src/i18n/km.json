@@ -45,12 +45,6 @@
   "user.settings.security.logoutActiveSessions.icon": "តំបន់​សកម្ម",
   "web.header.logout": "ចេញ",
   "web.root.signup_info": "ទំនាក់ទំនងក្រុមរបស់អ្នកទាំងអស់ស្ថិតនៅក្នុងកន្លែងតែមួយ មានភាពរហ័យក្នុងការស្រាវជ្រាវ និងអាចភ្ជាប់ទំនាក់ទំនងគ្រប់ទីកន្លែង។",
-  "admin.license.additionalLicensedFeatures": "Additional licensed features",
-  "admin.license.enterprisePlanTitle": "Licensed seat count",
-  "admin.license.enterprisePlanSubtitle": "Upload an updated license if you need to increase your licensed headcount.",
   "admin.system_users.exportButton.notLicensed.hint": "User data export is not available on this server.",
-  "admin.system_users.exportButton.notLicensed.title": "Unavailable feature",
-  "admin.license.renewalCard.description.renew_license": "Renew your {licenseSku} license to avoid any disruption.",
-  "admin.permissions.sysconsole_section_billing.name": "License account",
-  "admin.permissions.sysconsole_section_billing.description": "Access local license account details."
+  "admin.system_users.exportButton.notLicensed.title": "Unavailable feature"
 }

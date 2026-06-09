@@ -1137,10 +1137,6 @@
   "admin.license.confirm-license-removal.subtitle": "Премахването на лиценза ще понижи нивото на вашия сървър от Корпоративно на Стартово. Възможно е да загубите информация. ",
   "admin.license.confirm-license-removal.title": "Сигурни ли сте?",
   "admin.license.enterprise.restarting": "Рестартиране",
-  "admin.license.enterpriseEdition.add.seats": "+ Добавяне на места",
-  "admin.license.enterprisePlanSubtitle": "Upload an updated license if you need to increase your licensed headcount.",
-  "admin.license.enterprisePlanTitle": "Licensed seat count",
-  "admin.license.freeEdition.subtitle": "Закупете Професионална или Корпоративна, за да отключите функциите на корпоративната версия.",
   "admin.license.freeEdition.title": "Безплатен",
   "admin.license.key": "Лицензионен ключ: ",
   "admin.license.keyAddNew": "Добави нов лиценз",
@@ -1502,8 +1498,6 @@
   "admin.permissions.sysconsole_section_authentication_password.name": "Парола",
   "admin.permissions.sysconsole_section_authentication_saml.name": "SAML 2.0",
   "admin.permissions.sysconsole_section_authentication_signup.name": "Регистрация",
-  "admin.permissions.sysconsole_section_billing.description": "Access local license account details.",
-  "admin.permissions.sysconsole_section_billing.name": "License account",
   "admin.permissions.sysconsole_section_compliance.description": "Преглежда настройките за съответствие, като например запазване, изнасяне и дневници на дейности.",
   "admin.permissions.sysconsole_section_compliance.name": "Съответствие",
   "admin.permissions.sysconsole_section_compliance_compliance_export.name": "Експорт на съответствие",
@@ -4052,8 +4046,6 @@
   "widgets.users_emails_input.no_user_found_matching": "Няма съвпадения за **{text}**, въведете ел.поща",
   "widgets.users_emails_input.valid_email": "Добави **{email}**",
   "yourcomputer": "Твоят компютър",
-  "admin.license.additionalLicensedFeatures": "Additional licensed features",
   "admin.system_users.exportButton.notLicensed.hint": "User data export is not available on this server.",
-  "admin.system_users.exportButton.notLicensed.title": "Unavailable feature",
-  "admin.license.renewalCard.description.renew_license": "Renew your {licenseSku} license to avoid any disruption."
+  "admin.system_users.exportButton.notLicensed.title": "Unavailable feature"
 }

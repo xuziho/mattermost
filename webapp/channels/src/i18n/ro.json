@@ -1174,8 +1174,6 @@
   "admin.permissions.sysconsole_section_authentication_password.name": "Parola",
   "admin.permissions.sysconsole_section_authentication_saml.name": "SAML 2.0",
   "admin.permissions.sysconsole_section_authentication_signup.name": "Înregistrare",
-  "admin.permissions.sysconsole_section_billing.description": "Access local license account details.",
-  "admin.permissions.sysconsole_section_billing.name": "License account",
   "admin.permissions.sysconsole_section_compliance.description": "Examinați setările de conformitate, cum ar fi păstrarea, exporturile și jurnalele de activitate.",
   "admin.permissions.sysconsole_section_compliance.name": "Conformitate",
   "admin.permissions.sysconsole_section_compliance_compliance_export.name": "Export de conformitate",
@@ -3440,10 +3438,6 @@
   "widgets.users_emails_input.no_user_found_matching": "Nimeni nu a găsit potrivirea **{text}**, introduceți adresa de e-mail",
   "widgets.users_emails_input.valid_email": "Adaugă **{email}**",
   "yourcomputer": "Computerul tău",
-  "admin.license.additionalLicensedFeatures": "Additional licensed features",
-  "admin.license.enterprisePlanTitle": "Licensed seat count",
-  "admin.license.enterprisePlanSubtitle": "Upload an updated license if you need to increase your licensed headcount.",
   "admin.system_users.exportButton.notLicensed.hint": "User data export is not available on this server.",
-  "admin.system_users.exportButton.notLicensed.title": "Unavailable feature",
-  "admin.license.renewalCard.description.renew_license": "Renew your {licenseSku} license to avoid any disruption."
+  "admin.system_users.exportButton.notLicensed.title": "Unavailable feature"
 }

@@ -945,9 +945,6 @@
   "admin.license.confirm-license-removal.subtitle": "Việc xóa giấy phép sẽ hạ cấp máy chủ của bạn từ {currentSKU} xuống Miễn phí. Bạn có thể mất thông tin. ",
   "admin.license.confirm-license-removal.title": "Bạn có chắc chắn?",
   "admin.license.enterprise.restarting": "Đang khởi động lại",
-  "admin.license.enterprisePlanSubtitle": "Upload an updated license if you need to increase your licensed headcount.",
-  "admin.license.enterprisePlanTitle": "Licensed seat count",
-  "admin.license.freeEdition.subtitle": "Mua Professional hoặc Enterprise để mở khóa các tính năng dành cho doanh nghiệp.",
   "admin.license.freeEdition.title": "Miễn phí",
   "admin.license.key": "Khoá Cấp phép: ",
   "admin.license.keyAddNew": "Thêm giấy phép mới",
@@ -1280,8 +1277,6 @@
   "admin.permissions.sysconsole_section_authentication_password.name": "Mật khẩu",
   "admin.permissions.sysconsole_section_authentication_saml.name": "SAML 2.0",
   "admin.permissions.sysconsole_section_authentication_signup.name": "Đăng ký",
-  "admin.permissions.sysconsole_section_billing.description": "Access local license account details.",
-  "admin.permissions.sysconsole_section_billing.name": "License account",
   "admin.permissions.sysconsole_section_compliance.description": "Xem lại cài đặt tuân thủ như lưu giữ, xuất và nhật ký hoạt động.",
   "admin.permissions.sysconsole_section_compliance.name": "Tuân thủ",
   "admin.permissions.sysconsole_section_compliance_compliance_export.name": "Tuân thủ xuất khẩu",
@@ -4094,8 +4089,6 @@
   "workspace_limits.message_history.locked.description.admin": "Full access to message history is not available on this server.",
   "workspace_limits.message_history.locked.title.admin": "Limited history is displayed",
   "yourcomputer": "Máy tính của bạn",
-  "admin.license.additionalLicensedFeatures": "Additional licensed features",
   "admin.system_users.exportButton.notLicensed.hint": "User data export is not available on this server.",
-  "admin.system_users.exportButton.notLicensed.title": "Unavailable feature",
-  "admin.license.renewalCard.description.renew_license": "Renew your {licenseSku} license to avoid any disruption."
+  "admin.system_users.exportButton.notLicensed.title": "Unavailable feature"
 }

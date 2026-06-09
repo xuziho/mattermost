@@ -1372,10 +1372,6 @@
   "admin.license.confirm-license-removal.subtitle": "Удаление лицензии понизит уровень сервера с {currentSKU} до Бесплатного. Вы можете потерять информацию. ",
   "admin.license.confirm-license-removal.title": "Вы уверены?",
   "admin.license.enterprise.restarting": "Перезапуск",
-  "admin.license.enterpriseEdition.add.seats": "+ Добавить места",
-  "admin.license.enterprisePlanSubtitle": "Upload an updated license if you need to increase your licensed headcount.",
-  "admin.license.enterprisePlanTitle": "Licensed seat count",
-  "admin.license.freeEdition.subtitle": "Приобретите Professional или Enterprise, чтобы разблокировать корпоративные функции.",
   "admin.license.freeEdition.title": "Бесплатно",
   "admin.license.key": "Лицензионный ключ: ",
   "admin.license.keyAddNew": "Добавить новую лицензию",
@@ -1743,8 +1739,6 @@
   "admin.permissions.sysconsole_section_authentication_password.name": "Пароль",
   "admin.permissions.sysconsole_section_authentication_saml.name": "SAML 2.0",
   "admin.permissions.sysconsole_section_authentication_signup.name": "Регистрация",
-  "admin.permissions.sysconsole_section_billing.description": "Access local license account details.",
-  "admin.permissions.sysconsole_section_billing.name": "License account",
   "admin.permissions.sysconsole_section_compliance.description": "Проверить соответствие настроек сохранения, экспорта и журналов активности.",
   "admin.permissions.sysconsole_section_compliance.name": "Соответствие стандартам",
   "admin.permissions.sysconsole_section_compliance_compliance_export.name": "Комплаенс-отчеты",
@@ -5081,8 +5075,6 @@
   "workspace_limits.message_history.locked.description.admin": "Full access to message history is not available on this server.",
   "workspace_limits.message_history.locked.title.admin": "Limited history is displayed",
   "yourcomputer": "Ваш компьютер",
-  "admin.license.additionalLicensedFeatures": "Additional licensed features",
   "admin.system_users.exportButton.notLicensed.hint": "User data export is not available on this server.",
-  "admin.system_users.exportButton.notLicensed.title": "Unavailable feature",
-  "admin.license.renewalCard.description.renew_license": "Renew your {licenseSku} license to avoid any disruption."
+  "admin.system_users.exportButton.notLicensed.title": "Unavailable feature"
 }

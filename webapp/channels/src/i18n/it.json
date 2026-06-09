@@ -3187,12 +3187,6 @@
   "widgets.users_emails_input.no_user_found_matching": "Nessuna corrispondenza per **{text}**, digitare l'indirizzo email",
   "widgets.users_emails_input.valid_email": "Aggiungi **{email}**",
   "yourcomputer": "Il tuo pc",
-  "admin.license.additionalLicensedFeatures": "Additional licensed features",
-  "admin.license.enterprisePlanTitle": "Licensed seat count",
-  "admin.license.enterprisePlanSubtitle": "Upload an updated license if you need to increase your licensed headcount.",
   "admin.system_users.exportButton.notLicensed.hint": "User data export is not available on this server.",
-  "admin.system_users.exportButton.notLicensed.title": "Unavailable feature",
-  "admin.license.renewalCard.description.renew_license": "Renew your {licenseSku} license to avoid any disruption.",
-  "admin.permissions.sysconsole_section_billing.name": "License account",
-  "admin.permissions.sysconsole_section_billing.description": "Access local license account details."
+  "admin.system_users.exportButton.notLicensed.title": "Unavailable feature"
 }

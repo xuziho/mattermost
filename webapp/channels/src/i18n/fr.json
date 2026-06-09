@@ -1067,9 +1067,6 @@
   "admin.license.confirm-license-removal.subtitle": "Supprimer la licence rétrogradera votre serveur de la version {currentSKU} à Free. Vous risquez de perdre des informations. ",
   "admin.license.confirm-license-removal.title": "Êtes-vous sûr ?",
   "admin.license.enterprise.restarting": "Redémarrage en cours",
-  "admin.license.enterpriseEdition.add.seats": "+ Ajouter des sièges",
-  "admin.license.enterprisePlanSubtitle": "Upload an updated license if you need to increase your licensed headcount.",
-  "admin.license.enterprisePlanTitle": "Licensed seat count",
   "admin.license.freeEdition.title": "Gratuit",
   "admin.license.key": "Clé de licence : ",
   "admin.license.keyRemove": "Supprimer la licence et rétrograder le serveur",
@@ -1393,8 +1390,6 @@
   "admin.permissions.sysconsole_section_authentication_password.name": "Mot de passe",
   "admin.permissions.sysconsole_section_authentication_saml.name": "SAML 2.0",
   "admin.permissions.sysconsole_section_authentication_signup.name": "Inscription",
-  "admin.permissions.sysconsole_section_billing.description": "Access local license account details.",
-  "admin.permissions.sysconsole_section_billing.name": "License account",
   "admin.permissions.sysconsole_section_compliance.description": "Examine les paramètres de conformité tels que la conservation, les exportations et les journaux d'activité.",
   "admin.permissions.sysconsole_section_compliance.name": "Conformité",
   "admin.permissions.sysconsole_section_compliance_compliance_export.name": "Export de conformité",
@@ -4377,8 +4372,6 @@
   "workspace_limits.archived_file.archived_compact": "(archivé)",
   "workspace_limits.message_history.locked.description.admin": "Full access to message history is not available on this server.",
   "yourcomputer": "Votre ordinateur",
-  "admin.license.additionalLicensedFeatures": "Additional licensed features",
   "admin.system_users.exportButton.notLicensed.hint": "User data export is not available on this server.",
-  "admin.system_users.exportButton.notLicensed.title": "Unavailable feature",
-  "admin.license.renewalCard.description.renew_license": "Renew your {licenseSku} license to avoid any disruption."
+  "admin.system_users.exportButton.notLicensed.title": "Unavailable feature"
 }

@@ -927,8 +927,6 @@
   "admin.license.confirm-license-removal.subtitle": "As jo de lisinsje fuortsmite, wurdt jo server downgrade fan Enterprise nei Free. Jo kinne ynformaasje kwytreitsje. ",
   "admin.license.confirm-license-removal.title": "Ben je zeker?",
   "admin.license.enterprise.restarting": "Herstarten",
-  "admin.license.enterprisePlanSubtitle": "Upload an updated license if you need to increase your licensed headcount.",
-  "admin.license.enterprisePlanTitle": "Licensed seat count",
   "admin.license.key": "Licentie sleutel: ",
   "admin.license.keyAddNew": "Voeg een nieuwe licentie toe",
   "admin.license.keyRemove": "Lisinsje fuortsmite en de server downgrade nei Mattermost Free",
@@ -1248,8 +1246,6 @@
   "admin.permissions.sysconsole_section_authentication_password.name": "Wachtwoord",
   "admin.permissions.sysconsole_section_authentication_saml.name": "SAML 2.0",
   "admin.permissions.sysconsole_section_authentication_signup.name": "Registreren",
-  "admin.permissions.sysconsole_section_billing.description": "Access local license account details.",
-  "admin.permissions.sysconsole_section_billing.name": "License account",
   "admin.permissions.sysconsole_section_compliance.description": "Controleer de nalevingsinstellingen zoals bewaring, export en activiteitslogboeken.",
   "admin.permissions.sysconsole_section_compliance.name": "Voldoet aan",
   "admin.permissions.sysconsole_section_compliance_compliance_export.name": "\"Compliance\" export",
@@ -3935,8 +3931,6 @@
   "workspace_limits.message_history.locked.description.admin": "Full access to message history is not available on this server.",
   "workspace_limits.message_history.locked.title.admin": "Limited history is displayed",
   "yourcomputer": "Jo kompjûter",
-  "admin.license.additionalLicensedFeatures": "Additional licensed features",
   "admin.system_users.exportButton.notLicensed.hint": "User data export is not available on this server.",
-  "admin.system_users.exportButton.notLicensed.title": "Unavailable feature",
-  "admin.license.renewalCard.description.renew_license": "Renew your {licenseSku} license to avoid any disruption."
+  "admin.system_users.exportButton.notLicensed.title": "Unavailable feature"
 }

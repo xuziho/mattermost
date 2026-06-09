@@ -1227,10 +1227,6 @@
   "admin.license.confirm-license-removal.subtitle": "Видалення ліцензії понизить статус вашого сервера з {currentSKU} до Free. Ви можете втратити інформацію. ",
   "admin.license.confirm-license-removal.title": "Ви впевнені?",
   "admin.license.enterprise.restarting": "Перезавантаження",
-  "admin.license.enterpriseEdition.add.seats": "+ Додати місця",
-  "admin.license.enterprisePlanSubtitle": "Upload an updated license if you need to increase your licensed headcount.",
-  "admin.license.enterprisePlanTitle": "Licensed seat count",
-  "admin.license.freeEdition.subtitle": "Це неліцензійний сервер і не має комерційної підтримки. Щоб розблокувати платні функції, придбайте тарифний план Professional, Enterprise або Enterprise Advanced.",
   "admin.license.freeEdition.title": "Безкоштовно",
   "admin.license.key": "Ліцензійний ключ: ",
   "admin.license.keyAddNew": "Додати нову ліцензію",
@@ -1605,8 +1601,6 @@
   "admin.permissions.sysconsole_section_authentication_password.name": "Пароль",
   "admin.permissions.sysconsole_section_authentication_saml.name": "SAML 2.0",
   "admin.permissions.sysconsole_section_authentication_signup.name": "Реєстрація",
-  "admin.permissions.sysconsole_section_billing.description": "Access local license account details.",
-  "admin.permissions.sysconsole_section_billing.name": "License account",
   "admin.permissions.sysconsole_section_compliance.description": "Перегляд налаштувань відповідності вимогам, таких як зберігання даних, експорт та журнали активності.",
   "admin.permissions.sysconsole_section_compliance.name": "Відповідність",
   "admin.permissions.sysconsole_section_compliance_compliance_export.name": "Експорт відповідності",
@@ -5345,8 +5339,6 @@
   "youtube_video.play.aria_label": "Відтворити {videoTitle} на YouTube",
   "youtube_video.play_button.aria_label": "Відтворити відео",
   "youtube_video.thumbnail.alt_text": "Ескіз для {videoTitle} на YouTube",
-  "admin.license.additionalLicensedFeatures": "Additional licensed features",
   "admin.system_users.exportButton.notLicensed.hint": "User data export is not available on this server.",
-  "admin.system_users.exportButton.notLicensed.title": "Unavailable feature",
-  "admin.license.renewalCard.description.renew_license": "Renew your {licenseSku} license to avoid any disruption."
+  "admin.system_users.exportButton.notLicensed.title": "Unavailable feature"
 }
