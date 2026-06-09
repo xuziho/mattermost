@@ -50,7 +50,7 @@ type State = {
 const messages = defineMessages({
     teamOverrideSchemesNoSchemes: {id: 'admin.permissions.teamOverrideSchemesNoSchemes', defaultMessage: 'No team override schemes created.'},
     loadMoreSchemes: {id: 'admin.permissions.loadMoreSchemes', defaultMessage: 'Load more schemes'},
-    introBanner: {id: 'admin.permissions.introBanner', defaultMessage: 'Permission Schemes set the default permissions for Team Admins, Channel Admins and everyone else. Learn more about permission schemes in our <link>documentation</link>.'},
+    introBanner: {id: 'admin.permissions.introBanner', defaultMessage: 'Permission Schemes set the default permissions for Team Admins, Channel Admins and everyone else.'},
     systemSchemeBannerTitle: {id: 'admin.permissions.systemSchemeBannerTitle', defaultMessage: 'System Scheme'},
     systemSchemeBannerText: {id: 'admin.permissions.systemSchemeBannerText', defaultMessage: 'Set the default permissions inherited by all teams unless a <link>Team Override Scheme</link> is applied.'},
     systemSchemeBannerButton: {id: 'admin.permissions.systemSchemeBannerButton', defaultMessage: 'Edit Scheme'},
@@ -128,7 +128,7 @@ export default class PermissionSchemesSettings extends React.PureComponent<Props
             return this.teamOverrideUnavalableView(
                 defineMessage({
                     id: 'admin.permissions.teamOverrideSchemesInProgress',
-                    defaultMessage: 'Migration job in progress: Team Override Schemes are not available until the job server completes the permissions migration. Learn more in the <link>documentation</link>.',
+                    defaultMessage: 'Migration job in progress: Team Override Schemes are not available until the job server completes the permissions migration.',
                 }),
             );
         }
@@ -136,7 +136,7 @@ export default class PermissionSchemesSettings extends React.PureComponent<Props
         return this.teamOverrideUnavalableView(
             defineMessage({
                 id: 'admin.permissions.teamOverrideSchemesNoJobsEnabled',
-                defaultMessage: 'Migration job on hold: Team Override Schemes are not available until the job server can execute the permissions migration. The job will be automatically started when the job server is enabled. Learn more in the <link>documentation</link>.',
+                defaultMessage: 'Migration job on hold: Team Override Schemes are not available until the job server can execute the permissions migration. The job will be automatically started when the job server is enabled.',
             }),
         );
     };
