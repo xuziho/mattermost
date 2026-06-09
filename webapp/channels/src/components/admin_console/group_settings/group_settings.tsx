@@ -10,7 +10,6 @@ import AdminHeader from 'components/widgets/admin_console/admin_header';
 import AdminPanel from 'components/widgets/admin_console/admin_panel';
 
 import Pluggable from 'plugins/pluggable';
-import {DocLinks} from 'utils/constants';
 import {getSiteURL} from 'utils/url';
 
 type Props = {
@@ -33,17 +32,7 @@ const GroupSettings = ({isDisabled}: Props) => {
                         <div className='banner__content'>
                             <FormattedMessage
                                 id='admin.group_settings.introBanner'
-                                defaultMessage={'Groups are a way to organize users and apply actions to all users within that group.\nFor more information on Groups, please see <link>documentation</link>.'}
-                                values={{
-                                    link: (msg: React.ReactNode) => (
-                                        <ExternalLink
-                                            location='group_settings'
-                                            href={DocLinks.DEFAULT_LDAP_GROUP_SYNC}
-                                        >
-                                            {msg}
-                                        </ExternalLink>
-                                    ),
-                                }}
+                                defaultMessage={'Groups are a way to organize users and apply actions to all users within that group.'}
                             />
                         </div>
                     </div>
