@@ -102,12 +102,12 @@ jobs:
       TEST_FILTER_CYPRESS_PROD_ONPREM: >-
         --stage="@prod"
         --excludeGroup="@te_only,@cloud_only,@high_availability"
-        --sortFirst="@compliance_export,@elasticsearch,@ldap_group,@ldap,@playbooks"
+        --sortFirst="@compliance_export,@elasticsearch,@ldap_group,@ldap"
         --sortLast="@saml,@keycloak,@plugin,@plugins_uninstall,@mfa,@license_removal"
       TEST_FILTER_CYPRESS_PROD_CLOUD: >-
         --stage="@prod"
         --excludeGroup="@not_cloud,@cloud_trial,@e20_only,@te_only,@high_availability,@license_removal"
-        --sortFirst="@compliance_export,@elasticsearch,@ldap_group,@ldap,@playbooks"
+        --sortFirst="@compliance_export,@elasticsearch,@ldap_group,@ldap"
         --sortLast="@saml,@keycloak,@plugin,@plugins_uninstall,@mfa"
       MM_ENV: "${{ inputs.MM_ENV || '' }}"
       MM_SERVICE_OVERRIDES: "${{ inputs.MM_SERVICE_OVERRIDES }}"
