@@ -214,7 +214,6 @@
   "admin.general.localization.clientLocaleTitle": "ຄ່າເລີ່ມຕົ້ນພາສາຜູ້ໃຊ້:",
   "admin.general.localization.serverLocaleDescription": "ຄ່າເລີ່ມຕົ້ນພາສາສຳລັບຂໍ້ຄວາມລະບົບ ແລະ ການບັນທຶກກິດຈະກຳ. ການປ່ຽນແປງນີ້ຈະຕ້ອງປິດເປີດເຄື່ອງແມ່ຂ່າຍໃໝ່ກ່ອນທີ່ຈະມີຜົນ.",
   "admin.general.localization.serverLocaleTitle": "ຄ່າເລີ່ມຕົ້ນພາສາເຄື່ອງແມ່ຂ່າຍ:",
-  "admin.gitlab.EnableMarkdownDesc": "1. ເຂົ້າສູ່ລະບົບບັນຊີ GitLab ຂອງທ່ານແລະໄປທີ່ Profile Settings -> Applications.\n2. ປ້ອນ Redirect URIs \"<your-mattermost-url>/login/gitlab/complete\" (ຕົວຢ່າງ: http://localhost:8065/login/gitlab/complete) ແລະ \"<your-mattermost-url>/signup/gitlab/complete\".\n3. ຫຼັງຈາກນັ້ນ, ໃຊ້ ຂົງເຂດ \"Application Secret Key\" ແລະ \"Application ID\" ຈາກ GitLab ເພື່ອໃຫ້ສໍາເລັດທາງເລືອກດ້ານລຸ່ມ.\n4. ປ້ອນປາຍທາງ URLs ດ້ານລຸ່ມ.",
   "admin.gitlab.clientSecretTitle": "Application Secret Key:",
   "admin.gitlab.siteUrl": "GitLab URL ເວັບໄຊ: ",
   "admin.group_settings.group_details.group_profile.name": "ຊື່",
