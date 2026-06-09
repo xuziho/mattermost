@@ -1153,7 +1153,7 @@
   "admin.log.consoleJsonTitle": "Skriv ut konsollogger som JSON:",
   "admin.log.consoleTitle": "Skriv ut logger til konsollen: ",
   "admin.log.enableDiagnostics": "Aktiver diagnostikk og feilrapportering:",
-  "admin.log.enableDiagnosticsDescription": "Aktiver denne funksjonen for å forbedre kvaliteten og ytelsen til Mattermost ved å sende feilrapportering og diagnostisk informasjon til Mattermost, Inc. Les våre <link>personvernregler</link> for å finne ut mer.",
+  "admin.log.enableDiagnosticsDescription": "Enable this feature to collect diagnostics and error reporting for this AgentCompanyOS deployment. Review your own logging and privacy policy before enabling it.",
   "admin.log.enableWebhookDebugging": "Aktiver Webhook-debugging:",
   "admin.log.fileJsonTitle": "Utdata fillogger som JSON:",
   "admin.log.fileLevelTitle": "Filloggnivå:",

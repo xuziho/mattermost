@@ -1278,7 +1278,7 @@
   "admin.log.consoleJsonTitle": "Вивести консольні логи у форматі JSON:",
   "admin.log.consoleTitle": "Вивести логи в консоль: ",
   "admin.log.enableDiagnostics": "Увімкнення діагностики та звітів про помилки:",
-  "admin.log.enableDiagnosticsDescription": "Увімкніть цю функцію, щоб покращити якість і продуктивність Mattermost, надсилаючи звіти про помилки та діагностичну інформацію до Mattermost, Inc. Докладніше читайте в нашій <link>політиці конфіденційності</link>.",
+  "admin.log.enableDiagnosticsDescription": "Enable this feature to collect diagnostics and error reporting for this AgentCompanyOS deployment. Review your own logging and privacy policy before enabling it.",
   "admin.log.enableWebhookDebugging": "Увімкнути налагодження Webhook:",
   "admin.log.enableWebhookDebuggingDescription": "Якщо увімкнено, надсилає налагоджувальні повідомлення вебхуків до журналів сервера. Щоб також виводити тіло запиту вхідних вебхуків, встановіть {boldedLogLevel} у значення 'DEBUG'.",
   "admin.log.fileDescription": "Зазвичай увімкнено в продуктивному середовищі. Якщо увімкнено, зареєстровані події записуються у файл mattermost.log у каталозі, вказаному в полі \"Каталог файлів журналу\". Журнали чергуються при досягненні 100 МБ і архівуються у файл у тому ж каталозі з ім’ям, що містить дату та порядковий номер, наприклад, mattermost.2017-03-31.001. Зміна цього параметра потребує перезапуску сервера, щоб набрати чинності.",

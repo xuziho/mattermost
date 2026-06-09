@@ -1423,7 +1423,7 @@
   "admin.log.consoleJsonTitle": "Выводит логи в консоль в JSON:",
   "admin.log.consoleTitle": "Исходящие журналы в консоль: ",
   "admin.log.enableDiagnostics": "Включение диагностики и отчетов об ошибках:",
-  "admin.log.enableDiagnosticsDescription": "Включите функцию отправки отчётов об ошибках и диагностическую информацию для того, чтобы мы смогли улучшить Mattermost. Прочтите нашу <link>политику безопасности</link>.",
+  "admin.log.enableDiagnosticsDescription": "Enable this feature to collect diagnostics and error reporting for this AgentCompanyOS deployment. Review your own logging and privacy policy before enabling it.",
   "admin.log.enableWebhookDebugging": "Включить отладку Webhook-ов:",
   "admin.log.enableWebhookDebuggingDescription": "При значении \"да\" отправляет сообщения отладки вебхуков в журналы сервера. Чтобы также вывести тело запроса входящих вебхуков, установите {boldedLogLevel} в 'DEBUG'.",
   "admin.log.fileDescription": "Обычно устанавливается на \"да\" в продакшене. При значении \"да\" записанные события записываются в файл mattermost.log в каталоге, указанном в поле \"Каталог с файлом журнала\". Журналы чередуются на 10 Мб и архивируются в файл в том же каталоге, и им присваивается имя с меткой даты и серийным номером. Например, mattermost.2017-03-31.001. Изменение этого параметра требует перезагрузки сервера перед вступлением в силу.",

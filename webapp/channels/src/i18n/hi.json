@@ -966,7 +966,7 @@
   "admin.log.consoleJsonTitle": "आउटपुट कंसोल JSON के रूप में लॉग करता है:",
   "admin.log.consoleTitle": "कंसोल के लिए आउटपुट लॉग: ",
   "admin.log.enableDiagnostics": "निदान और त्रुटि रिपोर्टिंग सक्षम करें:",
-  "admin.log.enableDiagnosticsDescription": "मैटरमोस्ट, इंक को त्रुटि रिपोर्टिंग और नैदानिक जानकारी भेजकर मैटरमोस्ट की गुणवत्ता और प्रदर्शन को बेहतर बनाने के लिए इस सुविधा को सक्षम करें। अधिक जानने के लिए हमारी [गोपनीयता नीति](!https://mattermost.com/privacy-policy/) पढ़ें।",
+  "admin.log.enableDiagnosticsDescription": "Enable this feature to collect diagnostics and error reporting for this AgentCompanyOS deployment. Review your own logging and privacy policy before enabling it.",
   "admin.log.enableWebhookDebugging": "वेबहुक डिबगिंग सक्षम करें:",
   "admin.log.enableWebhookDebuggingDescription": "सही होने पर, सर्वर लॉग में वेबहुक डिबग संदेश भेजता है. इनकमिंग वेबहुक के रिक्वेस्ट बॉडी को आउटपुट करने के लिए, {boldedLogLevel} को 'DEBUG' पर सेट करें।",
   "admin.log.fileDescription": "आम तौर पर उत्पादन में सही पर सेट होता है। जब सही होता है, तो लॉग किए गए ईवेंट को फ़ाइल लॉग निर्देशिका फ़ील्ड में निर्दिष्ट निर्देशिका में मैटरमोस्ट.लॉग फ़ाइल में लिखा जाता है। लॉग को 100 एमबी पर घुमाया जाता है और उसी निर्देशिका में एक फ़ाइल में संग्रहीत किया जाता है, और एक डेटास्टैम्प और सीरियल नंबर के साथ एक नाम दिया जाता है। उदाहरण के लिए, मायने रखता है।2017-03-31.001। इस सेटिंग को बदलने के लिए प्रभावी होने से पहले सर्वर को पुनरारंभ करना आवश्यक है।",

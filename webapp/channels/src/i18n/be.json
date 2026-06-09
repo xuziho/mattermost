@@ -1455,7 +1455,7 @@
   "admin.log.consoleJsonTitle": "Выводзіць журналы кансолі як JSON:",
   "admin.log.consoleTitle": "Выводзіць журналы ў кансоль: ",
   "admin.log.enableDiagnostics": "Уключыць дыягностыку і справаздачнасць аб памылках:",
-  "admin.log.enableDiagnosticsDescription": "Уключыце гэту функцыю, каб палепшыць якасць і прадукцыйнасць Mattermost, адпраўляючы справаздачы аб памылках і дыягнастычную інфармацыю ў Mattermost, Inc. Прачытайце нашу <link>палітыку прыватнасці</link>, каб даведацца больш.",
+  "admin.log.enableDiagnosticsDescription": "Enable this feature to collect diagnostics and error reporting for this AgentCompanyOS deployment. Review your own logging and privacy policy before enabling it.",
   "admin.log.enableWebhookDebugging": "Уключыць адладку Webhook:",
   "admin.log.enableWebhookDebuggingDescription": "Калі ўключана, адпраўляе паведамленні адладкі вэбхукаў у журналы сервера. Каб таксама выводзіць цела запыту ўваходных вэбхукаў, усталюйце {boldedLogLevel} у 'DEBUG'.",
   "admin.log.fileDescription": "Звычайна ўключана ў прадакшне. Калі ўключана, зарэгістраваныя падзеі запісваюцца ў файл mattermost.log у каталогу, указаным у полі «Каталог файлавага журнала». Журналы ротуюцца пры 100 МБ і архівуюцца ў файл у тым жа каталогу, і ім даецца імя з пазнакай даты і серыйным нумарам. Напрыклад, mattermost.2017-03-31.001. Змена гэтай налады патрабуе перазапуску сервера, перш чым яна ўступіць у сілу.",

@@ -483,7 +483,7 @@
   "admin.log.consoleJsonTitle": "Output konsol logs som JSON:",
   "admin.log.consoleTitle": "Output logger på konsollen: ",
   "admin.log.enableDiagnostics": "Aktiver Diagnostik og fejlrapportering:",
-  "admin.log.enableDiagnosticsDescription": "Aktiver denne funktion for at forbedre kvaliteten og ydeevnen af Mattermost ved at sende fejlrapportering og diagnostiske oplysninger for at Mattermost, Inc. Læs vores [politik](!) for at lære mere.",
+  "admin.log.enableDiagnosticsDescription": "Enable this feature to collect diagnostics and error reporting for this AgentCompanyOS deployment. Review your own logging and privacy policy before enabling it.",
   "admin.log.enableWebhookDebugging": "Aktiver Webhook Debugging:",
   "admin.log.enableWebhookDebuggingDescription": "Når sandt, sender webhook debug beskeder til server-logfiler. At også produktion anmodning kroppen af indgående webhooks, sæt {boldedLogLevel} 'DEBUG'.",
   "admin.log.fileDescription": "Typisk sat til true i produktion. Når sandt, logget begivenheder, der er skrevet til mattermost.log-fil i den mappe, der er angivet i Fil-Log-Mappe-felt. Logfilerne er drejet på 10.000 linjer og arkiveres på en fil i samme mappe, og du får et navn med datomærker og serienummer. For eksempel, mattermost.2017-03-31.001. Ændring af denne indstilling kræver en server genstarter computeren, før de træder i kraft.",

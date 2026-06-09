@@ -391,7 +391,7 @@
   "admin.license.removing": "Odstranjevanje licence ...",
   "admin.log.consoleDescription": "Običajno je v produkciji nastaljeno na false. Razvijalci lahko to polje nastavijo na true, da izpisujejo sporočila dnevnika na konzolo na podlagi možnosti konzolne ravni. Če je true, strežnik zapiše sporočila v standardni izhodni tok (stdout). Spreminjanje te nastavitve zahteva ponovni zagon strežnika, preden začne delovati.",
   "admin.log.enableDiagnostics": "Omogoči diagnostiko in poročanje o napakah:",
-  "admin.log.enableDiagnosticsDescription": "Omogočite to funkcijo, da izboljšate kakovost in zmogljivost aplikacije Mattermost, tako da pošljete poročanje o napakah in diagnostične informacije podjetju Mattermost, Inc. Preberite naš [privacy policy](!) za več informacij.",
+  "admin.log.enableDiagnosticsDescription": "Enable this feature to collect diagnostics and error reporting for this AgentCompanyOS deployment. Review your own logging and privacy policy before enabling it.",
   "admin.log.locationPlaceholder": "Vnesite lokacijo datoteke",
   "admin.logs.bannerDesc": "Če želite poiskati uporabnike z ID-jem uporabnika ali z ID-jem žetona, pojdite v Poročanje > Uporabniki in prilepite ID v iskalni filter.",
   "admin.manage_roles.allowUserAccessTokensDesc": "Če odstranite to dovoljenje, ne izbrišete obstoječih žetonov. Če jih želite izbrisati, pojdite v meni Upravljanje z žetoni uporabnika.",

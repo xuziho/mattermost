@@ -1501,7 +1501,7 @@
   "admin.log.consoleJsonTitle": "Wyprowadź logi konsoli jako JSON:",
   "admin.log.consoleTitle": "Wysyłaj logi do konsoli: ",
   "admin.log.enableDiagnostics": "Włącz Diagnostykę i Raportowanie Błędów:",
-  "admin.log.enableDiagnosticsDescription": "Włącz tę funkcję, aby poprawić jakość i wydajność Mattermost, wysyłając raporty o błędach i informacje diagnostyczne do Mattermost, Inc. Przeczytaj naszą <link>politykę prywatności</link> , aby dowiedzieć się więcej.",
+  "admin.log.enableDiagnosticsDescription": "Enable this feature to collect diagnostics and error reporting for this AgentCompanyOS deployment. Review your own logging and privacy policy before enabling it.",
   "admin.log.enableWebhookDebugging": "Włącz Debugowanie Webhooka:",
   "admin.log.enableWebhookDebuggingDescription": "Jeśli włączone, wysyła komunikaty debugowania webhooków do logów serwera. Aby wyświetlić treść żądania przychodzących webhooków, ustaw {boldedLogLevel} na 'DEBUG'.",
   "admin.log.fileDescription": "Zazwyczaj włączone na produkcji. Jeśli włączone, logowane zdarzenia są zapisywane do pliku mattermost.log w katalogu sprecyzowanym w polu Katalog Pliku z Logami. Logi są rotowane przy 100 MB i archiwizowane do pliku w tym samym katalogu, a do nazwy dodawana jest data i numer seryjny. Na przykład, mattermost.2017-03-31.001. Zmiana ustawień wymaga restartu serwera przed otrzymaniem efektu.",

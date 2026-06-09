@@ -986,7 +986,7 @@
   "admin.log.consoleJsonTitle": "Išvesties konsolės žurnalai registruojami kaip JSON:",
   "admin.log.consoleTitle": "Išvesti žurnalus į konsolę: ",
   "admin.log.enableDiagnostics": "Įgalinti diagnostiką ir klaidų ataskaitų teikimą:",
-  "admin.log.enableDiagnosticsDescription": "Įgalinkite šią funkciją, kad pagerintumėte Mattermost kokybę ir našumą, siųsdami pranešimus apie klaidas ir diagnostinę informaciją Mattermost, Inc. Skaitykite mūsų <link>Privatumo politiką</link> norėdami sužinoti daugiau.",
+  "admin.log.enableDiagnosticsDescription": "Enable this feature to collect diagnostics and error reporting for this AgentCompanyOS deployment. Review your own logging and privacy policy before enabling it.",
   "admin.log.enableWebhookDebugging": "Įgalinti žiniatinklio kablio derinimą:",
   "admin.log.enableWebhookDebuggingDescription": "Kai tiesa, serverio žurnalams siunčiami žiniatinklio kablio derinimo pranešimai. Norėdami taip pat išvesti gaunamų žiniatinklio kabliukų užklausos turinį, nustatykite {boldedLogLevel} į „DEBUG“.",
   "admin.log.fileDescription": "Paprastai gamyboje nustatyta kaip „true“. Kai tiesa, registruojami įvykiai įrašomi į failą mattermost.log, esantį lauke Failų žurnalo katalogas nurodytame kataloge. Žurnalai pasukami 100 MB ir suarchyvuojami į failą tame pačiame kataloge, jiems suteikiamas pavadinimas su datos antspaudu ir serijos numeriu. Pavyzdžiui, svarbiausia.2017-03-31.001. Norint pakeisti šį nustatymą, prieš įsigaliojant reikia iš naujo paleisti serverį.",

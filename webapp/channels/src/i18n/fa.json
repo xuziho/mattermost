@@ -946,7 +946,7 @@
   "admin.log.consoleJsonTitle": "گزارش های کنسول خروجی به صورت JSON:",
   "admin.log.consoleTitle": "گزارش های خروجی به کنسول: ",
   "admin.log.enableDiagnostics": "فعال کردن تشخیص و گزارش خطا:",
-  "admin.log.enableDiagnosticsDescription": "برای بهبود کیفیت و عملکرد Mattermost با ارسال گزارش خطا و اطلاعات تشخیصی به Mattermost، Inc، این ویژگی را فعال کنید. بیشتر.",
+  "admin.log.enableDiagnosticsDescription": "Enable this feature to collect diagnostics and error reporting for this AgentCompanyOS deployment. Review your own logging and privacy policy before enabling it.",
   "admin.log.enableWebhookDebugging": "فعال کردن Webhook Debugging:",
   "admin.log.enableWebhookDebuggingDescription": "وقتی درست باشد، پیام‌های اشکال‌زدایی وب هوک را به گزارش‌های سرور ارسال می‌کند. برای همچنین خروجی بدنه درخواست وبکهک های ورودی، {boldedLogLevel} را روی 'DEBUG' تنظیم کنید.",
   "admin.log.fileDescription": "معمولاً در تولید روی true تنظیم می شود. هنگامی که درست است، رویدادهای ثبت شده در فایل mattermost.log در دایرکتوری مشخص شده در قسمت File Log Directory نوشته می شوند. گزارش‌ها در 10000 خط چرخانده شده و در فایلی در همان فهرست بایگانی می‌شوند و نامی با مهر تاریخ و شماره سریال داده می‌شود. برای مثال mattermost.2017-03-31.001. تغییر این تنظیم نیاز به راه اندازی مجدد سرور قبل از اعمال دارد.",
