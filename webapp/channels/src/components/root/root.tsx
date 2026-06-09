@@ -25,7 +25,7 @@ import 'utils/a11y_controller_instance';
 import {expirationScheduler} from 'utils/burn_on_read_expiration_scheduler';
 import {PageLoadContext, SCHEDULED_POST_URL_SUFFIX} from 'utils/constants';
 import DesktopApp from 'utils/desktop_api';
-import {EmojiIndicesByAlias} from 'utils/emoji';
+import {SystemEmojiAliases} from 'utils/emoji_aliases';
 import {TEAM_NAME_PATH_PATTERN} from 'utils/path';
 import {getSiteURL} from 'utils/url';
 import {isTextDroppableEvent} from 'utils/utils';
@@ -81,7 +81,7 @@ export default class Root extends React.PureComponent<Props, State> {
         // Disable auth header to enable CSRF check
         Client4.setAuthHeader = false;
 
-        setSystemEmojis(new Set(EmojiIndicesByAlias.keys()));
+        setSystemEmojis(SystemEmojiAliases);
 
         this.state = {
             shouldMountAppRoutes: false,
@@ -93,8 +93,10 @@ export default class Root extends React.PureComponent<Props, State> {
             this.setState({shouldMountAppRoutes: true});
         });
 
-        this.props.actions.migrateRecentEmojis();
-        this.props.actions.loadRecentlyUsedCustomEmojis();
+        import('actions/emoji_actions').then((emojiActions) => {
+            this.props.dispatch(emojiActions.migrateRecentEmojis() as any);
+            this.props.dispatch(emojiActions.loadRecentlyUsedCustomEmojis() as any);
+        });
     };
 
     componentDidUpdate(prevProps: Props, prevState: State) {

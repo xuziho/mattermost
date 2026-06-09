@@ -367,11 +367,13 @@ const emojiJSX = `// Copyright (c) 2015-present Mattermost, Inc. All Rights Rese
 
 import memoize from 'memoize-one';
 
+import type {SystemEmoji} from '@mattermost/types/emojis';
+
 import emojis from 'utils/emoji.json';
 
 import spriteSheet from '${sheetFile}';
 
-export const Emojis = emojis;
+export const Emojis = emojis as SystemEmoji[];
 
 export const EmojiIndicesByAlias = new Map(${JSON.stringify(emojiIndicesByAlias)});
 

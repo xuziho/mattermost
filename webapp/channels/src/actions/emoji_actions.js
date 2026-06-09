@@ -14,7 +14,7 @@ import {isCustomStatusEnabled, makeGetCustomStatus} from 'selectors/views/custom
 import LocalStorageStore from 'stores/local_storage_store';
 
 import Constants, {ActionTypes, Preferences} from 'utils/constants';
-import {EmojiIndicesByAlias} from 'utils/emoji';
+import {SystemEmojiAliases} from 'utils/emoji_aliases';
 
 export function loadRecentlyUsedCustomEmojis() {
     return (dispatch, getState) => {
@@ -173,7 +173,7 @@ export function loadCustomEmojisIfNeeded(emojis) {
             return {data: false};
         }
 
-        const systemEmojis = EmojiIndicesByAlias;
+        const systemEmojis = SystemEmojiAliases;
         const customEmojisByName = selectCustomEmojisByName(state);
         const nonExistentCustomEmoji = state.entities.emojis.nonExistentEmoji;
         const emojisToLoad = [];

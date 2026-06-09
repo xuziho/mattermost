@@ -12,7 +12,6 @@ import {getConfig} from 'mattermost-redux/selectors/entities/general';
 import {getTeam} from 'mattermost-redux/selectors/entities/teams';
 import {shouldShowTermsOfService, getCurrentUserId} from 'mattermost-redux/selectors/entities/users';
 
-import {loadRecentlyUsedCustomEmojis, migrateRecentEmojis} from 'actions/emoji_actions';
 import {isDevModeEnabled} from 'selectors/general';
 import {
     getIsRhsExpanded,
@@ -63,8 +62,6 @@ function mapDispatchToProps(dispatch: Dispatch) {
     return {
         actions: bindActionCreators({
             loadConfigAndMe,
-            loadRecentlyUsedCustomEmojis,
-            migrateRecentEmojis,
             handleLoginLogoutSignal,
             redirectToDefaultTeam,
         }, dispatch),

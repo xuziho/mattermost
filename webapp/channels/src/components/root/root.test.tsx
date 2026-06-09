@@ -63,8 +63,6 @@ describe('components/Root', () => {
                     isMeRequested: false,
                 });
             }),
-            loadRecentlyUsedCustomEmojis: jest.fn(),
-            migrateRecentEmojis: jest.fn(),
             ...bindActionCreators({
                 handleLoginLogoutSignal,
                 redirectToDefaultTeam,
