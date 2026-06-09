@@ -4766,8 +4766,5 @@ components:
           type: integer
           format: int64
           description: The time in milliseconds the recap channel was created
-externalDocs:
-  description: Find out more about Mattermost
-  url: 'https://about.mattermost.com'
 security:
   - bearerAuth: []

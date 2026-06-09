@@ -190,7 +190,7 @@
         "ReportAProblemLink": "",
         "ReportAProblemType": "link",
         "ForgotPasswordLink": "",
-        "SupportEmail": "feedback@mattermost.com"
+        "SupportEmail": "support@agentcompanyos.local"
     },
     "AnnouncementSettings": {
         "EnableBanner": false,
