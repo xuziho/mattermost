@@ -37,7 +37,7 @@ func renderUnsupportedBrowser(rctx request.CTX, r *http.Request, subpath string)
 	data := templates.Data{
 		Props: map[string]any{
 			"Subpath":                           ensureTrailingSlash(subpath),
-			"DownloadAppOrUpgradeBrowserString": "Please upgrade your browser to continue.",
+			"UpgradeBrowserString": "Please upgrade your browser to continue.",
 			"LearnMoreString":                   rctx.T("web.error.unsupported_browser.learn_more"),
 		},
 	}
