@@ -7,7 +7,7 @@
         }
     }
 
-    .upgrade-title {
+    .license-title {
         margin: 10px 0;
         color: #3f4350;
         font-family: Metropolis;
@@ -40,13 +40,6 @@
         margin: 5px auto;
     }
 
-    .upgrade-error {
-        margin-top: 10px;
-
-        &.unsupported .form-group {
-            margin-bottom: 0;
-        }
-    }
 }
 
 .TeamEditionLeftPanel {

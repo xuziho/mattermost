@@ -18,8 +18,8 @@ const StarterRightPanel = () => {
             defaultMessage: 'Compatibility with existing license APIs',
         }),
         intl.formatMessage({
-            id: 'admin.license.localLicenseDetail.noCloudBilling',
-            defaultMessage: 'No cloud billing or trial workflow is required',
+            id: 'admin.license.localLicenseDetail.offline',
+            defaultMessage: 'Works without external billing or account services',
         }),
     ];
 
@@ -31,9 +31,9 @@ const StarterRightPanel = () => {
                     height={120}
                 />
             </div>
-	            <div className='upgrade-title'>
+	            <div className='license-title'>
 	                <FormattedMessage
-	                    id='admin.license.upgradeTitle'
+	                    id='admin.license.localLicenseTitle'
 	                    defaultMessage='Manage local license files'
 	                />
 	            </div>

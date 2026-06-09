@@ -10,7 +10,7 @@
         }
     }
 
-    .upgrade-title {
+    .license-title {
         margin: 10px 0;
         color: #3f4350;
         font-family: Metropolis;
@@ -37,29 +37,6 @@
         }
     }
 
-    .purchase_buttons {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        margin-top: 20px;
-
-        @media screen and (max-width: 1130px) {
-            flex-direction: column;
-
-            button {
-                width: 100% !important;
-
-                &.contact-us {
-                    margin-top: 10px;
-                    margin-left: 0 !important;
-                }
-            }
-        }
-    }
-
-    .upgrade-error {
-        margin-top: 10px;
-    }
 }
 
 .StarterLeftPanel {

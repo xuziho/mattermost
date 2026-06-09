@@ -21,15 +21,15 @@ const TeamEditionRightPanel: React.FC = () => {
                     height={120}
                 />
             </div>
-	            <div className='upgrade-title'>
+	            <div className='license-title'>
 	                <FormattedMessage
 	                    id='admin.license.enterprise.localLicenseFeatures'
 	                    defaultMessage='Local license management'
 	                />
 	            </div>
-	            <div className='upgrade-subtitle'>
+	            <div className='license-subtitle'>
 	                <FormattedMessage
-	                    id='admin.license.enterprise.license_required_upgrade'
+	                    id='admin.license.enterprise.localLicenseOptional'
 	                    defaultMessage='Upload a local license file only if this AgentCompanyOS deployment needs one.'
 	                />
 	            </div>

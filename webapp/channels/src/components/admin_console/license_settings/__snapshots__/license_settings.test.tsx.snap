@@ -3863,7 +3863,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                   </svg>
                 </div>
                 <div
-                  class="upgrade-title"
+                  class="license-title"
                 >
                   Manage local license files
                 </div>
@@ -3892,7 +3892,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                     <i
                       class="fa fa-lock"
                     />
-                    No cloud billing or trial workflow is required
+                    Works without external billing or account services
                   </div>
                 </div>
               </div>
@@ -4242,7 +4242,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                   </svg>
                 </div>
                 <div
-                  class="upgrade-title"
+                  class="license-title"
                 >
                   Manage local license files
                 </div>
@@ -4271,7 +4271,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                     <i
                       class="fa fa-lock"
                     />
-                    No cloud billing or trial workflow is required
+                    Works without external billing or account services
                   </div>
                 </div>
               </div>
@@ -4584,12 +4584,12 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
                   </svg>
                 </div>
                 <div
-                  class="upgrade-title"
+                  class="license-title"
                 >
                   Local license management
                 </div>
                 <div
-                  class="upgrade-subtitle"
+                  class="license-subtitle"
                 >
                   Upload a local license file only if this AgentCompanyOS deployment needs one.
                 </div>
@@ -4931,12 +4931,12 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
                   </svg>
                 </div>
                 <div
-                  class="upgrade-title"
+                  class="license-title"
                 >
                   Local license management
                 </div>
                 <div
-                  class="upgrade-subtitle"
+                  class="license-subtitle"
                 >
                   Upload a local license file only if this AgentCompanyOS deployment needs one.
                 </div>
@@ -5315,7 +5315,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                   </svg>
                 </div>
                 <div
-                  class="upgrade-title"
+                  class="license-title"
                 >
                   Manage local license files
                 </div>
@@ -5344,7 +5344,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                     <i
                       class="fa fa-lock"
                     />
-                    No cloud billing or trial workflow is required
+                    Works without external billing or account services
                   </div>
                 </div>
               </div>
