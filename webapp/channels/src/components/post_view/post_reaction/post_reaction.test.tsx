@@ -58,7 +58,7 @@ describe('components/post_view/PostReaction', () => {
             />,
         );
 
-        expect(screen.queryByPlaceholderText('Search emojis')).toBeInTheDocument();
+        expect(await screen.findByPlaceholderText('Search emojis')).toBeInTheDocument();
     });
 
     test('should toggle the reaction and close the emoji picker when an emoji is selected', async () => {
@@ -70,7 +70,7 @@ describe('components/post_view/PostReaction', () => {
             initialState,
         );
 
-        await userEvent.type(screen.getByPlaceholderText('Search emojis'), '{enter}');
+        await userEvent.type(await screen.findByPlaceholderText('Search emojis'), '{enter}');
 
         expect(baseProps.actions.toggleReaction).toHaveBeenCalledTimes(1);
         expect(baseProps.actions.toggleReaction).toHaveBeenCalledWith('post_id_1', 'grinning');

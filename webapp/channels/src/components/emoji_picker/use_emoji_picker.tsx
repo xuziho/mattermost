@@ -24,7 +24,7 @@ import {getIsMobileView} from 'selectors/views/browser';
 
 import {RootHtmlPortalId} from 'utils/constants';
 
-import EmojiPickerTabs from './emoji_picker_tabs';
+const EmojiPickerTabs = React.lazy(() => import('./emoji_picker_tabs'));
 
 export const useEmojiPickerOffset = 4;
 
@@ -100,13 +100,15 @@ export default function useEmojiPicker({
     ]);
 
     let emojiPicker = (
-        <EmojiPickerTabs
-            enableGifPicker={enableGifPicker}
-            onAddCustomEmojiClick={onAddCustomEmojiClick}
-            onEmojiClose={hideEmojiPicker}
-            onEmojiClick={onEmojiClick}
-            onGifClick={onGifClick}
-        />
+        <React.Suspense fallback={null}>
+            <EmojiPickerTabs
+                enableGifPicker={enableGifPicker}
+                onAddCustomEmojiClick={onAddCustomEmojiClick}
+                onEmojiClose={hideEmojiPicker}
+                onEmojiClick={onEmojiClick}
+                onGifClick={onGifClick}
+            />
+        </React.Suspense>
     );
 
     if (isMobileView) {
