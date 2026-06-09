@@ -7,8 +7,6 @@ import {FormattedMessage, defineMessage, defineMessages, injectIntl} from 'react
 
 import type {AdminConfig, ClientLicense, EmailSettings} from '@mattermost/types/config';
 
-import ExternalLink from 'components/external_link';
-
 import {Constants} from 'utils/constants';
 
 import DropdownSetting from './dropdown_setting';
@@ -229,25 +227,7 @@ export class PushSettings extends OLDAdminSettings<Props, State> {
                         />
                         <FormattedMessage
                             id='admin.email.agreeHPNS'
-                            defaultMessage=' I understand and accept the Mattermost Hosted Push Notification Service <linkTerms>Terms of Service</linkTerms> and <linkPrivacy>Privacy Policy</linkPrivacy>.'
-                            values={{
-                                linkTerms: (msg) => (
-                                    <ExternalLink
-                                        href='https://mattermost.com/hpns-terms/'
-                                        location='push_settings'
-                                    >
-                                        {msg}
-                                    </ExternalLink>
-                                ),
-                                linkPrivacy: (msg) => (
-                                    <ExternalLink
-                                        href='https://mattermost.com/data-processing-addendum/'
-                                        location='push_settings'
-                                    >
-                                        {msg}
-                                    </ExternalLink>
-                                ),
-                            }}
+                            defaultMessage=' I understand and accept the configured push notification service policy.'
                         />
                     </div>
                 </div>

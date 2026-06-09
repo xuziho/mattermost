@@ -14,7 +14,6 @@ import {
     SectionContent,
     SectionHeader,
 } from 'components/admin_console/system_properties/controls';
-import ExternalLink from 'components/external_link';
 
 import * as I18n from 'i18n/i18n.jsx';
 
@@ -153,14 +152,6 @@ export default function Localization(props: SystemConsoleCustomSettingsComponent
                         <FormattedMessage
                             {...messages.availableLocalesDescription}
                             values={{
-                                link: (msg: React.ReactNode) => (
-                                    <ExternalLink
-                                        location='admin_console'
-                                        href='https://translate.mattermost.com/'
-                                    >
-                                        {msg}
-                                    </ExternalLink>
-                                ),
                                 strong: (msg: React.ReactNode) => <strong>{msg}</strong>,
                             }}
                         />

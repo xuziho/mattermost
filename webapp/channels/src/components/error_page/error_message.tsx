@@ -173,18 +173,7 @@ const ErrorMessage: React.FC<Props> = ({type, message, service, isGuest}: Props)
                     <p>
                         <FormattedMessage
                             id='error.oauth_missing_code.forum'
-                            defaultMessage="If you reviewed the above and are still having trouble with configuration, you may post in our {link} where we'll be happy to help with issues during setup."
-                            values={{
-                                link: (
-                                    <ErrorLink
-                                        url={'https://forum.mattermost.com/c/trouble-shoot'}
-                                        message={defineMessage({
-                                            id: 'error.oauth_missing_code.forum.link',
-                                            defaultMessage: 'Troubleshooting forum',
-                                        })}
-                                    />
-                                ),
-                            }}
+                            defaultMessage='If you reviewed the above and are still having trouble with configuration, contact your workspace administrator for setup help.'
                         />
                     </p>
                 </div>

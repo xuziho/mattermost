@@ -203,7 +203,7 @@ const (
 
 	AnnouncementSettingsDefaultBannerColor                  = "#f2a93b"
 	AnnouncementSettingsDefaultBannerTextColor              = "#333333"
-	AnnouncementSettingsDefaultNoticesJsonURL               = "https://notices.mattermost.com/"
+	AnnouncementSettingsDefaultNoticesJsonURL               = ""
 	AnnouncementSettingsDefaultNoticesFetchFrequencySeconds = 3600
 
 	AutoTranslationDefaultWorkers = 6

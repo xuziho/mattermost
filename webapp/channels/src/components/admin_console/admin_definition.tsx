@@ -2731,24 +2731,6 @@ const AdminDefinition: AdminDefinitionType = {
                                     key: 'ServiceSettings.CollapsedThreads',
                                     label: defineMessage({id: 'admin.experimental.collapsedThreads.title', defaultMessage: 'Threaded Discussions'}),
                                     help_text: defineMessage({id: 'admin.experimental.collapsedThreads.desc', defaultMessage: 'When enabled (default off), users have the option to enable Threaded Discussions in Account Settings. When enabled (default on), users see Threaded Discussions by default and have the option to disable it in Account Settings. When always on, users are required to use Threaded Discussions and cannot disable it.'}),
-                                    help_text_values: {
-                                        linkKnownIssues: (msg: string) => (
-                                            <ExternalLink
-                                                location='admin_console'
-                                                href='https://support.mattermost.com/hc/en-us/articles/4413183568276'
-                                            >
-                                                {msg}
-                                            </ExternalLink>
-                                        ),
-                                        linkCommunityChannel: (msg: string) => (
-                                            <ExternalLink
-                                                location='admin_console'
-                                                href='https://community-daily.mattermost.com/core/channels/folded-reply-threads'
-                                            >
-                                                {msg}
-                                            </ExternalLink>
-                                        ),
-                                    },
                                     help_text_markdown: false,
                                     options: [
                                         {

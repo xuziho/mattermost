@@ -11,7 +11,6 @@ import type {UserProfile} from '@mattermost/types/users';
 
 import type {ActionResult} from 'mattermost-redux/types/actions';
 
-import ExternalLink from 'components/external_link';
 import SettingItemMax from 'components/setting_item_max';
 
 import type {Language} from 'i18n/i18n';
@@ -250,17 +249,7 @@ export class ManageLanguage extends React.PureComponent<Props, State> {
                     <p/>
                     <FormattedMessage
                         id='user.settings.languages.promote2'
-                        defaultMessage='Would you like to help with translations? Join the <link>Mattermost Translation Server</link> to contribute.'
-                        values={{
-                            link: (msg: React.ReactNode) => (
-                                <ExternalLink
-                                    href='http://translate.mattermost.com'
-                                    location='manage_languages'
-                                >
-                                    {msg}
-                                </ExternalLink>
-                            ),
-                        }}
+                        defaultMessage='Workspace language availability is managed by your administrator.'
                     />
                 </div>
             </div>

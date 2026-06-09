@@ -1100,7 +1100,7 @@
   },
   {
     "id": "api.command_invite.channel.error",
-    "translation": "Could not find the channel {{.Channel}}. Please use the [channel handle](https://docs.mattermost.com/messaging/managing-channels.html#naming-a-channel) to identify channels."
+    "translation": "Could not find the channel {{.Channel}}. Please use the channel handle to identify channels."
   },
   {
     "id": "api.command_invite.channel_constrained_user_denied",
@@ -1140,7 +1140,7 @@
   },
   {
     "id": "api.command_invite.private_channel.app_error",
-    "translation": "Could not find the channel {{.Channel}}. Please use the [channel handle](https://docs.mattermost.com/messaging/managing-channels.html#naming-a-channel) to identify channels."
+    "translation": "Could not find the channel {{.Channel}}. Please use the channel handle to identify channels."
   },
   {
     "id": "api.command_invite.success",
@@ -1267,7 +1267,7 @@
   },
   {
     "id": "api.command_mute.error",
-    "translation": "Could not find the channel {{.Channel}}. Please use the [channel handle](https://docs.mattermost.com/messaging/managing-channels.html#naming-a-channel) to identify channels."
+    "translation": "Could not find the channel {{.Channel}}. Please use the channel handle to identify channels."
   },
   {
     "id": "api.command_mute.hint",
@@ -1279,7 +1279,7 @@
   },
   {
     "id": "api.command_mute.no_channel.error",
-    "translation": "Could not find the specified channel. Please use the [channel handle](https://docs.mattermost.com/messaging/managing-channels.html#naming-a-channel) to identify channels."
+    "translation": "Could not find the specified channel. Please use the channel handle to identify channels."
   },
   {
     "id": "api.command_mute.success_mute",
@@ -2146,7 +2146,7 @@
   },
   {
     "id": "api.file.cloud_upload.app_error",
-    "translation": "Uploading via mmctl to a Cloud instance is not supported. Please check the documentation here: https://docs.mattermost.com/manage/cloud-data-export.html."
+    "translation": "Uploading via mmctl to a Cloud instance is not supported."
   },
   {
     "id": "api.file.file_exists.app_error",
@@ -2502,7 +2502,7 @@
   },
   {
     "id": "api.license.request_trial_license.embargoed",
-    "translation": "We were unable to process the request due to limitations for embargoed countries. [Learn more in our documentation](https://mattermost.com/pl/limitations-for-embargoed-countries), or reach out to legal@mattermost.com for questions around export limitations."
+    "translation": "We were unable to process the request due to export limitations."
   },
   {
     "id": "api.license.upgrade_needed.app_error",
@@ -9458,7 +9458,7 @@
   },
   {
     "id": "ent.ldap.syncronize.search_failure_size_exceeded.app_error",
-    "translation": "Size Limit Exceeded. Try increasing your Maximum page size setting. Check out https://docs.mattermost.com/onboard/ad-ldap.html#i-see-the-log-error-ldap-result-code-4-size-limit-exceeded for more details."
+    "translation": "Size Limit Exceeded. Try increasing your Maximum page size setting."
   },
   {
     "id": "ent.ldap.update_cpa.empty_attribute",
