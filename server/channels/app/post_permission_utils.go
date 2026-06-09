@@ -115,7 +115,7 @@ func userCreatePostPermissionCheckWithApp(rctx request.CTX, a *App, userId, chan
 	return nil
 }
 
-// PostCardTypeCheckWithApp rejects the retired Boards card post type.
+// PostCardTypeCheckWithApp rejects the retired card post type.
 func PostCardTypeCheckWithApp(where string, a *App, postType string) *model.AppError {
 	if postType == model.PostTypeCard {
 		return model.NewAppError(where, "api.post.create_post.card_type_disabled.app_error", nil, "", http.StatusBadRequest)

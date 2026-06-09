@@ -7,7 +7,6 @@ node_modules
 *.tar.gz
 
 channels/dist
-boards/dist
 platform/*/dist
 platform/*/lib
 
