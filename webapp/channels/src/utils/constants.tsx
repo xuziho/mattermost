@@ -943,15 +943,15 @@ export const DocLinks = {
 };
 
 export const LicenseLinks = {
-    ENTRY_LIMITS_INFO: 'https://mattermost.com/pl/mattermost-entry-limits',
-    TRIAL_INFO_LINK: 'https://mattermost.com/trial',
-    EMBARGOED_COUNTRIES: 'https://mattermost.com/pl/limitations-for-embargoed-countries',
-    SOFTWARE_SERVICES_LICENSE_AGREEMENT: 'https://mattermost.com/pl/software-and-services-license-agreement',
+    ENTRY_LIMITS_INFO: '#',
+    TRIAL_INFO_LINK: '#',
+    EMBARGOED_COUNTRIES: '#',
+    SOFTWARE_SERVICES_LICENSE_AGREEMENT: '#',
     SOFTWARE_SERVICES_LICENSE_AGREEMENT_TEXT: 'Software Services and License Agreement',
-    UNSUPPORTED_UPGRADE_LINK: 'https://docs.mattermost.com/administration-guide/upgrade/enterprise-install-upgrade.html#upgrading-to-enterprise-edition-from-mattermost-team-edition',
+    UNSUPPORTED_UPGRADE_LINK: '#',
 };
 
-export const MattermostLink = 'https://mattermost.com/';
+export const MattermostLink = '#';
 
 export const RecurringIntervals = {
     YEAR: 'year',
@@ -1892,7 +1892,7 @@ export const ConsolePages = {
     DATA_RETENTION: '/admin_console/compliance/data_retention_settings',
     ELASTICSEARCH: '/admin_console/environment/elasticsearch',
     GUEST_ACCOUNTS: '/admin_console/authentication/guest_access',
-    LICENSE: '/admin_console/about/license',
+    LICENSE: '/admin_console',
     SAML: '/admin_console/authentication/saml',
     FILE_STORAGE: '/admin_console/environment/file_storage',
     SESSION_LENGTHS: '/admin_console/environment/session_lengths',

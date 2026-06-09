@@ -964,7 +964,7 @@ func (es *Service) SendLicenseUpForRenewalEmail(email, locale string, daysToExpi
 	data.Props["SiteURL"] = siteURL
 	data.Props["Title"] = T("api.templates.license_up_for_renewal_title")
 	data.Props["Button"] = T("api.templates.license_up_for_renewal_review_license")
-	data.Props["ButtonURL"] = siteURL + "/admin_console/about/license"
+	data.Props["ButtonURL"] = siteURL + "/admin_console"
 	data.Props["NeedHelpTitle"] = T("api.templates.license_need_help.title")
 	data.Props["SubTitleTwo"] = T("api.templates.license_up_for_renewal_subtitle_two")
 	data.HTML["SubTitle"] = i18n.TranslateAsHTML(T, "api.templates.license_up_for_renewal_subtitle", map[string]any{"SkuName": skuName, "SiteURL": siteURL, "SiteName": siteName, "Days": daysToExpiration})
@@ -994,7 +994,7 @@ func (es *Service) SendRemoveExpiredLicenseEmail(email, locale string) error {
 	data.Props["SiteURL"] = siteURL
 	data.Props["Title"] = T("api.templates.remove_expired_license.body.heading")
 	data.Props["Button"] = T("api.templates.license_up_for_renewal_review_license")
-	data.Props["ButtonURL"] = siteURL + "/admin_console/about/license"
+	data.Props["ButtonURL"] = siteURL + "/admin_console"
 	data.Props["NeedHelpTitle"] = T("api.templates.license_need_help.title")
 	data.Props["SubTitleTwo"] = T("api.templates.remove_expired_license.body.subtitle_two")
 	data.HTML["SubTitle"] = i18n.TranslateAsHTML(T, "api.templates.remove_expired_license.body.subtitle", map[string]any{"SkuName": skuName, "SiteURL": siteURL, "SiteName": siteName})

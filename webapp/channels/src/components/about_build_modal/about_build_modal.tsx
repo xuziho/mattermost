@@ -10,11 +10,9 @@ import type {ClientConfig, ClientLicense} from '@mattermost/types/config';
 import {Client4} from 'mattermost-redux/client';
 
 import CopyButton from 'components/copy_button';
-import ExternalLink from 'components/external_link';
 import Nbsp from 'components/html_entities/nbsp';
 import MattermostLogo from 'components/widgets/icons/mattermost_logo';
 
-import {getSkuDisplayName} from 'utils/subscription';
 import {getDesktopVersion, isDesktopApp} from 'utils/user_agent';
 
 type SocketStatus = {
@@ -69,55 +67,19 @@ export default function AboutBuildModal(props: Props) {
     };
 
     const config = props.config;
-    const license = props.license;
-
-    let title = (
+    const title = (
         <FormattedMessage
-            id='about.teamEditiont0'
-            defaultMessage='Team Edition'
+            id='about.agentCompanyOsTitle'
+            defaultMessage='AgentCompanyOS Collaboration Frontend'
         />
     );
 
-    let subTitle = (
+    const subTitle = (
         <FormattedMessage
-            id='about.teamEditionSt'
-            defaultMessage='All your team communication in one place, instantly searchable and accessible anywhere.'
+            id='about.agentCompanyOsSubtitle'
+            defaultMessage='A lightweight collaboration surface for teams, channels, messages, files, and AgentCompanyOS workflows.'
         />
     );
-
-    let learnMore: React.ReactNode = null;
-
-    let licensee;
-    if (config.BuildEnterpriseReady === 'true') {
-        title = (
-            <FormattedMessage
-                id='about.teamEditiont1'
-                defaultMessage='Enterprise Edition'
-            />
-        );
-
-        subTitle = (
-            <FormattedMessage
-                id='about.enterpriseEditionSt'
-                defaultMessage='Modern communication from behind your firewall.'
-            />
-        );
-
-        if (license.IsLicensed === 'true') {
-            // Show the plan name instead of generic "Enterprise Edition"
-            const skuName = getSkuDisplayName(license.SkuShortName || '', license.IsGovSku === 'true');
-            title = <>{skuName}</>;
-            licensee = (
-                <div className='form-group'>
-                    <FormattedMessage
-                        id='about.licensed'
-                        defaultMessage='Licensed to:'
-                    />
-                    <Nbsp/>{license.Company}
-                </div>
-            );
-        }
-    }
 
     const getServerVersionString = () => {
         const version = config.BuildNumber === 'dev' ? config.BuildNumber : config.Version;
@@ -228,7 +190,7 @@ export default function AboutBuildModal(props: Props) {
                     <FormattedMessage
                         id='about.title'
                         values={{
-                            appTitle: config.SiteName || 'Mattermost',
+                            appTitle: config.SiteName || 'AgentCompanyOS',
                         }}
                         defaultMessage='About {appTitle}'
                     />
@@ -242,7 +204,7 @@ export default function AboutBuildModal(props: Props) {
                     <div>
                         <h3 className='about-modal__title'>
                             <strong>
-                                {'Mattermost'} {title}
+                                {title}
                             </strong>
                         </h3>
                         <p className='about-modal__subtitle pb-2'>
@@ -275,11 +237,9 @@ export default function AboutBuildModal(props: Props) {
                             </div>
                             {serverHostname}
                         </div>
-                        {licensee}
                     </div>
                 </div>
                 <div className='about-modal__footer'>
-                    {learnMore}
                     <div className='form-group'>
                         <div className='about-modal__copyright'>
                             <FormattedMessage
@@ -287,7 +247,7 @@ export default function AboutBuildModal(props: Props) {
                                 defaultMessage='Copyright 2015 - {currentYear} {appTitle}. All rights reserved'
                                 values={{
                                     currentYear: new Date().getFullYear(),
-                                    appTitle: config.SiteName || 'Mattermost',
+                                    appTitle: config.SiteName || 'AgentCompanyOS',
                                 }}
                             />
                         </div>
@@ -297,33 +257,7 @@ export default function AboutBuildModal(props: Props) {
                     <p>
                         <FormattedMessage
                             id='about.notice'
-                            defaultMessage='Mattermost is made possible by the open source software used in our <linkServer>server</linkServer>, <linkDesktop>desktop</linkDesktop> and <linkMobile>mobile</linkMobile> apps.'
-                            values={{
-                                linkServer: (msg: React.ReactNode) => (
-                                    <ExternalLink
-                                        location='about_build_modal'
-                                        href='https://github.com/mattermost/mattermost-server/blob/master/NOTICE.txt'
-                                    >
-                                        {msg}
-                                    </ExternalLink>
-                                ),
-                                linkDesktop: (msg: React.ReactNode) => (
-                                    <ExternalLink
-                                        location='about_build_modal'
-                                        href='https://github.com/mattermost/desktop/blob/master/NOTICE.txt'
-                                    >
-                                        {msg}
-                                    </ExternalLink>
-                                ),
-                                linkMobile: (msg: React.ReactNode) => (
-                                    <ExternalLink
-                                        location='about_build_modal'
-                                        href='https://github.com/mattermost/mattermost-mobile/blob/master/NOTICE.txt'
-                                    >
-                                        {msg}
-                                    </ExternalLink>
-                                ),
-                            }}
+                            defaultMessage='AgentCompanyOS includes open source collaboration components and keeps the runtime focused on lightweight team messaging.'
                         />
                     </p>
                 </div>
@@ -335,13 +269,6 @@ export default function AboutBuildModal(props: Props) {
                         />
                         <Nbsp/>
                         {config.BuildHash}
-                        <br/>
-                        <FormattedMessage
-                            id='about.hashee'
-                            defaultMessage='EE Build Hash:'
-                        />
-                        <Nbsp/>
-                        {config.BuildHashEnterprise}
                     </p>
                     <p>
                         <FormattedMessage

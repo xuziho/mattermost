@@ -71,8 +71,6 @@ import GroupDetails from './group_settings/group_details';
 import GroupSettings from './group_settings/group_settings';
 import IPFiltering from './ip_filtering';
 import LDAPWizard from './ldap_wizard';
-import LicenseSettings from './license_settings';
-import {searchableStrings as licenseSettingsSearchableStrings} from './license_settings/license_settings';
 import LicensedSectionContainer from './licensed_section_container';
 import AutoTranslation, {searchableStrings as autoTranslationSearchableStrings} from './localization/auto_translation';
 import Localization, {searchableStrings as localizationSearchableStrings} from './localization/localization';
@@ -229,19 +227,7 @@ const AdminDefinition: AdminDefinitionType = {
             it.configIsTrue('ExperimentalSettings', 'RestrictSystemAdmin'),
             it.not(it.userHasReadPermissionOnSomeResources(RESOURCE_KEYS.ABOUT)),
         ),
-        subsections: {
-            license: {
-                url: 'about/license',
-                title: defineMessage({id: 'admin.sidebar.license', defaultMessage: 'Edition and License'}),
-                searchableStrings: licenseSettingsSearchableStrings,
-                isHidden: it.not(it.userHasReadPermissionOnResource(RESOURCE_KEYS.ABOUT.EDITION_AND_LICENSE)),
-                isDisabled: it.not(it.userHasWritePermissionOnResource(RESOURCE_KEYS.ABOUT.EDITION_AND_LICENSE)),
-                schema: {
-                    id: 'LicenseSettings',
-                    component: LicenseSettings,
-                },
-            },
-        },
+        subsections: {},
     },
     reporting: {
         icon: (
