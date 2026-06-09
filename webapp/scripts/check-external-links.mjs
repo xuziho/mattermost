@@ -264,7 +264,7 @@ function printResults(results, urlMap, nonPermalinkUrls) {
 
     if (nonPermalinkUrls.length > 0) {
         console.log(chalk.yellow.bold('URLs not using permalink format (warning):\n'));
-        console.log(chalk.gray('  All mattermost.com links should route via https://mattermost.com/pl/\n'));
+        console.log(chalk.gray('  AgentCompanyOS builds should avoid upstream Mattermost marketing and documentation links.\n'));
         for (const item of nonPermalinkUrls) {
             console.log(chalk.yellow(`  ${item.url}`));
             console.log(chalk.gray(`    Found in:`));
@@ -291,7 +291,7 @@ function generateMarkdownSummary(results, urlMap, nonPermalinkUrls) {
     lines.push('## External Link Check Results\n');
 
     if (broken.length === 0 && nonPermalinkUrls.length === 0) {
-        lines.push(`✅ **All ${working.length} mattermost.com URLs are valid and accessible**\n`);
+        lines.push(`✅ **All ${working.length} external URLs are valid and accessible**\n`);
         return lines.join('\n');
     }
 
@@ -320,8 +320,8 @@ function generateMarkdownSummary(results, urlMap, nonPermalinkUrls) {
     }
 
     if (nonPermalinkUrls.length > 0) {
-        lines.push('### ⚠️ URLs Missing Permalink Format (warning)\n');
-        lines.push('> All mattermost.com links should route via `https://mattermost.com/pl/`\n');
+        lines.push('### ⚠️ Upstream Mattermost URLs Need Review (warning)\n');
+        lines.push('> AgentCompanyOS builds should avoid upstream Mattermost marketing and documentation links.\n');
         lines.push('<details>\n<summary>Show URLs</summary>\n');
         lines.push('| URL | Files |');
         lines.push('|-----|-------|');

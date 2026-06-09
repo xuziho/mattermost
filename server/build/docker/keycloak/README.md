@@ -6,19 +6,19 @@
 
 Overwrite your `OpenIdSettings` section in your config.json file by running `make config-openid` and restarting your server.
 
-- [Official OpenID with Keycloak documentation](https://docs.mattermost.com/onboard/sso-openidconnect.html)
+- Use the AgentCompanyOS deployment handoff for OpenID configuration guidance.
 
 ### SAML
 
 Overwrite your `SamlSettings` section in your config.json file by running `make config-saml` and restarting your server.
 
-- [Official SAML with Keycloak documentation](https://docs.mattermost.com/onboard/sso-saml-keycloak.html)
+- Use the AgentCompanyOS deployment handoff for SAML configuration guidance.
 
 ### LDAP
 
 Overwrite your `LdapSettings` section in your config.json file by running `make config-ldap` and restarting your server.
 
-- [Official LDAP with Keycloak documentation](https://docs.mattermost.com/onboard/ad-ldap.html)
+- Use the AgentCompanyOS deployment handoff for LDAP configuration guidance.
 
 ## Credentials to log in
 

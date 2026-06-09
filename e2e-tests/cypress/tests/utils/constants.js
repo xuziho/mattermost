@@ -2,20 +2,20 @@
 // See LICENSE.txt for license information.
 
 export const FEEDBACK_EMAIL = 'test@example.com';
-export const ABOUT_LINK = 'https://mattermost.com/pl/about-mattermost';
-export const ASK_COMMUNITY_LINK = 'https://mattermost.com/pl/default-ask-mattermost-community/';
-export const HELP_LINK = 'https://mattermost.com/pl/help/';
-export const PRIVACY_POLICY_LINK = 'https://mattermost.com/pl/privacy-policy/';
-export const REPORT_A_PROBLEM_LINK = 'https://mattermost.com/pl/report-a-bug';
-export const TERMS_OF_SERVICE_LINK = 'https://mattermost.com/pl/terms-of-use/';
-export const MATTERMOST_USER_GUIDE = 'https://docs.mattermost.com/guides/use-mattermost.html';
+export const ABOUT_LINK = 'https://agentcompanyos.local/about';
+export const ASK_COMMUNITY_LINK = 'https://agentcompanyos.local/community';
+export const HELP_LINK = 'https://agentcompanyos.local/help';
+export const PRIVACY_POLICY_LINK = 'https://agentcompanyos.local/legal/privacy';
+export const REPORT_A_PROBLEM_LINK = 'https://agentcompanyos.local/support/report';
+export const TERMS_OF_SERVICE_LINK = 'https://agentcompanyos.local/legal/terms';
+export const MATTERMOST_USER_GUIDE = 'https://agentcompanyos.local/docs/use';
 
 export const E20 = 'E20';
 export const TEAM = 'Team';
 
 export const FixedPublicLinks = {
-    TermsOfService: 'https://mattermost.com/pl/terms-of-use/',
-    PrivacyPolicy: 'https://mattermost.com/pl/privacy-policy/',
+    TermsOfService: 'https://agentcompanyos.local/legal/terms',
+    PrivacyPolicy: 'https://agentcompanyos.local/legal/privacy',
 };
 
 export const SupportSettings = {

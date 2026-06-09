@@ -10,7 +10,7 @@ In a development environment (when `BUILD_NUMBER` is left undefined or explicitl
 
 ## License
 
-See the [LICENSE file](LICENSE) for license rights and limitations. See also [Mattermost Source Available License](https://docs.mattermost.com/overview/faq.html#mattermost-source-available-license) to learn more.
+See the [LICENSE file](LICENSE) for license rights and limitations.
 
 ## Contributing
 

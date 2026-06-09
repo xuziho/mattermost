@@ -1,3 +1,3 @@
-# Mattermost Changelog
+# AgentCompanyOS Collaboration Frontend Changelog
 
-Please see [Mattermost Changelog](http://docs.mattermost.com/administration/changelog.html) in product documentation.
+This fork tracks slimming and AgentCompanyOS integration changes in Git history.

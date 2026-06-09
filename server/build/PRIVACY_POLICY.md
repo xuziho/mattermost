@@ -1,1 +1,1 @@
-https://mattermost.com/pl/privacy-policy/
+Set `SupportSettings.PrivacyPolicyLink` to your AgentCompanyOS privacy policy URL.

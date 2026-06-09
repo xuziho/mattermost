@@ -45,7 +45,7 @@ describe('Markdown', () => {
                 and('have.class', 'markdown-inline-img--hover').
                 and('have.class', 'markdown-inline-img--no-border').
                 and('have.attr', 'alt', 'Build Status').
-                and('have.attr', 'src', `${baseUrl}/api/v4/image?url=https%3A%2F%2Fdocs.mattermost.com%2F_images%2Ficon-76x76.png`).
+                and('have.attr', 'src', `${baseUrl}/api/v4/image?url=https%3A%2F%2Fagentcompanyos.local%2Fassets%2Ficon-76x76.png`).
                 and((inlineImg) => {
                     expect(inlineImg.height()).to.be.closeTo(76, 76);
                 }).

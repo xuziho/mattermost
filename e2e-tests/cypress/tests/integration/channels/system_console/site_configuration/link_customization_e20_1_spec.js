@@ -16,12 +16,12 @@ import {TERMS_OF_SERVICE_LINK} from '../../../../utils/constants';
 import {backToTeam, saveSetting} from './helper';
 
 describe('SupportSettings', () => {
-    const tosLink = 'https://github.com/mattermost/platform/blob/master/README.md';
-    const privacyLink = 'https://github.com/mattermost/platform/blob/master/README.md';
-    const aboutLink = 'https://mattermost.com/default-about/';
-    const helpLink = 'https://github.com/mattermost/platform/blob/master/doc/help/README.md';
-    const problemLink = 'https://forum.mattermost.com/c/trouble-shoot';
-    const askCommunityLink = 'https://mattermost.com/pl/default-ask-mattermost-community';
+    const tosLink = 'https://agentcompanyos.local/legal/terms';
+    const privacyLink = 'https://agentcompanyos.local/legal/privacy';
+    const aboutLink = 'https://agentcompanyos.local/about';
+    const helpLink = 'https://agentcompanyos.local/help';
+    const problemLink = 'https://agentcompanyos.local/support/report';
+    const askCommunityLink = 'https://agentcompanyos.local/community';
 
     before(() => {
         cy.shouldNotRunOnCloudEdition();

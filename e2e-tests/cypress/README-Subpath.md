@@ -28,7 +28,7 @@ The DB `DataSource` will need to be different for both servers.
 
 3. Install NGINX -  exact steps depend on your OS
 
-4. Update your NGINX site configuration. The specific details for each setting can be found in the [Mattermost docs](https://docs.mattermost.com/install/config-proxy-nginx.html)
+4. Update your NGINX site configuration using the AgentCompanyOS deployment handoff for the target environment.
 
 ```
 upstream backend1 {

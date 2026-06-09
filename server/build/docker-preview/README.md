@@ -2,7 +2,7 @@
 
 This is a Docker image to install Mattermost in *Preview Mode* for exploring product functionality on a single machine using Docker.
 
-Note: This configuration should not be used in production, as it’s using a known password string and contains other non-production configuration settings, and it does not support upgrade. If you’re looking for a production installation with Docker, please see the [Mattermost Production Docker Deployment Guide](https://docs.mattermost.com/install/install-docker.html#deploy-mattermost-on-docker-for-production-use).
+Note: This configuration should not be used in production, as it uses a known password string, contains other non-production configuration settings, and does not support upgrade. Use the AgentCompanyOS deployment handoff for production deployment guidance.
 
 To contribute, please see [Contribution Guidelines](https://developers.mattermost.com/contribute/more-info/getting-started/).
 
@@ -10,7 +10,7 @@ To file issues, [search for existing bugs and file a GitHub issue if your bug is
 
 ## Usage
 
-Please see [documentation for usage](http://docs.mattermost.com/install/docker-local-machine.html).
+This preview image is intended for local smoke testing only.
 
 If you have Docker already set up, you can run this image in one line:
 

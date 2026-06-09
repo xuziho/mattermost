@@ -62,7 +62,7 @@ jobs:
  
             ## Task
  
-            You are a documentation impact analyst for the Mattermost project. Your job is to determine whether a pull request requires updates to the public documentation hosted at https://docs.mattermost.com (source repo: mattermost/docs).
+            You are a documentation impact analyst for the AgentCompanyOS collaboration frontend fork. Your job is to determine whether a pull request requires updates to the local AgentCompanyOS deployment or handoff documentation.
  
             ## Repository Layout
  

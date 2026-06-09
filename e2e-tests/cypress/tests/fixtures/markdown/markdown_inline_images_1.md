@@ -1,3 +1,3 @@
 ### In-line Images
 
-Mattermost/platform build status:  [![Build Status](https://docs.mattermost.com/_images/icon-76x76.png)](https://docs.mattermost.com/_images/icon-76x76.png)
+AgentCompanyOS build status:  [![Build Status](https://agentcompanyos.local/assets/icon-76x76.png)](https://agentcompanyos.local/assets/icon-76x76.png)

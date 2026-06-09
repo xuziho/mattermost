@@ -108,10 +108,10 @@ export function getWelcomeEmailTemplate(userEmail, siteName, teamName) {
         `This email address was used to create an account with ${siteName}.`,
         'If it was not you, you can safely ignore this email.',
         '',
-        'Download the desktop and mobile apps',
-        'For the best experience, download the apps for PC, Mac, iOS and Android.',
+        'Open AgentCompanyOS in your browser',
+        'Use the web app URL provided by your workspace administrator.',
         '',
-        'Download ( https://mattermost.com/pl/download-apps )',
+        `Open ( ${baseUrl} )`,
         '',
         `© 2015 - ${new Date().getFullYear()} Mattermost, Inc. 2100 Geng Road, Suite 210, Palo Alto, CA, 94303`,
     ];
