@@ -2207,7 +2207,6 @@
   "announcement_bar.error.site_url.full": "Por favor configure a <linkSite>URL do Site</linkSite> no <linkConsole>Console do Sistema</linkConsole>.",
   "announcement_bar.error.site_url_gitlab.full": "Por favor configure a <linkSite>URL do Site</linkSite> no <linkConsole>Console do Sistema</linkConsole> ou em gitlab.rb se você estiver usando GitLab Mattermost.",
   "announcement_bar.notification.email_verified": "Email Verificado",
-  "announcement_bar.warn.contact_support_text": "To renew your license, upload an updated license file from the system console.",
   "announcement_bar.warn.no_internet_connection": "Parece que você não tem acesso à Internet.",
   "api.channel.add_guest.added": "{addedUsername} adicionado ao canal como convidado por {username}.",
   "api.channel.add_member.added": "{addedUsername} foi adicionado ao canal por {username}.",

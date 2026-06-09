@@ -1205,7 +1205,6 @@
   "analytics.team.totalUsers": "Total de Utilizadores Ativados",
   "analytics.team.totalUsers.title.tooltip.title": "Utilizadores ativados neste servidor",
   "announcementBar.notification.permissionNeverGrantedBar.cta": "Gerir preferências de notificação",
-  "announcement_bar.error.purchase_a_license_now": "Comprar Agora uma Licença",
   "announcement_bar.notification.email_verified": "E-mail verificado",
   "api.channel.add_guest.added": "{addedUsername} adicionado ao canal como convidado por {username}.",
   "api.channel.add_member.added": "{addedUsername} adicionado ao canal por {username}.",

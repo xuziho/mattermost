@@ -95,7 +95,6 @@
   "admin.group_settings.group_detail.invalid_length": "Nama harus berupa 1 hingga 64 huruf kecil karakter alfanumerik.",
   "admin.user_item.resetPwd": "Setel Ulang Sandi",
   "announcement_bar.notification.email_verified": "Email terverifikasi",
-  "announcement_bar.warn.contact_support_text": "To renew your license, upload an updated license file from the system console.",
   "announcement_bar.warn.no_internet_connection": "Sepertinya Anda tidak memiliki akses internet.",
   "api.channel.add_guest.added": "{addedUsername} ditambahkan ke kanal sebagai tamu oleh {username}.",
   "api.channel.add_member.added": "{addedUsername} ditambahkan ke kanal oleh {username}.",
