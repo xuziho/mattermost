@@ -21,7 +21,7 @@ describe('System console', () => {
     it('MM-T898 - Individual plugins can be searched for via the System Console search box', () => {
         cy.visit('/admin_console');
 
-        // # Enable Plugin Marketplace and Remote Marketplace
+        // # Enable plugin uploads for locally installed test plugins
         cy.apiUpdateConfig({
             PluginSettings: {
                 Enable: true,
