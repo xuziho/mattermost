@@ -188,14 +188,6 @@
     "translation": "Невалидни канали."
   },
   {
-    "id": "web.error.unsupported_browser.min_os_version.windows",
-    "translation": "Виндоус 8.1+"
-  },
-  {
-    "id": "web.error.unsupported_browser.min_os_version.mac",
-    "translation": "macOS 11+"
-  },
-  {
     "id": "web.error.unsupported_browser.min_browser_version.safari",
     "translation": "Верзија 14.1+"
   },

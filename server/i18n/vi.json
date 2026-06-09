@@ -80,10 +80,6 @@
     "translation": "Bạn không lưu nội dung trong kênh đã lưu trữ."
   },
   {
-    "id": "web.error.unsupported_browser.download_the_app",
-    "translation": "Tải xuống App"
-  },
-  {
     "id": "api.command.invite_people.no_email",
     "translation": "Vui lòng chỉ định một hoặc nhiều địa chỉ email hợp lệ"
   },
@@ -178,10 +174,6 @@
   {
     "id": "api.slackimport.slack_add_users.merge_existing",
     "translation": "Tài khoản Slack đã được gộp với tài khoản hệ thống tương ứng với email {{.Email}} và tên tài khoản {{.Username}}.\n"
-  },
-  {
-    "id": "web.error.unsupported_browser.min_os_version.windows",
-    "translation": "Windows 7+"
   },
   {
     "id": "ent.saml.configure.encryption_not_enabled.app_error",
@@ -1554,14 +1546,6 @@
   {
     "id": "model.config.is_valid.saml_idp_descriptor_url.app_error",
     "translation": "URL nhà cung cấp nhận dạng nhà cung cấp phải là một URL hợp lệ và bắt đầu bằng http:// hoặc https://."
-  },
-  {
-    "id": "web.error.unsupported_browser.download",
-    "translation": "Tải xuống App"
-  },
-  {
-    "id": "web.error.unsupported_browser.install_guide.mac",
-    "translation": "Hướng dẫn cài đặt"
   },
   {
     "id": "September",
@@ -3706,10 +3690,6 @@
     "translation": "Không thể đặt scheme cho kênh vì scheme được cung cấp không phải là scheme kênh."
   },
   {
-    "id": "web.error.unsupported_browser.min_os_version.mac",
-    "translation": "macOS 10.9+"
-  },
-  {
     "id": "model.config.is_valid.data_retention.deletion_job_start_time.app_error",
     "translation": "Thời gian bắt đầu công việc lưu giữ dữ liệu phải là dấu thời gian 24 giờ ở dạng HH: MM."
   },
@@ -3916,10 +3896,6 @@
   {
     "id": "model.channel.is_valid.update_at.app_error",
     "translation": "Trường Updated_at phải là thời gian hợp lệ"
-  },
-  {
-    "id": "web.error.unsupported_browser.download_app_or_upgrade_browser",
-    "translation": "Tải xuống Mattermost app hoặc dùng trình duyệt được hỗ trợ để có trải nghiệm tốt nhất."
   },
   {
     "id": "model.cluster.is_valid.last_ping_at.app_error",
@@ -4474,10 +4450,6 @@
   {
     "id": "api.admin.upload_brand_image.parse.app_error",
     "translation": "Không thể xử lý nội dung gửi lên"
-  },
-  {
-    "id": "web.error.unsupported_browser.install_guide.windows",
-    "translation": "Hướng dẫn cài đặt"
   },
   {
     "id": "model.config.is_valid.message_export.export_type.app_error",

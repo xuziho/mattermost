@@ -5096,10 +5096,6 @@
     "translation": "Ottieni l'ultima versione del browser Safari"
   },
   {
-    "id": "web.error.unsupported_browser.download_app_or_upgrade_browser",
-    "translation": "Scarica l'app Mattermost oppure utilizza un browser supportato per un'esperienza migliore."
-  },
-  {
     "id": "api.license.request-trial.bad-request",
     "translation": "Il numero di utenti richiesto non è corretto."
   },
@@ -5420,22 +5416,6 @@
     "translation": "Safari"
   },
   {
-    "id": "web.error.unsupported_browser.download",
-    "translation": "Scarica l'App"
-  },
-  {
-    "id": "web.error.unsupported_browser.download_the_app",
-    "translation": "Scarica l'App"
-  },
-  {
-    "id": "web.error.unsupported_browser.install_guide.mac",
-    "translation": "Guida Installazione"
-  },
-  {
-    "id": "web.error.unsupported_browser.install_guide.windows",
-    "translation": "Guida Installazione"
-  },
-  {
     "id": "web.error.unsupported_browser.learn_more",
     "translation": "Scopri di più sui browser supportati."
   },
@@ -5454,14 +5434,6 @@
   {
     "id": "web.error.unsupported_browser.min_browser_version.safari",
     "translation": "Versione 12+"
-  },
-  {
-    "id": "web.error.unsupported_browser.min_os_version.mac",
-    "translation": "macOS 10.9+"
-  },
-  {
-    "id": "web.error.unsupported_browser.min_os_version.windows",
-    "translation": "Windows 7+"
   },
   {
     "id": "web.error.unsupported_browser.no_longer_support",

@@ -4538,14 +4538,6 @@
     "translation": "이 브라우저는 더 이상 Mattermost에서 지원되지 않습니다"
   },
   {
-    "id": "web.error.unsupported_browser.min_os_version.windows",
-    "translation": "윈도우즈 8.1 이상"
-  },
-  {
-    "id": "web.error.unsupported_browser.min_os_version.mac",
-    "translation": "macOS 11 버전 이상"
-  },
-  {
     "id": "web.error.unsupported_browser.min_browser_version.safari",
     "translation": "14.1 버전 이상"
   },
@@ -4564,26 +4556,6 @@
   {
     "id": "web.error.unsupported_browser.learn_more",
     "translation": "지원되는 브라우저에 대해 자세히 알아보세요."
-  },
-  {
-    "id": "web.error.unsupported_browser.install_guide.windows",
-    "translation": "설치 가이드"
-  },
-  {
-    "id": "web.error.unsupported_browser.install_guide.mac",
-    "translation": "설치 가이드"
-  },
-  {
-    "id": "web.error.unsupported_browser.download_the_app",
-    "translation": "앱을 다운로드 받습니다"
-  },
-  {
-    "id": "web.error.unsupported_browser.download_app_or_upgrade_browser",
-    "translation": "더 나은 경험을 위해 Mattermost 앱을 다운로드하거나 지원되는 브라우저를 사용해 주세요."
-  },
-  {
-    "id": "web.error.unsupported_browser.download",
-    "translation": "앱을 다운로드 받습니다"
   },
   {
     "id": "web.error.unsupported_browser.browser_title.safari",

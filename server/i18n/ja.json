@@ -4538,14 +4538,6 @@
     "translation": "このブラウザはMattermostではサポートされていません"
   },
   {
-    "id": "web.error.unsupported_browser.min_os_version.windows",
-    "translation": "Windows 10+"
-  },
-  {
-    "id": "web.error.unsupported_browser.min_os_version.mac",
-    "translation": "macOS 12+"
-  },
-  {
     "id": "web.error.unsupported_browser.min_browser_version.safari",
     "translation": "Version 17.4+"
   },
@@ -4564,26 +4556,6 @@
   {
     "id": "web.error.unsupported_browser.learn_more",
     "translation": "サポートされたブラウザについて詳しく知る。"
-  },
-  {
-    "id": "web.error.unsupported_browser.install_guide.windows",
-    "translation": "インストールガイド"
-  },
-  {
-    "id": "web.error.unsupported_browser.install_guide.mac",
-    "translation": "インストールガイド"
-  },
-  {
-    "id": "web.error.unsupported_browser.download_the_app",
-    "translation": "アプリをダウンロードする"
-  },
-  {
-    "id": "web.error.unsupported_browser.download_app_or_upgrade_browser",
-    "translation": "より良い体験のために、Mattermostアプリかサポートされたブラウザをダウンロードしてください。"
-  },
-  {
-    "id": "web.error.unsupported_browser.download",
-    "translation": "アプリをダウンロードする"
   },
   {
     "id": "web.error.unsupported_browser.browser_title.safari",

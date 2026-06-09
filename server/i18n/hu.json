@@ -2764,14 +2764,6 @@
     "translation": "Ezt a böngészőt a Mattermost már nem támogatja"
   },
   {
-    "id": "web.error.unsupported_browser.min_os_version.windows",
-    "translation": "Windows 8.1+"
-  },
-  {
-    "id": "web.error.unsupported_browser.min_os_version.mac",
-    "translation": "macOS 12+"
-  },
-  {
     "id": "web.error.unsupported_browser.min_browser_version.safari",
     "translation": "Verzió 17.0+"
   },
@@ -2790,26 +2782,6 @@
   {
     "id": "web.error.unsupported_browser.learn_more",
     "translation": "További információ a támogatott böngészőkről."
-  },
-  {
-    "id": "web.error.unsupported_browser.install_guide.windows",
-    "translation": "Telepítési útmutató"
-  },
-  {
-    "id": "web.error.unsupported_browser.install_guide.mac",
-    "translation": "Telepítési útmutató"
-  },
-  {
-    "id": "web.error.unsupported_browser.download_the_app",
-    "translation": "Töltse le az alkalmazást"
-  },
-  {
-    "id": "web.error.unsupported_browser.download_app_or_upgrade_browser",
-    "translation": "Töltse le a Mattermost alkalmazást, vagy használjon támogatott böngészőt a jobb élmény érdekében."
-  },
-  {
-    "id": "web.error.unsupported_browser.download",
-    "translation": "Töltse le az alkalmazást"
   },
   {
     "id": "web.error.unsupported_browser.browser_title.safari",

@@ -812,14 +812,6 @@
     "translation": "Version 16.2+"
   },
   {
-    "id": "web.error.unsupported_browser.min_os_version.mac",
-    "translation": "macOS 11+"
-  },
-  {
-    "id": "web.error.unsupported_browser.min_os_version.windows",
-    "translation": "Windows 10+"
-  },
-  {
     "id": "api.post.get_message_for_notification.files_sent",
     "translation": {
       "few": "{{.Count}} poslane datoteke: {{.Filenames}}",

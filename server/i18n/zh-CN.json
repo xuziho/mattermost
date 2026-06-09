@@ -5422,14 +5422,6 @@
     "translation": "Mattermost 不再支持此浏览器"
   },
   {
-    "id": "web.error.unsupported_browser.min_os_version.windows",
-    "translation": "Windows 11 及以上"
-  },
-  {
-    "id": "web.error.unsupported_browser.min_os_version.mac",
-    "translation": "macOS 14 及以上"
-  },
-  {
     "id": "web.error.unsupported_browser.min_browser_version.safari",
     "translation": "版本 26.2 及以上"
   },
@@ -5448,26 +5440,6 @@
   {
     "id": "web.error.unsupported_browser.learn_more",
     "translation": "了解更多关于支持的浏览器。"
-  },
-  {
-    "id": "web.error.unsupported_browser.install_guide.windows",
-    "translation": "安装说明"
-  },
-  {
-    "id": "web.error.unsupported_browser.install_guide.mac",
-    "translation": "安装说明"
-  },
-  {
-    "id": "web.error.unsupported_browser.download_the_app",
-    "translation": "下载应用"
-  },
-  {
-    "id": "web.error.unsupported_browser.download_app_or_upgrade_browser",
-    "translation": "下载 Mattermost 应用或使用支持的浏览器以获得更好的体验。"
-  },
-  {
-    "id": "web.error.unsupported_browser.download",
-    "translation": "下载应用"
   },
   {
     "id": "web.error.unsupported_browser.browser_title.safari",

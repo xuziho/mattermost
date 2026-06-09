@@ -60,14 +60,6 @@
     "translation": "Den här webbläsaren stöds inte längre av Mattermost"
   },
   {
-    "id": "web.error.unsupported_browser.min_os_version.windows",
-    "translation": "Windows 11+"
-  },
-  {
-    "id": "web.error.unsupported_browser.min_os_version.mac",
-    "translation": "macOS 14+"
-  },
-  {
     "id": "web.error.unsupported_browser.min_browser_version.safari",
     "translation": "Version 26.2+"
   },
@@ -86,26 +78,6 @@
   {
     "id": "web.error.unsupported_browser.learn_more",
     "translation": "Mer om supporterade webbläsare."
-  },
-  {
-    "id": "web.error.unsupported_browser.install_guide.windows",
-    "translation": "Installationsguide"
-  },
-  {
-    "id": "web.error.unsupported_browser.install_guide.mac",
-    "translation": "Installationsguide"
-  },
-  {
-    "id": "web.error.unsupported_browser.download_the_app",
-    "translation": "Ladda ner Appen"
-  },
-  {
-    "id": "web.error.unsupported_browser.download_app_or_upgrade_browser",
-    "translation": "Ladda ner Mattermostappen eller använd en supporterad webbläsare för en bättre användarupplevelse."
-  },
-  {
-    "id": "web.error.unsupported_browser.download",
-    "translation": "Ladda ner Appen"
   },
   {
     "id": "web.error.unsupported_browser.browser_title.safari",

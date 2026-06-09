@@ -12,17 +12,6 @@ import (
 	"github.com/mattermost/mattermost/server/v8/platform/shared/templates"
 )
 
-// MattermostApp describes downloads for the Mattermost App
-type MattermostApp struct {
-	LogoSrc                string
-	Title                  string
-	SupportedVersionString string
-	Label                  string
-	Link                   string
-	InstallGuide           string
-	InstallGuideLink       string
-}
-
 // Browser describes a browser with a download link
 type Browser struct {
 	LogoSrc                string
@@ -48,7 +37,7 @@ func renderUnsupportedBrowser(rctx request.CTX, r *http.Request, subpath string)
 	data := templates.Data{
 		Props: map[string]any{
 			"Subpath":                           ensureTrailingSlash(subpath),
-				"DownloadAppOrUpgradeBrowserString": "Please upgrade your browser to continue.",
+			"DownloadAppOrUpgradeBrowserString": "Please upgrade your browser to continue.",
 			"LearnMoreString":                   rctx.T("web.error.unsupported_browser.learn_more"),
 		},
 	}
@@ -57,7 +46,6 @@ func renderUnsupportedBrowser(rctx request.CTX, r *http.Request, subpath string)
 	ua := uasurfer.Parse(r.UserAgent())
 	isWindows := ua.OS.Platform.String() == "PlatformWindows"
 	isWindows10 := isWindows && ua.OS.Version.Major == 10
-	isMacOSX := ua.OS.Name.String() == "OSMacOSX" && ua.OS.Version.Major == 10
 	isSafari := ua.Browser.Name.String() == "BrowserSafari"
 
 	// Basic heading translations
@@ -65,13 +53,6 @@ func renderUnsupportedBrowser(rctx request.CTX, r *http.Request, subpath string)
 		data.Props["NoLongerSupportString"] = rctx.T("web.error.unsupported_browser.no_longer_support_version")
 	} else {
 		data.Props["NoLongerSupportString"] = rctx.T("web.error.unsupported_browser.no_longer_support")
-	}
-
-	// Mattermost app version
-	if isWindows {
-		data.Props["App"] = renderMattermostAppWindows(rctx)
-	} else if isMacOSX {
-		data.Props["App"] = renderMattermostAppMac(rctx)
 	}
 
 	// Browsers to download
@@ -89,30 +70,6 @@ func renderUnsupportedBrowser(rctx request.CTX, r *http.Request, subpath string)
 	}
 
 	return data
-}
-
-func renderMattermostAppMac(rctx request.CTX) MattermostApp {
-	return MattermostApp{
-		"mac.png",
-		rctx.T("web.error.unsupported_browser.download_the_app"),
-		rctx.T("web.error.unsupported_browser.min_os_version.mac"),
-		rctx.T("web.error.unsupported_browser.download"),
-		"#",
-		rctx.T("web.error.unsupported_browser.install_guide.mac"),
-		"#",
-	}
-}
-
-func renderMattermostAppWindows(rctx request.CTX) MattermostApp {
-	return MattermostApp{
-		"windows.svg",
-		rctx.T("web.error.unsupported_browser.download_the_app"),
-		rctx.T("web.error.unsupported_browser.min_os_version.windows"),
-		rctx.T("web.error.unsupported_browser.download"),
-		"#",
-		rctx.T("web.error.unsupported_browser.install_guide.windows"),
-		"#",
-	}
 }
 
 func renderBrowserChrome(rctx request.CTX) Browser {

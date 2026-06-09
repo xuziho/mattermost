@@ -4587,14 +4587,6 @@
     "translation": "Dieser Browser wird von Mattermost nicht mehr unterstützt"
   },
   {
-    "id": "web.error.unsupported_browser.min_os_version.windows",
-    "translation": "Windows 11+"
-  },
-  {
-    "id": "web.error.unsupported_browser.min_os_version.mac",
-    "translation": "macOS 14+"
-  },
-  {
     "id": "web.error.unsupported_browser.min_browser_version.safari",
     "translation": "Version 26.2+"
   },
@@ -4613,26 +4605,6 @@
   {
     "id": "web.error.unsupported_browser.learn_more",
     "translation": "Erfahre mehr über unterstützte Browser."
-  },
-  {
-    "id": "web.error.unsupported_browser.install_guide.windows",
-    "translation": "Installationsanleitung"
-  },
-  {
-    "id": "web.error.unsupported_browser.install_guide.mac",
-    "translation": "Installationsanleitung"
-  },
-  {
-    "id": "web.error.unsupported_browser.download_the_app",
-    "translation": "Lade die App herunter"
-  },
-  {
-    "id": "web.error.unsupported_browser.download_app_or_upgrade_browser",
-    "translation": "Lade die Mattermost-App herunter oder verwende einen unterstützten Browser für ein besseres Benutzererlebnis."
-  },
-  {
-    "id": "web.error.unsupported_browser.download",
-    "translation": "Lade die App herunter"
   },
   {
     "id": "web.error.unsupported_browser.browser_title.safari",

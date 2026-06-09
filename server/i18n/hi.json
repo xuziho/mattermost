@@ -248,14 +248,6 @@
     "translation": "यह ब्राउज़र अब मैटरमोस्ट द्वारा समर्थित नहीं है"
   },
   {
-    "id": "web.error.unsupported_browser.min_os_version.windows",
-    "translation": "विंडोज़ 7+"
-  },
-  {
-    "id": "web.error.unsupported_browser.min_os_version.mac",
-    "translation": "मैक ओएस 10.14+"
-  },
-  {
     "id": "web.error.unsupported_browser.min_browser_version.safari",
     "translation": "विवरण 12+"
   },
@@ -274,26 +266,6 @@
   {
     "id": "web.error.unsupported_browser.learn_more",
     "translation": "समर्थित ब्राउज़रों के बारे में अधिक जानें।"
-  },
-  {
-    "id": "web.error.unsupported_browser.install_guide.windows",
-    "translation": "गाइड इंस्टॉल करें"
-  },
-  {
-    "id": "web.error.unsupported_browser.install_guide.mac",
-    "translation": "गाइड इंस्टॉल करें"
-  },
-  {
-    "id": "web.error.unsupported_browser.download_the_app",
-    "translation": "ऐप डाउनलोड करें"
-  },
-  {
-    "id": "web.error.unsupported_browser.download_app_or_upgrade_browser",
-    "translation": "बेहतर अनुभव के लिए मैटरमॉस्ट ऐप डाउनलोड करें या समर्थित ब्राउज़र का उपयोग करें।"
-  },
-  {
-    "id": "web.error.unsupported_browser.download",
-    "translation": "ऐप डाउनलोड करें"
   },
   {
     "id": "web.error.unsupported_browser.browser_title.safari",

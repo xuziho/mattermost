@@ -5075,10 +5075,6 @@
     "translation": "Güncel Chrome tarayıcı sürümünü edinin"
   },
   {
-    "id": "web.error.unsupported_browser.download_app_or_upgrade_browser",
-    "translation": "Mattermost uygulamasını indirin ya da daha iyi bir deneyim elde etmek için desteklenen bir tarayıcı kullanın."
-  },
-  {
     "id": "web.error.unsupported_browser.no_longer_support",
     "translation": "Bu tarayıcı artık Mattermost tarafından desteklenmiyor"
   },
@@ -5427,22 +5423,6 @@
     "translation": "Safari"
   },
   {
-    "id": "web.error.unsupported_browser.download",
-    "translation": "Uygulamayı indir"
-  },
-  {
-    "id": "web.error.unsupported_browser.download_the_app",
-    "translation": "Uygulamayı indir"
-  },
-  {
-    "id": "web.error.unsupported_browser.install_guide.mac",
-    "translation": "Kurulum rehberi"
-  },
-  {
-    "id": "web.error.unsupported_browser.install_guide.windows",
-    "translation": "Kurulum rehberi"
-  },
-  {
     "id": "web.error.unsupported_browser.learn_more",
     "translation": "Desteklenen tarayıcıları öğrenin."
   },
@@ -5461,14 +5441,6 @@
   {
     "id": "web.error.unsupported_browser.min_browser_version.safari",
     "translation": "Sürüm 17.4+"
-  },
-  {
-    "id": "web.error.unsupported_browser.min_os_version.mac",
-    "translation": "macOS 12+"
-  },
-  {
-    "id": "web.error.unsupported_browser.min_os_version.windows",
-    "translation": "Windows 11+"
   },
   {
     "id": "web.error.unsupported_browser.no_longer_support_version",

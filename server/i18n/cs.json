@@ -5128,14 +5128,6 @@
     "translation": "Open Edge"
   },
   {
-    "id": "web.error.unsupported_browser.min_os_version.windows",
-    "translation": "Windows 8.1+"
-  },
-  {
-    "id": "web.error.unsupported_browser.min_os_version.mac",
-    "translation": "macOS 12+"
-  },
-  {
     "id": "web.error.unsupported_browser.min_browser_version.safari",
     "translation": "Verze 17.4+"
   },
@@ -5150,14 +5142,6 @@
   {
     "id": "web.error.unsupported_browser.min_browser_version.chrome",
     "translation": "Verze 138+"
-  },
-  {
-    "id": "web.error.unsupported_browser.install_guide.mac",
-    "translation": "Instalační příručka"
-  },
-  {
-    "id": "web.error.unsupported_browser.install_guide.windows",
-    "translation": "Instalační příručka"
   },
   {
     "id": "web.error.unsupported_browser.browser_title.edge",
@@ -9396,10 +9380,6 @@
     "translation": "Název kanálu není platný"
   },
   {
-    "id": "web.error.unsupported_browser.download_the_app",
-    "translation": "Stáhnout aplikaci"
-  },
-  {
     "id": "model.draft.is_valid.file_ids.app_error",
     "translation": "Neplatné ID souborů."
   },
@@ -9496,10 +9476,6 @@
     "translation": "Vaše heslo musí obsahovat alespoň {{.Min}} znaků."
   },
   {
-    "id": "web.error.unsupported_browser.download_app_or_upgrade_browser",
-    "translation": "Stáhněte si aplikaci Mattermost nebo použijte podporovaný prohlížeč pro lepší zážitek."
-  },
-  {
     "id": "model.config.is_valid.storage_class.app_error",
     "translation": "Neplatná třída úložiště {{.Value}}."
   },
@@ -9510,10 +9486,6 @@
   {
     "id": "model.config.is_valid.tls_overwrite_cipher.app_error",
     "translation": "Neplatná hodnota pro přepsání šifry TLS – prosím, odkazujte se na dokumentaci pro platné hodnoty."
-  },
-  {
-    "id": "web.error.unsupported_browser.download",
-    "translation": "Stáhnout aplikaci"
   },
   {
     "id": "store.sql_channel.save_channel.limit.app_error",

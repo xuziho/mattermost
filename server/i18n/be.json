@@ -624,14 +624,6 @@
     "translation": "Адкрыць Edge"
   },
   {
-    "id": "web.error.unsupported_browser.min_os_version.windows",
-    "translation": "Windows 11+"
-  },
-  {
-    "id": "web.error.unsupported_browser.min_os_version.mac",
-    "translation": "macOS 12+"
-  },
-  {
     "id": "web.error.unsupported_browser.min_browser_version.safari",
     "translation": "Версія 17.4+"
   },
@@ -646,14 +638,6 @@
   {
     "id": "web.error.unsupported_browser.min_browser_version.chrome",
     "translation": "Версія 140+"
-  },
-  {
-    "id": "web.error.unsupported_browser.install_guide.windows",
-    "translation": "Кіраўніцтва па ўстаноўцы"
-  },
-  {
-    "id": "web.error.unsupported_browser.install_guide.mac",
-    "translation": "Кіраўніцтва па ўстаноўцы"
   },
   {
     "id": "web.error.unsupported_browser.browser_title.edge",
@@ -1350,18 +1334,6 @@
   {
     "id": "web.error.unsupported_browser.learn_more",
     "translation": "Даведайцеся больш пра падтрымоўваныя браўзеры."
-  },
-  {
-    "id": "web.error.unsupported_browser.download_the_app",
-    "translation": "Спампаваць праграму"
-  },
-  {
-    "id": "web.error.unsupported_browser.download_app_or_upgrade_browser",
-    "translation": "Спампуйце праграму Mattermost або выкарыстоўвайце падтрымоўваны браўзер для лепшага досведу."
-  },
-  {
-    "id": "web.error.unsupported_browser.download",
-    "translation": "Спампаваць праграму"
   },
   {
     "id": "web.error.unsupported_browser.browser_get_latest.safari",

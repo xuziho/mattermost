@@ -4544,14 +4544,6 @@
     "translation": "Acest browser nu mai este suportat de Mattermost"
   },
   {
-    "id": "web.error.unsupported_browser.min_os_version.windows",
-    "translation": "Windows 7+"
-  },
-  {
-    "id": "web.error.unsupported_browser.min_os_version.mac",
-    "translation": "macOS 10.9+"
-  },
-  {
     "id": "web.error.unsupported_browser.min_browser_version.safari",
     "translation": "Versiunea 12+"
   },
@@ -4570,26 +4562,6 @@
   {
     "id": "web.error.unsupported_browser.learn_more",
     "translation": "Aflați mai multe despre browserele acceptate."
-  },
-  {
-    "id": "web.error.unsupported_browser.install_guide.windows",
-    "translation": "Ghid de instalare"
-  },
-  {
-    "id": "web.error.unsupported_browser.install_guide.mac",
-    "translation": "Ghid de instalare"
-  },
-  {
-    "id": "web.error.unsupported_browser.download_the_app",
-    "translation": "Descărcați Aplicația"
-  },
-  {
-    "id": "web.error.unsupported_browser.download_app_or_upgrade_browser",
-    "translation": "Descărcați aplicația Mattermost sau utilizați un browser acceptat pentru o experiență mai bună."
-  },
-  {
-    "id": "web.error.unsupported_browser.download",
-    "translation": "Descărcați Aplicația"
   },
   {
     "id": "web.error.unsupported_browser.browser_title.safari",

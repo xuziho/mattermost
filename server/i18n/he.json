@@ -144,20 +144,8 @@
     "translation": "פתח דפדפן Edge"
   },
   {
-    "id": "web.error.unsupported_browser.min_os_version.windows",
-    "translation": "חלונות 10+"
-  },
-  {
-    "id": "web.error.unsupported_browser.install_guide.windows",
-    "translation": "מדריך התקנה"
-  },
-  {
     "id": "web.error.unsupported_browser.learn_more",
     "translation": "למד עוד על דפדפנים נתמכים."
-  },
-  {
-    "id": "web.error.unsupported_browser.download_the_app",
-    "translation": "הורד את היישומון"
   },
   {
     "id": "web.error.unsupported_browser.browser_get_latest.safari",
@@ -178,10 +166,6 @@
   {
     "id": "web.error.unsupported_browser.browser_title.safari",
     "translation": "ספארי"
-  },
-  {
-    "id": "web.error.unsupported_browser.download",
-    "translation": "הורד את היישומון"
   },
   {
     "id": "api.templates.license_up_for_renewal_review_license",

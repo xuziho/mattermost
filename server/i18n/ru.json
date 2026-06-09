@@ -5188,10 +5188,6 @@
     "translation": "Установите последнюю версию браузера Firefox"
   },
   {
-    "id": "web.error.unsupported_browser.min_os_version.mac",
-    "translation": "macOS 12+"
-  },
-  {
     "id": "web.error.unsupported_browser.no_longer_support_version",
     "translation": "Эта версия вашего браузера больше не поддерживается Mattermost"
   },
@@ -5416,10 +5412,6 @@
     "translation": "Safari"
   },
   {
-    "id": "web.error.unsupported_browser.download",
-    "translation": "Скачать приложение"
-  },
-  {
     "id": "web.error.unsupported_browser.browser_get_latest.safari",
     "translation": "Установите последнюю версию браузера Safari"
   },
@@ -5430,22 +5422,6 @@
   {
     "id": "web.error.unsupported_browser.browser_title.edge",
     "translation": "Microsoft Edge"
-  },
-  {
-    "id": "web.error.unsupported_browser.download_app_or_upgrade_browser",
-    "translation": "Загрузите приложение Mattermost или используйте поддерживаемый браузер для лучшей работы."
-  },
-  {
-    "id": "web.error.unsupported_browser.download_the_app",
-    "translation": "Скачать приложение"
-  },
-  {
-    "id": "web.error.unsupported_browser.install_guide.mac",
-    "translation": "Руководство по установке"
-  },
-  {
-    "id": "web.error.unsupported_browser.install_guide.windows",
-    "translation": "Руководство по установке"
   },
   {
     "id": "web.error.unsupported_browser.learn_more",
@@ -5466,10 +5442,6 @@
   {
     "id": "web.error.unsupported_browser.min_browser_version.safari",
     "translation": "Версия 17.4+"
-  },
-  {
-    "id": "web.error.unsupported_browser.min_os_version.windows",
-    "translation": "Windows 10+"
   },
   {
     "id": "web.error.unsupported_browser.no_longer_support",
