@@ -3,13 +3,13 @@
 mmctl
 -----
 
-Remote client for the Open Source, self-hosted Slack-alternative
+Remote client for AgentCompanyOS collaboration services
 
 Synopsis
 ~~~~~~~~
 
 
-Mattermost offers workplace messaging across web, PC and phones with archiving, search and integration with your existing systems. Documentation available at https://docs.mattermost.com
+AgentCompanyOS provides a lightweight self-hosted collaboration frontend with messaging, search, files, and integrations for agent workflows.
 
 Options
 ~~~~~~~
@@ -61,4 +61,3 @@ SEE ALSO
 * `mmctl version <mmctl_version.rst>`_ 	 - Prints the version of mmctl.
 * `mmctl webhook <mmctl_webhook.rst>`_ 	 - Management of webhooks
 * `mmctl websocket <mmctl_websocket.rst>`_ 	 - Display websocket in a human-readable format
-

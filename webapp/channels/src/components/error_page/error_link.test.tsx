@@ -9,7 +9,7 @@ import ErrorLink from './error_link';
 
 describe('components/error_page/ErrorLink', () => {
     const baseProps = {
-        url: 'https://docs.mattermost.com/deployment/sso-gitlab.html',
+        url: '#',
         message: {
             id: 'error.oauth_missing_code.gitlab.link',
             defaultMessage: 'GitLab',

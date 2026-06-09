@@ -19,8 +19,8 @@ func Run(args []string) error {
 
 var RootCmd = &cobra.Command{
 	Use:   "mattermost",
-	Short: "Open source, self-hosted Slack-alternative",
-	Long:  `Mattermost offers workplace messaging across web, PC and phones with archiving, search and integration with your existing systems. Documentation available at https://docs.mattermost.com`,
+	Short: "AgentCompanyOS lightweight collaboration frontend",
+	Long:  `AgentCompanyOS provides a lightweight self-hosted collaboration frontend with messaging, search, files, and integrations for agent workflows.`,
 	PersistentPreRun: func(cmd *cobra.Command, args []string) {
 		checkForRootUser()
 	},

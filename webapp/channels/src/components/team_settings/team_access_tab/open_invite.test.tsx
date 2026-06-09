@@ -22,7 +22,7 @@ describe('components/TeamSettings/OpenInvite', () => {
         expect(title).toBeInTheDocument();
         const externalLink = screen.getByText('Learn More');
         expect(externalLink).toBeInTheDocument();
-        expect(externalLink).toHaveAttribute('href', 'https://mattermost.com/pl/default-ldap-group-constrained-team-channel.html?utm_source=mattermost&utm_medium=in-product&utm_content=open_invite&uid=&sid=&edition=team&server_version=');
+        expect(externalLink).toHaveAttribute('href', '#');
     });
 
     test('should render the checkbox when the team is not constrained and not checked', () => {
