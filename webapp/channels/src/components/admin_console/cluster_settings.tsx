@@ -8,10 +8,7 @@ import type {AdminConfig, ClientLicense} from '@mattermost/types/config';
 
 import {Client4} from 'mattermost-redux/client';
 
-import ExternalLink from 'components/external_link';
 import WarningIcon from 'components/widgets/icons/fa_warning_icon';
-
-import {DocLinks} from 'utils/constants';
 
 import BooleanSetting from './boolean_setting';
 import ClusterTableContainer from './cluster_table_container';
@@ -39,7 +36,7 @@ const messages = defineMessages({
     cluster: {id: 'admin.advance.cluster', defaultMessage: 'High Availability'},
     noteDescription: {id: 'admin.cluster.noteDescription', defaultMessage: 'Changing properties in this section will require a server restart before taking effect.'},
     enableTitle: {id: 'admin.cluster.enableTitle', defaultMessage: 'Enable High Availability Mode:'},
-    enableDescription: {id: 'admin.cluster.enableDescription', defaultMessage: 'When true, Mattermost will run in High Availability mode. Please see <link>documentation</link> to learn more about configuring High Availability for Mattermost.'},
+    enableDescription: {id: 'admin.cluster.enableDescription', defaultMessage: 'When true, the server will run in High Availability mode. Configure every node with matching cluster settings before enabling this in production.'},
     clusterName: {id: 'admin.cluster.ClusterName', defaultMessage: 'Cluster Name:'},
     clusterNameDesc: {id: 'admin.cluster.ClusterNameDesc', defaultMessage: 'The cluster to join by name. Only nodes with the same cluster name will join together. This is to support Blue-Green deployments or staging pointing to the same database.'},
     overrideHostname: {id: 'admin.cluster.OverrideHostname', defaultMessage: 'Override Hostname:'},
@@ -129,17 +126,9 @@ export default class ClusterSettings extends OLDAdminSettings<Props, State> {
                     <WarningIcon/>
                     <FormattedMessage
                         id='admin.cluster.loadedFrom'
-                        defaultMessage='This configuration file was loaded from Node ID {clusterId}. Please see the Troubleshooting Guide in our <link>documentation</link> if you are accessing the System Console through a load balancer and experiencing issues.'
+                        defaultMessage='This configuration file was loaded from Node ID {clusterId}. If you are accessing the System Console through a load balancer and experiencing issues, verify that every node uses matching cluster settings.'
                         values={{
                             clusterId: Client4.clusterId,
-                            link: (msg) => (
-                                <ExternalLink
-                                    location='cluster_settings'
-                                    href={DocLinks.HIGH_AVAILABILITY_CLUSTER}
-                                >
-                                    {msg}
-                                </ExternalLink>
-                            ),
                         }}
                     />
                 </div>
@@ -157,17 +146,7 @@ export default class ClusterSettings extends OLDAdminSettings<Props, State> {
                     <WarningIcon/>
                     <FormattedMessage
                         id='admin.cluster.should_not_change'
-                        defaultMessage='WARNING: These settings may not sync with the other servers in the cluster. High Availability inter-node communication will not start until you modify the config.json to be identical on all servers and restart Mattermost. Please see the <link>documentation</link> on how to add or remove a server from the cluster. If you are accessing the System Console through a load balancer and experiencing issues, please see the Troubleshooting Guide in our <link>documentation</link>.'
-                        values={{
-                            link: (msg) => (
-                                <ExternalLink
-                                    location='cluster_settings'
-                                    href={DocLinks.HIGH_AVAILABILITY_CLUSTER}
-                                >
-                                    {msg}
-                                </ExternalLink>
-                            ),
-                        }}
+                        defaultMessage='WARNING: These settings may not sync with the other servers in the cluster. High Availability inter-node communication will not start until you modify the config.json to be identical on all servers and restart the server. If you are accessing the System Console through a load balancer and experiencing issues, verify that every node uses matching cluster settings.'
                     />
                 </div>
             );
@@ -194,16 +173,6 @@ export default class ClusterSettings extends OLDAdminSettings<Props, State> {
                     helpText={
                         <FormattedMessage
                             {...messages.enableDescription}
-                            values={{
-                                link: (msg) => (
-                                    <ExternalLink
-                                        location='cluster_settings'
-                                        href={DocLinks.HIGH_AVAILABILITY_CLUSTER}
-                                    >
-                                        {msg}
-                                    </ExternalLink>
-                                ),
-                            }}
                         />
                     }
                     value={this.state.Enable}

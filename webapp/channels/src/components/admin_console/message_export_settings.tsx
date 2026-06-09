@@ -10,9 +10,7 @@ import {Link} from 'react-router-dom';
 import type {AdminConfig} from '@mattermost/types/config';
 import type {Job} from '@mattermost/types/jobs';
 
-import ExternalLink from 'components/external_link';
-
-import {DocLinks, JobTypes, exportFormats} from 'utils/constants';
+import {JobTypes, exportFormats} from 'utils/constants';
 
 import BooleanSetting from './boolean_setting';
 import DropdownSetting from './dropdown_setting';
@@ -46,7 +44,7 @@ const messages = defineMessages({
     globalRelayEmailAddress_title: {id: 'admin.complianceExport.globalRelayEmailAddress.title', defaultMessage: 'Email Address:'},
     globalRelayEmailAddress_description: {id: 'admin.complianceExport.globalRelayEmailAddress.description', defaultMessage: 'The email address that your GlobalRelay server monitors for incoming Compliance Exports.'},
     complianceExportTitle: {id: 'admin.service.complianceExportTitle', defaultMessage: 'Enable Compliance Export:'},
-    complianceExportDesc: {id: 'admin.service.complianceExportDesc', defaultMessage: 'When true, Mattermost will export all messages that were posted in the last 24 hours. The export task is scheduled to run once per day. See <link>the documentation</link> to learn more.'},
+    complianceExportDesc: {id: 'admin.service.complianceExportDesc', defaultMessage: 'When true, the server will export all messages that were posted in the last 24 hours. The export task is scheduled to run once per day.'},
     exportJobStartTime_title: {id: 'admin.complianceExport.exportJobStartTime.title', defaultMessage: 'Compliance Export Time:'},
     exportJobStartTime_description: {id: 'admin.complianceExport.exportJobStartTime.description', defaultMessage: 'Set the start time of the daily scheduled compliance export job. Choose a time when fewer people are using your system. Must be a 24-hour time stamp in the form HH:MM.'},
     exportFormat_title: {id: 'admin.complianceExport.exportFormat.title', defaultMessage: 'Export Format:'},
@@ -349,16 +347,6 @@ export class MessageExportSettings extends OLDAdminSettings<BaseProps & WrappedC
                     helpText={
                         <FormattedMessage
                             {...messages.complianceExportDesc}
-                            values={{
-                                link: (msg: ReactNode) => (
-                                    <ExternalLink
-                                        href={DocLinks.COMPILANCE_EXPORT}
-                                        location='message_export_settings'
-                                    >
-                                        {msg}
-                                    </ExternalLink>
-                                ),
-                            }}
                         />
                     }
                     value={this.state.enableComplianceExport}

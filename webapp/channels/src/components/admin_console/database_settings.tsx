@@ -9,10 +9,6 @@ import type {AdminConfig} from '@mattermost/types/config';
 
 import {recycleDatabaseConnection, ping} from 'actions/admin_actions';
 
-import ExternalLink from 'components/external_link';
-
-import {DocLinks} from 'utils/constants';
-
 import BooleanSetting from './boolean_setting';
 import MigrationsTable from './database';
 import type {BaseState} from './old_admin_settings';
@@ -52,7 +48,7 @@ const messages = defineMessages({
     button: {id: 'admin.recycle.button', defaultMessage: 'Recycle Database Connections'},
     noteDescription: {id: 'admin.sql.noteDescription', defaultMessage: 'Changing properties in this section will require a server restart before taking effect.'},
     disableDatabaseSearchTitle: {id: 'admin.sql.disableDatabaseSearchTitle', defaultMessage: 'Disable database search: '},
-    disableDatabaseSearchDescription: {id: 'admin.sql.disableDatabaseSearchDescription', defaultMessage: 'Disables the use of the database to perform searches. Should only be used when other <link>search engines</link> are configured.'},
+    disableDatabaseSearchDescription: {id: 'admin.sql.disableDatabaseSearchDescription', defaultMessage: 'Disables the use of the database to perform searches. Should only be used when another search backend is configured.'},
     driverName: {id: 'admin.sql.driverName', defaultMessage: 'Driver Name:'},
     driverNameDescription: {id: 'admin.sql.driverNameDescription', defaultMessage: 'Set the database driver in the config.json file.'},
     dataSource: {id: 'admin.sql.dataSource', defaultMessage: 'Data Source:'},
@@ -373,16 +369,6 @@ export default class DatabaseSettings extends OLDAdminSettings<Props, State> {
                     helpText={
                         <FormattedMessage
                             {...messages.disableDatabaseSearchDescription}
-                            values={{
-                                link: (msg) => (
-                                    <ExternalLink
-                                        location='database_settings'
-                                        href={DocLinks.ELASTICSEARCH}
-                                    >
-                                        {msg}
-                                    </ExternalLink>
-                                ),
-                            }}
                         />
                     }
                     value={this.state.disableDatabaseSearch}

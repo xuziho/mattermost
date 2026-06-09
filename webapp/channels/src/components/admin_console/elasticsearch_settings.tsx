@@ -10,9 +10,7 @@ import type {Job, JobType} from '@mattermost/types/jobs';
 
 import {elasticsearchPurgeIndexes, elasticsearchTest, rebuildChannelsIndex} from 'actions/admin_actions.jsx';
 
-import ExternalLink from 'components/external_link';
-
-import {DocLinks, JobStatuses, JobTypes} from 'utils/constants';
+import {JobStatuses, JobTypes} from 'utils/constants';
 
 import BooleanSetting from './boolean_setting';
 import JobsTable from './jobs';
@@ -50,9 +48,9 @@ type Props = BaseProps & {
 export const messages = defineMessages({
     title: {id: 'admin.elasticsearch.title', defaultMessage: 'Elasticsearch'},
     enableIndexingTitle: {id: 'admin.elasticsearch.enableIndexingTitle', defaultMessage: 'Enable Elasticsearch Indexing:'},
-    enableIndexingDescription: {id: 'admin.elasticsearch.enableIndexingDescription', defaultMessage: 'When true, indexing of new posts occurs automatically. Search queries will use database search until "Enable Elasticsearch for search queries" is enabled. <link>Learn more about Elasticsearch in our documentation.</link>'},
+    enableIndexingDescription: {id: 'admin.elasticsearch.enableIndexingDescription', defaultMessage: 'When true, indexing of new posts occurs automatically. Search queries will use database search until "Enable Elasticsearch for search queries" is enabled.'},
     connectionUrlTitle: {id: 'admin.elasticsearch.connectionUrlTitle', defaultMessage: 'Server Connection Address:'},
-    connectionUrlDescription: {id: 'admin.elasticsearch.connectionUrlDescription', defaultMessage: 'The address of the Elasticsearch server. <link>Please see documentation with server setup instructions.</link>'},
+    connectionUrlDescription: {id: 'admin.elasticsearch.connectionUrlDescription', defaultMessage: 'The address of the Elasticsearch server. Configure the search backend before enabling Elasticsearch for queries.'},
     skipTLSVerificationTitle: {id: 'admin.elasticsearch.skipTLSVerificationTitle', defaultMessage: 'Skip TLS Verification:'},
     skipTLSVerificationDescription: {id: 'admin.elasticsearch.skipTLSVerificationDescription', defaultMessage: 'When true, Mattermost will not require the Elasticsearch certificate to be signed by a trusted Certificate Authority.'},
     usernameTitle: {id: 'admin.elasticsearch.usernameTitle', defaultMessage: 'Server Username:'},
@@ -252,16 +250,6 @@ export default class ElasticsearchSettings extends OLDAdminSettings<Props, State
                     helpText={
                         <FormattedMessage
                             {...messages.enableIndexingDescription}
-                            values={{
-                                link: (chunks) => (
-                                    <ExternalLink
-                                        location='elasticsearch_settings'
-                                        href={DocLinks.ELASTICSEARCH}
-                                    >
-                                        {chunks}
-                                    </ExternalLink>
-                                ),
-                            }}
                         />
                     }
                     value={this.state.enableIndexing}
@@ -298,16 +286,6 @@ export default class ElasticsearchSettings extends OLDAdminSettings<Props, State
                     helpText={
                         <FormattedMessage
                             {...messages.connectionUrlDescription}
-                            values={{
-                                link: (chunks) => (
-                                    <ExternalLink
-                                        location='elasticsearch_settings'
-                                        href={DocLinks.ELASTICSEARCH}
-                                    >
-                                        {chunks}
-                                    </ExternalLink>
-                                ),
-                            }}
                         />
                     }
                     value={this.state.connectionUrl}
