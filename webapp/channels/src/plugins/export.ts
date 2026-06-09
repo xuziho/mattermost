@@ -6,13 +6,9 @@ import {openModal} from 'actions/views/modals';
 import {closeRightHandSide, selectPostById} from 'actions/views/rhs';
 import {getSelectedPostId, getIsRhsOpen} from 'selectors/rhs';
 
-import AdvancedTextEditor from 'components/advanced_text_editor/advanced_text_editor';
-import ChannelInviteModal from 'components/channel_invite_modal';
-import ChannelMembersModal from 'components/channel_members_modal';
-import DatePicker from 'components/date_picker/date_picker';
-import * as Menu from 'components/menu';
-import PostMessagePreview from 'components/post_view/post_message_preview';
-import ThreadViewer from 'components/threading/thread_viewer';
+import React, {lazy} from 'react';
+
+import {makeAsyncComponent} from 'components/async_load';
 import Timestamp from 'components/timestamp';
 import UserSettingsModal from 'components/user_settings/modal';
 import BotTag from 'components/widgets/tag/bot_tag';
@@ -31,6 +27,15 @@ import {imageURLForUser} from 'utils/utils';
 import {openInteractiveDialog} from './interactive_dialog'; // This import has intentional side effects. Do not remove without research.
 import {loadSharedDependency} from './shared_dependencies';
 import Textbox from './textbox';
+
+const AdvancedTextEditor = makeAsyncComponent('PluginAdvancedTextEditor', lazy(() => import('components/advanced_text_editor/advanced_text_editor')));
+const ChannelInviteModal = makeAsyncComponent('PluginChannelInviteModal', lazy(() => import('components/channel_invite_modal')));
+const ChannelMembersModal = makeAsyncComponent('PluginChannelMembersModal', lazy(() => import('components/channel_members_modal')));
+const DatePicker = makeAsyncComponent('PluginDatePicker', lazy(() => import('components/date_picker/date_picker')));
+const MenuItem = makeAsyncComponent('PluginMenuItem', lazy(() => import('components/menu/menu_item').then((module) => ({default: module.MenuItem}))));
+const MenuSeparator = makeAsyncComponent('PluginMenuSeparator', lazy(() => import('components/menu/menu_item_separator').then((module) => ({default: module.MenuItemSeparator}))));
+const PostMessagePreview = makeAsyncComponent('PluginPostMessagePreview', lazy(() => import('components/post_view/post_message_preview')));
+const ThreadViewer = makeAsyncComponent('PluginThreadViewer', lazy(() => import('components/threading/thread_viewer')));
 
 interface WindowWithLibraries {
     React: typeof import('react');
@@ -71,17 +76,17 @@ interface WindowWithLibraries {
     Components: {
         Textbox: typeof Textbox;
         Timestamp: typeof Timestamp;
-        ChannelInviteModal: typeof ChannelInviteModal;
-        ChannelMembersModal: typeof ChannelMembersModal;
+        ChannelInviteModal: React.ComponentType<any>;
+        ChannelMembersModal: React.ComponentType<any>;
         Avatar: typeof Avatar;
         imageURLForUser: typeof imageURLForUser;
         BotBadge: typeof BotTag;
-        ThreadViewer: typeof ThreadViewer;
-        PostMessagePreview: typeof PostMessagePreview;
-        AdvancedTextEditor: typeof AdvancedTextEditor;
-        DatePicker: typeof DatePicker;
-        MenuItem: typeof Menu.Item;
-        MenuSeparator: typeof Menu.Separator;
+        ThreadViewer: React.ComponentType<any>;
+        PostMessagePreview: React.ComponentType<any>;
+        AdvancedTextEditor: React.ComponentType<any>;
+        DatePicker: React.ComponentType<any>;
+        MenuItem: React.ComponentType<any>;
+        MenuSeparator: React.ComponentType<any>;
     };
     ProductApi: {
         useWebSocket: typeof useWebSocket;
@@ -162,8 +167,8 @@ window.Components = {
     PostMessagePreview,
     AdvancedTextEditor,
     DatePicker,
-    MenuItem: Menu.Item,
-    MenuSeparator: Menu.Separator,
+    MenuItem,
+    MenuSeparator,
 };
 
 // This is a prototype of the Product API for use by internal plugins only while we transition to the proper architecture
