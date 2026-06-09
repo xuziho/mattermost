@@ -715,40 +715,6 @@ describe('Actions.Admin', () => {
         expect(nock.isDone()).toBe(true);
     });
 
-    it('overwriteInstallPlugin', async () => {
-        const downloadUrl = 'testplugin.tar.gz';
-        const testPlugin = {id: 'testplugin', webapp: {bundle_path: '/static/somebundle.js'}};
-
-        let urlMatch = `/plugins/install_from_url?plugin_download_url=${downloadUrl}&force=false`;
-        let scope = nock(Client4.getBaseRoute()).
-            post(urlMatch).
-            reply(200, testPlugin);
-        await store.dispatch(Actions.installPluginFromUrl(downloadUrl, false));
-
-        expect(scope.isDone()).toBe(true);
-
-        urlMatch = `/plugins/install_from_url?plugin_download_url=${downloadUrl}&force=true`;
-        scope = nock(Client4.getBaseRoute()).
-            post(urlMatch).
-            reply(200, testPlugin);
-        await store.dispatch(Actions.installPluginFromUrl(downloadUrl, true));
-
-        expect(scope.isDone()).toBe(true);
-    });
-
-    it('installPluginFromUrl', async () => {
-        const downloadUrl = 'testplugin.tar.gz';
-        const testPlugin = {id: 'testplugin', webapp: {bundle_path: '/static/somebundle.js'}};
-
-        const urlMatch = `/plugins/install_from_url?plugin_download_url=${downloadUrl}&force=false`;
-        nock(Client4.getBaseRoute()).
-            post(urlMatch).
-            reply(200, testPlugin);
-        await store.dispatch(Actions.installPluginFromUrl(downloadUrl, false));
-
-        expect(nock.isDone()).toBe(true);
-    });
-
     it('getPlugins', async () => {
         const testPlugin = {id: 'testplugin', webapp: {bundle_path: '/static/somebundle.js'}};
         const testPlugin2 = {id: 'testplugin2', webapp: {bundle_path: '/static/somebundle.js'}};

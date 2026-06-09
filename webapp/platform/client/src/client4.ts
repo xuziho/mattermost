@@ -3821,15 +3821,6 @@ export default class Client4 {
         );
     };
 
-    installPluginFromUrl = (pluginDownloadUrl: string, force = false) => {
-        const queryParams = {plugin_download_url: pluginDownloadUrl, force};
-
-        return this.doFetch<PluginManifest>(
-            `${this.getPluginsRoute()}/install_from_url${buildQueryString(queryParams)}`,
-            {method: 'post'},
-        );
-    };
-
     getPlugins = () => {
         return this.doFetch<PluginsResponse>(
             this.getPluginsRoute(),

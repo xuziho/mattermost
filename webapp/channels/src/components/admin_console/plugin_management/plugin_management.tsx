@@ -449,7 +449,6 @@ type Props = BaseProps & {
         getPluginStatuses: () => Promise<ActionResult>;
         enablePlugin: (pluginId: string) => Promise<ActionResult>;
         disablePlugin: (pluginId: string) => Promise<ActionResult>;
-        installPluginFromUrl: (url: string, force: boolean) => Promise<ActionResult>;
     };
 } & WrappedComponentProps;
 
@@ -457,15 +456,11 @@ type State = BaseState & {
     loading: boolean;
     fileSelected: boolean;
     file: File | null;
-    pluginDownloadUrl: string;
     serverError: JSX.Element | string | null ;
     lastMessage: string | null;
     uploading: boolean;
-    installing: boolean;
     overwritingUpload: boolean;
     confirmOverwriteUploadModal: boolean;
-    overwritingInstall?: boolean;
-    confirmOverwriteInstallModal: boolean;
     showRemoveModal: boolean;
     resolveRemoveModal: string| null;
     enable: boolean;
@@ -483,15 +478,11 @@ export class PluginManagement extends OLDAdminSettings<Props, State> {
             loading: true,
             fileSelected: false,
             file: null,
-            pluginDownloadUrl: '',
             serverError: null,
             lastMessage: null,
             uploading: false,
-            installing: false,
             overwritingUpload: false,
             confirmOverwriteUploadModal: false,
-            overwritingInstall: false,
-            confirmOverwriteInstallModal: false,
             showRemoveModal: false,
             resolveRemoveModal: null,
         });
@@ -613,76 +604,6 @@ export class PluginManagement extends OLDAdminSettings<Props, State> {
         if (this.state.file) {
             this.helpSubmitUpload(this.state.file, true);
         }
-    };
-
-    onPluginDownloadUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        this.setState({
-            pluginDownloadUrl: e.target.value,
-        });
-    };
-
-    installFromUrl = async (force: boolean) => {
-        const {pluginDownloadUrl} = this.state;
-
-        this.setState({
-            installing: true,
-            serverError: null,
-            lastMessage: null,
-        });
-        const {error} = await this.props.actions.installPluginFromUrl(pluginDownloadUrl, force);
-
-        if (error) {
-            if (error.server_error_id === 'app.plugin.install_id.app_error' && !force) {
-                this.setState({confirmOverwriteInstallModal: true, overwritingInstall: true});
-                return;
-            }
-
-            this.setState({
-                installing: false,
-            });
-
-            if (error.server_error_id === 'app.plugin.extract.app_error') {
-                this.setState({serverError: this.props.intl.formatMessage({id: 'admin.plugin.error.extract', defaultMessage: 'Encountered an error when extracting the plugin. Review your plugin file content and try again.'})});
-            } else {
-                this.setState({serverError: error.message});
-            }
-            return;
-        }
-
-        this.setState({loading: true});
-        await this.props.actions.getPlugins();
-
-        let msg = `Successfully installed plugin from ${pluginDownloadUrl}`;
-        if (this.state.overwritingInstall) {
-            msg = `Successfully updated plugin from ${pluginDownloadUrl}`;
-        }
-
-        this.setState({
-            serverError: null,
-            lastMessage: msg,
-            overwritingInstall: false,
-            installing: false,
-            loading: false,
-        });
-    };
-
-    handleSubmitInstall = (e: React.SyntheticEvent) => {
-        e.preventDefault();
-        return this.installFromUrl(false);
-    };
-
-    handleOverwriteInstallPluginCancel = () => {
-        this.setState({
-            confirmOverwriteInstallModal: false,
-            installing: false,
-            serverError: null,
-            lastMessage: null,
-        });
-    };
-
-    handleOverwriteInstallPlugin = () => {
-        this.setState({confirmOverwriteInstallModal: false});
-        return this.installFromUrl(true);
     };
 
     showRemovePluginModal = (e: React.SyntheticEvent) => {

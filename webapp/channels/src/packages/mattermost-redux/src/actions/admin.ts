@@ -498,21 +498,6 @@ export function uploadPlugin(fileData: File, force = false): ActionFuncAsync {
     };
 }
 
-export function installPluginFromUrl(url: string, force = false): ActionFuncAsync {
-    return async (dispatch, getState) => {
-        let data;
-        try {
-            data = await Client4.installPluginFromUrl(url, force);
-        } catch (error) {
-            forceLogoutIfNecessary(error as ServerError, dispatch, getState);
-            dispatch(logError(error as ServerError));
-            return {error};
-        }
-
-        return {data};
-    };
-}
-
 export function getPlugins() {
     return bindClientFunc({
         clientFunc: Client4.getPlugins,
