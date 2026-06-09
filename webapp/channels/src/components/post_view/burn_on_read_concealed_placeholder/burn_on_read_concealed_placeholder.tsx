@@ -4,7 +4,8 @@
 import React, {memo, useCallback, useEffect, useState} from 'react';
 import {useIntl} from 'react-intl';
 
-import {EyeOutlineIcon, AlertCircleOutlineIcon} from '@mattermost/compass-icons/components';
+import EyeOutlineIcon from '@mattermost/compass-icons/components/eye-outline';
+import AlertCircleOutlineIcon from '@mattermost/compass-icons/components/alert-circle-outline';
 
 import LoadingSpinner from 'components/widgets/loading/loading_spinner';
 

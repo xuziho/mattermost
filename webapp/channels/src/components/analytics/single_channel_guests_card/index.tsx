@@ -4,7 +4,8 @@
 import React from 'react';
 import {defineMessage, defineMessages, useIntl} from 'react-intl';
 
-import {AlertOutlineIcon, InformationOutlineIcon} from '@mattermost/compass-icons/components';
+import AlertOutlineIcon from '@mattermost/compass-icons/components/alert-outline';
+import InformationOutlineIcon from '@mattermost/compass-icons/components/information-outline';
 
 import StatisticCount from 'components/analytics/statistic_count';
 import WithTooltip from 'components/with_tooltip';

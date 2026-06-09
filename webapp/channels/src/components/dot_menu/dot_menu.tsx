@@ -6,26 +6,24 @@ import React from 'react';
 import {FormattedMessage, injectIntl} from 'react-intl';
 import type {IntlShape} from 'react-intl';
 
-import {
-    AlertOutlineIcon,
-    ArrowRightBoldOutlineIcon,
-    BookmarkIcon,
-    BookmarkOutlineIcon,
-    ContentCopyIcon,
-    DotsHorizontalIcon,
-    EmoticonPlusOutlineIcon,
-    LinkVariantIcon,
-    MarkAsUnreadIcon,
-    MessageArrowRightOutlineIcon,
-    MessageCheckOutlineIcon,
-    MessageMinusOutlineIcon,
-    PencilOutlineIcon,
-    PinIcon,
-    PinOutlineIcon,
-    ReplyOutlineIcon,
-    TranslateIcon,
-    TrashCanOutlineIcon,
-} from '@mattermost/compass-icons/components';
+import AlertOutlineIcon from '@mattermost/compass-icons/components/alert-outline';
+import ArrowRightBoldOutlineIcon from '@mattermost/compass-icons/components/arrow-right-bold-outline';
+import BookmarkIcon from '@mattermost/compass-icons/components/bookmark';
+import BookmarkOutlineIcon from '@mattermost/compass-icons/components/bookmark-outline';
+import ContentCopyIcon from '@mattermost/compass-icons/components/content-copy';
+import DotsHorizontalIcon from '@mattermost/compass-icons/components/dots-horizontal';
+import EmoticonPlusOutlineIcon from '@mattermost/compass-icons/components/emoticon-plus-outline';
+import LinkVariantIcon from '@mattermost/compass-icons/components/link-variant';
+import MarkAsUnreadIcon from '@mattermost/compass-icons/components/mark-as-unread';
+import MessageArrowRightOutlineIcon from '@mattermost/compass-icons/components/message-arrow-right-outline';
+import MessageCheckOutlineIcon from '@mattermost/compass-icons/components/message-check-outline';
+import MessageMinusOutlineIcon from '@mattermost/compass-icons/components/message-minus-outline';
+import PencilOutlineIcon from '@mattermost/compass-icons/components/pencil-outline';
+import PinIcon from '@mattermost/compass-icons/components/pin';
+import PinOutlineIcon from '@mattermost/compass-icons/components/pin-outline';
+import ReplyOutlineIcon from '@mattermost/compass-icons/components/reply-outline';
+import TranslateIcon from '@mattermost/compass-icons/components/translate';
+import TrashCanOutlineIcon from '@mattermost/compass-icons/components/trash-can-outline';
 import type {Post} from '@mattermost/types/posts';
 import type {UserThread} from '@mattermost/types/threads';
 

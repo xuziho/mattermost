@@ -9,7 +9,9 @@ import type {KeyboardEvent, MouseEvent, SyntheticEvent} from 'react';
 import {FormattedMessage, injectIntl} from 'react-intl';
 import type {WrappedComponentProps} from 'react-intl';
 
-import {DownloadOutlineIcon, LinkVariantIcon, CheckIcon} from '@mattermost/compass-icons/components';
+import DownloadOutlineIcon from '@mattermost/compass-icons/components/download-outline';
+import LinkVariantIcon from '@mattermost/compass-icons/components/link-variant';
+import CheckIcon from '@mattermost/compass-icons/components/check';
 import type {FileInfo} from '@mattermost/types/files';
 import type {PostImage} from '@mattermost/types/posts';
 

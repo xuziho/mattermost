@@ -7,7 +7,7 @@ import type {ChangeEvent, DragEvent, MouseEvent, TouchEvent, RefObject} from 're
 import {defineMessages, FormattedMessage, injectIntl} from 'react-intl';
 import type {IntlShape} from 'react-intl';
 
-import {PaperclipIcon} from '@mattermost/compass-icons/components';
+import PaperclipIcon from '@mattermost/compass-icons/components/paperclip';
 import type {ServerError} from '@mattermost/types/errors';
 import type {FileInfo, FileUploadResponse} from '@mattermost/types/files';
 

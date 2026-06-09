@@ -5,7 +5,8 @@ import React from 'react';
 import {useSelector} from 'react-redux';
 import styled from 'styled-components';
 
-import {FileGenericOutlineIcon, BookOutlineIcon} from '@mattermost/compass-icons/components';
+import FileGenericOutlineIcon from '@mattermost/compass-icons/components/file-generic-outline';
+import BookOutlineIcon from '@mattermost/compass-icons/components/book-outline';
 import type {ChannelBookmark} from '@mattermost/types/channel_bookmarks';
 import type {FileInfo} from '@mattermost/types/files';
 

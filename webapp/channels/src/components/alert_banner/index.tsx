@@ -6,12 +6,10 @@ import type {ReactNode} from 'react';
 import React, {useMemo} from 'react';
 import {useIntl} from 'react-intl';
 
-import {
-    AlertOutlineIcon,
-    CheckIcon,
-    CloseIcon,
-    InformationOutlineIcon,
-} from '@mattermost/compass-icons/components';
+import AlertOutlineIcon from '@mattermost/compass-icons/components/alert-outline';
+import CheckIcon from '@mattermost/compass-icons/components/check';
+import CloseIcon from '@mattermost/compass-icons/components/close';
+import InformationOutlineIcon from '@mattermost/compass-icons/components/information-outline';
 
 import WithTooltip from 'components/with_tooltip';
 

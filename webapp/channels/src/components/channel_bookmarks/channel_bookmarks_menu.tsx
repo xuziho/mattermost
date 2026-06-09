@@ -7,11 +7,9 @@ import {useIntl} from 'react-intl';
 import {useDispatch} from 'react-redux';
 import styled, {css} from 'styled-components';
 
-import {
-    LinkVariantIcon,
-    PaperclipIcon,
-    PlusIcon,
-} from '@mattermost/compass-icons/components';
+import LinkVariantIcon from '@mattermost/compass-icons/components/link-variant';
+import PaperclipIcon from '@mattermost/compass-icons/components/paperclip';
+import PlusIcon from '@mattermost/compass-icons/components/plus';
 import type {ChannelBookmarkCreate} from '@mattermost/types/channel_bookmarks';
 
 import {createBookmark} from 'actions/channel_bookmarks';

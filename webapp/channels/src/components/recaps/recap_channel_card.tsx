@@ -5,7 +5,8 @@ import React, {useState, useCallback, useMemo} from 'react';
 import {useIntl, FormattedMessage} from 'react-intl';
 import {useDispatch, useSelector} from 'react-redux';
 
-import {CheckAllIcon, ArrowExpandIcon} from '@mattermost/compass-icons/components';
+import CheckAllIcon from '@mattermost/compass-icons/components/check-all';
+import ArrowExpandIcon from '@mattermost/compass-icons/components/arrow-expand';
 import type {RecapChannel} from '@mattermost/types/recaps';
 
 import {readMultipleChannels} from 'mattermost-redux/actions/channels';

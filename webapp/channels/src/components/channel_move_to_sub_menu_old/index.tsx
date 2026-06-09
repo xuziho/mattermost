@@ -6,11 +6,9 @@ import React, {memo} from 'react';
 import {useIntl} from 'react-intl';
 import {useDispatch, useSelector} from 'react-redux';
 
-import {
-    FolderOutlineIcon,
-    StarOutlineIcon,
-    FolderMoveOutlineIcon,
-} from '@mattermost/compass-icons/components';
+import FolderOutlineIcon from '@mattermost/compass-icons/components/folder-outline';
+import StarOutlineIcon from '@mattermost/compass-icons/components/star-outline';
+import FolderMoveOutlineIcon from '@mattermost/compass-icons/components/folder-move-outline';
 import type {ChannelCategory} from '@mattermost/types/channel_categories';
 import type {Channel} from '@mattermost/types/channels';
 

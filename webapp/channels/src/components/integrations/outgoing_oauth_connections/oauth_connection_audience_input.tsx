@@ -7,7 +7,8 @@ import type {MessageDescriptor} from 'react-intl';
 import {FormattedMessage} from 'react-intl';
 import {useDispatch, useSelector} from 'react-redux';
 
-import {OauthIcon, InformationOutlineIcon} from '@mattermost/compass-icons/components';
+import OauthIcon from '@mattermost/compass-icons/components/oauth';
+import InformationOutlineIcon from '@mattermost/compass-icons/components/information-outline';
 import type {OutgoingOAuthConnection} from '@mattermost/types/integrations';
 
 import {

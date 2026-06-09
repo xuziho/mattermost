@@ -5,17 +5,15 @@ import React, {useRef, memo} from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
 import {useSelector} from 'react-redux';
 
-import {
-    MarkAsUnreadIcon,
-    StarIcon,
-    StarOutlineIcon,
-    BellOutlineIcon,
-    BellOffOutlineIcon,
-    LinkVariantIcon,
-    AccountPlusOutlineIcon,
-    DotsVerticalIcon,
-    ExitToAppIcon,
-} from '@mattermost/compass-icons/components';
+import MarkAsUnreadIcon from '@mattermost/compass-icons/components/mark-as-unread';
+import StarIcon from '@mattermost/compass-icons/components/star';
+import StarOutlineIcon from '@mattermost/compass-icons/components/star-outline';
+import BellOutlineIcon from '@mattermost/compass-icons/components/bell-outline';
+import BellOffOutlineIcon from '@mattermost/compass-icons/components/bell-off-outline';
+import LinkVariantIcon from '@mattermost/compass-icons/components/link-variant';
+import AccountPlusOutlineIcon from '@mattermost/compass-icons/components/account-plus-outline';
+import DotsVerticalIcon from '@mattermost/compass-icons/components/dots-vertical';
+import ExitToAppIcon from '@mattermost/compass-icons/components/exit-to-app';
 
 import {isChannelInManagedCategory} from 'mattermost-redux/selectors/entities/channel_categories';
 

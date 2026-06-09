@@ -8,7 +8,13 @@ import type {MessageDescriptor} from 'react-intl';
 import {defineMessage, FormattedMessage, useIntl} from 'react-intl';
 import {css} from 'styled-components';
 
-import {CheckIcon, ChevronDownCircleOutlineIcon, EmailOutlineIcon, FormatListBulletedIcon, LinkVariantIcon, MenuVariantIcon, PoundIcon} from '@mattermost/compass-icons/components';
+import CheckIcon from '@mattermost/compass-icons/components/check';
+import ChevronDownCircleOutlineIcon from '@mattermost/compass-icons/components/chevron-down-circle-outline';
+import EmailOutlineIcon from '@mattermost/compass-icons/components/email-outline';
+import FormatListBulletedIcon from '@mattermost/compass-icons/components/format-list-bulleted';
+import LinkVariantIcon from '@mattermost/compass-icons/components/link-variant';
+import MenuVariantIcon from '@mattermost/compass-icons/components/menu-variant';
+import PoundIcon from '@mattermost/compass-icons/components/pound';
 import type IconProps from '@mattermost/compass-icons/components/props';
 import type {FieldType, FieldValueType, UserPropertyField} from '@mattermost/types/properties';
 import type {IDMappedObjects} from '@mattermost/types/utilities';

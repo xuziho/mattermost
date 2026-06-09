@@ -4,7 +4,9 @@
 import React, {memo} from 'react';
 import styled, {css} from 'styled-components';
 
-import {AlertOutlineIcon, CheckIcon, InformationOutlineIcon} from '@mattermost/compass-icons/components';
+import AlertOutlineIcon from '@mattermost/compass-icons/components/alert-outline';
+import CheckIcon from '@mattermost/compass-icons/components/check';
+import InformationOutlineIcon from '@mattermost/compass-icons/components/information-outline';
 
 type NotificationVariant = 'general' | 'info' | 'success'| 'warning' | 'danger';
 

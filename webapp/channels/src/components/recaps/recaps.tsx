@@ -6,7 +6,7 @@ import {useIntl} from 'react-intl';
 import {useDispatch, useSelector} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 
-import {PlusIcon} from '@mattermost/compass-icons/components';
+import PlusIcon from '@mattermost/compass-icons/components/plus';
 
 import {getAgents} from 'mattermost-redux/actions/agents';
 import {getRecaps} from 'mattermost-redux/actions/recaps';

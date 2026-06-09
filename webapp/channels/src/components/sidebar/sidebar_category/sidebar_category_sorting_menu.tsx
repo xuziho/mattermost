@@ -7,15 +7,13 @@ import type {MouseEvent, KeyboardEvent} from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
 import {useDispatch, useSelector} from 'react-redux';
 
-import {
-    SortAlphabeticalAscendingIcon,
-    ClockOutlineIcon,
-    AccountMultipleOutlineIcon,
-    AccountPlusOutlineIcon,
-    DotsVerticalIcon,
-    ChevronRightIcon,
-    CheckIcon,
-} from '@mattermost/compass-icons/components';
+import SortAlphabeticalAscendingIcon from '@mattermost/compass-icons/components/sort-alphabetical-ascending';
+import ClockOutlineIcon from '@mattermost/compass-icons/components/clock-outline';
+import AccountMultipleOutlineIcon from '@mattermost/compass-icons/components/account-multiple-outline';
+import AccountPlusOutlineIcon from '@mattermost/compass-icons/components/account-plus-outline';
+import DotsVerticalIcon from '@mattermost/compass-icons/components/dots-vertical';
+import ChevronRightIcon from '@mattermost/compass-icons/components/chevron-right';
+import CheckIcon from '@mattermost/compass-icons/components/check';
 import type {ChannelCategory} from '@mattermost/types/channel_categories';
 import {CategorySorting} from '@mattermost/types/channel_categories';
 

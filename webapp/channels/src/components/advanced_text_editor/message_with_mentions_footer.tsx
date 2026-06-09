@@ -4,7 +4,7 @@
 import React from 'react';
 import {useIntl} from 'react-intl';
 
-import {InformationOutlineIcon} from '@mattermost/compass-icons/components';
+import InformationOutlineIcon from '@mattermost/compass-icons/components/information-outline';
 
 export default function MessageWithMentionsFooter() {
     const {formatMessage} = useIntl();

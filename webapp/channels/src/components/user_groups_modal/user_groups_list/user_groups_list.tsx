@@ -7,7 +7,9 @@ import type {ListChildComponentProps} from 'react-window';
 import {VariableSizeList} from 'react-window';
 import InfiniteLoader from 'react-window-infinite-loader';
 
-import {AccountMultipleOutlineIcon, ArchiveOutlineIcon, RestoreIcon} from '@mattermost/compass-icons/components';
+import AccountMultipleOutlineIcon from '@mattermost/compass-icons/components/account-multiple-outline';
+import ArchiveOutlineIcon from '@mattermost/compass-icons/components/archive-outline';
+import RestoreIcon from '@mattermost/compass-icons/components/restore';
 import type {Group, GroupPermissions} from '@mattermost/types/groups';
 
 import type {ActionResult} from 'mattermost-redux/types/actions';

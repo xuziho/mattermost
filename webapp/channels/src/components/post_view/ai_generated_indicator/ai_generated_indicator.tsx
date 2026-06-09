@@ -4,7 +4,7 @@
 import React, {useMemo, memo} from 'react';
 import {useIntl} from 'react-intl';
 
-import {CreationOutlineIcon} from '@mattermost/compass-icons/components';
+import CreationOutlineIcon from '@mattermost/compass-icons/components/creation-outline';
 
 import WithTooltip from 'components/with_tooltip';
 

@@ -6,16 +6,14 @@ import React from 'react';
 import type {MessageDescriptor} from 'react-intl';
 import {defineMessage, FormattedMessage, useIntl} from 'react-intl';
 
-import {
-    AiSummarizeIcon,
-    CloseIcon,
-    ContentCopyIcon,
-    CreationOutlineIcon,
-    TextShortIcon,
-    TextLongIcon,
-    AutoFixIcon,
-    SpellcheckIcon,
-} from '@mattermost/compass-icons/components';
+import AiSummarizeIcon from '@mattermost/compass-icons/components/ai-summarize';
+import CloseIcon from '@mattermost/compass-icons/components/close';
+import ContentCopyIcon from '@mattermost/compass-icons/components/content-copy';
+import CreationOutlineIcon from '@mattermost/compass-icons/components/creation-outline';
+import TextShortIcon from '@mattermost/compass-icons/components/text-short';
+import TextLongIcon from '@mattermost/compass-icons/components/text-long';
+import AutoFixIcon from '@mattermost/compass-icons/components/auto-fix';
+import SpellcheckIcon from '@mattermost/compass-icons/components/spellcheck';
 import type {Agent} from '@mattermost/types/agents';
 
 import AgentDropdown from 'components/common/agents/agent_dropdown';

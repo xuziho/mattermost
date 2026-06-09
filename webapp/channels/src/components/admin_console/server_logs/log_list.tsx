@@ -4,7 +4,8 @@
 import React from 'react';
 import {FormattedMessage} from 'react-intl';
 
-import {ArrowDownIcon, ArrowUpIcon} from '@mattermost/compass-icons/components';
+import ArrowDownIcon from '@mattermost/compass-icons/components/arrow-down';
+import ArrowUpIcon from '@mattermost/compass-icons/components/arrow-up';
 import type {LogFilter, LogLevelEnum, LogObject} from '@mattermost/types/admin';
 import type {ChannelSearchOpts} from '@mattermost/types/channels';
 

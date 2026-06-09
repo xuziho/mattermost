@@ -6,7 +6,8 @@ import React, {useCallback} from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
 import {useSelector, useDispatch} from 'react-redux';
 
-import {GlobeIcon, PlusIcon} from '@mattermost/compass-icons/components';
+import GlobeIcon from '@mattermost/compass-icons/components/globe';
+import PlusIcon from '@mattermost/compass-icons/components/plus';
 
 import {savePreferences} from 'mattermost-redux/actions/preferences';
 import Permissions from 'mattermost-redux/constants/permissions';

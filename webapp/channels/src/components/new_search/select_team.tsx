@@ -6,7 +6,9 @@ import React from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
 import {useSelector} from 'react-redux';
 
-import {CheckIcon, ChevronDownIcon, MagnifyIcon as SearchIcon} from '@mattermost/compass-icons/components';
+import CheckIcon from '@mattermost/compass-icons/components/check';
+import ChevronDownIcon from '@mattermost/compass-icons/components/chevron-down';
+import SearchIcon from '@mattermost/compass-icons/components/magnify';
 
 import {get} from 'mattermost-redux/selectors/entities/preferences';
 import {getCurrentTeamId, getMyTeams} from 'mattermost-redux/selectors/entities/teams';

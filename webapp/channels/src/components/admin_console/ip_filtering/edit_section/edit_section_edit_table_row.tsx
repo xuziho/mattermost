@@ -4,10 +4,8 @@
 import React from 'react';
 import {useIntl} from 'react-intl';
 
-import {
-    PencilOutlineIcon,
-    TrashCanOutlineIcon,
-} from '@mattermost/compass-icons/components';
+import PencilOutlineIcon from '@mattermost/compass-icons/components/pencil-outline';
+import TrashCanOutlineIcon from '@mattermost/compass-icons/components/trash-can-outline';
 import type {AllowedIPRange} from '@mattermost/types/config';
 
 import WithTooltip from 'components/with_tooltip';

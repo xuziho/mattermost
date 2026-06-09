@@ -5,7 +5,7 @@ import React, {useCallback, useMemo} from 'react';
 import {FormattedMessage} from 'react-intl';
 import {useDispatch, useSelector} from 'react-redux';
 
-import {TranslateIcon} from '@mattermost/compass-icons/components';
+import TranslateIcon from '@mattermost/compass-icons/components/translate';
 import type {Channel} from '@mattermost/types/channels';
 
 import {setMyChannelAutotranslation} from 'mattermost-redux/actions/channels';

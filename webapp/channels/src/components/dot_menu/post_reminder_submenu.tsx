@@ -5,7 +5,8 @@ import React, {memo} from 'react';
 import {FormattedMessage, FormattedDate, FormattedTime, useIntl} from 'react-intl';
 import {useDispatch} from 'react-redux';
 
-import {ChevronRightIcon, ClockOutlineIcon} from '@mattermost/compass-icons/components';
+import ChevronRightIcon from '@mattermost/compass-icons/components/chevron-right';
+import ClockOutlineIcon from '@mattermost/compass-icons/components/clock-outline';
 import type {Post} from '@mattermost/types/posts';
 
 import {addPostReminder} from 'mattermost-redux/actions/posts';

@@ -10,7 +10,8 @@ import {components} from 'react-select';
 import type {CreatableProps} from 'react-select/creatable';
 import CreatableSelect from 'react-select/creatable';
 
-import {SyncIcon, PowerPlugOutlineIcon} from '@mattermost/compass-icons/components';
+import SyncIcon from '@mattermost/compass-icons/components/sync';
+import PowerPlugOutlineIcon from '@mattermost/compass-icons/components/power-plug-outline';
 import {supportsOptions, type PropertyFieldOption, type UserPropertyField} from '@mattermost/types/properties';
 
 import {getPluginDisplayName} from 'selectors/plugins';

@@ -7,7 +7,10 @@ import {FormattedMessage, useIntl} from 'react-intl';
 import {Link, useHistory} from 'react-router-dom';
 import styled from 'styled-components';
 
-import {DotsHorizontalIcon, CodeTagsIcon, PencilOutlineIcon, TrashCanOutlineIcon} from '@mattermost/compass-icons/components';
+import DotsHorizontalIcon from '@mattermost/compass-icons/components/dots-horizontal';
+import CodeTagsIcon from '@mattermost/compass-icons/components/code-tags';
+import PencilOutlineIcon from '@mattermost/compass-icons/components/pencil-outline';
+import TrashCanOutlineIcon from '@mattermost/compass-icons/components/trash-can-outline';
 import type {RemoteCluster} from '@mattermost/types/remote_clusters';
 
 import * as Menu from 'components/menu';

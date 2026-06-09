@@ -5,7 +5,8 @@ import React, {useCallback, useEffect, useMemo} from 'react';
 import {FormattedMessage} from 'react-intl';
 import {useSelector} from 'react-redux';
 
-import {AccountMultipleOutlineIcon, ChevronRightIcon} from '@mattermost/compass-icons/components';
+import AccountMultipleOutlineIcon from '@mattermost/compass-icons/components/account-multiple-outline';
+import ChevronRightIcon from '@mattermost/compass-icons/components/chevron-right';
 import type {Group} from '@mattermost/types/groups';
 import type {GlobalState} from '@mattermost/types/store';
 import type {UserProfile} from '@mattermost/types/users';

@@ -7,7 +7,7 @@ import type {PropsWithChildren} from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
 import {useDispatch, useSelector} from 'react-redux';
 
-import {PlaylistCheckIcon} from '@mattermost/compass-icons/components';
+import PlaylistCheckIcon from '@mattermost/compass-icons/components/playlist-check';
 import type {UserThread} from '@mattermost/types/threads';
 
 import {getThreadsForCurrentTeam, markAllThreadsInTeamRead} from 'mattermost-redux/actions/threads';

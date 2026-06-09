@@ -4,7 +4,8 @@
 import React from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
 
-import {CheckCircleOutlineIcon, TrashCanOutlineIcon} from '@mattermost/compass-icons/components';
+import CheckCircleOutlineIcon from '@mattermost/compass-icons/components/check-circle-outline';
+import TrashCanOutlineIcon from '@mattermost/compass-icons/components/trash-can-outline';
 
 import {getRemoteClusterConnectionStatus} from 'utils/remote_cluster_connection';
 

@@ -4,7 +4,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import {AlertOutlineIcon, AlertCircleOutlineIcon} from '@mattermost/compass-icons/components';
+import AlertOutlineIcon from '@mattermost/compass-icons/components/alert-outline';
+import AlertCircleOutlineIcon from '@mattermost/compass-icons/components/alert-circle-outline';
 import {PostPriority} from '@mattermost/types/posts';
 
 type Props = {

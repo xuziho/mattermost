@@ -12,22 +12,20 @@ import {renderWithContext} from 'tests/react_testing_utils';
 
 import {Filter} from './browse_channels/browse_channels';
 
-// Mock the compass-icons to make them identifiable in tests
-jest.mock('@mattermost/compass-icons/components', () => ({
-    ...jest.requireActual('@mattermost/compass-icons/components'),
-    ArchiveOutlineIcon: (props: Record<string, unknown>) => (
-        <svg
-            data-testid='archiveOutlineIcon'
-            {...props}
-        />
-    ),
-    ArchiveLockOutlineIcon: (props: Record<string, unknown>) => (
-        <svg
-            data-testid='archiveLockOutlineIcon'
-            {...props}
-        />
-    ),
-}));
+// Mock the compass-icons to make them identifiable in tests.
+jest.mock('@mattermost/compass-icons/components/archive-outline', () => (props: Record<string, unknown>) => (
+    <svg
+        data-testid='archiveOutlineIcon'
+        {...props}
+    />
+));
+
+jest.mock('@mattermost/compass-icons/components/archive-lock-outline', () => (props: Record<string, unknown>) => (
+    <svg
+        data-testid='archiveLockOutlineIcon'
+        {...props}
+    />
+));
 
 describe('components/SearchableChannelList', () => {
     const baseProps = {

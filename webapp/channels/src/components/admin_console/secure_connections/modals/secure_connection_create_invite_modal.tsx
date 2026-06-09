@@ -4,7 +4,8 @@
 import React, {useEffect, useState} from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
 
-import {CheckIcon, ContentCopyIcon} from '@mattermost/compass-icons/components';
+import CheckIcon from '@mattermost/compass-icons/components/check';
+import ContentCopyIcon from '@mattermost/compass-icons/components/content-copy';
 import {GenericModal} from '@mattermost/components';
 import type {RemoteCluster} from '@mattermost/types/remote_clusters';
 

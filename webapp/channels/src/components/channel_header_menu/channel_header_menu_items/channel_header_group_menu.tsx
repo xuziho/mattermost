@@ -6,10 +6,8 @@ import React from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
 import {useSelector} from 'react-redux';
 
-import {
-    ChevronRightIcon,
-    CogOutlineIcon,
-} from '@mattermost/compass-icons/components';
+import ChevronRightIcon from '@mattermost/compass-icons/components/chevron-right';
+import CogOutlineIcon from '@mattermost/compass-icons/components/cog-outline';
 import type {Channel} from '@mattermost/types/channels';
 import type {UserProfile} from '@mattermost/types/users';
 

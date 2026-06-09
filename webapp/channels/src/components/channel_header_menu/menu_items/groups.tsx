@@ -5,7 +5,8 @@ import React from 'react';
 import {FormattedMessage} from 'react-intl';
 import {useDispatch} from 'react-redux';
 
-import {AccountMultipleOutlineIcon, AccountMultiplePlusOutlineIcon} from '@mattermost/compass-icons/components';
+import AccountMultipleOutlineIcon from '@mattermost/compass-icons/components/account-multiple-outline';
+import AccountMultiplePlusOutlineIcon from '@mattermost/compass-icons/components/account-multiple-plus-outline';
 import type {Channel} from '@mattermost/types/channels';
 
 import {openModal} from 'actions/views/modals';

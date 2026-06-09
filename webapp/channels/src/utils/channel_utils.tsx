@@ -1,7 +1,10 @@
 // Copyright (c) 2015-present Mattermost, Inc. All Rights Reserved.
 // See LICENSE.txt for license information.
 
-import {ArchiveLockOutlineIcon, ArchiveOutlineIcon, GlobeIcon, LockOutlineIcon} from '@mattermost/compass-icons/components';
+import ArchiveLockOutlineIcon from '@mattermost/compass-icons/components/archive-lock-outline';
+import ArchiveOutlineIcon from '@mattermost/compass-icons/components/archive-outline';
+import GlobeIcon from '@mattermost/compass-icons/components/globe';
+import LockOutlineIcon from '@mattermost/compass-icons/components/lock-outline';
 import type {Channel, ChannelType} from '@mattermost/types/channels';
 import type {Team} from '@mattermost/types/teams';
 

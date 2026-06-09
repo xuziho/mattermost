@@ -5,9 +5,7 @@ import classNames from 'classnames';
 import React, {memo, useState} from 'react';
 import {useIntl} from 'react-intl';
 
-import {
-    DotsVerticalIcon,
-} from '@mattermost/compass-icons/components';
+import DotsVerticalIcon from '@mattermost/compass-icons/components/dots-vertical';
 
 import * as Menu from 'components/menu';
 

@@ -4,7 +4,7 @@
 import React, {useCallback} from 'react';
 import {useIntl} from 'react-intl';
 
-import {CloseIcon} from '@mattermost/compass-icons/components';
+import CloseIcon from '@mattermost/compass-icons/components/close';
 
 import './unified_labels_wrapper.scss';
 

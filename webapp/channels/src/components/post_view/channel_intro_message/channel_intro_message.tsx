@@ -4,7 +4,12 @@
 import React from 'react';
 import {FormattedDate, FormattedMessage, defineMessages} from 'react-intl';
 
-import {BellRingOutlineIcon, GlobeIcon, PencilOutlineIcon, StarOutlineIcon, LockOutlineIcon, StarIcon} from '@mattermost/compass-icons/components';
+import BellRingOutlineIcon from '@mattermost/compass-icons/components/bell-ring-outline';
+import GlobeIcon from '@mattermost/compass-icons/components/globe';
+import PencilOutlineIcon from '@mattermost/compass-icons/components/pencil-outline';
+import StarOutlineIcon from '@mattermost/compass-icons/components/star-outline';
+import LockOutlineIcon from '@mattermost/compass-icons/components/lock-outline';
+import StarIcon from '@mattermost/compass-icons/components/star';
 import type {Channel, ChannelMembership} from '@mattermost/types/channels';
 import type {UserProfile as UserProfileType} from '@mattermost/types/users';
 

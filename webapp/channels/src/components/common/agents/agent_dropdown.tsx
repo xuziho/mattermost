@@ -4,7 +4,8 @@
 import React, {useCallback, useMemo} from 'react';
 import {useIntl} from 'react-intl';
 
-import {CheckIcon, ChevronDownIcon} from '@mattermost/compass-icons/components';
+import CheckIcon from '@mattermost/compass-icons/components/check';
+import ChevronDownIcon from '@mattermost/compass-icons/components/chevron-down';
 import type {Agent} from '@mattermost/types/agents';
 
 import {Client4} from 'mattermost-redux/client';

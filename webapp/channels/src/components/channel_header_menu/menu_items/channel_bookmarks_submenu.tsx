@@ -6,12 +6,10 @@ import React, {memo} from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
 import {useSelector} from 'react-redux';
 
-import {
-    ChevronRightIcon,
-    LinkVariantIcon,
-    PaperclipIcon,
-    BookmarkOutlineIcon,
-} from '@mattermost/compass-icons/components';
+import ChevronRightIcon from '@mattermost/compass-icons/components/chevron-right';
+import LinkVariantIcon from '@mattermost/compass-icons/components/link-variant';
+import PaperclipIcon from '@mattermost/compass-icons/components/paperclip';
+import BookmarkOutlineIcon from '@mattermost/compass-icons/components/bookmark-outline';
 import type {Channel} from '@mattermost/types/channels';
 
 import {getChannelBookmarks} from 'mattermost-redux/selectors/entities/channel_bookmarks';

@@ -3,7 +3,8 @@
 
 import React from 'react';
 
-import {LinkVariantIcon, AccountMultipleOutlineIcon} from '@mattermost/compass-icons/components';
+import LinkVariantIcon from '@mattermost/compass-icons/components/link-variant';
+import AccountMultipleOutlineIcon from '@mattermost/compass-icons/components/account-multiple-outline';
 import type {Group} from '@mattermost/types/groups';
 import type {Team} from '@mattermost/types/teams';
 

@@ -5,7 +5,10 @@ import React, {useMemo} from 'react';
 import type {MouseEvent, KeyboardEvent} from 'react';
 import {defineMessages, useIntl} from 'react-intl';
 
-import {CheckCircleIcon, ClockIcon, MinusCircleIcon, RadioboxBlankIcon} from '@mattermost/compass-icons/components';
+import CheckCircleIcon from '@mattermost/compass-icons/components/check-circle';
+import ClockIcon from '@mattermost/compass-icons/components/clock';
+import MinusCircleIcon from '@mattermost/compass-icons/components/minus-circle';
+import RadioboxBlankIcon from '@mattermost/compass-icons/components/radiobox-blank';
 
 import CustomStatusEmoji from 'components/custom_status/custom_status_emoji';
 import Avatar from 'components/widgets/users/avatar/avatar';

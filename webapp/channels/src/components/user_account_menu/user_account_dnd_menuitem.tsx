@@ -7,7 +7,9 @@ import type {MouseEvent, KeyboardEvent} from 'react';
 import {FormattedDate, FormattedMessage, FormattedTime, useIntl} from 'react-intl';
 import {useDispatch, useSelector} from 'react-redux';
 
-import {CheckIcon, ChevronRightIcon, MinusCircleIcon} from '@mattermost/compass-icons/components';
+import CheckIcon from '@mattermost/compass-icons/components/check';
+import ChevronRightIcon from '@mattermost/compass-icons/components/chevron-right';
+import MinusCircleIcon from '@mattermost/compass-icons/components/minus-circle';
 import type {UserProfile} from '@mattermost/types/users';
 
 import {setStatus} from 'mattermost-redux/actions/users';

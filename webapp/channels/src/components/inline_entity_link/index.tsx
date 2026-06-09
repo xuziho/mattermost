@@ -7,7 +7,7 @@ import type {MouseEvent} from 'react';
 import {useIntl} from 'react-intl';
 import {useDispatch} from 'react-redux';
 
-import {LinkVariantIcon} from '@mattermost/compass-icons/components';
+import LinkVariantIcon from '@mattermost/compass-icons/components/link-variant';
 
 import WithTooltip from 'components/with_tooltip';
 

@@ -8,7 +8,17 @@ import {FormattedMessage, defineMessage, defineMessages} from 'react-intl';
 import {Link} from 'react-router-dom';
 import semver from 'semver';
 
-import {AccountMultipleOutlineIcon, ChartBarIcon, CogOutlineIcon, FlaskOutlineIcon, FormatListBulletedIcon, InformationOutlineIcon, PowerPlugOutlineIcon, ServerVariantIcon, ShieldOutlineIcon, SitemapIcon, TableLargeIcon} from '@mattermost/compass-icons/components';
+import AccountMultipleOutlineIcon from '@mattermost/compass-icons/components/account-multiple-outline';
+import ChartBarIcon from '@mattermost/compass-icons/components/chart-bar';
+import CogOutlineIcon from '@mattermost/compass-icons/components/cog-outline';
+import FlaskOutlineIcon from '@mattermost/compass-icons/components/flask-outline';
+import FormatListBulletedIcon from '@mattermost/compass-icons/components/format-list-bulleted';
+import InformationOutlineIcon from '@mattermost/compass-icons/components/information-outline';
+import PowerPlugOutlineIcon from '@mattermost/compass-icons/components/power-plug-outline';
+import ServerVariantIcon from '@mattermost/compass-icons/components/server-variant';
+import ShieldOutlineIcon from '@mattermost/compass-icons/components/shield-outline';
+import SitemapIcon from '@mattermost/compass-icons/components/sitemap';
+import TableLargeIcon from '@mattermost/compass-icons/components/table-large';
 
 import {Posts} from 'mattermost-redux/constants';
 import {RESOURCE_KEYS} from 'mattermost-redux/constants/permissions_sysconsole';

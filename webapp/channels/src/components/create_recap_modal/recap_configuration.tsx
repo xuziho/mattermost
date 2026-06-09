@@ -4,7 +4,9 @@
 import React, {useCallback, useState} from 'react';
 import {useIntl, FormattedMessage} from 'react-intl';
 
-import {ProductChannelsIcon, LightningBoltOutlineIcon, CheckCircleIcon} from '@mattermost/compass-icons/components';
+import ProductChannelsIcon from '@mattermost/compass-icons/components/product-channels';
+import LightningBoltOutlineIcon from '@mattermost/compass-icons/components/lightning-bolt-outline';
+import CheckCircleIcon from '@mattermost/compass-icons/components/check-circle';
 import type {Channel} from '@mattermost/types/channels';
 
 import WithTooltip from 'components/with_tooltip';

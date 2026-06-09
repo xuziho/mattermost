@@ -7,7 +7,12 @@ import React, {useMemo, useState} from 'react';
 import type {MessageDescriptor} from 'react-intl';
 import {defineMessage, FormattedMessage, useIntl} from 'react-intl';
 
-import {CheckAllIcon, CheckIcon, ElementOfIcon, EqualIcon, FunctionIcon, NotEqualVariantIcon} from '@mattermost/compass-icons/components';
+import CheckAllIcon from '@mattermost/compass-icons/components/check-all';
+import CheckIcon from '@mattermost/compass-icons/components/check';
+import ElementOfIcon from '@mattermost/compass-icons/components/element-of';
+import EqualIcon from '@mattermost/compass-icons/components/equal';
+import FunctionIcon from '@mattermost/compass-icons/components/function';
+import NotEqualVariantIcon from '@mattermost/compass-icons/components/not-equal-variant';
 import type IconProps from '@mattermost/compass-icons/components/props';
 import type {IDMappedObjects} from '@mattermost/types/utilities';
 

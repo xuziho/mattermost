@@ -6,17 +6,15 @@ import {defineMessages, useIntl} from 'react-intl';
 import type {MessageDescriptor} from 'react-intl';
 import styled from 'styled-components';
 
-import {
-    FormatBoldIcon,
-    FormatItalicIcon,
-    LinkVariantIcon,
-    FormatStrikethroughVariantIcon,
-    CodeTagsIcon,
-    FormatHeaderIcon,
-    FormatQuoteOpenIcon,
-    FormatListBulletedIcon,
-    FormatListNumberedIcon,
-} from '@mattermost/compass-icons/components';
+import FormatBoldIcon from '@mattermost/compass-icons/components/format-bold';
+import FormatItalicIcon from '@mattermost/compass-icons/components/format-italic';
+import LinkVariantIcon from '@mattermost/compass-icons/components/link-variant';
+import FormatStrikethroughVariantIcon from '@mattermost/compass-icons/components/format-strikethrough-variant';
+import CodeTagsIcon from '@mattermost/compass-icons/components/code-tags';
+import FormatHeaderIcon from '@mattermost/compass-icons/components/format-header';
+import FormatQuoteOpenIcon from '@mattermost/compass-icons/components/format-quote-open';
+import FormatListBulletedIcon from '@mattermost/compass-icons/components/format-list-bulleted';
+import FormatListNumberedIcon from '@mattermost/compass-icons/components/format-list-numbered';
 import type IconProps from '@mattermost/compass-icons/components/props';
 
 import KeyboardShortcutSequence, {

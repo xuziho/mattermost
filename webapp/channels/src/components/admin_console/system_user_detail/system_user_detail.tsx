@@ -12,7 +12,8 @@ import {useSelector} from 'react-redux';
 import type {RouteComponentProps} from 'react-router-dom';
 import ReactSelect from 'react-select';
 
-import {SyncIcon, PowerPlugOutlineIcon} from '@mattermost/compass-icons/components';
+import SyncIcon from '@mattermost/compass-icons/components/sync';
+import PowerPlugOutlineIcon from '@mattermost/compass-icons/components/power-plug-outline';
 import type {ServerError} from '@mattermost/types/errors';
 import type {UserPropertyField} from '@mattermost/types/properties';
 import type {Team, TeamMembership} from '@mattermost/types/teams';

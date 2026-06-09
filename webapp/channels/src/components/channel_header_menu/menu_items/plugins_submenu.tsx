@@ -5,10 +5,8 @@ import type {ReactNode} from 'react';
 import React, {memo} from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
 
-import {
-    AppsIcon,
-    ChevronRightIcon,
-} from '@mattermost/compass-icons/components';
+import AppsIcon from '@mattermost/compass-icons/components/apps';
+import ChevronRightIcon from '@mattermost/compass-icons/components/chevron-right';
 
 import * as Menu from 'components/menu';
 

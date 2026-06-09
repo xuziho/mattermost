@@ -7,7 +7,7 @@ import {FormattedMessage} from 'react-intl';
 import {useSelector} from 'react-redux';
 import {Link, useLocation, matchPath, useRouteMatch} from 'react-router-dom';
 
-import {CreationOutlineIcon} from '@mattermost/compass-icons/components';
+import CreationOutlineIcon from '@mattermost/compass-icons/components/creation-outline';
 
 import {getCurrentTeamId} from 'mattermost-redux/selectors/entities/teams';
 import {getCurrentUserId} from 'mattermost-redux/selectors/entities/users';

@@ -5,7 +5,7 @@ import React from 'react';
 import {FormattedMessage} from 'react-intl';
 import {useDispatch} from 'react-redux';
 
-import {AccountOutlineIcon} from '@mattermost/compass-icons/components';
+import AccountOutlineIcon from '@mattermost/compass-icons/components/account-outline';
 
 import {openModal} from 'actions/views/modals';
 

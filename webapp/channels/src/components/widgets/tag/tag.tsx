@@ -6,7 +6,11 @@ import React, {memo, useMemo} from 'react';
 import type {MouseEventHandler} from 'react';
 import styled, {css} from 'styled-components';
 
-import glyphMap from '@mattermost/compass-icons/components';
+import AlertCircleOutlineIcon from '@mattermost/compass-icons/components/alert-circle-outline';
+import AlertOutlineIcon from '@mattermost/compass-icons/components/alert-outline';
+import MattermostIcon from '@mattermost/compass-icons/components/mattermost';
+import type IconProps from '@mattermost/compass-icons/components/props';
+import TranslateIcon from '@mattermost/compass-icons/components/translate';
 import type {IconGlyphTypes} from '@mattermost/compass-icons/IconGlyphs';
 
 export type TagVariant = 'info' | 'success' | 'warning' | 'danger' | 'dangerDim' | 'default';
@@ -24,6 +28,13 @@ type Props = {
 };
 
 type TagWrapperProps = Required<Pick<Props, 'uppercase'>>;
+
+const tagIcons: Partial<Record<IconGlyphTypes, React.FC<IconProps>>> = {
+    'alert-circle-outline': AlertCircleOutlineIcon,
+    'alert-outline': AlertOutlineIcon,
+    mattermost: MattermostIcon,
+    translate: TranslateIcon,
+};
 
 const TagWrapper = styled.div<TagWrapperProps>`
     appearance: none;
@@ -137,7 +148,7 @@ const Tag = ({
     uppercase = false,
     ...rest
 }: Props) => {
-    const Icon = iconName ? glyphMap[iconName] : null;
+    const Icon = iconName ? tagIcons[iconName] : null;
     const element = onClick ? 'button' : 'div';
 
     const iconSize = useMemo(() => {

@@ -5,7 +5,10 @@ import React, {useState, useMemo, useCallback} from 'react';
 import {useIntl, FormattedDate, FormattedMessage} from 'react-intl';
 import {useDispatch, useSelector} from 'react-redux';
 
-import {CheckAllIcon, RefreshIcon, TrashCanOutlineIcon, CheckCircleIcon} from '@mattermost/compass-icons/components';
+import CheckAllIcon from '@mattermost/compass-icons/components/check-all';
+import RefreshIcon from '@mattermost/compass-icons/components/refresh';
+import TrashCanOutlineIcon from '@mattermost/compass-icons/components/trash-can-outline';
+import CheckCircleIcon from '@mattermost/compass-icons/components/check-circle';
 import type {Recap} from '@mattermost/types/recaps';
 import {RecapStatus} from '@mattermost/types/recaps';
 

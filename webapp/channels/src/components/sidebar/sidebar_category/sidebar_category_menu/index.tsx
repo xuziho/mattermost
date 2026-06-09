@@ -5,16 +5,14 @@ import React, {memo, useCallback, useMemo} from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
 import {useDispatch, useSelector} from 'react-redux';
 
-import {
-    BellOutlineIcon,
-    TrashCanOutlineIcon,
-    PencilOutlineIcon,
-    FormatListBulletedIcon,
-    SortAlphabeticalAscendingIcon,
-    ClockOutlineIcon,
-    ChevronRightIcon,
-    CheckIcon,
-} from '@mattermost/compass-icons/components';
+import BellOutlineIcon from '@mattermost/compass-icons/components/bell-outline';
+import TrashCanOutlineIcon from '@mattermost/compass-icons/components/trash-can-outline';
+import PencilOutlineIcon from '@mattermost/compass-icons/components/pencil-outline';
+import FormatListBulletedIcon from '@mattermost/compass-icons/components/format-list-bulleted';
+import SortAlphabeticalAscendingIcon from '@mattermost/compass-icons/components/sort-alphabetical-ascending';
+import ClockOutlineIcon from '@mattermost/compass-icons/components/clock-outline';
+import ChevronRightIcon from '@mattermost/compass-icons/components/chevron-right';
+import CheckIcon from '@mattermost/compass-icons/components/check';
 import type {ChannelCategory} from '@mattermost/types/channel_categories';
 import {CategorySorting} from '@mattermost/types/channel_categories';
 

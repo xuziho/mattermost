@@ -5,18 +5,16 @@ import classNames from 'classnames';
 import React, {useMemo, useState, useEffect, useCallback, useRef} from 'react';
 import {useIntl} from 'react-intl';
 
-import {
-    CheckIcon,
-    MenuVariantIcon,
-    ChevronDownCircleOutlineIcon,
-    EmailOutlineIcon,
-    FormatListBulletedIcon,
-    LinkVariantIcon,
-    PoundIcon,
-    InformationOutlineIcon,
-    SyncIcon,
-    ShieldAlertOutlineIcon,
-} from '@mattermost/compass-icons/components';
+import CheckIcon from '@mattermost/compass-icons/components/check';
+import MenuVariantIcon from '@mattermost/compass-icons/components/menu-variant';
+import ChevronDownCircleOutlineIcon from '@mattermost/compass-icons/components/chevron-down-circle-outline';
+import EmailOutlineIcon from '@mattermost/compass-icons/components/email-outline';
+import FormatListBulletedIcon from '@mattermost/compass-icons/components/format-list-bulleted';
+import LinkVariantIcon from '@mattermost/compass-icons/components/link-variant';
+import PoundIcon from '@mattermost/compass-icons/components/pound';
+import InformationOutlineIcon from '@mattermost/compass-icons/components/information-outline';
+import SyncIcon from '@mattermost/compass-icons/components/sync';
+import ShieldAlertOutlineIcon from '@mattermost/compass-icons/components/shield-alert-outline';
 import type IconProps from '@mattermost/compass-icons/components/props';
 import type {UserPropertyField} from '@mattermost/types/properties';
 

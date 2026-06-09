@@ -5,7 +5,12 @@ import MenuList from '@mui/material/MenuList';
 import React from 'react';
 import styled from 'styled-components';
 
-import {CheckIcon, AlertOutlineIcon, AlertCircleOutlineIcon, MessageTextOutlineIcon, CheckCircleOutlineIcon, BellRingOutlineIcon} from '@mattermost/compass-icons/components';
+import CheckIcon from '@mattermost/compass-icons/components/check';
+import AlertOutlineIcon from '@mattermost/compass-icons/components/alert-outline';
+import AlertCircleOutlineIcon from '@mattermost/compass-icons/components/alert-circle-outline';
+import MessageTextOutlineIcon from '@mattermost/compass-icons/components/message-text-outline';
+import CheckCircleOutlineIcon from '@mattermost/compass-icons/components/check-circle-outline';
+import BellRingOutlineIcon from '@mattermost/compass-icons/components/bell-ring-outline';
 
 import {MenuItem} from 'components/menu/menu_item';
 import Toggle from 'components/toggle';

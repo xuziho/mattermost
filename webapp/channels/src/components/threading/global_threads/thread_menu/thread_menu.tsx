@@ -6,7 +6,7 @@ import {FormattedMessage, useIntl} from 'react-intl';
 import {useDispatch, useSelector} from 'react-redux';
 import type {AnyAction} from 'redux';
 
-import {DotsVerticalIcon} from '@mattermost/compass-icons/components';
+import DotsVerticalIcon from '@mattermost/compass-icons/components/dots-vertical';
 import type {UserThread} from '@mattermost/types/threads';
 
 import {setThreadFollow, updateThreadRead, markLastPostInThreadAsUnread} from 'mattermost-redux/actions/threads';

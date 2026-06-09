@@ -5,7 +5,15 @@ import React from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
 import {useDispatch} from 'react-redux';
 
-import {CheckIcon, ChevronRightIcon, DotsHorizontalIcon, EyeOutlineIcon, LockOutlineIcon, PencilOutlineIcon, SyncIcon, TrashCanOutlineIcon, ContentCopyIcon} from '@mattermost/compass-icons/components';
+import CheckIcon from '@mattermost/compass-icons/components/check';
+import ChevronRightIcon from '@mattermost/compass-icons/components/chevron-right';
+import DotsHorizontalIcon from '@mattermost/compass-icons/components/dots-horizontal';
+import EyeOutlineIcon from '@mattermost/compass-icons/components/eye-outline';
+import LockOutlineIcon from '@mattermost/compass-icons/components/lock-outline';
+import PencilOutlineIcon from '@mattermost/compass-icons/components/pencil-outline';
+import SyncIcon from '@mattermost/compass-icons/components/sync';
+import TrashCanOutlineIcon from '@mattermost/compass-icons/components/trash-can-outline';
+import ContentCopyIcon from '@mattermost/compass-icons/components/content-copy';
 import type {FieldVisibility, UserPropertyField} from '@mattermost/types/properties';
 
 import {openModal} from 'actions/views/modals';

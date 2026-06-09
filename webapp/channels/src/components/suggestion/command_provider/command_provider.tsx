@@ -5,7 +5,7 @@ import React from 'react';
 import {defineMessage} from 'react-intl';
 import type {Store} from 'redux';
 
-import {DockWindowIcon} from '@mattermost/compass-icons/components';
+import DockWindowIcon from '@mattermost/compass-icons/components/dock-window';
 import type {AutocompleteSuggestion, CommandArgs} from '@mattermost/types/integrations';
 
 import {Client4} from 'mattermost-redux/client';

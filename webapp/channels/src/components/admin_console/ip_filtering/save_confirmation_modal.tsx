@@ -5,7 +5,7 @@ import React from 'react';
 import {Modal} from 'react-bootstrap';
 import {useIntl} from 'react-intl';
 
-import {InformationOutlineIcon} from '@mattermost/compass-icons/components';
+import InformationOutlineIcon from '@mattermost/compass-icons/components/information-outline';
 
 import './save_confirmation_modal.scss';
 

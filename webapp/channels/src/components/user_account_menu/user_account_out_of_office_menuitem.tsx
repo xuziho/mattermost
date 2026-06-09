@@ -5,7 +5,8 @@ import React from 'react';
 import {FormattedMessage} from 'react-intl';
 import {useDispatch} from 'react-redux';
 
-import {CancelIcon, CheckIcon} from '@mattermost/compass-icons/components';
+import CancelIcon from '@mattermost/compass-icons/components/cancel';
+import CheckIcon from '@mattermost/compass-icons/components/check';
 import type {UserProfile} from '@mattermost/types/users';
 
 import {setStatus} from 'mattermost-redux/actions/users';

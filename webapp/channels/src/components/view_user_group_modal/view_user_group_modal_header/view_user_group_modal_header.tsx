@@ -5,7 +5,7 @@ import React, {useCallback} from 'react';
 import {Modal} from 'react-bootstrap';
 import {FormattedMessage, useIntl} from 'react-intl';
 
-import {ArchiveOutlineIcon} from '@mattermost/compass-icons/components';
+import ArchiveOutlineIcon from '@mattermost/compass-icons/components/archive-outline';
 import type {Group} from '@mattermost/types/groups';
 
 import type {ActionResult} from 'mattermost-redux/types/actions';

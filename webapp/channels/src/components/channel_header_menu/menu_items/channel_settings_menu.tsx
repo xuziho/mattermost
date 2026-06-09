@@ -5,9 +5,7 @@ import React, {memo} from 'react';
 import {FormattedMessage} from 'react-intl';
 import {useDispatch, useSelector} from 'react-redux';
 
-import {
-    CogOutlineIcon,
-} from '@mattermost/compass-icons/components';
+import CogOutlineIcon from '@mattermost/compass-icons/components/cog-outline';
 import type {Channel} from '@mattermost/types/channels';
 
 import {openModal} from 'actions/views/modals';

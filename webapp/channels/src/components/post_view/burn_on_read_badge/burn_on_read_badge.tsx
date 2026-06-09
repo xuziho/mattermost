@@ -5,7 +5,7 @@ import React, {memo, useCallback} from 'react';
 import {useIntl} from 'react-intl';
 import {useSelector} from 'react-redux';
 
-import {FireIcon} from '@mattermost/compass-icons/components';
+import FireIcon from '@mattermost/compass-icons/components/fire';
 import type {Post} from '@mattermost/types/posts';
 
 import {getCurrentUserId} from 'mattermost-redux/selectors/entities/users';

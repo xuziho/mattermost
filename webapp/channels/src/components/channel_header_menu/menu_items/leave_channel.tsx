@@ -5,7 +5,7 @@ import React, {memo} from 'react';
 import {FormattedMessage} from 'react-intl';
 import {useDispatch} from 'react-redux';
 
-import {LogoutVariantIcon} from '@mattermost/compass-icons/components';
+import LogoutVariantIcon from '@mattermost/compass-icons/components/logout-variant';
 import type {Channel} from '@mattermost/types/channels';
 
 import {leaveChannel} from 'actions/views/channel';

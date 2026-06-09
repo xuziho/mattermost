@@ -6,13 +6,11 @@ import type {MouseEvent, KeyboardEvent} from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
 import {useDispatch, useSelector} from 'react-redux';
 
-import {
-    FolderOutlineIcon,
-    StarOutlineIcon,
-    FolderMoveOutlineIcon,
-    ChevronRightIcon,
-    CheckIcon,
-} from '@mattermost/compass-icons/components';
+import FolderOutlineIcon from '@mattermost/compass-icons/components/folder-outline';
+import StarOutlineIcon from '@mattermost/compass-icons/components/star-outline';
+import FolderMoveOutlineIcon from '@mattermost/compass-icons/components/folder-move-outline';
+import ChevronRightIcon from '@mattermost/compass-icons/components/chevron-right';
+import CheckIcon from '@mattermost/compass-icons/components/check';
 import type {ChannelCategory} from '@mattermost/types/channel_categories';
 import type {Channel} from '@mattermost/types/channels';
 

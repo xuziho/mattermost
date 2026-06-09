@@ -5,14 +5,12 @@ import React from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
 import {useSelector} from 'react-redux';
 
-import {
-    PlusIcon,
-    AccountPlusOutlineIcon,
-    FolderPlusOutlineIcon,
-    AccountMultiplePlusOutlineIcon,
-    GlobeIcon,
-    AccountOutlineIcon,
-} from '@mattermost/compass-icons/components';
+import PlusIcon from '@mattermost/compass-icons/components/plus';
+import AccountPlusOutlineIcon from '@mattermost/compass-icons/components/account-plus-outline';
+import FolderPlusOutlineIcon from '@mattermost/compass-icons/components/folder-plus-outline';
+import AccountMultiplePlusOutlineIcon from '@mattermost/compass-icons/components/account-multiple-plus-outline';
+import GlobeIcon from '@mattermost/compass-icons/components/globe';
+import AccountOutlineIcon from '@mattermost/compass-icons/components/account-outline';
 
 import {getCurrentTeamId} from 'mattermost-redux/selectors/entities/teams';
 

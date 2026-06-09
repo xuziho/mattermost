@@ -8,7 +8,7 @@ import {FormattedMessage, useIntl} from 'react-intl';
 import {useDispatch, useSelector} from 'react-redux';
 import styled from 'styled-components';
 
-import {MagnifyIcon} from '@mattermost/compass-icons/components';
+import MagnifyIcon from '@mattermost/compass-icons/components/magnify';
 import type {Group} from '@mattermost/types/groups';
 
 import {searchProfiles} from 'mattermost-redux/actions/users';

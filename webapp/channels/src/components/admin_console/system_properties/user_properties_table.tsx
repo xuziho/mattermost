@@ -7,7 +7,7 @@ import React, {useEffect, useMemo, useState} from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
 import styled from 'styled-components';
 
-import {PlusIcon} from '@mattermost/compass-icons/components';
+import PlusIcon from '@mattermost/compass-icons/components/plus';
 import {supportsOptions, type UserPropertyField} from '@mattermost/types/properties';
 import {collectionToArray} from '@mattermost/types/utilities';
 

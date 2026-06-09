@@ -5,7 +5,7 @@ import React, {useMemo} from 'react';
 import type {ComponentProps} from 'react';
 import {FormattedMessage} from 'react-intl';
 
-import {SyncIcon} from '@mattermost/compass-icons/components';
+import SyncIcon from '@mattermost/compass-icons/components/sync';
 
 import Timestamp, {RelativeRanges} from 'components/timestamp';
 import Tag from 'components/widgets/tag/tag';

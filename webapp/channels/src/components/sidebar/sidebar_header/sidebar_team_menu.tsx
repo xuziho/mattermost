@@ -6,17 +6,15 @@ import {FormattedMessage} from 'react-intl';
 import {useDispatch, useSelector} from 'react-redux';
 import {useHistory} from 'react-router-dom';
 
-import {
-    LightbulbOutlineIcon,
-    AccountPlusOutlineIcon,
-    AccountMultiplePlusOutlineIcon,
-    SettingsOutlineIcon,
-    AccountMultipleOutlineIcon,
-    ExitToAppIcon,
-    MessagePlusOutlineIcon,
-    PlusIcon,
-    MonitorAccountIcon,
-} from '@mattermost/compass-icons/components';
+import LightbulbOutlineIcon from '@mattermost/compass-icons/components/lightbulb-outline';
+import AccountPlusOutlineIcon from '@mattermost/compass-icons/components/account-plus-outline';
+import AccountMultiplePlusOutlineIcon from '@mattermost/compass-icons/components/account-multiple-plus-outline';
+import SettingsOutlineIcon from '@mattermost/compass-icons/components/settings-outline';
+import AccountMultipleOutlineIcon from '@mattermost/compass-icons/components/account-multiple-outline';
+import ExitToAppIcon from '@mattermost/compass-icons/components/exit-to-app';
+import MessagePlusOutlineIcon from '@mattermost/compass-icons/components/message-plus-outline';
+import PlusIcon from '@mattermost/compass-icons/components/plus';
+import MonitorAccountIcon from '@mattermost/compass-icons/components/monitor-account';
 import type {Team} from '@mattermost/types/teams';
 
 import {Permissions} from 'mattermost-redux/constants';

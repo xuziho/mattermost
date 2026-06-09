@@ -8,12 +8,10 @@ import {components} from 'react-select';
 import type {OptionProps, SingleValueProps, OnChangeValue, DropdownIndicatorProps, OptionsOrGroups, GroupBase} from 'react-select';
 import AsyncSelect from 'react-select/async';
 
-import {
-    ChevronDownIcon,
-    GlobeIcon,
-    LockOutlineIcon,
-    MessageTextOutlineIcon,
-} from '@mattermost/compass-icons/components';
+import ChevronDownIcon from '@mattermost/compass-icons/components/chevron-down';
+import GlobeIcon from '@mattermost/compass-icons/components/globe';
+import LockOutlineIcon from '@mattermost/compass-icons/components/lock-outline';
+import MessageTextOutlineIcon from '@mattermost/compass-icons/components/message-text-outline';
 import type {Channel} from '@mattermost/types/channels';
 
 import {getDirectTeammate} from 'mattermost-redux/selectors/entities/channels';

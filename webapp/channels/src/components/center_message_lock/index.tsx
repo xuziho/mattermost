@@ -4,7 +4,7 @@
 import React from 'react';
 import {useIntl} from 'react-intl';
 
-import {EyeOffOutlineIcon} from '@mattermost/compass-icons/components';
+import EyeOffOutlineIcon from '@mattermost/compass-icons/components/eye-off-outline';
 
 import useGetServerLimits from 'components/common/hooks/useGetServerLimits';
 

@@ -5,7 +5,7 @@ import React, {useCallback} from 'react';
 import {useIntl} from 'react-intl';
 import {useDispatch} from 'react-redux';
 
-import {TranslateIcon} from '@mattermost/compass-icons/components';
+import TranslateIcon from '@mattermost/compass-icons/components/translate';
 import type {PostTranslation, PostType} from '@mattermost/types/posts';
 
 import {openModal} from 'actions/views/modals';

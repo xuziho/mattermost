@@ -6,7 +6,7 @@ import React, {memo, useCallback, useMemo, useState} from 'react';
 import {defineMessages, useIntl} from 'react-intl';
 import {useDispatch, useSelector} from 'react-redux';
 
-import {CheckIcon} from '@mattermost/compass-icons/components';
+import CheckIcon from '@mattermost/compass-icons/components/check';
 import type {Post} from '@mattermost/types/posts';
 
 import {getPostEditHistory, restorePostVersion} from 'mattermost-redux/actions/posts';

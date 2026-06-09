@@ -5,7 +5,8 @@ import React, {useMemo} from 'react';
 import {FormattedMessage} from 'react-intl';
 import {useDispatch} from 'react-redux';
 
-import {CheckCircleIcon, CheckIcon} from '@mattermost/compass-icons/components';
+import CheckCircleIcon from '@mattermost/compass-icons/components/check-circle';
+import CheckIcon from '@mattermost/compass-icons/components/check';
 import type {UserProfile} from '@mattermost/types/users';
 
 import {setStatus} from 'mattermost-redux/actions/users';

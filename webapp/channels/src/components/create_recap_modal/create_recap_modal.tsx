@@ -6,7 +6,8 @@ import {useIntl} from 'react-intl';
 import {useDispatch, useSelector} from 'react-redux';
 import {useHistory, useRouteMatch} from 'react-router-dom';
 
-import {ChevronLeftIcon, ChevronRightIcon} from '@mattermost/compass-icons/components';
+import ChevronLeftIcon from '@mattermost/compass-icons/components/chevron-left';
+import ChevronRightIcon from '@mattermost/compass-icons/components/chevron-right';
 import {GenericModal} from '@mattermost/components';
 import type {Channel} from '@mattermost/types/channels';
 

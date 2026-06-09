@@ -5,16 +5,14 @@ import React, {useCallback} from 'react';
 import {useIntl} from 'react-intl';
 import {useDispatch, useSelector} from 'react-redux';
 
-import {
-    DotsHorizontalIcon,
-    PencilOutlineIcon,
-    LinkVariantIcon,
-    TrashCanOutlineIcon,
-    ArrowExpandIcon,
-    OpenInNewIcon,
-    BookOutlineIcon,
-    DownloadOutlineIcon,
-} from '@mattermost/compass-icons/components';
+import DotsHorizontalIcon from '@mattermost/compass-icons/components/dots-horizontal';
+import PencilOutlineIcon from '@mattermost/compass-icons/components/pencil-outline';
+import LinkVariantIcon from '@mattermost/compass-icons/components/link-variant';
+import TrashCanOutlineIcon from '@mattermost/compass-icons/components/trash-can-outline';
+import ArrowExpandIcon from '@mattermost/compass-icons/components/arrow-expand';
+import OpenInNewIcon from '@mattermost/compass-icons/components/open-in-new';
+import BookOutlineIcon from '@mattermost/compass-icons/components/book-outline';
+import DownloadOutlineIcon from '@mattermost/compass-icons/components/download-outline';
 import type {ChannelBookmark, ChannelBookmarkPatch} from '@mattermost/types/channel_bookmarks';
 
 import {getFile} from 'mattermost-redux/selectors/entities/files';

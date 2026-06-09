@@ -5,7 +5,13 @@ import classNames from 'classnames';
 import React from 'react';
 import {FormattedMessage, defineMessages, injectIntl, type WrappedComponentProps} from 'react-intl';
 
-import {ArchiveOutlineIcon, CheckIcon, ChevronDownIcon, GlobeIcon, LockOutlineIcon, AccountOutlineIcon, GlobeCheckedIcon} from '@mattermost/compass-icons/components';
+import ArchiveOutlineIcon from '@mattermost/compass-icons/components/archive-outline';
+import CheckIcon from '@mattermost/compass-icons/components/check';
+import ChevronDownIcon from '@mattermost/compass-icons/components/chevron-down';
+import GlobeIcon from '@mattermost/compass-icons/components/globe';
+import LockOutlineIcon from '@mattermost/compass-icons/components/lock-outline';
+import AccountOutlineIcon from '@mattermost/compass-icons/components/account-outline';
+import GlobeCheckedIcon from '@mattermost/compass-icons/components/globe-checked';
 import type {Channel, ChannelMembership} from '@mattermost/types/channels';
 import type {RelationOneToOne} from '@mattermost/types/utilities';
 

@@ -5,7 +5,7 @@ import React, {useState} from 'react';
 import {Modal} from 'react-bootstrap';
 import {FormattedMessage, useIntl} from 'react-intl';
 
-import {InformationOutlineIcon} from '@mattermost/compass-icons/components';
+import InformationOutlineIcon from '@mattermost/compass-icons/components/information-outline';
 import type {AllowedIPRange} from '@mattermost/types/config';
 
 import type {CustomMessageInputType} from 'components/widgets/inputs/input/input';
