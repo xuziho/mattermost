@@ -7,7 +7,6 @@ import {FormattedMessage} from 'react-intl';
 import {GenericModal} from '@mattermost/components';
 
 import './no_internet_connection.scss';
-import ExternalLink from 'components/external_link';
 
 import NoInternetConnectionSvg from './no-internet-connection-svg';
 
@@ -34,23 +33,13 @@ const NoInternetConnection: React.FC<NoInternetConnectionProps> = (props: NoInte
                 <span className='noInternetConnection__contactSupport'>
                     <FormattedMessage
                         id='announcement_bar.warn.contact_support_text'
-                        defaultMessage='To renew your license, contact support at support@mattermost.com.'
+                        defaultMessage='To renew your license, upload an updated license file from the system console.'
                     />
                 </span>
                 <span className='noInternetConnection__emailUs'>
                     <FormattedMessage
                         id='announcement_bar.warn.contact_support_email'
-                        defaultMessage='<a>Contact support</a>.'
-                        values={{
-                            a: (chunks) => (
-                                <ExternalLink
-                                    href='mailto:support@mattermost.com'
-                                    location='announcement_bar'
-                                >
-                                    {chunks}
-                                </ExternalLink>
-                            ),
-                        }}
+                        defaultMessage='Open the license settings page to review local capacity.'
                     />
                 </span>
             </div>

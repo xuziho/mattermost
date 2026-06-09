@@ -6958,7 +6958,7 @@
   },
   {
     "id": "api.license.request_trial_license.app_error",
-    "translation": "Nem sikerült megszerezni a próba licencet, kérjük próbálkozzon újra, vagy írjon a support@mattermost.com címre."
+    "translation": "Trial licenses are not available in this build. Upload a local license file from the system console."
   },
   {
     "id": "api.license.request-trial.bad-request.terms-not-accepted",

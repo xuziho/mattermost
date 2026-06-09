@@ -5149,7 +5149,7 @@
   },
   {
     "id": "api.license.request_trial_license.app_error",
-    "translation": "Kunde inte få en prova-på-licens. Försök igen eller kontakta support@mattermost.com."
+    "translation": "Trial licenses are not available in this build. Upload a local license file from the system console."
   },
   {
     "id": "api.license.request-trial.bad-request.terms-not-accepted",

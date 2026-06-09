@@ -1914,7 +1914,7 @@
   "announcement_bar.error.trial_license_expiring": "There are {days} days left on this server license.",
   "announcement_bar.error.trial_license_expiring_last_day": "This server license expires today. Some licensed features may be unavailable after it expires.",
   "announcement_bar.notification.email_verified": "Email verificat",
-  "announcement_bar.warn.contact_support_text": "Pentru a vă reînnoi licența, contactați asistența la support@mattermost.com.",
+  "announcement_bar.warn.contact_support_text": "To renew your license, upload an updated license file from the system console.",
   "announcement_bar.warn.no_internet_connection": "Se pare că nu aveți acces la internet.",
   "api.channel.add_guest.added": "{addedUsername} adăugat la canal ca invitat de {username}.",
   "api.channel.add_member.added": "{addedUsername} a fost adăugat la canal de {username}.",

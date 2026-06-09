@@ -2334,7 +2334,7 @@
   },
   {
     "id": "api.license.request_trial_license.app_error",
-    "translation": "Δεν είναι δυνατή η λήψη μιας δοκιμαστικής άδειας, δοκιμάστε ξανά ή επικοινωνήστε με το support@mattermost.com."
+    "translation": "Trial licenses are not available in this build. Upload a local license file from the system console."
   },
   {
     "id": "api.license.request-trial.bad-request.terms-not-accepted",

@@ -4500,7 +4500,7 @@
   },
   {
     "id": "api.license.request_trial_license.app_error",
-    "translation": "Fout bij het ophalen van de proeflicentie, probeer opnieuw of neem contact op met support@mattermost.com."
+    "translation": "Trial licenses are not available in this build. Upload a local license file from the system console."
   },
   {
     "id": "api.license.request-trial.bad-request",

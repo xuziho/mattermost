@@ -5139,7 +5139,7 @@
   },
   {
     "id": "api.license.request_trial_license.app_error",
-    "translation": "无法获取试用证书，请重试或联系 support@mattermost.com。"
+    "translation": "Trial licenses are not available in this build. Upload a local license file from the system console."
   },
   {
     "id": "api.image.get.app_error",

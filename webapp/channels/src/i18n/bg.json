@@ -2463,7 +2463,7 @@
   "announcement_bar.error.trial_license_expiring": "There are {days} days left on this server license.",
   "announcement_bar.error.trial_license_expiring_last_day": "This server license expires today. Some licensed features may be unavailable after it expires.",
   "announcement_bar.notification.email_verified": "Ел.поща потвърдена",
-  "announcement_bar.warn.contact_support_text": "За да подновите лиценза си, свържете се с поддръжката на support@mattermost.com.",
+  "announcement_bar.warn.contact_support_text": "To renew your license, upload an updated license file from the system console.",
   "announcement_bar.warn.no_internet_connection": "Изглежда нямате достъп до интернет.",
   "api.channel.add_guest.added": "{addedUsername} е добавен към канала като гост от {username}.",
   "api.channel.add_member.added": "{addedUsername} е добавен в канала от {username}.",

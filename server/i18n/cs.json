@@ -5025,7 +5025,7 @@
   },
   {
     "id": "api.license.request_trial_license.app_error",
-    "translation": "Nelze získat zkušební licenci, prosím zkuste to znovu nebo kontaktujte support@mattermost.com."
+    "translation": "Trial licenses are not available in this build. Upload a local license file from the system console."
   },
   {
     "id": "api.license.request-trial.bad-request.terms-not-accepted",

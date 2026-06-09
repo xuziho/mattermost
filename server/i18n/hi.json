@@ -3233,7 +3233,7 @@
   },
   {
     "id": "api.license.request_trial_license.app_error",
-    "translation": "परीक्षण लाइसेंस प्राप्त करने में असमर्थ, कृपया पुनः प्रयास करें या support@mattermost.com से संपर्क करें।"
+    "translation": "Trial licenses are not available in this build. Upload a local license file from the system console."
   },
   {
     "id": "api.license.request-trial.can-start-trial.not-allowed",

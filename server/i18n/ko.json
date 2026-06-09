@@ -5795,7 +5795,7 @@
   },
   {
     "id": "api.license.request_trial_license.app_error",
-    "translation": "평가판 라이선스를 얻을 수 없는 경우 다시 시도하거나 support@mattermost.com에 문의해주세요."
+    "translation": "Trial licenses are not available in this build. Upload a local license file from the system console."
   },
   {
     "id": "api.license.request-trial.bad-request.terms-not-accepted",

@@ -5819,7 +5819,7 @@
   },
   {
     "id": "api.license.request_trial_license.app_error",
-    "translation": "دریافت مجوز آزمایشی امکان پذیر نیست ، لطفاً دوباره امتحان کنید یا با support@mattermost.com تماس بگیرید."
+    "translation": "Trial licenses are not available in this build. Upload a local license file from the system console."
   },
   {
     "id": "api.license.request-trial.can-start-trial.not-allowed",

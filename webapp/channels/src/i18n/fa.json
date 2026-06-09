@@ -2821,7 +2821,7 @@
   "leave_team_modal.no": "خیر",
   "leave_team_modal.title": "ترک تیم؟",
   "leave_team_modal.yes": "آره",
-  "licensingPage.overageUsersBanner.cta": "تماس با فروشندگان",
+  "licensingPage.overageUsersBanner.cta": "Review license",
   "list_modal.paginatorCount": "{startCount, number} - {endCount, number} از مجموع {total, number}",
   "loading_screen.loading": "بارگذاری",
   "local": "محلی",

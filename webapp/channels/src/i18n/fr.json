@@ -2193,7 +2193,7 @@
   "announcement_bar.error.trial_license_expiring_last_day": "This server license expires today. Some licensed features may be unavailable after it expires.",
   "announcement_bar.error.trial_license_expiring_last_day.short": "This server license expires today.",
   "announcement_bar.notification.email_verified": "Adresse e-mail vérifiée",
-  "announcement_bar.warn.contact_support_text": "Pour renouveler votre licence, merci de contacter le support à l'adresse support@mattermost.com.",
+  "announcement_bar.warn.contact_support_text": "To renew your license, upload an updated license file from the system console.",
   "announcement_bar.warn.no_internet_connection": "Il semblerait que vous n'ayez pas accès à Internet.",
   "api.channel.add_guest.added": "{addedUsername} ajouté au canal en tant qu'invité par {username}.",
   "api.channel.add_member.added": "{addedUsername} a été ajouté au canal par {username}.",

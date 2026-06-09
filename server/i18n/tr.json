@@ -4792,7 +4792,7 @@
   },
   {
     "id": "api.license.request_trial_license.app_error",
-    "translation": "Deneme lisansı alınamadı. Lütfen yeniden deneyin ya da support@mattermost.com adresine yazın."
+    "translation": "Trial licenses are not available in this build. Upload a local license file from the system console."
   },
   {
     "id": "api.admin.delete_brand_image.storage.not_found",

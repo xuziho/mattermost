@@ -5021,7 +5021,7 @@
   },
   {
     "id": "api.license.request_trial_license.app_error",
-    "translation": "Unable to get a trial licence, please try again or contact with support@mattermost.com."
+    "translation": "Trial licenses are not available in this build. Upload a local license file from the system console."
   },
   {
     "id": "api.license.request-trial.bad-request.terms-not-accepted",
@@ -7763,7 +7763,7 @@
   },
   {
     "id": "api.license.request-trial.can-start-trial.not-allowed",
-    "translation": "Failed to apply new trial licence as your workspace has already applied a trial licence."
+    "translation": "Trial licenses are not available in this build. Upload a local license file from the system console."
   },
   {
     "id": "api.license.request-trial.can-start-trial.error",

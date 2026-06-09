@@ -2019,7 +2019,7 @@
   "announcement_bar.error.trial_license_expiring": "There are {days} days left on this server license.",
   "announcement_bar.error.trial_license_expiring_last_day": "This server license expires today. Some licensed features may be unavailable after it expires.",
   "announcement_bar.notification.email_verified": "E-mail megerősítve",
-  "announcement_bar.warn.contact_support_text": "A licenc megújításához vegye fel a kapcsolatot az ügyfélszolgálattal a support@mattermost.com e-mail címen.",
+  "announcement_bar.warn.contact_support_text": "To renew your license, upload an updated license file from the system console.",
   "announcement_bar.warn.no_internet_connection": "Úgy tűnik nincs aktív Internet kapcsolat.",
   "api.channel.add_guest.added": "{addedUsername} hozzá lett adva a beszélgetéshez vendégként {username} által.",
   "api.channel.add_member.added": "{addedUsername} felhasználót {username} hozzáadta a beszélgetéshez.",

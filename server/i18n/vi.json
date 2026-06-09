@@ -6907,7 +6907,7 @@
   },
   {
     "id": "api.license.request_trial_license.app_error",
-    "translation": "Không thể nhận được giấy phép dùng thử, vui lòng thử lại hoặc liên hệ với support@mattermost.com."
+    "translation": "Trial licenses are not available in this build. Upload a local license file from the system console."
   },
   {
     "id": "api.license.request_trial_license.embargoed",

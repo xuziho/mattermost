@@ -5549,7 +5549,7 @@
   },
   {
     "id": "api.license.request_trial_license.app_error",
-    "translation": "Não foi possível obter uma licença de avaliação, tente novamente ou entre em contato com support@mattermost.com."
+    "translation": "Trial licenses are not available in this build. Upload a local license file from the system console."
   },
   {
     "id": "api.license.request-trial.bad-request.terms-not-accepted",

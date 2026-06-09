@@ -5973,7 +5973,7 @@
   },
   {
     "id": "api.license.request_trial_license.app_error",
-    "translation": "Немагчыма атрымаць пробную ліцэнзію, калі ласка, паспрабуйце яшчэ раз або звярніцеся ў support@mattermost.com."
+    "translation": "Trial licenses are not available in this build. Upload a local license file from the system console."
   },
   {
     "id": "api.license.request-trial.can-start-trial.not-allowed",

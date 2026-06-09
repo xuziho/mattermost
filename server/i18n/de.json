@@ -6748,7 +6748,7 @@
   },
   {
     "id": "api.license.request_trial_license.app_error",
-    "translation": "Konnte keine Test-Lizenz holen. Bitte nochmal versuchen oder support@mattermost.com kontaktieren."
+    "translation": "Trial licenses are not available in this build. Upload a local license file from the system console."
   },
   {
     "id": "api.license.request-trial.can-start-trial.not-allowed",
