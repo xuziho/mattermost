@@ -2,11 +2,9 @@
 // See LICENSE.txt for license information.
 
 import React from 'react';
-import {FormattedMessage, defineMessage} from 'react-intl';
+import {FormattedMessage} from 'react-intl';
 
 import {ErrorPageTypes} from 'utils/constants';
-
-import ErrorLink from './error_link';
 
 type Props = {
     type?: string | null;
@@ -125,12 +123,9 @@ const ErrorMessage: React.FC<Props> = ({type, message, service, isGuest}: Props)
                             defaultMessage='For {link} make sure your administrator enabled the Google+ API.'
                             values={{
                                 link: (
-                                    <ErrorLink
-                                        url={'#'}
-                                        message={defineMessage({
-                                            id: 'error.oauth_missing_code.google.link',
-                                            defaultMessage: 'Google Apps',
-                                        })}
+                                    <FormattedMessage
+                                        id='error.oauth_missing_code.google.link'
+                                        defaultMessage='Google Apps'
                                     />
                                 ),
                             }}
@@ -142,12 +137,9 @@ const ErrorMessage: React.FC<Props> = ({type, message, service, isGuest}: Props)
                             defaultMessage='For {link} make sure the administrator of your Microsoft organization has enabled the Mattermost app.'
                             values={{
                                 link: (
-                                    <ErrorLink
-                                        url={'#'}
-                                        message={defineMessage({
-                                            id: 'error.oauth_missing_code.office365.link',
-                                            defaultMessage: 'Entra ID',
-                                        })}
+                                    <FormattedMessage
+                                        id='error.oauth_missing_code.office365.link'
+                                        defaultMessage='Entra ID'
                                     />
                                 ),
                             }}
@@ -159,12 +151,9 @@ const ErrorMessage: React.FC<Props> = ({type, message, service, isGuest}: Props)
                             defaultMessage='For {link} please make sure you followed the setup instructions.'
                             values={{
                                 link: (
-                                    <ErrorLink
-                                        url={'#'}
-                                        message={defineMessage({
-                                            id: 'error.oauth_missing_code.gitlab.link',
-                                            defaultMessage: 'GitLab',
-                                        })}
+                                    <FormattedMessage
+                                        id='error.oauth_missing_code.gitlab.link'
+                                        defaultMessage='GitLab'
                                     />
                                 ),
                             }}

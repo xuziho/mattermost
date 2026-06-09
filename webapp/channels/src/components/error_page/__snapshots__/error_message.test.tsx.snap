@@ -83,51 +83,21 @@ exports[`components/error_page/ErrorMessage should match snapshot, oauth_missing
     </p>
     <p>
       For 
-      <a
-        href="https://docs.mattermost.com/deployment/sso-google.html?utm_source=mattermost&utm_medium=in-product&utm_content=error_link&uid=user-id-123&sid=telemetry-id-456&edition=team&server_version=9.0.0"
-        location="error_link"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        Google Apps
-      </a>
+      Google Apps
        make sure your administrator enabled the Google+ API.
     </p>
     <p>
       For 
-      <a
-        href="https://docs.mattermost.com/deployment/sso-office.html?utm_source=mattermost&utm_medium=in-product&utm_content=error_link&uid=user-id-123&sid=telemetry-id-456&edition=team&server_version=9.0.0"
-        location="error_link"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        Entra ID
-      </a>
+      Entra ID
        make sure the administrator of your Microsoft organization has enabled the Mattermost app.
     </p>
     <p>
       For 
-      <a
-        href="https://docs.mattermost.com/deployment/sso-gitlab.html?utm_source=mattermost&utm_medium=in-product&utm_content=error_link&uid=user-id-123&sid=telemetry-id-456&edition=team&server_version=9.0.0"
-        location="error_link"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        GitLab
-      </a>
+      GitLab
        please make sure you followed the setup instructions.
     </p>
     <p>
-      If you reviewed the above and are still having trouble with configuration, you may post in our 
-      <a
-        href="https://forum.mattermost.com/c/trouble-shoot?utm_source=mattermost&utm_medium=in-product&utm_content=error_link&uid=user-id-123&sid=telemetry-id-456&edition=team&server_version=9.0.0"
-        location="error_link"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        Troubleshooting forum
-      </a>
-       where we'll be happy to help with issues during setup.
+      If you reviewed the above and are still having trouble with configuration, contact your workspace administrator for setup help.
     </p>
   </div>
 </div>
