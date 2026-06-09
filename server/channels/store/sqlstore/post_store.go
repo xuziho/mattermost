@@ -2552,7 +2552,7 @@ func (s *SqlPostStore) GetPostsBatchForIndexing(startTime int64, startPostID str
 	// The wrong choice for any of the two databases makes the query go from
 	// milliseconds to dozens of seconds.
 	// More information in: https://github.com/mattermost/mattermost/pull/26517
-	// and https://community.mattermost.com/core/pl/ui5dz96shinetb8nq83myggbma
+	// and https://agentcompanyos.local/core/pl/ui5dz96shinetb8nq83myggbma
 
 	postColumnsPosts := strings.Join(postSliceColumnsWithName("Posts"), ", ")
 	query := `SELECT
