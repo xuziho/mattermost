@@ -9,7 +9,6 @@ import ConfigurationAnnouncementBar from './configuration_bar';
 import AnnouncementBar from './default_announcement_bar';
 import NotificationPermissionBar from './notification_permission_bar';
 import TextDismissableBar from './text_dismissable_bar';
-import VersionBar from './version_bar';
 
 type Props = {
     license?: ClientLicense;
@@ -71,7 +70,6 @@ class AnnouncementBarController extends React.PureComponent<Props> {
                 {errorBar}
                 {notifyAdminDowngradeDelinquencyBar}
                 {toYearlyNudgeBannerDismissable}
-                <VersionBar/>
                 <ConfigurationAnnouncementBar
                     config={this.props.config}
                     license={this.props.license}
