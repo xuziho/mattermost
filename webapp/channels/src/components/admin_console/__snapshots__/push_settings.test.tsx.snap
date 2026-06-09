@@ -125,25 +125,7 @@ exports[`components/PushSettings should match snapshot, licensed 1`] = `
                 checked=""
                 type="checkbox"
               />
-               I understand and accept the Mattermost Hosted Push Notification Service 
-              <a
-                href="https://mattermost.com/hpns-terms/?utm_source=mattermost&utm_medium=in-product&utm_content=push_settings&uid=&sid=&edition=team&server_version="
-                location="push_settings"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Terms of Service
-              </a>
-               and 
-              <a
-                href="https://mattermost.com/data-processing-addendum/?utm_source=mattermost&utm_medium=in-product&utm_content=push_settings&uid=&sid=&edition=team&server_version="
-                location="push_settings"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Privacy Policy
-              </a>
-              .
+               I understand and accept the configured push notification service policy.
             </div>
           </div>
           <div
@@ -174,34 +156,7 @@ exports[`components/PushSettings should match snapshot, licensed 1`] = `
                 class="help-text"
                 data-testid="pushNotificationServerhelp-text"
               >
-                Download 
-                <a
-                  href="https://mattermost.com/pl/ios-app/?utm_source=mattermost&utm_medium=in-product&utm_content=push_settings&uid=&sid=&edition=team&server_version="
-                  location="push_settings"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  Mattermost iOS app
-                </a>
-                 from iTunes. Download 
-                <a
-                  href="https://mattermost.com/pl/android-app/?utm_source=mattermost&utm_medium=in-product&utm_content=push_settings&uid=&sid=&edition=team&server_version="
-                  location="push_settings"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  Mattermost Android app
-                </a>
-                 from Google Play. Learn more about the 
-                <a
-                  href="https://mattermost.com/pl/setup-push-notifications?utm_source=mattermost&utm_medium=in-product&utm_content=push_settings&uid=&sid=&edition=team&server_version="
-                  location="push_settings"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  Mattermost Hosted Push Notification Service
-                </a>
-                .
+                Use the hosted push notification service endpoint configured for this deployment.
               </div>
             </div>
           </div>
@@ -348,16 +303,7 @@ exports[`components/PushSettings should match snapshot, unlicensed 1`] = `
                 class="help-text"
                 data-testid="pushNotificationServerhelp-text"
               >
-                Learn more about compiling and deploying your own mobile apps from an 
-                <a
-                  href="https://docs.mattermost.com/?utm_source=mattermost&utm_medium=in-product&utm_content=push_settings&uid=&sid=&edition=team&server_version="
-                  location="push_settings"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  Enterprise App Store
-                </a>
-                .
+                Enter the push notification service endpoint used by your own mobile app deployment.
               </div>
             </div>
           </div>

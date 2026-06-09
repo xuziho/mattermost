@@ -484,7 +484,7 @@
   "admin.elasticsearch.usernameDescription": "(वैकल्पिक) Elasticsearch सर्वर को प्रमाणित करने के लिए उपयोगकर्ता नाम।",
   "admin.elasticsearch.usernameExample": "जैसे: \"लोचदार\"",
   "admin.elasticsearch.usernameTitle": "सर्वर उपयोगकर्ता नाम:",
-  "admin.email.agreeHPNS": " मैं मैटरमोस्ट होस्टेड पुश अधिसूचना सेवा [सेवा की शर्तें](!https://mattermost.com/hpns-terms/) और [गोपनीयता नीति](!https://mattermost.com/data-processing-addendum) को समझता/समझती हूं और स्वीकार करता हूं /)",
+  "admin.email.agreeHPNS": " मैं कॉन्फ़िगर की गई पुश अधिसूचना सेवा नीति को समझता/समझती हूं और स्वीकार करता/करती हूं.",
   "admin.email.allowEmailSignInDescription": "सही होने पर, मैटरमॉस्ट उपयोगकर्ताओं को अपने ईमेल और पासवर्ड का उपयोग करके साइन इन करने की अनुमति देता है।",
   "admin.email.allowEmailSignInTitle": "ईमेल से साइन-इन सक्षम करें: ",
   "admin.email.allowSignupDescription": "सही होने पर, मैटरमॉस्ट ईमेल और पासवर्ड का उपयोग करके खाता बनाने की अनुमति देता है। यह मान केवल तभी गलत होना चाहिए जब आप साइन अप को AD/LDAP, SAML या GitLab जैसी एकल साइन-ऑन सेवा तक सीमित करना चाहते हैं।",

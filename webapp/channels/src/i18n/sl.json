@@ -194,7 +194,7 @@
   "admin.elasticsearch.usernameDescription": "(Izbirno) Uporabniško ime za overjanje strežniku Elasticsearch.",
   "admin.elasticsearch.usernameExample": "Npr.: \"elastic\"",
   "admin.elasticsearch.usernameTitle": "Uporabniško ime SMTP strežnika:",
-  "admin.email.agreeHPNS": " Razumem in sprejemam storitev gostujoča potisna obvestila Mattermost [Terms of Service](!Https: //about.mattermost.com/hpns-terms/) in [Privacy Policy](!Https: //about.mattermost.com/hpns -zasebnost/).",
+  "admin.email.agreeHPNS": " Razumem in sprejemam pravilnik konfigurirane storitve potisnih obvestil.",
   "admin.email.allowEmailSignInDescription": "Ko je true, Mattermost uporabnikom omogoča prijavo s svojim e-poštnim naslovom in geslom.",
   "admin.email.allowEmailSignInTitle": "Omogoči prijavo z e-pošto: ",
   "admin.email.allowSignupDescription": "Ko je res, Mattermost omogoča ustvarjanje računa z e-pošto in geslom. Ta vrednost mora biti false samo, če želite omejiti prijavo na storitev za eno prijavo, kot sta AD/LDAP, SAML ali GitLab.",
