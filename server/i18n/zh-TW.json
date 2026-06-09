@@ -4749,7 +4749,7 @@
   },
   {
     "id": "ent.ldap.syncronize.search_failure_size_exceeded.app_error",
-    "translation": "超過大小限制。請檢查[最大分頁大小](https://docs.mattermost.com/deployment/sso-ldap.html#i-see-the-log-error-ldap-result-code-4-size-limit-exceeded)。"
+    "translation": "超過大小限制。請檢查最大分頁大小。"
   },
   {
     "id": "ent.id_loaded.license_disable.app_error",

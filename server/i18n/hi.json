@@ -6186,7 +6186,7 @@
   },
   {
     "id": "ent.ldap.syncronize.search_failure_size_exceeded.app_error",
-    "translation": "आकार सीमा पार हो गई। अपने [अधिकतम पृष्ठ आकार](https://docs.mattermost.com/deployment/sso-ldap.html#i-see-the-log-error-ldap-result-code-4-size-limit-exceeded) की जाँच करके देखें।"
+    "translation": "आकार सीमा पार हो गई। अपने अधिकतम पृष्ठ आकार की जाँच करके देखें।"
   },
   {
     "id": "ent.ldap.syncronize.search_failure.app_error",

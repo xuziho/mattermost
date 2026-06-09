@@ -4761,7 +4761,7 @@
   },
   {
     "id": "ent.ldap.syncronize.search_failure_size_exceeded.app_error",
-    "translation": "Przekroczono limit rozmiaru. Spróbuj zwiększyć maksymalny rozmiar strony. Więcej informacji znajdziesz na stronie https://docs.mattermost.com/onboard/ad-ldap.html#i-see-the-log-error-ldap-result-code-4-size-limit-exceeded."
+    "translation": "Przekroczono limit rozmiaru. Spróbuj zwiększyć maksymalny rozmiar strony."
   },
   {
     "id": "ent.id_loaded.license_disable.app_error",

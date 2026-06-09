@@ -3123,7 +3123,7 @@
   },
   {
     "id": "ent.ldap.syncronize.search_failure_size_exceeded.app_error",
-    "translation": "Vượt quá giới hạn kích thước. Hãy thử kiểm tra [kích thước trang tối đa] của bạn (https://docs.mattermost.com/deployment/sso-ldap.html#i-see-the-log-error-ldap-result-code-4-size-limit-exceeded)."
+    "translation": "Vượt quá giới hạn kích thước. Hãy thử kiểm tra kích thước trang tối đa của bạn."
   },
   {
     "id": "app.import.validate_channel_import_data.display_name_length.error",

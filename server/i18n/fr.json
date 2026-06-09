@@ -4761,7 +4761,7 @@
   },
   {
     "id": "ent.ldap.syncronize.search_failure_size_exceeded.app_error",
-    "translation": "Taille limite dépassée. Veuillez vérifier votre [taille maximale de page](https://docs.mattermost.com/deployment/sso-ldap.html#i-see-the-log-error-ldap-result-code-4-size-limit-exceeded)."
+    "translation": "Taille limite dépassée. Veuillez vérifier votre taille maximale de page."
   },
   {
     "id": "ent.id_loaded.license_disable.app_error",

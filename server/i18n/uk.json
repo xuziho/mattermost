@@ -4761,7 +4761,7 @@
   },
   {
     "id": "ent.ldap.syncronize.search_failure_size_exceeded.app_error",
-    "translation": "Розмір перевищено. Спробуйте збільшити налаштування максимальної кількості елементів на сторінці. Для отримання додаткової інформації відвідайте https://docs.mattermost.com/onboard/ad-ldap.html#i-see-the-log-error-ldap-result-code-4-size-limit-exceeded."
+    "translation": "Розмір перевищено. Спробуйте збільшити налаштування максимальної кількості елементів на сторінці."
   },
   {
     "id": "ent.id_loaded.license_disable.app_error",

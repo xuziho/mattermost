@@ -4751,7 +4751,7 @@
   },
   {
     "id": "ent.ldap.syncronize.search_failure_size_exceeded.app_error",
-    "translation": "크기 제한을 초과했습니다. [최대 페이지 크기]를 확인하십시오 (https://docs.mattermost.com/deployment/sso-ldap.html#i-see-the-log-error-ldap-result-code-4-size-limit-exceeded)."
+    "translation": "크기 제한을 초과했습니다. 최대 페이지 크기를 확인하십시오."
   },
   {
     "id": "ent.id_loaded.license_disable.app_error",

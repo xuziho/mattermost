@@ -1685,7 +1685,7 @@
   },
   {
     "id": "ent.ldap.syncronize.search_failure_size_exceeded.app_error",
-    "translation": "Превишено е ограничението на размера. Опитайте да проверите Вашия [максимален размер на страницата](https://docs.mattermost.com/deployment/sso-ldap.html#i-see-the-log-error-ldap-result-code-4-size-limit-exceeded )."
+    "translation": "Превишено е ограничението на размера. Опитайте да проверите Вашия максимален размер на страницата."
   },
   {
     "id": "ent.ldap.syncronize.search_failure.app_error",

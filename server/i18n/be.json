@@ -2649,7 +2649,7 @@
   },
   {
     "id": "ent.ldap.syncronize.search_failure_size_exceeded.app_error",
-    "translation": "Перавышаны ліміт памеру. Паспрабуйце павялічыць настройку \"Максімальны памер старонкі\". Больш падрабязна пра гэта чытайце на сайце https://docs.mattermost.com/onboard/ad-ldap.html#i-see-the-log-error-ldap-result-code-4-size-limit-exceeded."
+    "translation": "Перавышаны ліміт памеру. Паспрабуйце павялічыць настройку \"Максімальны памер старонкі\"."
   },
   {
     "id": "ent.ldap.syncronize.search_failure.app_error",

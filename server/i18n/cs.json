@@ -2361,7 +2361,7 @@
   },
   {
     "id": "ent.ldap.syncronize.search_failure_size_exceeded.app_error",
-    "translation": "Překročen limit velikosti. Zkuste zvýšit nastavení maximální velikosti stránky. Další podrobnosti najdete na: https://docs.mattermost.com/onboard/ad-ldap.html#i-see-the-log-error-ldap-result-code-4-size-limit-exceeded."
+    "translation": "Překročen limit velikosti. Zkuste zvýšit nastavení maximální velikosti stránky."
   },
   {
     "id": "ent.ldap.syncronize.search_failure.app_error",

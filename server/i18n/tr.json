@@ -4708,7 +4708,7 @@
   },
   {
     "id": "ent.ldap.syncronize.search_failure_size_exceeded.app_error",
-    "translation": "Boyut sınırı aşıldı. En büyük dosya boyutu ayarını artırmayı deneyin. Ayrıntılı bilgi almak için https://docs.mattermost.com/deployment/sso-ldap.html#i-see-the-log-error-ldap-result-code-4-size-limit-exceeded adresine bakabilirsiniz."
+    "translation": "Boyut sınırı aşıldı. En büyük dosya boyutu ayarını artırmayı deneyin."
   },
   {
     "id": "ent.ldap.validate_admin_filter.app_error",

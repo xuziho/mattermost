@@ -4983,7 +4983,7 @@
   },
   {
     "id": "ent.ldap.syncronize.search_failure_size_exceeded.app_error",
-    "translation": "大小超过限制。尝试增大您的最大页面大小设置。查看 https://docs.mattermost.com/onboard/ad-ldap.html#i-see-the-log-error-ldap-result-code-4-size-limit-exceeded 以了解更多详情。"
+    "translation": "大小超过限制。尝试增大您的最大页面大小设置。"
   },
   {
     "id": "group_not_associated_to_synced_team",

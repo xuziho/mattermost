@@ -4761,7 +4761,7 @@
   },
   {
     "id": "ent.ldap.syncronize.search_failure_size_exceeded.app_error",
-    "translation": "Limite de tamanho excedido. Tente aumentar a configuração de tamanho máximo de página. Consulte https://docs.mattermost.com/onboard/ad-ldap.html#i-see-the-log-error-ldap-result-code-4-size-limit-exceeded para obter mais detalhes."
+    "translation": "Limite de tamanho excedido. Tente aumentar a configuração de tamanho máximo de página."
   },
   {
     "id": "ent.id_loaded.license_disable.app_error",

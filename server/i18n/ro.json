@@ -4757,7 +4757,7 @@
   },
   {
     "id": "ent.ldap.syncronize.search_failure_size_exceeded.app_error",
-    "translation": "Limita de dimensiune a fost depășită. Încercați să verificați [mărimea paginii maximă] (https://docs.mattermost.com/deployment/sso-ldap.html#i-see-the-log-error-ldap-result-code-4-size-limit-exceeded)."
+    "translation": "Limita de dimensiune a fost depășită. Încercați să verificați mărimea paginii maximă."
   },
   {
     "id": "ent.id_loaded.license_disable.app_error",

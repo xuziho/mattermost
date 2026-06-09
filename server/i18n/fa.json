@@ -1725,7 +1725,7 @@
   },
   {
     "id": "ent.ldap.syncronize.search_failure_size_exceeded.app_error",
-    "translation": "بیش از حد مجاز [حداکثر اندازه صفحه](https://docs.mattermost.com/deployment/sso-ldap.html#i-see-the-log-error-ldap-result-code-4-size-limit-exceeded) را امتحان کنید"
+    "translation": "بیش از حد مجاز حداکثر اندازه صفحه را امتحان کنید"
   },
   {
     "id": "ent.ldap.syncronize.search_failure.app_error",
