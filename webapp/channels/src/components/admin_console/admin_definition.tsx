@@ -2244,7 +2244,7 @@ const AdminDefinition: AdminDefinitionType = {
                             }),
                             help_text: defineMessage({
                                 id: 'admin.customization.minimumDesktopAppVersionDesc',
-                                defaultMessage: 'Specify the minimum version of the Mattermost Desktop App required to connect to this server (e.g., 5.10.0). Users connecting with a Desktop App version below this minimum will be shown an update required page and will not be able to use the application until they update. Leave this field blank to allow all Desktop App versions to connect without restriction.',
+                                defaultMessage: 'Specify the minimum desktop client version required to connect to this server (e.g., 5.10.0). Users connecting with a desktop client below this minimum will be shown an update required page and will not be able to use the application until they update. Leave this field blank to allow all desktop client versions to connect without restriction.',
                             }),
                             isDisabled: it.not(it.userHasWritePermissionOnResource(RESOURCE_KEYS.SITE.CUSTOMIZATION)),
                             validate: (value) => {
@@ -2610,7 +2610,7 @@ const AdminDefinition: AdminDefinitionType = {
                             type: 'bool',
                             key: 'MetricsSettings.EnableNotificationMetrics',
                             label: defineMessage({id: 'admin.metrics.enableNotificationMetricsTitle', defaultMessage: 'Enable Notification Monitoring:'}),
-                            help_text: defineMessage({id: 'admin.metrics.enableNotificationMetricsDescription', defaultMessage: 'When true, Mattermost will enable notification data collection for web and Desktop App users.'}),
+                            help_text: defineMessage({id: 'admin.metrics.enableNotificationMetricsDescription', defaultMessage: 'When true, notification data collection is enabled for web and desktop client users.'}),
                             isDisabled: it.any(
                                 it.configIsFalse('MetricsSettings', 'Enable'),
                             ),

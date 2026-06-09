@@ -306,7 +306,7 @@ export default function ChannelNotificationsModal(props: Props) {
                 }
                 description={formatMessage({
                     id: 'channel_notifications.desktopNotificationsDesc',
-                    defaultMessage: 'Available on Chrome, Edge, Firefox, and the Mattermost Desktop App.',
+                    defaultMessage: 'Available on Chrome, Edge, Firefox, and compatible desktop clients.',
                 })}
                 content={desktopNotificationsSectionContent}
             />

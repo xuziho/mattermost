@@ -154,7 +154,7 @@ const DesktopAuthToken: React.FC<Props> = ({href, onLogin}: Props) => {
         subMessage = (
             <FormattedMessage
                 id='desktop_auth_token.complete.openMattermost'
-                defaultMessage='Click on <b>Open Mattermost</b> in the browser prompt to <a>launch the desktop app</a>'
+                defaultMessage='Click <b>Open</b> in the browser prompt to continue in the desktop client.'
                 values={{
                     a: (chunks: React.ReactNode) => {
                         return (
@@ -171,7 +171,7 @@ const DesktopAuthToken: React.FC<Props> = ({href, onLogin}: Props) => {
         bottomMessage = (
             <FormattedMessage
                 id='desktop_auth_token.complete.havingTrouble'
-                defaultMessage='Having trouble logging in? <a>Open Mattermost in your browser</a>'
+                defaultMessage='Having trouble logging in? <a>Continue in your browser</a>'
                 values={{
                     a: (chunks: React.ReactNode) => {
                         return (
