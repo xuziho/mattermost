@@ -85,3 +85,29 @@ Measured reduction:
 - JavaScript delta: +232 bytes from the inline SVG URL helper.
 - CSS delta: 0 bytes.
 - Warning delta: 0.
+
+## After Moment Locale Cut
+
+Commit scope: ignore Moment's bundled locale context during webpack builds. This keeps `moment` and `moment-timezone` available while avoiding automatic inclusion of the full Moment locale set.
+
+Build result:
+
+- Webpack compiled successfully.
+- Warning count: 74.
+- Entrypoint `main`: 21.6 KiB, made of `main.ed93b3bed01cbe431f53.css` 3.61 KiB and `main.77faa989f4e524de16b9.js` 18 KiB.
+- Entrypoint `mattermost_webapp`: 18.4 KiB, made of `remote_entry.js?bt=1781007386191`.
+
+Dist asset counts and byte totals:
+
+- JavaScript files: 250 files, 18,541,223 bytes.
+- CSS files: 43 files, 1,605,400 bytes.
+- i18n JSON files: 62 files, 14,853,080 bytes.
+- Emoji PNG files: 0 files, 0 bytes.
+- Total `webapp/channels/dist` bytes: 102,630,091 bytes.
+
+Measured reduction from the previous emoji-cut build:
+
+- Total `dist` reduction: 949,164 bytes.
+- JavaScript reduction: 242,861 bytes.
+- CSS delta: 0 bytes.
+- Warning delta: 0.

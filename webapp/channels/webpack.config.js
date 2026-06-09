@@ -154,6 +154,10 @@ var config = {
             process: 'process/browser.js',
             Buffer: ['buffer', 'Buffer'],
         }),
+        new webpack.IgnorePlugin({
+            resourceRegExp: /^\.\/locale$/,
+            contextRegExp: /moment$/,
+        }),
         new MiniCssExtractPlugin({
             filename: '[name].[contenthash].css',
             chunkFilename: '[name].[contenthash].css',
