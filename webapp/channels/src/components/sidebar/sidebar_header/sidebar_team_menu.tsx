@@ -6,7 +6,6 @@ import {FormattedMessage} from 'react-intl';
 import {useDispatch, useSelector} from 'react-redux';
 import {useHistory} from 'react-router-dom';
 
-import LightbulbOutlineIcon from '@mattermost/compass-icons/components/lightbulb-outline';
 import AccountPlusOutlineIcon from '@mattermost/compass-icons/components/account-plus-outline';
 import AccountMultiplePlusOutlineIcon from '@mattermost/compass-icons/components/account-multiple-plus-outline';
 import SettingsOutlineIcon from '@mattermost/compass-icons/components/settings-outline';
@@ -104,8 +103,6 @@ export default function SidebarTeamMenu(props: Props) {
             {havePermissionToCreateTeam && (
                 <CreateTeamMenuItem/>
             )}
-            <Menu.Separator/>
-            <LearnAboutTeamsMenuItem/>
             <PluginMenuItems/>
         </Menu.Container>
     );
@@ -381,33 +378,6 @@ function CreateTeamMenuItem() {
                 <FormattedMessage
                     id='sidebarLeft.teamMenu.createTeamMenuItem.primaryLabel'
                     defaultMessage='Create a team'
-                />
-            )}
-        />
-    );
-}
-
-const MATTERMOST_ACADEMY_TEAM_TRAINING_LINK = '#';
-
-function LearnAboutTeamsMenuItem() {
-    const handleClick = useCallback(() => {
-        window.open(MATTERMOST_ACADEMY_TEAM_TRAINING_LINK, '_blank', 'noopener noreferrer');
-    }, []);
-
-    return (
-        <Menu.Item
-            className='learnAboutTeamsMenuItem'
-            onClick={handleClick}
-            leadingElement={(
-                <LightbulbOutlineIcon
-                    size={18}
-                    aria-hidden='true'
-                />
-            )}
-            labels={(
-                <FormattedMessage
-                    id='sidebarLeft.teamMenu.learnAboutTeamsMenuItem.primaryLabel'
-                    defaultMessage='Learn about teams'
                 />
             )}
         />
