@@ -3576,7 +3576,7 @@
   },
   {
     "id": "api.command_mute.no_channel.error",
-    "translation": "Podanega kanala ni bilo mogoče najti. Prosim uporabite [channel handle](https://about.mattermost.com/default-channel-handle-documentation) za identifikacijo kanalov."
+    "translation": "Podanega kanala ni bilo mogoče najti. Prosim uporabite channel handle za identifikacijo kanalov."
   },
   {
     "id": "api.command_mute.name",
@@ -3588,7 +3588,7 @@
   },
   {
     "id": "api.command_mute.error",
-    "translation": "{{.Channel}} ni možno najti. Prosim uporabite [channel handle](https://about.mattermost.com/default-channel-handle-documentation) za identifikacijo kanalov."
+    "translation": "{{.Channel}} ni možno najti. Prosim uporabite channel handle za identifikacijo kanalov."
   },
   {
     "id": "api.command_mute.desc",
@@ -3736,7 +3736,7 @@
   },
   {
     "id": "api.command_invite.channel.error",
-    "translation": "{{.Channel}} ni možno najti. Prosim uporabite [channel handle](https://about.mattermost.com/default-channel-handle-documentation) za identifikacijo kanalov."
+    "translation": "{{.Channel}} ni možno najti. Prosim uporabite channel handle za identifikacijo kanalov."
   },
   {
     "id": "api.command_invite.channel.app_error",

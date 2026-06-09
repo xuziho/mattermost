@@ -620,7 +620,7 @@
   },
   {
     "id": "api.command_invite.channel.error",
-    "translation": "{{.Channel}} kanalı bulunamadı. Lütfen kanalları belirtmek için [kanal kısaltması](https://docs.mattermost.com/messaging/managing-channels.html#naming-a-channel) kullanın."
+    "translation": "{{.Channel}} kanalı bulunamadı. Lütfen kanalları belirtmek için kanal kısaltması kullanın."
   },
   {
     "id": "api.command_invite.desc",
@@ -656,7 +656,7 @@
   },
   {
     "id": "api.command_invite.private_channel.app_error",
-    "translation": "{{.Channel}} kanalı bulunamadı. Lütfen kanalları belirtmek için [kanal kısaltmasını](https://docs.mattermost.com/messaging/managing-channels.html#naming-a-channel) kullanın."
+    "translation": "{{.Channel}} kanalı bulunamadı. Lütfen kanalları belirtmek için kanal kısaltmasını kullanın."
   },
   {
     "id": "api.command_invite.success",
@@ -767,7 +767,7 @@
   },
   {
     "id": "api.command_mute.error",
-    "translation": "{{.Channel}} kanalı bulunamadı. Lütfen kanalları belirtmek için [kanal kısaltması](https://docs.mattermost.com/messaging/managing-channels.html#naming-a-channel) kullanın."
+    "translation": "{{.Channel}} kanalı bulunamadı. Lütfen kanalları belirtmek için kanal kısaltması kullanın."
   },
   {
     "id": "api.command_mute.hint",
@@ -779,7 +779,7 @@
   },
   {
     "id": "api.command_mute.no_channel.error",
-    "translation": "Belirtilen kanal bulunamadı. Lütfen kanalları belirtmek için [kanal kısaltması](https://docs.mattermost.com/messaging/managing-channels.html#naming-a-channel) kullanın."
+    "translation": "Belirtilen kanal bulunamadı. Lütfen kanalları belirtmek için kanal kısaltması kullanın."
   },
   {
     "id": "api.command_mute.success_mute",

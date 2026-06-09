@@ -3937,7 +3937,7 @@
   },
   {
     "id": "api.command_mute.no_channel.error",
-    "translation": "Zadaný kanál nebyl nalezen. Použijte prosím [identifikátor kanálu](https://docs.mattermost.com/messaging/managing-channels.html#naming-a-channel) k určení kanálů."
+    "translation": "Zadaný kanál nebyl nalezen. Použijte prosím identifikátor kanálu k určení kanálů."
   },
   {
     "id": "api.command_mute.name",
@@ -3949,7 +3949,7 @@
   },
   {
     "id": "api.command_mute.error",
-    "translation": "Kanál {{.Channel}} nebyl nalezen. Použijte prosím [identifikátor kanálu](https://about.mattermost.com/default-channel-handle-documentation) k identifikaci kanálů."
+    "translation": "Kanál {{.Channel}} nebyl nalezen. Použijte prosím identifikátor kanálu k identifikaci kanálů."
   },
   {
     "id": "api.command_mute.desc",
@@ -4065,7 +4065,7 @@
   },
   {
     "id": "api.command_invite.private_channel.app_error",
-    "translation": "Nelze najít kanál {{.Channel}}. K identifikaci kanálů prosím použijte [channel handle](https://docs.mattermost.com/messaging/managing-channels.html#naming-a-channel)."
+    "translation": "Nelze najít kanál {{.Channel}}. K identifikaci kanálů prosím použijte channel handle."
   },
   {
     "id": "api.command_invite.permission.app_error",
@@ -4101,7 +4101,7 @@
   },
   {
     "id": "api.command_invite.channel.error",
-    "translation": "Nelze najít kanál {{.Channel}}. Použijte prosím [channel handle](https://about.mattermost.com/default-channel-handle-documentation) k identifikaci kanálů."
+    "translation": "Nelze najít kanál {{.Channel}}. Použijte prosím channel handle k identifikaci kanálů."
   },
   {
     "id": "api.command_invite.channel.app_error",

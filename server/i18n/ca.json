@@ -3477,7 +3477,7 @@
   },
   {
     "id": "api.command_mute.no_channel.error",
-    "translation": "No s'ha pogut trobar el canal especificat. Utilitza l'[identificador del canal](https://about.mattermost.com/default-channel-handle-documentation) per identificar canals."
+    "translation": "No s'ha pogut trobar el canal especificat. Utilitza l'identificador del canal per identificar canals."
   },
   {
     "id": "api.command_mute.name",
@@ -3489,7 +3489,7 @@
   },
   {
     "id": "api.command_mute.error",
-    "translation": "No s'ha pogut trobar el canal {{.Channel}}. Utilitza l'[identificador del canal](https://about.mattermost.com/default-channel-handle-documentation) per identificar canals."
+    "translation": "No s'ha pogut trobar el canal {{.Channel}}. Utilitza l'identificador del canal per identificar canals."
   },
   {
     "id": "api.command_mute.desc",
@@ -3637,7 +3637,7 @@
   },
   {
     "id": "api.command_invite.channel.error",
-    "translation": "No s'ha pogut trobar el canal {{.Channel}}. Utilitza l'[identificador del canal](https://about.mattermost.com/default-channel-handle-documentation) per identificar canals."
+    "translation": "No s'ha pogut trobar el canal {{.Channel}}. Utilitza l'identificador del canal per identificar canals."
   },
   {
     "id": "api.command_invite.channel.app_error",

@@ -620,7 +620,7 @@
   },
   {
     "id": "api.command_invite.channel.error",
-    "translation": "Kan het kanaal {{.Channel}} niet vinden. Gebruik de [kanaalaanduiding](https://docs.mattermost.com/messaging/managing-channels.html#naming-a-channel) om kanalen aan te duiden."
+    "translation": "Kan het kanaal {{.Channel}} niet vinden. Gebruik de kanaalaanduiding om kanalen aan te duiden."
   },
   {
     "id": "api.command_invite.desc",
@@ -656,7 +656,7 @@
   },
   {
     "id": "api.command_invite.private_channel.app_error",
-    "translation": "Kan het kanaal{{.Channel}} niet vinden. Gebruik de [kanaalaanduiding](https://docs.mattermost.com/messaging/managing-channels.html#naming-a-channel) om kanalen aan te duiden."
+    "translation": "Kan het kanaal{{.Channel}} niet vinden. Gebruik de kanaalaanduiding om kanalen aan te duiden."
   },
   {
     "id": "api.command_invite.success",
@@ -767,7 +767,7 @@
   },
   {
     "id": "api.command_mute.error",
-    "translation": "Kan het kanaal {{.Channel}} niet vinden. Gebruik de [kanaalaanduiding](https://docs.mattermost.com/messaging/managing-channels.html#naming-a-channel) om kanalen aan te duiden."
+    "translation": "Kan het kanaal {{.Channel}} niet vinden. Gebruik de kanaalaanduiding om kanalen aan te duiden."
   },
   {
     "id": "api.command_mute.hint",
@@ -779,7 +779,7 @@
   },
   {
     "id": "api.command_mute.no_channel.error",
-    "translation": "Kan het opgegeven kanaal niet vinden. Gebruik de [kanaalaanduiding](https://docs.mattermost.com/messaging/managing-channels.html#naming-a-channel) om kanalen aan te duiden."
+    "translation": "Kan het opgegeven kanaal niet vinden. Gebruik de kanaalaanduiding om kanalen aan te duiden."
   },
   {
     "id": "api.command_mute.success_mute",

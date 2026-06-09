@@ -5274,7 +5274,7 @@
   },
   {
     "id": "api.command_mute.no_channel.error",
-    "translation": "Не е намерен зададения канал. Моля, използвайте [адреса на канала](https://docs.mattermost.com/messaging/managing-channels.html#naming-a-channel) за да определяте канали."
+    "translation": "Не е намерен зададения канал. Моля, използвайте адреса на канала за да определяте канали."
   },
   {
     "id": "api.command_mute.name",
@@ -5286,7 +5286,7 @@
   },
   {
     "id": "api.command_mute.error",
-    "translation": "Не е намерен канала {{.Channel}}. Моля, използвайте [адреса на канала](https://docs.mattermost.com/messaging/managing-channels.html#naming-a-channel) за да определяте канали."
+    "translation": "Не е намерен канала {{.Channel}}. Моля, използвайте адреса на канала за да определяте канали."
   },
   {
     "id": "api.command_mute.desc",
@@ -5434,7 +5434,7 @@
   },
   {
     "id": "api.command_invite.channel.error",
-    "translation": "Не е намерен канала {{.Channel}}. Моля, използвайте [адреса на канала](https://docs.mattermost.com/messaging/managing-channels.html#naming-a-channel) за да определяте канали."
+    "translation": "Не е намерен канала {{.Channel}}. Моля, използвайте адреса на канала за да определяте канали."
   },
   {
     "id": "api.command_invite.channel.app_error",

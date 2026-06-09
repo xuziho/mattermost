@@ -619,7 +619,7 @@
   },
   {
     "id": "api.command_invite.channel.error",
-    "translation": "找不到頻道 {{.Channel}}。請用[頻道代號](https://docs.mattermost.com/messaging/managing-channels.html#naming-a-channel)以分辨頻道。"
+    "translation": "找不到頻道 {{.Channel}}。請用頻道代號以分辨頻道。"
   },
   {
     "id": "api.command_invite.desc",
@@ -655,7 +655,7 @@
   },
   {
     "id": "api.command_invite.private_channel.app_error",
-    "translation": "找不到頻道 {{.Channel}}。請用[頻道代號](https://docs.mattermost.com/messaging/managing-channels.html#naming-a-channel)以分辨頻道。"
+    "translation": "找不到頻道 {{.Channel}}。請用頻道代號以分辨頻道。"
   },
   {
     "id": "api.command_invite.success",
@@ -763,7 +763,7 @@
   },
   {
     "id": "api.command_mute.error",
-    "translation": "找不到頻道 {{.Channel}}。請用[頻道代號](https://docs.mattermost.com/messaging/managing-channels.html#naming-a-channel)以分辨頻道。"
+    "translation": "找不到頻道 {{.Channel}}。請用頻道代號以分辨頻道。"
   },
   {
     "id": "api.command_mute.hint",
@@ -775,7 +775,7 @@
   },
   {
     "id": "api.command_mute.no_channel.error",
-    "translation": "找不到指定的頻道。請用[頻道代號](https://docs.mattermost.com/messaging/managing-channels.html#naming-a-channel)找出頻道。"
+    "translation": "找不到指定的頻道。請用頻道代號找出頻道。"
   },
   {
     "id": "api.command_mute.success_mute",

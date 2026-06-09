@@ -535,7 +535,7 @@
   },
   {
     "id": "api.command_mute.no_channel.error",
-    "translation": "Không thể tìm thấy kênh chỉ định. Vui lòng sử dụng [xử lý kênh] (https://about.mattermost.com/default-channel-handle-documentation) để xác định các kênh."
+    "translation": "Không thể tìm thấy kênh chỉ định. Vui lòng sử dụng xử lý kênh để xác định các kênh."
   },
   {
     "id": "api.user.upload_profile_user.storage.app_error",
@@ -4323,7 +4323,7 @@
   },
   {
     "id": "api.command_invite.channel.error",
-    "translation": "Không thể tìm thấy kênh {{.Channel}}. Vui lòng sử dụng [xử lý kênh](https://about.mattermost.com/default-channel-handle-documentation) để xác định các kênh."
+    "translation": "Không thể tìm thấy kênh {{.Channel}}. Vui lòng sử dụng xử lý kênh để xác định các kênh."
   },
   {
     "id": "api.user.demote_user_to_guest.already_guest.app_error",
@@ -4449,7 +4449,7 @@
   },
   {
     "id": "api.command_mute.error",
-    "translation": "Không thể tìm thấy kênh {{.Channel}}. Vui lòng sử dụng [xử lý kênh] (https://about.mattermost.com/default-channel-handle-documentation) để xác định các kênh."
+    "translation": "Không thể tìm thấy kênh {{.Channel}}. Vui lòng sử dụng xử lý kênh để xác định các kênh."
   },
   {
     "id": "api.user.ldap_to_email.not_ldap_account.app_error",

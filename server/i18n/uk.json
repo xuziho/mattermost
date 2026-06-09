@@ -621,7 +621,7 @@
   },
   {
     "id": "api.command_invite.channel.error",
-    "translation": "Не вдалося знайти канал {{.Channel}}. Будь ласка, використовуйте [назву каналу](https://docs.mattermost.com/messaging/managing-channels.html#naming-a-channel) для ідентифікації каналів."
+    "translation": "Не вдалося знайти канал {{.Channel}}. Будь ласка, використовуйте назву каналу для ідентифікації каналів."
   },
   {
     "id": "api.command_invite.desc",
@@ -657,7 +657,7 @@
   },
   {
     "id": "api.command_invite.private_channel.app_error",
-    "translation": "Не вдалося знайти канал {{.Channel}}. Будь ласка, використовуйте [управління каналом](https://docs.mattermost.com/messaging/managing-channels.html#naming-a-channel) для ідентифікації каналів."
+    "translation": "Не вдалося знайти канал {{.Channel}}. Будь ласка, використовуйте управління каналом для ідентифікації каналів."
   },
   {
     "id": "api.command_invite.success",
@@ -769,7 +769,7 @@
   },
   {
     "id": "api.command_mute.error",
-    "translation": "Канал {{.Channel}} не знайдено. Зверніть, будь ласка, увагу, що для ідентифікації каналів слід використовувати [ідентифікатор каналу](https://docs.mattermost.com/messaging/managing-channels.html#naming-a-channel)."
+    "translation": "Канал {{.Channel}} не знайдено. Зверніть, будь ласка, увагу, що для ідентифікації каналів слід використовувати ідентифікатор каналу."
   },
   {
     "id": "api.command_mute.hint",
@@ -781,7 +781,7 @@
   },
   {
     "id": "api.command_mute.no_channel.error",
-    "translation": "Не вдалося знайти вказаний канал. Будь ласка, використовуйте [гештег каналу](https://docs.mattermost.com/messaging/managing-channels.html#naming-a-channel) для ідентифікаціі каналів."
+    "translation": "Не вдалося знайти вказаний канал. Будь ласка, використовуйте гештег каналу для ідентифікаціі каналів."
   },
   {
     "id": "api.command_mute.success_mute",

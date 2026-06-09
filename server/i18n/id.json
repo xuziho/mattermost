@@ -2937,7 +2937,7 @@
   },
   {
     "id": "api.command_invite.private_channel.app_error",
-    "translation": "Tidak dapat menemukan saluran {{.Channel}}. Silakan gunakan [pegangan saluran] (https://docs.mattermost.com/messaging/managing-channels.html#naming-a-channel) untuk mengidentifikasi saluran."
+    "translation": "Tidak dapat menemukan saluran {{.Channel}}. Silakan gunakan pegangan saluran untuk mengidentifikasi saluran."
   },
   {
     "id": "api.command_mute.desc",
@@ -2945,7 +2945,7 @@
   },
   {
     "id": "api.command_mute.error",
-    "translation": "Tidak dapat menemukan saluran {{.Channel}}. Silakan gunakan [pegangan saluran] (https://docs.mattermost.com/messaging/managing-channels.html#naming-a-channel) untuk mengidentifikasi saluran."
+    "translation": "Tidak dapat menemukan saluran {{.Channel}}. Silakan gunakan pegangan saluran untuk mengidentifikasi saluran."
   },
   {
     "id": "api.command_invite.user_not_in_team.messageOverflow",
@@ -3093,7 +3093,7 @@
   },
   {
     "id": "api.command_invite.channel.error",
-    "translation": "Tidak dapat menemukan saluran {{.Channel}}. Silakan gunakan [pegangan saluran] (https://docs.mattermost.com/messaging/managing-channels.html#naming-a-channel) untuk mengidentifikasi saluran."
+    "translation": "Tidak dapat menemukan saluran {{.Channel}}. Silakan gunakan pegangan saluran untuk mengidentifikasi saluran."
   },
   {
     "id": "api.command_invite.channel_constrained_user_denied",
@@ -3171,7 +3171,7 @@
   },
   {
     "id": "api.command_mute.no_channel.error",
-    "translation": "Tidak dapat menemukan saluran yang ditentukan. Silakan gunakan [pegangan saluran] (https://docs.mattermost.com/messaging/managing-channels.html#naming-a-channel) untuk mengidentifikasi saluran."
+    "translation": "Tidak dapat menemukan saluran yang ditentukan. Silakan gunakan pegangan saluran untuk mengidentifikasi saluran."
   },
   {
     "id": "api.command_mute.success_unmute",

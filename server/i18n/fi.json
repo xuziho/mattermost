@@ -3730,7 +3730,7 @@
   },
   {
     "id": "api.command_mute.no_channel.error",
-    "translation": "Kanavaa ei löydetty. Käytä [kanavan tunnistetta](https://about.mattermost.com/default-channel-handle-documentation) sen määrittämiseen."
+    "translation": "Kanavaa ei löydetty. Käytä kanavan tunnistetta sen määrittämiseen."
   },
   {
     "id": "api.command_mute.name",
@@ -3742,7 +3742,7 @@
   },
   {
     "id": "api.command_mute.error",
-    "translation": "Kanavaa {{.Channel}} ei löydetty. Käytä [kanavan tunnistetta](https://about.mattermost.com/default-channel-handle-documentation) kanavan määrittämiseen."
+    "translation": "Kanavaa {{.Channel}} ei löydetty. Käytä kanavan tunnistetta kanavan määrittämiseen."
   },
   {
     "id": "api.user.login_by_oauth.not_available.app_error",
@@ -4141,7 +4141,7 @@
   },
   {
     "id": "api.command_invite.channel.error",
-    "translation": "Kanavaa {{.Channel}} ei löydetty. Käytä [kanavan tunnistetta](https://about.mattermost.com/default-channel-handle-documentation) kanavan löytämiseen."
+    "translation": "Kanavaa {{.Channel}} ei löydetty. Käytä kanavan tunnistetta kanavan löytämiseen."
   },
   {
     "id": "api.command_invite.channel.app_error",

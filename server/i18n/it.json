@@ -621,7 +621,7 @@
   },
   {
     "id": "api.command_invite.channel.error",
-    "translation": "Impossibile trovare il canale {{.Channel}}. Usare [channel handle](https://docs.mattermost.com/messaging/managing-channels.html#naming-a-channel) per identificare i canali."
+    "translation": "Impossibile trovare il canale {{.Channel}}. Usare channel handle per identificare i canali."
   },
   {
     "id": "api.command_invite.desc",
@@ -765,7 +765,7 @@
   },
   {
     "id": "api.command_mute.error",
-    "translation": "Impossibile trovare il canale {{.Channel}}. Usare [channel handle](https://docs.mattermost.com/messaging/managing-channels.html#naming-a-channel) per identificare i canali."
+    "translation": "Impossibile trovare il canale {{.Channel}}. Usare channel handle per identificare i canali."
   },
   {
     "id": "api.command_mute.hint",
@@ -777,7 +777,7 @@
   },
   {
     "id": "api.command_mute.no_channel.error",
-    "translation": "Impossibile trovare il canale specificato. Usare [channel handle](https://docs.mattermost.com/messaging/managing-channels.html#naming-a-channel) per identificare i canali."
+    "translation": "Impossibile trovare il canale specificato. Usare channel handle per identificare i canali."
   },
   {
     "id": "api.command_mute.success_mute",
