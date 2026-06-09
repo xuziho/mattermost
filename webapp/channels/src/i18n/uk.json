@@ -3172,8 +3172,6 @@
   "claim.oauth_to_email.pwdNotMatch": "Паролі не збігаються.",
   "claim.oauth_to_email.switchTo": "Змініть {type} на електронну адресу та пароль",
   "claim.oauth_to_email.title": "Переключити акаунт {type} на E-Mail",
-  "cloud.fetch_error": "Помилка при отриманні даних для виставлення рахунків. Будь ласка, повторіть спробу пізніше.",
-  "cloud.fetch_error.retry": "Спробувати знову",
   "cloud.invoice_pdf_preview.download": "<downloadLink>Завантажте</downloadLink> цю сторінку для своїх записів",
   "cloud_archived.error.access": "Permalink belongs to a message that has been archived.",
   "cloud_archived.error.title": "Повідомлення заархівовано",

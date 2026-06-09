@@ -3472,8 +3472,6 @@
   "claim.oauth_to_email.pwdNotMatch": "Lösenorden matchar inte.",
   "claim.oauth_to_email.switchTo": "Ändra {type} till att använda e-post och lösenord",
   "claim.oauth_to_email.title": "Byt {type}-konto till e-post",
-  "cloud.fetch_error": "Fel vid hämtning av faktureringsdata. Försök igen senare.",
-  "cloud.fetch_error.retry": "Försök igen",
   "cloud.invoice_pdf_preview.download": "<downloadLink>Ladda ner</downloadLink> denna sida för din dokumentation",
   "cloud_archived.error.access": "Permalink belongs to a message that has been archived.",
   "cloud_archived.error.title": "Meddelandet arkiverat",

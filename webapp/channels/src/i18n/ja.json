@@ -3358,8 +3358,6 @@
   "claim.oauth_to_email.pwdNotMatch": "パスワードが一致していません。",
   "claim.oauth_to_email.switchTo": "{type}を電子メールアドレスとパスワードでのログインに切り替える",
   "claim.oauth_to_email.title": "{type}アカウントを電子メールアドレスに切り替える",
-  "cloud.fetch_error": "請求データの取得中にエラーが発生しました。後でもう一度試してみてください。",
-  "cloud.fetch_error.retry": "リトライ",
   "cloud.invoice_pdf_preview.download": "記録用にこのページを<downloadLink>ダウンロードする</downloadLink>",
   "cloud_archived.error.access": "Permalink belongs to a message that has been archived.",
   "cloud_archived.error.title": "アーカイブ済みメッセージ",

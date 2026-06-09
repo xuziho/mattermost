@@ -2416,8 +2416,6 @@
   "claim.oauth_to_email.pwdNotMatch": "Mật khẩu không phù khớp.",
   "claim.oauth_to_email.switchTo": "Chuyển {type} sang Email và Mật khẩu",
   "claim.oauth_to_email.title": "Chuyển Tài khoản {type} sang Email",
-  "cloud.fetch_error": "Lỗi khi tìm nạp dữ liệu thanh toán. Vui lòng thử lại sau.",
-  "cloud.fetch_error.retry": "Thử lại",
   "cloud.invoice_pdf_preview.download": "<downloadLink>Tải xuống</downloadLink> trang này cho hồ sơ của bạn",
   "cloud_archived.error.access": "Permalink belongs to a message that has been archived.",
   "cloud_archived.error.title": "Tin nhắn được lưu trữ",

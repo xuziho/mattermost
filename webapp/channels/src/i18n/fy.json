@@ -2373,8 +2373,6 @@
   "claim.oauth_to_email.pwdNotMatch": "De wachtwoorden zijn niet gelijk.",
   "claim.oauth_to_email.switchTo": "Wijzigen van {type} naar het gebruik van e-mail en password",
   "claim.oauth_to_email.title": "Wissen {type} account naar e-mail",
-  "cloud.fetch_error": "Fout bij het ophalen van facturatiegegevens. Probeer het later nog eens.",
-  "cloud.fetch_error.retry": "Opnieuw proberen",
   "cloud.invoice_pdf_preview.download": "<downloadLink>Download</downloadLink> deze pagina voor jouw administratie",
   "cloud_archived.error.access": "Permalink belongs to a message that has been archived.",
   "cloud_archived.error.title": "Bericht gearchiveerd",

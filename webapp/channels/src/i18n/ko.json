@@ -3339,8 +3339,6 @@
   "claim.oauth_to_email.pwdNotMatch": "패스워드가 일치하지 않습니다.",
   "claim.oauth_to_email.switchTo": "Switch {type} to email and password",
   "claim.oauth_to_email.title": "{type} 계정을 전자우편 계정으로 변경합니다",
-  "cloud.fetch_error": "청구 데이터를 가져오는 중 오류가 발생했습니다. 나중에 다시 시도하세요.",
-  "cloud.fetch_error.retry": "다시 시도",
   "cloud.invoice_pdf_preview.download": "<downloadLink>다운로드</downloadLink> 기록을 위해 이 페이지",
   "cloud_archived.error.access": "Permalink belongs to a message that has been archived.",
   "cloud_archived.error.title": "메시지 보관",

@@ -2612,7 +2612,6 @@
   "claim.oauth_to_email.pwdNotMatch": "Les mots de passe ne correspondent pas.",
   "claim.oauth_to_email.switchTo": "Basculer le type de connexion de {type} vers le couple adresse e-mail et mot de passe",
   "claim.oauth_to_email.title": "Basculer la connexion de type {type} vers l'utilisation d'une adresse e-mail",
-  "cloud.fetch_error.retry": "Réessayer",
   "collapsed_reply_threads_modal.confirm": "J'ai compris",
   "combined_system_message.added_to_channel.many_expanded": "{users} et {lastUser} ont été **ajoutés au canal** par {actor}.",
   "combined_system_message.added_to_channel.one": "{firstUser} **ajouté au canal** par {actor}.",

@@ -2804,8 +2804,6 @@
   "claim.oauth_to_email.pwdNotMatch": "Passordene stemmer ikke overens.",
   "claim.oauth_to_email.switchTo": "Bytt {type} til e-post og passord",
   "claim.oauth_to_email.title": "Bytt {type} -konto til e-post",
-  "cloud.fetch_error": "Feil oppsto ved henting av faktureringsdata. Prøv igjen senere.",
-  "cloud.fetch_error.retry": "Prøv på nytt",
   "cloud_archived.error.title": "Melding arkivert",
   "collapsed_reply_threads_modal.confirm": "Forstår",
   "combined_system_message.added_to_channel.many_expanded": "{users} og {lastUser} ble **lagt til kanalen** av {actor}.",

@@ -3148,8 +3148,6 @@
   "claim.oauth_to_email.pwdNotMatch": "Пароли не совпадают.",
   "claim.oauth_to_email.switchTo": "Перейти с {type} к использованию e-mail и пароля",
   "claim.oauth_to_email.title": "Переключить аккаунт {type} на E-Mail",
-  "cloud.fetch_error": "Ошибка при получении данных для выставления счетов. Пожалуйста, повторите попытку позже.",
-  "cloud.fetch_error.retry": "Повторить",
   "cloud.invoice_pdf_preview.download": "<downloadLink>Скачайте</downloadLink> эту страницу для своих записей",
   "cloud_archived.error.access": "Permalink belongs to a message that has been archived.",
   "cloud_archived.error.title": "Сообщение заархивировано",

@@ -3598,8 +3598,6 @@
   "claim.oauth_to_email.pwdNotMatch": "密码不匹配。",
   "claim.oauth_to_email.switchTo": "切换{type}为邮箱和密码",
   "claim.oauth_to_email.title": "切换{type}账号为邮箱",
-  "cloud.fetch_error": "获取计费数据时出错。请稍后重试。",
-  "cloud.fetch_error.retry": "重试",
   "cloud.invoice_pdf_preview.download": "<downloadLink>下载</downloadLink>此页面以备记录",
   "cloud_archived.error.access": "Permalink belongs to a message that has been archived.",
   "cloud_archived.error.title": "消息已存档",

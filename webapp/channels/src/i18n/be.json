@@ -3524,8 +3524,6 @@
   "claim.oauth_to_email.pwdNotMatch": "Паролі не супадаюць.",
   "claim.oauth_to_email.switchTo": "Пераключыць {type} на Email і Пароль",
   "claim.oauth_to_email.title": "Пераключыць уліковы запіс {type} на Email",
-  "cloud.fetch_error": "Памылка атрымання дадзеных для выстаўлення рахункаў. Калі ласка, паспрабуйце яшчэ раз пазней.",
-  "cloud.fetch_error.retry": "Паўтарыць",
   "cloud.invoice_pdf_preview.download": "<downloadLink>Спампаваць</downloadLink> гэту старонку для вашых запісаў",
   "cloud_archived.error.access": "Permalink belongs to a message that has been archived.",
   "cloud_archived.error.title": "Паведамленне архівавана",

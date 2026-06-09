@@ -2259,7 +2259,6 @@
   "claim.oauth_to_email.pwdNotMatch": "رمزهای ورود مطابقت ندارند.",
   "claim.oauth_to_email.switchTo": "{type} را به ایمیل و رمز عبور تغییر دهید",
   "claim.oauth_to_email.title": "حساب {type} را به ایمیل تغییر دهید",
-  "cloud.fetch_error.retry": "تلاش‌دوباره",
   "cloud_archived.error.title": "پیام بایگانی شد",
   "collapsed_reply_threads_modal.confirm": "فهمیدم",
   "combined_system_message.added_to_channel.many_expanded": "{users} و {lastUser} توسط {actor} **به کانال** اضافه شدند.",

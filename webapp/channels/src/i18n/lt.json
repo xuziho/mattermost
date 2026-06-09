@@ -2450,8 +2450,6 @@
   "claim.oauth_to_email.pwdNotMatch": "Slaptažodžiai nesutampa.",
   "claim.oauth_to_email.switchTo": "Perjunkite {type} į El. pašto adresą ir slaptažodį",
   "claim.oauth_to_email.title": "Perjunkite {type} paskyrą į el. paštą",
-  "cloud.fetch_error": "Gaunant atsiskaitymo duomenis įvyko klaida. Pabandykite dar kartą vėliau.",
-  "cloud.fetch_error.retry": "Bandykite dar kartą",
   "cloud.invoice_pdf_preview.download": "<downloadLink>parsisiųsti</downloadLink> šis puslapis Jūsų įrašams",
   "cloud_archived.error.access": "Permalink belongs to a message that has been archived.",
   "cloud_archived.error.title": "Laiškas suarchyvuotas",

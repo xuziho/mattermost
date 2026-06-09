@@ -2946,8 +2946,6 @@
   "claim.oauth_to_email.pwdNotMatch": "密碼不相符。",
   "claim.oauth_to_email.switchTo": "切換 {type} 至電子郵件、密碼",
   "claim.oauth_to_email.title": "由 {type} 帳號切換成電子郵件",
-  "cloud.fetch_error": "取得帳單資料時發生錯誤。請稍後再試。",
-  "cloud.fetch_error.retry": "重試",
   "cloud.invoice_pdf_preview.download": "<downloadLink>下載</downloadLink> 此頁面作為您的記錄",
   "cloud_archived.error.access": "Permalink belongs to a message that has been archived.",
   "cloud_archived.error.title": "訊息已封存",

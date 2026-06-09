@@ -2505,8 +2505,6 @@
   "claim.oauth_to_email.pwdNotMatch": "Las contraseñas no coinciden.",
   "claim.oauth_to_email.switchTo": "Cambiar {type} a correo electrónico y contraseña",
   "claim.oauth_to_email.title": "Cambiar la cuenta de {type} a Correo Electrónico",
-  "cloud.fetch_error": "Error al obtener los datos da pago. Por favor intenta más tarde.",
-  "cloud.fetch_error.retry": "Reintentar",
   "cloud.invoice_pdf_preview.download": "<downloadLink>Descarga</downloadLink> esta página para tus registros",
   "cloud_archived.error.access": "Permalink belongs to a message that has been archived.",
   "cloud_archived.error.title": "Mensaje archivado",

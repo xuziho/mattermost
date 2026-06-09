@@ -3672,8 +3672,6 @@
   "claim.oauth_to_email.pwdNotMatch": "Die Passwörter stimmen nicht überein.",
   "claim.oauth_to_email.switchTo": "Wechsel von {type} auf E-Mail-Adresse und Passwort",
   "claim.oauth_to_email.title": "Von {type}-Konto auf E-Mail wechseln",
-  "cloud.fetch_error": "Fehler beim Abrufen der Rechnungsdaten. Bitte versuch es später noch einmal.",
-  "cloud.fetch_error.retry": "Erneut versuchen",
   "cloud.invoice_pdf_preview.download": "Diese Seite für deine Unterlagen <downloadLink>runterladen</downloadLink>",
   "cloud_archived.error.access": "Permalink belongs to a message that has been archived.",
   "cloud_archived.error.title": "Nachricht archiviert",

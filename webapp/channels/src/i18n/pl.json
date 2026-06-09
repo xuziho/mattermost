@@ -3679,8 +3679,6 @@
   "claim.oauth_to_email.pwdNotMatch": "Hasła nie zgadzają się.",
   "claim.oauth_to_email.switchTo": "Przełącz {type} na e-mail i hasło",
   "claim.oauth_to_email.title": "Przełącz konto {type} na e-mail",
-  "cloud.fetch_error": "Błąd pobierania danych rozliczeniowych. Proszę spróbować ponownie później.",
-  "cloud.fetch_error.retry": "Ponów",
   "cloud.invoice_pdf_preview.download": "<downloadLink>Pobierz</downloadLink> tę stronę dla swoich potrzeb",
   "cloud_archived.error.access": "Permalink belongs to a message that has been archived.",
   "cloud_archived.error.title": "Wiadomość zarchiwizowana",

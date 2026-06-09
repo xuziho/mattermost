@@ -3356,8 +3356,6 @@
   "claim.oauth_to_email.pwdNotMatch": "Hesla se neshodují.",
   "claim.oauth_to_email.switchTo": "Přepnout {type} na používání e-mail a hesla",
   "claim.oauth_to_email.title": "Přepnout {type} účtu na e-mail",
-  "cloud.fetch_error": "Chyba při získávání platebních údajů. Zkuste to prosím později.",
-  "cloud.fetch_error.retry": "Zkusit znovu",
   "cloud.invoice_pdf_preview.download": "<downloadLink>Stáhnout</downloadLink> tuto stránku pro vaše záznamy",
   "cloud_archived.error.access": "Permalink belongs to a message that has been archived.",
   "cloud_archived.error.title": "Archivovaná zpráva",

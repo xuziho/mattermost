@@ -3402,8 +3402,6 @@
   "claim.oauth_to_email.pwdNotMatch": "Parola ile onayı aynı değil.",
   "claim.oauth_to_email.switchTo": "{type} hesabını e-posta ve parola olarak değiştir",
   "claim.oauth_to_email.title": "{type} hesabını e-posta olarak değiştir",
-  "cloud.fetch_error": "Fatura verileri alınırken sorun çıktı. Lütfen bir süre sonra yeniden deneyin.",
-  "cloud.fetch_error.retry": "Yeniden dene",
   "cloud.invoice_pdf_preview.download": "Kayıtlarınız için bu sayfayı <downloadLink>indirin</downloadLink>",
   "cloud_archived.error.access": "Permalink belongs to a message that has been archived.",
   "cloud_archived.error.title": "İleti arşivlenmiş",
