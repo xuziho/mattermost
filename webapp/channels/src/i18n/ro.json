@@ -884,7 +884,6 @@
   "admin.license.choose": "Alegeți un fișier",
   "admin.license.enterprise.restarting": "Repornirea",
   "admin.license.key": "Cheie de licență: ",
-  "admin.license.keyRemove": "Eliminați licența Enterprise și serverul de downgrade",
   "admin.license.removing": "Se elimină licența ...",
   "admin.license.renewalCard.licenseExpired": "Licența a expirat la {data, data, long}.",
   "admin.license.renewalCard.licenseExpiring": "Licența expiră peste {zile} zile la {data, data, long}.",

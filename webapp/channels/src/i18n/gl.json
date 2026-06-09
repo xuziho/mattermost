@@ -823,7 +823,6 @@
   "admin.license.choose": "Escolla o ficheiro",
   "admin.license.enterprise.restarting": "Reiniciando",
   "admin.license.key": "Chave da licenza: ",
-  "admin.license.keyRemove": "Retire a licenza de empresa e reverta o servidor",
   "admin.license.removing": "Retirando a licenza…",
   "admin.license.title": "Edición e licenza",
   "admin.lockTeammateNameDisplay": "Bloquear a vista do nome do compañeiro de equipo para todos os usuarios: ",

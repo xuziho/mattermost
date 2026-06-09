@@ -854,7 +854,6 @@
   "admin.ldap.usernameAttrTitle": "Attributo del nome utente:",
   "admin.license.choose": "Scegliere file",
   "admin.license.key": "Chiave di Licenza: ",
-  "admin.license.keyRemove": "Cancella licenza Enterprise ed esegui Downgrade del server",
   "admin.license.removing": "Rimozione Licenza...",
   "admin.license.title": "Edizione e Licenza",
   "admin.lockTeammateNameDisplay": "Blocca il nome del collega per tutti gli utenti: ",

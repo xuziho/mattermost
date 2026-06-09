@@ -500,7 +500,6 @@
   "admin.ldap.userFilterTitle": "Käyttäjäsuodatin:",
   "admin.ldap.usernameAttrDesc": "AD/LDAP palvelimen attribuutti jota käytetään käyttäjänimikentän lähteenä Mattermostissa. Voi olla sama kuin kirjautumis-ID attribuutti.",
   "admin.license.key": "Lisenssiavain: ",
-  "admin.license.keyRemove": "Poista Enterprise lisenssi ja pudota palvelimen tasoa",
   "admin.license.removing": "Poistetaan lisenssi...",
   "admin.log.consoleJsonTitle": "Tulosta konsolilogit JSON-muodossa:",
   "admin.log.consoleTitle": "Tulosta lokit konsoliin: ",

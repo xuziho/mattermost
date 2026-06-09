@@ -1168,7 +1168,6 @@
   "admin.license.freeEdition.title": "Gratuito",
   "admin.license.key": "Chave da Licença: ",
   "admin.license.keyAddNew": "Adicionar uma nova licença",
-  "admin.license.keyRemove": "Remover a Licença Enterprise e fazer Downgrade do Servidor",
   "admin.license.modal.done": "Concluído",
   "admin.license.modal.upload": "Enviar",
   "admin.license.modal.uploading": "Enviando",
