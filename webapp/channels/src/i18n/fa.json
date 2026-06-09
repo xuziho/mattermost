@@ -3779,7 +3779,6 @@
   "web.root.signup_info": "همه ارتباطات تیمی در یک مکان، قابل جستجو و در دسترس در هر نقطه",
   "webapp.mattermost.feature.guest_accounts": "حساب‌کاربری‌های مهمان",
   "webapp.mattermost.feature.unlimited_messages": "پیام‌های نامحدود",
-  "webapp.mattermost.feature.upgrade_downgraded_workspace": "بازگردانی محیط کار به طرح پرداخت‌شده",
   "widget.passwordInput.password": "رمز",
   "widgets.channels_input.empty": "کانالی پیدا نشد",
   "widgets.channels_input.loading": "بارگذاری",

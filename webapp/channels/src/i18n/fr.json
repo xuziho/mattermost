@@ -765,7 +765,6 @@
   "admin.experimental.userStatusAwayTimeout.title": "Délai d'attente après lequel le statut de l'utilisateur passe en « Absent » :",
   "admin.false": "Non",
   "admin.featureDiscovery.WarningDescription": "Votre licence est en cours de mise à jour afin de vous donner l’accès complet à toutes les fonctionnalités de Mattermost Enterprise. Cette page se rafraîchira automatiquement une fois que la mise à jour de la licence sera terminée. Veuillez patienter ",
-  "admin.featureDiscovery.WarningTitle": "Votre essai a commencé et les mises à jour de votre licence sont en cours .",
   "admin.feature_flags.flag": "Marquer",
   "admin.feature_flags.flag_value": "Valeur",
   "admin.feature_flags.introBanner": "Les valeurs des indicateurs de fonctionnalité suivants indiquent l'état des fonctionnalités activées sur cette instance. Elles sont uniquement destinées à des fins de débogage par l'équipe d'aide de Mattermost.",

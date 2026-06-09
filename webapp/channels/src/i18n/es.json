@@ -718,7 +718,6 @@
   "admin.experimental.userStatusAwayTimeout.title": "Tiempo de espera para Estado Ausente del Usuario:",
   "admin.false": "Falso",
   "admin.featureDiscovery.WarningDescription": "Tu Licencia está siendo actualizada para darte acceso completo a todas las características Enterprise. Ésta página se actualizará automáticamente una vez que se complete la actualización de la licencia. Por favor espera ",
-  "admin.featureDiscovery.WarningTitle": "Tu prueba ha comenzado y se están realizando actualizaciones a tu licencia.",
   "admin.feature_flags.flag": "Indicador",
   "admin.feature_flags.flag_value": "Valor",
   "admin.feature_flags.introBanner": "Los siguientes valores del indicador de función muestran el estado de las funciones habilitadas en esta instancia. Los valores son sólo utilizados con propósitos de depuración por parte del equipo de soporte de Mattermost.",

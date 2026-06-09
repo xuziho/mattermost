@@ -645,7 +645,6 @@
   "admin.experimental.userStatusAwayTimeout.title": "Felhasználó nincs a gépnél állapot időtúllépés:",
   "admin.false": "hamis",
   "admin.featureDiscovery.WarningDescription": "Licencét módosítjuk, hogy teljes hozzáférést biztosítsunk Önnek az összes Enterprise funkcióhoz. Ez az oldal automatikusan frissül, amint a licenc módosítása befejeződött. Kérjük, várjon ",
-  "admin.featureDiscovery.WarningTitle": "A próbaidőszak megkezdődött, és a licenc frissítése folyamatban van.",
   "admin.feature_flags.flag": "Jelölő",
   "admin.feature_flags.flag_value": "Érték",
   "admin.feature_flags.introBanner": "Az alábbi funkció jelölő értékek mutatják a telepítésben engedélyezett szolgáltatások állapotát. Az értékek csak a Mattermost támogató csoport hibakeresésére szolgálnak.",

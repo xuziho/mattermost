@@ -817,7 +817,6 @@
   "admin.exportStorage.exportDriverName": "Driver de armazenamento de exportação:",
   "admin.false": "Falso",
   "admin.featureDiscovery.WarningDescription": "Sua licença está sendo atualizada para lhe dar acesso total a todos os recursos empresariais. Esta página será atualizada automaticamente assim que a atualização da licença for concluída. Por favor, aguarde ",
-  "admin.featureDiscovery.WarningTitle": "Sua avaliação começou e atualizações estão sendo feitas em sua licença.",
   "admin.feature_flags.flag": "Indicador",
   "admin.feature_flags.flag_value": "Valor",
   "admin.feature_flags.introBanner": "Os valores dos indicadores de recurso exibidos aqui mostram o status dos recursos habilitados neste servidor. Os valores aqui são apenas para uso de depuração pela equipe de suporte do Mattermost.",
