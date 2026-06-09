@@ -21,6 +21,6 @@ describe('ErrorPage', () => {
         );
 
         screen.getByText('Message Archived');
-        screen.getByText('Permalink belongs to a message that has been archived.');
+        screen.getByText('This workspace is unavailable.');
     });
 });

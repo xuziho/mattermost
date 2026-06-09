@@ -2,7 +2,6 @@
 // See LICENSE.txt for license information.
 
 import {getName} from 'country-list';
-import crypto from 'crypto';
 import cssVars from 'css-vars-ponyfill';
 import type {Locale} from 'date-fns';
 import isNil from 'lodash/isNil';
@@ -59,6 +58,7 @@ import DesktopApp from 'utils/desktop_api';
 import {getIntl} from 'utils/i18n';
 import * as Keyboard from 'utils/keyboard';
 import {FOCUS_REPLY_POST, isPopoutWindow, sendToParent} from 'utils/popouts/popout_windows';
+import {randomHex} from 'utils/secure_random';
 import * as UserAgent from 'utils/user_agent';
 
 import {joinPrivateChannelPrompt} from './channel_utils';
@@ -1651,7 +1651,7 @@ export function getBlankAddressWithCountry(country?: string): Address {
 }
 
 export function generateSlug(): string {
-    return crypto.randomBytes(16).toString('hex');
+    return randomHex(16);
 }
 export function sortUsersAndGroups(a: UserProfile | Group, b: UserProfile | Group) {
     let aSortString = '';

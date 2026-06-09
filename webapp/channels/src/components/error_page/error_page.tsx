@@ -1,7 +1,6 @@
 // Copyright (c) 2015-present Mattermost, Inc. All Rights Reserved.
 // See LICENSE.txt for license information.
 
-import crypto from 'crypto';
 import React from 'react';
 import {FormattedMessage} from 'react-intl';
 import {Link} from 'react-router-dom';
@@ -9,6 +8,7 @@ import {Link} from 'react-router-dom';
 import WarningIcon from 'components/widgets/icons/fa_warning_icon';
 
 import {ErrorPageTypes, Constants} from 'utils/constants';
+import {verifyErrorPageSignature} from 'utils/error_signature';
 
 import ErrorMessage from './error_message';
 import ErrorTitle from './error_title';
@@ -24,31 +24,62 @@ type Props = {
     isGuest?: boolean;
 }
 
-export default class ErrorPage extends React.PureComponent<Props> {
+type State = {
+    trustedParams?: URLSearchParams;
+}
+
+export default class ErrorPage extends React.PureComponent<Props, State> {
+    public state: State = {};
+    private mounted = false;
+
     public componentDidMount() {
+        this.mounted = true;
         document.body.setAttribute('class', 'sticky error');
+        this.verifySignedParams();
     }
 
     public componentWillUnmount() {
+        this.mounted = false;
         document.body.removeAttribute('class');
+    }
+
+    public componentDidUpdate(prevProps: Props) {
+        if (
+            prevProps.location.search !== this.props.location.search ||
+            prevProps.asymmetricSigningPublicKey !== this.props.asymmetricSigningPublicKey
+        ) {
+            this.setState({trustedParams: undefined});
+            this.verifySignedParams();
+        }
+    }
+
+    private async verifySignedParams() {
+        const search = this.props.location.search;
+        const key = this.props.asymmetricSigningPublicKey;
+        const params: URLSearchParams = new URLSearchParams(this.props.location.search);
+        const signature = params.get('s');
+
+        if (!signature) {
+            return;
+        }
+
+        params.delete('s');
+        const signedPath = '/error?' + params.toString();
+
+        if (
+            await verifyErrorPageSignature(key, signedPath, signature) &&
+            this.mounted &&
+            this.props.location.search === search &&
+            this.props.asymmetricSigningPublicKey === key
+        ) {
+            this.setState({trustedParams: params});
+        }
     }
 
     public render() {
         const {isGuest} = this.props;
-        const params: URLSearchParams = new URLSearchParams(this.props.location.search);
-        const signature = params.get('s');
-
-        let trustParams = false;
-        if (signature) {
-            params.delete('s');
-
-            const key = this.props.asymmetricSigningPublicKey;
-            const keyPEM = '-----BEGIN PUBLIC KEY-----\n' + key + '\n-----END PUBLIC KEY-----';
-
-            const verify = crypto.createVerify('sha256');
-            verify.update('/error?' + params.toString());
-            trustParams = verify.verify(keyPEM, signature, 'base64');
-        }
+        const params: URLSearchParams = this.state.trustedParams || new URLSearchParams(this.props.location.search);
+        const trustParams = Boolean(this.state.trustedParams);
 
         const type = params.get('type');
         const title = (trustParams && params.get('title')) || '';

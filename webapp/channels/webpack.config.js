@@ -140,11 +140,6 @@ var config = {
             'styled-components': path.resolve(__dirname, '..', 'node_modules', 'styled-components'),
         },
         extensions: ['.ts', '.tsx', '.js', '.jsx'],
-        fallback: {
-            crypto: require.resolve('crypto-browserify'),
-            stream: require.resolve('stream-browserify'),
-            buffer: require.resolve('buffer/'),
-        },
     },
     performance: {
         hints: 'warning',
@@ -153,7 +148,6 @@ var config = {
     plugins: [
         new webpack.ProvidePlugin({
             process: 'process/browser.js',
-            Buffer: ['buffer', 'Buffer'],
         }),
         new webpack.IgnorePlugin({
             resourceRegExp: /^\.\/locale$/,

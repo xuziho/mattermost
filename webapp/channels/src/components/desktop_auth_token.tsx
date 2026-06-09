@@ -2,7 +2,6 @@
 // See LICENSE.txt for license information.
 
 import classNames from 'classnames';
-import crypto from 'crypto';
 import React, {useEffect, useState} from 'react';
 import {FormattedMessage} from 'react-intl';
 import {useDispatch, useSelector} from 'react-redux';
@@ -14,6 +13,7 @@ import {redirectUserToDefaultTeam} from 'actions/global_actions';
 import {loginWithDesktopToken} from 'actions/views/login';
 
 import DesktopApp from 'utils/desktop_api';
+import {randomHex} from 'utils/secure_random';
 import {isDesktopApp} from 'utils/user_agent';
 
 import './desktop_auth_token.scss';
@@ -67,7 +67,7 @@ const DesktopAuthToken: React.FC<Props> = ({href, onLogin}: Props) => {
     };
 
     const openExternalLoginURL = async () => {
-        const desktopToken = `${DesktopApp.isDev() ? 'dev-' : ''}${crypto.randomBytes(32).toString('hex')}`.slice(0, 64);
+        const desktopToken = `${DesktopApp.isDev() ? 'dev-' : ''}${randomHex(32)}`.slice(0, 64);
         sessionStorage.setItem(DESKTOP_AUTH_PREFIX, desktopToken);
         const parsedURL = new URL(href);
 
