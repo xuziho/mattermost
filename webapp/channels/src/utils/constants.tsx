@@ -936,7 +936,6 @@ export const DocLinks = {
 };
 
 export const LicenseLinks = {
-    ENTRY_LIMITS_INFO: '#',
     EMBARGOED_COUNTRIES: '#',
     SOFTWARE_SERVICES_LICENSE_AGREEMENT: '#',
     SOFTWARE_SERVICES_LICENSE_AGREEMENT_TEXT: 'Software Services and License Agreement',

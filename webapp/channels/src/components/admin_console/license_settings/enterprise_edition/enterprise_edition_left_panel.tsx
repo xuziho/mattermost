@@ -15,11 +15,10 @@ import {getConfig} from 'mattermost-redux/selectors/entities/general';
 import {getServerLimits} from 'mattermost-redux/selectors/entities/limits';
 
 import useGetFeatureFlagValue from 'components/common/hooks/useGetFeatureFlagValue';
-import ExternalLink from 'components/external_link';
 import Tag from 'components/widgets/tag/tag';
 import WithTooltip from 'components/with_tooltip';
 
-import {FileTypes, LicenseLinks, LicenseSkus} from 'utils/constants';
+import {FileTypes, LicenseSkus} from 'utils/constants';
 import {calculateOverageUserActivated} from 'utils/overage_team';
 import {getSkuDisplayName} from 'utils/subscription';
 import {getRemainingDaysFromFutureTimestamp, toTitleCase} from 'utils/utils';
@@ -100,20 +99,7 @@ const EnterpriseEditionLeftPanel = ({
                 <div className='EnterpriseEditionLeftPanel__Subtitle'>
                     <FormattedMessage
                         id='admin.license.entryEdition.subtitle'
-                        defaultMessage='Entry offers Enterprise Advanced capabilities {limitsLink} designed to support evaluation.'
-                        values={{
-                            limitsLink: (
-                                <ExternalLink
-                                    href={LicenseLinks.ENTRY_LIMITS_INFO}
-                                    location='enterprise_edition_left_panel_entry'
-                                >
-                                    <FormattedMessage
-                                        id='admin.license.entryEdition.limits'
-                                        defaultMessage='with limits'
-                                    />
-                                </ExternalLink>
-                            ),
-                        }}
+                        defaultMessage='This deployment is using a local entry-tier license for compatibility with existing license APIs.'
                     />
                 </div>
                 <div className='have-license-section'>

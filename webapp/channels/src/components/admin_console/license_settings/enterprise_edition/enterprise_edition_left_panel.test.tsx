@@ -237,9 +237,9 @@ describe('components/admin_console/license_settings/enterprise_edition/enterpris
         // Verify that "Enterprise Edition" pre-title is no longer displayed
         expect(screen.queryByText('Enterprise Edition')).not.toBeInTheDocument();
 
-        // Check for the subtitle with limits link
-        expect(screen.getByText(/Entry offers Enterprise Advanced capabilities/)).toBeInTheDocument();
-        expect(screen.getByText('with limits')).toBeInTheDocument();
+        // Check for the local compatibility subtitle without commercial evaluation links.
+        expect(screen.getByText(/local entry-tier license/)).toBeInTheDocument();
+        expect(screen.queryByText('with limits')).not.toBeInTheDocument();
 
         // Check for the "Have a license?" section
         expect(screen.getByText('Have a license?')).toBeInTheDocument();
