@@ -121,12 +121,12 @@ const UploadLicenseModal = (props: Props): JSX.Element | null => {
                         defaultMessage='Upload a License Key'
                     />
                 </div>
-                <div className='subtitle'>
-                    <FormattedMessage
-                        id='admin.license.upload-modal.subtitle'
-                        defaultMessage='Upload a license key for Mattermost Enterprise Edition to upgrade this server. '
-                    />
-                </div>
+	                <div className='subtitle'>
+	                    <FormattedMessage
+	                        id='admin.license.upload-modal.subtitle'
+	                        defaultMessage='Upload a local license file for this AgentCompanyOS deployment. '
+	                    />
+	                </div>
                 <div className='file-upload'>
                     <div className='file-upload__titleSection'>
                         <FormattedMessage
@@ -247,17 +247,17 @@ const UploadLicenseModal = (props: Props): JSX.Element | null => {
                             height={103.5}
                         />
                     </div>
-                    <div className='title'>
-                        <FormattedMessage
-                            id='admin.license.upload-modal.successfulUpgrade'
-                            defaultMessage='Successful Upgrade!'
-                        />
-                    </div>
-                    <div className='subtitle'>
-                        <FormattedMessage
-                            id='admin.license.upload-modal.successfulUpgradeText'
-                            defaultMessage='You have upgraded to the {skuName} plan for {licensedUsersNum, number} seats. This is effective from {startsAt} until {expiresAt}. '
-                            values={{
+	                    <div className='title'>
+	                        <FormattedMessage
+	                            id='admin.license.upload-modal.successfulUpgrade'
+	                            defaultMessage='License Applied'
+	                        />
+	                    </div>
+	                    <div className='subtitle'>
+	                        <FormattedMessage
+	                            id='admin.license.upload-modal.successfulUpgradeText'
+	                            defaultMessage='The {skuName} license for {licensedUsersNum, number} seats is effective from {startsAt} until {expiresAt}. '
+	                            values={{
                                 expiresAt,
                                 startsAt,
                                 licensedUsersNum,

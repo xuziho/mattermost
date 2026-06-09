@@ -8,10 +8,9 @@ import SetupSystemSvg from 'components/common/svg_images_components/setup_system
 
 const TeamEditionRightPanel: React.FC = () => {
     const licensedFeatures = [
-        'AD/LDAP Group Sync',
-        'High Availability',
-        'Advanced compliance',
-        'And more...',
+        'Optional local license file support',
+        'Seat and expiration visibility',
+        'Compatibility with existing license APIs',
     ];
 
     return (
@@ -22,18 +21,18 @@ const TeamEditionRightPanel: React.FC = () => {
                     height={120}
                 />
             </div>
-            <div className='upgrade-title'>
-                <FormattedMessage
-                    id='admin.license.enterprise.localLicenseFeatures'
-                    defaultMessage='Licensed server features'
-                />
-            </div>
-            <div className='upgrade-subtitle'>
-                <FormattedMessage
-                    id='admin.license.enterprise.license_required_upgrade'
-                    defaultMessage='A local license file is required to unlock licensed features'
-                />
-            </div>
+	            <div className='upgrade-title'>
+	                <FormattedMessage
+	                    id='admin.license.enterprise.localLicenseFeatures'
+	                    defaultMessage='Local license management'
+	                />
+	            </div>
+	            <div className='upgrade-subtitle'>
+	                <FormattedMessage
+	                    id='admin.license.enterprise.license_required_upgrade'
+	                    defaultMessage='Upload a local license file only if this AgentCompanyOS deployment needs one.'
+	                />
+	            </div>
             <div className='advantages-list'>
                 {licensedFeatures.map((item: string) => {
                     return (

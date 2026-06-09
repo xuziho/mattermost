@@ -8,34 +8,18 @@ import SetupSystemSvg from 'components/common/svg_images_components/setup_system
 
 const StarterRightPanel = () => {
     const intl = useIntl();
-    const upgradeAdvantages = [
+    const licenseDetails = [
         intl.formatMessage({
-            id: 'admin.license.enterpriseToAdvancedAdvantage.attributeBasedAccess',
-            defaultMessage: 'Attribute-based access control',
+            id: 'admin.license.localLicenseDetail.fileBased',
+            defaultMessage: 'File-based local license management',
         }),
         intl.formatMessage({
-            id: 'admin.license.enterpriseToAdvancedAdvantage.channelWarningBanners',
-            defaultMessage: 'Channel warning banners',
+            id: 'admin.license.localLicenseDetail.compatibility',
+            defaultMessage: 'Compatibility with existing license APIs',
         }),
         intl.formatMessage({
-            id: 'admin.license.enterpriseToAdvancedAdvantage.adLdapGroupSync',
-            defaultMessage: 'AD/LDAP group sync',
-		}),
-		intl.formatMessage({
-			id: 'admin.license.enterpriseToAdvancedAdvantage.advancedWorkflows',
-			defaultMessage: 'Advanced workflows',
-		}),
-        intl.formatMessage({
-            id: 'admin.license.enterpriseToAdvancedAdvantage.highAvailability',
-            defaultMessage: 'High availability',
-        }),
-        intl.formatMessage({
-            id: 'admin.license.enterpriseToAdvancedAdvantage.advancedCompliance',
-            defaultMessage: 'Advanced compliance',
-        }),
-        intl.formatMessage({
-            id: 'admin.license.upgradeAdvantage.andMore',
-            defaultMessage: 'And more...',
+            id: 'admin.license.localLicenseDetail.noCloudBilling',
+            defaultMessage: 'No cloud billing or trial workflow is required',
         }),
     ];
 
@@ -47,14 +31,14 @@ const StarterRightPanel = () => {
                     height={120}
                 />
             </div>
-            <div className='upgrade-title'>
-                <FormattedMessage
-                    id='admin.license.upgradeTitle'
-                    defaultMessage='Upload a license to unlock more features'
-                />
-            </div>
-            <div className='advantages-list'>
-                {upgradeAdvantages.map((item, i) => {
+	            <div className='upgrade-title'>
+	                <FormattedMessage
+	                    id='admin.license.upgradeTitle'
+	                    defaultMessage='Manage local license files'
+	                />
+	            </div>
+	            <div className='advantages-list'>
+	                {licenseDetails.map((item, i) => {
                     return (
                         <div
                             className='item'

@@ -153,7 +153,7 @@ describe('components/admin_console/license_settings/modals/upload_license_modal'
             fireEvent.click(screen.getByRole('button', {name: 'Upload'}));
         });
 
-        expect(screen.getByText('Successful Upgrade!')).toBeInTheDocument();
+        expect(screen.getByText('License Applied')).toBeInTheDocument();
         expect(screen.getByRole('button', {name: 'Done'})).toBeInTheDocument();
     });
 

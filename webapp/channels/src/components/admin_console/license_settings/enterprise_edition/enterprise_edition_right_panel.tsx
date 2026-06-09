@@ -20,57 +20,18 @@ const EnterpriseEditionRightPanel = ({
     license,
 }: EnterpriseEditionProps) => {
     const intl = useIntl();
-    const upgradeAdvantages = [
+    const licenseDetails = [
         intl.formatMessage({
-            id: 'admin.license.upgradeAdvantage.adLdapSync',
-            defaultMessage: 'AD/LDAP Group sync',
+            id: 'admin.license.localLicenseDetail.fileBased',
+            defaultMessage: 'File-based local license management',
         }),
         intl.formatMessage({
-            id: 'admin.license.upgradeAdvantage.highAvailability',
-            defaultMessage: 'High Availability',
+            id: 'admin.license.localLicenseDetail.compatibility',
+            defaultMessage: 'Compatibility with existing license APIs',
         }),
         intl.formatMessage({
-            id: 'admin.license.upgradeAdvantage.advancedCompliance',
-            defaultMessage: 'Advanced compliance',
-        }),
-        intl.formatMessage({
-            id: 'admin.license.upgradeAdvantage.advancedRoles',
-            defaultMessage: 'Advanced roles and permissions',
-        }),
-        intl.formatMessage({
-            id: 'admin.license.upgradeAdvantage.andMore',
-            defaultMessage: 'And more...',
-        }),
-    ];
-
-    const enterpriseToAdvancedAdvantages = [
-        intl.formatMessage({
-            id: 'admin.license.enterpriseToAdvancedAdvantage.dynamicAttributeBasedAccessControls',
-            defaultMessage: 'Dynamic attribute-based access controls',
-        }),
-        intl.formatMessage({
-            id: 'admin.license.enterpriseToAdvancedAdvantage.dataSpillageHandling',
-            defaultMessage: 'Data spillage handling',
-        }),
-        intl.formatMessage({
-            id: 'admin.license.enterpriseToAdvancedAdvantage.burnOnReadMessages',
-            defaultMessage: 'Burn-on-read messages',
-        }),
-        intl.formatMessage({
-            id: 'admin.license.enterpriseToAdvancedAdvantage.mobileBiometricsAndAdvancedSecurity',
-            defaultMessage: 'Mobile biometrics & advanced security',
-        }),
-        intl.formatMessage({
-            id: 'admin.license.enterpriseToAdvancedAdvantage.automaticChannelTranslations',
-            defaultMessage: 'Automatic channel translations',
-        }),
-        intl.formatMessage({
-            id: 'admin.license.enterpriseToAdvancedAdvantage.channelBanners',
-            defaultMessage: 'Channel banners',
-        }),
-        intl.formatMessage({
-            id: 'admin.license.upgradeAdvantage.andMore',
-            defaultMessage: 'And more...',
+            id: 'admin.license.localLicenseDetail.noCloudBilling',
+            defaultMessage: 'No cloud billing or trial workflow is required',
         }),
     ];
 
@@ -167,11 +128,9 @@ const EnterpriseEditionRightPanel = ({
                 />
             );
         }
-        const advantages = isEnterprise ? enterpriseToAdvancedAdvantages : upgradeAdvantages;
-
         return (
             <div className='advantages-list'>
-                {advantages.map((item, i) => {
+                {licenseDetails.map((item, i) => {
                     return (
                         <div
                             className='item'

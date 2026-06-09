@@ -12,10 +12,9 @@ import type {GetFilteredUsersStatsOpts, UsersStats} from '@mattermost/types/user
 
 import type {ActionResult} from 'mattermost-redux/types/actions';
 
-import ExternalLink from 'components/external_link';
 import AdminHeader from 'components/widgets/admin_console/admin_header';
 
-import {AboutLinks, LicenseSkus, ModalIdentifiers} from 'utils/constants';
+import {LicenseSkus, ModalIdentifiers} from 'utils/constants';
 import {isLicenseExpired, isLicenseExpiring, isTrialLicense, licenseSKUWithFirstLetterCapitalized} from 'utils/license_utils';
 
 import type {ModalData} from 'types/actions';
@@ -150,27 +149,6 @@ export default class LicenseSettings extends React.PureComponent<Props, State> {
         </div>
     );
 
-    createLink = (link: string, text: string) => {
-        return (
-            <ExternalLink
-                location='license_settings'
-                id='privacyLink'
-                href={link}
-            >
-                {text}
-            </ExternalLink>
-        );
-    };
-
-    termsAndPolicy = (
-        <div className='terms-and-policy'>
-            {'See also '}
-            {this.createLink(AboutLinks.TERMS_OF_SERVICE, 'Enterprise Edition Terms of Use')}
-            {' and '}
-            {this.createLink(AboutLinks.PRIVACY_POLICY, 'Privacy Policy')}
-        </div>
-    );
-
     render() {
         const {license, upgradedFromTE, isDisabled} = this.props;
 
@@ -248,7 +226,6 @@ export default class LicenseSettings extends React.PureComponent<Props, State> {
                                 <div className='panel-card'>
                                     {leftPanel}
                                 </div>
-                                {(!isTrialLicense(license)) && this.termsAndPolicy}
                             </div>
                             <div className='right-panel'>
                                 <div className={classNames('panel-card', {entry: license.SkuShortName === LicenseSkus.Entry})}>
