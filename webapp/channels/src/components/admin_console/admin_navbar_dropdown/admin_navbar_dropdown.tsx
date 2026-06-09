@@ -84,7 +84,7 @@ class AdminNavbarDropdown extends React.PureComponent<Props> {
                     <Menu.ItemToggleModalRedux
                         modalId={ModalIdentifiers.ABOUT}
                         dialogType={AboutBuildModal}
-                        text={formatMessage({id: 'navbar_dropdown.about', defaultMessage: 'About {appTitle}'}, {appTitle: siteName || 'Mattermost'})}
+                        text={formatMessage({id: 'navbar_dropdown.about', defaultMessage: 'About {appTitle}'}, {appTitle: siteName || 'AgentCompanyOS'})}
                     />
                 </Menu.Group>
                 <Menu.Group>

@@ -22,7 +22,7 @@ const Footer = () => {
                 key='footer-copyright'
                 className='footer-copyright'
             >
-                {`© ${new Date().getFullYear()} ${SiteName || 'Mattermost'}`}
+                {`© ${new Date().getFullYear()} ${SiteName || 'AgentCompanyOS'}`}
             </span>
         </div>
     );

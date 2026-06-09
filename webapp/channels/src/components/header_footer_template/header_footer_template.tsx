@@ -33,7 +33,7 @@ const HeaderFooterNotLoggedIn = (props: Props) => {
         return null;
     }
 
-    const siteName = config.SiteName || 'Mattermost';
+    const siteName = config.SiteName || 'AgentCompanyOS';
 
     return (
         <div className='inner-wrap'>
