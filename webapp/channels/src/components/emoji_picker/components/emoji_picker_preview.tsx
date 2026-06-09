@@ -8,7 +8,7 @@ import type {Emoji} from '@mattermost/types/emojis';
 
 import {getEmojiImageUrl, isSystemEmoji} from 'mattermost-redux/utils/emoji_utils';
 
-import imgTrans from 'images/img_trans.gif';
+import {unifiedToUnicode} from 'utils/emoji_utils';
 
 interface Props {
     emoji?: Emoji;
@@ -33,12 +33,14 @@ function EmojiPickerPreview({emoji}: Props) {
         aliases = emoji.short_names;
         previewImage = (
             <span className='sprite-preview'>
-                <img
+                <span
                     id='emojiPickerSpritePreview'
-                    alt={'emoji category image'}
-                    src={imgTrans}
+                    aria-label={'emoji category image'}
+                    role='img'
                     className={'emojisprite-preview emoji-category-' + emoji.category + ' emoji-' + emoji.unified.toLowerCase()}
-                />
+                >
+                    {unifiedToUnicode(emoji.unified)}
+                </span>
             </span>
         );
     } else {

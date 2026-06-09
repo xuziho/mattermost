@@ -128,13 +128,6 @@ readMissingDirPromise.then(() => {
 const webappImagesDir = path.resolve(webappRootDir, 'channels', 'src', 'images');
 endResults.push(copyFileAndPrint(path.resolve(webappImagesDir, 'icon64x64.png'), path.resolve(webappImagesDir, 'emoji/mattermost.png'), 'mattermost-emoji'));
 
-const sheetSource = path.resolve(webappRootDir, `node_modules/emoji-datasource-apple/img/apple/sheets/${EMOJI_SIZE}.png`);
-const sheetAbsoluteFile = path.resolve(webappRootDir, 'channels', 'src', 'images/emoji-sheets/apple-sheet.png');
-const sheetFile = 'images/emoji-sheets/apple-sheet.png';
-
-// Copy sheet image
-endResults.push(copyFileAndPrint(sheetSource, sheetAbsoluteFile, 'emoji-sheet'));
-
 // we'll load it as a two dimensional array so we can generate a Map out of it
 const emojiIndicesByAlias = [];
 const emojiIndicesByUnicode = [];
@@ -371,8 +364,6 @@ import type {SystemEmoji} from '@mattermost/types/emojis';
 
 import emojis from 'utils/emoji.json';
 
-import spriteSheet from '${sheetFile}';
-
 export const Emojis = emojis as SystemEmoji[];
 
 export const EmojiIndicesByAlias = new Map(${JSON.stringify(emojiIndicesByAlias)});
@@ -428,64 +419,29 @@ ${emojiImagesByAlias.join(`,
 const goPromise = writeToFileAndPrint('emoji_data.go', serverEmojiDataDir, emojiGo);
 endResults.push(goPromise);
 
-// Create individual emoji styles
-const cssCats = categoryNames.filter((cat) => cat !== 'custom').map((cat) => `.emoji-category-${cat} { background-image: url('${sheetFile}'); }`);
-const cssEmojis = [];
-for (const key of emojiFilePositions.keys()) {
-    cssEmojis.push(`.emoji-${key} { background-position: ${emojiFilePositions.get(key)} }`);
-}
-
 const cssRules = `.emojisprite-preview {
-    width: ${EMOJI_SIZE_PADDED}px;
-    max-width: none;
-    height: ${EMOJI_SIZE_PADDED}px;
-    background-repeat: no-repeat;
+    display: inline-flex;
+    width: 33px;
+    height: 33px;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
-    -moz-transform: scale(0.5);
-    transform: scale(0.5);
-    transform-origin: 0 0;
-
-    @supports (zoom: 0.5) {
-        -moz-transform: none;
-        transform: none;
-        zoom: 0.5;
-    }
+    font-size: 33px;
+    line-height: 1;
 }
 
-.emojisprite {
-    width: ${EMOJI_SIZE_PADDED}px;
-    max-width: none;
-    height: ${EMOJI_SIZE_PADDED}px;
-    background-repeat: no-repeat;
-    border-radius: 18px;
-    cursor: pointer;
-    -moz-transform: scale(0.35);
-    transform: scale(0.35);
-}
-
+.emojisprite,
 .emojisprite-loading {
-    width: ${EMOJI_SIZE_PADDED}px;
-    max-width: none;
-    height: ${EMOJI_SIZE_PADDED}px;
-    background-image: none !important;
-    background-repeat: no-repeat;
+    display: inline-flex;
+    width: 23px;
+    height: 23px;
+    align-items: center;
+    justify-content: center;
     border-radius: 18px;
     cursor: pointer;
-    -moz-transform: scale(0.35);
-    transform: scale(0.35);
+    font-size: 23px;
+    line-height: 1;
 }
-
-@supports (zoom: 0.35) {
-    .emojisprite,
-    .emojisprite-loading {
-        -moz-transform: none;
-        transform: none;
-        zoom: 0.35;
-    }
-}
-
-${cssCats.join('\n')}
-${cssEmojis.join('\n')}
 `;
 
 // Create the emojisprite.scss file

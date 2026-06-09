@@ -13,7 +13,7 @@ import {getEmojiImageUrl, isSystemEmoji} from 'mattermost-redux/utils/emoji_util
 import {EMOJI_SCROLL_THROTTLE_DELAY} from 'components/emoji_picker/constants';
 import type {EmojiCursor} from 'components/emoji_picker/types';
 
-import imgTrans from 'images/img_trans.gif';
+import {unifiedToUnicode} from 'utils/emoji_utils';
 
 interface Props {
     emoji: Emoji;
@@ -58,13 +58,15 @@ function EmojiPickerItem({emoji, rowIndex, isSelected, onClick, onMouseOver}: Pr
         const emojiUnified = emoji.unified ? emoji.unified.toLowerCase() : emoji.name.toLowerCase();
 
         content = (
-            <img
-                alt={`${emoji.name.toLocaleLowerCase()} emoji`}
+            <span
+                aria-label={`${emoji.name.toLocaleLowerCase()} emoji`}
+                role='img'
                 data-testid={emoji.short_names}
-                src={imgTrans}
                 className={`emojisprite emoji-category-${emoji.category} emoji-${emojiUnified}`}
                 id={`emoji-${emojiUnified}`}
-            />
+            >
+                {unifiedToUnicode(emoji.unified)}
+            </span>
         );
     } else {
         content = (

@@ -12,8 +12,8 @@ import type {SystemEmoji} from '@mattermost/types/emojis';
 
 import WithTooltip from 'components/with_tooltip';
 
-import imgTrans from 'images/img_trans.gif';
 import * as Emoji from 'utils/emoji';
+import {unifiedToUnicode} from 'utils/emoji_utils';
 
 interface SkinTone {
     emoji: SystemEmoji;
@@ -138,7 +138,7 @@ export class EmojiPickerSkin extends React.PureComponent<Props, State> {
         const emoji = skinTones.find(({value}) => value === this.props.userSkinTone)!.emoji;
 
         const buttonClassName = classNames('style--none', {'skin-tones__close-icon': pickerExtended, 'skin-tones__icon skin-tones__expand-icon': !pickerExtended});
-        const spriteClassName = classNames('emojisprite', `emoji-category-${emoji?.category}`, `emoji-${emoji?.unified.toLowerCase()}`);
+        const spriteClassName = classNames('emojisprite', `emoji-category-${emoji.category}`, `emoji-${emoji.unified.toLowerCase()}`);
 
         const handleOnClick = () => {
             if (pickerExtended) {
@@ -166,11 +166,13 @@ export class EmojiPickerSkin extends React.PureComponent<Props, State> {
                     <WithTooltip
                         title={expandButtonLabel}
                     >
-                        <img
-                            alt={'emoji skin tone picker'}
-                            src={imgTrans}
+                        <span
+                            aria-label={'emoji skin tone picker'}
+                            role='img'
                             className={spriteClassName}
-                        />
+                        >
+                            {unifiedToUnicode(emoji.unified)}
+                        </span>
                     </WithTooltip>
                 )}
             </button>
@@ -191,11 +193,13 @@ export class EmojiPickerSkin extends React.PureComponent<Props, State> {
                     key={skin}
                     onClick={() => this.hideSkinTonePicker(skin)}
                 >
-                    <img
-                        alt={skinTone.label.defaultMessage}
-                        src={imgTrans}
+                    <span
+                        aria-label={skinTone.label.defaultMessage}
+                        role='img'
                         className={spriteClassName}
-                    />
+                    >
+                        {unifiedToUnicode(emoji.unified)}
+                    </span>
                 </button>
             );
         });
