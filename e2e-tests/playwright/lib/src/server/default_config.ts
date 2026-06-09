@@ -744,7 +744,6 @@ const defaultServerConfig: AdminConfig = {
         PermalinkPreviews: false,
         NormalizeLdapDNs: false,
         WysiwygEditor: false,
-        OnboardingTourTips: true,
         DeprecateCloudFree: false,
         EnableExportDirectDownload: false,
         MoveThreadsEnabled: false,
