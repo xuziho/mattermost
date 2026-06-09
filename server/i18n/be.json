@@ -8229,7 +8229,7 @@
   },
   {
     "id": "api.file.cloud_upload.app_error",
-    "translation": "Загрузка праз mmctl у Cloud-экземпляр не падтрымліваецца. Калі ласка, азнаёмцеся з дакументацыяй тут: https://docs.mattermost.com/manage/cloud-data-export.html."
+    "translation": "Загрузка праз mmctl у Cloud-экземпляр не падтрымліваецца."
   },
   {
     "id": "api.getUsersForReporting.invalid_active_filter",

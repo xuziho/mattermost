@@ -7157,7 +7157,7 @@
   },
   {
     "id": "api.file.cloud_upload.app_error",
-    "translation": "Завантаження через mmctl до хмарного екземпляра не підтримується. Будь ласка, ознайомтеся з документацією тут: https://docs.mattermost.com/manage/cloud-data-export.html."
+    "translation": "Завантаження через mmctl до хмарного екземпляра не підтримується."
   },
   {
     "id": "api.file.file_exists.app_error",

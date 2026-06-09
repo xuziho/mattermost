@@ -8060,7 +8060,7 @@
   },
   {
     "id": "api.file.cloud_upload.app_error",
-    "translation": "Az mmctl segítségével történő feltöltés egy felhő alapú példányra nem támogatott. Kérjük, tekintse meg a dokumentációt itt: https://docs.mattermost.com/manage/cloud-data-export.html."
+    "translation": "Az mmctl segítségével történő feltöltés egy felhő alapú példányra nem támogatott."
   },
   {
     "id": "app.usage.get_storage_usage.app_error",

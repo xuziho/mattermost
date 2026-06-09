@@ -7201,7 +7201,7 @@
   },
   {
     "id": "api.file.cloud_upload.app_error",
-    "translation": "不支援從 mmctl 上傳至雲端個體。請查閱文件：https://docs.mattermost.com/manage/cloud-data-export.html。"
+    "translation": "不支援從 mmctl 上傳至雲端個體。"
   },
   {
     "id": "api.file.file_exists.app_error",

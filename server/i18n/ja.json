@@ -8055,7 +8055,7 @@
   },
   {
     "id": "api.file.cloud_upload.app_error",
-    "translation": "クラウドインスタンスへのmmctlによるアップロードはサポートされていません。こちらのドキュメントを確認してください：https://docs.mattermost.com/manage/cloud-data-export.html。"
+    "translation": "クラウドインスタンスへのmmctlによるアップロードはサポートされていません。"
   },
   {
     "id": "model.config.is_valid.image_decoder_concurrency.app_error",

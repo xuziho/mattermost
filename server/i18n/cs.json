@@ -7661,7 +7661,7 @@
   },
   {
     "id": "api.file.cloud_upload.app_error",
-    "translation": "Nahrávání přes mmctl na cloudovou instanci není podporováno. Prosím, podívejte se na dokumentaci zde: https://docs.mattermost.com/manage/cloud-data-export.html."
+    "translation": "Nahrávání přes mmctl na cloudovou instanci není podporováno."
   },
   {
     "id": "api.getThreadsForUser.bad_only_params",

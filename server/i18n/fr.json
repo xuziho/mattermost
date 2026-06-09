@@ -7649,7 +7649,7 @@
   },
   {
     "id": "api.file.cloud_upload.app_error",
-    "translation": "Le téléversement via mmctl vers l'instance d'un nuage n'est pas supporté. Veuillez consulter la documentation ici : https://docs.mattermost.com/manage/cloud-data-export.html."
+    "translation": "Le téléversement via mmctl vers l'instance d'un nuage n'est pas supporté."
   },
   {
     "id": "api.error_set_first_admin_complete_setup",

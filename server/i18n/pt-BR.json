@@ -7909,7 +7909,7 @@
   },
   {
     "id": "api.file.cloud_upload.app_error",
-    "translation": "O upload via mmctl para uma instância do Cloud não é suportado. Verifique a documentação aqui: https://docs.mattermost.com/manage/cloud-data-export.html."
+    "translation": "O upload via mmctl para uma instância do Cloud não é suportado."
   },
   {
     "id": "api.getUsersForReporting.invalid_page_size",

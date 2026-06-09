@@ -7323,7 +7323,7 @@
   },
   {
     "id": "api.file.cloud_upload.app_error",
-    "translation": "mmctl를 통한 클라우드 인스턴스 업로딩은 지원되지 않습니다. [이곳](https://docs.mattermost.com/manage/cloud-data-export.html)을 확인해주시기 바랍니다."
+    "translation": "mmctl를 통한 클라우드 인스턴스 업로딩은 지원되지 않습니다."
   },
   {
     "id": "api.drafts.disabled.app_error",

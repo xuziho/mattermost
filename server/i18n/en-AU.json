@@ -8063,7 +8063,7 @@
   },
   {
     "id": "api.file.cloud_upload.app_error",
-    "translation": "Uploading via mmctl to a Cloud instance is not supported. Please check the documentation here: https://docs.mattermost.com/manage/cloud-data-export.html."
+    "translation": "Uploading via mmctl to a Cloud instance is not supported."
   },
   {
     "id": "app.usage.get_storage_usage.app_error",

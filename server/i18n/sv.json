@@ -8063,7 +8063,7 @@
   },
   {
     "id": "api.file.cloud_upload.app_error",
-    "translation": "Uppladdning via mmctl till en molninstans stöds inte. Se dokumentationen här: https://docs.mattermost.com/manage/cloud-data-export.html."
+    "translation": "Uppladdning via mmctl till en molninstans stöds inte."
   },
   {
     "id": "app.usage.get_storage_usage.app_error",

@@ -8069,7 +8069,7 @@
   },
   {
     "id": "api.file.cloud_upload.app_error",
-    "translation": "Загрузка через mmctl в экземпляр Cloud не поддерживается. Пожалуйста, ознакомьтесь с документацией здесь: https://docs.mattermost.com/manage/cloud-data-export.html."
+    "translation": "Загрузка через mmctl в экземпляр Cloud не поддерживается."
   },
   {
     "id": "api.elasticsearch.test_elasticsearch_settings_nil.app_error",

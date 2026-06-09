@@ -8065,7 +8065,7 @@
   },
   {
     "id": "api.file.cloud_upload.app_error",
-    "translation": "Cargar vía mmctl a una instancia en la Nube no está soportado. Por favor revisa la documentación aquí: https://docs.mattermost.com/manage/cloud-data-export.html."
+    "translation": "Cargar vía mmctl a una instancia en la Nube no está soportado."
   },
   {
     "id": "api.file.test_connection_email_settings_nil.app_error",

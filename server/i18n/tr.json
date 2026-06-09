@@ -8063,7 +8063,7 @@
   },
   {
     "id": "api.file.cloud_upload.app_error",
-    "translation": "Bir Cloud kopyasına mmctl ile yükleme desteklenmiyor. Lütfen şu makaleye bakın: https://docs.mattermost.com/manage/cloud-data-export.html."
+    "translation": "Bir Cloud kopyasına mmctl ile yükleme desteklenmiyor."
   },
   {
     "id": "app.teams.analytics_teams_count.app_error",

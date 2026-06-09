@@ -8055,7 +8055,7 @@
   },
   {
     "id": "api.file.cloud_upload.app_error",
-    "translation": "不支持通过 mmctl 上传到 Cloud 实例。 请在此处查看文档：https://docs.mattermost.com/manage/cloud-data-export.html。"
+    "translation": "不支持通过 mmctl 上传到 Cloud 实例。"
   },
   {
     "id": "model.config.is_valid.image_decoder_concurrency.app_error",

@@ -8065,7 +8065,7 @@
   },
   {
     "id": "api.file.cloud_upload.app_error",
-    "translation": "Przesyłanie danych do instancji Chmury za pomocą mmctl nie jest obsługiwane. Proszę sprawdzić dokumentację tutaj: https://docs.mattermost.com/manage/cloud-data-export.html."
+    "translation": "Przesyłanie danych do instancji Chmury za pomocą mmctl nie jest obsługiwane."
   },
   {
     "id": "app.teams.analytics_teams_count.app_error",
