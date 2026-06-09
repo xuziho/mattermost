@@ -4,15 +4,14 @@
 /**
  * @id - plugin ID
  * @version - plugin version
- * @url - A URL where the plugin can be downloaded
+ * @url - Historical upstream URL for reference only; remote plugin installs are disabled.
  * @filename - Name of a plugin file which should be available at "e2e/cypress/tests/fixtures/[filename]"
  * upon manual download from the given URL. File is not to be included in the commit.
  *
  * Note:
  * 1. Only those with "@filename" field is required to have corresponding file at fixtures folder.
  * Download the plugin file from the given "@url" and save to "e2e/cypress/tests/fixtures/[@filename]".
- * 2. Plugin should typically install in test via URL, unless it is specifically required to upload
- * by file.
+ * 2. AgentCompanyOS tests install plugins from local fixture files only.
  */
 
 export const agendaPlugin = {

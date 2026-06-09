@@ -120,7 +120,6 @@ type Client interface {
 	ClearServerBusy(ctx context.Context) (*model.Response, error)
 	GetServerBusy(ctx context.Context) (*model.ServerBusyState, *model.Response, error)
 	CheckIntegrity(ctx context.Context) ([]model.IntegrityCheckResult, *model.Response, error)
-	InstallPluginFromURL(context.Context, string, bool) (*model.Manifest, *model.Response, error)
 	MigrateAuthToLdap(ctx context.Context, fromAuthService string, matchField string, force bool) (*model.Response, error)
 	MigrateAuthToSaml(ctx context.Context, fromAuthService string, usersMap map[string]string, auto bool) (*model.Response, error)
 	GetPing(ctx context.Context) (string, *model.Response, error)

@@ -111,10 +111,10 @@ describe('Plugin remains enabled when upgraded', () => {
     });
 
     it('MM-T39 Disable Plugin on Removal', () => {
-        const {id: pluginId, url: pluginUrl, version} = demoPlugin;
+        const {id: pluginId, filename, version} = demoPlugin;
 
         // # Install demo plugin and enable it
-        cy.apiUploadAndEnablePlugin({url: pluginUrl, id: pluginId});
+        cy.apiUploadAndEnablePlugin({filename, id: pluginId});
         waitForServerStatus(pluginId, version, {isActive: true});
         cy.findByTestId(pluginId).scrollIntoView().should('be.visible');
         waitForAlertMessage(pluginId, 'This plugin is running.');
@@ -125,7 +125,7 @@ describe('Plugin remains enabled when upgraded', () => {
         cy.findByTestId(pluginId).should('not.exist');
 
         // # Install demo plugin again
-        cy.apiInstallPluginFromUrl(demoPlugin.url, true);
+        cy.apiUploadPlugin(filename);
         waitForServerStatus(pluginId, version, {isInstalled: true});
 
         cy.apiGetPluginStatus(pluginId).then((data) => {

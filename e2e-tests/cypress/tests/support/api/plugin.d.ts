@@ -87,20 +87,6 @@ declare namespace Cypress {
         apiUploadAndEnablePlugin(pluginTestInfo: PluginTestInfo): Chainable<Response>;
 
         /**
-         * Install plugin from url.
-         * See https://api.mattermost.com/#tag/plugins/paths/~1plugins~1install_from_url/post
-         * @param {string} pluginDownloadUrl - URL used to download the plugin
-         * @param {string} force - Set to 'true' to overwrite a previously installed plugin with the same ID, if any
-         * @returns {PluginManifest} `out.plugin` as `PluginManifest`
-         *
-         * @example
-         *   cy.apiInstallPluginFromUrl('url', 'true').then(({plugin}) => {
-         *       // do something with plugin
-         *   });
-         */
-        apiInstallPluginFromUrl(pluginDownloadUrl: string, force: string): Chainable<PluginManifest>;
-
-        /**
          * Enable plugin.
          * See https://api.mattermost.com/#tag/plugins/paths/~1plugins~1{plugin_id}~1enable/post
          * @param {string} pluginId - Id of the plugin to enable

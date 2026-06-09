@@ -30,19 +30,6 @@ var PluginAddCmd = &cobra.Command{
 	Args:    cobra.MinimumNArgs(1),
 }
 
-var PluginInstallURLCmd = &cobra.Command{
-	Use:   "install-url <url>...",
-	Short: "Install plugin from url",
-	Long:  "Supply one or multiple URLs to plugins compressed in a .tar.gz file. Plugins must be enabled in the server's config settings",
-	Example: `  # You can install one plugin
-  $ mmctl plugin install-url https://example.com/mattermost-plugin.tar.gz
-
-  # Or install multiple in one go
-  $ mmctl plugin install-url https://example.com/mattermost-plugin-one.tar.gz https://example.com/mattermost-plugin-two.tar.gz`,
-	RunE: withClient(pluginInstallURLCmdF),
-	Args: cobra.MinimumNArgs(1),
-}
-
 var PluginDeleteCmd = &cobra.Command{
 	Use:     "delete [plugins]",
 	Short:   "Delete plugins",
@@ -80,11 +67,9 @@ var PluginListCmd = &cobra.Command{
 
 func init() {
 	PluginAddCmd.Flags().BoolP("force", "f", false, "overwrite a previously installed plugin with the same ID, if any")
-	PluginInstallURLCmd.Flags().BoolP("force", "f", false, "overwrite a previously installed plugin with the same ID, if any")
 
 	PluginCmd.AddCommand(
 		PluginAddCmd,
-		PluginInstallURLCmd,
 		PluginDeleteCmd,
 		PluginEnableCmd,
 		PluginDisableCmd,
@@ -116,23 +101,6 @@ func pluginAddCmdF(c client.Client, cmd *cobra.Command, args []string) error {
 			printer.Print("Added plugin: " + plugin)
 		}
 		fileReader.Close()
-	}
-
-	return multiErr.ErrorOrNil()
-}
-
-func pluginInstallURLCmdF(c client.Client, cmd *cobra.Command, args []string) error {
-	force, _ := cmd.Flags().GetBool("force")
-	var multiErr *multierror.Error
-
-	for _, plugin := range args {
-		manifest, _, err := c.InstallPluginFromURL(context.TODO(), plugin, force)
-		if err != nil {
-			printer.PrintError("Unable to install plugin from URL \"" + plugin + "\". Error: " + err.Error())
-			multiErr = multierror.Append(multiErr, err)
-		} else {
-			printer.PrintT("Plugin {{.Name}} successfully installed", manifest)
-		}
 	}
 
 	return multiErr.ErrorOrNil()

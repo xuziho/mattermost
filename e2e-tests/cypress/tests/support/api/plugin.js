@@ -87,15 +87,7 @@ Cypress.Commands.add('apiUploadAndEnablePlugin', ({filename, url, id, version}) 
         if (url) {
             // # Upload plugin by URL then enable
             cy.log(`${id}: Plugin is to be uploaded via URL and then enable.`);
-            return removeOldVersion().then(() => {
-                return cy.apiInstallPluginFromUrl(url).then(() => {
-                    cy.wait(TIMEOUTS.FIVE_SEC);
-                    return cy.apiEnablePluginById(id).then(() => {
-                        cy.wait(TIMEOUTS.ONE_SEC);
-                        return cy.wrap({isInstalled: true, isActive: true});
-                    });
-                });
-            });
+            throw new Error(`${id}: Remote plugin URL installs are disabled in AgentCompanyOS tests. Provide a local plugin filename instead.`);
         }
 
         // # Upload plugin by file then enable
@@ -107,21 +99,6 @@ Cypress.Commands.add('apiUploadAndEnablePlugin', ({filename, url, id, version}) 
                 });
             });
         });
-    });
-});
-
-Cypress.Commands.add('apiInstallPluginFromUrl', (url, force = true) => {
-    return cy.request({
-        headers: {'X-Requested-With': 'XMLHttpRequest'},
-        url: `/api/v4/plugins/install_from_url?plugin_download_url=${encodeURIComponent(url)}&force=${force}`,
-        method: 'POST',
-        timeout: TIMEOUTS.TWO_MIN,
-        failOnStatusCode: false,
-    }).then((response) => {
-        expect(response.status).to.equal(201);
-
-        cy.wait(TIMEOUTS.THREE_SEC);
-        return cy.wrap({plugin: response.body});
     });
 });
 

@@ -8,8 +8,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"net/http"
-	"net/http/httptest"
 	"os"
 	"path/filepath"
 	"testing"
@@ -39,67 +37,14 @@ func TestPlugin(t *testing.T) {
 		th.App.UpdateConfig(func(cfg *model.Config) {
 			*cfg.PluginSettings.Enable = true
 			*cfg.PluginSettings.EnableUploads = true
-			*cfg.PluginSettings.AllowInsecureDownloadURL = true
 		})
 
 		path, _ := fileutils.FindDir("tests")
 		tarData, err := os.ReadFile(filepath.Join(path, "testplugin.tar.gz"))
 		require.NoError(t, err)
 
-		// Install from URL
-		testServer := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			res.WriteHeader(http.StatusOK)
-			_, err = res.Write(tarData)
-			require.NoError(t, err)
-		}))
-		defer func() { testServer.Close() }()
-
-		url := testServer.URL
-
-		manifest, _, err := client.InstallPluginFromURL(context.Background(), url, false)
-		require.NoError(t, err)
-		assert.Equal(t, "testplugin", manifest.Id)
-
-		_, resp, err := client.InstallPluginFromURL(context.Background(), url, false)
-		require.Error(t, err)
-		CheckBadRequestStatus(t, resp)
-
-		manifest, _, err = client.InstallPluginFromURL(context.Background(), url, true)
-		require.NoError(t, err)
-		assert.Equal(t, "testplugin", manifest.Id)
-
-		// Stored in File Store: Install Plugin from URL case
-		pluginStored, appErr := th.App.FileExists("./plugins/" + manifest.Id + ".tar.gz")
-		assert.Nil(t, appErr)
-		assert.True(t, pluginStored)
-
-		_, err = client.RemovePlugin(context.Background(), manifest.Id)
-		require.NoError(t, err)
-
-		th.App.UpdateConfig(func(cfg *model.Config) { *cfg.PluginSettings.Enable = false })
-
-		_, resp, err = client.InstallPluginFromURL(context.Background(), url, false)
-		require.Error(t, err)
-		CheckNotImplementedStatus(t, resp)
-
-		th.App.UpdateConfig(func(cfg *model.Config) { *cfg.PluginSettings.Enable = true })
-
-		_, resp, err = th.Client.InstallPluginFromURL(context.Background(), url, false)
-		require.Error(t, err)
-		CheckForbiddenStatus(t, resp)
-
-		_, resp, err = client.InstallPluginFromURL(context.Background(), "http://nodata", false)
-		require.Error(t, err)
-		CheckBadRequestStatus(t, resp)
-
-		th.App.UpdateConfig(func(cfg *model.Config) { *cfg.PluginSettings.AllowInsecureDownloadURL = false })
-
-		_, resp, err = client.InstallPluginFromURL(context.Background(), url, false)
-		require.Error(t, err)
-		CheckBadRequestStatus(t, resp)
-
 		// Successful upload
-		manifest, _, err = client.UploadPlugin(context.Background(), bytes.NewReader(tarData))
+		manifest, _, err := client.UploadPlugin(context.Background(), bytes.NewReader(tarData))
 		require.NoError(t, err)
 		assert.Equal(t, "testplugin", manifest.Id)
 
@@ -112,12 +57,12 @@ func TestPlugin(t *testing.T) {
 		assert.Equal(t, "testplugin", manifest.Id)
 
 		// Stored in File Store: Upload Plugin case
-		pluginStored, appErr = th.App.FileExists("./plugins/" + manifest.Id + ".tar.gz")
+		pluginStored, appErr := th.App.FileExists("./plugins/" + manifest.Id + ".tar.gz")
 		assert.Nil(t, appErr)
 		assert.True(t, pluginStored)
 
 		// Upload error cases
-		_, resp, err = client.UploadPlugin(context.Background(), bytes.NewReader([]byte("badfile")))
+		_, resp, err := client.UploadPlugin(context.Background(), bytes.NewReader([]byte("badfile")))
 		require.Error(t, err)
 		CheckBadRequestStatus(t, resp)
 
@@ -148,10 +93,6 @@ func TestPlugin(t *testing.T) {
 			*cfg.PluginSettings.EnableUploads = false
 		})
 		_, resp, err = client.UploadPlugin(context.Background(), bytes.NewReader(tarData))
-		require.Error(t, err)
-		CheckNotImplementedStatus(t, resp)
-
-		_, resp, err = client.InstallPluginFromURL(context.Background(), url, false)
 		require.Error(t, err)
 		CheckNotImplementedStatus(t, resp)
 

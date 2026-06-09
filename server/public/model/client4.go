@@ -6447,18 +6447,6 @@ func (c *Client4) uploadPlugin(ctx context.Context, file io.Reader, force bool) 
 	return DecodeJSONFromResponse[*Manifest](r)
 }
 
-func (c *Client4) InstallPluginFromURL(ctx context.Context, downloadURL string, force bool) (*Manifest, *Response, error) {
-	values := url.Values{}
-	values.Set("plugin_download_url", downloadURL)
-	values.Set("force", c.boolString(force))
-	r, err := c.doAPIPostWithQuery(ctx, c.pluginsRoute().Join("install_from_url"), values, "")
-	if err != nil {
-		return nil, BuildResponse(r), err
-	}
-	defer closeBody(r)
-	return DecodeJSONFromResponse[*Manifest](r)
-}
-
 // ReattachPlugin asks the server to reattach to a plugin launched by another process.
 //
 // Only available in local mode, and currently only used for testing.

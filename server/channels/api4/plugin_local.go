@@ -13,7 +13,6 @@ import (
 func (api *API) InitPluginLocal() {
 	api.BaseRoutes.Plugins.Handle("", api.APILocal(uploadPlugin, handlerParamFileAPI)).Methods(http.MethodPost)
 	api.BaseRoutes.Plugins.Handle("", api.APILocal(getPlugins)).Methods(http.MethodGet)
-	api.BaseRoutes.Plugins.Handle("/install_from_url", api.APILocal(installPluginFromURL)).Methods(http.MethodPost)
 	api.BaseRoutes.Plugin.Handle("", api.APILocal(removePlugin)).Methods(http.MethodDelete)
 	api.BaseRoutes.Plugin.Handle("/enable", api.APILocal(enablePlugin)).Methods(http.MethodPost)
 	api.BaseRoutes.Plugin.Handle("/disable", api.APILocal(disablePlugin)).Methods(http.MethodPost)

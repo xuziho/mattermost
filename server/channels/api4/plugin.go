@@ -4,11 +4,9 @@
 package api4
 
 import (
-	"bytes"
 	"encoding/json"
 	"io"
 	"net/http"
-	"strconv"
 
 	"github.com/mattermost/mattermost/server/public/model"
 	"github.com/mattermost/mattermost/server/public/shared/mlog"
@@ -24,7 +22,6 @@ func (api *API) InitPlugin() {
 	api.BaseRoutes.Plugins.Handle("", api.APISessionRequired(uploadPlugin, handlerParamFileAPI)).Methods(http.MethodPost)
 	api.BaseRoutes.Plugins.Handle("", api.APISessionRequired(getPlugins)).Methods(http.MethodGet)
 	api.BaseRoutes.Plugin.Handle("", api.APISessionRequired(removePlugin)).Methods(http.MethodDelete)
-	api.BaseRoutes.Plugins.Handle("/install_from_url", api.APISessionRequired(installPluginFromURL)).Methods(http.MethodPost)
 
 	api.BaseRoutes.Plugins.Handle("/statuses", api.APISessionRequired(getPluginStatuses)).Methods(http.MethodGet)
 	api.BaseRoutes.Plugin.Handle("/enable", api.APISessionRequired(enablePlugin)).Methods(http.MethodPost)
@@ -85,36 +82,6 @@ func uploadPlugin(c *Context, w http.ResponseWriter, r *http.Request) {
 	}
 
 	installPlugin(c, w, file, force)
-	auditRec.Success()
-}
-
-func installPluginFromURL(c *Context, w http.ResponseWriter, r *http.Request) {
-	if !*c.App.Config().PluginSettings.Enable ||
-		*c.App.Config().PluginSettings.RequirePluginSignature ||
-		!*c.App.Config().PluginSettings.EnableUploads {
-		c.Err = model.NewAppError("installPluginFromURL", "app.plugin.disabled.app_error", nil, "", http.StatusNotImplemented)
-		return
-	}
-
-	auditRec := c.MakeAuditRecord(model.AuditEventInstallPluginFromURL, model.AuditStatusFail)
-	defer c.LogAuditRec(auditRec)
-
-	if !c.App.SessionHasPermissionTo(*c.AppContext.Session(), model.PermissionSysconsoleWritePlugins) {
-		c.SetPermissionError(model.PermissionSysconsoleWritePlugins)
-		return
-	}
-
-	force, _ := strconv.ParseBool(r.URL.Query().Get("force"))
-	downloadURL := r.URL.Query().Get("plugin_download_url")
-	model.AddEventParameterToAuditRec(auditRec, "url", downloadURL)
-
-	pluginFileBytes, err := c.App.DownloadFromURL(downloadURL)
-	if err != nil {
-		c.Err = model.NewAppError("installPluginFromURL", "api.plugin.install.download_failed.app_error", nil, "", http.StatusBadRequest).Wrap(err)
-		return
-	}
-
-	installPlugin(c, w, bytes.NewReader(pluginFileBytes), force)
 	auditRec.Success()
 }
 

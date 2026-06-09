@@ -272,11 +272,10 @@ const (
 
 // Plugins
 const (
-	AuditEventDisablePlugin        = "disablePlugin"        // disable installed plugin
-	AuditEventEnablePlugin         = "enablePlugin"         // enable installed plugin
-	AuditEventInstallPluginFromURL = "installPluginFromURL" // install plugin from external URL
-	AuditEventRemovePlugin         = "removePlugin"         // delete plugin
-	AuditEventUploadPlugin         = "uploadPlugin"         // upload plugin file to server for installation
+	AuditEventDisablePlugin = "disablePlugin" // disable installed plugin
+	AuditEventEnablePlugin  = "enablePlugin"  // enable installed plugin
+	AuditEventRemovePlugin  = "removePlugin"  // delete plugin
+	AuditEventUploadPlugin  = "uploadPlugin"  // upload plugin file to server for installation
 )
 
 // Posts
