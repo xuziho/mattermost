@@ -18,7 +18,7 @@
   "about.hashee": "Геш збірки EE:",
   "about.licensed": "Ліцензовано для:",
   "about.loadmetric": "Метрика навантаження:",
-  "about.notice": "Розробка Mattermost стала можливою за допомогою програмного забезпечення з відкритим кодом, яке використовується на нашому <linkServer>сервері</linkServer> , <linkDesktop>десктопному</linkDesktop> та <linkMobile>мобільному</linkMobile> застосунках.",
+  "about.notice": "AgentCompanyOS includes open source collaboration components and keeps the runtime focused on lightweight team messaging.",
   "about.serverDisconnected": "відключено",
   "about.serverHostname": "Ім'я хоста:",
   "about.serverUnknown": "сервер не надав ім'я хоста",

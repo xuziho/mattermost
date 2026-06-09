@@ -11688,18 +11688,6 @@
     "translation": "Het filter voor gasten is niet geldig."
   },
   {
-    "id": "web.error.unsupported_desktop_app.assistance",
-    "translation": "Neem contact op met je systeembeheerder als je meer hulp nodig hebt."
-  },
-  {
-    "id": "web.error.unsupported_desktop_app.message",
-    "translation": "De versie van je {{.SiteName}} Desktop App ({{.CurrentVersion}}) is lager dan de minimaal vereiste versie ({{.MinimumVersion}}). Werk je app bij of open {{.SiteName}} in een webbrowser om verder te gaan."
-  },
-  {
-    "id": "web.error.unsupported_desktop_app.title",
-    "translation": "Update Vereist"
-  },
-  {
     "id": "app.role.send_updated_role_event.app_error",
     "translation": "Er is een fout opgetreden tijdens het uitzenden van de update van de rol."
   },

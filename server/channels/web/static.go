@@ -17,7 +17,6 @@ import (
 
 	"github.com/mattermost/mattermost/server/public/model"
 	"github.com/mattermost/mattermost/server/public/shared/mlog"
-	"github.com/mattermost/mattermost/server/v8/channels/app"
 	"github.com/mattermost/mattermost/server/v8/channels/utils"
 	"github.com/mattermost/mattermost/server/v8/channels/utils/fileutils"
 	"github.com/mattermost/mattermost/server/v8/platform/shared/templates"
@@ -67,26 +66,6 @@ func root(c *Context, w http.ResponseWriter, r *http.Request) {
 		data := renderUnsupportedBrowser(c.AppContext, r, subpath)
 
 		err := c.App.Srv().TemplatesContainer().Render(w, "unsupported_browser", data)
-		if err != nil {
-			c.Logger.Error("Failed to render template", mlog.Err(err))
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-		return
-	}
-
-	if !CheckDesktopAppCompatibility(r.UserAgent(), c.App.Srv().Config().ServiceSettings.MinimumDesktopAppVersion) {
-		w.Header().Set("Cache-Control", "no-store")
-
-		currentVersion, ok := app.GetDesktopAppVersion(r.UserAgent())
-		if !ok {
-			currentVersion = "unknown"
-		}
-		cfg := c.App.Srv().Config()
-		subpath, _ := utils.GetSubpathFromConfig(cfg)
-
-		data := renderUnsupportedDesktopApp(c.AppContext, cfg, currentVersion, subpath)
-		err := c.App.Srv().TemplatesContainer().Render(w, "unsupported_desktop_app", data)
 		if err != nil {
 			c.Logger.Error("Failed to render template", mlog.Err(err))
 			http.Error(w, err.Error(), http.StatusInternalServerError)

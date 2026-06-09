@@ -19,7 +19,7 @@
   "about.hashee": "Kód sestavení EE:",
   "about.licensed": "Licencováno:",
   "about.loadmetric": "Načíst metriku:",
-  "about.notice": "Mattermost je možné používat díky softwaru s otevřeným zdrojovým kódem na vašem <linkServer>serveru</linkServer>, <linkDesktop>desktopu</linkDesktop> a <linkMobile>mobilní</linkMobile> aplikaci.",
+  "about.notice": "AgentCompanyOS includes open source collaboration components and keeps the runtime focused on lightweight team messaging.",
   "about.serverDisconnected": "odpojeno",
   "about.serverHostname": "Název hostitele:",
   "about.serverUnknown": "Server neposkytl název hostitele",

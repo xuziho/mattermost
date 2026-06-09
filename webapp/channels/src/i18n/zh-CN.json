@@ -19,7 +19,7 @@
   "about.hashee": "企业版编译哈希：",
   "about.licensed": "授权给：",
   "about.loadmetric": "负载指标：",
-  "about.notice": "开源软件帮助 Mattermost 实现了我们的<linkServer>服务端</linkServer>、<linkDesktop>桌面</linkDesktop>以及<linkMobile>移动</linkMobile>应用。",
+  "about.notice": "AgentCompanyOS includes open source collaboration components and keeps the runtime focused on lightweight team messaging.",
   "about.serverDisconnected": "已断开连接",
   "about.serverHostname": "主机名：",
   "about.serverUnknown": "服务器未提供主机名",

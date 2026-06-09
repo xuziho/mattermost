@@ -19,7 +19,7 @@
   "about.hashee": "Hash for EE-bygget:",
   "about.licensed": "Lisensiert av:",
   "about.loadmetric": "Belastning:",
-  "about.notice": "Mattermost er muliggjort av programvare med åpen kildekode som brukes i <linkServer>server</linkServer>, <linkDesktop>desktop</linkDesktop> og <linkMobile>mobil</linkMobile> apper.",
+  "about.notice": "AgentCompanyOS includes open source collaboration components and keeps the runtime focused on lightweight team messaging.",
   "about.serverDisconnected": "frakoblet",
   "about.serverHostname": "Vertsnavn:",
   "about.serverUnknown": "serveren oppga ikke vertsnavn",

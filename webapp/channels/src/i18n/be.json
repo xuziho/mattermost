@@ -19,7 +19,7 @@
   "about.hashee": "Хэш зборкі EE:",
   "about.licensed": "Ліцэнзавана для:",
   "about.loadmetric": "Метрыка нагрузкі:",
-  "about.notice": "Mattermost стаў магчымым дзякуючы праграмнаму забеспячэнню з адкрытым зыходным кодам, якое выкарыстоўваецца ў нашым <linkServer>серверы</linkServer>, <linkDesktop>ПК</linkDesktop> і <linkMobile>мабільным</linkMobile> дадатках.",
+  "about.notice": "AgentCompanyOS includes open source collaboration components and keeps the runtime focused on lightweight team messaging.",
   "about.serverDisconnected": "адключана",
   "about.serverHostname": "Імя хоста:",
   "about.serverUnknown": "Сервер не прадаставіў імя хоста",

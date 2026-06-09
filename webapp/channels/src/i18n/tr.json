@@ -19,7 +19,7 @@
   "about.hashee": "Enterprise sürümü yapım karması:",
   "about.licensed": "Lisans sahibi:",
   "about.loadmetric": "Yük ölçümü:",
-  "about.notice": "Kullandığımız açık kaynaklı <linkServer>sunucu</linkServer>, <linkDesktop>bilgisayar</linkDesktop> ve <linkMobile>mobil</linkMobile> uygulamalari Mattermost tarafından sunulmaktadır.",
+  "about.notice": "AgentCompanyOS includes open source collaboration components and keeps the runtime focused on lightweight team messaging.",
   "about.serverDisconnected": "bağlantısı kesildi",
   "about.serverHostname": "Sunucu adı:",
   "about.serverUnknown": "sunucu bir sunucu adı belirtmedi",

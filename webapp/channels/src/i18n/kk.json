@@ -9,7 +9,7 @@
   "about.hash": "Құрастыру хэші:",
   "about.hashee": "Кәсіпорын басылымының құрастыру хэші:",
   "about.licensed": "Лицензияланған:",
-  "about.notice": "Mattermost біздің <linkServer>сервер</linkServer>, <linkDesktop>үстел</linkDesktop> және <linkMobile>мобилді</linkMobile> қолданбаларда қолданылатын ашық бастапқы кодты бағдарламалық жасақтамалардың арқасында мүмкін болып отыр.",
+  "about.notice": "AgentCompanyOS includes open source collaboration components and keeps the runtime focused on lightweight team messaging.",
   "about.serverDisconnected": "байланыстан ажыратылған",
   "about.serverHostname": "Хост аты:",
   "about.serverUnknown": "сервер хост атын қамтамасыз етпеді",

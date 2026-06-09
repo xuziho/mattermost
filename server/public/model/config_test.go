@@ -2887,7 +2887,7 @@ func TestNativeAppSettingsIsValid(t *testing.T) {
 	t.Run("malformed AppDownloadLink is rejected", func(t *testing.T) {
 		cfg := Config{}
 		cfg.SetDefaults()
-		*cfg.NativeAppSettings.AppDownloadLink = "http://://mattermost.com"
+		*cfg.NativeAppSettings.AppDownloadLink = "http://://example.com"
 		appErr := cfg.NativeAppSettings.AreDownloadLinksValid()
 		require.NotNil(t, appErr)
 		require.Equal(t, "model.config.is_valid.native_app_settings.download_link.app_error", appErr.Id)

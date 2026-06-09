@@ -11696,18 +11696,6 @@
     "translation": "Podany filtr gości jest nieprawidłowy."
   },
   {
-    "id": "web.error.unsupported_desktop_app.assistance",
-    "translation": "Jeśli potrzebujesz dalszej pomocy, skontaktuj się z administratorem systemu."
-  },
-  {
-    "id": "web.error.unsupported_desktop_app.message",
-    "translation": "Twoja wersja aplikacji {{.SiteName}} na Pulpit ({{.CurrentVersion}}) jest poniżej minimalnej wymaganej wersji ({{.MinimumVersion}}). Aby kontynuować, zaktualizuj aplikację lub otwórz stronę {{.SiteName}} w przeglądarce internetowej."
-  },
-  {
-    "id": "web.error.unsupported_desktop_app.title",
-    "translation": "Wymagana jest aktualizacja"
-  },
-  {
     "id": "api.ai_bridge_test_helper.disabled.app_error",
     "translation": "Pomocnik testu mostka jest wyłączony."
   },

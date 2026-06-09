@@ -19,7 +19,7 @@
   "about.hashee": "EE Build Hash:",
   "about.licensed": "Licensed to:",
   "about.loadmetric": "Load Metric:",
-  "about.notice": "Mattermost is made possible by the open source software used in our <linkServer>server</linkServer>, <linkDesktop>desktop</linkDesktop> and <linkMobile>mobile</linkMobile> apps.",
+  "about.notice": "AgentCompanyOS includes open source collaboration components and keeps the runtime focused on lightweight team messaging.",
   "about.serverDisconnected": "disconnected",
   "about.serverHostname": "Hostname:",
   "about.serverUnknown": "server did not provide hostname",

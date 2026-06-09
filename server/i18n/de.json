@@ -11640,18 +11640,6 @@
     "translation": "Ungültige Versionsnummer. Muss eine gültige semantische Version sein (z.B. 5.0.0)."
   },
   {
-    "id": "web.error.unsupported_desktop_app.assistance",
-    "translation": "Wende dich an deinen Systemadministrator, wenn du weitere Hilfe benötigst."
-  },
-  {
-    "id": "web.error.unsupported_desktop_app.message",
-    "translation": "Die Version deiner {{.SiteName}} Desktop App ({{.CurrentVersion}}) liegt unter der erforderlichen Mindestversion ({{.MinimumVersion}}). Bitte aktualisiere deine App oder öffne {{.SiteName}} in einem Webbrowser, um fortzufahren."
-  },
-  {
-    "id": "web.error.unsupported_desktop_app.title",
-    "translation": "Update erforderlich"
-  },
-  {
     "id": "api.slackimport.slack_add_bot_user.email",
     "translation": "Der Integrations-/Slack-Bot-Benutzer mit der E-Mail {{.Email}} wurde importiert.\n"
   },

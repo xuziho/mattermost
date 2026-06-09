@@ -11,7 +11,7 @@
   "about.hashee": "Hash da compilação EE:",
   "about.licensed": "Licenciado a:",
   "about.loadmetric": "Métrica de carga:",
-  "about.notice": "Mattermost é possível graças ao programa de código aberto utilizado no nosso <linkServer>servidor</linkServer>,<linkDesktop>PC</linkDesktop> e aplicações <linkMobile>móveis</linkMobile>.",
+  "about.notice": "AgentCompanyOS includes open source collaboration components and keeps the runtime focused on lightweight team messaging.",
   "about.serverDisconnected": "desligado",
   "about.serverHostname": "Nome do anfitrião:",
   "about.serverUnknown": "o servidor não forneceu o nome de anfitrião",

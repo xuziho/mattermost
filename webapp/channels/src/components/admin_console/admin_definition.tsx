@@ -6,7 +6,6 @@
 import React from 'react';
 import {FormattedMessage, defineMessage, defineMessages} from 'react-intl';
 import {Link} from 'react-router-dom';
-import semver from 'semver';
 
 import AccountMultipleOutlineIcon from '@mattermost/compass-icons/components/account-multiple-outline';
 import ChartBarIcon from '@mattermost/compass-icons/components/chart-bar';
@@ -2240,33 +2239,6 @@ const AdminDefinition: AdminDefinitionType = {
                             label: defineMessage({id: 'admin.support.problemAllowDownloadTitle', defaultMessage: 'Allow Native Client Log Downloads:'}),
                             help_text: defineMessage({id: 'admin.support.problemAllowDownloadDescription', defaultMessage: 'When enabled, users can download app logs for troubleshooting.'}),
                             isDisabled: it.not(it.userHasWritePermissionOnResource(RESOURCE_KEYS.SITE.CUSTOMIZATION)),
-                        },
-                        {
-                            type: 'text',
-                            key: 'ServiceSettings.MinimumDesktopAppVersion',
-                            label: defineMessage({
-                                id: 'admin.customization.minimumDesktopAppVersionTitle',
-                                defaultMessage: 'Minimum native desktop client version:',
-                            }),
-                            placeholder: defineMessage({
-                                id: 'admin.customization.minimumDesktopAppVersionPlaceholder',
-                                defaultMessage: 'Input a version number (e.g. 5.0.0)',
-                            }),
-                            help_text: defineMessage({
-                                id: 'admin.customization.minimumDesktopAppVersionDesc',
-                                defaultMessage: 'Specify the minimum desktop client version required to connect to this server (e.g., 5.10.0). Users connecting with a desktop client below this minimum will be shown an update required page and will not be able to use the application until they update. Leave this field blank to allow all desktop client versions to connect without restriction.',
-                            }),
-                            isDisabled: it.not(it.userHasWritePermissionOnResource(RESOURCE_KEYS.SITE.CUSTOMIZATION)),
-                            validate: (value) => {
-                                const trimmed = typeof value === 'string' ? value.trim() : value;
-                                if (trimmed && !semver.valid(trimmed)) {
-                                    return new ValidationResult(false, defineMessage({
-                                        id: 'admin.customization.minimumDesktopAppVersionError',
-                                        defaultMessage: 'Invalid version number. Must be a valid semantic version (e.g. 5.0.0).',
-                                    }));
-                                }
-                                return new ValidationResult(true, '');
-                            },
                         },
                     ],
                 },

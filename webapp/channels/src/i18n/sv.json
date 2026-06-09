@@ -19,7 +19,7 @@
   "about.hashee": "EE bygg-hash:",
   "about.licensed": "Licensierad till:",
   "about.loadmetric": "Belastning:",
-  "about.notice": "Mattermost är möjlig tack vare att både <linkServer>server</linkServer>, <linkDesktop>skrivbordsapp</linkDesktop> och <linkMobile>mobilapp</linkMobile> har öppen källkod.",
+  "about.notice": "AgentCompanyOS includes open source collaboration components and keeps the runtime focused on lightweight team messaging.",
   "about.serverDisconnected": "bortkopplad",
   "about.serverHostname": "Servernamn:",
   "about.serverUnknown": "Servern angav inget servernamn",

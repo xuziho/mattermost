@@ -128,24 +128,6 @@ describe('SupportSettings', () => {
         });
     });
 
-    it('MM-T1038 - Customization App download link - Change to different', () => {
-        // # Edit links in the support email field
-        const link = 'https://github.com/mattermost/desktop/releases';
-        cy.findByTestId('NativeAppSettings.AppDownloadLinkinput').clear().type(link);
-
-        // # Save setting then back to team view
-        saveSetting();
-        backToTeam();
-
-        // # Open about modal
-        cy.uiOpenProductMenu().within(() => {
-            // * Verify that 'Download Apps' has expected link
-            cy.findByText('Download Apps').
-                parents('a').
-                should('have.attr', 'href', link);
-        });
-    });
-
     it('MM-T3289_1 - Help (Ask community link setting)', () => {
         // * Verify enable ask community link to be true by default
         cy.findByTestId('SupportSettings.EnableAskCommunityLinktrue').should('be.checked');

@@ -19,7 +19,7 @@
   "about.hashee": "EE 빌드 해시:",
   "about.licensed": "다음 사용자에게 허가되었습니다:",
   "about.loadmetric": "사용률:",
-  "about.notice": "Mattermost는 <linkServer>서버</linkServer>, <linkDesktop>데스크톱</linkDesktop> 그리고 <linkMobile>모바일</linkMobile>에서 오픈소스 소프트웨어로 이용 가능합니다.",
+  "about.notice": "AgentCompanyOS includes open source collaboration components and keeps the runtime focused on lightweight team messaging.",
   "about.serverDisconnected": "연결끊김",
   "about.serverHostname": "호스트명:",
   "about.serverUnknown": "서버가 호스트명을 제공하지 않았습니다",

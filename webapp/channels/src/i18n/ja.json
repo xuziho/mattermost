@@ -19,7 +19,7 @@
   "about.hashee": "EEビルドハッシュ:",
   "about.licensed": "ライセンス先:",
   "about.loadmetric": "負荷率:",
-  "about.notice": "Mattermostは<linkServer>server</linkServer>、 <linkDesktop>desktop</linkDesktop>、<linkMobile>mobile</linkMobile>で使用されているオープンソースソフトウェアによって実現されています。",
+  "about.notice": "AgentCompanyOS includes open source collaboration components and keeps the runtime focused on lightweight team messaging.",
   "about.serverDisconnected": "切断",
   "about.serverHostname": "ホスト名:",
   "about.serverUnknown": "サーバーがホスト名を提供していません",

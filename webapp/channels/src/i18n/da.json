@@ -9,7 +9,7 @@
   "about.hash": "Build Hash:",
   "about.hashee": "EE Build Hash:",
   "about.licensed": "Licenseret til:",
-  "about.notice": "Mattermost er gjort muligt af open source-software, der anvendes i vores <linkServer>server</linkServer>, <linkDesktop>desktop</linkDesktop> og <linkMobile>mobil</linkMobile> apps.",
+  "about.notice": "AgentCompanyOS includes open source collaboration components and keeps the runtime focused on lightweight team messaging.",
   "about.serverDisconnected": "frakoblet",
   "about.serverHostname": "Hostnavn:",
   "about.serverUnknown": "Serveren gav ikke noget værtsnavn",

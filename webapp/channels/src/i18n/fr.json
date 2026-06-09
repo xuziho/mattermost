@@ -17,7 +17,7 @@
   "about.hash": "Hash de version :",
   "about.hashee": "Hash de version EE :",
   "about.licensed": "Licence accordée à :",
-  "about.notice": "Mattermost est rendu possible grâce aux logiciels open source utilisés dans notre <linkServer>serveur</linkServer>, <linkDesktop>applications de bureau</linkDesktop> et <linkMobile>applications mobiles</linkMobile>.",
+  "about.notice": "AgentCompanyOS includes open source collaboration components and keeps the runtime focused on lightweight team messaging.",
   "about.serverDisconnected": "déconnecté",
   "about.serverHostname": "Nom d’hôte :",
   "about.serverUnknown": "Le serveur n’a pas fourni de nom d’hôte",
