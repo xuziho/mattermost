@@ -8,14 +8,12 @@ export default class ChannelsHeader {
 
     readonly title: Locator;
     readonly channelMenuDropdown;
-    readonly callButton: Locator;
 
     constructor(container: Locator) {
         this.container = container;
 
         this.title = container.locator('#channelHeaderTitle');
         this.channelMenuDropdown = container.locator('[aria-controls="channelHeaderDropdownMenu"]');
-        this.callButton = container.getByRole('button', {name: /call/i}).first();
     }
 
     async toBeVisible() {
@@ -29,10 +27,5 @@ export default class ChannelsHeader {
     async openChannelMenu() {
         await this.channelMenuDropdown.isVisible();
         await this.channelMenuDropdown.click();
-    }
-
-    async openCalls() {
-        await expect(this.callButton).toBeVisible();
-        await this.callButton.click();
     }
 }
