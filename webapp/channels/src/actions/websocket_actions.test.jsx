@@ -29,6 +29,7 @@ import {invalidateAccessControlAttributesCache} from 'components/common/hooks/us
 
 import mergeObjects from 'packages/mattermost-redux/test/merge_objects';
 import configureStore from 'tests/test_store';
+import {waitFor} from 'tests/react_testing_utils';
 import {getHistory} from 'utils/browser_history';
 import Constants, {ActionTypes, UserStatuses} from 'utils/constants';
 
@@ -75,6 +76,8 @@ jest.mock('mattermost-redux/actions/general', () => ({
     ...jest.requireActual('mattermost-redux/actions/general'),
     getCustomProfileAttributeFields: jest.fn(() => ({type: 'CUSTOM_PROFILE_ATTRIBUTE_FIELDS_RECEIVED'})),
 }));
+
+jest.mock('plugins/export', () => ({}));
 
 jest.mock('mattermost-redux/actions/groups', () => ({
     ...jest.requireActual('mattermost-redux/actions/groups'),
@@ -974,7 +977,7 @@ describe('handlePluginEnabled/handlePluginDisabled', () => {
 
             handlePluginEnabled({data: {manifest}});
 
-            expect(document.createElement).toHaveBeenCalledWith('script');
+            await waitFor(() => expect(document.createElement).toHaveBeenCalledWith('script'));
             expect(document.getElementsByTagName).toHaveBeenCalledTimes(1);
             expect(document.getElementsByTagName()[0].appendChild).toHaveBeenCalledTimes(1);
 
@@ -996,7 +999,7 @@ describe('handlePluginEnabled/handlePluginDisabled', () => {
             expect(console.error).toHaveBeenCalledTimes(0);
         });
 
-        test('when a plugin is upgraded', () => {
+        test('when a plugin is upgraded', async () => {
             const manifest = {
                 ...baseManifest,
                 id: 'com.mattermost.demo-2-plugin',
@@ -1015,7 +1018,7 @@ describe('handlePluginEnabled/handlePluginDisabled', () => {
 
             handlePluginEnabled({data: {manifest}});
 
-            expect(document.createElement).toHaveBeenCalledWith('script');
+            await waitFor(() => expect(document.createElement).toHaveBeenCalledWith('script'));
             expect(document.getElementsByTagName).toHaveBeenCalledTimes(1);
             expect(document.getElementsByTagName()[0].appendChild).toHaveBeenCalledTimes(1);
 
@@ -1029,7 +1032,7 @@ describe('handlePluginEnabled/handlePluginDisabled', () => {
             // Assert upgrade is idempotent
             handlePluginEnabled({data: {manifest: manifestv2}});
 
-            expect(document.createElement).toHaveBeenCalledTimes(2);
+            await waitFor(() => expect(document.createElement).toHaveBeenCalledTimes(2));
 
             dispatchArg = store.dispatch.mock.calls[1][0];
             expect(dispatchArg.type).toBe(ActionTypes.RECEIVED_WEBAPP_PLUGIN);
@@ -1082,7 +1085,7 @@ describe('handlePluginEnabled/handlePluginDisabled', () => {
             }]);
         });
 
-        test('when a plugin is disabled', () => {
+        test('when a plugin is disabled', async () => {
             const manifest = {
                 ...baseManifest,
                 id: 'com.mattermost.demo-3-plugin',
@@ -1102,7 +1105,7 @@ describe('handlePluginEnabled/handlePluginDisabled', () => {
             // Enable plugin
             handlePluginEnabled({data: {manifest}});
 
-            expect(document.createElement).toHaveBeenCalledWith('script');
+            await waitFor(() => expect(document.createElement).toHaveBeenCalledWith('script'));
             expect(document.createElement).toHaveBeenCalledTimes(1);
 
             // Disable plugin

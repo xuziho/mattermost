@@ -128,6 +128,15 @@ export function getPlugins(): ActionFuncAsync<ClientPluginManifest[]> {
 
 // loadedPlugins tracks which plugins have been added as script tags to the page
 const loadedPlugins: { [key: string]: PluginManifest } = {};
+let pluginExportsReady: Promise<unknown> | null = null;
+
+function ensurePluginExports(): Promise<unknown> {
+    if (!pluginExportsReady) {
+        pluginExportsReady = import('./export');
+    }
+
+    return pluginExportsReady;
+}
 
 // describePlugin takes a manifest and spits out a string suitable for console.log messages.
 const describePlugin = (manifest: PluginManifest): string => (
@@ -170,19 +179,25 @@ export function loadPlugin(manifest: PluginManifest): Promise<void> {
             bundlePath = bundlePath.replace('/static/', '/static/plugins/');
         }
 
-        addPluginRegisteredHandler(manifest.id, onLoad);
-
-        console.log('Loading ' + describePlugin(manifest)); //eslint-disable-line no-console
-
-        const script = document.createElement('script');
-        script.id = 'plugin_' + manifest.id;
-        script.type = 'text/javascript';
-        script.src = getSiteURL() + bundlePath;
-        script.defer = true;
-        script.onerror = onError;
-
-        document.getElementsByTagName('head')[0].appendChild(script);
         loadedPlugins[manifest.id] = manifest;
+
+        ensurePluginExports().then(() => {
+            addPluginRegisteredHandler(manifest.id, onLoad);
+
+            console.log('Loading ' + describePlugin(manifest)); //eslint-disable-line no-console
+
+            const script = document.createElement('script');
+            script.id = 'plugin_' + manifest.id;
+            script.type = 'text/javascript';
+            script.src = getSiteURL() + bundlePath;
+            script.defer = true;
+            script.onerror = onError;
+
+            document.getElementsByTagName('head')[0].appendChild(script);
+        }).catch((err) => {
+            delete loadedPlugins[manifest.id];
+            reject(new Error('Unable to prepare plugin exports for ' + describePlugin(manifest) + ': ' + err));
+        });
     });
 }
 

@@ -37,8 +37,6 @@ import RootRedirect from './root_redirect';
 
 import type {PropsFromRedux} from './index';
 
-import 'plugins/export';
-
 const MobileViewWatcher = makeAsyncComponent('MobileViewWatcher', lazy(() => import('components/mobile_view_watcher')));
 const WindowSizeObserver = makeAsyncComponent('WindowSizeObserver', lazy(() => import('components/window_size_observer/WindowSizeObserver')));
 const ErrorPage = makeAsyncComponent('ErrorPage', lazy(() => import('components/error_page')));
