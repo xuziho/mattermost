@@ -1428,7 +1428,6 @@
   "numMembers": "{num, number} {num, plural, one {membro} other {membros}}",
   "pending_post_actions.cancel": "Cancelar",
   "post_priority.picker.cancel": "Cancelar",
-  "postypes.custom_open_pricing_modal_post_renderer.membersThatRequested": "Membros que solicitaram. ",
   "rhs_root.mobile.flag": "Guardar Mensagem",
   "save": "Guardar",
   "saveChangesPanel.cancel": "Anular",

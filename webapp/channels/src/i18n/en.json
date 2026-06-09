@@ -5103,7 +5103,6 @@
   "postlist.toast.searchHint": "Tip: Try {searchShortcut} to search this channel",
   "posts_view.loadMore": "Load more messages",
   "posts_view.newMsg": "New Messages",
-  "postypes.custom_open_pricing_modal_post_renderer.membersThatRequested": "Members that requested ",
   "profile_popover.aria_label.with_username": "{userName}'s profile popover",
   "profile_popover.aria_label.without_username": "profile popover",
   "promote_to_user_modal.desc": "This action promotes the guest {username} to a member. It will allow the user to join public channels and interact with users outside of the channels they are currently members of. Are you sure you want to promote guest {username} to member?",

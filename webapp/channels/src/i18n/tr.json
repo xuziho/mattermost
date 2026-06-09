@@ -4553,7 +4553,6 @@
   "postlist.toast.searchHint": "İpucu: Bu kanalda arama yapmak için {searchShortcut} kullanın",
   "posts_view.loadMore": "Diğer iletileri yükle",
   "posts_view.newMsg": "Yeni iletiler",
-  "postypes.custom_open_pricing_modal_post_renderer.membersThatRequested": "İstekte bulunan üyeler ",
   "profile_popover.aria_label.with_username": "{userName} kullanıcı profili penceresi",
   "profile_popover.aria_label.without_username": "profil penceresi",
   "promote_to_user_modal.desc": "Bu işlem {username} kullanıcısını kullanıcı rolünden üye rolüne yükseltecek. Kullanıcı herkese açık kanallara katılabilecek ve üyesi olduğu kanalların dışındaki kullanıcılar ile etkileşimde bulunabilecek. {username} konuk kullanıcısını üye rolüne yükseltmek istediğinize emin misiniz?",

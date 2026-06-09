@@ -4685,7 +4685,6 @@
   "postlist.toast.searchHint": "Tips: Testa {searchShortcut} för att söka i aktuell kanal",
   "posts_view.loadMore": "Ladda mer meddelanden",
   "posts_view.newMsg": "Nya meddelanden",
-  "postypes.custom_open_pricing_modal_post_renderer.membersThatRequested": "Medlemmar som efterfrågat ",
   "profile_popover.aria_label.with_username": "{userName}'s profil-popover",
   "profile_popover.aria_label.without_username": "profil-popover",
   "promote_to_user_modal.desc": "Detta kommer omvandla gästkontot {username} till ett medlemskonto. Det kommer tillåta användaren att gå med i publika kanaler och interagera med användare som inte är medlem i användarens kanaler. Är du säker på att du vill omvandla gästkontot {username} till ett användarkonto?",

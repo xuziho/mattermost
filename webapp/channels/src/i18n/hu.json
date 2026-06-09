@@ -3157,7 +3157,6 @@
   "postlist.toast.searchHint": "Tipp: Próbálja ki a {searchShortcut} gyorsgombot a csatornában kereséséhez",
   "posts_view.loadMore": "Több üzenet betöltése",
   "posts_view.newMsg": "Új üzenetek",
-  "postypes.custom_open_pricing_modal_post_renderer.membersThatRequested": "Tagok akik kérték ",
   "promote_to_user_modal.desc": "Ez a művelet előlépteti a vendég {username} taggá válását. Lehetővé teszi a felhasználó számára, hogy csatlakozzon a nyilvános csatornákhoz, és kapcsolatba léphessen a felhasználókkal azon csatornákon kívül, amelyeknek jelenleg tagjai. Biztos, hogy a {username} vendéget előlépteti taggá?",
   "promote_to_user_modal.promote": "Előléptetés",
   "promote_to_user_modal.title": "{username} vendég előléptetése taggá",

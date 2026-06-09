@@ -4929,7 +4929,6 @@
   "postlist.toast.searchHint": "提示：使用 {searchShortcut} 搜索此频道",
   "posts_view.loadMore": "载入更多消息",
   "posts_view.newMsg": "新消息",
-  "postypes.custom_open_pricing_modal_post_renderer.membersThatRequested": "请求的成员 ",
   "profile_popover.aria_label.with_username": "{userName} 的个人资料弹出窗口",
   "profile_popover.aria_label.without_username": "个人资料弹出窗口",
   "promote_to_user_modal.desc": "此操作将升级访客 {username} 至成员。这将允许用户加入公共频道已经与当前分配的频道里的成员以外的用户进行互动。您确定要升级 {username} 至成员？",

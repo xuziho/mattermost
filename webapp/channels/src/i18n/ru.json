@@ -4171,7 +4171,6 @@
   "postlist.toast.searchHint": "Совет: попробуйте {searchShortcut} для поиска на этом канале",
   "posts_view.loadMore": "Больше сообщений",
   "posts_view.newMsg": "Новые сообщения",
-  "postypes.custom_open_pricing_modal_post_renderer.membersThatRequested": "Участники, которые просили ",
   "promote_to_user_modal.desc": "Это действие повышает гостя {username} до участника. Это позволит пользователю присоединяться к общедоступным каналам и взаимодействовать с пользователями за пределами каналов, членами которых они в настоящее время являются. Вы уверены, что хотите сделать гостя {username} участником?",
   "promote_to_user_modal.promote": "Повысить",
   "promote_to_user_modal.title": "Повысить гостя {username} до участника",

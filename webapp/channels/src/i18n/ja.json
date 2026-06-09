@@ -4629,7 +4629,6 @@
   "postlist.toast.searchHint": "ヒント：このチャンネルを検索するには {searchShortcut} をお試しください",
   "posts_view.loadMore": "もっとメッセージを読み込む",
   "posts_view.newMsg": "新しいメッセージ",
-  "postypes.custom_open_pricing_modal_post_renderer.membersThatRequested": "メンバーからのリクエスト ",
   "profile_popover.aria_label.with_username": "{userName}のプロフィールポップオーバー",
   "profile_popover.aria_label.without_username": "プロフィールポップオーバー",
   "promote_to_user_modal.desc": "これにより、ゲスト {username} がメンバーへ昇格されます。昇格したゲストは、公開チャンネルへの参加や、メンバーとして参加しているチャンネル外のユーザーとのやりとりが許可されます。本当に {username} をメンバーに昇格しますか？",

@@ -4476,7 +4476,6 @@
   "postlist.toast.searchHint": "팁: {searchShortcut} 에서 이 채널을 검색하세요.",
   "posts_view.loadMore": "메시지 더 보기",
   "posts_view.newMsg": "새로운 메시지",
-  "postypes.custom_open_pricing_modal_post_renderer.membersThatRequested": "요청한 회원 ",
   "profile_popover.aria_label.with_username": "{userName}의 프로필 팝업",
   "profile_popover.aria_label.without_username": "프로필 팝오버",
   "promote_to_user_modal.desc": "이 작업은 {username} 게스트를 회원으로 승격합니다. 그러면 해당 사용자는 공개 채널에 참여하여 현재 회원인 채널 외부의 사용자와 상호작용할 수 있습니다. {username} 게스트를 회원으로 승격하시겠습니까?",

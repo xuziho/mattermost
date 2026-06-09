@@ -5008,7 +5008,6 @@
   "postlist.toast.searchHint": "Wskazówka: Wypróbuj {searchShortcut}, aby przeszukać ten kanał",
   "posts_view.loadMore": "Pobierz więcej wiadomości",
   "posts_view.newMsg": "Nowe Wiadomości",
-  "postypes.custom_open_pricing_modal_post_renderer.membersThatRequested": "Posłowie, którzy złożyli wniosek ",
   "profile_popover.aria_label.with_username": "{userName} wyskakujące okienko profilu",
   "profile_popover.aria_label.without_username": "wyskakujące okienko profilu",
   "promote_to_user_modal.desc": "Ta akcja promuje gościa {username} do członka. Pozwoli ona użytkownikowi dołączyć do publicznych kanałów i wchodzić w interakcje z użytkownikami spoza kanałów, których jest obecnie członkiem. Jesteś pewien, że chcesz promować gościa {username} na członka?",

@@ -5015,7 +5015,6 @@
   "postlist.toast.searchHint": "Tipp: Mit {searchShortcut} diesen Kanal durchsuchen",
   "posts_view.loadMore": "Weitere Nachrichten laden",
   "posts_view.newMsg": "Neue Nachrichten",
-  "postypes.custom_open_pricing_modal_post_renderer.membersThatRequested": "Mitglieder, die folgendes angefragt haben ",
   "profile_popover.aria_label.with_username": "{userName}s Profil Popover",
   "profile_popover.aria_label.without_username": "Profil-Popover",
   "promote_to_user_modal.desc": "Diese Aktion stuft den Gast {username} zu einem Mitglied herauf. Es erlaubt dem Benutzer, öffentlichen Kanälen beizutreten und mit Benutzern außerhalb der Kanäle zu interagieren, in denen er derzeit Mitglied ist.Bist du sicher, dass du den Benutzer {username} zum Mitglied heraufstufen möchtest?",

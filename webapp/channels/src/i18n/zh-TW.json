@@ -4036,7 +4036,6 @@
   "postlist.toast.searchHint": "秘訣：嘗試使用 {searchShortcut} 搜尋該頻道",
   "posts_view.loadMore": "載入更多訊息",
   "posts_view.newMsg": "新訊息",
-  "postypes.custom_open_pricing_modal_post_renderer.membersThatRequested": "已請求的成員 ",
   "promote_to_user_modal.desc": "這將升格使用者 {username} 為成員，並允許其加入公開頻道及和與其無共同頻道的使用者互動。確定升格使用者 {username} 為成員？",
   "promote_to_user_modal.promote": "升格",
   "promote_to_user_modal.title": "升格訪客 {username} 為成員",

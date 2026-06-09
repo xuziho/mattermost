@@ -4290,7 +4290,6 @@
   "postlist.toast.searchHint": "Підказка: Спробуйте {searchShortcut} для пошуку на цьому каналі",
   "posts_view.loadMore": "Завантажити більше повідомлень",
   "posts_view.newMsg": "Нові Повідомлення",
-  "postypes.custom_open_pricing_modal_post_renderer.membersThatRequested": "Учасники, які попросили ",
   "profile_popover.aria_label.with_username": "Спливаюче вікно профілю {userName}",
   "profile_popover.aria_label.without_username": "спливаюче вікно профілю",
   "promote_to_user_modal.desc": "Ця дія підвищить статус гостя {username} до учасника. Це дозволить користувачеві приєднатися до публічних каналів і взаємодіяти з користувачами за межами каналів, в яких він наразі є учасником. Ви впевнені, що хочете надати гостю {username} статус учасника?",

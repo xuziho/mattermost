@@ -3345,7 +3345,6 @@
   "postlist.toast.searchHint": "Patarimas: pabandykite {searchShortcut} ieškoti šiame kanale",
   "posts_view.loadMore": "Įkelti daugiau pranešimų",
   "posts_view.newMsg": "Nauji pranešimai",
-  "postypes.custom_open_pricing_modal_post_renderer.membersThatRequested": "Nariai, kurie prašė ",
   "promote_to_user_modal.desc": "Šis veiksmas paaukština svečią {username} į narį. Tai leis naudotojui prisijungti prie viešųjų kanalų ir bendrauti su naudotojais už kanalų, kurių nariai šiuo metu jie yra, ribų. Ar tikrai norite paaukštinti svečią {username} į narį?",
   "promote_to_user_modal.promote": "Reklamuoti",
   "promote_to_user_modal.title": "Paaukštinti svečią {username} nariu",

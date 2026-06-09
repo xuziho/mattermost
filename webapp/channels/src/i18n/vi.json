@@ -3311,7 +3311,6 @@
   "postlist.toast.searchHint": "Mẹo: Hãy thử {searchShortcut} để tìm kiếm kênh này",
   "posts_view.loadMore": "Tải thêm tin nhắn",
   "posts_view.newMsg": "Tin nhắn mới",
-  "postypes.custom_open_pricing_modal_post_renderer.membersThatRequested": "Thành viên đã yêu cầu ",
   "promote_to_user_modal.desc": "Hành động này sẽ nâng cấp {username} thành thành viên. Nó sẽ cho phép người này tham gia các kênh công khai và tương tác với người dùng bên ngoài các kênh mà họ hiện là thành viên. Bạn có chắc chắn muốn nâng cấp {username} với quyền thành viên không?",
   "promote_to_user_modal.promote": "Khuyến Khích",
   "promote_to_user_modal.title": "Nâng cấp {username} làm thành viên",

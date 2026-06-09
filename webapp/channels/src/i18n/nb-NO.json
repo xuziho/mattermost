@@ -3864,7 +3864,6 @@
   "postlist.toast.searchHint": "Tips: Prøv {searchShortcut} for å søke i denne kanalen",
   "posts_view.loadMore": "Last inn flere meldinger",
   "posts_view.newMsg": "Nye meldinger",
-  "postypes.custom_open_pricing_modal_post_renderer.membersThatRequested": "Medlemmer som ba om ",
   "profile_popover.aria_label.with_username": "{userName}'s profil popover",
   "profile_popover.aria_label.without_username": "profil popover",
   "promote_to_user_modal.desc": "Denne handlingen gjør gjesten {username} til medlem. Det vil gjøre det mulig for brukeren å bli med i offentlige kanaler og samhandle med brukere utenfor kanalene de for øyeblikket er medlem av. Er du sikker på at du vil forfremme gjest {username} til medlem?",

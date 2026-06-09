@@ -4461,7 +4461,6 @@
   "postlist.toast.searchHint": "Tip: Vyzkoušejte {searchShortcut} pro vyhledávání v tomto kanálu",
   "posts_view.loadMore": "Načítání více zpráv",
   "posts_view.newMsg": "Nové zprávy",
-  "postypes.custom_open_pricing_modal_post_renderer.membersThatRequested": "Členové, kteří požádali ",
   "profile_popover.aria_label.with_username": "Vyskakovací okno profilu {userName}",
   "profile_popover.aria_label.without_username": "vyskakovací okno profilu",
   "promote_to_user_modal.desc": "Tato akce povýší hosta {username} na člena. To umožní uživateli připojit se k veřejným kanálům a komunikovat s uživateli mimo kanály, kterých je aktuálně členem. Jste si jisti, že chcete povýšit hosta {username} na člena?",
