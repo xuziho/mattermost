@@ -101,7 +101,7 @@ func (ps *PlatformService) LoadLicense() {
 	record, nErr := ps.Store.License().Get(sqlstore.RequestContextWithMaster(c), licenseId)
 	if nErr != nil {
 		if ps.Config().FeatureFlags.EnableMattermostEntry && model.BuildEnterpriseReady == "true" {
-			ps.logger.Info("Mattermost Entry is enabled. Unlocking enterprise features.")
+			ps.logger.Info("Entry-tier local license is enabled. Unlocking enterprise features.")
 
 			if ps.LicenseManager() == nil {
 				ps.logger.Warn("License manager not available, setting license to nil.")

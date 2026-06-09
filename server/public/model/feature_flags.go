@@ -118,7 +118,7 @@ func (f *FeatureFlags) SetDefaults() {
 	f.PermissionPolicies = false
 	f.ContentFlagging = true
 	f.InteractiveDialogAppsForm = true
-	f.EnableMattermostEntry = true
+	f.EnableMattermostEntry = false
 
 	// DEPRECATED: Disabled by default - mobile clients use direct SSO callback flow
 	f.MobileSSOCodeExchange = false

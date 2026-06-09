@@ -760,7 +760,6 @@ const defaultServerConfig: AdminConfig = {
         PermissionPolicies: true,
         ContentFlagging: true,
         InteractiveDialogAppsForm: true,
-        EnableMattermostEntry: true,
         MobileSSOCodeExchange: false,
         AutoTranslation: true,
         BurnOnRead: true,
