@@ -682,9 +682,7 @@ export default class PluginRegistry {
             console.warn(
                 `${this.id}: This plugin is using registerPostDropdownMenuComponent which is deprecated in Mattermost ` +
                 'v11.0. That API will be removed in a future release, and plugins that use it may not work correctly. ' +
-                'Please update the plugin to use registerPostDropdownMenuAction instead. See ' +
-                'https://forum.mattermost.com/t/deprecating-a-post-dropdown-menu-component-plugin-api-v11/25001 for ' +
-                'more information.',
+                'Please update the plugin to use registerPostDropdownMenuAction instead.',
             );
             this.warnedAboutRegisterPostDropdownMenuComponent = true;
         }

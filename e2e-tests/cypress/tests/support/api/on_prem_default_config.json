@@ -275,17 +275,17 @@
         "ShowFullName": true
     },
     "SupportSettings": {
-        "TermsOfServiceLink": "https://mattermost.com/pl/terms-of-use/",
-        "PrivacyPolicyLink": "https://mattermost.com/pl/privacy-policy/",
-        "AboutLink": "https://mattermost.com/pl/about-mattermost",
-        "HelpLink": "https://mattermost.com/pl/help/",
-        "ReportAProblemLink": "https://mattermost.com/pl/report-a-bug",
+        "TermsOfServiceLink": "",
+        "PrivacyPolicyLink": "",
+        "AboutLink": "",
+        "HelpLink": "",
+        "ReportAProblemLink": "",
         "ReportAProblemType": "link",
         "ForgotPasswordLink": "",
         "SupportEmail": "",
         "CustomTermsOfServiceEnabled": false,
         "CustomTermsOfServiceReAcceptancePeriod": 365,
-        "EnableAskCommunityLink": true
+        "EnableAskCommunityLink": false
     },
     "AnnouncementSettings": {
         "EnableBanner": false,
@@ -295,7 +295,7 @@
         "AllowBannerDismissal": true,
         "AdminNoticesEnabled": false,
         "UserNoticesEnabled": false,
-        "NoticesURL": "https://notices.mattermost.com/",
+        "NoticesURL": "",
         "NoticesFetchFrequency": 3600,
         "NoticesSkipCache": false
     },
@@ -440,9 +440,9 @@
             "mmauth://",
             "mmauthbeta://"
         ],
-        "AppDownloadLink": "https://mattermost.com/pl/download-apps",
-        "AndroidAppDownloadLink": "https://mattermost.com/pl/android-app/",
-        "IosAppDownloadLink": "https://mattermost.com/pl/ios-app/"
+        "AppDownloadLink": "",
+        "AndroidAppDownloadLink": "",
+        "IosAppDownloadLink": ""
     },
     "ClusterSettings": {
         "Enable": false,
