@@ -11660,10 +11660,6 @@
     "translation": "Nieprawidłowy numer wersji. Musi być prawidłową wersją semantyczną (np. 5.0.0)."
   },
   {
-    "id": "model.config.is_valid.native_app_settings.download_link.app_error",
-    "translation": "Co najmniej jeden link do pobrania aplikacji nie ma prawidłowego adresu URL."
-  },
-  {
     "id": "model.user_report_options.is_valid.invalid_guest_filter",
     "translation": "Podany filtr gości jest nieprawidłowy."
   },

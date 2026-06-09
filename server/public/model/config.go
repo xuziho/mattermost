@@ -192,10 +192,6 @@ const (
 	SamlSettingsCanonicalAlgorithmC14n11  = "Canonical1.1"
 	SamlSettingsDefaultCanonicalAlgorithm = SamlSettingsCanonicalAlgorithmC14n
 
-	NativeappSettingsDefaultAppDownloadLink        = ""
-	NativeappSettingsDefaultAndroidAppDownloadLink = ""
-	NativeappSettingsDefaultIosAppDownloadLink     = ""
-
 	ExperimentalSettingsDefaultLinkMetadataTimeoutMilliseconds                       = 5000
 	ExperimentalSettingsDefaultUsersStatusAndProfileFetchingPollIntervalMilliseconds = 3000
 
@@ -3036,9 +3032,6 @@ func (s *SamlSettings) SetDefaults() {
 
 type NativeAppSettings struct {
 	AppCustomURLSchemes           []string `access:"site_customization,write_restrictable"` // telemetry: none
-	AppDownloadLink               *string  `access:"site_customization,write_restrictable"`
-	AndroidAppDownloadLink        *string  `access:"site_customization,write_restrictable"`
-	IosAppDownloadLink            *string  `access:"site_customization,write_restrictable"`
 	MobileExternalBrowser         *bool    `access:"site_customization,write_restrictable"`
 	MobileEnableBiometrics        *bool    `access:"site_customization,write_restrictable"`
 	MobilePreventScreenCapture    *bool    `access:"site_customization,write_restrictable"`
@@ -3049,18 +3042,6 @@ type NativeAppSettings struct {
 }
 
 func (s *NativeAppSettings) SetDefaults() {
-	if s.AppDownloadLink == nil {
-		s.AppDownloadLink = NewPointer(NativeappSettingsDefaultAppDownloadLink)
-	}
-
-	if s.AndroidAppDownloadLink == nil {
-		s.AndroidAppDownloadLink = NewPointer(NativeappSettingsDefaultAndroidAppDownloadLink)
-	}
-
-	if s.IosAppDownloadLink == nil {
-		s.IosAppDownloadLink = NewPointer(NativeappSettingsDefaultIosAppDownloadLink)
-	}
-
 	if s.AppCustomURLSchemes == nil {
 		s.AppCustomURLSchemes = GetDefaultAppCustomURLSchemes()
 	}
@@ -3092,19 +3073,6 @@ func (s *NativeAppSettings) SetDefaults() {
 	if s.EnableIntuneMAM == nil {
 		s.EnableIntuneMAM = NewPointer(false)
 	}
-}
-
-func (s *NativeAppSettings) AreDownloadLinksValid() *AppError {
-	for _, link := range []*string{s.AppDownloadLink, s.AndroidAppDownloadLink, s.IosAppDownloadLink} {
-		if link == nil || *link == "" {
-			continue
-		}
-		u, err := url.ParseRequestURI(*link)
-		if err != nil || u.Scheme == "" || u.Hostname() == "" {
-			return NewAppError("NativeAppSettings.AreDownloadLinksValid", "model.config.is_valid.native_app_settings.download_link.app_error", nil, "", http.StatusBadRequest)
-		}
-	}
-	return nil
 }
 
 type ElasticsearchSettings struct {
@@ -4086,10 +4054,6 @@ func (o *Config) IsValid() *AppError {
 
 	// Validate IntuneSettings
 	if appErr := o.IntuneSettings.IsValid(); appErr != nil {
-		return appErr
-	}
-
-	if appErr := o.NativeAppSettings.AreDownloadLinksValid(); appErr != nil {
 		return appErr
 	}
 

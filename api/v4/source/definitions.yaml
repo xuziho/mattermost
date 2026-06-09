@@ -1944,12 +1944,6 @@ components:
         NativeAppSettings:
           type: object
           properties:
-            AppDownloadLink:
-              type: string
-            AndroidAppDownloadLink:
-              type: string
-            IosAppDownloadLink:
-              type: string
         ClusterSettings:
           type: object
           properties:
@@ -2416,12 +2410,6 @@ components:
         NativeAppSettings:
           type: object
           properties:
-            AppDownloadLink:
-              type: boolean
-            AndroidAppDownloadLink:
-              type: boolean
-            IosAppDownloadLink:
-              type: boolean
         ClusterSettings:
           type: object
           properties:

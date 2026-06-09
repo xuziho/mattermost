@@ -11652,10 +11652,6 @@
     "translation": "{{.Backend}} Kanal-Typ in Beiträgen nicht aktualisiert"
   },
   {
-    "id": "model.config.is_valid.native_app_settings.download_link.app_error",
-    "translation": "Ein oder mehrere Links zum Download der App sind keine gültigen URLs."
-  },
-  {
     "id": "model.user_report_options.is_valid.invalid_guest_filter",
     "translation": "Der vorgegebene Gast-Filter ist nicht gültig."
   },

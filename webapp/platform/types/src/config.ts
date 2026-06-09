@@ -782,9 +782,6 @@ export type SamlSettings = {
 
 export type NativeAppSettings = {
     AppCustomURLSchemes: string[];
-    AppDownloadLink: string;
-    AndroidAppDownloadLink: string;
-    IosAppDownloadLink: string;
     MobileExternalBrowser: boolean;
     MobileEnableBiometrics: boolean;
     MobilePreventScreenCapture: boolean;

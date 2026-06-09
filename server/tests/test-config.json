@@ -297,9 +297,6 @@
         "LoginButtonTextColor": ""
     },
     "NativeAppSettings": {
-        "AppDownloadLink": "",
-        "AndroidAppDownloadLink": "",
-        "IosAppDownloadLink": ""
     },
     "ClusterSettings": {
         "Enable": false,

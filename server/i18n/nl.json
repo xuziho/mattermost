@@ -11666,9 +11666,5 @@
   {
     "id": "app.role.send_updated_role_event.unknown_scope",
     "translation": "Er is een fout opgetreden tijdens het uitzenden van de rolupdate: onbekend schemascope."
-  },
-  {
-    "id": "model.config.is_valid.native_app_settings.download_link.app_error",
-    "translation": "Een of meer links voor het downloaden van apps zijn geen geldige URL's."
   }
 ]
