@@ -3532,7 +3532,6 @@
   "delete_post.shared_channel_warning.message_post": "このメッセージは別のワークスペースの共有チャンネルから発信されたものです。ここで削除しても、別のワークスペース内のチャンネルからは削除されません。",
   "delete_post.shared_channel_warning.title": "共有チャンネル",
   "delete_post.warning": "このメッセージには {count, number} {count, plural, one {コメント} other {コメント}} が紐づいています。",
-  "delete_success_modal.button_text": "mattermost.com へ移動する",
   "demote_to_user_modal.demote": "降格する",
   "demote_to_user_modal.desc": "これによりユーザー {username} はゲストへ降格します。降格したユーザーは、公開チャンネルへの参加や、メンバーとして参加しているチャンネル外のユーザーとのやりとりが制限されます。本当に {username} をゲストに降格しますか？",
   "demote_to_user_modal.title": "ユーザー {username} をゲストに降格する",

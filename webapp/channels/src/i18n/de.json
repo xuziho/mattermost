@@ -3849,7 +3849,6 @@
   "delete_post.shared_channel_warning.message_post": "Diese Nachricht stammt aus einem gemeinsamen Kanal in einem anderen Arbeitsbereich. Wenn du sie hier löschst, wird sie nicht aus dem Kanal in dem anderen Arbeitsbereich entfernt.",
   "delete_post.shared_channel_warning.title": "Gemeinsamer Kanal",
   "delete_post.warning": "Diese Nachricht hat {count, number} {count, plural, one {Kommentar} other {Kommentare}}.",
-  "delete_success_modal.button_text": "Zu mattermost.com gehen",
   "demote_to_user_modal.demote": "Herunterstufen",
   "demote_to_user_modal.desc": "Diese Aktion stuft den Benutzer {username} zu einem Gast herunter. Es schränkt die Möglichkeit des Benutzers ein, öffentlichen Kanälen beizutreten und mit Benutzern außerhalb der Kanäle zu interagieren, in denen er derzeit Mitglied ist. Bist du sicher, dass du den Benutzer {username} zum Gast herunterstufen möchtest?",
   "demote_to_user_modal.title": "Benutzer {username} zu Gast herabstufen",

@@ -3106,7 +3106,6 @@
   "delete_post.shared_channel_warning.message_post": "此訊息來自另一個工作區中的共享頻道。在這裡刪除它不會從另一個工作區的頻道中移除。",
   "delete_post.shared_channel_warning.title": "共享頻道",
   "delete_post.warning": "此訊息有 {count, number} 則留言。",
-  "delete_success_modal.button_text": "前往 mattermost.com",
   "demote_to_user_modal.demote": "降級",
   "demote_to_user_modal.desc": "這將降級使用者 {username} 為訪客，並限制其加入公開頻道及和與其無共同頻道的使用者互動的能力。確定降級使用者 {username} 為訪客？",
   "demote_to_user_modal.title": "降級使用者 {username} 為訪客",

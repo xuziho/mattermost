@@ -3924,7 +3924,6 @@
   "delete_post.shared_channel_warning.message_post": "This message originated from a shared channel in another workspace. Deleting it here won't remove it from the channel in the other workspace.",
   "delete_post.shared_channel_warning.title": "Shared Channel",
   "delete_post.warning": "This message has {count, number} {count, plural, one {comment} other {comments}} on it.",
-  "delete_success_modal.button_text": "Go to mattermost.com",
   "deleteChannelModal.canViewArchivedChannelsWarning": "This will archive the channel from the team. Channel contents will still be accessible by channel members.",
   "deleteChannelModal.confirmArchive": "Are you sure you wish to archive the <strong>{display_name}</strong> channel?",
   "demote_to_user_modal.demote": "Demote",

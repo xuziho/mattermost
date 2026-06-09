@@ -3341,7 +3341,6 @@
   "delete_post.shared_channel_warning.message_post": "Це повідомлення було отримано зі спільного каналу в іншій робочій області. Видалення його тут не призведе до вилучення з каналу в іншій робочій області.",
   "delete_post.shared_channel_warning.title": "Спільний канал",
   "delete_post.warning": "У цьому дописі є {count, number} {count, plural, one {коментар} other {коментарі}}.",
-  "delete_success_modal.button_text": "Перейти на сайт mattermost.com",
   "demote_to_user_modal.demote": "Понизити",
   "demote_to_user_modal.desc": "Ця дія понизить статус користувача {username} до гостя. Це обмежить можливість користувача приєднуватися до публічних каналів та взаємодіяти з користувачами поза каналами, в яких він наразі є учасником. Ви дійсно хочете понизити статус користувача {username} до гостя?",
   "demote_to_user_modal.title": "Знизити користувача {username} до статусу гостя",

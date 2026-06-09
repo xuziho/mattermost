@@ -3576,7 +3576,6 @@
   "delete_post.shared_channel_warning.message_post": "Bu ileti başka bir çalışma alanından paylaşılan bir kanalda bulunuyor. İletiyi buradan silmek, diğer çalışma alanındaki kanaldan silmez.",
   "delete_post.shared_channel_warning.title": "Paylaşılan kanal",
   "delete_post.warning": "Bu iletiye {count, number} {count, plural, one {yorum} other {yorum}} yapılmış.",
-  "delete_success_modal.button_text": "mattermost.com sitesine git",
   "demote_to_user_modal.demote": "Rolü düşür",
   "demote_to_user_modal.desc": "Bu işlem {username} hesabını konuk rolüne düşürecek. Kullanıcı yalnızca herkese açık kanallara katılabilecek ve şu anda üyesi olduğu kanalların dışındaki kullanıcılar ile etkileşimde bulunamayacak. {username} kullanıcısını konuk rolüne düşürmek istediğinize emin misiniz?",
   "demote_to_user_modal.title": "{username} kullanıcısını konuk rolüne düşür",

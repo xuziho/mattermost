@@ -2579,7 +2579,6 @@
   "delete_post.cancel": "Atšaukti",
   "delete_post.del": "Ištrinti",
   "delete_post.warning": "Šiame įraše yra {count, number} {count, plural, one {comment} other {comments}}.",
-  "delete_success_modal.button_text": "Eikite į mattermost.com",
   "demote_to_user_modal.demote": "Pažeminti",
   "demote_to_user_modal.desc": "Šis veiksmas pažemina naudotoją {username} į svečią. Tai apribos naudotojo galimybę prisijungti prie viešųjų kanalų ir bendrauti su naudotojais, nepriklausančiais kanalams, kurių nariai šiuo metu yra. Ar tikrai norite pažeminti naudotoją {username} į svečią?",
   "demote_to_user_modal.title": "Pažeminti naudotoją {username} į svečią",

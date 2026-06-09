@@ -3771,7 +3771,6 @@
   "delete_post.shared_channel_warning.message_post": "This message originated from a shared channel in another workspace. Deleting it here won't remove it from the channel in the other workspace.",
   "delete_post.shared_channel_warning.title": "Shared Channel",
   "delete_post.warning": "This message has {count, number} {count, plural, one {comment} other {comments}} on it.",
-  "delete_success_modal.button_text": "Go to mattermost.com",
   "demote_to_user_modal.demote": "Demote",
   "demote_to_user_modal.desc": "This action demotes the user {username} to a guest. It will restrict the user's ability to join public channels and interact with users outside of the channels they are currently members of. Are you sure you want to demote user {username} to guest?",
   "demote_to_user_modal.title": "Demote User {username} to Guest",

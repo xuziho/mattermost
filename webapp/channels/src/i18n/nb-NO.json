@@ -2962,7 +2962,6 @@
   "delete_post.question_comment": "Er du sikker på at du vil slette denne kommentaren?",
   "delete_post.question_post": "Er du sikker på at du vil slette denne meldingen?",
   "delete_post.shared_channel_warning.title": "Delt kanal",
-  "delete_success_modal.button_text": "Gå til mattermost.com",
   "demote_to_user_modal.demote": "Degrader",
   "demote_to_user_modal.title": "Degrader bruker {username} til gjest",
   "desktop_auth_token.complete.havingTrouble": "Har du problemer med å logge på? <a>Åpne Mattermost i nettleseren din</a>",

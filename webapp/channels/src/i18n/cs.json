@@ -3522,7 +3522,6 @@
   "delete_post.shared_channel_warning.message_post": "Tato zpráva pochází ze sdíleného kanálu v jiném pracovním prostoru. Její smazání zde ji neodstraní z kanálu v jiném pracovním prostoru.",
   "delete_post.shared_channel_warning.title": "Sdílený Kanál",
   "delete_post.warning": "Tato zpráva má {count, number} {count, plural, one {komentář} other {komentáře}}.",
-  "delete_success_modal.button_text": "Přejděte na stránku mattermost.com",
   "demote_to_user_modal.demote": "snížit úroveň",
   "demote_to_user_modal.desc": "Tato akce sníží úroveň uživatele {username} na hosta. Omezí možnost uživatele připojit se k veřejným kanálům a komunikovat s uživateli mimo kanály, jichž jsou aktuálně členy. Opravdu chcete snížit úroveň uživatele {username} na hosta?",
   "demote_to_user_modal.title": "Snížit úroveň uživatele {username} na hosta",

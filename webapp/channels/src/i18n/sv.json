@@ -3648,7 +3648,6 @@
   "delete_post.shared_channel_warning.message_post": "Det här meddelandet kommer från en delad kanal i en annan arbetsyta. Om du raderar det här tas det inte bort från kanalen i den andra arbetsytan.",
   "delete_post.shared_channel_warning.title": "Delad kanal",
   "delete_post.warning": "Detta meddelande har {count, number} {count, plural, one {kommentar} other {kommentarer}}.",
-  "delete_success_modal.button_text": "Gå till mattermost.com",
   "demote_to_user_modal.demote": "Sänk",
   "demote_to_user_modal.desc": "Detta degrader användarkonto {username} till ett gästkonto. Det kommer begränsa användarens möjlighet att ansluta till publika kanaler och att interagera med användare utanför den kanal som den nu är medlem i. Är du säker på att du vill degradera användarkonto {username} till ett gästkonto?",
   "demote_to_user_modal.title": "Degradera användarkonto {username} till ett gästkonto",

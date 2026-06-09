@@ -3773,7 +3773,6 @@
   "delete_post.shared_channel_warning.message_post": "此消息来源于另一工作区中共享的频道。在此处删除不会将其从另一工作区的频道中删除。",
   "delete_post.shared_channel_warning.title": "共享频道",
   "delete_post.warning": "此消息有 {count, number} {count, plural, other {条评论}}。",
-  "delete_success_modal.button_text": "转到 mattermost.com",
   "demote_to_user_modal.demote": "降级",
   "demote_to_user_modal.desc": "此操作将降级用户 {username} 至访客。此用户将无法加入公共频道或与指定频道中成员外的用户互动。您确定要降级 {username} 至访客？",
   "demote_to_user_modal.title": "降级用户 {username} 至访客",

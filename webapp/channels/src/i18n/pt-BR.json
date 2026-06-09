@@ -2735,7 +2735,6 @@
   "delete_post.cancel": "Cancelar",
   "delete_post.del": "Deletar",
   "delete_post.warning": "Este post tem {count, number} {count, plural, one {comentário} other {comentários}} nele.",
-  "delete_success_modal.button_text": "Ir para mattermost.com",
   "demote_to_user_modal.demote": "Rebaixar",
   "demote_to_user_modal.desc": "Essa ação rebaixa o usuário {username} para um convidado. Isso restringirá a capacidade do usuário de ingressar em canais públicos e interagir com usuários fora dos canais dos quais são membros atualmente. Tem certeza de que deseja rebaixar o usuário {username} para convidado?",
   "demote_to_user_modal.title": "Rebaixar usuário {username} para convidado",

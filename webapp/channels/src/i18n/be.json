@@ -3699,7 +3699,6 @@
   "delete_post.shared_channel_warning.message_post": "Гэтае паведамленне прыйшло з агульнага канала ў іншай рабочай прасторы. Выдаленне яго тут не прывядзе да выдалення з канала ў іншай рабочай прасторы.",
   "delete_post.shared_channel_warning.title": "Агульны Канал",
   "delete_post.warning": "Гэтае паведамленне мае {count, number} {count, plural, one {каментарый} few {каментарыі} many {каментарыяў} other {каментарыяў}}.",
-  "delete_success_modal.button_text": "Перайсці на mattermost.com",
   "demote_to_user_modal.demote": "Панізіць",
   "demote_to_user_modal.desc": "Гэтае дзеянне паніжае карыстальніка {username} да госця. Гэта абмяжуе магчымасць карыстальніка далучацца да публічных каналаў і ўзаемадзейнічаць з карыстальнікамі па-за каналамі, у якіх ён зараз з'яўляецца ўдзельнікам. Вы ўпэўнены, што хочаце панізіць карыстальніка {username} да госця?",
   "demote_to_user_modal.title": "Панізіць карыстальніка {username} да Госця",

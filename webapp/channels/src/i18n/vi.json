@@ -2545,7 +2545,6 @@
   "delete_post.cancel": "Hủy",
   "delete_post.del": "Xóa",
   "delete_post.warning": "Bài đăng này có {count, number} {count, plural, một {comment} {comments}} khác trên đó.",
-  "delete_success_modal.button_text": "Đi đến mattermost.com",
   "demote_to_user_modal.demote": "Giảm hạng",
   "demote_to_user_modal.desc": "Hành động này hạ cấp người dùng {username} thành khách. Nó sẽ hạn chế khả năng người dùng tham gia các kênh công khai và tương tác với người dùng bên ngoài các kênh mà họ hiện là thành viên. Bạn có chắc chắn muốn hạ cấp không người dùng {username} với khách?",
   "demote_to_user_modal.title": "Hạ cấp Người dùng {username} thành Khách",

@@ -3856,7 +3856,6 @@
   "delete_post.shared_channel_warning.message_post": "Ta wiadomość pochodzi z udostępnionego kanału w innym obszarze roboczym. Usunięcie jej tutaj nie spowoduje usunięcia jej z kanału w innym obszarze roboczym.",
   "delete_post.shared_channel_warning.title": "Kanał Udostępniony",
   "delete_post.warning": "Ta wiadomość ma {count, number} {count, plural, one {komentarz} other {komentarzy}} wewnątrz.",
-  "delete_success_modal.button_text": "Przejdź do mattermost.com",
   "demote_to_user_modal.demote": "Obniż",
   "demote_to_user_modal.desc": "Ta akcja zdegraduje użytkownika {username} do gościa. Ograniczy to możliwość dołączenia użytkownika do kanałów publicznych i interakcji z użytkownikami spoza kanałów, których jest on obecnie członkiem. Czy na pewno chcesz zdegradować użytkownika {username} do roli gościa?",
   "demote_to_user_modal.title": "Degraduj użytkownika {username} do gościa",

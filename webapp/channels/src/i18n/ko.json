@@ -3511,7 +3511,6 @@
   "delete_post.shared_channel_warning.message_post": "이 메시지는 다른 워크스페이스의 공유 채널에서 발신되었습니다. 여기서 삭제해도 다른 워크스페이스의 채널에서 제거되지 않습니다.",
   "delete_post.shared_channel_warning.title": "공유 채널",
   "delete_post.warning": "이 메시지에는 {count, number} 개의 {count, plural, one {댓글} other {댓글}}이 있습니다.",
-  "delete_success_modal.button_text": "mattermost.com으로 이동",
   "demote_to_user_modal.demote": "강등",
   "demote_to_user_modal.desc": "이 작업은 {username} 사용자를 게스트로 강등합니다. 이렇게 하면 해당 사용자가 공개 채널에 참여하고 현재 회원으로 가입되어 있는 채널 외부의 사용자와 상호작용할 수 있는 기능이 제한됩니다. {username} 사용자를 게스트로 강등하시겠습니까?",
   "demote_to_user_modal.title": "{username} 사용자를 게스트로 강등",
