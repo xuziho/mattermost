@@ -991,7 +991,6 @@
   "admin.permissions.sysconsole_section_site_file_sharing_and_downloads.name": "Partilha de Ficheiros e Transferências",
   "admin.plugin.enable_plugin.help": "Quando verdadeiro, este ''plug-in'' está ativado.",
   "admin.plugin.state.failed_to_start.check_logs": "Pesquisar por erros nos seus registos do sistema.",
-  "admin.plugin.uploadTitle": "Plug-in de enviar: ",
   "admin.plugin.uploading": "A enviar...",
   "admin.plugin.version_title": "Versão",
   "admin.plugins.pluginManagement": "Gestão de Plug-ins",
