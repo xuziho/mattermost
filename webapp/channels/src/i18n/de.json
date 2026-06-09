@@ -1624,7 +1624,6 @@
   "admin.office365.discoveryEndpointDesc": "Die URL des Discovery-Dokuments für OpenID Connect mit Entra ID.",
   "admin.office365.tokenTitle": "Token Endpunkt:",
   "admin.office365.userTitle": "API-Endpunkt des Benutzers:",
-  "admin.openIdConvert.help": "Mehr Informationen",
   "admin.openIdConvert.message": "Du kannst jetzt deine OAuth 2.0-Konfiguration auf OpenID Connect umstellen.",
   "admin.openIdConvert.text": "Zu OpenID Connect konvertieren",
   "admin.openid.EnableMarkdownDesc": "Befolge die Anweisungen des Anbieters zum Erstellen einer OpenID-Anwendung. Die meisten OpenID Connect-Anbieter erfordern die Autorisierung aller Redirect-URIs. Gib \"your-mattermost-url/signup/openid/complete\" in das entsprechende Feld ein (z.B.: http://domain.com/signup/openid/complete)",

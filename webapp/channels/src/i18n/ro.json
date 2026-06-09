@@ -977,7 +977,6 @@
   "admin.office365.discoveryEndpointDesc": "Adresa URL a documentului de descoperire pentru OpenID Connect cu Office 365.",
   "admin.office365.tokenTitle": "Punct final pentru Token:",
   "admin.office365.userTitle": "User Endpoint API utilizator:",
-  "admin.openIdConvert.help": "Aflați mai multe",
   "admin.openIdConvert.message": "Convertiți configurația OAuth 2.0 la noul standard OpenID Connect.",
   "admin.openIdConvert.text": "Convertiți în OpenID Connect",
   "admin.openid.EnableMarkdownDesc": "Urmați instrucțiunile furnizorului pentru crearea unei aplicații OpenID. Majoritatea furnizorilor OpenID Connect necesită autorizarea tuturor URI-urilor de redirecționare. În câmpul corespunzător, introduceți URL-ul adresa-ta-mattermost/signup/openid/ complet(exemplu: http://domain.com/signup/openid/complete)",

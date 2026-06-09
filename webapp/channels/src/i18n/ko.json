@@ -1528,7 +1528,6 @@
   "admin.office365.discoveryEndpointDesc": "엔트라 ID와 OpenID 연결을 위한 검색 문서의 URL입니다.",
   "admin.office365.tokenTitle": "토큰 엔드포인트:",
   "admin.office365.userTitle": "사용자 API 엔드포인트:",
-  "admin.openIdConvert.help": "더 알아보기",
   "admin.openIdConvert.message": "이제 OAuth2.0 구성을 OpenID Connect로 변환할 수 있습니다.",
   "admin.openIdConvert.text": "OpenID Connect로 변환",
   "admin.openid.EnableMarkdownDesc": "공급자의 지침에 따라 OpenID 애플리케이션을 만듭니다. 대부분의 OpenID Connect 제공업체는 모든 리디렉션 URI에 대한 인증을 요구합니다. 해당 필드에 \"your-mattermost-url/signup/openid/complete\"를 입력합니다(예: http://domain.com/signup/openid/complete).",

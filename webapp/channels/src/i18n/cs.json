@@ -1532,7 +1532,6 @@
   "admin.office365.discoveryEndpointDesc": "URL odkaz na dokument pro objevování OpenID Connect s Entra ID.",
   "admin.office365.tokenTitle": "URL pro získání tokenu:",
   "admin.office365.userTitle": "URL pro získání uživatelských dat:",
-  "admin.openIdConvert.help": "Zjistit více",
   "admin.openIdConvert.message": "Nyní můžete převést OAuth 2.0 konfiguraci na OpenID Connect.",
   "admin.openIdConvert.text": "Převeď na OpenID Connect",
   "admin.openid.EnableMarkdownDesc": "Postupujte podle pokynů poskytovatele pro vytvoření OpenID aplikace. Většina poskytovatelů OpenID Connect vyžaduje autorizaci všech URI pro přesměrování. Do příslušného pole zadejte \"your-mattermost-url/signup/openid/complete\" (příklad: http://domain.com/signup/openid/complete)",

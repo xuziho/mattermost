@@ -1043,7 +1043,6 @@
   "admin.office365.discoveryEndpointDesc": "Az OpenID Connect és az Office 365 közötti felfedező dokumentum URL-je.",
   "admin.office365.tokenTitle": "Token végpont:",
   "admin.office365.userTitle": "Felhasználó API végpont:",
-  "admin.openIdConvert.help": "Tudjon meg többet",
   "admin.openIdConvert.message": "Alakítsa át az OAuth 2.0 konfigurációt az új OpenID Connect szabványra.",
   "admin.openIdConvert.text": "Átalkítás OpenID Connect-re",
   "admin.openid.EnableMarkdownDesc": "Kövesse a szolgáltató utasításait az OpenID alkalmazás létrehozásához. A legtöbb OpenID Connect szolgáltató engedélyt igényel az összes átirányítási URI-ra. A megfelelő mezőbe írja be a your-mattermost-url/signup/openid/complete (example: http://domain.com/signup/openid/complete)",

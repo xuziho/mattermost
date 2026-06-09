@@ -1040,7 +1040,6 @@
   "admin.office365.discoveryEndpointDesc": "OpenID के लिए खोज दस्तावेज़ का URL Office 365 के साथ कनेक्ट करें।",
   "admin.office365.tokenTitle": "टोकन समापन बिंदु:",
   "admin.office365.userTitle": "उपयोगकर्ता एपीआई समापन बिंदु:",
-  "admin.openIdConvert.help": "अधिक जानें",
   "admin.openid.buttonColorTitle": "बटन रंग:",
   "admin.openid.buttonTextDesc": "वह टेक्स्ट जो लॉगिन बटन पर दिखाई देगा।",
   "admin.openid.buttonTextEx": "कस्टम बटन टेक्स्ट",

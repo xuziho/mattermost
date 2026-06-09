@@ -1537,7 +1537,6 @@
   "admin.office365.discoveryEndpointDesc": "Entra ID ile OpenID Connect belge keşif bağlantısının adresi.",
   "admin.office365.tokenTitle": "Kod noktası:",
   "admin.office365.userTitle": "Kullanıcı API noktası:",
-  "admin.openIdConvert.help": "Ayrıntılı bilgi alın",
   "admin.openIdConvert.message": "Artık OAuth 2.0 yapılandırmanızı OpenID Connect standardına dönüştürebilirsiniz.",
   "admin.openIdConvert.text": "OpenID Connect yapılandırmasına dönüştür",
   "admin.openid.EnableMarkdownDesc": "OpenID Uygulaması oluşturmak için hizmet sağlayıcının yönergelerini izleyin. Çoğu OpenID Connect hizmeti sağlayıcısı, tüm yönlendirme adreslerine izin verilmesini ister. İlgili alana, \"mattermost-adresiniz/signup/openid/complete\" yazın (örnek: http://domain.com/signup/openid/complete)",

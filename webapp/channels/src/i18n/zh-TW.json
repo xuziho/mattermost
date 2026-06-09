@@ -1274,7 +1274,6 @@
   "admin.office365.discoveryEndpointDesc": "OpenID Connect 與 Office 365 探索文件的網址。",
   "admin.office365.tokenTitle": "Token 端點：",
   "admin.office365.userTitle": "使用者 API 端點：",
-  "admin.openIdConvert.help": "了解更多",
   "admin.openIdConvert.message": "您現在可以將 OAuth2.0 設定轉換為 OpenID 連接。",
   "admin.openIdConvert.text": "轉換至 OpenID 連接",
   "admin.openid.EnableMarkdownDesc": "按照提供者的指示建立 OpenID 應用程式。大多數 OpenID 連接供應商要求對所有重新導向 URI 進行授權。在對應的欄位中，輸入 your-mattermost-url/signup/openid/complete（如：http://domain.com/signup/openid/complete）",

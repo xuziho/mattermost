@@ -10,7 +10,6 @@ import type {DeepPartial} from '@mattermost/types/utilities';
 import type {ActionResult} from 'mattermost-redux/types/actions';
 
 import type {BaseProps} from 'components/admin_console/old_admin_settings';
-import ExternalLink from 'components/external_link';
 import FormError from 'components/form_error';
 
 import imagePath from 'images/openid-convert/emoticon-outline.svg';
@@ -92,17 +91,6 @@ const OpenIdConvert = ({
                             defaultMessage='Convert to OpenID Connect'
                         />
                     </button>
-                    <ExternalLink
-                        className='btn-secondary'
-                        location='openid_convert'
-                        href='#'
-                        data-testid='openIdLearnMore'
-                    >
-                        <FormattedMessage
-                            id='admin.openIdConvert.help'
-                            defaultMessage='Learn more'
-                        />
-                    </ExternalLink>
                     <div
                         className='error-message'
                         data-testid='errorMessage'

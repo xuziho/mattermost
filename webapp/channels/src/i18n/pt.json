@@ -874,7 +874,6 @@
   "admin.office365.clientSecretExample": "Exemplo: \"shAieM47sNBfgl20f8ci294\"",
   "admin.office365.clientSecretTitle": "Palavra secreta da aplicação:",
   "admin.office365.directoryIdExample": "Exemplo: \"adf3sfa2-ag3f-sn4n-ids0-sh1hdax192qq\"",
-  "admin.openIdConvert.help": "Saber mais",
   "admin.openIdConvert.message": "Agora pode converter a sua configuração de OAuth2.0 para OpenID Connect.",
   "admin.openIdConvert.text": "Converter para OpenID Connect",
   "admin.openid.buttonColorTitle": "Cor do botão:",

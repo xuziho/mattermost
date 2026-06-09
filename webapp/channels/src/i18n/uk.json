@@ -1387,7 +1387,6 @@
   "admin.office365.discoveryEndpointDesc": "URL-адреса документа відкриття для OpenID Connect з Entra ID.",
   "admin.office365.tokenTitle": "Точка доступу для токенів:",
   "admin.office365.userTitle": "Кінцева точка API користувача:",
-  "admin.openIdConvert.help": "Дізнайтеся більше",
   "admin.openIdConvert.message": "Тепер ви можете конвертувати вашу конфігурацію OAuth2.0 на OpenID Connect.",
   "admin.openIdConvert.text": "Конвертувати на OpenID Connect",
   "admin.openid.EnableMarkdownDesc": "Дотримуйтесь інструкцій провайдера для створення додатку OpenID. Більшість постачальників OpenID Connect вимагають авторизації всіх URI для перенаправлення. У відповідному полі введіть \"your-mattermost-url/signup/openid/complete\" (приклад: http://domain.com/signup/openid/complete)",

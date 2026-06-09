@@ -1311,7 +1311,6 @@
   "admin.office365.discoveryEndpointDesc": "A URL do documento de descoberta para OpenID Connect com Entra ID.",
   "admin.office365.tokenTitle": "Token Endpoint:",
   "admin.office365.userTitle": "API Usuário Endpoint:",
-  "admin.openIdConvert.help": "Saiba mais",
   "admin.openIdConvert.message": "Converta sua configuração OAuth 2.0 para o novo padrão OpenID Connect.",
   "admin.openIdConvert.text": "Converter para OpenID Connect",
   "admin.openid.EnableMarkdownDesc": "Siga as instruções do provedor para criar um aplicativo OpenID. A maioria dos provedores OpenID Connect exige autorização de todos os URIs de redirecionamento. No campo apropriado, digite \"seu-url-mattermost/signup/openid/complete\" (Ex.: http://dominio.com.br/signup/openid/complete)",

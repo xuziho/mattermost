@@ -1073,7 +1073,6 @@
   "admin.office365.discoveryEndpointDesc": "URL của tài liệu khám phá cho OpenID Connect với Office 365.",
   "admin.office365.tokenTitle": "Điểm cuối mã thông báo:",
   "admin.office365.userTitle": "Điểm cuối API người dùng:",
-  "admin.openIdConvert.help": "Tìm hiểu thêm",
   "admin.openIdConvert.message": "Chuyển đổi cấu hình OAuth 2.0 của bạn sang tiêu chuẩn OpenID Connect mới.",
   "admin.openIdConvert.text": "Chuyển đổi sang OpenID Connect",
   "admin.openid.EnableMarkdownDesc": "Làm theo hướng dẫn của nhà cung cấp để tạo Ứng dụng OpenID. Hầu hết các nhà cung cấp OpenID Connect yêu cầu ủy quyền tất cả các URI chuyển hướng. Trong trường thích hợp, hãy nhập your-mattermost-url / signup / openid / complete (ví dụ: http : //domain.com/signup/openid/complete)",

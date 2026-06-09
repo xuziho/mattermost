@@ -1071,7 +1071,6 @@
   "admin.office365.discoveryEndpointDesc": "OpenID Connect su Office 365 atradimo dokumento URL.",
   "admin.office365.tokenTitle": "Token Endpoint:",
   "admin.office365.userTitle": "Naudotojo API galutinis taškas:",
-  "admin.openIdConvert.help": "Sužinoti daugiau",
   "admin.openIdConvert.message": "Dabar galite konvertuoti savo OAuth2.0 konfigūraciją į OpenID Connect.",
   "admin.openIdConvert.text": "Konvertuoti į OpenID Connect",
   "admin.openid.EnableMarkdownDesc": "Vykdykite teikėjo nurodymus kurdami OpenID programą. Daugelis OpenID Connect teikėjų reikalauja visų peradresavimo URI leidimo. Atitinkamame lauke įveskite your-mattermost-url/signup/openid/complete (pavyzdys: http://domain.com/signup/openid/complete)",

@@ -1624,7 +1624,6 @@
   "admin.office365.discoveryEndpointDesc": "De URL van het discovery-document voor OpenID Connect met Entra ID.",
   "admin.office365.tokenTitle": "Token eindpunt:",
   "admin.office365.userTitle": "Gebruikers API eindpunt:",
-  "admin.openIdConvert.help": "Meer info",
   "admin.openIdConvert.message": "Je kan nu je OAuth 2-configuratie omzetten naar OpenID Connect.",
   "admin.openIdConvert.text": "Omzetten naar OpenID Connect",
   "admin.openid.EnableMarkdownDesc": "Volg de aanwijzingen van de aanbieder voor het maken van een OpenID-applicatie. De meeste OpenID Connect-aanbieders hebben toestemming nodig voor alle doorgestuurde URI's. Voer in het juiste veld \"your-mattermost-url/signup/openid/complete\" in (voorbeeld: http://domein.com/signup/openid/complete)",

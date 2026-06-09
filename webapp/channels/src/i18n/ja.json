@@ -1532,7 +1532,6 @@
   "admin.office365.discoveryEndpointDesc": "Entra IDとのOpenID ConnectにおけるDiscovery DocumentのURLです。",
   "admin.office365.tokenTitle": "トークンエンドポイント:",
   "admin.office365.userTitle": "ユーザーAPIエンドポイント:",
-  "admin.openIdConvert.help": "さらに詳しく",
   "admin.openIdConvert.message": "OAuth 2.0の設定をOpenID Connectに変換することができます。",
   "admin.openIdConvert.text": "OpenID Connectに変換する",
   "admin.openid.EnableMarkdownDesc": "プロバイダの指示に従い、OpenIDアプリケーションを作成してください。多くのOpenID Connectプロバイダでは全てのリダイレクトURLの承認が必要です。適切なフィールドに \"your-mattermost-url/signup/openid/complete\" (例: http://domain.com/signup/openid/complete) を入力してください",

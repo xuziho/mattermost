@@ -397,7 +397,6 @@
   "admin.office365.clientIdExample": "Npr.: „adf3sfa2-ag3f-sn4n-ids0-sh1hdax192qq”",
   "admin.office365.clientSecretExample": "Npr.: „shAieM47sNBfgl20f8ci294”",
   "admin.office365.directoryIdExample": "Npr.: „adf3sfa2-ag3f-sn4n-ids0-sh1hdax192qq”",
-  "admin.openIdConvert.help": "Saznaj više",
   "admin.openid.clientIdExample": "Npr.: „adf3sfa2-ag3f-sn4n-ids0-sh1hdax192qq”",
   "admin.openid.clientSecretExample": "Npr.: „H8sz0Az-dDs2p15-7QzD231”",
   "admin.openid.clientSecretTitle": "Tajna klijenta:",

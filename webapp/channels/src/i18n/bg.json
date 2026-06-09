@@ -1286,7 +1286,6 @@
   "admin.office365.discoveryEndpointDesc": "URL на discovery document за OpenID Connect с Entra ID.",
   "admin.office365.tokenTitle": "Крайна точка на маркера:",
   "admin.office365.userTitle": "Крайна точка на потребителския API:",
-  "admin.openIdConvert.help": "Научете повече",
   "admin.openIdConvert.message": "Преобразувайте вашата OAuth 2.0 конфигурация в новия стандарт OpenID Connect.",
   "admin.openIdConvert.text": "Преобразувайте в OpenID Connect",
   "admin.openid.EnableMarkdownDesc": "Следвайте указанията на доставчика за създаване на OpenID приложение. Повечето доставчици на OpenID Connect изискват упълномощаване на всички пренасочващи URI. В съответното поле въведете \"вашия-mattermost-url/signup/openid/complete\" (например: http://domain.bg/signup/openid/complete)",

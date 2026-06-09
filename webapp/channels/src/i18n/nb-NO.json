@@ -1245,7 +1245,6 @@
   "admin.office365.discoveryEndpointDesc": "URL-en til oppdagelsesdokumentet for OpenID Connect med Entra ID.",
   "admin.office365.tokenTitle": "token-endepunkt:",
   "admin.office365.userTitle": "Endepunkt for bruker-API:",
-  "admin.openIdConvert.help": "Lær mer",
   "admin.openIdConvert.message": "Du kan nå konvertere OAuth2.0-konfigurasjonen til OpenID Connect.",
   "admin.openIdConvert.text": "Konverter til OpenID Connect",
   "admin.openid.buttonTextDesc": "Teksten som vises på påloggingsknappen.",
