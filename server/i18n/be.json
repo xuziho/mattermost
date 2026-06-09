@@ -10529,15 +10529,15 @@
   },
   {
     "id": "api.user.delete_channel.not_enabled.for_admin.app_error",
-    "translation": "Функцыя назаўждыга выдалення канала не ўключана. ServiceSettings.EnableAPIChannelDeletion павінна быць устаноўлена ў true, каб выкарыстоўваць гэту каманду. Глядзіце https://mattermost.com/pl/environment-configuration-settings для атрымання дадатковай інфармацыі"
+    "translation": "Функцыя назаўждыга выдалення канала не ўключана. ServiceSettings.EnableAPIChannelDeletion павінна быць устаноўлена ў true, каб выкарыстоўваць гэту каманду."
   },
   {
     "id": "api.user.delete_team.not_enabled.for_admin.app_error",
-    "translation": "Функцыя назаўждыга выдалення каманды не ўключана. ServiceSettings.EnableAPITeamDeletion павінна быць устаноўлена ў true, каб выкарыстоўваць гэту каманду. Глядзіце https://mattermost.com/pl/environment-configuration-settings для атрымання дадатковай інфармацыі."
+    "translation": "Функцыя назаўждыга выдалення каманды не ўключана. ServiceSettings.EnableAPITeamDeletion павінна быць устаноўлена ў true, каб выкарыстоўваць гэту каманду."
   },
   {
     "id": "api.user.delete_user.not_enabled.for_admin.app_error",
-    "translation": "Функцыя назаўждыга выдалення карыстальніка не ўключана. ServiceSettings.EnableAPIUserDeletion павінна быць устаноўлена ў true, каб выкарыстоўваць гэту каманду. Глядзіце https://mattermost.com/pl/environment-configuration-settings для атрымання дадатковай інфармацыі."
+    "translation": "Функцыя назаўждыга выдалення карыстальніка не ўключана. ServiceSettings.EnableAPIUserDeletion павінна быць устаноўлена ў true, каб выкарыстоўваць гэту каманду."
   },
   {
     "id": "app.agents.get_agents.app_error",

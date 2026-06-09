@@ -10153,15 +10153,15 @@
   },
   {
     "id": "api.user.delete_channel.not_enabled.for_admin.app_error",
-    "translation": "Функция постоянного удаления каналов не включена. Для использования этой команды параметр ServiceSettings.EnableAPIChannelDeletion должен быть установлен в true. Дополнительную информацию см. на сайте https://mattermost.com/pl/environment-configuration-settings."
+    "translation": "Функция постоянного удаления каналов не включена. Для использования этой команды параметр ServiceSettings.EnableAPIChannelDeletion должен быть установлен в true. Дополнительную информацию см."
   },
   {
     "id": "api.user.delete_team.not_enabled.for_admin.app_error",
-    "translation": "Функция постоянного удаления команд не включена. ServiceSettings.EnableAPITeamDeletion должен иметь значение true, чтобы использовать эту команду. Более подробную информацию смотри на сайте https://mattermost.com/pl/environment-configuration-settings."
+    "translation": "Функция постоянного удаления команд не включена. ServiceSettings.EnableAPITeamDeletion должен иметь значение true, чтобы использовать эту команду."
   },
   {
     "id": "api.user.delete_user.not_enabled.for_admin.app_error",
-    "translation": "Функция постоянного удаления пользователей не включена. ServiceSettings.EnableAPIUserDeletion должен быть установлен в true, чтобы использовать эту команду. Более подробную информацию смотри на сайте https://mattermost.com/pl/environment-configuration-settings."
+    "translation": "Функция постоянного удаления пользователей не включена. ServiceSettings.EnableAPIUserDeletion должен быть установлен в true, чтобы использовать эту команду."
   },
   {
     "id": "api.user.get_users_not_in_abac_channel.access_control_unavailable.app_error",
