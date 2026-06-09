@@ -71,29 +71,6 @@ Cypress.Commands.add('apiUploadLicense', (filePath) => {
     cy.apiUploadFile('license', filePath, {url: '/api/v4/license', method: 'POST', successStatus: 200});
 });
 
-Cypress.Commands.add('apiInstallTrialLicense', () => {
-    return cy.request({
-        headers: {'X-Requested-With': 'XMLHttpRequest'},
-        url: '/api/v4/trial-license',
-        method: 'POST',
-        body: {
-            receive_emails_accepted: true,
-            terms_accepted: true,
-            users: Cypress.env('numberOfTrialUsers'),
-
-            // Enriched fields required for trial license as of v10.7
-            company_country: 'US',
-            company_name: 'mattermost',
-            contact_email: 'test@mattermost.com',
-            company_size: '1-10',
-            contact_name: 'John Doe',
-        },
-    }).then((response) => {
-        expect(response.status).to.equal(200);
-        return cy.wrap(response.body);
-    });
-});
-
 Cypress.Commands.add('apiDeleteLicense', () => {
     return cy.request({
         headers: {'X-Requested-With': 'XMLHttpRequest'},
@@ -296,17 +273,17 @@ Cypress.Commands.add('shouldHaveEmailEnabled', () => {
     });
 });
 
-/**
- * Upload a license if it does not exist.
- */
 function uploadLicenseIfNotExist() {
     return cy.apiGetClientLicense().then((data) => {
         if (data.isLicensed) {
             return cy.wrap(data);
         }
 
-        return cy.apiInstallTrialLicense().then(() => {
-            return cy.apiGetClientLicense();
-        });
+        expect(
+            data.isLicensed,
+            'Server has no EE license. Trial licenses are disabled in AgentCompanyOS tests; upload a local test license before running EE-only specs.',
+        ).to.equal(true);
+
+        return cy.wrap(data);
     });
 }

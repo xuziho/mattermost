@@ -310,18 +310,15 @@ Cypress.Commands.add('apiPatchMe', apiPatchMe);
  * Create a randomly named admin account
  *
  * @param {boolean} options.loginAfter - false (default) or true if wants to login as the new admin.
- * @param {boolean} options.hideAdminTrialModal - true (default) or false if wants to hide Start Enterprise Trial modal.
  *
  * @returns {UserProfile} `out.sysadmin` as `UserProfile` object
  */
-function apiCreateCustomAdmin({loginAfter = false, hideAdminTrialModal = true} = {}): ChainableT<{sysadmin: UserProfile}> {
+function apiCreateCustomAdmin({loginAfter = false} = {}): ChainableT<{sysadmin: UserProfile}> {
     const sysadminUser = generateRandomUser('other-admin');
 
     return cy.apiCreateUser({user: sysadminUser}).then(({user}) => {
         return cy.apiPatchUserRoles(user.id, ['system_admin', 'system_user']).then(() => {
             const data = {sysadmin: user};
-
-            cy.apiSaveStartTrialModal(user.id, hideAdminTrialModal.toString());
 
             if (loginAfter) {
                 return cy.apiLogin(user).then(() => {

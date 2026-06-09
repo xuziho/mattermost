@@ -18,7 +18,7 @@ function createPublicChannel(teamId: string, userToAdd: Cypress.UserProfile = nu
 }
 
 function createSearchData(prefix: string) {
-    return cy.apiCreateCustomAdmin({loginAfter: true, hideAdminTrialModal: true}).then(({sysadmin}) => {
+    return cy.apiCreateCustomAdmin({loginAfter: true}).then(({sysadmin}) => {
         const users = getTestUsers(prefix);
 
         cy.apiLogin(sysadmin);

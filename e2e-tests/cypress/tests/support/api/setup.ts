@@ -14,7 +14,6 @@ interface SetupResult {
 interface SetupParam {
     loginAfter?: boolean;
     promoteNewUserAsAdmin?: boolean;
-    hideAdminTrialModal?: boolean;
     userPrefix?: string;
     userCreateAt?: number;
     teamPrefix?: {name: string; displayName: string};
@@ -24,7 +23,6 @@ function apiInitSetup(arg: SetupParam = {}): ChainableT<SetupResult> {
     const {
         loginAfter = false,
         promoteNewUserAsAdmin = false,
-        hideAdminTrialModal = true,
         userPrefix,
         userCreateAt,
         teamPrefix = {name: 'team', displayName: 'Team'},
@@ -37,9 +35,6 @@ function apiInitSetup(arg: SetupParam = {}): ChainableT<SetupResult> {
             return (cy.apiCreateUser({prefix: userPrefix || (promoteNewUserAsAdmin ? 'admin' : 'user'), createAt: userCreateAt}) as any).then(({user}) => {
                 if (promoteNewUserAsAdmin) {
                     (cy as any).apiPatchUserRoles(user.id, ['system_admin', 'system_user']);
-
-                    // Only hide start trial modal for admin since it's not applicable to other users
-                    cy.apiSaveStartTrialModal(user.id, hideAdminTrialModal.toString());
                 }
 
                 return cy.apiAddUserToTeam(team.id, user.id).then(() => {
@@ -82,7 +77,6 @@ declare global {
              * Requires sysadmin session to initiate this command.
              * @param {boolean} options.loginAfter - false (default) or true if wants to login as the new user after setting up. Note that when true, succeeding API request will be limited to access/permission of a regular system user.
              * @param {boolean} options.promoteNewUserAsAdmin - false (default) or true if wants to promote the newly created user as sysadmin.
-             * @param {boolean} options.hideAdminTrialModal - true (default) or false if wants to hide Start Enterprise Trial modal.
              * @param {string} options.userPrefix - 'user' (default) or any prefix to easily identify a user
              * @param {string} options.teamPrefix - {name: 'team', displayName: 'Team'} (default) or any prefix to easily identify a team
              * @param {string} options.channelPrefix - {name: 'team', displayName: 'Team'} (default) or any prefix to easily identify a channel

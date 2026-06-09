@@ -317,30 +317,6 @@ function apiSaveCRTPreference(userId: string, value = 'on'): ChainableT<any> {
 Cypress.Commands.add('apiSaveCRTPreference', apiSaveCRTPreference);
 
 /**
- * Save show trial modal.
- * See https://api.mattermost.com/#tag/preferences/paths/~1users~1{user_id}~1preferences/put
- * @param {string} userId - User ID
- * @param {string} name - trial_modal_auto_shown
- * @param {string} value - values are 'true' or 'false'
- * @returns {Response} response: Cypress-chainable response which should have successful HTTP status of 200 OK to continue or pass.
- *
- * @example
- *   cy.apiSaveStartTrialModal('user-id', 'true');
- */
-function apiSaveStartTrialModal(userId: string, value = 'true'): ChainableT<any> {
-    const preference = {
-        user_id: userId,
-        category: 'start_trial_modal',
-        name: 'trial_modal_auto_shown',
-        value,
-    };
-
-    return cy.apiSaveUserPreference([preference], userId);
-}
-
-Cypress.Commands.add('apiSaveStartTrialModal', apiSaveStartTrialModal);
-
-/**
  * Save onboarding tasklist preference.
  * See https://api.mattermost.com/#tag/preferences/paths/~1users~1{user_id}~1preferences/put
  * @param {string} userId - User ID
@@ -466,7 +442,6 @@ declare global {
             apiHideSidebarWhatsNewModalPreference: typeof apiHideSidebarWhatsNewModalPreference;
             apiGetUserPreference: typeof apiGetUserPreference;
             apiSaveCRTPreference: typeof apiSaveCRTPreference;
-            apiSaveStartTrialModal: typeof apiSaveStartTrialModal;
             apiSaveOnboardingTaskListPreference: typeof apiSaveOnboardingTaskListPreference;
             apiSaveSkipStepsPreference: typeof apiSaveSkipStepsPreference;
             apiSaveUnreadScrollPositionPreference: typeof apiSaveUnreadScrollPositionPreference;

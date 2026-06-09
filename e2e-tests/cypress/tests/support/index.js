@@ -257,6 +257,5 @@ function resetUserPreference(userId) {
     cy.apiSaveOnboardingTaskListPreference(userId, 'onboarding_task_list_open', 'false');
     cy.apiSaveOnboardingTaskListPreference(userId, 'onboarding_task_list_show', 'false');
     cy.apiSaveSkipStepsPreference(userId, 'true');
-    cy.apiSaveStartTrialModal(userId, 'true');
     cy.apiSaveUnreadScrollPositionPreference(userId, 'start_from_left_off');
 }

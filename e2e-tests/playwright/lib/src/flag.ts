@@ -30,38 +30,13 @@ export async function ensureLicense() {
     let license = await adminClient.getClientLicenseOld();
 
     if (license?.IsLicensed !== 'true') {
-        const config = await adminClient.getClientConfig();
         expect(
-            config.ServiceEnvironment === 'dev',
-            'The trial license request fails in the local development environment. Please manually upload the test license.',
-        ).toBeFalsy();
-
-        await requestTrialLicense();
-
-        license = await adminClient.getClientLicenseOld();
+            license?.IsLicensed === 'true',
+            'Server has no EE license. Trial licenses are disabled in AgentCompanyOS tests; upload a local test license before running EE-only specs.',
+        ).toBeTruthy();
     }
 
     expect(license?.IsLicensed === 'true', 'Ensure server has license').toBeTruthy();
-}
-
-export async function requestTrialLicense() {
-    const {adminClient} = await getAdminClient();
-    const admin = await adminClient.getMe();
-    try {
-        await adminClient.requestTrialLicense({
-            receive_emails_accepted: true,
-            terms_accepted: true,
-            users: 100,
-            contact_name: admin.first_name + ' ' + admin.last_name,
-            contact_email: admin.email,
-            company_name: 'Mattermost Playwright E2E Tests',
-            company_size: '101-250',
-            company_country: 'United States',
-        });
-    } catch (error) {
-        expect(error, 'Failed to request trial license').toBeFalsy();
-        throw error;
-    }
 }
 
 export async function skipIfNoLicense() {
