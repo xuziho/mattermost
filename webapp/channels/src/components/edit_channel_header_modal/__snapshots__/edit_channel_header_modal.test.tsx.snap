@@ -160,15 +160,6 @@ exports[`components/EditChannelHeaderModal edit direct message channel 1`] = `
                   >
                     Preview
                   </button>
-                  <a
-                    class="textbox-help-link"
-                    href="https://docs.mattermost.com/collaborate/format-messages.html?utm_source=mattermost&utm_medium=in-product&utm_content=textbox_links&uid=&sid=&edition=team&server_version="
-                    location="textbox_links"
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    Help
-                  </a>
                 </div>
               </div>
             </div>
@@ -356,15 +347,6 @@ exports[`components/EditChannelHeaderModal error with intl message 1`] = `
                   >
                     Preview
                   </button>
-                  <a
-                    class="textbox-help-link"
-                    href="https://docs.mattermost.com/collaborate/format-messages.html?utm_source=mattermost&utm_medium=in-product&utm_content=textbox_links&uid=&sid=&edition=team&server_version="
-                    location="textbox_links"
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    Help
-                  </a>
                 </div>
               </div>
               <div
@@ -562,15 +544,6 @@ exports[`components/EditChannelHeaderModal error without intl message 1`] = `
                   >
                     Preview
                   </button>
-                  <a
-                    class="textbox-help-link"
-                    href="https://docs.mattermost.com/collaborate/format-messages.html?utm_source=mattermost&utm_medium=in-product&utm_content=textbox_links&uid=&sid=&edition=team&server_version="
-                    location="textbox_links"
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    Help
-                  </a>
                 </div>
               </div>
               <div
@@ -768,15 +741,6 @@ exports[`components/EditChannelHeaderModal should match snapshot, init 1`] = `
                   >
                     Preview
                   </button>
-                  <a
-                    class="textbox-help-link"
-                    href="https://docs.mattermost.com/collaborate/format-messages.html?utm_source=mattermost&utm_medium=in-product&utm_content=textbox_links&uid=&sid=&edition=team&server_version="
-                    location="textbox_links"
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    Help
-                  </a>
                 </div>
               </div>
             </div>
@@ -964,15 +928,6 @@ exports[`components/EditChannelHeaderModal submitted 1`] = `
                   >
                     Preview
                   </button>
-                  <a
-                    class="textbox-help-link"
-                    href="https://docs.mattermost.com/collaborate/format-messages.html?utm_source=mattermost&utm_medium=in-product&utm_content=textbox_links&uid=&sid=&edition=team&server_version="
-                    location="textbox_links"
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    Help
-                  </a>
                 </div>
               </div>
             </div>
