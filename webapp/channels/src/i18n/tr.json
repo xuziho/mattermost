@@ -946,7 +946,7 @@
   "admin.experimental.youtubeReferrerPolicy.desc": "Açıldığında, gömülü YouTube görüntüleri için yönlendiren ilkesi \"strict-origin-when-cross-origin\" olarak ayarlanır. Bu ayarlama, YouTube görüntü ön izlemelerinin kullanılamaz olarak görüntülenme sorunları çözerken, analiz, günlük kaydı ve üçüncü taraf bütünleştirmeleri gibi internet işlevlerini desteklemek için bir dereceye kadar yönlendirme verileriyle kullanıcı gizliliğini koruma gereksinimini dengeler. Kapatıldığında, yönlendiren ilkesi, kaynak adresi ortaya çıkarmayarak kullanıcı gizliliğini artıran, ancak analiz araçlarında kullanıcı etkileşimini ve trafik kaynaklarını izleme yeteneğini sınırlayan \"no-referrer\" olarak ayarlanır.",
   "admin.experimental.youtubeReferrerPolicy.title": "YouTube yönlendiren ilkesi:",
   "admin.exportStorage.dedicatedExportStore": "Ayrılmış dışa aktarma depolama alanı kullanılsın:",
-  "admin.exportStorage.dedicatedExportStoreDescription": "Açıldığında, Mattermost tüm dışa aktarma işlemleri için özel bir dışa aktarma depolama alanı kullanır. Bu, Mattermost Cloud dağıtımları için zorunludur.",
+  "admin.exportStorage.dedicatedExportStoreDescription": "When enabled, AgentCompanyOS will use a dedicated export storage bucket for all export operations. Use this for self-managed deployments that need export data isolated from regular file storage.",
   "admin.exportStorage.exportDirectory": "Dışa aktarma klasörü",
   "admin.exportStorage.exportDriverName": "Dışa aktarma depolama alanı sürücüsü:",
   "admin.false": "Kapalı",

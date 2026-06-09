@@ -793,7 +793,7 @@
   "admin.experimental.youtubeReferrerPolicy.desc": "Когато е true, правилата за адресиране за вградени видеоклипове от YouTube ще бъдат зададени на \"strict-origin-when-cross-origin\", което разрешава проблеми, при които визуализациите на видеоклипове в YouTube се показват като недостъпни, като същевременно балансира необходимостта от защита на поверителността на потребителя с известна степен на референтни данни за поддръжка на уеб функции като анализи, регистриране и интеграции на трети страни. Ако е зададено на false, правилата за адресиране ще бъдат зададени на \"no-referrer\", което увеличава поверителността на потребителите, като не разкрива URL адреса на източника, но ограничава възможността за проследяване на ангажираността на потребителите и източниците на трафик в инструментите за анализ.",
   "admin.experimental.youtubeReferrerPolicy.title": "YouTube политика на адресиране:",
   "admin.exportStorage.dedicatedExportStore": "Разреши външно хранилище за експорт:",
-  "admin.exportStorage.dedicatedExportStoreDescription": "Когато е разрешено, Mattermost ще използва външна среда за съхранение при всички операции по експортиране. Това се изисква за внедряване на Mattermost Cloud.",
+  "admin.exportStorage.dedicatedExportStoreDescription": "When enabled, AgentCompanyOS will use a dedicated export storage bucket for all export operations. Use this for self-managed deployments that need export data isolated from regular file storage.",
   "admin.exportStorage.exportDirectory": "Директория за износ",
   "admin.exportStorage.exportDriverName": "Драйвер на хранилището за износ:",
   "admin.false": "False",

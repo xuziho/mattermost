@@ -875,7 +875,7 @@
   "admin.experimental.youtubeReferrerPolicy.desc": "Якщо увімкнено, для вбудованих відео YouTube політика реферера буде встановлена на \"strict-origin-when-cross-origin\", що вирішує проблеми з відображенням прев'ю YouTube-відео як недоступних, забезпечуючи баланс між захистом конфіденційності користувача та наданням певних даних реферера для підтримки веб-функціональності, таких як аналітика, журналювання та інтеграція зі сторонніми сервісами. Якщо вимкнено, політика реферера буде встановлена на \"no-referrer\", що підвищує конфіденційність користувача, не розкриваючи URL-джерело, але обмежує можливість відстеження взаємодії користувачів і джерел трафіку в аналітичних інструментах.",
   "admin.experimental.youtubeReferrerPolicy.title": "Політика реферера YouTube:",
   "admin.exportStorage.dedicatedExportStore": "Увімкнути спеціальне сховище для експорту:",
-  "admin.exportStorage.dedicatedExportStoreDescription": "Якщо увімкнено, Mattermost використовуватиме спеціальне сховище для всіх операцій експорту. Це необхідно для розгортання Mattermost Cloud.",
+  "admin.exportStorage.dedicatedExportStoreDescription": "When enabled, AgentCompanyOS will use a dedicated export storage bucket for all export operations. Use this for self-managed deployments that need export data isolated from regular file storage.",
   "admin.exportStorage.exportDirectory": "Каталог експорту",
   "admin.exportStorage.exportDriverName": "Драйвер сховища для експорту:",
   "admin.false": "Помилковий",

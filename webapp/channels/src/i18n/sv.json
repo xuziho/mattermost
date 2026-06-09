@@ -970,7 +970,7 @@
   "admin.experimental.youtubeReferrerPolicy.desc": "När detta är aktiverat kommer hänvisningspolicyn för inbäddade YouTube-videor att vara inställd på \"strict-origin-when-cross-origin\", vilket löser problem där förhandsvisningar av YouTube-videor visas som otillgängliga, samtidigt som behovet av att skydda användarnas integritet balanseras med en viss grad av hänvisningsdata för att stödja webbfunktioner, som analys, loggning och tredjepartsintegreringar. När detta är avaktiverat kommer hänvisningspolicyn att ställas in på \"no-referrer\", vilket förbättrar användarnas integritet genom att inte avslöja källans URL, men begränsar möjligheten att spåra användarengagemang och trafikkällor i analysverktyg.",
   "admin.experimental.youtubeReferrerPolicy.title": "Policy för hänvisningar till YouTube:",
   "admin.exportStorage.dedicatedExportStore": "Aktivera dedikerad exportbutik:",
-  "admin.exportStorage.dedicatedExportStoreDescription": "När aktiverat kommer Mattermost använda en dedikerad lagring-bucket för export vid alla exportoperationer. Detta är en nödvändighet för Mattermost Cloud-installationer.",
+  "admin.exportStorage.dedicatedExportStoreDescription": "When enabled, AgentCompanyOS will use a dedicated export storage bucket for all export operations. Use this for self-managed deployments that need export data isolated from regular file storage.",
   "admin.exportStorage.exportDirectory": "Exportkatalog",
   "admin.exportStorage.exportDriverName": "Export Storage Driver:",
   "admin.false": "avaktiverad",

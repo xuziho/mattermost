@@ -812,7 +812,7 @@
   "admin.experimental.youtubeReferrerPolicy.desc": "Se verdadeiro, a política de referência para vídeos incorporados do YouTube será definida como \"strict-origin-when-cross-origin\", o que resolve problemas em que as visualizações de vídeos do YouTube são exibidas como indisponíveis, ao mesmo tempo em que equilibra a necessidade de proteger a privacidade do usuário com algum grau de dados de referência para dar suporte a funcionalidades da Web, como análise, registro e integrações de terceiros. Se falsa, a política de referência será definida como \"no-referrer\", o que aumenta a privacidade do usuário ao não divulgar o URL de origem, mas limita a capacidade de rastrear o envolvimento do usuário e as fontes de tráfego em ferramentas de análise.",
   "admin.experimental.youtubeReferrerPolicy.title": "Política de referência do YouTube:",
   "admin.exportStorage.dedicatedExportStore": "Ativar o armazenamento de exportação dedicado:",
-  "admin.exportStorage.dedicatedExportStoreDescription": "Se ativado, o Mattermost usará um bucket de armazenamento de exportação dedicado para todas as operações de exportação. Isso é necessário para implantações do Mattermost Cloud.",
+  "admin.exportStorage.dedicatedExportStoreDescription": "When enabled, AgentCompanyOS will use a dedicated export storage bucket for all export operations. Use this for self-managed deployments that need export data isolated from regular file storage.",
   "admin.exportStorage.exportDirectory": "Diretório de exportação",
   "admin.exportStorage.exportDriverName": "Driver de armazenamento de exportação:",
   "admin.false": "Falso",

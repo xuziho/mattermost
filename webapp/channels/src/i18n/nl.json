@@ -997,7 +997,7 @@
   "admin.experimental.youtubeReferrerPolicy.desc": "Als dit ingesteld is, wordt het verwijzingsbeleid voor ingesloten YouTube-video's ingesteld op \"strict-origin-when-cross-origin\". Hiermee worden problemen opgelost waarbij YouTube-videovoorbeelden worden weergegeven als niet beschikbaar, terwijl de noodzaak om de privacy van gebruikers te beschermen wordt afgewogen tegen een zekere mate van verwijzingsgegevens om webfuncties te ondersteunen, zoals analyse, logboekregistratie en integraties met derden. Als deze optie uitgeschakeld is, wordt het verwijzingsbeleid ingesteld op \"no-referrer\". Dit verbetert de privacy van de gebruiker door de bron-URL niet openbaar te maken, maar beperkt de mogelijkheid om de betrokkenheid van gebruikers en webverkeersbronnen te volgen in analyseprogramma's.",
   "admin.experimental.youtubeReferrerPolicy.title": "YouTube Referrer beleid:",
   "admin.exportStorage.dedicatedExportStore": "Eigen exportstore inschakelen:",
-  "admin.exportStorage.dedicatedExportStoreDescription": "Als deze optie is ingeschakeld, zal Mattermost een speciale export opslag bucket gebruiken voor alle export operaties. Dit is vereist voor Mattermost Cloud implementaties.",
+  "admin.exportStorage.dedicatedExportStoreDescription": "When enabled, AgentCompanyOS will use a dedicated export storage bucket for all export operations. Use this for self-managed deployments that need export data isolated from regular file storage.",
   "admin.exportStorage.exportDirectory": "Export Directory",
   "admin.exportStorage.exportDriverName": "Export Opslag Driver:",
   "admin.false": "uitgeschakeld",

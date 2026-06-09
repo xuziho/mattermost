@@ -812,7 +812,7 @@
   "admin.experimental.userStatusAwayTimeout.example": "F.eks.: \"300\"",
   "admin.experimental.userStatusAwayTimeout.title": "Tidsavbrudd for brukerstatus borte:",
   "admin.experimental.youtubeReferrerPolicy.title": "Retningslinjer for YouTube-henvisninger:",
-  "admin.exportStorage.dedicatedExportStoreDescription": "Når aktivert, vil Mattermost bruke en dedikert eksportlagringsbøtte for alle eksportoperasjoner. Dette er et krav for Mattermost Cloud-distribusjoner.",
+  "admin.exportStorage.dedicatedExportStoreDescription": "When enabled, AgentCompanyOS will use a dedicated export storage bucket for all export operations. Use this for self-managed deployments that need export data isolated from regular file storage.",
   "admin.exportStorage.exportDirectory": "Eksportkatalog",
   "admin.false": "Falsk",
   "admin.featureDiscovery.WarningDescription": "Lisensen din oppdateres slik at du får full tilgang til alle Enterprise-funksjoner. Denne siden oppdateres automatisk når lisensoppdateringen er fullført. Vennligst vent ",

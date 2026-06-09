@@ -998,7 +998,7 @@
   "admin.experimental.youtubeReferrerPolicy.desc": "Gdy włączone, zasady dotyczące odsyłaczy dla osadzonych filmów z YouTube zostaną ustawione na \"strict-origin-when-cross-origin\", co rozwiązuje problemy, w których podglądy filmów z YouTube są wyświetlane jako niedostępne, jednocześnie równoważąc potrzebę ochrony prywatności użytkowników z pewnym stopniem danych o odsyłaczach w celu obsługi funkcji internetowych, takich jak analityka, rejestrowanie i integracje stron trzecich. W przypadku ustawienia wartości false, polityka odsyłaczy zostanie ustawiona na \"no-referrer\", co zwiększa prywatność użytkowników poprzez nieujawnianie źródłowego adresu URL, ale ogranicza możliwość śledzenia zaangażowania użytkowników i źródeł ruchu w narzędziach analitycznych.",
   "admin.experimental.youtubeReferrerPolicy.title": "Zasady dotyczące osób polecających YouTube:",
   "admin.exportStorage.dedicatedExportStore": "Włącz dedykowany sklep eksportowy:",
-  "admin.exportStorage.dedicatedExportStoreDescription": "Po włączeniu Mattermost będzie używał dedykowanego zasobnika eksportu dla wszystkich operacji eksportu. Jest to wymagane w przypadku wdrożeń Mattermost Cloud.",
+  "admin.exportStorage.dedicatedExportStoreDescription": "When enabled, AgentCompanyOS will use a dedicated export storage bucket for all export operations. Use this for self-managed deployments that need export data isolated from regular file storage.",
   "admin.exportStorage.exportDirectory": "Katalog eksportu",
   "admin.exportStorage.exportDriverName": "Sterownik eksportu pamięci masowej:",
   "admin.false": "wyłączone",

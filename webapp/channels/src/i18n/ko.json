@@ -937,7 +937,7 @@
   "admin.experimental.youtubeReferrerPolicy.desc": "true인 경우 임베드된 YouTube 동영상에 대한 리퍼러 정책이 '엄격한 출처-교차 출처'로 설정되어 YouTube 동영상 미리보기가 사용할 수 없는 것으로 표시되는 문제를 해결하는 동시에 분석, 로깅 및 타사 통합과 같은 웹 기능을 지원하기 위해 어느 정도의 추천 데이터로 사용자 개인정보를 보호해야 하는 필요성과 균형을 맞춥니다. 거짓인 경우 리퍼러 정책이 '리퍼러 없음'으로 설정되어 소스 URL을 공개하지 않음으로써 사용자 개인정보 보호가 강화되지만 분석 도구에서 사용자 참여 및 트래픽 소스를 추적하는 기능이 제한됩니다.",
   "admin.experimental.youtubeReferrerPolicy.title": "YouTube 리퍼러 정책:",
   "admin.exportStorage.dedicatedExportStore": "전용 내보내기 스토어를 활성화합니다:",
-  "admin.exportStorage.dedicatedExportStoreDescription": "이 옵션을 활성화하면 Mattermost는 모든 내보내기 작업에 전용 내보내기 스토리지 버킷을 사용합니다. 이는 Mattermost Cloud 배포에 필요합니다.",
+  "admin.exportStorage.dedicatedExportStoreDescription": "When enabled, AgentCompanyOS will use a dedicated export storage bucket for all export operations. Use this for self-managed deployments that need export data isolated from regular file storage.",
   "admin.exportStorage.exportDirectory": "내보내기 디렉토리",
   "admin.exportStorage.exportDriverName": "저장소 드라이버 내보내기:",
   "admin.false": "비활성화",

@@ -941,7 +941,7 @@
   "admin.experimental.youtubeReferrerPolicy.desc": "Když je nastaveno na true, politika referera pro vložená videa z YouTube bude nastavena na „strict-origin-when-cross-origin“, což řeší problémy, kdy se náhledy videí z YouTube zobrazují jako nedostupné, a zároveň vyvažuje potřebu chránit soukromí uživatelů s určitou mírou referenčních dat pro podporu webových funkcí, jako jsou analytika, protokolování a integrace třetích stran. Když je nastaveno na false, politika referera bude nastavena na „no-referrer“, což zvyšuje soukromí uživatelů tím, že neodhaluje zdrojovou URL, ale omezuje schopnost sledovat zapojení uživatelů a zdroje návštěvnosti v analytických nástrojích.",
   "admin.experimental.youtubeReferrerPolicy.title": "Politika referera pro YouTube:",
   "admin.exportStorage.dedicatedExportStore": "Povolení vyhrazeného exportního úložiště:",
-  "admin.exportStorage.dedicatedExportStoreDescription": "Je-li tato funkce povolena, bude Mattermost pro všechny exportní operace používat vyhrazené místo pro ukládání dat. To je vyžadováno u nasazení Mattermost Cloud.",
+  "admin.exportStorage.dedicatedExportStoreDescription": "When enabled, AgentCompanyOS will use a dedicated export storage bucket for all export operations. Use this for self-managed deployments that need export data isolated from regular file storage.",
   "admin.exportStorage.exportDirectory": "Adresář pro export",
   "admin.exportStorage.exportDriverName": "Ovladač exportního úložiště:",
   "admin.false": "Nepravda",

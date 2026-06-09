@@ -961,7 +961,7 @@
   "admin.experimental.youtubeReferrerPolicy.desc": "Калі ўключана, палітыка рэферэра для ўбудаваных відэа YouTube будзе ўстаноўлена на \"strict-origin-when-cross-origin\", што вырашае праблемы, калі папярэднія прагляды відэа YouTube адлюстроўваюцца як недаступныя, пры гэтым балансуючы неабходнасць абароны прыватнасці карыстальніка з пэўнай ступенню рэферальных даных для падтрымкі вэб-функцый, такіх як аналітыка, вядзенне журнала і інтэграцыя са староннімі распрацоўшчыкамі. Калі выключана, палітыка рэферэра будзе ўстаноўлена на \"no-referrer\", што павышае прыватнасць карыстальніка, не раскрываючы зыходны URL, але абмяжоўвае магчымасць адсочвання ўзаемадзеяння карыстальніка і крыніц трафіку ў інструментах аналітыкі.",
   "admin.experimental.youtubeReferrerPolicy.title": "Палітыка рэферэра YouTube:",
   "admin.exportStorage.dedicatedExportStore": "Уключыць выдзеленае сховішча экспарту:",
-  "admin.exportStorage.dedicatedExportStoreDescription": "Калі ўключана, Mattermost будзе выкарыстоўваць выдзелены кантэйнер для экспартнага сховішча для ўсіх аперацый экспарту. Гэта патрабуецца для разгортвання Mattermost Cloud.",
+  "admin.exportStorage.dedicatedExportStoreDescription": "When enabled, AgentCompanyOS will use a dedicated export storage bucket for all export operations. Use this for self-managed deployments that need export data isolated from regular file storage.",
   "admin.exportStorage.exportDirectory": "Каталог экспарту",
   "admin.exportStorage.exportDriverName": "Драйвер сховішча экспарту:",
   "admin.false": "Выключана",

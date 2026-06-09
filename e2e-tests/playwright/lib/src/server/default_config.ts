@@ -726,10 +726,10 @@ const defaultServerConfig: AdminConfig = {
         RemoteImageProxyOptions: '',
     },
     CloudSettings: {
-        CWSURL: 'https://customers.mattermost.com',
-        CWSAPIURL: 'https://portal.internal.prod.cloud.mattermost.com',
+        CWSURL: '',
+        CWSAPIURL: '',
         CWSMock: false,
-        Disable: false,
+        Disable: true,
         PreviewModalBucketURL: '',
     },
     FeatureFlags: {

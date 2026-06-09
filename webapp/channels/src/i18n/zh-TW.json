@@ -786,7 +786,7 @@
   "admin.experimental.youtubeReferrerPolicy.desc": "啟用時，嵌入的 YouTube 影片的引用政策將設置為「strict-origin-when-cross-origin」，這可以解決 YouTube 影片預覽顯示為不可用的問題，同時在保護使用者隱私與提供部分引薦數據之間取得平衡，以支持網站功能，例如分析、日誌記錄和第三方整合。若未啟用，引用政策將設置為「no-referrer」，這能增強使用者隱私保護，因為不會透露來源 URL，但也會限制分析工具中追蹤使用者互動和流量來源的能力。",
   "admin.experimental.youtubeReferrerPolicy.title": "YouTube 引用政策：",
   "admin.exportStorage.dedicatedExportStore": "啟用專用匯出儲存：",
-  "admin.exportStorage.dedicatedExportStoreDescription": "啟用後，Mattermost 將使用專用的匯出儲存桶來進行所有的匯出操作。對於 Mattermost Cloud 部署，這是必須的。",
+  "admin.exportStorage.dedicatedExportStoreDescription": "When enabled, AgentCompanyOS will use a dedicated export storage bucket for all export operations. Use this for self-managed deployments that need export data isolated from regular file storage.",
   "admin.exportStorage.exportDirectory": "匯出目錄",
   "admin.exportStorage.exportDriverName": "匯出儲存空間驅動：",
   "admin.false": "否",

@@ -941,7 +941,7 @@
   "admin.experimental.youtubeReferrerPolicy.desc": "有効な場合、埋め込まれたYouTube動画のリファラポリシーが \"strict-origin-when-cross-origin\" に設定され、ユーザーのプライバシー保護と、分析、ロギング、サードパーティとの連携などのウェブ機能を利用するためのある程度のリファラデータの必要性とのバランスをとりつつ、YouTube動画のプレビューが利用できない問題を解決します。無効な場合、リファラーポリシーは \"no-referrer\" に設定され、ソースURLを開示しないことでユーザーのプライバシーを保護できますが、分析ツールでユーザーのエンゲージメントやトラフィックソースを追跡する機能は制限されます。",
   "admin.experimental.youtubeReferrerPolicy.title": "YouTubeリファラーポリシー:",
   "admin.exportStorage.dedicatedExportStore": "専用のエクスポート保存先を有効にする:",
-  "admin.exportStorage.dedicatedExportStoreDescription": "有効な場合、Mattermostは全てのエクスポート操作に対して専用のエクスポート保存先バケットを使用します。これは、Mattermost Clouddデプロイの場合必須です。",
+  "admin.exportStorage.dedicatedExportStoreDescription": "When enabled, AgentCompanyOS will use a dedicated export storage bucket for all export operations. Use this for self-managed deployments that need export data isolated from regular file storage.",
   "admin.exportStorage.exportDirectory": "エクスポートディレクトリ",
   "admin.exportStorage.exportDriverName": "エクスポート保存先ドライバ:",
   "admin.false": "無効",
