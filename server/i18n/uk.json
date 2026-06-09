@@ -7345,7 +7345,7 @@
   },
   {
     "id": "api.license.request_trial_license.embargoed",
-    "translation": "Ми не змогли обробити запит через обмеження для країн, на які накладено ембарго. [Дізнайтеся більше в нашій документації] (https://mattermost.com/pl/limitations-for-embargoed-countries) або зверніться за адресою legal@mattermost.com з питаннями щодо експортних обмежень."
+    "translation": "Ми не змогли обробити запит через обмеження для країн, на які накладено ембарго."
   },
   {
     "id": "api.oauth.auth_complete",

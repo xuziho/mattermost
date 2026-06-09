@@ -8093,7 +8093,7 @@
   },
   {
     "id": "api.license.request_trial_license.embargoed",
-    "translation": "Não foi possível processar a solicitação devido a limitações de países embargados. [Saiba mais em nossa documentação](https://mattermost.com/pl/limitations-for-embargoed-countries) ou entre em contato com legal@mattermost.com para perguntas sobre limitações de exportação."
+    "translation": "Não foi possível processar a solicitação devido a limitações de países embargados."
   },
   {
     "id": "api.oauth.click_redirect",

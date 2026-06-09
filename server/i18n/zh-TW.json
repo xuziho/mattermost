@@ -8805,7 +8805,7 @@
   },
   {
     "id": "api.license.request_trial_license.embargoed",
-    "translation": "我們無法為受禁令限制的國家處理請求。[請參閱文件以了解詳情](https://mattermost.com/pl/limitations-for-embargoed-countries)，或透過 legal@mattermost.com 詢問關於出口限制的問題。"
+    "translation": "我們無法為受禁令限制的國家處理請求。"
   },
   {
     "id": "api.server.hosted_signup_unavailable.error",

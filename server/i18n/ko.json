@@ -7859,7 +7859,7 @@
   },
   {
     "id": "api.license.request_trial_license.embargoed",
-    "translation": "수출 금지 국가에 대한 제한으로 인해 요청을 처리할 수 없습니다. [자세한 내용은 문서(https://mattermost.com/pl/limitations-for-embargoed-countries)를 참조하거나 수출 제한에 관한 질문이 있는 경우 legal@mattermost.com 으로 문의하시기 바랍니다."
+    "translation": "수출 금지 국가에 대한 제한으로 인해 요청을 처리할 수 없습니다."
   },
   {
     "id": "api.oauth.get_access_token.bad_request.app_error",

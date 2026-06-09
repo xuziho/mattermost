@@ -8035,7 +8035,7 @@
   },
   {
     "id": "api.license.request_trial_license.embargoed",
-    "translation": "Vi kunde inte behandla begäran på grund av begränsningar för länder med embargo. [Läs mer i vår dokumentation] (https://mattermost.com/pl/limitations-for-embargoed-countries), eller kontakta legal@mattermost.com för frågor om exportbegränsningar."
+    "translation": "Vi kunde inte behandla begäran på grund av begränsningar för länder med embargo."
   },
   {
     "id": "api.getThreadsForUser.bad_only_params",

@@ -7629,7 +7629,7 @@
   },
   {
     "id": "api.license.request_trial_license.embargoed",
-    "translation": "Nous n'avons pas pu traiter votre demande en raison de limitations pour les pays sous embargos. [Vous pouvez en savoir plus dans notre documentation](https://mattermost.com/pl/limitations-for-embargoed-countries), ou adressez-vous à legal@mattermost.com pour toute question relative aux limitations d'exportation."
+    "translation": "Nous n'avons pas pu traiter votre demande en raison de limitations pour les pays sous embargos."
   },
   {
     "id": "api.getThreadsForUser.bad_only_params",

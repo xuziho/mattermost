@@ -8045,7 +8045,7 @@
   },
   {
     "id": "api.license.request_trial_license.embargoed",
-    "translation": "Нам не удалось обработать запрос из-за ограничений для стран, на которые распространяется эмбарго. [Подробнее читайте в нашей документации](https://mattermost.com/pl/limitations-for-embargoed-countries) или обращайтесь по адресу legal@mattermost.com, если у вас есть вопросы об экспортных ограничениях."
+    "translation": "Нам не удалось обработать запрос из-за ограничений для стран, на которые распространяется эмбарго."
   },
   {
     "id": "api.getThreadsForUser.bad_only_params",

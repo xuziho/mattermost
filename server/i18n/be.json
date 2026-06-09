@@ -8009,7 +8009,7 @@
   },
   {
     "id": "api.license.request_trial_license.embargoed",
-    "translation": "Мы не змаглі апрацаваць запыт з-за абмежаванняў для краін, на якія накладзена эбарга. [Даведайцеся больш у нашай дакументацыі](https://mattermost.com/pl/limitations-for-embargoed-countries), або звярніцеся ў legal@mattermost.com з пытаннямі аб абмежаваннях экспарту."
+    "translation": "Мы не змаглі апрацаваць запыт з-за абмежаванняў для краін, на якія накладзена эбарга."
   },
   {
     "id": "api.getThreadsForUser.bad_only_params",

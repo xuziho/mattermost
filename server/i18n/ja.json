@@ -8035,7 +8035,7 @@
   },
   {
     "id": "api.license.request_trial_license.embargoed",
-    "translation": "禁輸国に対する制限のため、リクエストを処理することができませんでした。輸出制限に関するご質問は、[説明文書を参照するか](https://mattermost.com/pl/limitations-for-embargoed-countries)、legal@mattermost.com までお問い合わせください。"
+    "translation": "禁輸国に対する制限のため、リクエストを処理することができませんでした。"
   },
   {
     "id": "api.getThreadsForUser.bad_only_params",

@@ -8055,7 +8055,7 @@
   },
   {
     "id": "api.license.request_trial_license.embargoed",
-    "translation": "Ambargo uygulanan ülkelerdeki sınırlamalar nedeniyle isteği işleyemedik. [Belgelerimizden ayrıntılı bilgi alın](https://mattermost.com/pl/limitations-for-embargoed-countries) ya da ihracat sınırlamalarıyla ilgili sorularınız için legal@mattermost.com adresine yazın."
+    "translation": "Ambargo uygulanan ülkelerdeki sınırlamalar nedeniyle isteği işleyemedik."
   },
   {
     "id": "api.elasticsearch.test_elasticsearch_settings_nil.app_error",

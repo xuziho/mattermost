@@ -8051,7 +8051,7 @@
   },
   {
     "id": "api.license.request_trial_license.embargoed",
-    "translation": "We konden het verzoek niet verwerken vanwege beperkingen voor landen die onder een embargo vallen. [Meer informatie vind je in onze documentatie](https://mattermost.com/pl/limitations-for-embargoed-countries), of neem contact op met legal@mattermost.com voor vragen over exportbeperkingen."
+    "translation": "We konden het verzoek niet verwerken vanwege beperkingen voor landen die onder een embargo vallen."
   },
   {
     "id": "api.getThreadsForUser.bad_only_params",

@@ -7005,7 +7005,7 @@
   },
   {
     "id": "api.license.request_trial_license.embargoed",
-    "translation": "Nebylo možné zpracovat požadavek kvůli omezením pro embargoované země. Zjistěte více v naší dokumentaci nebo se obraťte na legal@mattermost.com s dotazy ohledně exportních omezení."
+    "translation": "Nebylo možné zpracovat požadavek kvůli omezením pro embargoované země."
   },
   {
     "id": "api.payload.parse.error",

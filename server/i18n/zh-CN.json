@@ -7983,7 +7983,7 @@
   },
   {
     "id": "api.license.request_trial_license.embargoed",
-    "translation": "由于对禁运国家的限制，我们无法处理请求。[在我们的文档中了解更多信息](https://mattermost.com/pl/limitations-for-embargoed-countries)，或联系legal@mattermost.com了解有关出口限制的问题。"
+    "translation": "由于对禁运国家的限制，我们无法处理请求。"
   },
   {
     "id": "api.getThreadsForUser.bad_only_params",
