@@ -94,7 +94,6 @@ export const usesLegacyOauth = (config: Partial<AdminConfig>, state: any, licens
 export const getRestrictedIndicator = (displayBlocked = false, minimumPlanRequiredForFeature = LicenseSkus.Professional) => ({
     value: () => (
         <RestrictedIndicator
-            useModal={false}
             blocked={displayBlocked}
             minimumPlanRequiredForFeature={minimumPlanRequiredForFeature}
             tooltipMessageBlocked={defineMessage({

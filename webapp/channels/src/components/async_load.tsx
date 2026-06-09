@@ -18,7 +18,7 @@ export function makeAsyncComponent<ComponentProps>(displayName: string, LazyComp
 }
 
 export function makeAsyncPluggableComponent() {
-    const LazyComponent = lazy(() => import('plugins/pluggable')) as PluggableComponentType;
+    const LazyComponent = lazy(() => import('plugins/pluggable')) as unknown as PluggableComponentType;
 
     const Component = <T extends keyof PluginsState['components']>(props: PluggableProps<T>) => (
         <React.Suspense fallback={null}>

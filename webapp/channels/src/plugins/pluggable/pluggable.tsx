@@ -15,7 +15,7 @@ import PluggableErrorBoundary from './error_boundary';
 
 type ComponentProps<
     Key extends keyof PluginsState['components'],
-> = PluginsState['components'][Key][number] extends {component: React.ComponentType<any>} ? React.ComponentProps<PluginsState['components'][Key][number]['component']> : never;
+> = PluginsState['components'][Key][number] extends {component: React.ComponentType<infer Props>} ? Props : Record<never, never>;
 type WrapperProps<T extends keyof PluginsState['components']> = {
 
     /*

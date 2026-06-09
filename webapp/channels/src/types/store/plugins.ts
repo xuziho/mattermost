@@ -5,7 +5,7 @@ import type React from 'react';
 
 import type {WebSocketClient} from '@mattermost/client';
 import type {PluginAnalyticsRow} from '@mattermost/types/admin';
-import type {Channel} from '@mattermost/types/channels';
+import type {Channel, ChannelMembership} from '@mattermost/types/channels';
 import type {FileInfo} from '@mattermost/types/files';
 import type {CommandArgs} from '@mattermost/types/integrations';
 import type {ClientPluginManifest} from '@mattermost/types/plugins';

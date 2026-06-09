@@ -53,8 +53,8 @@ interface WindowWithLibraries {
             ModalIdentifiers: typeof ModalIdentifiers;
         };
         notificationSounds: {
-            ring: typeof NotificationSounds.ring;
-            stopRing: typeof NotificationSounds.stopRing;
+            ring: typeof NotificationSounds.tryNotificationSound;
+            stopRing: typeof NotificationSounds.stopTryNotificationRing;
         };
         sendDesktopNotificationToMe: typeof notifyMe;
         openUserSettings: (dialogProps: any) => void;
@@ -130,7 +130,7 @@ window.WebappUtils = {
         return getHistory();
     },
     modals: {openModal, ModalIdentifiers},
-    notificationSounds: {ring: NotificationSounds.ring, stopRing: NotificationSounds.stopRing},
+    notificationSounds: {ring: NotificationSounds.tryNotificationSound, stopRing: NotificationSounds.stopTryNotificationRing},
     sendDesktopNotificationToMe: notifyMe,
     openUserSettings: (dialogProps) => openModal({
         modalId: ModalIdentifiers.USER_SETTINGS,
