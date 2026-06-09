@@ -25,7 +25,7 @@ const OpenInvite = ({isGroupConstrained, allowOpenInvite, setAllowOpenInvite}: P
                 }, {
                     link: (msg: React.ReactNode) => (
                         <ExternalLink
-                            href='https://mattermost.com/pl/default-ldap-group-constrained-team-channel.html'
+                            href='#'
                             location='open_invite'
                         >
                             {msg}

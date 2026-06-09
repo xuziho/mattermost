@@ -389,7 +389,7 @@ function CreateTeamMenuItem() {
     );
 }
 
-const MATTERMOST_ACADEMY_TEAM_TRAINING_LINK = 'https://mattermost.com/pl/mattermost-academy-team-training';
+const MATTERMOST_ACADEMY_TEAM_TRAINING_LINK = '#';
 
 function LearnAboutTeamsMenuItem() {
     const handleClick = useCallback(() => {

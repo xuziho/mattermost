@@ -126,7 +126,7 @@ const ErrorMessage: React.FC<Props> = ({type, message, service, isGuest}: Props)
                             values={{
                                 link: (
                                     <ErrorLink
-                                        url={'https://docs.mattermost.com/deployment/sso-google.html'}
+                                        url={'#'}
                                         message={defineMessage({
                                             id: 'error.oauth_missing_code.google.link',
                                             defaultMessage: 'Google Apps',
@@ -143,7 +143,7 @@ const ErrorMessage: React.FC<Props> = ({type, message, service, isGuest}: Props)
                             values={{
                                 link: (
                                     <ErrorLink
-                                        url={'https://docs.mattermost.com/deployment/sso-office.html'}
+                                        url={'#'}
                                         message={defineMessage({
                                             id: 'error.oauth_missing_code.office365.link',
                                             defaultMessage: 'Entra ID',
@@ -160,7 +160,7 @@ const ErrorMessage: React.FC<Props> = ({type, message, service, isGuest}: Props)
                             values={{
                                 link: (
                                     <ErrorLink
-                                        url={'https://docs.mattermost.com/deployment/sso-gitlab.html'}
+                                        url={'#'}
                                         message={defineMessage({
                                             id: 'error.oauth_missing_code.gitlab.link',
                                             defaultMessage: 'GitLab',

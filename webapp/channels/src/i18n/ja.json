@@ -3184,7 +3184,7 @@
   "channel_invite.policy_enforced.title": "チャンネルアクセスはユーザー属性によって制限されています",
   "channel_loader.posted": " がメッセージを投稿しました",
   "channel_loader.postedImage": " が画像をアップロードしました",
-  "channel_loader.socketError": "Mattermostに接続できません。接続を確認してください。この問題が続くようならば、システム管理者に[WebSocketのポートを確認するよう](!https://docs.mattermost.com/install/troubleshooting.html#please-check-connection-mattermost-unreachable-if-issue-persists-ask-administrator-to-check-websocket-port)依頼してください。",
+  "channel_loader.socketError": "Mattermostに接続できません。接続を確認してください。この問題が続くようならば、システム管理者にWebSocketのポートを確認するよう依頼してください。",
   "channel_loader.someone": "誰か",
   "channel_loader.title": "投稿",
   "channel_loader.unknown_error": "サーバーから想定外のステータスコードを受信しました。",
