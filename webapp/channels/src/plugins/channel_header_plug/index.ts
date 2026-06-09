@@ -9,7 +9,7 @@ import {appBarEnabled, appsEnabled, getChannelHeaderAppBindings} from 'mattermos
 import {getTheme} from 'mattermost-redux/selectors/entities/preferences';
 
 import {handleBindingClick, openAppsModal, postEphemeralCallResponseForChannel} from 'actions/apps';
-import {getChannelHeaderPluginComponents, shouldShowAppBar} from 'selectors/plugins';
+import {getChannelHeaderPluginComponents} from 'selectors/plugins';
 
 import type {GlobalState} from 'types/store';
 
@@ -24,7 +24,6 @@ function mapStateToProps(state: GlobalState) {
         appBarEnabled: appBarEnabled(state),
         theme: getTheme(state),
         sidebarOpen: state.views.rhs.isSidebarOpen,
-        shouldShowAppBar: shouldShowAppBar(state),
     };
 }
 

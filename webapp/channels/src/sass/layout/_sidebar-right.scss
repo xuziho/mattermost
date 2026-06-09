@@ -316,8 +316,7 @@
 @media screen and (min-width: 769px) {
     // adjust RHS position and height
     #sidebar-right {
-        // If this is changed, the interaction with the App Bar icons must be tested
-        //(see .app-bar__icon in components/app_bar/app_bar.scss)
+        // Keep RHS above the main channel content on desktop layouts.
         z-index: 20;
         box-shadow: var(--elevation-2);
 

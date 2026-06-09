@@ -61,7 +61,6 @@ const SystemNotice = makeAsyncComponent('SystemNotice', lazy(() => import('compo
 const TeamSidebar = makeAsyncComponent('TeamSidebar', lazy(() => import('components/team_sidebar')));
 const SidebarRight = makeAsyncComponent('SidebarRight', lazy(() => import('components/sidebar_right')));
 const ModalController = makeAsyncComponent('ModalController', lazy(() => import('components/modal_controller')));
-const AppBar = makeAsyncComponent('AppBar', lazy(() => import('components/app_bar/app_bar')));
 const ComponentLibrary = makeAsyncComponent('ComponentLibrary', lazy(() => import('components/component_library')));
 const PopoutController = makeAsyncComponent('PopoutController', lazy(() => import('components/popout_controller')));
 
@@ -110,7 +109,6 @@ export default class Root extends React.PureComponent<Props, State> {
         }
 
         if (
-            this.props.shouldShowAppBar !== prevProps.shouldShowAppBar ||
             this.props.rhsIsOpen !== prevProps.rhsIsOpen ||
             this.props.rhsIsExpanded !== prevProps.rhsIsExpanded
         ) {
@@ -215,7 +213,6 @@ export default class Root extends React.PureComponent<Props, State> {
         const root = document.getElementById('root')!;
 
         for (const [className, enabled] of Object.entries({
-            'app-bar-enabled': this.props.shouldShowAppBar,
             'rhs-open': this.props.rhsIsOpen,
             'rhs-open-expanded': this.props.rhsIsExpanded,
         })) {
@@ -346,7 +343,6 @@ export default class Root extends React.PureComponent<Props, State> {
                             <SidebarRight/>
                         </div>
                         <Pluggable pluggableName='Global'/>
-                        <AppBar/>
                         <Readout/>
                     </WithUserTheme>
                 </Switch>

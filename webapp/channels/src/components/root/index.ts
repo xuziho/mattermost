@@ -14,7 +14,6 @@ import {shouldShowTermsOfService, getCurrentUserId} from 'mattermost-redux/selec
 
 import {loadRecentlyUsedCustomEmojis, migrateRecentEmojis} from 'actions/emoji_actions';
 import {isDevModeEnabled} from 'selectors/general';
-import {shouldShowAppBar} from 'selectors/plugins';
 import {
     getIsRhsExpanded,
     getIsRhsOpen,
@@ -55,7 +54,6 @@ function mapStateToProps(state: GlobalState) {
         rhsIsExpanded: getIsRhsExpanded(state),
         rhsIsOpen: getIsRhsOpen(state),
         rhsState: getRhsState(state),
-        shouldShowAppBar: shouldShowAppBar(state),
         isCloud: false,
         isDevModeEnabled: isDevModeEnabled(state),
     };

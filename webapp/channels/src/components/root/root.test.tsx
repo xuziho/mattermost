@@ -55,7 +55,6 @@ describe('components/Root', () => {
         rhsIsExpanded: false,
         rhsIsOpen: false,
         rhsState: null,
-        shouldShowAppBar: false,
         isCloud: false,
         actions: {
             loadConfigAndMe: jest.fn().mockImplementation(() => {

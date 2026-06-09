@@ -21,7 +21,6 @@ describe('plugins/ChannelHeaderPlug', () => {
         },
         appBindings: [],
         appsEnabled: false,
-        shouldShowAppBar: false,
     };
 
     function makeTestPlug(n = 1) {
@@ -106,7 +105,6 @@ describe('plugins/ChannelHeaderPlug', () => {
                     makeTestPlug(3),
                     makeTestPlug(4),
                 ]}
-                shouldShowAppBar={true}
             />,
         );
 
