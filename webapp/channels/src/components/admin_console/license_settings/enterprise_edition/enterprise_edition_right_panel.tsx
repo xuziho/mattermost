@@ -30,8 +30,8 @@ const EnterpriseEditionRightPanel = ({
             defaultMessage: 'Compatibility with existing license APIs',
         }),
         intl.formatMessage({
-            id: 'admin.license.localLicenseDetail.noCloudBilling',
-            defaultMessage: 'No cloud billing or trial workflow is required',
+            id: 'admin.license.localLicenseDetail.offline',
+            defaultMessage: 'Works without external billing or account services',
         }),
     ];
 
@@ -152,10 +152,10 @@ const EnterpriseEditionRightPanel = ({
                 <div className='svg-image'>
                     {svgImage()}
                 </div>
-                <div className='upgrade-title'>
+                <div className='license-title'>
                     {title()}
                 </div>
-                <div className='upgrade-subtitle'>
+                <div className='license-subtitle'>
                     {subtitle()}
                 </div>
             </div>
@@ -167,10 +167,10 @@ const EnterpriseEditionRightPanel = ({
             <div className='svg-image'>
                 {svgImage()}
             </div>
-            <div className='upgrade-title'>
+            <div className='license-title'>
                 {title()}
             </div>
-            <div className='upgrade-subtitle'>
+            <div className='license-subtitle'>
                 {subtitle()}
             </div>
         </div>

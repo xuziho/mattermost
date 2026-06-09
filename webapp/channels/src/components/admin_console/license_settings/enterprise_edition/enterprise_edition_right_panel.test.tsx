@@ -62,12 +62,12 @@ describe('components/admin_console/license_settings/enterprise_edition/enterpris
             initialState,
         );
 
-        expect(container.querySelector('.upgrade-title')?.textContent).toEqual('Local license details');
+        expect(container.querySelector('.license-title')?.textContent).toEqual('Local license details');
 
-        const subtitleItems = container.querySelectorAll('.upgrade-subtitle .item');
+        const subtitleItems = container.querySelectorAll('.license-subtitle .item');
         expect(subtitleItems[0].textContent).toEqual('File-based local license management');
         expect(subtitleItems[1].textContent).toEqual('Compatibility with existing license APIs');
-        expect(subtitleItems[2].textContent).toEqual('No cloud billing or trial workflow is required');
+        expect(subtitleItems[2].textContent).toEqual('Works without external billing or account services');
     });
 
     test('should render for Enterprise license', () => {
@@ -79,12 +79,12 @@ describe('components/admin_console/license_settings/enterprise_edition/enterpris
             initialState,
         );
 
-        expect(container.querySelector('.upgrade-title')?.textContent).toEqual('Local license details');
+        expect(container.querySelector('.license-title')?.textContent).toEqual('Local license details');
 
-        const subtitleItems = container.querySelectorAll('.upgrade-subtitle .item');
+        const subtitleItems = container.querySelectorAll('.license-subtitle .item');
         expect(subtitleItems[0].textContent).toEqual('File-based local license management');
         expect(subtitleItems[1].textContent).toEqual('Compatibility with existing license APIs');
-        expect(subtitleItems[2].textContent).toEqual('No cloud billing or trial workflow is required');
+        expect(subtitleItems[2].textContent).toEqual('Works without external billing or account services');
     });
 
     test('should render for Enterprise Advanced license', () => {
@@ -96,8 +96,8 @@ describe('components/admin_console/license_settings/enterprise_edition/enterpris
             initialState,
         );
 
-        expect(container.querySelector('.upgrade-title')?.textContent).toEqual('Licensed seat count');
-        expect(container.querySelector('.upgrade-subtitle')?.textContent).toEqual('Upload an updated license if you need to increase your licensed headcount.');
+        expect(container.querySelector('.license-title')?.textContent).toEqual('Licensed seat count');
+        expect(container.querySelector('.license-subtitle')?.textContent).toEqual('Upload an updated license if you need to increase your licensed headcount.');
     });
 
     test('should render for Entry license', () => {
@@ -109,8 +109,8 @@ describe('components/admin_console/license_settings/enterprise_edition/enterpris
             initialState,
         );
 
-        expect(container.querySelector('.upgrade-title')?.textContent).toEqual('Local license capacity');
-        expect(container.querySelector('.upgrade-subtitle')?.textContent).toEqual('Upload a local license file if this deployment needs licensed capacity controls.');
+        expect(container.querySelector('.license-title')?.textContent).toEqual('Local license capacity');
+        expect(container.querySelector('.license-subtitle')?.textContent).toEqual('Upload a local license file if this deployment needs licensed capacity controls.');
     });
 
     test('should render for Trial license', () => {
@@ -122,7 +122,7 @@ describe('components/admin_console/license_settings/enterprise_edition/enterpris
             initialState,
         );
 
-        expect(container.querySelector('.upgrade-title')?.textContent).toEqual('Time-limited license');
-        expect(container.querySelector('.upgrade-subtitle')?.textContent).toEqual('Upload a new local license file before this license expires to continue using licensed features.');
+        expect(container.querySelector('.license-title')?.textContent).toEqual('Time-limited license');
+        expect(container.querySelector('.license-subtitle')?.textContent).toEqual('Upload a new local license file before this license expires to continue using licensed features.');
     });
 });

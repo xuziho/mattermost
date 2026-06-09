@@ -166,8 +166,8 @@ const EnterpriseEditionLeftPanel = ({
                         {isTrialLicense && (
                             <Tag
                                 text={formatMessage({
-                                    id: 'admin.license.Trial',
-                                    defaultMessage: 'Trial',
+                                    id: 'admin.license.timeLimited',
+                                    defaultMessage: 'Time-limited',
                                 })}
                                 variant={'success'}
                                 uppercase={true}
@@ -320,7 +320,7 @@ const renderLicenseContent = (
 ) => {
     // Note: DO NOT LOCALISE THESE STRINGS. Legally we can not since the license is in English.
 
-    const sku = license.SkuShortName ? <>{`Mattermost ${toTitleCase(skuName)}${isTrialLicense ? ' License Trial' : ''}`}</> : null;
+    const sku = license.SkuShortName ? <>{`${toTitleCase(skuName)}${isTrialLicense ? ' time-limited license' : ' local license'}`}</> : null;
 
     const users = <FormattedNumber value={parseInt(license.Users, 10)}/>;
     const activeUsers = <FormattedNumber value={statsActiveUsers}/>;

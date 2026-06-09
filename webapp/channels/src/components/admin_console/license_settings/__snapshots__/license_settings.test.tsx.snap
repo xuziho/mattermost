@@ -130,7 +130,7 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
                       <span
                         class="value"
                       >
-                        Mattermost Enterprise E10
+                        Enterprise E10 local license
                       </span>
                     </div>
                     <div
@@ -461,12 +461,12 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                   </svg>
                 </div>
                 <div
-                  class="upgrade-title"
+                  class="license-title"
                 >
                   Local license details
                 </div>
                 <div
-                  class="upgrade-subtitle"
+                  class="license-subtitle"
                 >
                   <div
                     class="advantages-list"
@@ -493,7 +493,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                       <i
                         class="fa fa-lock"
                       />
-                      No cloud billing or trial workflow is required
+                      Works without external billing or account services
                     </div>
                   </div>
                 </div>
@@ -637,7 +637,7 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
                       <span
                         class="value"
                       >
-                        Mattermost Enterprise E20
+                        Enterprise E20 local license
                       </span>
                     </div>
                     <div
@@ -968,12 +968,12 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                   </svg>
                 </div>
                 <div
-                  class="upgrade-title"
+                  class="license-title"
                 >
                   Local license details
                 </div>
                 <div
-                  class="upgrade-subtitle"
+                  class="license-subtitle"
                 >
                   <div
                     class="advantages-list"
@@ -1000,7 +1000,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                       <i
                         class="fa fa-lock"
                       />
-                      No cloud billing or trial workflow is required
+                      Works without external billing or account services
                     </div>
                   </div>
                 </div>
@@ -1144,7 +1144,7 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
                       <span
                         class="value"
                       >
-                        Mattermost Enterprise
+                        Enterprise local license
                       </span>
                     </div>
                     <div
@@ -1475,12 +1475,12 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                   </svg>
                 </div>
                 <div
-                  class="upgrade-title"
+                  class="license-title"
                 >
                   Local license details
                 </div>
                 <div
-                  class="upgrade-subtitle"
+                  class="license-subtitle"
                 >
                   <div
                     class="advantages-list"
@@ -1507,7 +1507,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                       <i
                         class="fa fa-lock"
                       />
-                      No cloud billing or trial workflow is required
+                      Works without external billing or account services
                     </div>
                   </div>
                 </div>
@@ -1651,7 +1651,7 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
                       <span
                         class="value"
                       >
-                        Mattermost Enterprise E20
+                        Enterprise E20 local license
                       </span>
                     </div>
                     <div
@@ -1982,12 +1982,12 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                   </svg>
                 </div>
                 <div
-                  class="upgrade-title"
+                  class="license-title"
                 >
                   Local license details
                 </div>
                 <div
-                  class="upgrade-subtitle"
+                  class="license-subtitle"
                 >
                   <div
                     class="advantages-list"
@@ -2014,7 +2014,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                       <i
                         class="fa fa-lock"
                       />
-                      No cloud billing or trial workflow is required
+                      Works without external billing or account services
                     </div>
                   </div>
                 </div>
@@ -2158,7 +2158,7 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
                       <span
                         class="value"
                       >
-                        Mattermost Enterprise E20
+                        Enterprise E20 local license
                       </span>
                     </div>
                     <div
@@ -2490,12 +2490,12 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                   </svg>
                 </div>
                 <div
-                  class="upgrade-title"
+                  class="license-title"
                 >
                   Local license details
                 </div>
                 <div
-                  class="upgrade-subtitle"
+                  class="license-subtitle"
                 >
                   <div
                     class="advantages-list"
@@ -2522,7 +2522,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                       <i
                         class="fa fa-lock"
                       />
-                      No cloud billing or trial workflow is required
+                      Works without external billing or account services
                     </div>
                   </div>
                 </div>
@@ -2666,7 +2666,7 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
                       <span
                         class="value"
                       >
-                        Mattermost Enterprise E20
+                        Enterprise E20 local license
                       </span>
                     </div>
                     <div
@@ -2997,12 +2997,12 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                   </svg>
                 </div>
                 <div
-                  class="upgrade-title"
+                  class="license-title"
                 >
                   Local license details
                 </div>
                 <div
-                  class="upgrade-subtitle"
+                  class="license-subtitle"
                 >
                   <div
                     class="advantages-list"
@@ -3029,7 +3029,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                       <i
                         class="fa fa-lock"
                       />
-                      No cloud billing or trial workflow is required
+                      Works without external billing or account services
                     </div>
                   </div>
                 </div>
@@ -3089,7 +3089,7 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
                         <span
                           class="TagText-bWoQAI beIloY"
                         >
-                          Trial
+                          Time-limited
                         </span>
                       </div>
                     </div>
@@ -3507,12 +3507,12 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                   </svg>
                 </div>
                 <div
-                  class="upgrade-title"
+                  class="license-title"
                 >
                   Time-limited license
                 </div>
                 <div
-                  class="upgrade-subtitle"
+                  class="license-subtitle"
                 >
                   Upload a new local license file before this license expires to continue using licensed features.
                 </div>
@@ -5487,7 +5487,7 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
                       <span
                         class="value"
                       >
-                        Mattermost Enterprise E20
+                        Enterprise E20 local license
                       </span>
                     </div>
                     <div
@@ -5818,12 +5818,12 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                   </svg>
                 </div>
                 <div
-                  class="upgrade-title"
+                  class="license-title"
                 >
                   Local license details
                 </div>
                 <div
-                  class="upgrade-subtitle"
+                  class="license-subtitle"
                 >
                   <div
                     class="advantages-list"
@@ -5850,7 +5850,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                       <i
                         class="fa fa-lock"
                       />
-                      No cloud billing or trial workflow is required
+                      Works without external billing or account services
                     </div>
                   </div>
                 </div>
@@ -5994,7 +5994,7 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
                       <span
                         class="value"
                       >
-                        Mattermost Enterprise E20
+                        Enterprise E20 local license
                       </span>
                     </div>
                     <div
@@ -6325,12 +6325,12 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                   </svg>
                 </div>
                 <div
-                  class="upgrade-title"
+                  class="license-title"
                 >
                   Local license details
                 </div>
                 <div
-                  class="upgrade-subtitle"
+                  class="license-subtitle"
                 >
                   <div
                     class="advantages-list"
@@ -6357,7 +6357,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                       <i
                         class="fa fa-lock"
                       />
-                      No cloud billing or trial workflow is required
+                      Works without external billing or account services
                     </div>
                   </div>
                 </div>
