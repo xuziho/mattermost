@@ -292,8 +292,6 @@
   "web.header.logout": "ອອກຈາກລະບົບ",
   "web.root.signup_info": "ການສື່ສານຂອງທີມງານທັງຫມົດຂອງທ່ານຢູ່ໃນສະຖານທີ່ດຽວ, ສາມາດຄົ້ນຫາໄດ້ທັນທີແລະມີຢູ່ທົ່ວທຸກແຫ່ງ.",
   "admin.license.additionalLicensedFeatures": "Additional licensed features",
-  "admin.license.timeLimitedLicenseTitle": "Time-limited license",
-  "admin.license.timeLimitedLicenseSubtitle": "Upload a new local license file before this license expires to continue using licensed features.",
   "admin.license.enterprisePlanTitle": "Licensed seat count",
   "admin.license.enterprisePlanSubtitle": "Upload an updated license if you need to increase your licensed headcount.",
   "admin.system_users.exportButton.notLicensed.hint": "User data export is not available on this server.",

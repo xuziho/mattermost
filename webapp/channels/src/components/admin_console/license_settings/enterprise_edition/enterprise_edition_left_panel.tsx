@@ -4,7 +4,7 @@
 import classNames from 'classnames';
 import React, {useEffect, useState} from 'react';
 import type {RefObject} from 'react';
-import {FormattedDate, FormattedMessage, FormattedNumber, FormattedTime, defineMessage, defineMessages, useIntl} from 'react-intl';
+import {FormattedDate, FormattedMessage, FormattedNumber, FormattedTime, defineMessage, defineMessages} from 'react-intl';
 import {useSelector} from 'react-redux';
 
 import AlertOutlineIcon from '@mattermost/compass-icons/components/alert-outline';
@@ -15,7 +15,6 @@ import {getConfig} from 'mattermost-redux/selectors/entities/general';
 import {getServerLimits} from 'mattermost-redux/selectors/entities/limits';
 
 import useGetFeatureFlagValue from 'components/common/hooks/useGetFeatureFlagValue';
-import Tag from 'components/widgets/tag/tag';
 import WithTooltip from 'components/with_tooltip';
 
 import {FileTypes, LicenseSkus} from 'utils/constants';
@@ -30,7 +29,6 @@ const DAYS_UNTIL_EXPIRY_DANGER_DISPLAY_THRESHOLD = 5;
 
 export interface EnterpriseEditionProps {
     license: ClientLicense;
-    isTrialLicense: boolean;
     handleRemove: (e: React.MouseEvent<HTMLButtonElement>) => Promise<void>;
     isDisabled: boolean;
     removing: boolean;
@@ -47,7 +45,6 @@ export const messages = defineMessages({
 
 const EnterpriseEditionLeftPanel = ({
     license,
-    isTrialLicense,
     handleRemove,
     isDisabled,
     removing,
@@ -56,7 +53,6 @@ const EnterpriseEditionLeftPanel = ({
     statsActiveUsers,
     isLicenseSetByEnvVar,
 }: EnterpriseEditionProps) => {
-    const {formatMessage} = useIntl();
     const [unsanitizedLicense, setUnsanitizedLicense] = useState(license);
     const enableMattermostEntry = useGetFeatureFlagValue('EnableMattermostEntry');
 
@@ -163,17 +159,6 @@ const EnterpriseEditionLeftPanel = ({
                 <div>
                     <div className='EnterpriseEditionLeftPanel__Title'>
                         {`Mattermost ${skuName}`}
-                        {isTrialLicense && (
-                            <Tag
-                                text={formatMessage({
-                                    id: 'admin.license.timeLimited',
-                                    defaultMessage: 'Time-limited',
-                                })}
-                                variant={'success'}
-                                uppercase={true}
-                                size={'sm'}
-                            />
-                        )}
                     </div>
                 </div>
             </div>
@@ -184,7 +169,6 @@ const EnterpriseEditionLeftPanel = ({
                 {
                     renderLicenseContent(
                         unsanitizedLicense,
-                        isTrialLicense,
                         handleRemove,
                         isDisabled,
                         removing,
@@ -304,7 +288,6 @@ const renderLicenseValues = (activeUsers: number, seatsPurchased: number, expira
 
 const renderLicenseContent = (
     license: ClientLicense,
-    isTrialLicense: boolean,
     handleRemove: (e: React.MouseEvent<HTMLButtonElement>) => Promise<void>,
     isDisabled: boolean,
     removing: boolean,
@@ -320,7 +303,7 @@ const renderLicenseContent = (
 ) => {
     // Note: DO NOT LOCALISE THESE STRINGS. Legally we can not since the license is in English.
 
-    const sku = license.SkuShortName ? <>{`${toTitleCase(skuName)}${isTrialLicense ? ' time-limited license' : ' local license'}`}</> : null;
+    const sku = license.SkuShortName ? <>{`${toTitleCase(skuName)} local license`}</> : null;
 
     const users = <FormattedNumber value={parseInt(license.Users, 10)}/>;
     const activeUsers = <FormattedNumber value={statsActiveUsers}/>;

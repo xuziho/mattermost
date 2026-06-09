@@ -9,12 +9,10 @@ import type {ClientLicense} from '@mattermost/types/config';
 import {LicenseSkus} from 'utils/constants';
 
 export interface EnterpriseEditionProps {
-    isTrialLicense: boolean;
     license: ClientLicense;
 }
 
 const EnterpriseEditionRightPanel = ({
-    isTrialLicense,
     license,
 }: EnterpriseEditionProps) => {
     const intl = useIntl();
@@ -39,14 +37,6 @@ const EnterpriseEditionRightPanel = ({
     const isEntry = license?.SkuShortName === LicenseSkus.Entry;
 
     const title = () => {
-        if (isTrialLicense) {
-            return (
-                <FormattedMessage
-                    id='admin.license.timeLimitedLicenseTitle'
-                    defaultMessage='Time-limited license'
-                />
-            );
-        }
         if (isEntry) {
             return (
                 <FormattedMessage
@@ -88,14 +78,6 @@ const EnterpriseEditionRightPanel = ({
     };
 
     const subtitle = () => {
-        if (isTrialLicense) {
-            return (
-                <FormattedMessage
-                    id='admin.license.timeLimitedLicenseSubtitle'
-                    defaultMessage='Upload a new local license file before this license expires to continue using licensed features.'
-                />
-            );
-        }
         if (isEntry) {
             return (
                 <FormattedMessage

@@ -73,7 +73,6 @@ describe('components/admin_console/license_settings/enterprise_edition/enterpris
 
     const baseProps: EnterpriseEditionProps = {
         license,
-        isTrialLicense: false,
         handleRemove: jest.fn(),
         isDisabled: false,
         removing: false,

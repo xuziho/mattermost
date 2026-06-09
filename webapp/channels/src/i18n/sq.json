@@ -221,8 +221,6 @@
   "web.header.logout": "Shkëputu",
   "web.root.signup_info": "Të gjitha komunikimet e grupit në një vend, kërkim i menjëhershëm dhe akses kudo",
   "admin.license.additionalLicensedFeatures": "Additional licensed features",
-  "admin.license.timeLimitedLicenseTitle": "Time-limited license",
-  "admin.license.timeLimitedLicenseSubtitle": "Upload a new local license file before this license expires to continue using licensed features.",
   "admin.license.enterprisePlanTitle": "Licensed seat count",
   "admin.license.enterprisePlanSubtitle": "Upload an updated license if you need to increase your licensed headcount.",
   "admin.system_users.exportButton.notLicensed.hint": "User data export is not available on this server.",

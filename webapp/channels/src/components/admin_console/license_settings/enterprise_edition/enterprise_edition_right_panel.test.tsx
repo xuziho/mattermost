@@ -49,7 +49,6 @@ describe('components/admin_console/license_settings/enterprise_edition/enterpris
     };
 
     const props = {
-        isTrialLicense: false,
         license,
     } as EnterpriseEditionProps;
 
@@ -57,7 +56,6 @@ describe('components/admin_console/license_settings/enterprise_edition/enterpris
         const {container} = renderWithContext(
             <EnterpriseEditionRightPanel
                 license={{...props.license, SkuShortName: LicenseSkus.Professional}}
-                isTrialLicense={props.isTrialLicense}
             />,
             initialState,
         );
@@ -74,7 +72,6 @@ describe('components/admin_console/license_settings/enterprise_edition/enterpris
         const {container} = renderWithContext(
             <EnterpriseEditionRightPanel
                 license={{...props.license, SkuShortName: LicenseSkus.Enterprise}}
-                isTrialLicense={props.isTrialLicense}
             />,
             initialState,
         );
@@ -91,7 +88,6 @@ describe('components/admin_console/license_settings/enterprise_edition/enterpris
         const {container} = renderWithContext(
             <EnterpriseEditionRightPanel
                 license={{...props.license, SkuShortName: LicenseSkus.EnterpriseAdvanced}}
-                isTrialLicense={props.isTrialLicense}
             />,
             initialState,
         );
@@ -104,7 +100,6 @@ describe('components/admin_console/license_settings/enterprise_edition/enterpris
         const {container} = renderWithContext(
             <EnterpriseEditionRightPanel
                 license={{...props.license, SkuShortName: LicenseSkus.Entry}}
-                isTrialLicense={props.isTrialLicense}
             />,
             initialState,
         );
@@ -113,16 +108,4 @@ describe('components/admin_console/license_settings/enterprise_edition/enterpris
         expect(container.querySelector('.license-subtitle')?.textContent).toEqual('Upload a local license file if this deployment needs licensed capacity controls.');
     });
 
-    test('should render for Trial license', () => {
-        const {container} = renderWithContext(
-            <EnterpriseEditionRightPanel
-                license={props.license}
-                isTrialLicense={true}
-            />,
-            initialState,
-        );
-
-        expect(container.querySelector('.license-title')?.textContent).toEqual('Time-limited license');
-        expect(container.querySelector('.license-subtitle')?.textContent).toEqual('Upload a new local license file before this license expires to continue using licensed features.');
-    });
 });

@@ -92,12 +92,6 @@ describe('components/admin_console/license_settings/LicenseSettings', () => {
         expect(container).toMatchSnapshot();
     });
 
-    test('should match snapshot enterprise build with trial license', () => {
-        const props = {...defaultProps, license: {IsLicensed: 'true', StartsAt: '1617714643650', IssuedAt: '1617714643650', ExpiresAt: '1620335443650'}};
-        const {container} = renderWithContext(<LicenseSettings {...props}/>);
-        expect(container).toMatchSnapshot();
-    });
-
     test('should match snapshot team edition without a license', () => {
         const props = {...defaultProps, license: {IsLicensed: 'false'}};
         const {container} = renderWithContext(<LicenseSettings {...props}/>);

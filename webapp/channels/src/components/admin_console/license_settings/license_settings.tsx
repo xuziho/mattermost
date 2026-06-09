@@ -15,7 +15,7 @@ import type {ActionResult} from 'mattermost-redux/types/actions';
 import AdminHeader from 'components/widgets/admin_console/admin_header';
 
 import {LicenseSkus, ModalIdentifiers} from 'utils/constants';
-import {isTrialLicense, licenseSKUWithFirstLetterCapitalized} from 'utils/license_utils';
+import {licenseSKUWithFirstLetterCapitalized} from 'utils/license_utils';
 
 import type {ModalData} from 'types/actions';
 
@@ -158,7 +158,6 @@ export default class LicenseSettings extends React.PureComponent<Props, State> {
             leftPanel = (
                 <EnterpriseEditionLeftPanel
                     license={license}
-                    isTrialLicense={isTrialLicense(license)}
                     handleRemove={this.confirmLicenseRemoval}
                     isDisabled={isDisabled}
                     removing={this.state.removing}
@@ -171,7 +170,6 @@ export default class LicenseSettings extends React.PureComponent<Props, State> {
 
             rightPanel = (
                 <EnterpriseEditionRightPanel
-                    isTrialLicense={isTrialLicense(license)}
                     license={license}
                 />
             );
