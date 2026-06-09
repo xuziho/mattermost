@@ -58,3 +58,30 @@ Next slimming targets suggested by this baseline:
 - Large async JavaScript chunks: `148`, `2232`, `6069`, `5414`, `1959`, `4965`, and `4502`.
 - Large static assets: `files/9ea8998d9c0389f02c43.png` and `files/0e266bf6f9d07469ad71.svg`.
 - Existing warnings are mostly Sass deprecation, CSS order, MUI styled-engine export, and asset-size warnings; future changes should not increase the warning count.
+
+## After Emoji Payload Cut
+
+Commit scope: stop copying the full static system emoji PNG directory and render system emoji image URLs as inline SVG data URLs. Custom emoji still use the API image route.
+
+Build result:
+
+- Webpack compiled successfully.
+- Warning count: 74.
+- Entrypoint `main`: 21.6 KiB, made of `main.ed93b3bed01cbe431f53.css` 3.61 KiB and `main.2a9bb695e34d62199ff8.js` 18 KiB.
+- Entrypoint `mattermost_webapp`: 18.4 KiB, made of `remote_entry.js?bt=1781007127443`.
+
+Dist asset counts and byte totals:
+
+- JavaScript files: 250 files, 18,784,084 bytes.
+- CSS files: 43 files, 1,605,400 bytes.
+- i18n JSON files: 62 files, 14,853,080 bytes.
+- Emoji PNG files: 0 files, 0 bytes.
+- Total `webapp/channels/dist` bytes: 103,579,255 bytes.
+
+Measured reduction:
+
+- Total `dist` reduction: 17,844,815 bytes.
+- Emoji PNG reduction: 3,306 files and 17,845,631 bytes.
+- JavaScript delta: +232 bytes from the inline SVG URL helper.
+- CSS delta: 0 bytes.
+- Warning delta: 0.

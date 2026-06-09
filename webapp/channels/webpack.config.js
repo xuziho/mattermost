@@ -172,7 +172,6 @@ var config = {
         }),
         new CopyWebpackPlugin({
             patterns: [
-                {from: 'src/images/emoji', to: 'emoji'},
                 {from: 'src/images/img_trans.gif', to: 'images'},
                 {from: 'src/images/logo-email.png', to: 'images'},
                 {from: 'src/images/favicon', to: 'images/favicon'},

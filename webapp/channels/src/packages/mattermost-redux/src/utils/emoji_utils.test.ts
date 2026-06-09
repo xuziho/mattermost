@@ -91,15 +91,15 @@ describe('EmojiUtils', () => {
 
     describe('getEmojiImageUrl', () => {
         test('returns correct url for system emojis', () => {
-            expect(EmojiUtils.getEmojiImageUrl(TestHelper.getSystemEmojiMock({unified: 'system_emoji'}))).toBe('/static/emoji/system_emoji.png');
+            expect(EmojiUtils.getEmojiImageUrl(TestHelper.getSystemEmojiMock({unified: '1F600'}))).toContain('data:image/svg+xml');
 
-            expect(EmojiUtils.getEmojiImageUrl(TestHelper.getSystemEmojiMock({short_names: ['system_emoji_short_names']}))).toBe('/static/emoji/system_emoji_short_names.png');
+            expect(EmojiUtils.getEmojiImageUrl(TestHelper.getSystemEmojiMock({unified: ''}))).toBe('');
         });
 
         test('return correct url for mattermost emoji', () => {
-            expect(EmojiUtils.getEmojiImageUrl(TestHelper.getCustomEmojiMock({id: 'mattermost', category: 'custom'}))).toBe('/static/emoji/mattermost.png');
+            expect(EmojiUtils.getEmojiImageUrl(TestHelper.getCustomEmojiMock({id: 'mattermost', category: 'custom'}))).toContain('data:image/svg+xml');
 
-            expect(EmojiUtils.getEmojiImageUrl(TestHelper.getCustomEmojiMock({id: 'mattermost'}))).toBe('/static/emoji/mattermost.png');
+            expect(EmojiUtils.getEmojiImageUrl(TestHelper.getCustomEmojiMock({id: 'mattermost'}))).toContain('data:image/svg+xml');
         });
 
         test('return correct url for custom emojis', () => {

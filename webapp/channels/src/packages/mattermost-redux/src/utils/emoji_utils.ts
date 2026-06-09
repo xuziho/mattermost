@@ -7,17 +7,31 @@ import {Client4} from 'mattermost-redux/client';
 
 export {isSystemEmoji};
 
+function unifiedToUnicode(unified: string): string {
+    return unified.
+        split('-').
+        map((codePoint) => String.fromCodePoint(parseInt(codePoint, 16))).
+        join('');
+}
+
+function getInlineEmojiImageUrl(label: string): string {
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><text x="50%" y="50%" dominant-baseline="central" text-anchor="middle" font-size="52">${label}</text></svg>`;
+
+    return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+}
+
 export function getEmojiImageUrl(emoji: Emoji): string {
-    // If its the mattermost custom emoji
+    // Preserve the built-in custom emoji without shipping the full static emoji image set.
     if (!isSystemEmoji(emoji) && emoji.id === 'mattermost') {
-        return Client4.getSystemEmojiImageUrl('mattermost');
+        return getInlineEmojiImageUrl('AC');
     }
 
     if (isSystemEmoji(emoji)) {
-        const emojiUnified = emoji?.unified?.toLowerCase() ?? '';
-        const filename = emojiUnified || emoji.short_names[0];
+        if (!emoji.unified) {
+            return '';
+        }
 
-        return Client4.getSystemEmojiImageUrl(filename);
+        return getInlineEmojiImageUrl(unifiedToUnicode(emoji.unified));
     }
 
     return Client4.getEmojiRoute(emoji.id) + '/image';
