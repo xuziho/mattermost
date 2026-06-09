@@ -115,7 +115,7 @@ All environment variables are optional with sensible defaults.
 
 | Variable                      | Description                  | Default                            |
 | ----------------------------- | ---------------------------- | ---------------------------------- |
-| `PW_PUSH_NOTIFICATION_SERVER` | Push notification server URL | `https://push-test.mattermost.com` |
+| `PW_PUSH_NOTIFICATION_SERVER` | Push notification server URL | `https://push-test.agentcompanyos.local` |
 
 #### Playwright Settings
 

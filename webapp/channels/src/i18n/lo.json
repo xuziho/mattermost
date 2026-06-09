@@ -161,7 +161,7 @@
   "admin.email.allowUsernameSignInDescription": "ຖ້າເປັນຄວາມຈິງ, ຜູ້ໃຊ້ສາມາດລົງທະບຽນກັບຊື່ຜູ້ໃຊ້ແລະລະຫັດຜ່ານໂດຍການລົງທະບຽນອີເມວ. ການຕັ້ງຄ່ານີ້ບໍ່ມີຜົນຕໍ່ການເຂົ້າສູ່ AD / LDAP.",
   "admin.email.allowUsernameSignInTitle": "ເປີດໃຊ້ການເຂົ້າສູ່ລະບົບດ້ວຍຊື່ຜູ້ໃຊ້: ",
   "admin.email.pushOff": "ບໍ່ຕ້ອງສົ່ງການແຈ້ງເຕືອນ",
-  "admin.email.pushServerEx": "ຕົວຢ່າງ: \"http://push-test.mattermost.com\"",
+  "admin.email.pushServerEx": "E.g.: \"https://push.example.local\"",
   "admin.email.pushServerTitle": "ເຄື່ອງແມ່ຂ່າຍການແຈ້ງເຕືອນ:",
   "admin.email.pushTitle": "ເປີດໃຊ້ການແຈ້ງເຕືອນ: ",
   "admin.email.requireVerificationDescription": "ໂດຍປົກກະຕິກໍານົດໄວ້ໃນລຸ້ນຜະລິດຕະພັນ. ເມື່ອເປັນຈິງ, Mattermost ຕ້ອງການການຢືນຢັນອີເມວຫຼັງຈາກສ້າງບັນຊີກ່ອນທີ່ຈະອະນຸຍາດໃຫ້ເຂົ້າສູ່ລະບົບ. ນັກພັດທະນາອາດຈະກໍານົດພາກພື້ນທີ່ນີ້ໃຫ້ເປັນ ຜິດ ເພື່ອບໍ່ສົ່ງອີເມວການຢັ້ງຢືນສໍາລັບການພັດທະນາໄວຂຶ້ນ.",

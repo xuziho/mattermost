@@ -616,7 +616,7 @@
   "admin.email.mtpnsHelp": "iTunes-тан <linkIOS>Mattermost iOS қолданбасын</linkIOS> жүктеп алыңыз. Google Play-дан <linkAndroid>Mattermost Android қолданбасын</linkAndroid> жүктеп алыңыз. <linkHPNS>TPNS</linkHPNS> туралы көбірек мағлұмат алыңыз.",
   "admin.email.pushOff": "Push хабарландыруларды жібермеу",
   "admin.email.pushOffHelp": "Баптау мүмкіндіктері туралы көбірек білу үшін <link>push хабарландырулар құжаттамасын</link> көруіңізді сұраймыз.",
-  "admin.email.pushServerEx": "Мысалы: \"https://push-test.mattermost.com\"",
+  "admin.email.pushServerEx": "E.g.: \"https://push.example.local\"",
   "admin.email.pushServerLocationDE": "Германия",
   "admin.email.pushServerLocationTitle": "Push хабарландырулар серверінің орналасқан жері:",
   "admin.email.pushServerLocationUS": "US",

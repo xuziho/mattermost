@@ -571,7 +571,7 @@
   "admin.email.mtpnsHelp": "Descarga la <linkIOS>app de Mattermost para iOS</linkIOS> desde iTunes. Descarga la <linkAndroid>app de Mattermost para Android</linkAndroid> desde Google Play. Conoce más acerca de <linkHPNS>TPNS</linkHPNS>.",
   "admin.email.pushOff": "No enviar notificaciones a dispositivos móviles",
   "admin.email.pushOffHelp": "Revisa la <link>documentación sobre notificaciones push</link> para conocer más sobre las opciones de configuración.",
-  "admin.email.pushServerEx": "Ej.: \"https://push-test.mattermost.com\"",
+  "admin.email.pushServerEx": "E.g.: \"https://push.example.local\"",
   "admin.email.pushServerTitle": "Servidor de Notificaciones:",
   "admin.email.pushTitle": "Habilitar las Notificaciones a Dispositivos Móviles: ",
   "admin.email.requireVerificationDescription": "Normalmente asignado como verdadero en producción. Cuando es verdadero, Mattermost requiere una verificación del correo electrónico después de crear la cuenta y antes de iniciar sesión por primera vez. Los desarrolladores pude que quieran dejar esta opción en falso para evitar la necesidad de verificar correos y así desarrollar más rápido.",

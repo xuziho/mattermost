@@ -46,7 +46,7 @@ export default defineConfig({
         minioS3Endpoint: 'localhost:9000',
         minioS3SSL: false,
         numberOfTrialUsers: 100,
-        pushNotificationServer: 'https://push-test.mattermost.com',
+        pushNotificationServer: 'https://push-test.agentcompanyos.local',
         resetBeforeTest: false,
         runLDAPSync: true,
         secondServerURL: 'http://localhost/s/p',

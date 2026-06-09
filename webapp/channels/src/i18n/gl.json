@@ -414,7 +414,7 @@
   "admin.email.mtpnsHelp": "Descarga r a [apli Mattermost para iOS](!) dende iTunes. Descargar a [apli Mattermost para Android](!) dende Google Play. Máis información sobre [TPNS](!).",
   "admin.email.pushOff": "Non enviar notificacións",
   "admin.email.pushOffHelp": "Consulte a [documentación sobre notificacións](!) para obter máis información sobre as opcións de configuración.",
-  "admin.email.pushServerEx": "P. ex.: «https://push-test.mattermost.com»",
+  "admin.email.pushServerEx": "E.g.: \"https://push.example.local\"",
   "admin.email.pushServerTitle": "Servidor de notificacións:",
   "admin.email.pushTitle": "Activar as notificacións: ",
   "admin.email.requireVerificationDescription": "Normalmente estabelécese como verdadeiro na produción. Cando é verdadeiro, Mattermost require a verificación por correo-e após a creación da conta antes de permitir o inicio de sesión. Os desenvolvedores poden estabelecer este campo como falso para omitir o envío de correos-e de verificación para un desenvolvemento máis rápido.",

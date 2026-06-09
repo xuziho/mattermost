@@ -237,7 +237,7 @@
   "admin.email.mtpnsHelp": "Download [Mattermost iOS app](!) fra iTunes. Download [Mattermost Android app](!) fra Google Play. Lær mere om [TPNS](!).",
   "admin.email.pushOff": "Send ikke sende push-notifikationer",
   "admin.email.pushOffHelp": "Se venligst [dokumentation på push-meddelelser](!) for mere om konfiguration af indstillinger.",
-  "admin.email.pushServerEx": "F.eks.: \"https://push-test.mattermost.com\"",
+  "admin.email.pushServerEx": "E.g.: \"https://push.example.local\"",
   "admin.email.pushServerTitle": "Push Notifikationsserver:",
   "admin.email.pushTitle": "Aktivér E-mail Notifikationer: ",
   "admin.email.requireVerificationDescription": "Typisk aktiveret i produktion. Når aktiveret, kræver Mattermost e-mail-verifikation efter oprettelse af konto for at tillade login. Udviklere kan indstille dette felt til deaktiveret for at springe bekræftelses-e-mail over.",

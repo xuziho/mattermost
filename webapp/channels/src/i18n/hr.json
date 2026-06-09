@@ -256,7 +256,7 @@
   "admin.elasticsearch.connectionUrlExample": "Npr.: „https://elasticsearch.example.org:9200”",
   "admin.elasticsearch.password": "Npr.: „yourpassword”",
   "admin.elasticsearch.usernameExample": "Npr.: „elastic”",
-  "admin.email.pushServerEx": "Npr.: „https://push-test.mattermost.com”",
+  "admin.email.pushServerEx": "E.g.: \"https://push.example.local\"",
   "admin.environment.notifications": "Obavijesti",
   "admin.environment.smtp": "SMTP",
   "admin.environment.smtp.connectionSecurity.option.none": "Ništa",

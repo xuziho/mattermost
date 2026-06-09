@@ -614,7 +614,7 @@
   "admin.email.allowSignupTitle": "Permitir criação de conta com e-mail:",
   "admin.email.allowUsernameSignInTitle": "Permitir autenticação com o nome de utilizador:",
   "admin.email.easHelp": "Saiba mais sobre como compilar e implantar as suas próprias aplicações móveis numa <link>Loja de Aplicações de Empresa</link>.",
-  "admin.email.pushServerEx": "Exemplo: \"https://push-test.mattermost.com\"",
+  "admin.email.pushServerEx": "E.g.: \"https://push.example.local\"",
   "admin.email.pushServerLocationDE": "Alemanha",
   "admin.email.pushServerLocationTitle": "Localização do servidor de notificação de submissão:",
   "admin.email.pushServerLocationUS": "EUA",

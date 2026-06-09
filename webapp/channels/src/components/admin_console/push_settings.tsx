@@ -284,7 +284,7 @@ export class PushSettings extends OLDAdminSettings<Props, State> {
                 <TextSetting
                     id='pushNotificationServer'
                     label={<FormattedMessage {...messages.pushServerTitle}/>}
-                    placeholder={defineMessage({id: 'admin.email.pushServerEx', defaultMessage: 'E.g.: "https://push-test.mattermost.com"'})}
+                    placeholder={defineMessage({id: 'admin.email.pushServerEx', defaultMessage: 'E.g.: "https://push.example.local"'})}
                     helpText={pushServerHelpText}
                     value={this.state.pushNotificationServer}
                     onChange={this.handleChange}

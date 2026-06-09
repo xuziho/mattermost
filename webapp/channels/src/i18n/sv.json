@@ -785,7 +785,7 @@
   "admin.email.mtpnsHelp": "Ladda ner <linkIOS>Mattermost iOS app</linkIOS> från iTunes. Ladda ner <linkAndroid>Mattermost Android app</linkAndroid> från Google Play. Läs mer om <linkHPNS>TPNS</linkHPNS>.",
   "admin.email.pushOff": "Skicka inte push-aviseringar",
   "admin.email.pushOffHelp": "Läs <link>dokumentationen om push-meddelanden</link> för att lära dig mer om inställningsalternativen.",
-  "admin.email.pushServerEx": "T.ex.: \"https://push-test.mattermost.com\"",
+  "admin.email.pushServerEx": "E.g.: \"https://push.example.local\"",
   "admin.email.pushServerLocationDE": "Tyskland",
   "admin.email.pushServerLocationGlobal": "Global",
   "admin.email.pushServerLocationHelp": "Push-meddelande-serverns plats. \"Global\" använder din plats för att dirigera förfrågningar till den närmaste servern för optimal prestanda.",

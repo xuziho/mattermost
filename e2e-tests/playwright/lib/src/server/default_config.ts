@@ -352,7 +352,7 @@ const defaultServerConfig: AdminConfig = {
         SMTPServerTimeout: 10,
         ConnectionSecurity: '',
         SendPushNotifications: true,
-        PushNotificationServer: 'https://push-test.mattermost.com',
+        PushNotificationServer: '',
         PushNotificationServerType: 'custom',
         PushNotificationServerLocation: 'global',
         PushNotificationContents: 'full',

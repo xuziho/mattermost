@@ -207,7 +207,7 @@
   "admin.email.mtpnsHelp": "Prenesite aplikacijo [Mattermost iOS](!Https: //about.mattermost.com/mattermost-ios-app/) iz iTunes. Prenesite [Mattermost Android app](!Https: //about.mattermost.com/mattermost-android-app/) iz Googla Play. Več o [TPNS](!Https: //about.mattermost.com/default-tpns/).",
   "admin.email.pushOff": "Ne pošiljajte potisnih obvestil",
   "admin.email.pushOffHelp": "Oglejte si [documentation on push notifications](!Https: //about.mattermost.com/default-mobile-push-notifications/), če želite izvedeti več o možnostih nastavitev.",
-  "admin.email.pushServerEx": "Npr.: \"https://push-test.mattermost.com\"",
+  "admin.email.pushServerEx": "E.g.: \"https://push.example.local\"",
   "admin.email.pushServerTitle": "Strežnik za potisna obvestila:",
   "admin.email.pushTitle": "Omogoči potisna obvestila: ",
   "admin.email.requireVerificationDescription": "Običajno nastavljena na true v produkciji. Ko je true, Mattermost zahteva e-poštno preverjanje po ustvarjanju računa, preden omogoči prijavo. Razvijalci lahko to polje nastavijo na false, če želite preskočiti pošiljanje e-poštnih sporočil za preverjanje za hitrejši razvoj.",

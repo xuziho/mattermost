@@ -248,7 +248,7 @@
         "SMTPServerTimeout": 10,
         "ConnectionSecurity": "",
         "SendPushNotifications": true,
-        "PushNotificationServer": "https://push-test.mattermost.com",
+        "PushNotificationServer": "",
         "PushNotificationContents": "generic",
         "PushNotificationBuffer": 1000,
         "EnableEmailBatching": false,

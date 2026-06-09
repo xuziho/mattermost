@@ -498,7 +498,7 @@
   "admin.email.mtpnsHelp": "iTunes से [Mattermost iOS ऐप](!) डाउनलोड करें। Google Play से [Mattermost Android ऐप](!) डाउनलोड करें। [टीपीएनएस](!) के बारे में और जानें।",
   "admin.email.pushOff": "पुश नोटिफिकेशन न भेजें",
   "admin.email.pushOffHelp": "सेटअप विकल्पों के बारे में अधिक जानने के लिए कृपया [पुश सूचनाओं पर दस्तावेज़ीकरण](!) देखें।",
-  "admin.email.pushServerEx": "E.g.: \"https://push-test.mattermost.com\"",
+  "admin.email.pushServerEx": "E.g.: \"https://push.example.local\"",
   "admin.email.pushServerTitle": "पुश अधिसूचना सर्वर:",
   "admin.email.pushTitle": "पुश सूचनाएं सक्षम करें: ",
   "admin.email.requireVerificationDescription": "आम तौर पर उत्पादन में सही पर सेट होता है। सही होने पर, मैटरमोस्ट को लॉगिन की अनुमति देने से पहले खाता निर्माण के बाद ईमेल सत्यापन की आवश्यकता होती है। तेजी से विकास के लिए सत्यापन ईमेल भेजने को छोड़ने के लिए डेवलपर्स इस फ़ील्ड को गलत पर सेट कर सकते हैं।",

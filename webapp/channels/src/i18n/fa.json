@@ -497,7 +497,7 @@
   "admin.email.mtpnsHelp": "<linkIOS>برنامه Mattermost iOS</linkIOS>  را از iTunes دانلود کنید. <linkAndroid>برنامه Mattermost Android</linkAndroid> را از Google Play دانلود کنید. درباره <linkHPNS>TPNS</linkHPNS>  بیشتر بیاموزید.",
   "admin.email.pushOff": "اعلان فشار ارسال نکنید",
   "admin.email.pushOffHelp": "لطفاً برای کسب اطلاعات بیشتر درباره گزینه‌های راه‌اندازی، به <link>مستندات مربوط به اعلان‌های فشار</link>  مراجعه کنید.",
-  "admin.email.pushServerEx": "به عنوان مثال: \"https://push-test.mattermost.com\"",
+  "admin.email.pushServerEx": "E.g.: \"https://push.example.local\"",
   "admin.email.pushServerTitle": "سرور اعلان فشاری:",
   "admin.email.pushTitle": "فعال کردن Push Notifications: ",
   "admin.email.requireVerificationDescription": "معمولاً در تولید روی true تنظیم می شود. وقتی درست است، Mattermost نیاز به تأیید ایمیل پس از ایجاد حساب قبل از اجازه ورود به سیستم دارد. برنامه‌نویسان ممکن است این فیلد را روی false تنظیم کنند تا از ارسال ایمیل‌های تأیید برای توسعه سریع‌تر رد شوند.",

@@ -148,9 +148,9 @@ exports[`components/PushSettings should match snapshot, licensed 1`] = `
                 disabled=""
                 id="pushNotificationServer"
                 maxlength="-1"
-                placeholder="E.g.: \\"https://push-test.mattermost.com\\""
+                placeholder="E.g.: \\"https://push.example.local\\""
                 type="text"
-                value="https://global.push.mattermost.com"
+                value="https://push.agentcompanyos.local"
               />
               <div
                 class="help-text"
@@ -295,9 +295,9 @@ exports[`components/PushSettings should match snapshot, unlicensed 1`] = `
                 data-testid="pushNotificationServerinput"
                 id="pushNotificationServer"
                 maxlength="-1"
-                placeholder="E.g.: \\"https://push-test.mattermost.com\\""
+                placeholder="E.g.: \\"https://push.example.local\\""
                 type="text"
-                value="https://global.push.mattermost.com"
+                value="https://push.agentcompanyos.local"
               />
               <div
                 class="help-text"

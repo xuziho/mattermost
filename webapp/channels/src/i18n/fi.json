@@ -279,7 +279,7 @@
   "admin.email.mtpnsHelp": "Lataa <linkIOS>Mattermost iOS -sovellus</linkIOS> iTunesista. Lataa <linkAndroid>Mattermost Android -sovellus</linkAndroid> Google Playista. Lisätietoja <linkHPNS>TPNS:sta</linkHPNS>.",
   "admin.email.pushOff": "Älä lähetä push-ilmoituksia",
   "admin.email.pushOffHelp": "Katso <link>push-ilmoitusten dokumentaatio</link> saadaksesi lisätietoja asetusvaihtoehdoista.",
-  "admin.email.pushServerEx": "Esim.: \"https://push-test.mattermost.com\"",
+  "admin.email.pushServerEx": "E.g.: \"https://push.example.local\"",
   "admin.email.pushServerTitle": "Push-ilmoituspalvelin:",
   "admin.email.pushTitle": "Ota push-ilmoitukset käyttöön: ",
   "admin.email.requireVerificationDescription": "Tyypillisesti asetettu tuotannossa. Kun tosi, Mattermost vaatii sähköpostivahvistuksen tilin luonnin jälkeen ennen kuin kirjautuminen sallitaan. Kehittäjät saattavat asettaa tämän pois kehitysvaiheessa sähköpostivahvistuksen ohittamiseksi.",

@@ -27,14 +27,13 @@ const (
 	CategoryCanReply = "CAN_REPLY"
 
 	// Push notification server URLs
-	// Legacy URLs are DNS aliases that automatically route to the regional endpoints
-	MHPNSLegacyUS = "https://push.mattermost.com"
-	MHPNSLegacyDE = "https://hpns-de.mattermost.com"
-	// Current regional URLs
-	MHPNSGlobal = "https://global.push.mattermost.com"
-	MHPNSUS     = "https://us.push.mattermost.com"
-	MHPNSEU     = "https://eu.push.mattermost.com"
-	MHPNSAP     = "https://ap.push.mattermost.com"
+	// AgentCompanyOS builds do not default to Mattermost-hosted push services.
+	MHPNSLegacyUS = "https://push-legacy-us.agentcompanyos.local"
+	MHPNSLegacyDE = "https://push-legacy-eu.agentcompanyos.local"
+	MHPNSGlobal   = "https://push.agentcompanyos.local"
+	MHPNSUS       = "https://push-us.agentcompanyos.local"
+	MHPNSEU       = "https://push-eu.agentcompanyos.local"
+	MHPNSAP       = "https://push-ap.agentcompanyos.local"
 	MHPNS       = MHPNSUS // Legacy constant for backwards compatibility
 
 	PushSendPrepare = "Prepared to send"

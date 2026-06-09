@@ -776,7 +776,7 @@
   "admin.email.mtpnsHelp": "Спампуйце <linkIOS>праграму Mattermost для iOS</linkIOS> з iTunes. Спампуйце <linkAndroid>праграму Mattermost для Android</linkAndroid> з Google Play. Даведайцеся больш пра <linkHPNS>TPNS</linkHPNS>.",
   "admin.email.pushOff": "Не адпраўляць push-апавяшчэнні",
   "admin.email.pushOffHelp": "Калі ласка, глядзіце <link>дакументацыю пра push-апавяшчэнні</link>, каб даведацца больш пра параметры наладкі.",
-  "admin.email.pushServerEx": "Напр.: \"https://push-test.mattermost.com\"",
+  "admin.email.pushServerEx": "E.g.: \"https://push.example.local\"",
   "admin.email.pushServerLocationDE": "Германія",
   "admin.email.pushServerLocationGlobal": "Глабальна",
   "admin.email.pushServerLocationHelp": "Размяшчэнне сервера push-апавяшчэнняў. Глабальнае выкарыстоўвае геабалансаванне для маршрутызацыі запытаў да бліжэйшага сервера для аптымальнай прадукцыйнасці.",

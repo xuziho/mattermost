@@ -816,7 +816,7 @@
   "admin.email.mtpnsHelp": "Download de <linkIOS>Mattermost iOS-app</linkIOS> van iTunes. Download de <linkAndroid>Mattermost Android app</linkAndroid> van Google Play. Meer informatie over <linkHPNS>Mattermost Hosted Push Notification Service</linkHPNS>.",
   "admin.email.pushOff": "Verstuur geen meldings-notificaties",
   "admin.email.pushOffHelp": "Zie <link>documentatie over push-berichten</link> om meer te weten te komen over installatieopties.",
-  "admin.email.pushServerEx": "Bijv.: \"http://push-test.mattermost.com\"",
+  "admin.email.pushServerEx": "E.g.: \"https://push.example.local\"",
   "admin.email.pushServerLocationDE": "Duitsland",
   "admin.email.pushServerLocationGlobal": "Wereldwijd",
   "admin.email.pushServerLocationHelp": "Locatie van de push notificatie server. Global gebruikt geobalancing om verzoeken naar de dichtstbijzijnde server te leiden voor optimale prestaties.",

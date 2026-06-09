@@ -632,7 +632,7 @@
   "admin.email.mtpnsHelp": "Baixe do App Store o aplicativo <linkIOS>Mattermost iOS</linkIOS>. Baixe do Google Play o aplicativo <linkAndroid>Mattermost Android</linkAndroid>. Saiba mais sobre <linkHPNS>HPNS</linkHPNS>.",
   "admin.email.pushOff": "Não enviar notificações push",
   "admin.email.pushOffHelp": "Por favor veja a <link>documentação de notificações push</link> para saber mais sobre as opções de configuração.",
-  "admin.email.pushServerEx": "Ex: \"https://push-test.mattermost.com\"",
+  "admin.email.pushServerEx": "E.g.: \"https://push.example.local\"",
   "admin.email.pushServerLocationDE": "Alemanha",
   "admin.email.pushServerLocationTitle": "Localização do servidor de notificação push:",
   "admin.email.pushServerLocationUS": "EUA",

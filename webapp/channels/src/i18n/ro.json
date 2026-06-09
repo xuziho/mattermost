@@ -469,7 +469,7 @@
   "admin.email.mtpnsHelp": "Download <linkIOS>Mattermost iOS app</linkIOS> de la iTunes. Download <linkAndroid>Mattermost Android app</linkAndroid> de la Google Play. Afla mai multe despre <linkHPNS>TPNS</linkHPNS>.",
   "admin.email.pushOff": "Nu trimiteți notificări push",
   "admin.email.pushOffHelp": "Vă rugăm să consultați <link>documentația privind notificările push</link> pentru a afla mai multe despre opțiunile de configurare.",
-  "admin.email.pushServerEx": "Ex: \"http://push-test.mattermost.com\"",
+  "admin.email.pushServerEx": "E.g.: \"https://push.example.local\"",
   "admin.email.pushServerTitle": "Push Server de notificare:",
   "admin.email.pushTitle": "Activează Notificările: ",
   "admin.email.requireVerificationDescription": "În mod tipic este setat la adevărat în producție. Când este adevărat, Mattermost necesită verificarea e-mailului după crearea contului înainte de a permite autentificarea. Dezvoltatorii pot seta acest câmp la fals pentru a sări peste mesajele de e-mail de verificare pentru o dezvoltare mai rapidă.",

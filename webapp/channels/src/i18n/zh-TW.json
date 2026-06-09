@@ -606,7 +606,7 @@
   "admin.email.mtpnsHelp": "自 iTunes 下載 <linkIOS>Mattermost iOS</linkIOS>；自 Google Play 下載 <linkAndroid>Mattermost Android</linkAndroid>。了解 <linkHPNS>TPNS</linkHPNS> 的更多資訊。",
   "admin.email.pushOff": "不要推播通知",
   "admin.email.pushOffHelp": "有關各種設定選項的差異詳情，請參閱<link>推播通知功能文件</link>。",
-  "admin.email.pushServerEx": "如：「https://push-test.mattermost.com」",
+  "admin.email.pushServerEx": "E.g.: \"https://push.example.local\"",
   "admin.email.pushServerLocationDE": "德國",
   "admin.email.pushServerLocationTitle": "推播通知伺服器位置：",
   "admin.email.pushServerLocationUS": "美國",

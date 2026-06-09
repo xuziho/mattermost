@@ -817,7 +817,7 @@
   "admin.email.mtpnsHelp": "Pobierz aplikację <linkIOS>Mattermost iOS</linkIOS> z iTunes. Pobierz aplikację <linkAndroid>Mattermost Android</linkAndroid> z Google Play. Dowiedz się więcej o usłudze <linkHPNS>Mattermost Hosted Push Notification Service</linkHPNS>.",
   "admin.email.pushOff": "Nie wysyłaj powiadomień push",
   "admin.email.pushOffHelp": "Więcej informacji o opcjach instalacji znajdziesz w <link>dokumentacji powiadomień push</link>.",
-  "admin.email.pushServerEx": "Np. \"http://push-test.mattermost.com\"",
+  "admin.email.pushServerEx": "E.g.: \"https://push.example.local\"",
   "admin.email.pushServerLocationDE": "Niemcy",
   "admin.email.pushServerLocationGlobal": "Globalne",
   "admin.email.pushServerLocationHelp": "Lokalizacja serwera powiadomień push. Globalne wykorzystuje geobalancing do kierowania żądań do najbliższego serwera w celu zapewnienia optymalnej Wydajności.",

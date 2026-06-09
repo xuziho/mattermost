@@ -498,7 +498,7 @@
   "admin.email.mtpnsHelp": "Download <linkIOS>Mattermost iOS-app</linkIOS> van iTunes. Download <linkAndroid>Mattermost Android app</linkAndroid> van Google Play. Meer informatie over <linkHPNS>TPNS</linkHPNS>.",
   "admin.email.pushOff": "Verstuur geen meldings-notificaties",
   "admin.email.pushOffHelp": "Zie <link>documentatie over push-berichten</link> om meer te weten te komen over installatieopties.",
-  "admin.email.pushServerEx": "Bijv.: \"http://push-test.mattermost.com\"",
+  "admin.email.pushServerEx": "E.g.: \"https://push.example.local\"",
   "admin.email.pushServerTitle": "Push meldingen-server:",
   "admin.email.pushTitle": "Inschakelen Push Meldingen: ",
   "admin.email.requireVerificationDescription": "Standaard ingeschakeld in productie. Als dit ingeschakeld is, vereist Mattermost e-mailverificatie na het maken van de account voorafgaand aan het toestaan van aanmelden. Ontwikkelaars kunnen dit veld uitschakelen het verzenden van verificatie e-mails over te slaan voor een snellere ontwikkeling.",

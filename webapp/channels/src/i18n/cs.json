@@ -759,7 +759,7 @@
   "admin.email.mtpnsHelp": "Stáhnout <linkIOS>Mattermost iOS aplikaci</linkIOS> z App Storu. Stáhnout <linkAndroid>Mattermost Android aplikaci</linkAndroid> z Google Play. Zjistěte víc o <linkHPNS>TPNS</linkHPNS>.",
   "admin.email.pushOff": "Nezasílat push upozornění",
   "admin.email.pushOffHelp": "Další informace o možnostech nastavení naleznete v <link>dokumentaci k oznámení push na adrese </link>.",
-  "admin.email.pushServerEx": "Př.: \"https://push-test.mattermost.com\"",
+  "admin.email.pushServerEx": "E.g.: \"https://push.example.local\"",
   "admin.email.pushServerLocationDE": "Německo",
   "admin.email.pushServerLocationTitle": "Umístění serveru oznámení push:",
   "admin.email.pushServerLocationUS": "Spojené státy americké",

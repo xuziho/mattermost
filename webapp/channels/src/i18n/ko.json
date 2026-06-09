@@ -755,7 +755,7 @@
   "admin.email.mtpnsHelp": "iTunes에서 <linkIOS>Mattermost iOS app</linkIOS>을 다운로드하십시오. Google Play에서 <linkAndroid>Mattermost Android 앱</linkAndroid>을 다운로드하십시오. 자세한 내용은 <linkHPNS>TPNS</linkHPNS>를 참고하십시오.",
   "admin.email.pushOff": "푸시 알림을 보내지 않습니다",
   "admin.email.pushOffHelp": "구성 옵션에 대한 자세한 내용은 <link>푸시 알림에 대한 설명서</link>를 참조하십시오.",
-  "admin.email.pushServerEx": "예시: \"https://push-test.mattermost.com\"",
+  "admin.email.pushServerEx": "E.g.: \"https://push.example.local\"",
   "admin.email.pushServerLocationDE": "독일",
   "admin.email.pushServerLocationTitle": "푸시 알림 서버 위치:",
   "admin.email.pushServerLocationUS": "US",
