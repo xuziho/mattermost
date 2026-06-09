@@ -18,8 +18,6 @@ import {getCurrentLocale} from 'selectors/i18n';
 import {isModalOpen} from 'selectors/views/modals';
 
 import FileSvg from 'components/common/svg_images_components/file_svg';
-import SuccessSvg from 'components/common/svg_images_components/success_svg';
-import UploadLicenseSvg from 'components/common/svg_images_components/upload_license_svg';
 import LoadingWrapper from 'components/widgets/loading/loading_wrapper';
 
 import {FileTypes, ModalIdentifiers} from 'utils/constants';
@@ -109,12 +107,6 @@ const UploadLicenseModal = (props: Props): JSX.Element | null => {
     let uploadLicenseContent = (
         <>
             <div className='content-body'>
-                <div className='svg-image'>
-                    <UploadLicenseSvg
-                        width={151}
-                        height={103}
-                    />
-                </div>
                 <div className='title'>
                     <FormattedMessage
                         id='admin.license.upload-modal.title'
@@ -241,23 +233,17 @@ const UploadLicenseModal = (props: Props): JSX.Element | null => {
         uploadLicenseContent = (
             <>
                 <div className='content-body'>
-                    <div className='svg-image hands-svg'>
-                        <SuccessSvg
-                            width={162}
-                            height={103.5}
+                    <div className='title'>
+                        <FormattedMessage
+                            id='admin.license.upload-modal.licenseApplied'
+                            defaultMessage='License Applied'
                         />
                     </div>
-	                    <div className='title'>
-	                        <FormattedMessage
-	                            id='admin.license.upload-modal.licenseApplied'
-	                            defaultMessage='License Applied'
-	                        />
-	                    </div>
-	                    <div className='subtitle'>
-	                        <FormattedMessage
-	                            id='admin.license.upload-modal.licenseAppliedText'
-	                            defaultMessage='The {skuName} license for {licensedUsersNum, number} seats is effective from {startsAt} until {expiresAt}. '
-	                            values={{
+                    <div className='subtitle'>
+                        <FormattedMessage
+                            id='admin.license.upload-modal.licenseAppliedText'
+                            defaultMessage='The {skuName} license for {licensedUsersNum, number} seats is effective from {startsAt} until {expiresAt}. '
+                            values={{
                                 expiresAt,
                                 startsAt,
                                 licensedUsersNum,
