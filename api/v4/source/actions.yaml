@@ -5,9 +5,7 @@
       summary: Open a dialog
       description: >
         Open an interactive dialog using a trigger ID provided by a slash
-        command, or some other action payload. See
-        https://docs.mattermost.com/developer/interactive-dialogs.html for more
-        information on interactive dialogs.
+        command, or some other action payload.
 
         __Minimum server version: 5.6__
       operationId: OpenInteractiveDialog
@@ -46,8 +44,7 @@
                       description: Markdown formatted introductory paragraph
                     elements:
                       type: array
-                      description: Input elements, see
-                        https://docs.mattermost.com/developer/interactive-dialogs.html#elements
+                      description: Input elements for the dialog.
                       items:
                         type: object
                     submit_label:
@@ -77,9 +74,7 @@
         - integration_actions
       summary: Submit a dialog
       description: >
-        Endpoint used by the Mattermost clients to submit a dialog. See
-        https://docs.mattermost.com/developer/interactive-dialogs.html for more
-        information on interactive dialogs.
+        Endpoint used by clients to submit an interactive dialog.
 
         __Minimum server version: 5.6__
       operationId: SubmitInteractiveDialog
@@ -137,9 +132,7 @@
         - integration_actions
       summary: Lookup dialog elements
       description: >
-        Endpoint used by the Mattermost clients to lookup dynamic dialog
-        elements. See https://docs.mattermost.com/developer/interactive-dialogs.html
-        for more information on interactive dialogs.
+        Endpoint used by clients to look up dynamic dialog elements.
 
         __Minimum server version: 11.0__
       operationId: LookupInteractiveDialog

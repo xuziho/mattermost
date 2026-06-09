@@ -1223,7 +1223,7 @@
         __Minimum server version__: 5.28.0
 
 
-        __Local mode only__: This endpoint is only available through [local mode](https://docs.mattermost.com/administration/mmctl-cli-tool.html#local-mode).
+        __Local mode only__: This endpoint is only available through local mode.
       operationId: CheckIntegrity
       responses:
         "200":

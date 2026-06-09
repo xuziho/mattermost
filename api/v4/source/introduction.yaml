@@ -1,18 +1,11 @@
 openapi: 3.0.0
 info:
   description: >
-    The Mattermost Web Services API enables Mattermost clients and third-party applications
-    to interact with Mattermost servers.
+    The AgentCompanyOS collaboration API enables clients and third-party applications
+    to interact with the collaboration server.
 
 
-    [Official JavaScript and Golang drivers](#/#official-drivers)
-    are available to simplify API integration.
-
-
-    By using this API, you agree to our [terms of service](https://about.mattermost.com/default-terms/).
-
-
-    [Find out more about Mattermost](https://about.mattermost.com/)
+    JavaScript and Golang drivers can be used to simplify API integration.
 
     ## Contents
 
@@ -358,31 +351,19 @@ info:
 
       ### Community-built Drivers
 
-      Community-built drivers and API wrappers can be maintained separately from this API reference.
+      Drivers and API wrappers can be maintained separately from this API reference.
 
     ## Support
 
-    Mattermost core committers work with the community to keep the API documentation up-to-date.
+    AgentCompanyOS keeps this API reference focused on the lightweight collaboration surface.
 
-    If you have questions on API routes not listed in this reference, you can:
-
-    - [Join the Mattermost community server](https://community.mattermost.com) to ask questions in the Developers channel
-
-    - Contact us at feedback@mattermost.com
-
-
-    [Bug reports](https://github.com/mattermost/mattermost/issues) in the documentation or the API are also welcome, as are pull requests to fix the issues.
+    If you have questions on API routes not listed in this reference, contact the
+    AgentCompanyOS project maintainers.
 
 
     ## Contributing
 
-    When you have answers to API questions not addressed in our documentation we ask you to consider making a pull request to improve our reference. Small and large changes are all welcome.
-
-
-    We also have [Help Wanted tickets](https://github.com/mattermost/mattermost/issues?q=is%3Aopen+is%3Aissue+label%3AArea%2FAPI) available for community members who would like to help others more easily use the APIs. We acknowledge everyone's contribution in the [release notes of our next version](https://docs.mattermost.com/administration/changelog.html#contributors).
-
-
-    The source code for this API reference is hosted at https://github.com/mattermost/mattermost/tree/master/api.
+    Keep API reference changes aligned with the lightweight AgentCompanyOS fork.
 
   version: 4.0.0
   title: Mattermost API
@@ -424,9 +405,7 @@ tags:
     description: General endpoints for interacting with the server, such as configuration and logging.
   - name: brand
     description:
-      Endpoints related to custom branding and white-labeling. See [our branding
-      documentation](https://docs.mattermost.com/administration/branding.html)
-      for more information.
+      Endpoints related to custom branding and white-labeling.
   - name: OAuth
     description:
       Endpoints for configuring and interacting with Mattermost as an OAuth 2.0
