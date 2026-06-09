@@ -187,7 +187,7 @@ export class PushSettings extends OLDAdminSettings<Props, State> {
             sendHelpText = (
                 <FormattedMessage
                     id='admin.email.pushOffHelp'
-                    defaultMessage='Push notifications are disabled. Configure a push notification server to send notifications to mobile apps.'
+                    defaultMessage='Push notifications are disabled. Configure a push notification server to send notifications to native mobile clients.'
                 />
             );
         } else if (this.state.pushNotificationServerType === PUSH_NOTIFICATIONS_MHPNS) {

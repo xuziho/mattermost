@@ -139,7 +139,7 @@ export default class ActivityLog extends React.PureComponent<Props, State> {
             sessionInfo.devicePlatform = (
                 <FormattedMessage
                     id='activity_log_modal.desktop'
-                    defaultMessage='Native Desktop App'
+                    defaultMessage='Native Desktop Client'
                 />
             );
         }

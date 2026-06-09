@@ -266,7 +266,7 @@ describe('components/activity_log_modal/ActivityLog', () => {
             expect(result.devicePlatform).toEqual(
                 <FormattedMessage
                     id='activity_log_modal.desktop'
-                    defaultMessage='Native Desktop App'
+                    defaultMessage='Native Desktop Client'
                 />,
             );
         });
