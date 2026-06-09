@@ -134,6 +134,7 @@ var config = {
             'mattermost-redux/test': 'packages/mattermost-redux/test',
             'mattermost-redux': 'packages/mattermost-redux/src',
             '@mui/styled-engine': '@mui/styled-engine-sc',
+            'moment-timezone$': path.resolve(__dirname, '..', 'node_modules', 'moment-timezone', 'builds', 'moment-timezone-with-data-10-year-range.js'),
 
             // This alias restricts single version of styled components across all packages
             'styled-components': path.resolve(__dirname, '..', 'node_modules', 'styled-components'),
