@@ -275,7 +275,6 @@
   "admin.email.mhpns": "Käytä HPNS-yhteyttä, jossa käytettävyys-SLA, ilmoitusten lähettämiseen iOS- ja Android-sovelluksiin",
   "admin.email.mtpns": "Käytä TPNS-yhteyttä ilmoitusten lähettämiseen iOS- ja Android-sovelluksiin",
   "admin.email.pushOff": "Älä lähetä push-ilmoituksia",
-  "admin.email.pushOffHelp": "Katso <link>push-ilmoitusten dokumentaatio</link> saadaksesi lisätietoja asetusvaihtoehdoista.",
   "admin.email.pushServerEx": "E.g.: \"https://push.example.local\"",
   "admin.email.pushServerTitle": "Push-ilmoituspalvelin:",
   "admin.email.pushTitle": "Ota push-ilmoitukset käyttöön: ",
