@@ -30,8 +30,6 @@ const DAYS_UNTIL_EXPIRY_WARNING_DISPLAY_THRESHOLD = 30;
 const DAYS_UNTIL_EXPIRY_DANGER_DISPLAY_THRESHOLD = 5;
 
 export interface EnterpriseEditionProps {
-    openEELicenseModal: () => void;
-    upgradedFromTE: boolean;
     license: ClientLicense;
     isTrialLicense: boolean;
     handleRemove: (e: React.MouseEvent<HTMLButtonElement>) => Promise<void>;
@@ -49,8 +47,6 @@ export const messages = defineMessages({
 });
 
 const EnterpriseEditionLeftPanel = ({
-    openEELicenseModal,
-    upgradedFromTE,
     license,
     isTrialLicense,
     handleRemove,
@@ -162,11 +158,11 @@ const EnterpriseEditionLeftPanel = ({
                         />
                     </div>
                 </div>
-                <div className='license-notices'>
-                    {/* This notice should not be translated */}
-                    <p>
-                        {'This software is offered under a commercial license. See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. See NOTICE.txt for information about open source software used in this system.'}
-                    </p>
+            <div className='license-notices'>
+                {/* This notice should not be translated */}
+                <p>
+                    {'This software is offered under a commercial license. See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. See NOTICE.txt for information about open source software used in this system.'}
+                </p>
                 </div>
             </div>
         );
@@ -220,23 +216,9 @@ const EnterpriseEditionLeftPanel = ({
             </div>
             <div className='license-notices'>
                 {/* This notice should not be translated */}
-                {upgradedFromTE ? <>
-                    <p>
-                        {'When using Mattermost Enterprise Edition, the software is offered under a commercial license. See '}
-                        <a
-                            role='button'
-                            onClick={openEELicenseModal}
-                            className='openEELicenseModal'
-                        >
-                            {'here'}
-                        </a>
-                        {' for "Enterprise Edition License" for details. '}
-                        {'See NOTICE.txt for information about open source software used in the system.'}
-                    </p>
-                </> : <p>
+                <p>
                     {'This software is offered under a commercial license.\n\nSee ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. See NOTICE.txt for information about open source software used in this system.'}
                 </p>
-                }
             </div>
         </div>
     );

@@ -53,7 +53,7 @@ const EnterpriseEditionRightPanel = ({
             return (
                 <FormattedMessage
                     id='admin.license.entryPlanTitle'
-                    defaultMessage='Get access to full message history, AI-powered coordination, and secure workflow continuity'
+                    defaultMessage='Local license capacity'
                 />
             );
         }
@@ -69,7 +69,7 @@ const EnterpriseEditionRightPanel = ({
             return (
                 <FormattedMessage
                     id='admin.license.additionalLicensedFeatures'
-                    defaultMessage='Additional licensed features'
+                    defaultMessage='Local license details'
                 />
             );
         }
@@ -77,14 +77,14 @@ const EnterpriseEditionRightPanel = ({
             return (
                 <FormattedMessage
                     id='admin.license.additionalLicensedFeatures'
-                    defaultMessage='Additional licensed features'
+                    defaultMessage='Local license details'
                 />
             );
         }
         return (
             <FormattedMessage
                 id='admin.license.additionalLicensedFeatures'
-                defaultMessage='Additional licensed features'
+                defaultMessage='Local license details'
             />
         );
     };
@@ -116,7 +116,7 @@ const EnterpriseEditionRightPanel = ({
             return (
                 <FormattedMessage
                     id='admin.license.entryPlanSubtitle'
-                    defaultMessage='Upload a license to unlock full access.'
+                    defaultMessage='Upload a local license file if this deployment needs licensed capacity controls.'
                 />
             );
         }

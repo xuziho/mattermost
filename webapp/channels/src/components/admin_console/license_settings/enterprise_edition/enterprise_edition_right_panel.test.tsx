@@ -3,7 +3,7 @@
 
 import React from 'react';
 
-import {renderWithContext, screen} from 'tests/react_testing_utils';
+import {renderWithContext} from 'tests/react_testing_utils';
 import {LicenseSkus} from 'utils/constants';
 
 import EnterpriseEditionRightPanel from './enterprise_edition_right_panel';
@@ -62,14 +62,12 @@ describe('components/admin_console/license_settings/enterprise_edition/enterpris
             initialState,
         );
 
-        expect(container.querySelector('.upgrade-title')?.textContent).toEqual('Additional licensed features');
+        expect(container.querySelector('.upgrade-title')?.textContent).toEqual('Local license details');
 
         const subtitleItems = container.querySelectorAll('.upgrade-subtitle .item');
-        expect(subtitleItems[0].textContent).toEqual('AD/LDAP Group sync');
-        expect(subtitleItems[1].textContent).toEqual('High Availability');
-        expect(subtitleItems[2].textContent).toEqual('Advanced compliance');
-        expect(subtitleItems[3].textContent).toEqual('Advanced roles and permissions');
-        expect(subtitleItems[4].textContent).toEqual('And more...');
+        expect(subtitleItems[0].textContent).toEqual('File-based local license management');
+        expect(subtitleItems[1].textContent).toEqual('Compatibility with existing license APIs');
+        expect(subtitleItems[2].textContent).toEqual('No cloud billing or trial workflow is required');
     });
 
     test('should render for Enterprise license', () => {
@@ -81,16 +79,12 @@ describe('components/admin_console/license_settings/enterprise_edition/enterpris
             initialState,
         );
 
-        expect(container.querySelector('.upgrade-title')?.textContent).toEqual('Additional licensed features');
+        expect(container.querySelector('.upgrade-title')?.textContent).toEqual('Local license details');
 
         const subtitleItems = container.querySelectorAll('.upgrade-subtitle .item');
-        expect(subtitleItems[0].textContent).toEqual('Dynamic attribute-based access controls');
-        expect(subtitleItems[1].textContent).toEqual('Data spillage handling');
-        expect(subtitleItems[2].textContent).toEqual('Burn-on-read messages');
-        expect(subtitleItems[3].textContent).toEqual('Mobile biometrics & advanced security');
-        expect(subtitleItems[4].textContent).toEqual('Automatic channel translations');
-        expect(subtitleItems[5].textContent).toEqual('Channel banners');
-        expect(subtitleItems[6].textContent).toEqual('And more...');
+        expect(subtitleItems[0].textContent).toEqual('File-based local license management');
+        expect(subtitleItems[1].textContent).toEqual('Compatibility with existing license APIs');
+        expect(subtitleItems[2].textContent).toEqual('No cloud billing or trial workflow is required');
     });
 
     test('should render for Enterprise Advanced license', () => {
@@ -115,9 +109,8 @@ describe('components/admin_console/license_settings/enterprise_edition/enterpris
             initialState,
         );
 
-        expect(container.querySelector('.upgrade-title')?.textContent).toEqual('Get access to full message history, AI-powered coordination, and secure workflow continuity');
-        expect(container.querySelector('.upgrade-subtitle')?.textContent).toEqual('Upload a license to unlock full access.');
-        expect(screen.queryByRole('button', {name: 'Questions? Contact sales'})).not.toBeInTheDocument();
+        expect(container.querySelector('.upgrade-title')?.textContent).toEqual('Local license capacity');
+        expect(container.querySelector('.upgrade-subtitle')?.textContent).toEqual('Upload a local license file if this deployment needs licensed capacity controls.');
     });
 
     test('should render for Trial license', () => {

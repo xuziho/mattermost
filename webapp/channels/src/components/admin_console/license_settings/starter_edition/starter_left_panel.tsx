@@ -9,9 +9,7 @@ import {FileTypes} from 'utils/constants';
 
 import './starter_edition.scss';
 export interface StarterEditionProps {
-    openEELicenseModal: () => void;
     currentPlan: JSX.Element;
-    upgradedFromTE: boolean;
     fileInputRef: RefObject<HTMLInputElement>;
     handleChange: () => void;
 }
@@ -21,9 +19,7 @@ export const messages = defineMessages({
 });
 
 const StarterLeftPanel: React.FC<StarterEditionProps> = ({
-    openEELicenseModal,
     currentPlan,
-    upgradedFromTE,
     fileInputRef,
     handleChange,
 }: StarterEditionProps) => {
@@ -46,23 +42,9 @@ const StarterLeftPanel: React.FC<StarterEditionProps> = ({
             </div>
             <hr/>
             <div className='content'>
-                {upgradedFromTE ? <>
-                    <p>
-                        {'When using Mattermost Enterprise Edition, the software is offered under a commercial license. See '}
-                        <a
-                            role='button'
-                            onClick={openEELicenseModal}
-                            className='openEELicenseModal'
-                        >
-                            {'here'}
-                        </a>
-                        {' for "Enterprise Edition License" for details. '}
-                        {'See NOTICE.txt for information about open source software used in the system.'}
-                    </p>
-                </> : <p>
+                <p>
                     {'This software is offered under a commercial license.\n\nSee ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. See NOTICE.txt for information about open source software used in this system.'}
                 </p>
-                }
             </div>
             <div className='licenseInformation'>
                 <div className='licenseKeyTitle'>

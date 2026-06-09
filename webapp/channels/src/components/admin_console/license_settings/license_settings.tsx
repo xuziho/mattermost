@@ -15,16 +15,14 @@ import type {ActionResult} from 'mattermost-redux/types/actions';
 import AdminHeader from 'components/widgets/admin_console/admin_header';
 
 import {LicenseSkus, ModalIdentifiers} from 'utils/constants';
-import {isLicenseExpired, isLicenseExpiring, isTrialLicense, licenseSKUWithFirstLetterCapitalized} from 'utils/license_utils';
+import {isTrialLicense, licenseSKUWithFirstLetterCapitalized} from 'utils/license_utils';
 
 import type {ModalData} from 'types/actions';
 
 import EnterpriseEditionLeftPanel, {messages as enterpriseEditionLeftPanelMessages} from './enterprise_edition/enterprise_edition_left_panel';
 import EnterpriseEditionRightPanel from './enterprise_edition/enterprise_edition_right_panel';
 import ConfirmLicenseRemovalModal from './modals/confirm_license_removal_modal';
-import EELicenseModal from './modals/ee_license_modal';
 import UploadLicenseModal from './modals/upload_license_modal';
-import RenewLinkCard from './renew_license_card/renew_license_card';
 import StarterLeftPanel, {messages as licenseSettingsStarterEditionMessages} from './starter_edition/starter_left_panel';
 import StarterRightPanel from './starter_edition/starter_right_panel';
 import TeamEditionLeftPanel from './team_edition/team_edition_left_panel';
@@ -109,13 +107,6 @@ export default class LicenseSettings extends React.PureComponent<Props, State> {
         }
     };
 
-    openEELicenseModal = async () => {
-        this.props.actions.openModal({
-            modalId: ModalIdentifiers.ENTERPRISE_EDITION_LICENSE,
-            dialogType: EELicenseModal,
-        });
-    };
-
     confirmLicenseRemoval = async () => {
         this.props.actions.openModal({
             modalId: ModalIdentifiers.CONFIRM_LICENSE_REMOVAL,
@@ -158,9 +149,7 @@ export default class LicenseSettings extends React.PureComponent<Props, State> {
         if (!this.props.enterpriseReady) { // Team Edition
             // Note: DO NOT LOCALISE THESE STRINGS. Legally we can not since the license is in English.
             leftPanel = (
-                <TeamEditionLeftPanel
-                    openEELicenseModal={this.openEELicenseModal}
-                />
+                <TeamEditionLeftPanel/>
             );
 
             rightPanel = <TeamEditionRightPanel/>;
@@ -168,8 +157,6 @@ export default class LicenseSettings extends React.PureComponent<Props, State> {
             // Note: DO NOT LOCALISE THESE STRINGS. Legally we can not since the license is in English.
             leftPanel = (
                 <EnterpriseEditionLeftPanel
-                    openEELicenseModal={this.openEELicenseModal}
-                    upgradedFromTE={upgradedFromTE}
                     license={license}
                     isTrialLicense={isTrialLicense(license)}
                     handleRemove={this.confirmLicenseRemoval}
@@ -193,9 +180,7 @@ export default class LicenseSettings extends React.PureComponent<Props, State> {
             // This is Mattermost Starter (Already downloaded the binary but no license has been set, or ended the trial period)
             leftPanel = (
                 <StarterLeftPanel
-                    openEELicenseModal={this.openEELicenseModal}
                     currentPlan={this.currentPlan}
-                    upgradedFromTE={this.props.upgradedFromTE}
                     fileInputRef={this.fileInputRef}
                     handleChange={this.handleChange}
                 />
@@ -219,7 +204,6 @@ export default class LicenseSettings extends React.PureComponent<Props, State> {
                                 totalUsers={this.props.totalUsers}
                                 location='license_settings'
                             />
-                            {this.renewLicenseCard()}
                         </div>
                         <div className='top-wrapper'>
                             <div className='left-panel'>
@@ -239,19 +223,4 @@ export default class LicenseSettings extends React.PureComponent<Props, State> {
         );
     }
 
-    renewLicenseCard = () => {
-        if (isTrialLicense(this.props.license)) {
-            return null;
-        }
-        if (isLicenseExpired(this.props.license) || isLicenseExpiring(this.props.license)) {
-            return (
-                <RenewLinkCard
-                    license={this.props.license}
-                    isLicenseExpired={isLicenseExpired(this.props.license)}
-                    totalUsers={this.props.totalUsers}
-                />
-            );
-        }
-        return null;
-    };
 }

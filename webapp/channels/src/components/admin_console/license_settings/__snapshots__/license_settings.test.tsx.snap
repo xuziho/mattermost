@@ -18,71 +18,7 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
       >
         <div
           class="admin-console__banner_section"
-        >
-          <div
-            class="AlertBanner info AlertBanner--sys"
-          >
-            <div
-              class="AlertBanner__icon"
-            >
-              <svg
-                fill="currentColor"
-                height="24"
-                version="1.1"
-                viewBox="0 0 24 24"
-                width="24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,17H13V11H11V17Z"
-                />
-              </svg>
-            </div>
-            <div
-              class="AlertBanner__body"
-            >
-              <div
-                class="AlertBanner__title"
-              >
-                License expires in 22 days on May 6, 2021.
-              </div>
-              <div
-                class="AlertBanner__message"
-              >
-                <div
-                  class="RenewLicenseCard__text"
-                >
-                  <div
-                    class="RenewLicenseCard__text-description bolder"
-                  >
-                    Renew your Enterprise E10 license to avoid any disruption.
-                  </div>
-                  <div
-                    class="RenewLicenseCard__text-description"
-                  >
-                    Review your numbers below to ensure you renew for the right number of users.
-                  </div>
-                  <div
-                    class="RenewLicenseCard__licensedUsersNum"
-                  >
-                    <strong>
-                      Licensed Users: 
-                    </strong>
-                    100
-                  </div>
-                  <div
-                    class="RenewLicenseCard__activeUsersNum"
-                  >
-                    <strong>
-                      Active Users: 
-                    </strong>
-                    10
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        />
         <div
           class="top-wrapper"
         >
@@ -261,7 +197,7 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
                         id="remove-button"
                         type="button"
                       >
-                        Remove license and downgrade to Mattermost Free
+                        Remove local license
                       </button>
                     </div>
                   </div>
@@ -276,30 +212,6 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                   </p>
                 </div>
               </div>
-            </div>
-            <div
-              class="terms-and-policy"
-            >
-              See also 
-              <a
-                href="https://mattermost.com/pl/terms-of-use/?utm_source=mattermost&utm_medium=in-product&utm_content=license_settings&uid=&sid=&edition=team&server_version="
-                id="privacyLink"
-                location="license_settings"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Enterprise Edition Terms of Use
-              </a>
-               and 
-              <a
-                href="https://mattermost.com/pl/privacy-policy/?utm_source=mattermost&utm_medium=in-product&utm_content=license_settings&uid=&sid=&edition=team&server_version="
-                id="privacyLink"
-                location="license_settings"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Privacy Policy
-              </a>
             </div>
           </div>
           <div
@@ -551,7 +463,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                 <div
                   class="upgrade-title"
                 >
-                  Additional licensed features
+                  Local license details
                 </div>
                 <div
                   class="upgrade-subtitle"
@@ -565,7 +477,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                       <i
                         class="fa fa-lock"
                       />
-                      AD/LDAP Group sync
+                      File-based local license management
                     </div>
                     <div
                       class="item"
@@ -573,7 +485,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                       <i
                         class="fa fa-lock"
                       />
-                      High Availability
+                      Compatibility with existing license APIs
                     </div>
                     <div
                       class="item"
@@ -581,23 +493,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                       <i
                         class="fa fa-lock"
                       />
-                      Advanced compliance
-                    </div>
-                    <div
-                      class="item"
-                    >
-                      <i
-                        class="fa fa-lock"
-                      />
-                      Advanced roles and permissions
-                    </div>
-                    <div
-                      class="item"
-                    >
-                      <i
-                        class="fa fa-lock"
-                      />
-                      And more...
+                      No cloud billing or trial workflow is required
                     </div>
                   </div>
                 </div>
@@ -629,71 +525,7 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
       >
         <div
           class="admin-console__banner_section"
-        >
-          <div
-            class="AlertBanner info AlertBanner--sys"
-          >
-            <div
-              class="AlertBanner__icon"
-            >
-              <svg
-                fill="currentColor"
-                height="24"
-                version="1.1"
-                viewBox="0 0 24 24"
-                width="24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,17H13V11H11V17Z"
-                />
-              </svg>
-            </div>
-            <div
-              class="AlertBanner__body"
-            >
-              <div
-                class="AlertBanner__title"
-              >
-                License expires in 22 days on May 6, 2021.
-              </div>
-              <div
-                class="AlertBanner__message"
-              >
-                <div
-                  class="RenewLicenseCard__text"
-                >
-                  <div
-                    class="RenewLicenseCard__text-description bolder"
-                  >
-                    Renew your Enterprise E20 license to avoid any disruption.
-                  </div>
-                  <div
-                    class="RenewLicenseCard__text-description"
-                  >
-                    Review your numbers below to ensure you renew for the right number of users.
-                  </div>
-                  <div
-                    class="RenewLicenseCard__licensedUsersNum"
-                  >
-                    <strong>
-                      Licensed Users: 
-                    </strong>
-                    100
-                  </div>
-                  <div
-                    class="RenewLicenseCard__activeUsersNum"
-                  >
-                    <strong>
-                      Active Users: 
-                    </strong>
-                    10
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        />
         <div
           class="top-wrapper"
         >
@@ -872,7 +704,7 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
                         id="remove-button"
                         type="button"
                       >
-                        Remove license and downgrade to Mattermost Free
+                        Remove local license
                       </button>
                     </div>
                   </div>
@@ -887,30 +719,6 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                   </p>
                 </div>
               </div>
-            </div>
-            <div
-              class="terms-and-policy"
-            >
-              See also 
-              <a
-                href="https://mattermost.com/pl/terms-of-use/?utm_source=mattermost&utm_medium=in-product&utm_content=license_settings&uid=&sid=&edition=team&server_version="
-                id="privacyLink"
-                location="license_settings"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Enterprise Edition Terms of Use
-              </a>
-               and 
-              <a
-                href="https://mattermost.com/pl/privacy-policy/?utm_source=mattermost&utm_medium=in-product&utm_content=license_settings&uid=&sid=&edition=team&server_version="
-                id="privacyLink"
-                location="license_settings"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Privacy Policy
-              </a>
             </div>
           </div>
           <div
@@ -1162,7 +970,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                 <div
                   class="upgrade-title"
                 >
-                  Additional licensed features
+                  Local license details
                 </div>
                 <div
                   class="upgrade-subtitle"
@@ -1176,7 +984,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                       <i
                         class="fa fa-lock"
                       />
-                      AD/LDAP Group sync
+                      File-based local license management
                     </div>
                     <div
                       class="item"
@@ -1184,7 +992,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                       <i
                         class="fa fa-lock"
                       />
-                      High Availability
+                      Compatibility with existing license APIs
                     </div>
                     <div
                       class="item"
@@ -1192,23 +1000,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                       <i
                         class="fa fa-lock"
                       />
-                      Advanced compliance
-                    </div>
-                    <div
-                      class="item"
-                    >
-                      <i
-                        class="fa fa-lock"
-                      />
-                      Advanced roles and permissions
-                    </div>
-                    <div
-                      class="item"
-                    >
-                      <i
-                        class="fa fa-lock"
-                      />
-                      And more...
+                      No cloud billing or trial workflow is required
                     </div>
                   </div>
                 </div>
@@ -1240,71 +1032,7 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
       >
         <div
           class="admin-console__banner_section"
-        >
-          <div
-            class="AlertBanner info AlertBanner--sys"
-          >
-            <div
-              class="AlertBanner__icon"
-            >
-              <svg
-                fill="currentColor"
-                height="24"
-                version="1.1"
-                viewBox="0 0 24 24"
-                width="24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,17H13V11H11V17Z"
-                />
-              </svg>
-            </div>
-            <div
-              class="AlertBanner__body"
-            >
-              <div
-                class="AlertBanner__title"
-              >
-                License expires in 22 days on May 6, 2021.
-              </div>
-              <div
-                class="AlertBanner__message"
-              >
-                <div
-                  class="RenewLicenseCard__text"
-                >
-                  <div
-                    class="RenewLicenseCard__text-description bolder"
-                  >
-                    Renew your Enterprise license to avoid any disruption.
-                  </div>
-                  <div
-                    class="RenewLicenseCard__text-description"
-                  >
-                    Review your numbers below to ensure you renew for the right number of users.
-                  </div>
-                  <div
-                    class="RenewLicenseCard__licensedUsersNum"
-                  >
-                    <strong>
-                      Licensed Users: 
-                    </strong>
-                    100
-                  </div>
-                  <div
-                    class="RenewLicenseCard__activeUsersNum"
-                  >
-                    <strong>
-                      Active Users: 
-                    </strong>
-                    10
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        />
         <div
           class="top-wrapper"
         >
@@ -1483,7 +1211,7 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
                         id="remove-button"
                         type="button"
                       >
-                        Remove license and downgrade to Mattermost Free
+                        Remove local license
                       </button>
                     </div>
                   </div>
@@ -1498,30 +1226,6 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                   </p>
                 </div>
               </div>
-            </div>
-            <div
-              class="terms-and-policy"
-            >
-              See also 
-              <a
-                href="https://mattermost.com/pl/terms-of-use/?utm_source=mattermost&utm_medium=in-product&utm_content=license_settings&uid=&sid=&edition=team&server_version="
-                id="privacyLink"
-                location="license_settings"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Enterprise Edition Terms of Use
-              </a>
-               and 
-              <a
-                href="https://mattermost.com/pl/privacy-policy/?utm_source=mattermost&utm_medium=in-product&utm_content=license_settings&uid=&sid=&edition=team&server_version="
-                id="privacyLink"
-                location="license_settings"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Privacy Policy
-              </a>
             </div>
           </div>
           <div
@@ -1773,7 +1477,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                 <div
                   class="upgrade-title"
                 >
-                  Additional licensed features
+                  Local license details
                 </div>
                 <div
                   class="upgrade-subtitle"
@@ -1787,7 +1491,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                       <i
                         class="fa fa-lock"
                       />
-                      Dynamic attribute-based access controls
+                      File-based local license management
                     </div>
                     <div
                       class="item"
@@ -1795,7 +1499,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                       <i
                         class="fa fa-lock"
                       />
-                      Data spillage handling
+                      Compatibility with existing license APIs
                     </div>
                     <div
                       class="item"
@@ -1803,39 +1507,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                       <i
                         class="fa fa-lock"
                       />
-                      Burn-on-read messages
-                    </div>
-                    <div
-                      class="item"
-                    >
-                      <i
-                        class="fa fa-lock"
-                      />
-                      Mobile biometrics & advanced security
-                    </div>
-                    <div
-                      class="item"
-                    >
-                      <i
-                        class="fa fa-lock"
-                      />
-                      Automatic channel translations
-                    </div>
-                    <div
-                      class="item"
-                    >
-                      <i
-                        class="fa fa-lock"
-                      />
-                      Channel banners
-                    </div>
-                    <div
-                      class="item"
-                    >
-                      <i
-                        class="fa fa-lock"
-                      />
-                      And more...
+                      No cloud billing or trial workflow is required
                     </div>
                   </div>
                 </div>
@@ -1867,71 +1539,7 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
       >
         <div
           class="admin-console__banner_section"
-        >
-          <div
-            class="AlertBanner info AlertBanner--sys"
-          >
-            <div
-              class="AlertBanner__icon"
-            >
-              <svg
-                fill="currentColor"
-                height="24"
-                version="1.1"
-                viewBox="0 0 24 24"
-                width="24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,17H13V11H11V17Z"
-                />
-              </svg>
-            </div>
-            <div
-              class="AlertBanner__body"
-            >
-              <div
-                class="AlertBanner__title"
-              >
-                License expires in 22 days on May 6, 2021.
-              </div>
-              <div
-                class="AlertBanner__message"
-              >
-                <div
-                  class="RenewLicenseCard__text"
-                >
-                  <div
-                    class="RenewLicenseCard__text-description bolder"
-                  >
-                    Renew your Enterprise E20 license to avoid any disruption.
-                  </div>
-                  <div
-                    class="RenewLicenseCard__text-description"
-                  >
-                    Review your numbers below to ensure you renew for the right number of users.
-                  </div>
-                  <div
-                    class="RenewLicenseCard__licensedUsersNum"
-                  >
-                    <strong>
-                      Licensed Users: 
-                    </strong>
-                    100
-                  </div>
-                  <div
-                    class="RenewLicenseCard__activeUsersNum"
-                  >
-                    <strong>
-                      Active Users: 
-                    </strong>
-                    10
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        />
         <div
           class="top-wrapper"
         >
@@ -2110,7 +1718,7 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
                         id="remove-button"
                         type="button"
                       >
-                        Remove license and downgrade to Mattermost Free
+                        Remove local license
                       </button>
                     </div>
                   </div>
@@ -2125,30 +1733,6 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                   </p>
                 </div>
               </div>
-            </div>
-            <div
-              class="terms-and-policy"
-            >
-              See also 
-              <a
-                href="https://mattermost.com/pl/terms-of-use/?utm_source=mattermost&utm_medium=in-product&utm_content=license_settings&uid=&sid=&edition=team&server_version="
-                id="privacyLink"
-                location="license_settings"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Enterprise Edition Terms of Use
-              </a>
-               and 
-              <a
-                href="https://mattermost.com/pl/privacy-policy/?utm_source=mattermost&utm_medium=in-product&utm_content=license_settings&uid=&sid=&edition=team&server_version="
-                id="privacyLink"
-                location="license_settings"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Privacy Policy
-              </a>
             </div>
           </div>
           <div
@@ -2400,7 +1984,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                 <div
                   class="upgrade-title"
                 >
-                  Additional licensed features
+                  Local license details
                 </div>
                 <div
                   class="upgrade-subtitle"
@@ -2414,7 +1998,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                       <i
                         class="fa fa-lock"
                       />
-                      AD/LDAP Group sync
+                      File-based local license management
                     </div>
                     <div
                       class="item"
@@ -2422,7 +2006,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                       <i
                         class="fa fa-lock"
                       />
-                      High Availability
+                      Compatibility with existing license APIs
                     </div>
                     <div
                       class="item"
@@ -2430,23 +2014,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                       <i
                         class="fa fa-lock"
                       />
-                      Advanced compliance
-                    </div>
-                    <div
-                      class="item"
-                    >
-                      <i
-                        class="fa fa-lock"
-                      />
-                      Advanced roles and permissions
-                    </div>
-                    <div
-                      class="item"
-                    >
-                      <i
-                        class="fa fa-lock"
-                      />
-                      And more...
+                      No cloud billing or trial workflow is required
                     </div>
                   </div>
                 </div>
@@ -2478,71 +2046,7 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
       >
         <div
           class="admin-console__banner_section"
-        >
-          <div
-            class="AlertBanner info AlertBanner--sys"
-          >
-            <div
-              class="AlertBanner__icon"
-            >
-              <svg
-                fill="currentColor"
-                height="24"
-                version="1.1"
-                viewBox="0 0 24 24"
-                width="24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,17H13V11H11V17Z"
-                />
-              </svg>
-            </div>
-            <div
-              class="AlertBanner__body"
-            >
-              <div
-                class="AlertBanner__title"
-              >
-                License expires in 22 days on May 6, 2021.
-              </div>
-              <div
-                class="AlertBanner__message"
-              >
-                <div
-                  class="RenewLicenseCard__text"
-                >
-                  <div
-                    class="RenewLicenseCard__text-description bolder"
-                  >
-                    Renew your Enterprise E20 license to avoid any disruption.
-                  </div>
-                  <div
-                    class="RenewLicenseCard__text-description"
-                  >
-                    Review your numbers below to ensure you renew for the right number of users.
-                  </div>
-                  <div
-                    class="RenewLicenseCard__licensedUsersNum"
-                  >
-                    <strong>
-                      Licensed Users: 
-                    </strong>
-                    100
-                  </div>
-                  <div
-                    class="RenewLicenseCard__activeUsersNum"
-                  >
-                    <strong>
-                      Active Users: 
-                    </strong>
-                    10
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        />
         <div
           class="top-wrapper"
         >
@@ -2722,7 +2226,7 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
                         id="remove-button"
                         type="button"
                       >
-                        Remove license and downgrade to Mattermost Free
+                        Remove local license
                       </button>
                     </div>
                   </div>
@@ -2737,30 +2241,6 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                   </p>
                 </div>
               </div>
-            </div>
-            <div
-              class="terms-and-policy"
-            >
-              See also 
-              <a
-                href="https://mattermost.com/pl/terms-of-use/?utm_source=mattermost&utm_medium=in-product&utm_content=license_settings&uid=&sid=&edition=team&server_version="
-                id="privacyLink"
-                location="license_settings"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Enterprise Edition Terms of Use
-              </a>
-               and 
-              <a
-                href="https://mattermost.com/pl/privacy-policy/?utm_source=mattermost&utm_medium=in-product&utm_content=license_settings&uid=&sid=&edition=team&server_version="
-                id="privacyLink"
-                location="license_settings"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Privacy Policy
-              </a>
             </div>
           </div>
           <div
@@ -3012,7 +2492,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                 <div
                   class="upgrade-title"
                 >
-                  Additional licensed features
+                  Local license details
                 </div>
                 <div
                   class="upgrade-subtitle"
@@ -3026,7 +2506,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                       <i
                         class="fa fa-lock"
                       />
-                      AD/LDAP Group sync
+                      File-based local license management
                     </div>
                     <div
                       class="item"
@@ -3034,7 +2514,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                       <i
                         class="fa fa-lock"
                       />
-                      High Availability
+                      Compatibility with existing license APIs
                     </div>
                     <div
                       class="item"
@@ -3042,23 +2522,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                       <i
                         class="fa fa-lock"
                       />
-                      Advanced compliance
-                    </div>
-                    <div
-                      class="item"
-                    >
-                      <i
-                        class="fa fa-lock"
-                      />
-                      Advanced roles and permissions
-                    </div>
-                    <div
-                      class="item"
-                    >
-                      <i
-                        class="fa fa-lock"
-                      />
-                      And more...
+                      No cloud billing or trial workflow is required
                     </div>
                   </div>
                 </div>
@@ -3090,71 +2554,7 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
       >
         <div
           class="admin-console__banner_section"
-        >
-          <div
-            class="AlertBanner info AlertBanner--sys"
-          >
-            <div
-              class="AlertBanner__icon"
-            >
-              <svg
-                fill="currentColor"
-                height="24"
-                version="1.1"
-                viewBox="0 0 24 24"
-                width="24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,17H13V11H11V17Z"
-                />
-              </svg>
-            </div>
-            <div
-              class="AlertBanner__body"
-            >
-              <div
-                class="AlertBanner__title"
-              >
-                License expires in 22 days on May 6, 2021.
-              </div>
-              <div
-                class="AlertBanner__message"
-              >
-                <div
-                  class="RenewLicenseCard__text"
-                >
-                  <div
-                    class="RenewLicenseCard__text-description bolder"
-                  >
-                    Renew your Enterprise E20 license to avoid any disruption.
-                  </div>
-                  <div
-                    class="RenewLicenseCard__text-description"
-                  >
-                    Review your numbers below to ensure you renew for the right number of users.
-                  </div>
-                  <div
-                    class="RenewLicenseCard__licensedUsersNum"
-                  >
-                    <strong>
-                      Licensed Users: 
-                    </strong>
-                    100
-                  </div>
-                  <div
-                    class="RenewLicenseCard__activeUsersNum"
-                  >
-                    <strong>
-                      Active Users: 
-                    </strong>
-                    10
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        />
         <div
           class="top-wrapper"
         >
@@ -3333,7 +2733,7 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
                         id="remove-button"
                         type="button"
                       >
-                        Remove license and downgrade to Mattermost Free
+                        Remove local license
                       </button>
                     </div>
                   </div>
@@ -3342,42 +2742,12 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
                   class="license-notices"
                 >
                   <p>
-                    When using Mattermost Enterprise Edition, the software is offered under a commercial license. See 
-                    <a
-                      class="openEELicenseModal"
-                      role="button"
-                    >
-                      here
-                    </a>
-                     for "Enterprise Edition License" for details. 
-                    See NOTICE.txt for information about open source software used in the system.
+                    This software is offered under a commercial license.
+
+See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. See NOTICE.txt for information about open source software used in this system.
                   </p>
                 </div>
               </div>
-            </div>
-            <div
-              class="terms-and-policy"
-            >
-              See also 
-              <a
-                href="https://mattermost.com/pl/terms-of-use/?utm_source=mattermost&utm_medium=in-product&utm_content=license_settings&uid=&sid=&edition=team&server_version="
-                id="privacyLink"
-                location="license_settings"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Enterprise Edition Terms of Use
-              </a>
-               and 
-              <a
-                href="https://mattermost.com/pl/privacy-policy/?utm_source=mattermost&utm_medium=in-product&utm_content=license_settings&uid=&sid=&edition=team&server_version="
-                id="privacyLink"
-                location="license_settings"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Privacy Policy
-              </a>
             </div>
           </div>
           <div
@@ -3629,7 +2999,7 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
                 <div
                   class="upgrade-title"
                 >
-                  Additional licensed features
+                  Local license details
                 </div>
                 <div
                   class="upgrade-subtitle"
@@ -3643,7 +3013,7 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
                       <i
                         class="fa fa-lock"
                       />
-                      AD/LDAP Group sync
+                      File-based local license management
                     </div>
                     <div
                       class="item"
@@ -3651,7 +3021,7 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
                       <i
                         class="fa fa-lock"
                       />
-                      High Availability
+                      Compatibility with existing license APIs
                     </div>
                     <div
                       class="item"
@@ -3659,23 +3029,7 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
                       <i
                         class="fa fa-lock"
                       />
-                      Advanced compliance
-                    </div>
-                    <div
-                      class="item"
-                    >
-                      <i
-                        class="fa fa-lock"
-                      />
-                      Advanced roles and permissions
-                    </div>
-                    <div
-                      class="item"
-                    >
-                      <i
-                        class="fa fa-lock"
-                      />
-                      And more...
+                      No cloud billing or trial workflow is required
                     </div>
                   </div>
                 </div>
@@ -3707,54 +3061,7 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
       >
         <div
           class="admin-console__banner_section"
-        >
-          <div
-            class="AlertBanner info AlertBanner--sys"
-          >
-            <div
-              class="AlertBanner__icon"
-            >
-              <svg
-                fill="currentColor"
-                height="24"
-                version="1.1"
-                viewBox="0 0 24 24"
-                width="24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,17H13V11H11V17Z"
-                />
-              </svg>
-            </div>
-            <div
-              class="AlertBanner__body"
-            >
-              <div
-                class="AlertBanner__title"
-              >
-                This server is currently using a time-limited Enterprise Advanced license.
-              </div>
-              <div
-                class="AlertBanner__message"
-              >
-                <div
-                  class="RenewLicenseCard TrialLicense"
-                >
-                  <div
-                    class="RenewLicenseCard__text RenewLicenseCard__text-description"
-                  >
-                    This server license will expire in
-                    <b>
-                      0 days
-                    </b>
-                    . Some licensed features may be unavailable after it expires.
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        />
         <div
           class="top-wrapper"
         >
@@ -3936,7 +3243,7 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
                         id="remove-button"
                         type="button"
                       >
-                        Remove license and downgrade to Mattermost Free
+                        Remove local license
                       </button>
                     </div>
                   </div>
@@ -4308,30 +3615,6 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                 </div>
               </div>
             </div>
-            <div
-              class="terms-and-policy"
-            >
-              See also 
-              <a
-                href="https://mattermost.com/pl/terms-of-use/?utm_source=mattermost&utm_medium=in-product&utm_content=license_settings&uid=&sid=&edition=team&server_version="
-                id="privacyLink"
-                location="license_settings"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Enterprise Edition Terms of Use
-              </a>
-               and 
-              <a
-                href="https://mattermost.com/pl/privacy-policy/?utm_source=mattermost&utm_medium=in-product&utm_content=license_settings&uid=&sid=&edition=team&server_version="
-                id="privacyLink"
-                location="license_settings"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Privacy Policy
-              </a>
-            </div>
           </div>
           <div
             class="right-panel"
@@ -4582,7 +3865,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                 <div
                   class="upgrade-title"
                 >
-                  Upload a license to unlock more features
+                  Manage local license files
                 </div>
                 <div
                   class="advantages-list"
@@ -4593,7 +3876,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                     <i
                       class="fa fa-lock"
                     />
-                    Attribute-based access control
+                    File-based local license management
                   </div>
                   <div
                     class="item"
@@ -4601,7 +3884,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                     <i
                       class="fa fa-lock"
                     />
-                    Channel warning banners
+                    Compatibility with existing license APIs
                   </div>
                   <div
                     class="item"
@@ -4609,39 +3892,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                     <i
                       class="fa fa-lock"
                     />
-                    AD/LDAP group sync
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <i
-                      class="fa fa-lock"
-                    />
-                    Advanced workflows
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <i
-                      class="fa fa-lock"
-                    />
-                    High availability
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <i
-                      class="fa fa-lock"
-                    />
-                    Advanced compliance
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <i
-                      class="fa fa-lock"
-                    />
-                    And more...
+                    No cloud billing or trial workflow is required
                   </div>
                 </div>
               </div>
@@ -4712,15 +3963,9 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
                   class="content"
                 >
                   <p>
-                    When using Mattermost Enterprise Edition, the software is offered under a commercial license. See 
-                    <a
-                      class="openEELicenseModal"
-                      role="button"
-                    >
-                      here
-                    </a>
-                     for "Enterprise Edition License" for details. 
-                    See NOTICE.txt for information about open source software used in the system.
+                    This software is offered under a commercial license.
+
+See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. See NOTICE.txt for information about open source software used in this system.
                   </p>
                 </div>
                 <div
@@ -4748,30 +3993,6 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
                   </div>
                 </div>
               </div>
-            </div>
-            <div
-              class="terms-and-policy"
-            >
-              See also 
-              <a
-                href="https://mattermost.com/pl/terms-of-use/?utm_source=mattermost&utm_medium=in-product&utm_content=license_settings&uid=&sid=&edition=team&server_version="
-                id="privacyLink"
-                location="license_settings"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Enterprise Edition Terms of Use
-              </a>
-               and 
-              <a
-                href="https://mattermost.com/pl/privacy-policy/?utm_source=mattermost&utm_medium=in-product&utm_content=license_settings&uid=&sid=&edition=team&server_version="
-                id="privacyLink"
-                location="license_settings"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Privacy Policy
-              </a>
             </div>
           </div>
           <div
@@ -5023,7 +4244,7 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
                 <div
                   class="upgrade-title"
                 >
-                  Upload a license to unlock more features
+                  Manage local license files
                 </div>
                 <div
                   class="advantages-list"
@@ -5034,7 +4255,7 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
                     <i
                       class="fa fa-lock"
                     />
-                    Attribute-based access control
+                    File-based local license management
                   </div>
                   <div
                     class="item"
@@ -5042,7 +4263,7 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
                     <i
                       class="fa fa-lock"
                     />
-                    Channel warning banners
+                    Compatibility with existing license APIs
                   </div>
                   <div
                     class="item"
@@ -5050,39 +4271,7 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
                     <i
                       class="fa fa-lock"
                     />
-                    AD/LDAP group sync
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <i
-                      class="fa fa-lock"
-                    />
-                    Advanced workflows
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <i
-                      class="fa fa-lock"
-                    />
-                    High availability
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <i
-                      class="fa fa-lock"
-                    />
-                    Advanced compliance
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <i
-                      class="fa fa-lock"
-                    />
-                    And more...
+                    No cloud billing or trial workflow is required
                   </div>
                 </div>
               </div>
@@ -5113,71 +4302,7 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
       >
         <div
           class="admin-console__banner_section"
-        >
-          <div
-            class="AlertBanner info AlertBanner--sys"
-          >
-            <div
-              class="AlertBanner__icon"
-            >
-              <svg
-                fill="currentColor"
-                height="24"
-                version="1.1"
-                viewBox="0 0 24 24"
-                width="24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,17H13V11H11V17Z"
-                />
-              </svg>
-            </div>
-            <div
-              class="AlertBanner__body"
-            >
-              <div
-                class="AlertBanner__title"
-              >
-                License expires in 22 days on May 6, 2021.
-              </div>
-              <div
-                class="AlertBanner__message"
-              >
-                <div
-                  class="RenewLicenseCard__text"
-                >
-                  <div
-                    class="RenewLicenseCard__text-description bolder"
-                  >
-                    Renew your Enterprise E20 license to avoid any disruption.
-                  </div>
-                  <div
-                    class="RenewLicenseCard__text-description"
-                  >
-                    Review your numbers below to ensure you renew for the right number of users.
-                  </div>
-                  <div
-                    class="RenewLicenseCard__licensedUsersNum"
-                  >
-                    <strong>
-                      Licensed Users: 
-                    </strong>
-                    100
-                  </div>
-                  <div
-                    class="RenewLicenseCard__activeUsersNum"
-                  >
-                    <strong>
-                      Active Users: 
-                    </strong>
-                    10
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        />
         <div
           class="top-wrapper"
         >
@@ -5206,44 +4331,10 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
                     When using Mattermost Team Edition, the software is offered under a Mattermost MIT Compiled License. See MIT-COMPILED-LICENSE.md in your root install directory for details.
                   </p>
                   <p>
-                    When using Mattermost Enterprise Edition, the software is offered under a commercial license. See 
-                    <a
-                      class="openEELicenseModal"
-                      role="button"
-                    >
-                      here
-                    </a>
-                     for “Enterprise Edition License” for details.
-                  </p>
-                  <p>
                     See NOTICE.txt for information about open source software used in the system.
                   </p>
                 </div>
               </div>
-            </div>
-            <div
-              class="terms-and-policy"
-            >
-              See also 
-              <a
-                href="https://mattermost.com/pl/terms-of-use/?utm_source=mattermost&utm_medium=in-product&utm_content=license_settings&uid=&sid=&edition=team&server_version="
-                id="privacyLink"
-                location="license_settings"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Enterprise Edition Terms of Use
-              </a>
-               and 
-              <a
-                href="https://mattermost.com/pl/privacy-policy/?utm_source=mattermost&utm_medium=in-product&utm_content=license_settings&uid=&sid=&edition=team&server_version="
-                id="privacyLink"
-                location="license_settings"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Privacy Policy
-              </a>
             </div>
           </div>
           <div
@@ -5495,12 +4586,12 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
                 <div
                   class="upgrade-title"
                 >
-                  Licensed server features
+                  Local license management
                 </div>
                 <div
                   class="upgrade-subtitle"
                 >
-                  A local license file is required to unlock licensed features
+                  Upload a local license file only if this AgentCompanyOS deployment needs one.
                 </div>
                 <div
                   class="advantages-list"
@@ -5511,7 +4602,7 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
                     <i
                       class="fa fa-lock"
                     />
-                    AD/LDAP Group Sync
+                    Optional local license file support
                   </div>
                   <div
                     class="item"
@@ -5519,7 +4610,7 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
                     <i
                       class="fa fa-lock"
                     />
-                    High Availability
+                    Seat and expiration visibility
                   </div>
                   <div
                     class="item"
@@ -5527,15 +4618,7 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
                     <i
                       class="fa fa-lock"
                     />
-                    Advanced compliance
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <i
-                      class="fa fa-lock"
-                    />
-                    And more...
+                    Compatibility with existing license APIs
                   </div>
                 </div>
               </div>
@@ -5595,44 +4678,10 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
                     When using Mattermost Team Edition, the software is offered under a Mattermost MIT Compiled License. See MIT-COMPILED-LICENSE.md in your root install directory for details.
                   </p>
                   <p>
-                    When using Mattermost Enterprise Edition, the software is offered under a commercial license. See 
-                    <a
-                      class="openEELicenseModal"
-                      role="button"
-                    >
-                      here
-                    </a>
-                     for “Enterprise Edition License” for details.
-                  </p>
-                  <p>
                     See NOTICE.txt for information about open source software used in the system.
                   </p>
                 </div>
               </div>
-            </div>
-            <div
-              class="terms-and-policy"
-            >
-              See also 
-              <a
-                href="https://mattermost.com/pl/terms-of-use/?utm_source=mattermost&utm_medium=in-product&utm_content=license_settings&uid=&sid=&edition=team&server_version="
-                id="privacyLink"
-                location="license_settings"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Enterprise Edition Terms of Use
-              </a>
-               and 
-              <a
-                href="https://mattermost.com/pl/privacy-policy/?utm_source=mattermost&utm_medium=in-product&utm_content=license_settings&uid=&sid=&edition=team&server_version="
-                id="privacyLink"
-                location="license_settings"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Privacy Policy
-              </a>
             </div>
           </div>
           <div
@@ -5884,12 +4933,12 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
                 <div
                   class="upgrade-title"
                 >
-                  Licensed server features
+                  Local license management
                 </div>
                 <div
                   class="upgrade-subtitle"
                 >
-                  A local license file is required to unlock licensed features
+                  Upload a local license file only if this AgentCompanyOS deployment needs one.
                 </div>
                 <div
                   class="advantages-list"
@@ -5900,7 +4949,7 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
                     <i
                       class="fa fa-lock"
                     />
-                    AD/LDAP Group Sync
+                    Optional local license file support
                   </div>
                   <div
                     class="item"
@@ -5908,7 +4957,7 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
                     <i
                       class="fa fa-lock"
                     />
-                    High Availability
+                    Seat and expiration visibility
                   </div>
                   <div
                     class="item"
@@ -5916,15 +4965,7 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
                     <i
                       class="fa fa-lock"
                     />
-                    Advanced compliance
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <i
-                      class="fa fa-lock"
-                    />
-                    And more...
+                    Compatibility with existing license APIs
                   </div>
                 </div>
               </div>
@@ -6026,30 +5067,6 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                 </div>
               </div>
             </div>
-            <div
-              class="terms-and-policy"
-            >
-              See also 
-              <a
-                href="https://mattermost.com/pl/terms-of-use/?utm_source=mattermost&utm_medium=in-product&utm_content=license_settings&uid=&sid=&edition=team&server_version="
-                id="privacyLink"
-                location="license_settings"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Enterprise Edition Terms of Use
-              </a>
-               and 
-              <a
-                href="https://mattermost.com/pl/privacy-policy/?utm_source=mattermost&utm_medium=in-product&utm_content=license_settings&uid=&sid=&edition=team&server_version="
-                id="privacyLink"
-                location="license_settings"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Privacy Policy
-              </a>
-            </div>
           </div>
           <div
             class="right-panel"
@@ -6300,7 +5317,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                 <div
                   class="upgrade-title"
                 >
-                  Upload a license to unlock more features
+                  Manage local license files
                 </div>
                 <div
                   class="advantages-list"
@@ -6311,7 +5328,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                     <i
                       class="fa fa-lock"
                     />
-                    Attribute-based access control
+                    File-based local license management
                   </div>
                   <div
                     class="item"
@@ -6319,7 +5336,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                     <i
                       class="fa fa-lock"
                     />
-                    Channel warning banners
+                    Compatibility with existing license APIs
                   </div>
                   <div
                     class="item"
@@ -6327,39 +5344,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                     <i
                       class="fa fa-lock"
                     />
-                    AD/LDAP group sync
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <i
-                      class="fa fa-lock"
-                    />
-                    Advanced workflows
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <i
-                      class="fa fa-lock"
-                    />
-                    High availability
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <i
-                      class="fa fa-lock"
-                    />
-                    Advanced compliance
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <i
-                      class="fa fa-lock"
-                    />
-                    And more...
+                    No cloud billing or trial workflow is required
                   </div>
                 </div>
               </div>
@@ -6569,7 +5554,7 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
                         id="remove-button"
                         type="button"
                       >
-                        Remove license and downgrade to Mattermost Free
+                        Remove local license
                       </button>
                     </div>
                   </div>
@@ -6584,30 +5569,6 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                   </p>
                 </div>
               </div>
-            </div>
-            <div
-              class="terms-and-policy"
-            >
-              See also 
-              <a
-                href="https://mattermost.com/pl/terms-of-use/?utm_source=mattermost&utm_medium=in-product&utm_content=license_settings&uid=&sid=&edition=team&server_version="
-                id="privacyLink"
-                location="license_settings"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Enterprise Edition Terms of Use
-              </a>
-               and 
-              <a
-                href="https://mattermost.com/pl/privacy-policy/?utm_source=mattermost&utm_medium=in-product&utm_content=license_settings&uid=&sid=&edition=team&server_version="
-                id="privacyLink"
-                location="license_settings"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Privacy Policy
-              </a>
             </div>
           </div>
           <div
@@ -6859,7 +5820,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                 <div
                   class="upgrade-title"
                 >
-                  Additional licensed features
+                  Local license details
                 </div>
                 <div
                   class="upgrade-subtitle"
@@ -6873,7 +5834,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                       <i
                         class="fa fa-lock"
                       />
-                      AD/LDAP Group sync
+                      File-based local license management
                     </div>
                     <div
                       class="item"
@@ -6881,7 +5842,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                       <i
                         class="fa fa-lock"
                       />
-                      High Availability
+                      Compatibility with existing license APIs
                     </div>
                     <div
                       class="item"
@@ -6889,23 +5850,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                       <i
                         class="fa fa-lock"
                       />
-                      Advanced compliance
-                    </div>
-                    <div
-                      class="item"
-                    >
-                      <i
-                        class="fa fa-lock"
-                      />
-                      Advanced roles and permissions
-                    </div>
-                    <div
-                      class="item"
-                    >
-                      <i
-                        class="fa fa-lock"
-                      />
-                      And more...
+                      No cloud billing or trial workflow is required
                     </div>
                   </div>
                 </div>
@@ -6937,71 +5882,7 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
       >
         <div
           class="admin-console__banner_section"
-        >
-          <div
-            class="AlertBanner info AlertBanner--sys"
-          >
-            <div
-              class="AlertBanner__icon"
-            >
-              <svg
-                fill="currentColor"
-                height="24"
-                version="1.1"
-                viewBox="0 0 24 24"
-                width="24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,17H13V11H11V17Z"
-                />
-              </svg>
-            </div>
-            <div
-              class="AlertBanner__body"
-            >
-              <div
-                class="AlertBanner__title"
-              >
-                License expires in 30 days on May 14, 2021.
-              </div>
-              <div
-                class="AlertBanner__message"
-              >
-                <div
-                  class="RenewLicenseCard__text"
-                >
-                  <div
-                    class="RenewLicenseCard__text-description bolder"
-                  >
-                    Renew your Enterprise E20 license to avoid any disruption.
-                  </div>
-                  <div
-                    class="RenewLicenseCard__text-description"
-                  >
-                    Review your numbers below to ensure you renew for the right number of users.
-                  </div>
-                  <div
-                    class="RenewLicenseCard__licensedUsersNum"
-                  >
-                    <strong>
-                      Licensed Users: 
-                    </strong>
-                    100
-                  </div>
-                  <div
-                    class="RenewLicenseCard__activeUsersNum"
-                  >
-                    <strong>
-                      Active Users: 
-                    </strong>
-                    10
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        />
         <div
           class="top-wrapper"
         >
@@ -7180,7 +6061,7 @@ exports[`components/admin_console/license_settings/LicenseSettings should match 
                         id="remove-button"
                         type="button"
                       >
-                        Remove license and downgrade to Mattermost Free
+                        Remove local license
                       </button>
                     </div>
                   </div>
@@ -7195,30 +6076,6 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                   </p>
                 </div>
               </div>
-            </div>
-            <div
-              class="terms-and-policy"
-            >
-              See also 
-              <a
-                href="https://mattermost.com/pl/terms-of-use/?utm_source=mattermost&utm_medium=in-product&utm_content=license_settings&uid=&sid=&edition=team&server_version="
-                id="privacyLink"
-                location="license_settings"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Enterprise Edition Terms of Use
-              </a>
-               and 
-              <a
-                href="https://mattermost.com/pl/privacy-policy/?utm_source=mattermost&utm_medium=in-product&utm_content=license_settings&uid=&sid=&edition=team&server_version="
-                id="privacyLink"
-                location="license_settings"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Privacy Policy
-              </a>
             </div>
           </div>
           <div
@@ -7470,7 +6327,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                 <div
                   class="upgrade-title"
                 >
-                  Additional licensed features
+                  Local license details
                 </div>
                 <div
                   class="upgrade-subtitle"
@@ -7484,7 +6341,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                       <i
                         class="fa fa-lock"
                       />
-                      AD/LDAP Group sync
+                      File-based local license management
                     </div>
                     <div
                       class="item"
@@ -7492,7 +6349,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                       <i
                         class="fa fa-lock"
                       />
-                      High Availability
+                      Compatibility with existing license APIs
                     </div>
                     <div
                       class="item"
@@ -7500,23 +6357,7 @@ See ENTERPRISE-EDITION-LICENSE.txt in your root install directory for details. S
                       <i
                         class="fa fa-lock"
                       />
-                      Advanced compliance
-                    </div>
-                    <div
-                      class="item"
-                    >
-                      <i
-                        class="fa fa-lock"
-                      />
-                      Advanced roles and permissions
-                    </div>
-                    <div
-                      class="item"
-                    >
-                      <i
-                        class="fa fa-lock"
-                      />
-                      And more...
+                      No cloud billing or trial workflow is required
                     </div>
                   </div>
                 </div>
