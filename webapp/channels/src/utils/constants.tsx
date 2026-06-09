@@ -923,7 +923,6 @@ export const DocLinks = {
     MULTI_FACTOR_AUTH: '#',
     ONBOARD_ADVANCED_PERMISSIONS: '#',
     ONBOARD_LDAP: '#',
-    SELF_HOSTED_BILLING: '#',
     SESSION_LENGTHS: '#',
     SETUP_IMAGE_PROXY: '#',
     SETUP_LDAP: '#',
@@ -933,13 +932,11 @@ export const DocLinks = {
     SHARE_LINKS_TO_MESSAGES: '#',
     SITE_URL: '#',
     SSL_CERTIFICATE: '#',
-    TRUE_UP_REVIEW: '#',
     UPGRADE_SERVER: '#',
 };
 
 export const LicenseLinks = {
     ENTRY_LIMITS_INFO: '#',
-    TRIAL_INFO_LINK: '#',
     EMBARGOED_COUNTRIES: '#',
     SOFTWARE_SERVICES_LICENSE_AGREEMENT: '#',
     SOFTWARE_SERVICES_LICENSE_AGREEMENT_TEXT: 'Software Services and License Agreement',
@@ -1862,12 +1859,9 @@ export const Constants = {
     ACCEPT_EMOJI_IMAGE: '.jpeg,.jpg,.png,.gif',
     THREADS_LOADING_INDICATOR_ITEM_ID: 'threads_loading_indicator_item_id',
     THREADS_NO_RESULTS_ITEM_ID: 'threads_no_results_item_id',
-    TRIAL_MODAL_AUTO_SHOWN: 'trial_modal_auto_shown',
     DEFAULT_SITE_URL: 'http://localhost:8065',
     CHANNEL_HEADER_BUTTON_DISABLE_TIMEOUT: 1000,
     FIRST_ADMIN_ROLE: 'first_admin',
-    MAX_PURCHASE_SEATS: 1000000,
-    MIN_PURCHASE_SEATS: 10,
 };
 
 export const ValidationErrors = {
