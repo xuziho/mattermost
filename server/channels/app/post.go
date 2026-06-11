@@ -19,6 +19,7 @@ import (
 	"slices"
 
 	"github.com/mattermost/mattermost/server/public/model"
+	"github.com/mattermost/mattermost/server/public/plugin"
 	"github.com/mattermost/mattermost/server/public/shared/i18n"
 	"github.com/mattermost/mattermost/server/public/shared/mlog"
 	"github.com/mattermost/mattermost/server/public/shared/request"
@@ -587,6 +588,11 @@ func (a *App) handlePostEvents(rctx request.CTX, post *model.Post, user *model.U
 			}
 		})
 	}
+
+	a.ch.RunMultiHook(func(hooks plugin.Hooks, _ *model.Manifest) bool {
+		hooks.MessageHasBeenPosted(&plugin.Context{}, post)
+		return true
+	}, plugin.MessageHasBeenPostedID)
 
 	return nil
 }
