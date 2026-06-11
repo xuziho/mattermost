@@ -8,6 +8,7 @@ import (
 	"os"
 	"os/signal"
 	"runtime"
+	"strings"
 	"sync"
 	"syscall"
 	"time"
@@ -19,6 +20,7 @@ import (
 	"github.com/mattermost/mattermost/server/public/shared/mlog"
 	"github.com/mattermost/mattermost/server/public/shared/request"
 	"github.com/mattermost/mattermost/server/v8/channels/app/imaging"
+	"github.com/mattermost/mattermost/server/v8/config"
 	"github.com/mattermost/mattermost/server/v8/einterfaces"
 	"github.com/mattermost/mattermost/server/v8/platform/services/imageproxy"
 	"github.com/mattermost/mattermost/server/v8/platform/shared/filestore"
@@ -234,10 +236,18 @@ func NewChannels(s *Server) (*Channels, error) {
 		return nil, errors.Wrap(imgErr, "failed to create image encoder")
 	}
 
+	pluginsRoute := ch.srv.Router.PathPrefix("/plugins/{plugin_id:[A-Za-z0-9\\_\\-\\.]+}").Subrouter()
+	pluginsRoute.HandleFunc("", ch.ServePluginRequest)
+	pluginsRoute.HandleFunc("/public/{public_file:.*}", ch.ServePluginPublicRequest)
+	pluginsRoute.HandleFunc("/{anything:.*}", ch.ServePluginRequest)
+
 	return ch, nil
 }
 
 func (ch *Channels) Start() error {
+	ctx := request.EmptyContext(ch.srv.Log())
+	ch.initPlugins(ctx, *ch.cfgSvc.Config().PluginSettings.Directory, *ch.cfgSvc.Config().PluginSettings.ClientDirectory)
+
 	interruptChan := make(chan os.Signal, 1)
 	signal.Notify(interruptChan, syscall.SIGINT, syscall.SIGTERM)
 	go func() {
@@ -252,6 +262,30 @@ func (ch *Channels) Start() error {
 		}
 	}()
 
+	ch.AddConfigListener(func(prevCfg, cfg *model.Config) {
+		diffs, err := config.Diff(prevCfg, cfg)
+		if err != nil {
+			ch.srv.Log().Warn("Error in comparing configs", mlog.Err(err))
+			return
+		}
+
+		hasDiff := false
+		for _, diff := range diffs {
+			if strings.HasPrefix(diff.Path, "PluginSettings.") {
+				hasDiff = true
+				break
+			}
+		}
+
+		if hasDiff {
+			if *cfg.PluginSettings.Enable {
+				ch.initPlugins(ctx, *cfg.PluginSettings.Directory, *ch.cfgSvc.Config().PluginSettings.ClientDirectory)
+			} else {
+				ch.ShutDownPlugins()
+			}
+		}
+	})
+
 	// TODO: This should be moved to the platform service.
 	if err := ch.srv.platform.EnsureAsymmetricSigningKey(); err != nil {
 		return errors.Wrapf(err, "unable to ensure asymmetric signing key")
@@ -265,6 +299,8 @@ func (ch *Channels) Start() error {
 }
 
 func (ch *Channels) Stop() error {
+	ch.ShutDownPlugins()
+
 	ch.dndTaskMut.Lock()
 	if ch.dndTask != nil {
 		ch.dndTask.Cancel()
