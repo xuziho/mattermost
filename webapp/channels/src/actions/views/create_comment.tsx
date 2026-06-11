@@ -25,7 +25,6 @@ import {getCurrentUserId} from 'mattermost-redux/selectors/entities/users';
 
 import type {ExecuteCommandReturnType} from 'actions/command';
 import {executeCommand} from 'actions/command';
-import {runMessageWillBePostedHooks, runSlashCommandWillBePostedHooks} from 'actions/hooks';
 import * as PostActions from 'actions/post_actions';
 import {createSchedulePostFromDraft} from 'actions/post_actions';
 import {isBurnOnReadEnabled} from 'selectors/burn_on_read';
@@ -90,13 +89,6 @@ export function submitPost(
             post.props.disable_group_highlight = true;
         }
 
-        const hookResult = await dispatch(runMessageWillBePostedHooks(post));
-        if (hookResult.error) {
-            return {error: hookResult.error};
-        }
-
-        post = hookResult.data!;
-
         if (schedulingInfo) {
             const scheduledPost = scheduledPostFromPost(post, schedulingInfo);
             scheduledPost.file_ids = draft.fileInfos.map((fileInfo) => fileInfo.id);
@@ -138,20 +130,6 @@ export function submitCommand(channelId: string, rootId: string, draft: PostDraf
         };
 
         let {message} = draft;
-
-        const hookResult = await dispatch(runSlashCommandWillBePostedHooks(message, args));
-        if (hookResult.error) {
-            return {error: hookResult.error};
-        } else if (!hookResult.data!.message && !hookResult.data!.args) {
-            // do nothing with an empty return from a hook
-            // this is allowed by the registerSlashCommandWillBePostedHook API in case
-            // a plugin intercepts and handles the command on the client side
-            // but doesn't require it to be sent to the server. (e.g., /call start).
-            return {};
-        }
-
-        message = hookResult.data!.message;
-        args = hookResult.data!.args;
 
         const {error, data} = await dispatch(executeCommand(message, args));
 

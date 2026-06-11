@@ -27,7 +27,7 @@ import {decrementThreadCounts} from 'mattermost-redux/actions/threads';
 import {getProfilesByIds, getProfilesByUsernames, getStatusesByIds} from 'mattermost-redux/actions/users';
 import {Client4, DEFAULT_LIMIT_AFTER, DEFAULT_LIMIT_BEFORE} from 'mattermost-redux/client';
 import {General, Preferences, Posts} from 'mattermost-redux/constants';
-import {getAllChannels, getCurrentChannelId, getMyChannelMember, getMyChannelMember as getMyChannelMemberSelector} from 'mattermost-redux/selectors/entities/channels';
+import {getCurrentChannelId, getMyChannelMember, getMyChannelMember as getMyChannelMemberSelector} from 'mattermost-redux/selectors/entities/channels';
 import {getIsUserStatusesConfigEnabled} from 'mattermost-redux/selectors/entities/common';
 import {getCustomEmojisByName as selectCustomEmojisByName} from 'mattermost-redux/selectors/entities/emojis';
 import {getAllGroupsByName} from 'mattermost-redux/selectors/entities/groups';
@@ -1291,27 +1291,6 @@ export function moveHistoryIndexForward(index: string): ActionFuncAsync {
             type: PostTypes.MOVE_HISTORY_INDEX_FORWARD,
             data: index,
         });
-
-        return {data: true};
-    };
-}
-
-export function resetReloadPostsInTranslatedChannels(): ActionFuncAsync {
-    return async (dispatch, getState) => {
-        const state = getState();
-        const channels = getAllChannels(state);
-        for (const channel of Object.values(channels)) {
-            if (!channel.autotranslation) {
-                continue;
-            }
-
-            const myMember = getMyChannelMember(state, channel.id);
-            if (myMember?.autotranslation_disabled) {
-                continue;
-            }
-
-            dispatch(resetReloadPostsInChannel(channel.id));
-        }
 
         return {data: true};
     };

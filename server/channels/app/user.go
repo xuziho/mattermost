@@ -19,7 +19,6 @@ import (
 	"golang.org/x/sync/errgroup"
 
 	"github.com/mattermost/mattermost/server/public/model"
-	"github.com/mattermost/mattermost/server/public/plugin"
 	"github.com/mattermost/mattermost/server/public/shared/i18n"
 	"github.com/mattermost/mattermost/server/public/shared/mlog"
 	"github.com/mattermost/mattermost/server/public/shared/request"
@@ -397,14 +396,6 @@ func (a *App) createUserOrGuest(rctx request.CTX, user *model.User, guest bool) 
 	message := model.NewWebSocketEvent(model.WebsocketEventNewUser, "", "", "", nil, "")
 	message.Add("user_id", ruser.Id)
 	a.Publish(message)
-
-	pluginContext := pluginContext(rctx)
-	a.Srv().Go(func() {
-		a.ch.RunMultiHook(func(hooks plugin.Hooks, _ *model.Manifest) bool {
-			hooks.UserHasBeenCreated(pluginContext, ruser)
-			return true
-		}, plugin.UserHasBeenCreatedID)
-	})
 
 	userLimits, limitErr := a.GetServerLimits()
 	if limitErr != nil {
@@ -1208,16 +1199,6 @@ func (a *App) UpdateActive(rctx request.CTX, user *model.User, active bool) (*mo
 	}
 	a.sendUpdatedUserEvent(ruser)
 
-	if !active && user.DeleteAt != 0 {
-		a.Srv().Go(func() {
-			pluginContext := pluginContext(rctx)
-			a.ch.RunMultiHook(func(hooks plugin.Hooks, _ *model.Manifest) bool {
-				hooks.UserHasBeenDeactivated(pluginContext, user)
-				return true
-			}, plugin.UserHasBeenDeactivatedID)
-		})
-	}
-
 	if active {
 		userLimits, appErr := a.GetServerLimits()
 		if appErr != nil {
@@ -1553,11 +1534,6 @@ func (a *App) UpdateUser(rctx request.CTX, user *model.User, sendNotifications b
 
 	a.InvalidateCacheForUser(user.Id)
 	a.onUserProfileChange(user.Id)
-
-	// If user locale changed, invalidate auto-translation language caches
-	if newUser.Locale != userUpdate.Old.Locale {
-		a.Srv().Store().AutoTranslation().InvalidateUserLocaleCache(user.Id)
-	}
 
 	newUser.Sanitize(map[string]bool{})
 
@@ -2941,8 +2917,6 @@ func (a *App) GetThreadsForUser(rctx request.CTX, userID, teamID string, options
 		list.AddPost(thread.Post)
 	}
 
-	a.populatePostListTranslations(rctx, list)
-
 	return &result, nil
 }
 
@@ -2974,7 +2948,6 @@ func (a *App) GetThreadForUser(rctx request.CTX, threadMembership *model.ThreadM
 
 	a.sanitizeProfiles(thread.Participants, false)
 	thread.Post.SanitizeProps()
-	a.populatePostListTranslations(rctx, &model.PostList{Posts: map[string]*model.Post{thread.Post.Id: thread.Post}})
 	return thread, nil
 }
 

@@ -89,15 +89,9 @@ export type WebSocketMessage = (
     Messages.CPAFieldDeleted |
     Messages.CPAValuesUpdated |
 
-    Messages.ContentFlaggingReportValueUpdated |
-
-    Messages.RecapUpdated |
-
     Messages.FileDownloadRejected |
     Messages.ShowToast |
 
-    Messages.Plugin |
-    Messages.PluginStatusesChanged |
     Messages.OpenDialog |
 
     BaseWebSocketMessage<WebSocketEvents.PresenceIndicator, unknown> |

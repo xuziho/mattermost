@@ -91,14 +91,6 @@ func (s LocalCachePostStore) GetEtag(channelId string, allowFromCache, collapsed
 		s.rootStore.doStandardAddToCache(s.rootStore.lastPostTimeCache, channelId, lastTime)
 	}
 
-	// If translations should be included, append translation time
-	if includeTranslations {
-		translationTime, err := s.rootStore.AutoTranslation().GetLatestPostUpdateAtForChannel(channelId)
-		if err == nil && translationTime > 0 {
-			return fmt.Sprintf("%s_%d", baseEtag, translationTime)
-		}
-	}
-
 	return baseEtag
 }
 

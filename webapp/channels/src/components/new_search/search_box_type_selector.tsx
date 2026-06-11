@@ -3,12 +3,7 @@
 
 import React, {useCallback} from 'react';
 import {FormattedMessage} from 'react-intl';
-import {useSelector} from 'react-redux';
 import styled from 'styled-components';
-
-import {getSearchButtons} from 'selectors/plugins';
-
-import ErrorBoundary from 'plugins/pluggable/error_boundary';
 
 const SearchTypeSelectorContainer = styled.div`
     margin: 20px 20px 0px 20px;
@@ -52,8 +47,6 @@ const SearchTypeSelector = ({searchType, setSearchType}: Props) => {
     const setMessagesSearchType = useCallback(() => setSearchType('messages'), [setSearchType]);
     const setFilesSearchType = useCallback(() => setSearchType('files'), [setSearchType]);
 
-    const searchPluginButtons = useSelector(getSearchButtons);
-
     return (
         <SearchTypeSelectorContainer
             role='radiogroup'
@@ -78,21 +71,6 @@ const SearchTypeSelector = ({searchType, setSearchType}: Props) => {
                     defaultMessage='Files'
                 />
             </SearchTypeItem>
-            {searchPluginButtons.map(({component, pluginId}: any) => {
-                const Component = component as React.ComponentType;
-                return (
-                    <SearchTypeItem
-                        key={pluginId}
-                        selected={searchType === pluginId}
-                        onClick={() => setSearchType(pluginId)}
-                        role='radio'
-                    >
-                        <ErrorBoundary>
-                            <Component/>
-                        </ErrorBoundary>
-                    </SearchTypeItem>
-                );
-            })}
         </SearchTypeSelectorContainer>
     );
 };

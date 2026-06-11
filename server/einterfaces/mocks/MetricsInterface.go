@@ -18,11 +18,6 @@ type MetricsInterface struct {
 	mock.Mock
 }
 
-// AddAutoTranslateRecoveryStuckFound provides a mock function with given fields: count
-func (_m *MetricsInterface) AddAutoTranslateRecoveryStuckFound(count float64) {
-	_m.Called(count)
-}
-
 // AddMemCacheHitCounter provides a mock function with given fields: cacheName, amount
 func (_m *MetricsInterface) AddMemCacheHitCounter(cacheName string, amount float64) {
 	_m.Called(cacheName, amount)
@@ -81,11 +76,6 @@ func (_m *MetricsInterface) GetLoggerMetricsCollector() logr.MetricsCollector {
 // IncrementAccessControlCacheInvalidation provides a mock function with no fields
 func (_m *MetricsInterface) IncrementAccessControlCacheInvalidation() {
 	_m.Called()
-}
-
-// IncrementAutoTranslateNormHash provides a mock function with given fields: result
-func (_m *MetricsInterface) IncrementAutoTranslateNormHash(result string) {
-	_m.Called(result)
 }
 
 // IncrementChannelIndexCounter provides a mock function with no fields
@@ -333,26 +323,6 @@ func (_m *MetricsInterface) ObserveAccessControlSearchQueryDuration(value float6
 	_m.Called(value)
 }
 
-// ObserveAutoTranslateLinguaDetectionDuration provides a mock function with given fields: elapsed
-func (_m *MetricsInterface) ObserveAutoTranslateLinguaDetectionDuration(elapsed float64) {
-	_m.Called(elapsed)
-}
-
-// ObserveAutoTranslateProviderCallDuration provides a mock function with given fields: provider, result, elapsed
-func (_m *MetricsInterface) ObserveAutoTranslateProviderCallDuration(provider string, result string, elapsed float64) {
-	_m.Called(provider, result, elapsed)
-}
-
-// ObserveAutoTranslateTranslateDuration provides a mock function with given fields: objectType, elapsed
-func (_m *MetricsInterface) ObserveAutoTranslateTranslateDuration(objectType string, elapsed float64) {
-	_m.Called(objectType, elapsed)
-}
-
-// ObserveAutoTranslateWorkerTaskDuration provides a mock function with given fields: elapsed
-func (_m *MetricsInterface) ObserveAutoTranslateWorkerTaskDuration(elapsed float64) {
-	_m.Called(elapsed)
-}
-
 // ObserveClientChannelSwitchDuration provides a mock function with given fields: platform, agent, fresh, userID, elapsed
 func (_m *MetricsInterface) ObserveClientChannelSwitchDuration(platform string, agent string, fresh string, userID string, elapsed float64) {
 	_m.Called(platform, agent, fresh, userID, elapsed)
@@ -508,26 +478,6 @@ func (_m *MetricsInterface) ObserveMobileClientTeamSwitchDuration(platform strin
 	_m.Called(platform, elapsed)
 }
 
-// ObservePluginAPIDuration provides a mock function with given fields: pluginID, apiName, success, elapsed
-func (_m *MetricsInterface) ObservePluginAPIDuration(pluginID string, apiName string, success bool, elapsed float64) {
-	_m.Called(pluginID, apiName, success, elapsed)
-}
-
-// ObservePluginHookDuration provides a mock function with given fields: pluginID, hookName, success, elapsed
-func (_m *MetricsInterface) ObservePluginHookDuration(pluginID string, hookName string, success bool, elapsed float64) {
-	_m.Called(pluginID, hookName, success, elapsed)
-}
-
-// ObservePluginMultiHookDuration provides a mock function with given fields: elapsed
-func (_m *MetricsInterface) ObservePluginMultiHookDuration(elapsed float64) {
-	_m.Called(elapsed)
-}
-
-// ObservePluginMultiHookIterationDuration provides a mock function with given fields: pluginID, elapsed
-func (_m *MetricsInterface) ObservePluginMultiHookIterationDuration(pluginID string, elapsed float64) {
-	_m.Called(pluginID, elapsed)
-}
-
 // ObservePluginWebappPerf provides a mock function with given fields: platform, agent, pluginID, pluginMetricLabel, elapsed
 func (_m *MetricsInterface) ObservePluginWebappPerf(platform string, agent string, pluginID string, pluginMetricLabel string, elapsed float64) {
 	_m.Called(platform, agent, pluginID, pluginMetricLabel, elapsed)
@@ -596,11 +546,6 @@ func (_m *MetricsInterface) Register() {
 // RegisterDBCollector provides a mock function with given fields: db, name
 func (_m *MetricsInterface) RegisterDBCollector(db *sql.DB, name string) {
 	_m.Called(db, name)
-}
-
-// SetAutoTranslateQueueDepth provides a mock function with given fields: depth
-func (_m *MetricsInterface) SetAutoTranslateQueueDepth(depth float64) {
-	_m.Called(depth)
 }
 
 // SetReplicaLagAbsolute provides a mock function with given fields: node, value

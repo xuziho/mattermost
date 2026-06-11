@@ -15,5 +15,4 @@ export const emptyTeams: () => TeamsState = () => ({
     stats: {},
     groupsAssociatedToTeam: {},
     totalCount: 0,
-    contentFlaggingStatus: {},
 });

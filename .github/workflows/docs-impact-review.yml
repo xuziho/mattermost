@@ -41,7 +41,6 @@ jobs:
             source/end-user-guide
             source/integrations-guide
             source/security-guide
-            source/agents
             source/get-help
             source/product-overview
             source/use-case-guide

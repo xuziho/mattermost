@@ -14,13 +14,11 @@ import type {ActionResult} from 'mattermost-redux/types/actions';
 import Menu from 'components/widgets/menu/menu';
 import MenuWrapper from 'components/widgets/menu/menu_wrapper';
 
-import Pluggable from 'plugins/pluggable';
 import {createCallContext} from 'utils/apps';
 import {Constants, Locations} from 'utils/constants';
 import * as PostUtils from 'utils/post_utils';
 
 import type {HandleBindingClick, OpenAppsModal, PostEphemeralCallResponseForPost} from 'types/apps';
-import type {PostDropdownMenuAction, PostDropdownMenuItemComponent} from 'types/store/plugins';
 
 import ActionsMenuButton from './actions_menu_button';
 import {ActionsMenuIcon} from './actions_menu_icon';
@@ -29,7 +27,6 @@ import './actions_menu.scss';
 
 const MENU_BOTTOM_MARGIN = 80;
 
-export const PLUGGABLE_COMPONENT = 'PostDropdownMenuItem';
 export type Props = {
     appBindings: AppBinding[] | null;
     appsEnabled: boolean;
@@ -38,14 +35,8 @@ export type Props = {
     isMenuOpen: boolean;
     isSysAdmin: boolean;
     location?: 'CENTER' | 'RHS_ROOT' | 'RHS_COMMENT' | 'SEARCH' | string;
-    pluginMenuItems?: PostDropdownMenuAction[];
     post: Post;
     teamId: string;
-
-    /**
-     * Components for overriding provided by plugins
-     */
-    pluginMenuItemComponents: PostDropdownMenuItemComponent[];
 
     actions: {
 
@@ -81,7 +72,6 @@ export class ActionMenuClass extends React.PureComponent<Props, State> {
     public static defaultProps: Partial<Props> = {
         appBindings: [],
         location: Locations.CENTER,
-        pluginMenuItems: [],
     };
     private buttonElement: HTMLButtonElement | null = null;
 
@@ -218,37 +208,6 @@ export class ActionMenuClass extends React.PureComponent<Props, State> {
             return null;
         }
 
-        const pluginItems = this.props.pluginMenuItems?.
-            filter((item) => {
-                return item.filter ? item.filter(this.props.post.id) : item;
-            }).
-            map((item) => {
-                if (item.subMenu) {
-                    return (
-                        <Menu.ItemSubMenu
-                            key={item.id + '_pluginmenuitem'}
-                            id={item.id}
-                            postId={this.props.post.id}
-                            text={item.text}
-                            subMenu={item.subMenu}
-                            action={item.action}
-                            root={true}
-                        />
-                    );
-                }
-                return (
-                    <Menu.ItemAction
-                        key={item.id + '_pluginmenuitem'}
-                        text={item.text}
-                        onClick={() => {
-                            if (item.action) {
-                                item.action(this.props.post.id);
-                            }
-                        }}
-                    />
-                );
-            });
-
         let appBindings = [] as JSX.Element[];
         if (this.props.appsEnabled && this.state.appBindings) {
             appBindings = this.state.appBindings.map((item) => {
@@ -275,56 +234,34 @@ export class ActionMenuClass extends React.PureComponent<Props, State> {
         const {formatMessage} = this.props.intl;
 
         const hasApps = Boolean(appBindings.length);
-        const hasPluggables = Boolean(this.props.pluginMenuItemComponents?.length);
-        const hasPluginItems = Boolean(pluginItems?.length);
-
-        const hasPluginMenuItems = hasPluginItems || hasApps || hasPluggables;
-        if (!hasPluginMenuItems) {
+        if (!hasApps) {
             return null;
         }
 
         const buttonId = `${this.props.location}_actions_button_${this.props.post.id}`;
         const popupId = `${this.props.location}_actions_dropdown_${this.props.post.id}`;
 
-        if (hasPluginMenuItems) {
-            const pluggable = (
-                <Pluggable
-                    postId={this.props.post.id}
-                    pluggableName={PLUGGABLE_COMPONENT}
-                    key={this.props.post.id + 'pluggable'}
+        return (
+            <MenuWrapper
+                open={this.props.isMenuOpen}
+                onToggle={this.handleDropdownOpened}
+            >
+                <ActionsMenuButton
+                    ref={this.buttonRef}
+                    buttonId={buttonId}
+                    popupId={popupId}
+                    isMenuOpen={this.props.isMenuOpen}
                 />
-            );
-
-            const menuItems = [
-                pluginItems,
-                appBindings,
-                pluggable,
-            ];
-
-            return (
-                <MenuWrapper
-                    open={this.props.isMenuOpen}
-                    onToggle={this.handleDropdownOpened}
+                <Menu
+                    listId={popupId}
+                    openLeft={true}
+                    openUp={this.state.openUp}
+                    ariaLabel={formatMessage({id: 'post_info.menuAriaLabel', defaultMessage: 'Post extra options'})}
                 >
-                    <ActionsMenuButton
-                        ref={this.buttonRef}
-                        buttonId={buttonId}
-                        popupId={popupId}
-                        isMenuOpen={this.props.isMenuOpen}
-                    />
-                    <Menu
-                        listId={popupId}
-                        openLeft={true}
-                        openUp={this.state.openUp}
-                        ariaLabel={formatMessage({id: 'post_info.menuAriaLabel', defaultMessage: 'Post extra options'})}
-                    >
-                        {menuItems}
-                    </Menu>
-                </MenuWrapper>
-            );
-        }
-
-        return null;
+                    {appBindings}
+                </Menu>
+            </MenuWrapper>
+        );
     }
 }
 

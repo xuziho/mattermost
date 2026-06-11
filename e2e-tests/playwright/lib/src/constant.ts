@@ -1,8 +1,6 @@
 // Copyright (c) 2015-present Mattermost, Inc. All Rights Reserved.
 // See LICENSE.txt for license information.
 
-export const appsPluginId = 'com.mattermost.apps';
-
 // License SKU short names — mirrored from webapp/channels/src/utils/constants.tsx LicenseSkus
 export const LicenseSkus = {
     E10: 'E10',

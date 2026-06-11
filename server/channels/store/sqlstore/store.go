@@ -88,7 +88,6 @@ type SqlStoreStores struct {
 	reaction                   store.ReactionStore
 	job                        store.JobStore
 	userAccessToken            store.UserAccessTokenStore
-	plugin                     store.PluginStore
 	channelMemberHistory       store.ChannelMemberHistoryStore
 	role                       store.RoleStore
 	scheme                     store.SchemeStore
@@ -110,9 +109,6 @@ type SqlStoreStores struct {
 	propertyValue              store.PropertyValueStore
 	accessControlPolicy        store.AccessControlPolicyStore
 	Attributes                 store.AttributesStore
-	autotranslation            store.AutoTranslationStore
-	ContentFlagging            store.ContentFlaggingStore
-	recap                      store.RecapStore
 	readReceipt                store.ReadReceiptStore
 	temporaryPost              store.TemporaryPostStore
 }
@@ -272,7 +268,6 @@ func New(settings model.SqlSettings, logger mlog.LoggerIFace, metrics einterface
 	store.stores.job = newSqlJobStore(store)
 	store.stores.userAccessToken = newSqlUserAccessTokenStore(store)
 	store.stores.channelMemberHistory = newSqlChannelMemberHistoryStore(store)
-	store.stores.plugin = newSqlPluginStore(store)
 	store.stores.TermsOfService = newSqlTermsOfServiceStore(store, metrics)
 	store.stores.UserTermsOfService = newSqlUserTermsOfServiceStore(store)
 	store.stores.linkMetadata = newSqlLinkMetadataStore(store)
@@ -294,9 +289,6 @@ func New(settings model.SqlSettings, logger mlog.LoggerIFace, metrics einterface
 	store.stores.propertyValue = newPropertyValueStore(store)
 	store.stores.accessControlPolicy = newSqlAccessControlPolicyStore(store, metrics)
 	store.stores.Attributes = newSqlAttributesStore(store, metrics)
-	store.stores.autotranslation = newSqlAutoTranslationStore(store)
-	store.stores.ContentFlagging = newContentFlaggingStore(store)
-	store.stores.recap = newSqlRecapStore(store)
 	store.stores.readReceipt = newSqlReadReceiptStore(store, metrics)
 	store.stores.temporaryPost = newSqlTemporaryPostStore(store, metrics)
 
@@ -807,10 +799,6 @@ func (ss *SqlStore) ChannelMemberHistory() store.ChannelMemberHistoryStore {
 	return ss.stores.channelMemberHistory
 }
 
-func (ss *SqlStore) Plugin() store.PluginStore {
-	return ss.stores.plugin
-}
-
 func (ss *SqlStore) Thread() store.ThreadStore {
 	return ss.stores.thread
 }
@@ -889,14 +877,6 @@ func (ss *SqlStore) AccessControlPolicy() store.AccessControlPolicyStore {
 
 func (ss *SqlStore) Attributes() store.AttributesStore {
 	return ss.stores.Attributes
-}
-
-func (ss *SqlStore) AutoTranslation() store.AutoTranslationStore {
-	return ss.stores.autotranslation
-}
-
-func (ss *SqlStore) Recap() store.RecapStore {
-	return ss.stores.recap
 }
 
 func (ss *SqlStore) ReadReceipt() store.ReadReceiptStore {
@@ -1071,8 +1051,4 @@ func (ss *SqlStore) determineMaxColumnSize(tableName, columnName string) (int, e
 
 func (ss *SqlStore) ScheduledPost() store.ScheduledPostStore {
 	return ss.stores.scheduledPost
-}
-
-func (ss *SqlStore) ContentFlagging() store.ContentFlaggingStore {
-	return ss.stores.ContentFlagging
 }

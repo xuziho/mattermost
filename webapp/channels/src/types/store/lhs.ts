@@ -20,7 +20,6 @@ export enum LhsItemType {
 
 export enum LhsPage {
     Drafts = 'drafts',
-    Recaps = 'recaps',
     Threads = 'threads',
 }
 

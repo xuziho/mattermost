@@ -22,7 +22,6 @@ import {getIsCrossTeamSearchEnabled} from 'mattermost-redux/selectors/entities/g
 import {getCurrentTeamId, getMyTeams} from 'mattermost-redux/selectors/entities/teams';
 
 import {updateSearchTerms, showSearchResults, updateSearchType, updateSearchTeam} from 'actions/views/rhs';
-import {getSearchButtons} from 'selectors/plugins';
 import {getSearchTeam, getSearchTerms, getSearchType} from 'selectors/rhs';
 
 import a11yController from 'utils/a11y_controller_instance';
@@ -116,7 +115,6 @@ const NewSearch = (): JSX.Element => {
     const searchTerms = useSelector(getSearchTerms) || '';
     const searchType = useSelector(getSearchType) || '';
     const searchTeam = useSelector(getSearchTeam);
-    const pluginSearch = useSelector(getSearchButtons);
     const currentTeamId = useSelector(getCurrentTeamId);
     const crossTeamSearchEnabled = useSelector(getIsCrossTeamSearchEnabled);
     const myTeams = useSelector(getMyTeams);
@@ -242,18 +240,10 @@ const NewSearch = (): JSX.Element => {
             dispatch(updateSearchTerms(searchTerms));
             dispatch(updateSearchTeam(searchTeam));
 
-            if (searchType === '' || searchType === 'messages' || searchType === 'files') {
-                dispatch(showSearchResults(false));
-            } else {
-                pluginSearch.forEach((pluginData: any) => {
-                    if (pluginData.pluginId === searchType) {
-                        pluginData.action(searchTerms);
-                    }
-                });
-            }
+            dispatch(showSearchResults(false));
             setFocused(false);
             setCurrentChannel('');
-        }, [pluginSearch, currentTeamId]);
+        }, [currentTeamId]);
 
     const onClose = useCallback((e: React.MouseEvent) => {
         e.stopPropagation();

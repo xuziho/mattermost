@@ -14,7 +14,6 @@ import {shouldShowTermsOfService, getCurrentUserId} from 'mattermost-redux/selec
 
 import {loadRecentlyUsedCustomEmojis, migrateRecentEmojis} from 'actions/emoji_actions';
 import {isDevModeEnabled} from 'selectors/general';
-import {shouldShowAppBar} from 'selectors/plugins';
 import {
     getIsRhsExpanded,
     getIsRhsOpen,
@@ -34,7 +33,6 @@ import Root from './root';
 function mapStateToProps(state: GlobalState) {
     const config = getConfig(state);
     const showTermsOfService = shouldShowTermsOfService(state);
-    const plugins = state.plugins.components.CustomRouteComponent;
     const userId = getCurrentUserId(state);
 
     const teamId = LocalStorageStore.getPreviousTeamId(userId);
@@ -51,11 +49,10 @@ function mapStateToProps(state: GlobalState) {
         siteURL: config.SiteURL,
         permalinkRedirectTeamName: permalinkRedirectTeam ? permalinkRedirectTeam.name : '',
         showTermsOfService,
-        plugins,
         rhsIsExpanded: getIsRhsExpanded(state),
         rhsIsOpen: getIsRhsOpen(state),
         rhsState: getRhsState(state),
-        shouldShowAppBar: shouldShowAppBar(state),
+        shouldShowAppBar: false,
         isCloud: false,
         isDevModeEnabled: isDevModeEnabled(state),
     };

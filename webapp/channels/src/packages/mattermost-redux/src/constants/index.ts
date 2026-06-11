@@ -5,7 +5,6 @@ import Emoji from './emoji';
 import Files from './files';
 import General from './general';
 import Permissions from './permissions';
-import Plugins from './plugins';
 import Posts from './posts';
 import Preferences from './preferences';
 import RequestStatus from './request_status';
@@ -15,4 +14,4 @@ import Teams from './teams';
 import Threads from './threads';
 import Users from './users';
 
-export {General, Preferences, Posts, Files, RequestStatus, Teams, Stats, Permissions, Emoji, Plugins, Users, Roles, Threads};
+export {General, Preferences, Posts, Files, RequestStatus, Teams, Stats, Permissions, Emoji, Users, Roles, Threads};

@@ -22,8 +22,9 @@ export default new Namer({
             return null;
         }
 
-        // Get the relative file path within the source folder
-        const relativeDir = path.posix.relative('./src', path.dirname(mainEntry.filePath));
+        // Get the relative file path within the source folder. Parcel passes absolute native paths here, so first
+        // compute the relative path using the host OS semantics and then normalize it for package exports.
+        const relativeDir = path.relative(path.resolve('src'), path.dirname(mainEntry.filePath)).split(path.sep).join(path.posix.sep);
 
         let filename;
         if (bundle.type === 'js') {

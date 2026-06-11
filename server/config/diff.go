@@ -49,35 +49,30 @@ var configSensitivePaths = map[string]bool{
 	"GoogleSettings.Secret":                                  true,
 	"Office365Settings.Secret":                               true,
 	"OpenIdSettings.Secret":                                  true,
-	"ElasticsearchSettings.Password":                         true,
 	"MessageExportSettings.GlobalRelaySettings.SMTPUsername": true,
 	"MessageExportSettings.GlobalRelaySettings.SMTPPassword": true,
 	"MessageExportSettings.GlobalRelaySettings.EmailAddress": true,
 	"ServiceSettings.SplitKey":                               true,
-	"PluginSettings.Plugins":                                 true,
 }
 
 // Sanitize replaces sensitive config values in the diff with asterisks filled strings.
 func (cd ConfigDiffs) Sanitize() ConfigDiffs {
 	if len(cd) == 1 {
-		// PluginSettings.Plugins gets sanitized anyway, so there is no need to use the plugin manifests here.
-		var pluginManifests []*model.Manifest
-
 		cfgPtr, ok := cd[0].BaseVal.(*model.Config)
 		if ok {
-			cfgPtr.Sanitize(pluginManifests, nil)
+			cfgPtr.Sanitize(nil, nil)
 		}
 		cfgPtr, ok = cd[0].ActualVal.(*model.Config)
 		if ok {
-			cfgPtr.Sanitize(pluginManifests, nil)
+			cfgPtr.Sanitize(nil, nil)
 		}
 		cfgVal, ok := cd[0].BaseVal.(model.Config)
 		if ok {
-			cfgVal.Sanitize(pluginManifests, nil)
+			cfgVal.Sanitize(nil, nil)
 		}
 		cfgVal, ok = cd[0].ActualVal.(model.Config)
 		if ok {
-			cfgVal.Sanitize(pluginManifests, nil)
+			cfgVal.Sanitize(nil, nil)
 		}
 	}
 

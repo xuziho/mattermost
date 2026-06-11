@@ -65,7 +65,6 @@ Provides in-memory caching for frequently accessed data:
 
 ## Search Layer (searchlayer/)
 Integrates with search engines for full-text search:
-- Elasticsearch integration
 - Bleve search engine support
 - Automatic indexing of content
 - Search result ranking and filtering

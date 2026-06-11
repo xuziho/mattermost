@@ -76,34 +76,33 @@ const (
 
 // Channels
 const (
-	AuditEventAddChannelMember                   = "addChannelMember"                   // add member to channel
-	AuditEventConvertGroupMessageToChannel       = "convertGroupMessageToChannel"       // convert group message to private channel
-	AuditEventCreateChannel                      = "createChannel"                      // create public or private channel
-	AuditEventCreateDirectChannel                = "createDirectChannel"                // create direct message channel between two users
-	AuditEventCreateGroupChannel                 = "createGroupChannel"                 // create group message channel with multiple users
-	AuditEventDeleteChannel                      = "deleteChannel"                      // delete channel
-	AuditEventGetPinnedPosts                     = "getPinnedPosts"                     // get pinned posts
-	AuditEventLocalAddChannelMember              = "localAddChannelMember"              // add channel member locally
-	AuditEventLocalCreateChannel                 = "localCreateChannel"                 // create channel locally
-	AuditEventLocalDeleteChannel                 = "localDeleteChannel"                 // delete channel locally
-	AuditEventLocalMoveChannel                   = "localMoveChannel"                   // move channel locally
-	AuditEventLocalPatchChannel                  = "localPatchChannel"                  // patch channel locally
-	AuditEventLocalRemoveChannelMember           = "localRemoveChannelMember"           // remove channel member locally
-	AuditEventLocalRestoreChannel                = "localRestoreChannel"                // restore channel locally
-	AuditEventLocalUpdateChannelPrivacy          = "localUpdateChannelPrivacy"          // update channel privacy locally
-	AuditEventMoveChannel                        = "moveChannel"                        // move channel to different team
-	AuditEventPatchChannel                       = "patchChannel"                       // update channel properties
-	AuditEventPatchChannelModerations            = "patchChannelModerations"            // update channel moderation settings
-	AuditEventRemoveChannelMember                = "removeChannelMember"                // remove member from channel
-	AuditEventRestoreChannel                     = "restoreChannel"                     // restore previously deleted channel
-	AuditEventSetChannelMembers                  = "setChannelMembers"                  // bulk set (replace) channel memberships
-	AuditEventUpdateChannel                      = "updateChannel"                      // update channel properties
-	AuditEventUpdateChannelMemberNotifyProps     = "updateChannelMemberNotifyProps"     // update notification preferences
-	AuditEventUpdateChannelMemberAutotranslation = "updateChannelMemberAutotranslation" // update autotranslation setting
-	AuditEventUpdateChannelMemberRoles           = "updateChannelMemberRoles"           // update roles and permissions
-	AuditEventUpdateChannelMemberSchemeRoles     = "updateChannelMemberSchemeRoles"     // update scheme-based roles
-	AuditEventUpdateChannelPrivacy               = "updateChannelPrivacy"               // change channel privacy settings
-	AuditEventUpdateChannelScheme                = "updateChannelScheme"                // update permission scheme applied to channel
+	AuditEventAddChannelMember               = "addChannelMember"               // add member to channel
+	AuditEventConvertGroupMessageToChannel   = "convertGroupMessageToChannel"   // convert group message to private channel
+	AuditEventCreateChannel                  = "createChannel"                  // create public or private channel
+	AuditEventCreateDirectChannel            = "createDirectChannel"            // create direct message channel between two users
+	AuditEventCreateGroupChannel             = "createGroupChannel"             // create group message channel with multiple users
+	AuditEventDeleteChannel                  = "deleteChannel"                  // delete channel
+	AuditEventGetPinnedPosts                 = "getPinnedPosts"                 // get pinned posts
+	AuditEventLocalAddChannelMember          = "localAddChannelMember"          // add channel member locally
+	AuditEventLocalCreateChannel             = "localCreateChannel"             // create channel locally
+	AuditEventLocalDeleteChannel             = "localDeleteChannel"             // delete channel locally
+	AuditEventLocalMoveChannel               = "localMoveChannel"               // move channel locally
+	AuditEventLocalPatchChannel              = "localPatchChannel"              // patch channel locally
+	AuditEventLocalRemoveChannelMember       = "localRemoveChannelMember"       // remove channel member locally
+	AuditEventLocalRestoreChannel            = "localRestoreChannel"            // restore channel locally
+	AuditEventLocalUpdateChannelPrivacy      = "localUpdateChannelPrivacy"      // update channel privacy locally
+	AuditEventMoveChannel                    = "moveChannel"                    // move channel to different team
+	AuditEventPatchChannel                   = "patchChannel"                   // update channel properties
+	AuditEventPatchChannelModerations        = "patchChannelModerations"        // update channel moderation settings
+	AuditEventRemoveChannelMember            = "removeChannelMember"            // remove member from channel
+	AuditEventRestoreChannel                 = "restoreChannel"                 // restore previously deleted channel
+	AuditEventSetChannelMembers              = "setChannelMembers"              // bulk set (replace) channel memberships
+	AuditEventUpdateChannel                  = "updateChannel"                  // update channel properties
+	AuditEventUpdateChannelMemberNotifyProps = "updateChannelMemberNotifyProps" // update notification preferences
+	AuditEventUpdateChannelMemberRoles       = "updateChannelMemberRoles"       // update roles and permissions
+	AuditEventUpdateChannelMemberSchemeRoles = "updateChannelMemberSchemeRoles" // update scheme-based roles
+	AuditEventUpdateChannelPrivacy           = "updateChannelPrivacy"           // change channel privacy settings
+	AuditEventUpdateChannelScheme            = "updateChannelScheme"            // update permission scheme applied to channel
 )
 
 // Commands
@@ -271,13 +270,7 @@ const (
 )
 
 // Plugins
-const (
-	AuditEventDisablePlugin        = "disablePlugin"        // disable installed plugin
-	AuditEventEnablePlugin         = "enablePlugin"         // enable installed plugin
-	AuditEventInstallPluginFromURL = "installPluginFromURL" // install plugin from external URL
-	AuditEventRemovePlugin         = "removePlugin"         // delete plugin
-	AuditEventUploadPlugin         = "uploadPlugin"         // upload plugin file to server for installation
-)
+const ()
 
 // Posts
 const (
@@ -303,16 +296,6 @@ const (
 	AuditEventRevealPost                         = "revealPost"                         // reveal a post that was hidden due to burn on read
 	AuditEventBurnPost                           = "burnPost"                           // burn a post that was hidden due to burn on read
 	AuditEventWebsocketPost                      = "websocketPost"                      // post received via websocket
-)
-
-// Recaps
-const (
-	AuditEventCreateRecap     = "createRecap"     // create recap summarizing channel content
-	AuditEventGetRecap        = "getRecap"        // view a single recap
-	AuditEventGetRecaps       = "getRecaps"       // list user's recaps
-	AuditEventMarkRecapAsRead = "markRecapAsRead" // mark recap as read
-	AuditEventRegenerateRecap = "regenerateRecap" // regenerate recap with updated channel content
-	AuditEventDeleteRecap     = "deleteRecap"     // delete recap
 )
 
 // Preferences
@@ -367,8 +350,7 @@ const (
 
 // Search Indexes
 const (
-	AuditEventPurgeBleveIndexes         = "purgeBleveIndexes"         // purge Bleve search indexes
-	AuditEventPurgeElasticsearchIndexes = "purgeElasticsearchIndexes" // purge Elasticsearch search indexes
+	AuditEventPurgeBleveIndexes = "purgeBleveIndexes" // purge Bleve search indexes
 )
 
 // Server Administration
@@ -487,14 +469,4 @@ const (
 	AuditEventRegenOutgoingHookToken  = "regenOutgoingHookToken"  // regenerate authentication token
 	AuditEventUpdateIncomingHook      = "updateIncomingHook"      // update incoming webhook
 	AuditEventUpdateOutgoingHook      = "updateOutgoingHook"      // update outgoing webhook
-)
-
-// Content Flagging
-const (
-	AuditEventFlagPost                     = "flagPost"                     // flag post for review
-	AuditEventGetFlaggedPost               = "getFlaggedPost"               // get flagged post details
-	AuditEventPermanentlyRemoveFlaggedPost = "permanentlyRemoveFlaggedPost" // permanently remove flagged post
-	AuditEventKeepFlaggedPost              = "keepFlaggedPost"              // keep flagged post
-	AuditEventUpdateContentFlaggingConfig  = "updateContentFlaggingConfig"  // update content flagging configuration
-	AuditEventSetReviewer                  = "setFlaggedPostReviewer"       // assign reviewer for flagged post
 )

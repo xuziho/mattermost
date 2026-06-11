@@ -8,13 +8,12 @@ export {TestBrowser} from './browser_context';
 export {getBlobFromAsset, getFileFromAsset} from './file';
 export {decomposeKorean, koreanTestPhrase, typeHangulCharacterWithIme, typeHangulWithIme} from './ime';
 export {duration, getRandomId, wait, newTestPassword} from './util';
-export {LicenseSkus, appsPluginId} from './constant';
+export {LicenseSkus} from './constant';
 
 export {
     ChannelsPage,
     LandingLoginPage,
     LoginPage,
-    RecapsPage,
     ResetPasswordPage,
     SignupPage,
     ScheduledPostsPage,
@@ -46,7 +45,7 @@ export {
     Footer,
     MainHeader,
     PostReminderMenu,
-    EmojiGifPicker,
+    EmojiPicker,
     GenericConfirmModal,
     ScheduleMessageMenu,
     ScheduleMessageModal,
@@ -66,16 +65,6 @@ export {
 export {TestArgs, ScreenshotOptions} from './types';
 
 export {
-    enableAutotranslationConfig,
-    disableAutotranslationConfig,
-    enableChannelAutotranslation,
-    disableChannelAutotranslation,
-    setUserChannelAutotranslation,
-    setMockSourceLanguage,
-} from './autotranslation_helpers';
-export type {EnableAutotranslationOptions} from './autotranslation_helpers';
-export {
-    hasAutotranslationLicense,
     hasSharedChannelsLicense,
     hasCustomPermissionsSchemesLicense,
 } from './license_helpers';

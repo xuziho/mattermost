@@ -11,7 +11,6 @@ import './group';
 import './keycloak';
 import './ldap';
 import './preference';
-import './plugin';
 import './role';
 import './saml';
 import './scheme';

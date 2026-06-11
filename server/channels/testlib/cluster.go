@@ -80,10 +80,6 @@ func (c *FakeClusterInterface) SendClearRoleCacheMessage() {
 	}
 }
 
-func (c *FakeClusterInterface) GetPluginStatuses() (model.PluginStatuses, *model.AppError) {
-	return nil, nil
-}
-
 func (c *FakeClusterInterface) GetMessages() []*model.ClusterMessage {
 	c.mut.RLock()
 	defer c.mut.RUnlock()

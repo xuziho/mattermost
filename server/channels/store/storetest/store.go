@@ -45,7 +45,6 @@ type Store struct {
 	ReactionStore                   mocks.ReactionStore
 	JobStore                        mocks.JobStore
 	UserAccessTokenStore            mocks.UserAccessTokenStore
-	PluginStore                     mocks.PluginStore
 	ChannelMemberHistoryStore       mocks.ChannelMemberHistoryStore
 	RoleStore                       mocks.RoleStore
 	SchemeStore                     mocks.SchemeStore
@@ -67,9 +66,6 @@ type Store struct {
 	PropertyValueStore              mocks.PropertyValueStore
 	AccessControlPolicyStore        mocks.AccessControlPolicyStore
 	AttributesStore                 mocks.AttributesStore
-	AutoTranslationStore            mocks.AutoTranslationStore
-	ContentFlaggingStore            mocks.ContentFlaggingStore
-	RecapStore                      mocks.RecapStore
 	ReadReceiptStore                mocks.ReadReceiptStore
 	TemporaryPostStore              mocks.TemporaryPostStore
 	ViewStore                       mocks.ViewStore
@@ -106,7 +102,6 @@ func (s *Store) UploadSession() store.UploadSessionStore           { return &s.U
 func (s *Store) Reaction() store.ReactionStore                     { return &s.ReactionStore }
 func (s *Store) Job() store.JobStore                               { return &s.JobStore }
 func (s *Store) UserAccessToken() store.UserAccessTokenStore       { return &s.UserAccessTokenStore }
-func (s *Store) Plugin() store.PluginStore                         { return &s.PluginStore }
 func (s *Store) Role() store.RoleStore                             { return &s.RoleStore }
 func (s *Store) Scheme() store.SchemeStore                         { return &s.SchemeStore }
 func (s *Store) TermsOfService() store.TermsOfServiceStore         { return &s.TermsOfServiceStore }
@@ -160,16 +155,6 @@ func (s *Store) AccessControlPolicy() store.AccessControlPolicyStore {
 func (s *Store) Attributes() store.AttributesStore {
 	return &s.AttributesStore
 }
-func (s *Store) AutoTranslation() store.AutoTranslationStore {
-	return &s.AutoTranslationStore
-}
-
-func (s *Store) ContentFlagging() store.ContentFlaggingStore {
-	return &s.ContentFlaggingStore
-}
-func (s *Store) Recap() store.RecapStore {
-	return &s.RecapStore
-}
 func (s *Store) ReadReceipt() store.ReadReceiptStore {
 	return &s.ReadReceiptStore
 }
@@ -213,7 +198,6 @@ func (s *Store) AssertExpectations(t mock.TestingT) bool {
 		&s.JobStore,
 		&s.UserAccessTokenStore,
 		&s.ChannelMemberHistoryStore,
-		&s.PluginStore,
 		&s.RoleStore,
 		&s.SchemeStore,
 		&s.ThreadStore,
@@ -227,9 +211,6 @@ func (s *Store) AssertExpectations(t mock.TestingT) bool {
 		&s.ScheduledPostStore,
 		&s.AccessControlPolicyStore,
 		&s.AttributesStore,
-		&s.AutoTranslationStore,
-		&s.ContentFlaggingStore,
-		&s.RecapStore,
 		&s.ReadReceiptStore,
 		&s.TemporaryPostStore,
 		&s.ViewStore,

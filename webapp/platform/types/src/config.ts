@@ -1,8 +1,6 @@
 // Copyright (c) 2015-present Mattermost, Inc. All Rights Reserved.
 // See LICENSE.txt for license information.
 
-import type {ContentFlaggingEvent, NotificationTarget} from './content_flagging';
-
 export type ClientConfig = {
     AboutLink: string;
     AllowBannerDismissal: string;
@@ -69,7 +67,6 @@ export type ClientConfig = {
     EnableEmojiPicker: string;
     EnableFileAttachments: string;
     EnableFile: string;
-    EnableGifPicker: string;
     EnableGuestAccounts: string;
     EnableGuestMagicLink: string;
     EnableIncomingWebhooks: string;
@@ -122,11 +119,9 @@ export type ClientConfig = {
     FeatureFlagPermissionPolicies: string;
     FeatureFlagWebSocketEventScope: string;
     FeatureFlagInteractiveDialogAppsForm: string;
-    FeatureFlagContentFlagging: string;
     FeatureFlagManagedChannelCategories: string;
 
     ForgotPasswordLink: string;
-    GiphySdkKey: string;
     GoogleDeveloperKey: string;
     GuestAccountsEnforceMultifactorAuthentication: string;
     HasImageProxy: string;
@@ -215,7 +210,6 @@ export type ClientConfig = {
     YoutubeReferrerPolicy: 'true' | 'false';
     ScheduledPosts: string;
     DeleteAccountLink: string;
-    ContentFlaggingEnabled: 'true' | 'false';
     UseAnonymousURLs: string;
 
     // Burn on Read Settings
@@ -227,10 +221,6 @@ export type ClientConfig = {
     EnableAttributeBasedAccessControl: string;
     EnableUserManagedAttributes: string;
 
-    // Auto Translation Settings
-    AutoTranslationLanguages: string;
-    EnableAutoTranslation: string;
-    RestrictDMAndGMAutotranslation: string;
 };
 
 export type License = {
@@ -263,7 +253,6 @@ export type LicenseFeatures = {
     metrics?: boolean;
     mhpns?: boolean;
     saml?: boolean;
-    elastic_search?: boolean;
     announcement?: boolean;
     theme_management?: boolean;
     email_notification_contents?: boolean;
@@ -353,8 +342,6 @@ export type ServiceSettings = {
     WebserverMode: string;
     EnableCustomEmoji: boolean;
     EnableEmojiPicker: boolean;
-    EnableGifPicker: boolean;
-    GiphySdkKey: string;
     PostEditTimeLimit: number;
     TimeBetweenUserTypingUpdatesMilliseconds: number;
     EnableCrossTeamSearch: boolean;
@@ -727,22 +714,6 @@ export type LocalizationSettings = {
     EnableExperimentalLocales: boolean;
 };
 
-export type AutoTranslationSettings = {
-    Enable: boolean;
-    TargetLanguages: string[];
-    Workers: number;
-    Provider: '' | 'libretranslate' | 'agents';
-    LibreTranslate: {
-        URL: string;
-        APIKey: string;
-    };
-    Agents?: {
-        LLMServiceID: string;
-    };
-    TimeoutMs: number;
-    RestrictDMAndGM: boolean;
-};
-
 export type SamlSettings = {
     Enable: boolean;
     EnableSyncWithLdap: boolean;
@@ -853,38 +824,6 @@ export type CacheSettings = {
     DisableClientCache: boolean;
 };
 
-export type ElasticsearchSettings = {
-    ConnectionURL: string;
-    Backend: string;
-    Username: string;
-    Password: string;
-    EnableIndexing: boolean;
-    EnableSearching: boolean;
-    EnableCJKAnalyzers: boolean;
-    EnableAutocomplete: boolean;
-    Sniff: boolean;
-    PostIndexReplicas: number;
-    PostIndexShards: number;
-    ChannelIndexReplicas: number;
-    ChannelIndexShards: number;
-    UserIndexReplicas: number;
-    UserIndexShards: number;
-    AggregatePostsAfterDays: number;
-    PostsAggregatorJobStartTime: string;
-    IndexPrefix: string;
-    GlobalSearchPrefix: string;
-    LiveIndexingBatchSize: number;
-    BatchSize: number;
-    RequestTimeoutSeconds: number;
-    SkipTLSVerification: boolean;
-    CA: string;
-    ClientCert: string;
-    ClientKey: string;
-    Trace: string;
-    IgnoredPurgeIndexes: string;
-    EnableSearchPublicChannelsWithoutMembership: boolean;
-};
-
 export type DataRetentionSettings = {
     EnableMessageDeletion: boolean;
     EnableFileDeletion: boolean;
@@ -926,20 +865,6 @@ export type JobSettings = {
     CleanupConfigThresholdDays: number;
 };
 
-export type PluginSettings = {
-    Enable: boolean;
-    EnableUploads: boolean;
-    AllowInsecureDownloadURL: boolean;
-    EnableHealthCheck: boolean;
-    Directory: string;
-    ClientDirectory: string;
-    Plugins: Record<string, any>;
-    PluginStates: Record<string, { Enable: boolean }>;
-    RequirePluginSignature: boolean;
-    SignaturePublicKeyFiles: string[];
-    ChimeraOAuthProxyURL: string;
-};
-
 export type DisplaySettings = {
     CustomURLSchemes: string[];
     MaxMarkdownNodes: number;
@@ -978,37 +903,6 @@ export type AccessControlSettings = {
     EnableUserManagedAttributes: boolean;
 };
 
-export type ContentFlaggingNotificationSettings = {
-    EventTargetMapping: Record<ContentFlaggingEvent, NotificationTarget[]>;
-}
-
-export type TeamReviewerSetting = {
-    Enabled: boolean;
-    ReviewerIds: string[];
-}
-
-export type ContentFlaggingReviewerSetting = {
-    CommonReviewers: boolean;
-    CommonReviewerIds: string[];
-    TeamReviewersSetting: Record<string, TeamReviewerSetting>;
-    SystemAdminsAsReviewers: boolean;
-    TeamAdminsAsReviewers: boolean;
-}
-
-export type ContentFlaggingAdditionalSettings = {
-    Reasons: string[];
-    ReporterCommentRequired: boolean;
-    ReviewerCommentRequired: boolean;
-    HideFlaggedContent: boolean;
-}
-
-export type ContentFlaggingSettings = {
-    EnableContentFlagging: boolean;
-    NotificationSettings: ContentFlaggingNotificationSettings;
-    ReviewerSettings: ContentFlaggingReviewerSetting;
-    AdditionalSettings: ContentFlaggingAdditionalSettings;
-}
-
 export type AdminConfig = {
     ServiceSettings: ServiceSettings;
     TeamSettings: TeamSettings;
@@ -1039,11 +933,9 @@ export type AdminConfig = {
     ExperimentalSettings: ExperimentalSettings;
     AnalyticsSettings: AnalyticsSettings;
     CacheSettings: CacheSettings;
-    ElasticsearchSettings: ElasticsearchSettings;
     DataRetentionSettings: DataRetentionSettings;
     MessageExportSettings: MessageExportSettings;
     JobSettings: JobSettings;
-    PluginSettings: PluginSettings;
     DisplaySettings: DisplaySettings;
     GuestAccountsSettings: GuestAccountsSettings;
     ImageProxySettings: ImageProxySettings;
@@ -1053,8 +945,6 @@ export type AdminConfig = {
     WranglerSettings: WranglerSettings;
     ConnectedWorkspacesSettings: ConnectedWorkspacesSettings;
     AccessControlSettings: AccessControlSettings;
-    ContentFlaggingSettings: ContentFlaggingSettings;
-    AutoTranslationSettings: AutoTranslationSettings;
 };
 
 export type ReplicaLagSetting = {

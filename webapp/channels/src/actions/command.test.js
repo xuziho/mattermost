@@ -23,13 +23,7 @@ const currentTeamId = '321';
 const currentUserId = 'user123';
 const initialState = {
     entities: {
-        admin: {
-            pluginStatuses: {
-                'com.mattermost.apps': {
-                    state: 2,
-                },
-            },
-        },
+        admin: {},
         posts: {
             posts: {
                 root_id: {id: 'root_id', channel_id: '123'},

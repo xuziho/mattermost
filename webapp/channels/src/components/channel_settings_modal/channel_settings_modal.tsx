@@ -85,21 +85,6 @@ function ChannelSettingsModal({channelId, isOpen, onExited, focusOriginElement}:
     );
     const hasManageChannelBannerPermission = (channel.type === 'O' && canManagePublicChannelBanner) || (channel.type === 'P' && canManagePrivateChannelBanner);
 
-    const canManageChannelTranslation = useSelector((state: GlobalState) => {
-        const config = getConfig(state);
-        if (config?.EnableAutoTranslation !== 'true') {
-            return false;
-        }
-
-        const isDMorGM = channel.type === Constants.DM_CHANNEL || channel.type === Constants.GM_CHANNEL;
-        if (isDMorGM && config?.RestrictDMAndGMAutotranslation === 'true') {
-            return false;
-        }
-
-        const permissionToCheck = channel.type === Constants.PRIVATE_CHANNEL ? Permissions.MANAGE_PRIVATE_CHANNEL_AUTO_TRANSLATION : Permissions.MANAGE_PUBLIC_CHANNEL_AUTO_TRANSLATION;
-        return haveIChannelPermission(state, channel.team_id, channel.id, permissionToCheck);
-    });
-
     const canManageBanner = channelBannerEnabled && hasManageChannelBannerPermission;
     const canManageSharedChannels = useSelector((state: GlobalState) => {
         const config = getConfig(state);
@@ -109,7 +94,7 @@ function ChannelSettingsModal({channelId, isOpen, onExited, focusOriginElement}:
         }
         return haveISystemPermission(state, {permission: Permissions.MANAGE_SHARED_CHANNELS});
     });
-    const shouldShowConfigurationTab = canManageBanner || canManageChannelTranslation || canManageSharedChannels;
+    const shouldShowConfigurationTab = canManageBanner || canManageSharedChannels;
 
     const canManageChannelProperties = useSelector((state: GlobalState) => {
         if (isDMorGM) {
@@ -248,7 +233,6 @@ function ChannelSettingsModal({channelId, isOpen, onExited, focusOriginElement}:
                 channel={channel}
                 setAreThereUnsavedChanges={setAreThereUnsavedChanges}
                 showTabSwitchError={showTabSwitchError}
-                canManageChannelTranslation={canManageChannelTranslation}
                 canManageBanner={canManageBanner}
                 canManageSharedChannels={canManageSharedChannels}
             />

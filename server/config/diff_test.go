@@ -56,7 +56,6 @@ func BenchmarkDiff(b *testing.B) {
 		baseCfg.ServiceSettings.SiteURL = model.NewPointer("http://localhost")
 		baseCfg.ServiceSettings.ReadTimeout = model.NewPointer(300)
 		baseCfg.SqlSettings.QueryTimeout = model.NewPointer(0)
-		actualCfg.PluginSettings.EnableUploads = nil
 		actualCfg.TeamSettings.MaxChannelsPerTeam = model.NewPointer(int64(100000))
 		actualCfg.FeatureFlags = nil
 		actualCfg.SqlSettings.DataSourceReplicas = []string{
@@ -400,27 +399,6 @@ func TestDiffSanitized(t *testing.T) {
 			"",
 		},
 		{
-			"sensitive ElasticsearchSettings.Password",
-			func() *model.Config {
-				cfg := defaultConfigGen()
-				cfg.ElasticsearchSettings.Password = model.NewPointer("base")
-				return cfg
-			}(),
-			func() *model.Config {
-				cfg := defaultConfigGen()
-				cfg.ElasticsearchSettings.Password = model.NewPointer("actual")
-				return cfg
-			}(),
-			ConfigDiffs{
-				{
-					Path:      "ElasticsearchSettings.Password",
-					BaseVal:   model.FakeSetting,
-					ActualVal: model.FakeSetting,
-				},
-			},
-			"",
-		},
-		{
 			"sensitive MessageExportSettings.GlobalRelaySettings",
 			func() *model.Config {
 				cfg := defaultConfigGen()
@@ -474,27 +452,6 @@ func TestDiffSanitized(t *testing.T) {
 			ConfigDiffs{
 				{
 					Path:      "ServiceSettings.SplitKey",
-					BaseVal:   model.FakeSetting,
-					ActualVal: model.FakeSetting,
-				},
-			},
-			"",
-		},
-		{
-			"plugin config",
-			defaultConfigGen(),
-			func() *model.Config {
-				cfg := defaultConfigGen()
-				cfg.PluginSettings.Plugins = map[string]map[string]any{
-					"com.mattermost.newplugin": {
-						"key": true,
-					},
-				}
-				return cfg
-			}(),
-			ConfigDiffs{
-				{
-					Path:      "PluginSettings.Plugins",
 					BaseVal:   model.FakeSetting,
 					ActualVal: model.FakeSetting,
 				},
@@ -602,42 +559,6 @@ func TestDiff(t *testing.T) {
 					Path:    "ServiceSettings.SiteURL",
 					BaseVal: defaultConfigGen().ServiceSettings.SiteURL,
 					ActualVal: func() *string {
-						return nil
-					}(),
-				},
-			},
-			"",
-		},
-		{
-			"bool change",
-			defaultConfigGen(),
-			func() *model.Config {
-				cfg := defaultConfigGen()
-				cfg.PluginSettings.Enable = model.NewPointer(!*cfg.PluginSettings.Enable)
-				return cfg
-			}(),
-			ConfigDiffs{
-				{
-					Path:      "PluginSettings.Enable",
-					BaseVal:   true,
-					ActualVal: false,
-				},
-			},
-			"",
-		},
-		{
-			"bool nil",
-			defaultConfigGen(),
-			func() *model.Config {
-				cfg := defaultConfigGen()
-				cfg.PluginSettings.Enable = nil
-				return cfg
-			}(),
-			ConfigDiffs{
-				{
-					Path:    "PluginSettings.Enable",
-					BaseVal: defaultConfigGen().PluginSettings.Enable,
-					ActualVal: func() *bool {
 						return nil
 					}(),
 				},
@@ -758,142 +679,6 @@ func TestDiff(t *testing.T) {
 					},
 					ActualVal: func() []string {
 						return nil
-					}(),
-				},
-			},
-			"",
-		},
-		{
-			"map change",
-			defaultConfigGen(),
-			func() *model.Config {
-				cfg := defaultConfigGen()
-				cfg.PluginSettings.PluginStates["com.mattermost.nps"] = &model.PluginState{
-					Enable: !cfg.PluginSettings.PluginStates["com.mattermost.nps"].Enable,
-				}
-				return cfg
-			}(),
-			ConfigDiffs{
-				{
-					Path:    "PluginSettings.PluginStates",
-					BaseVal: defaultConfigGen().PluginSettings.PluginStates,
-					ActualVal: map[string]*model.PluginState{
-						"com.mattermost.nps": {
-							Enable: !defaultConfigGen().PluginSettings.PluginStates["com.mattermost.nps"].Enable,
-						},
-						"mattermost-ai": {
-							Enable: defaultConfigGen().PluginSettings.PluginStates["mattermost-ai"].Enable,
-						},
-					},
-				},
-			},
-			"",
-		},
-		{
-			"map addition",
-			defaultConfigGen(),
-			func() *model.Config {
-				cfg := defaultConfigGen()
-				cfg.PluginSettings.PluginStates["com.mattermost.newplugin"] = &model.PluginState{
-					Enable: true,
-				}
-				return cfg
-			}(),
-			ConfigDiffs{
-				{
-					Path:    "PluginSettings.PluginStates",
-					BaseVal: defaultConfigGen().PluginSettings.PluginStates,
-					ActualVal: map[string]*model.PluginState{
-						"com.mattermost.nps": {
-							Enable: defaultConfigGen().PluginSettings.PluginStates["com.mattermost.nps"].Enable,
-						},
-						"com.mattermost.newplugin": {
-							Enable: true,
-						},
-						"mattermost-ai": {
-							Enable: defaultConfigGen().PluginSettings.PluginStates["mattermost-ai"].Enable,
-						},
-					},
-				},
-			},
-			"",
-		},
-		{
-			"map deletion",
-			defaultConfigGen(),
-			func() *model.Config {
-				cfg := defaultConfigGen()
-				delete(cfg.PluginSettings.PluginStates, "com.mattermost.nps")
-				return cfg
-			}(),
-			ConfigDiffs{
-				{
-					Path:    "PluginSettings.PluginStates",
-					BaseVal: defaultConfigGen().PluginSettings.PluginStates,
-					ActualVal: map[string]*model.PluginState{
-						"mattermost-ai": {
-							Enable: defaultConfigGen().PluginSettings.PluginStates["mattermost-ai"].Enable,
-						},
-					},
-				},
-			},
-			"",
-		},
-		{
-			"map nil",
-			defaultConfigGen(),
-			func() *model.Config {
-				cfg := defaultConfigGen()
-				cfg.PluginSettings.PluginStates = nil
-				return cfg
-			}(),
-			ConfigDiffs{
-				{
-					Path:    "PluginSettings.PluginStates",
-					BaseVal: defaultConfigGen().PluginSettings.PluginStates,
-					ActualVal: func() map[string]*model.PluginState {
-						return nil
-					}(),
-				},
-			},
-			"",
-		},
-		{
-			"map type change",
-			func() *model.Config {
-				cfg := defaultConfigGen()
-				cfg.PluginSettings.Plugins = map[string]map[string]any{
-					"com.mattermost.newplugin": {
-						"key": true,
-					},
-				}
-				return cfg
-			}(),
-			func() *model.Config {
-				cfg := defaultConfigGen()
-				cfg.PluginSettings.Plugins = map[string]map[string]any{
-					"com.mattermost.newplugin": {
-						"key": "string",
-					},
-				}
-				return cfg
-			}(),
-			ConfigDiffs{
-				{
-					Path: "PluginSettings.Plugins",
-					BaseVal: func() any {
-						return map[string]map[string]any{
-							"com.mattermost.newplugin": {
-								"key": true,
-							},
-						}
-					}(),
-					ActualVal: func() any {
-						return map[string]map[string]any{
-							"com.mattermost.newplugin": {
-								"key": "string",
-							},
-						}
 					}(),
 				},
 			},

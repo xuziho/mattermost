@@ -8,7 +8,7 @@ import {FormattedMessage, defineMessage, defineMessages} from 'react-intl';
 import {Link} from 'react-router-dom';
 import semver from 'semver';
 
-import {AccountMultipleOutlineIcon, ChartBarIcon, CogOutlineIcon, FlaskOutlineIcon, FormatListBulletedIcon, InformationOutlineIcon, PowerPlugOutlineIcon, ServerVariantIcon, ShieldOutlineIcon, SitemapIcon, TableLargeIcon} from '@mattermost/compass-icons/components';
+import {AccountMultipleOutlineIcon, ChartBarIcon, CogOutlineIcon, FlaskOutlineIcon, FormatListBulletedIcon, InformationOutlineIcon, ServerVariantIcon, ShieldOutlineIcon, SitemapIcon, TableLargeIcon} from '@mattermost/compass-icons/components';
 
 import {Posts} from 'mattermost-redux/constants';
 import {RESOURCE_KEYS} from 'mattermost-redux/constants/permissions_sysconsole';
@@ -30,10 +30,7 @@ import {
     uploadPublicSamlCertificate,
 } from 'actions/admin_actions';
 
-import ContentFlaggingSettings, {searchableStrings as dataSpillageSearchableStrings} from 'components/admin_console/content_flagging/content_flagging_settings';
-import CustomPluginSettings from 'components/admin_console/custom_plugin_settings';
 import CustomProfileAttributes from 'components/admin_console/custom_profile_attributes/custom_profile_attributes';
-import PluginManagement from 'components/admin_console/plugin_management';
 import SystemAnalytics from 'components/analytics/system_analytics';
 import {searchableStrings as systemAnalyticsSearchableStrings} from 'components/analytics/system_analytics/system_analytics';
 import TeamAnalytics from 'components/analytics/team_analytics';
@@ -65,14 +62,12 @@ import CustomDataRetentionForm from './data_retention_settings/custom_policy_for
 import {searchableStrings as dataRetentionSearchableStrings} from './data_retention_settings/data_retention_settings';
 import GlobalDataRetentionForm from './data_retention_settings/global_policy_form';
 import DatabaseSettings, {searchableStrings as databaseSearchableStrings} from './database_settings';
-import ElasticSearchSettings, {searchableStrings as elasticSearchSearchableStrings} from './elasticsearch_settings';
 import FeatureFlags, {messages as featureFlagsMessages} from './feature_flags';
 import GroupDetails from './group_settings/group_details';
 import GroupSettings from './group_settings/group_settings';
 import IPFiltering from './ip_filtering';
 import LDAPWizard from './ldap_wizard';
 import LicensedSectionContainer from './licensed_section_container';
-import AutoTranslation, {searchableStrings as autoTranslationSearchableStrings} from './localization/auto_translation';
 import Localization, {searchableStrings as localizationSearchableStrings} from './localization/localization';
 import MessageExportSettings, {searchableStrings as messageExportSearchableStrings} from './message_export_settings';
 import OpenIdConvert from './openid_convert';
@@ -83,7 +78,6 @@ import PermissionSchemesSettings from './permission_schemes_settings';
 import {searchableStrings as PermissionSchemeSearchableStrings} from './permission_schemes_settings/permission_schemes_settings';
 import PermissionSystemSchemeSettings from './permission_schemes_settings/permission_system_scheme_settings';
 import PermissionTeamSchemeSettings from './permission_schemes_settings/permission_team_scheme_settings';
-import {searchableStrings as pluginManagementSearchableStrings} from './plugin_management/plugin_management';
 import PushNotificationsSettings, {searchableStrings as pushSearchableStrings} from './push_settings';
 import SecureConnections, {searchableStrings as secureConnectionsSearchableStrings} from './secure_connections';
 import SecureConnectionDetail from './secure_connections/secure_connection_detail';
@@ -878,21 +872,6 @@ const AdminDefinition: AdminDefinitionType = {
                 schema: {
                     id: 'DatabaseSettings',
                     component: DatabaseSettings,
-                },
-            },
-            elasticsearch: {
-                url: 'environment/elasticsearch',
-                title: defineMessage({id: 'admin.sidebar.elasticsearch', defaultMessage: 'Elasticsearch'}),
-                isHidden: it.any(
-                    it.not(it.licensedForFeature('Elasticsearch')),
-                    it.configIsTrue('ExperimentalSettings', 'RestrictSystemAdmin'),
-                    it.not(it.userHasReadPermissionOnResource(RESOURCE_KEYS.ENVIRONMENT.ELASTICSEARCH)),
-                ),
-                searchableStrings: elasticSearchSearchableStrings,
-                isDisabled: it.not(it.userHasWritePermissionOnResource(RESOURCE_KEYS.ENVIRONMENT.ELASTICSEARCH)),
-                schema: {
-                    id: 'ElasticSearchSettings',
-                    component: ElasticSearchSettings,
                 },
             },
             storage: {
@@ -2265,7 +2244,7 @@ const AdminDefinition: AdminDefinitionType = {
                 url: 'site_config/localization',
                 title: defineMessage({id: 'admin.sidebar.localization', defaultMessage: 'Localization'}),
                 isHidden: it.not(it.userHasReadPermissionOnResource(RESOURCE_KEYS.SITE.LOCALIZATION)),
-                searchableStrings: localizationSearchableStrings.concat(autoTranslationSearchableStrings),
+                searchableStrings: localizationSearchableStrings,
                 schema: {
                     id: 'LocalizationSettings',
                     name: defineMessage({id: 'admin.site.localization', defaultMessage: 'Localization'}),
@@ -2275,15 +2254,6 @@ const AdminDefinition: AdminDefinitionType = {
                             key: 'LocalizationSettings',
                             component: Localization,
                             isDisabled: it.not(it.userHasWritePermissionOnResource(RESOURCE_KEYS.SITE.LOCALIZATION)),
-                        },
-                        {
-                            type: 'custom',
-                            key: 'AutoTranslationSettings',
-                            component: AutoTranslation,
-                            isHidden: it.any(
-                                it.configIsFalse('FeatureFlags', 'AutoTranslation'),
-                                it.not(it.minLicenseTier(LicenseSkus.EnterpriseAdvanced)),
-                            ),
                         },
                     ],
                 },
@@ -3114,22 +3084,6 @@ const AdminDefinition: AdminDefinitionType = {
                             ],
                         },
                     ],
-                },
-            },
-            content_flagging: {
-                url: 'site_config/data_spillage',
-                title: defineMessage({id: 'admin.sidebar.dataSpillage', defaultMessage: 'Data Spillage Handling'}),
-                searchableStrings: dataSpillageSearchableStrings,
-                isHidden: it.any(
-                    it.not(it.minLicenseTier(LicenseSkus.EnterpriseAdvanced)),
-                    it.not(it.userHasReadPermissionOnResource(RESOURCE_KEYS.USER_MANAGEMENT.SYSTEM_ROLES)),
-                    it.configIsFalse('FeatureFlags', 'ContentFlagging'),
-                ),
-                isDisabled: it.not(it.userHasWritePermissionOnResource(RESOURCE_KEYS.USER_MANAGEMENT.SYSTEM_ROLES)),
-                restrictedIndicator: getRestrictedIndicator(false, LicenseSkus.EnterpriseAdvanced),
-                schema: {
-                    id: 'ContentFlaggingSettings',
-                    component: ContentFlaggingSettings,
                 },
             },
             wrangler: {
@@ -4714,37 +4668,6 @@ const AdminDefinition: AdminDefinitionType = {
             },
         },
     },
-    plugins: {
-        icon: (
-            <PowerPlugOutlineIcon
-                size={16}
-                color={'currentColor'}
-            />
-        ),
-        sectionTitle: defineMessage({id: 'admin.sidebar.plugins', defaultMessage: 'Plugins'}),
-        id: 'plugins',
-        isHidden: it.not(it.userHasReadPermissionOnResource('plugins')),
-        subsections: {
-            plugin_management: {
-                url: 'plugins/plugin_management',
-                title: defineMessage({id: 'admin.plugins.pluginManagement', defaultMessage: 'Plugin Management'}),
-                searchableStrings: pluginManagementSearchableStrings,
-                isDisabled: it.not(it.userHasWritePermissionOnResource('plugins')),
-                schema: {
-                    id: 'PluginManagementSettings',
-                    component: PluginManagement,
-                },
-            },
-            custom: {
-                url: 'plugins/plugin_:plugin_id',
-                isDisabled: it.not(it.userHasWritePermissionOnResource('plugins')),
-                schema: {
-                    id: 'CustomPluginSettings',
-                    component: CustomPluginSettings,
-                },
-            },
-        },
-    },
     integrations: {
         icon: (
             <SitemapIcon
@@ -4907,26 +4830,6 @@ const AdminDefinition: AdminDefinitionType = {
                             help_text_markdown: true,
                             help_text_values: {siteURL: getSiteURL()},
                             isDisabled: it.not(it.userHasWritePermissionOnResource(RESOURCE_KEYS.INTEGRATIONS.BOT_ACCOUNTS)),
-                        },
-                    ],
-                },
-            },
-            gif: {
-                url: 'integrations/gif',
-                title: defineMessage({id: 'admin.sidebar.gif', defaultMessage: 'GIF'}),
-                isHidden: it.all(
-                    it.not(it.userHasReadPermissionOnResource(RESOURCE_KEYS.INTEGRATIONS.GIF)),
-                ),
-                schema: {
-                    id: 'GifSettings',
-                    name: defineMessage({id: 'admin.integrations.gif', defaultMessage: 'GIF'}),
-                    settings: [
-                        {
-                            type: 'bool',
-                            key: 'ServiceSettings.EnableGifPicker',
-                            label: defineMessage({id: 'admin.customization.enableGifPickerTitle', defaultMessage: 'Enable GIF Picker:'}),
-                            help_text: defineMessage({id: 'admin.customization.enableGifPickerDesc', defaultMessage: 'Allows users to select GIFs from the emoji picker.'}),
-                            isDisabled: it.not(it.userHasWritePermissionOnResource(RESOURCE_KEYS.INTEGRATIONS.GIF)),
                         },
                     ],
                 },

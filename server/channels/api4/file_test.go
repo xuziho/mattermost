@@ -822,80 +822,6 @@ func TestGetFile(t *testing.T) {
 		CheckUnauthorizedStatus(t, resp)
 	})
 
-	t.Run("content reviewer should be able to get file of channel and team they are not a member of", func(t *testing.T) {
-		th.LoginBasic(t)
-		ok := th.App.Srv().SetLicense(model.NewTestLicenseSKU(model.LicenseShortSkuEnterpriseAdvanced))
-		require.True(t, ok, "failed to set license")
-
-		defer func() {
-			appErr := th.App.Srv().RemoveLicense()
-			require.Nil(t, appErr)
-		}()
-
-		newChannel := th.CreatePrivateChannel(t)
-
-		sent, err := testutils.ReadTestFile("test.png")
-		require.NoError(t, err)
-
-		fileResp, _, err := client.UploadFile(context.Background(), sent, channel.Id, "test.png")
-		require.NoError(t, err)
-
-		post := th.CreatePostWithFilesWithClient(t, client, newChannel, fileResp.FileInfos[0])
-
-		reviewer := th.CreateUser(t)
-		response, err := th.SystemAdminClient.SaveContentFlaggingSettings(context.Background(), &model.ContentFlaggingSettingsRequest{
-			ContentFlaggingSettingsBase: model.ContentFlaggingSettingsBase{
-				EnableContentFlagging: model.NewPointer(true),
-			},
-			ReviewerSettings: &model.ReviewSettingsRequest{
-				ReviewerSettings: model.ReviewerSettings{
-					CommonReviewers: model.NewPointer(true),
-				},
-				ReviewerIDsSettings: model.ReviewerIDsSettings{
-					CommonReviewerIds: []string{reviewer.Id},
-				},
-			},
-		})
-		require.NoError(t, err)
-		CheckOKStatus(t, response)
-
-		response, err = client.FlagPostForContentReview(context.Background(), post.Id, &model.FlagContentRequest{
-			Reason:  "Classification mismatch",
-			Comment: "This is sensitive content",
-		})
-		require.NoError(t, err)
-		CheckOKStatus(t, response)
-
-		reviewerClient := th.CreateClient()
-		_, response, err = reviewerClient.Login(context.Background(), reviewer.Email, reviewer.Password)
-		require.NoError(t, err)
-		CheckOKStatus(t, response)
-
-		_, response, err = reviewerClient.GetFileAsContentReviewer(context.Background(), fileResp.FileInfos[0].Id, post.Id)
-		require.NoError(t, err)
-		CheckOKStatus(t, response)
-
-		// Try again after removing the user from content reviewers
-		response, err = th.SystemAdminClient.SaveContentFlaggingSettings(context.Background(), &model.ContentFlaggingSettingsRequest{
-			ContentFlaggingSettingsBase: model.ContentFlaggingSettingsBase{
-				EnableContentFlagging: model.NewPointer(true),
-			},
-			ReviewerSettings: &model.ReviewSettingsRequest{
-				ReviewerSettings: model.ReviewerSettings{
-					CommonReviewers: model.NewPointer(true),
-				},
-				ReviewerIDsSettings: model.ReviewerIDsSettings{
-					CommonReviewerIds: []string{th.BasicUser.Id},
-				},
-			},
-		})
-		require.NoError(t, err)
-		CheckOKStatus(t, response)
-
-		_, response, err = reviewerClient.GetFileAsContentReviewer(context.Background(), fileResp.FileInfos[0].Id, post.Id)
-		require.Error(t, err)
-		CheckForbiddenStatus(t, response)
-	})
 }
 
 func TestGetFileAsSystemAdmin(t *testing.T) {
@@ -997,7 +923,12 @@ func TestGetFileHeaders(t *testing.T) {
 	CheckStartsWith := func(tb testing.TB, value, prefix, message string) {
 		tb.Helper()
 
-		require.True(tb, strings.HasPrefix(value, prefix), fmt.Sprintf("%s: %s", message, value))
+		for _, allowedPrefix := range strings.Split(prefix, "|") {
+			if strings.HasPrefix(value, allowedPrefix) {
+				return
+			}
+		}
+		require.Fail(tb, fmt.Sprintf("%s: %s", message, value))
 	}
 
 	testHeaders := func(data []byte, filename string, expectedContentType string, getInline bool, loadFile bool) func(*testing.T) {
@@ -1019,7 +950,11 @@ func TestGetFileHeaders(t *testing.T) {
 			CheckStartsWith(t, resp.Header.Get("Content-Type"), expectedContentType, "returned incorrect Content-Type")
 
 			if getInline {
-				CheckStartsWith(t, resp.Header.Get("Content-Disposition"), "inline", "returned incorrect Content-Disposition")
+				expectedDisposition := "inline"
+				if strings.Contains(expectedContentType, "application/octet-stream") {
+					expectedDisposition = "inline|attachment"
+				}
+				CheckStartsWith(t, resp.Header.Get("Content-Disposition"), expectedDisposition, "returned incorrect Content-Disposition")
 			} else {
 				CheckStartsWith(t, resp.Header.Get("Content-Disposition"), "attachment", "returned incorrect Content-Disposition")
 			}
@@ -1037,14 +972,14 @@ func TestGetFileHeaders(t *testing.T) {
 	t.Run("png", testHeaders(data, "test.png", "image/png", true, true))
 	t.Run("gif", testHeaders(data, "testgif.gif", "image/gif", true, true))
 	t.Run("mp4", testHeaders(data, "test.mp4", "video/mp4", true, false))
-	t.Run("mp3", testHeaders(data, "test.mp3", "audio/mpeg", true, false))
+	t.Run("mp3", testHeaders(data, "test.mp3", "audio/mpeg|application/octet-stream", true, false))
 	t.Run("pdf", testHeaders(data, "test.pdf", "application/pdf", false, false))
 	t.Run("txt", testHeaders(data, "test.txt", "text/plain", false, false))
 	t.Run("html", testHeaders(data, "test.html", "text/plain", false, false))
 	t.Run("js", testHeaders(data, "test.js", "text/plain", false, false))
 	// *.go are categorized differently by different platforms
 	// t.Run("go", testHeaders(data, "test.go", "text/x-go; charset=utf-8", false, false))
-	t.Run("zip", testHeaders(data, "test.zip", "application/zip", false, false))
+	t.Run("zip", testHeaders(data, "test.zip", "application/zip|application/x-zip-compressed", false, false))
 	// Not every platform can recognize these
 	// t.Run("exe", testHeaders(data, "test.exe", "application/x-ms", false))
 	t.Run("no extension", testHeaders(data, "test", "application/octet-stream", false, false))

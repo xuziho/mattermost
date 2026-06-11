@@ -5,11 +5,9 @@ package email
 
 import (
 	"os"
-	"path/filepath"
 	"testing"
 
 	"github.com/mattermost/mattermost/server/public/model"
-	"github.com/mattermost/mattermost/server/public/plugin/plugintest/mock"
 	"github.com/mattermost/mattermost/server/public/shared/request"
 	"github.com/mattermost/mattermost/server/v8/channels/app/users"
 	"github.com/mattermost/mattermost/server/v8/channels/store"
@@ -17,6 +15,7 @@ import (
 	"github.com/mattermost/mattermost/server/v8/channels/testlib"
 	"github.com/mattermost/mattermost/server/v8/config"
 	"github.com/mattermost/mattermost/server/v8/platform/shared/templates"
+	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 )
 
@@ -79,8 +78,6 @@ func setupTestHelper(s store.Store, tb testing.TB) *TestHelper {
 	configStore := config.NewTestMemoryStore()
 
 	config := configStore.Get()
-	*config.PluginSettings.Directory = filepath.Join(tempWorkspace, "plugins")
-	*config.PluginSettings.ClientDirectory = filepath.Join(tempWorkspace, "webapp")
 	*config.LogSettings.EnableSentry = false // disable error reporting during tests
 	*config.AnnouncementSettings.AdminNoticesEnabled = false
 	*config.AnnouncementSettings.UserNoticesEnabled = false

@@ -222,15 +222,7 @@ func (a *App) GetSanitizedConfig() *model.Config {
 
 // SanitizedConfig sanitizes a given configuration for a system admin without any secrets.
 func (a *App) SanitizedConfig(cfg *model.Config) {
-	manifests, err := a.getPluginManifests()
-	if err != nil {
-		// GetPluginManifests might error, e.g. when plugins are disabled.
-		// Sanitize all plugin settings in this case.
-		cfg.Sanitize(nil, nil)
-		return
-	}
-
-	cfg.Sanitize(manifests, nil)
+	cfg.Sanitize(nil, nil)
 }
 
 // GetEnvironmentConfig returns a map of configuration keys whose values have been overridden by an environment variable.

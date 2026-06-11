@@ -50,7 +50,7 @@ const useBurnOnRead = (
     const channel = useSelector((state: GlobalState) => getChannel(state, channelId));
     const currentUser = useSelector(getCurrentUser);
 
-    // Burn-on-read is not allowed in self-DMs or DMs with bots (AI agents, plugins, etc.)
+    // Burn-on-read is not allowed in self-DMs or DMs with bots.
     const otherUserId = useMemo(() => {
         if (!channel || !currentUser || !isDirectChannel(channel)) {
             return null;
@@ -72,7 +72,7 @@ const useBurnOnRead = (
                 return false; // Block self-DMs
             }
 
-            // Block DMs with bots (AI agents, plugins, etc.)
+            // Block DMs with bots.
             if (otherUser?.is_bot) {
                 return false;
             }

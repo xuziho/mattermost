@@ -25,11 +25,11 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/*
 
 # Set mattermost group/user and download Mattermost
-RUN mkdir -p /mattermost/data /mattermost/plugins /mattermost/client/plugins \
+RUN mkdir -p /mattermost/data \
   && groupadd --gid ${PGID} mattermost \
   && useradd --uid ${PUID} --gid ${PGID} --comment "" --home-dir /mattermost mattermost \
   && curl -L $MM_PACKAGE | tar -xvz \
-  && chown -R mattermost:mattermost /mattermost /mattermost/data /mattermost/plugins /mattermost/client/plugins
+  && chown -R mattermost:mattermost /mattermost /mattermost/data
 
 # Create PostgreSQL client SSL directory structure for ssl_mode=require
 RUN mkdir -p /mattermost/.postgresql \
@@ -85,4 +85,4 @@ CMD ["/mattermost/bin/mattermost"]
 EXPOSE 8065 8067 8074 8075
 
 # Declare volumes for mount point directories
-VOLUME ["/mattermost/data", "/mattermost/logs", "/mattermost/config", "/mattermost/plugins", "/mattermost/client/plugins"]
+VOLUME ["/mattermost/data", "/mattermost/logs", "/mattermost/config"]

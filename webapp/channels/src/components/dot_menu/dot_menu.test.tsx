@@ -56,10 +56,7 @@ describe('components/dot_menu/DotMenu', () => {
     const initialState: DeepPartial<GlobalState> = {
         entities: {
             general: {
-                config: {
-                    FeatureFlagContentFlagging: 'true',
-                    ContentFlaggingEnabled: 'true',
-                },
+                config: {},
             },
             channels: {
                 myMembers: {
@@ -139,9 +136,6 @@ describe('components/dot_menu/DotMenu', () => {
                         type: 'O',
                     },
                 },
-                contentFlaggingStatus: {
-                    currentTeamId: true,
-                },
             },
             posts: {
                 posts: {
@@ -206,7 +200,6 @@ describe('components/dot_menu/DotMenu', () => {
         userId: 'user_id_1',
         isMilitaryTime: false,
         canMove: true,
-        isChannelAutotranslated: false,
         canReply: true,
         canForward: true,
         canFollowThread: true,

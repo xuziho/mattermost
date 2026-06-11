@@ -100,7 +100,6 @@ All environment variables are optional with sensible defaults.
 | `PW_ADMIN_USERNAME`           | Admin username                             | `sysadmin`                       |
 | `PW_ADMIN_PASSWORD`           | Admin password                             | `Sys@dmin-sample1`               |
 | `PW_ADMIN_EMAIL`              | Admin email                                | `sysadmin@sample.mattermost.com` |
-| `PW_ENSURE_PLUGINS_INSTALLED` | Comma-separated list of plugins to install | `[]`                             |
 | `PW_RESET_BEFORE_TEST`        | Reset server before test                   | `false`                          |
 
 #### High Availability Cluster Settings

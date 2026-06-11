@@ -22,7 +22,6 @@ import DelayedAction from 'utils/delayed_action';
 import {getPreviousPostId, getLatestPostId} from 'utils/post_utils';
 import * as Utils from 'utils/utils';
 
-import type {NewMessagesSeparatorActionComponent} from 'types/store/plugins';
 import type {FakePost} from 'types/store/rhs';
 
 import CreateComment from './create_comment';
@@ -42,10 +41,8 @@ type Props = {
     useRelativeTimestamp: boolean;
     isMobileView: boolean;
     isThreadView: boolean;
-    newMessagesSeparatorActions: NewMessagesSeparatorActionComponent[];
     inputPlaceholder?: string;
     measureRhsOpened: () => void;
-    isChannelAutotranslated: boolean;
 }
 
 type State = {
@@ -372,9 +369,6 @@ class ThreadViewerVirtualized extends PureComponent<Props, State> {
                     onCardClick={this.props.onCardClick}
                     previousPostId={getPreviousPostId(data, index)}
                     timestampProps={this.props.useRelativeTimestamp ? THREADING_TIME : undefined}
-                    threadId={this.props.selected.id}
-                    newMessagesSeparatorActions={this.props.newMessagesSeparatorActions}
-                    isChannelAutotranslated={this.props.isChannelAutotranslated}
                 />
             </div>
         );

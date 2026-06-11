@@ -70,14 +70,6 @@ const (
 
 	ChannelCacheSec = 15 * 60 // 15 mins
 
-	// Auto-translation caches
-	UserAutoTranslationCacheSize = 50000 // User+channel combos
-	UserAutoTranslationCacheSec  = 15 * 60
-	PostTranslationEtagCacheSize = 25000 // Channel etags for post translations
-	PostTranslationEtagCacheSec  = 15 * 60
-
-	ContentFlaggingCacheSize = 100
-
 	ReadReceiptCacheSize = 50000
 
 	TemporaryPostCacheSize    = 10000
@@ -137,13 +129,6 @@ type LocalCacheStore struct {
 
 	termsOfService      LocalCacheTermsOfServiceStore
 	termsOfServiceCache cache.Cache
-
-	autotranslation          LocalCacheAutoTranslationStore
-	userAutoTranslationCache cache.Cache
-	postTranslationEtagCache cache.Cache
-
-	contentFlagging      LocalCacheContentFlaggingStore
-	contentFlaggingCache cache.Cache
 
 	readReceipt                     LocalCacheReadReceiptStore
 	readReceiptCache                cache.Cache
@@ -394,33 +379,6 @@ func NewLocalCacheLayer(baseStore store.Store, metrics einterfaces.MetricsInterf
 	}
 	localCacheStore.team = LocalCacheTeamStore{TeamStore: baseStore.Team(), rootStore: &localCacheStore}
 
-	// Auto-translation
-	if localCacheStore.userAutoTranslationCache, err = cacheProvider.NewCache(&cache.CacheOptions{
-		Size:                   UserAutoTranslationCacheSize,
-		Name:                   "UserAutoTranslation",
-		DefaultExpiry:          UserAutoTranslationCacheSec * time.Second,
-		InvalidateClusterEvent: model.ClusterEventInvalidateCacheForUserAutoTranslation,
-	}); err != nil {
-		return
-	}
-	if localCacheStore.postTranslationEtagCache, err = cacheProvider.NewCache(&cache.CacheOptions{
-		Size:                   PostTranslationEtagCacheSize,
-		Name:                   "PostTranslationEtag",
-		DefaultExpiry:          PostTranslationEtagCacheSec * time.Second,
-		InvalidateClusterEvent: model.ClusterEventInvalidateCacheForPostTranslationEtag,
-	}); err != nil {
-		return
-	}
-	localCacheStore.autotranslation = LocalCacheAutoTranslationStore{AutoTranslationStore: baseStore.AutoTranslation(), rootStore: &localCacheStore}
-	if localCacheStore.contentFlaggingCache, err = cacheProvider.NewCache(&cache.CacheOptions{
-		Size:                   ContentFlaggingCacheSize,
-		Name:                   "ContentFlagging",
-		InvalidateClusterEvent: model.ClusterEventInvalidateCacheForContentFlagging,
-	}); err != nil {
-		return
-	}
-	localCacheStore.contentFlagging = LocalCacheContentFlaggingStore{ContentFlaggingStore: baseStore.ContentFlagging(), rootStore: &localCacheStore}
-
 	// Read Receipts
 	if localCacheStore.readReceiptCache, err = cacheProvider.NewCache(&cache.CacheOptions{
 		Size:                   ReadReceiptCacheSize,
@@ -480,9 +438,6 @@ func NewLocalCacheLayer(baseStore store.Store, metrics einterfaces.MetricsInterf
 		cluster.RegisterClusterMessageHandler(model.ClusterEventInvalidateCacheForProfileInChannel, localCacheStore.user.handleClusterInvalidateProfilesInChannel)
 		cluster.RegisterClusterMessageHandler(model.ClusterEventInvalidateCacheForAllProfiles, localCacheStore.user.handleClusterInvalidateAllProfiles)
 		cluster.RegisterClusterMessageHandler(model.ClusterEventInvalidateCacheForTeams, localCacheStore.team.handleClusterInvalidateTeam)
-		cluster.RegisterClusterMessageHandler(model.ClusterEventInvalidateCacheForUserAutoTranslation, localCacheStore.autotranslation.handleClusterInvalidateUserAutoTranslation)
-		cluster.RegisterClusterMessageHandler(model.ClusterEventInvalidateCacheForPostTranslationEtag, localCacheStore.autotranslation.handleClusterInvalidatePostTranslationEtag)
-		cluster.RegisterClusterMessageHandler(model.ClusterEventInvalidateCacheForContentFlagging, localCacheStore.contentFlagging.handleClusterInvalidateContentFlagging)
 		cluster.RegisterClusterMessageHandler(model.ClusterEventInvalidateCacheForReadReceipts, localCacheStore.readReceipt.handleClusterInvalidateReadReceipts)
 		cluster.RegisterClusterMessageHandler(model.ClusterEventInvalidateCacheForTemporaryPosts, localCacheStore.temporaryPost.handleClusterInvalidateTemporaryPosts)
 	}
@@ -531,14 +486,6 @@ func (s LocalCacheStore) User() store.UserStore {
 
 func (s LocalCacheStore) Team() store.TeamStore {
 	return s.team
-}
-
-func (s LocalCacheStore) AutoTranslation() store.AutoTranslationStore {
-	return s.autotranslation
-}
-
-func (s LocalCacheStore) ContentFlagging() store.ContentFlaggingStore {
-	return s.contentFlagging
 }
 
 func (s LocalCacheStore) ReadReceipt() store.ReadReceiptStore {
@@ -682,8 +629,6 @@ func (s *LocalCacheStore) Invalidate() {
 	s.doClearCacheCluster(s.profilesInChannelCache)
 	s.doClearCacheCluster(s.teamAllTeamIdsForUserCache)
 	s.doClearCacheCluster(s.rolePermissionsCache)
-	s.doClearCacheCluster(s.userAutoTranslationCache)
-	s.doClearCacheCluster(s.postTranslationEtagCache)
 	s.doClearCacheCluster(s.readReceiptCache)
 	s.doClearCacheCluster(s.readReceiptPostReadersCache)
 	s.doClearCacheCluster(s.temporaryPostCache)

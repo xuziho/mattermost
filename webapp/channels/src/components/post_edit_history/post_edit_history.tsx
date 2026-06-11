@@ -22,7 +22,6 @@ import './post_edit_history.scss';
 const PostEditHistory = ({
     channelDisplayName,
     originalPost,
-    isChannelAutotranslated,
 }: PropsFromRedux) => {
     const [postEditHistory, setPostEditHistory] = useState<Post[]>([]);
     const [hasError, setHasError] = useState<boolean>(false);
@@ -105,7 +104,6 @@ const PostEditHistory = ({
             post={originalPost}
             key={originalPost.id}
             isCurrent={true}
-            isChannelAutotranslated={isChannelAutotranslated}
         />
     );
 
@@ -113,7 +111,6 @@ const PostEditHistory = ({
         <EditedPostItem
             key={postEdited.id}
             post={postEdited}
-            isChannelAutotranslated={isChannelAutotranslated}
         />
     ))];
 

@@ -241,24 +241,6 @@ function searchType(state = '', action: MMAction) {
     }
 }
 
-function pluggableId(state = '', action: MMAction) {
-    switch (action.type) {
-    case ActionTypes.UPDATE_RHS_STATE:
-        if (action.state === RHSStates.PLUGIN) {
-            return action.pluggableId;
-        }
-        return '';
-    case ActionTypes.SELECT_POST:
-    case ActionTypes.SELECT_POST_CARD:
-        return '';
-
-    case UserTypes.LOGOUT_SUCCESS:
-        return '';
-    default:
-        return state;
-    }
-}
-
 function searchResultsTerms(state = '', action: MMAction) {
     switch (action.type) {
     case ActionTypes.UPDATE_RHS_SEARCH_RESULTS_TERMS:
@@ -438,7 +420,6 @@ export default combineReducers({
     searchResultsTerms,
     searchResultsType,
     size,
-    pluggableId,
     isSearchingFlaggedPost,
     isSearchingPinnedPost,
     isSidebarOpen,

@@ -10548,18 +10548,6 @@
     "translation": "Misslyckades med att uppdatera användarens lösenord."
   },
   {
-    "id": "model.config.is_valid.autotranslation.libretranslate.url.app_error",
-    "translation": "LibreTranslate URL måste vara en giltig URL och börja med http:// eller https://."
-  },
-  {
-    "id": "model.config.is_valid.autotranslation.provider.app_error",
-    "translation": "Ogiltig leverantör av autotranslation, får inte vara tom."
-  },
-  {
-    "id": "model.config.is_valid.autotranslation.provider.unsupported.app_error",
-    "translation": "Leverantören av autotranslation stöds inte."
-  },
-  {
     "id": "model.oauth.validate_grant.credentials.app_error",
     "translation": "Ogiltiga klient-uppgifter."
   },
@@ -10602,10 +10590,6 @@
   {
     "id": "api.user.guest_magic_link.expired_token.app_error",
     "translation": "Den här inbjudningslänken har slutat gälla."
-  },
-  {
-    "id": "app.agents.get_agents.bridge_call_failed",
-    "translation": "Samtalsbryggningen misslyckades."
   },
   {
     "id": "app.agents.get_services.bridge_call_failed",

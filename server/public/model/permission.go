@@ -45,8 +45,6 @@ var PermissionCreateDirectChannel *Permission
 var PermissionCreateGroupChannel *Permission
 var PermissionManagePublicChannelProperties *Permission
 var PermissionManagePrivateChannelProperties *Permission
-var PermissionManagePublicChannelAutoTranslation *Permission
-var PermissionManagePrivateChannelAutoTranslation *Permission
 var PermissionListPublicTeams *Permission
 var PermissionJoinPublicTeams *Permission
 var PermissionListPrivateTeams *Permission
@@ -135,20 +133,12 @@ var PermissionCreateComplianceExportJob *Permission
 var PermissionManageComplianceExportJob *Permission
 var PermissionReadComplianceExportJob *Permission
 var PermissionReadAudits *Permission
-var PermissionTestElasticsearch *Permission
 var PermissionTestSiteURL *Permission
 var PermissionTestS3 *Permission
 var PermissionReloadConfig *Permission
 var PermissionInvalidateCaches *Permission
 var PermissionRecycleDatabaseConnections *Permission
-var PermissionPurgeElasticsearchIndexes *Permission
 var PermissionTestEmail *Permission
-var PermissionCreateElasticsearchPostIndexingJob *Permission
-var PermissionManageElasticsearchPostIndexingJob *Permission
-var PermissionCreateElasticsearchPostAggregationJob *Permission
-var PermissionManageElasticsearchPostAggregationJob *Permission
-var PermissionReadElasticsearchPostIndexingJob *Permission
-var PermissionReadElasticsearchPostAggregationJob *Permission
 var PermissionPurgeBleveIndexes *Permission
 var PermissionCreatePostBleveIndexesJob *Permission
 var PermissionManagePostBleveIndexesJob *Permission
@@ -225,9 +215,6 @@ var PermissionSysconsoleWriteEnvironmentWebServer *Permission
 
 var PermissionSysconsoleReadEnvironmentDatabase *Permission
 var PermissionSysconsoleWriteEnvironmentDatabase *Permission
-
-var PermissionSysconsoleReadEnvironmentElasticsearch *Permission
-var PermissionSysconsoleWriteEnvironmentElasticsearch *Permission
 
 var PermissionSysconsoleReadEnvironmentFileStorage *Permission
 var PermissionSysconsoleWriteEnvironmentFileStorage *Permission
@@ -391,8 +378,6 @@ var SysconsoleReadPermissions []*Permission
 var SysconsoleWritePermissions []*Permission
 
 var PermissionManageOutgoingOAuthConnections *Permission
-var PermissionManageOwnAgent *Permission
-var PermissionManageOthersAgent *Permission
 var ModeratedBookmarkPermissions []*Permission
 
 func initializePermissions() {
@@ -527,18 +512,6 @@ func initializePermissions() {
 		"manage_private_channel_properties",
 		"authentication.permissions.manage_private_channel_properties.name",
 		"authentication.permissions.manage_private_channel_properties.description",
-		PermissionScopeChannel,
-	}
-	PermissionManagePublicChannelAutoTranslation = &Permission{
-		"manage_public_channel_auto_translation",
-		"authentication.permissions.manage_public_channel_auto_translation.name",
-		"authentication.permissions.manage_public_channel_auto_translation.description",
-		PermissionScopeChannel,
-	}
-	PermissionManagePrivateChannelAutoTranslation = &Permission{
-		"manage_private_channel_auto_translation",
-		"authentication.permissions.manage_private_channel_auto_translation.name",
-		"authentication.permissions.manage_private_channel_auto_translation.description",
 		PermissionScopeChannel,
 	}
 	PermissionListPublicTeams = &Permission{
@@ -1050,12 +1023,6 @@ func initializePermissions() {
 		"",
 		PermissionScopeSystem,
 	}
-	PermissionTestElasticsearch = &Permission{
-		"test_elasticsearch",
-		"",
-		"",
-		PermissionScopeSystem,
-	}
 	PermissionTestS3 = &Permission{
 		"test_s3",
 		"",
@@ -1080,55 +1047,12 @@ func initializePermissions() {
 		"",
 		PermissionScopeSystem,
 	}
-	PermissionPurgeElasticsearchIndexes = &Permission{
-		"purge_elasticsearch_indexes",
-		"",
-		"",
-		PermissionScopeSystem,
-	}
 	PermissionTestEmail = &Permission{
 		"test_email",
 		"",
 		"",
 		PermissionScopeSystem,
 	}
-	PermissionCreateElasticsearchPostIndexingJob = &Permission{
-		"create_elasticsearch_post_indexing_job",
-		"",
-		"",
-		PermissionScopeSystem,
-	}
-	PermissionManageElasticsearchPostIndexingJob = &Permission{
-		"manage_elasticsearch_post_indexing_job",
-		"",
-		"",
-		PermissionScopeSystem,
-	}
-	PermissionCreateElasticsearchPostAggregationJob = &Permission{
-		"create_elasticsearch_post_aggregation_job",
-		"",
-		"",
-		PermissionScopeSystem,
-	}
-	PermissionManageElasticsearchPostAggregationJob = &Permission{
-		"manage_elasticsearch_post_aggregation_job",
-		"",
-		"",
-		PermissionScopeSystem,
-	}
-	PermissionReadElasticsearchPostIndexingJob = &Permission{
-		"read_elasticsearch_post_indexing_job",
-		"",
-		"",
-		PermissionScopeSystem,
-	}
-	PermissionReadElasticsearchPostAggregationJob = &Permission{
-		"read_elasticsearch_post_aggregation_job",
-		"",
-		"",
-		PermissionScopeSystem,
-	}
-
 	PermissionRemoveUserFromTeam = &Permission{
 		"remove_user_from_team",
 		"authentication.permissions.remove_user_from_team.name",
@@ -1540,18 +1464,6 @@ func initializePermissions() {
 	}
 	PermissionSysconsoleWriteEnvironmentDatabase = &Permission{
 		"sysconsole_write_environment_database",
-		"",
-		"",
-		PermissionScopeSystem,
-	}
-	PermissionSysconsoleReadEnvironmentElasticsearch = &Permission{
-		"sysconsole_read_environment_elasticsearch",
-		"",
-		"",
-		PermissionScopeSystem,
-	}
-	PermissionSysconsoleWriteEnvironmentElasticsearch = &Permission{
-		"sysconsole_write_environment_elasticsearch",
 		"",
 		"",
 		PermissionScopeSystem,
@@ -2180,19 +2092,6 @@ func initializePermissions() {
 		PermissionScopeSystem,
 	}
 
-	PermissionManageOwnAgent = &Permission{
-		"manage_own_agent",
-		"authentication.permissions.manage_own_agent.name",
-		"authentication.permissions.manage_own_agent.description",
-		PermissionScopeSystem,
-	}
-	PermissionManageOthersAgent = &Permission{
-		"manage_others_agent",
-		"authentication.permissions.manage_others_agent.name",
-		"authentication.permissions.manage_others_agent.description",
-		PermissionScopeSystem,
-	}
-
 	SysconsoleReadPermissions = []*Permission{
 		PermissionSysconsoleReadAboutEditionAndLicense,
 		PermissionSysconsoleReadReportingSiteStatistics,
@@ -2206,7 +2105,6 @@ func initializePermissions() {
 		PermissionSysconsoleReadUserManagementSystemRoles,
 		PermissionSysconsoleReadEnvironmentWebServer,
 		PermissionSysconsoleReadEnvironmentDatabase,
-		PermissionSysconsoleReadEnvironmentElasticsearch,
 		PermissionSysconsoleReadEnvironmentFileStorage,
 		PermissionSysconsoleReadEnvironmentImageProxy,
 		PermissionSysconsoleReadEnvironmentSMTP,
@@ -2263,7 +2161,6 @@ func initializePermissions() {
 		PermissionSysconsoleWriteUserManagementSystemRoles,
 		PermissionSysconsoleWriteEnvironmentWebServer,
 		PermissionSysconsoleWriteEnvironmentDatabase,
-		PermissionSysconsoleWriteEnvironmentElasticsearch,
 		PermissionSysconsoleWriteEnvironmentFileStorage,
 		PermissionSysconsoleWriteEnvironmentImageProxy,
 		PermissionSysconsoleWriteEnvironmentSMTP,
@@ -2349,19 +2246,11 @@ func initializePermissions() {
 		PermissionReadComplianceExportJob,
 		PermissionReadAudits,
 		PermissionTestSiteURL,
-		PermissionTestElasticsearch,
 		PermissionTestS3,
 		PermissionReloadConfig,
 		PermissionInvalidateCaches,
 		PermissionRecycleDatabaseConnections,
-		PermissionPurgeElasticsearchIndexes,
 		PermissionTestEmail,
-		PermissionCreateElasticsearchPostIndexingJob,
-		PermissionManageElasticsearchPostIndexingJob,
-		PermissionCreateElasticsearchPostAggregationJob,
-		PermissionManageElasticsearchPostAggregationJob,
-		PermissionReadElasticsearchPostIndexingJob,
-		PermissionReadElasticsearchPostAggregationJob,
 		PermissionCreateLdapSyncJob,
 		PermissionManageLdapSyncJob,
 		PermissionReadLdapSyncJob,
@@ -2385,8 +2274,6 @@ func initializePermissions() {
 		PermissionManageLicenseInformation,
 		PermissionCreateCustomGroup,
 		PermissionManageOutgoingOAuthConnections,
-		PermissionManageOwnAgent,
-		PermissionManageOthersAgent,
 	}
 
 	TeamScopedPermissions := []*Permission{
@@ -2424,8 +2311,6 @@ func initializePermissions() {
 		PermissionManageChannelRoles,
 		PermissionManagePublicChannelProperties,
 		PermissionManagePrivateChannelProperties,
-		PermissionManagePublicChannelAutoTranslation,
-		PermissionManagePrivateChannelAutoTranslation,
 		PermissionConvertPublicChannelToPrivate,
 		PermissionConvertPrivateChannelToPublic,
 		PermissionDeletePublicChannel,

@@ -5,7 +5,6 @@ import fs from 'fs';
 
 import nock from 'nock';
 
-import type {AdminConfig} from '@mattermost/types/config';
 import type {CreateDataRetentionCustomPolicy} from '@mattermost/types/data_retention';
 
 import * as Actions from 'mattermost-redux/actions/admin';
@@ -573,26 +572,6 @@ describe('Actions.Admin', () => {
         expect(nock.isDone()).toBe(true);
     });
 
-    it('testElasticsearch', async () => {
-        nock(Client4.getBaseRoute()).
-            post('/elasticsearch/test').
-            reply(200, OK_RESPONSE);
-
-        await store.dispatch(Actions.testElasticsearch({} as AdminConfig));
-
-        expect(nock.isDone()).toBe(true);
-    });
-
-    it('purgeElasticsearchIndexes', async () => {
-        nock(Client4.getBaseRoute()).
-            post('/elasticsearch/purge_indexes').
-            reply(200, OK_RESPONSE);
-
-        await store.dispatch(Actions.purgeElasticsearchIndexes());
-
-        expect(nock.isDone()).toBe(true);
-    });
-
     it('uploadLicense', async () => {
         const testFileData = fs.createReadStream('src/packages/mattermost-redux/test/assets/images/test.png');
 
@@ -701,146 +680,6 @@ describe('Actions.Admin', () => {
         expect(teamAnalytics).toBeTruthy();
         expect(teamAnalytics[TestHelper.basicTeam!.id]).toBeTruthy();
         expect(teamAnalytics[TestHelper.basicTeam!.id][Stats.USERS_WITH_POSTS_PER_DAY]).toBeTruthy();
-    });
-
-    it('uploadPlugin', async () => {
-        const testFileData = fs.createReadStream('src/packages/mattermost-redux/test/assets/images/test.png');
-        const testPlugin = {id: 'testplugin', webapp: {bundle_path: '/static/somebundle.js'}};
-
-        nock(Client4.getBaseRoute()).
-            post('/plugins').
-            reply(200, testPlugin);
-        await store.dispatch(Actions.uploadPlugin(testFileData as any, false));
-
-        expect(nock.isDone()).toBe(true);
-    });
-
-    it('getPlugins', async () => {
-        const testPlugin = {id: 'testplugin', webapp: {bundle_path: '/static/somebundle.js'}};
-        const testPlugin2 = {id: 'testplugin2', webapp: {bundle_path: '/static/somebundle.js'}};
-
-        nock(Client4.getBaseRoute()).
-            get('/plugins').
-            reply(200, {active: [testPlugin], inactive: [testPlugin2]});
-
-        await store.dispatch(Actions.getPlugins());
-
-        const state = store.getState();
-
-        const plugins = state.entities.admin.plugins;
-        expect(plugins).toBeTruthy();
-        expect(plugins[testPlugin.id]).toBeTruthy();
-        expect(plugins[testPlugin.id].active).toBeTruthy();
-        expect(plugins[testPlugin2.id]).toBeTruthy();
-        expect(!plugins[testPlugin2.id].active).toBeTruthy();
-    });
-
-    it('getPluginStatuses', async () => {
-        const testPluginStatus = {
-            plugin_id: 'testplugin',
-            state: 1,
-        };
-        const testPluginStatus2 = {
-            plugin_id: 'testplugin2',
-            state: 0,
-        };
-
-        nock(Client4.getBaseRoute()).
-            get('/plugins/statuses').
-            reply(200, [testPluginStatus, testPluginStatus2]);
-
-        await store.dispatch(Actions.getPluginStatuses());
-
-        const state = store.getState();
-
-        const pluginStatuses = state.entities.admin.pluginStatuses;
-        expect(pluginStatuses).toBeTruthy();
-        expect(pluginStatuses[testPluginStatus.plugin_id]).toBeTruthy();
-        expect(pluginStatuses[testPluginStatus.plugin_id].active).toBeTruthy();
-        expect(pluginStatuses[testPluginStatus2.plugin_id]).toBeTruthy();
-        expect(!pluginStatuses[testPluginStatus2.plugin_id].active).toBeTruthy();
-    });
-
-    it('removePlugin', async () => {
-        const testPlugin = {id: 'testplugin3', webapp: {bundle_path: '/static/somebundle.js'}};
-
-        nock(Client4.getBaseRoute()).
-            get('/plugins').
-            reply(200, {active: [], inactive: [testPlugin]});
-
-        await store.dispatch(Actions.getPlugins());
-
-        let state = store.getState();
-        let plugins = state.entities.admin.plugins;
-        expect(plugins).toBeTruthy();
-        expect(plugins[testPlugin.id]).toBeTruthy();
-
-        nock(Client4.getBaseRoute()).
-            delete(`/plugins/${testPlugin.id}`).
-            reply(200, OK_RESPONSE);
-
-        await store.dispatch(Actions.removePlugin(testPlugin.id));
-
-        state = store.getState();
-        plugins = state.entities.admin.plugins;
-        expect(plugins).toBeTruthy();
-        expect(!plugins[testPlugin.id]).toBeTruthy();
-    });
-
-    it('enablePlugin', async () => {
-        const testPlugin = {id: TestHelper.generateId(), webapp: {bundle_path: '/static/somebundle.js'}};
-
-        nock(Client4.getBaseRoute()).
-            get('/plugins').
-            reply(200, {active: [], inactive: [testPlugin]});
-
-        await store.dispatch(Actions.getPlugins());
-
-        let state = store.getState();
-        let plugins = state.entities.admin.plugins;
-        expect(plugins).toBeTruthy();
-        expect(plugins[testPlugin.id]).toBeTruthy();
-        expect(!plugins[testPlugin.id].active).toBeTruthy();
-
-        nock(Client4.getBaseRoute()).
-            post(`/plugins/${testPlugin.id}/enable`).
-            reply(200, OK_RESPONSE);
-
-        await store.dispatch(Actions.enablePlugin(testPlugin.id));
-
-        state = store.getState();
-        plugins = state.entities.admin.plugins;
-        expect(plugins).toBeTruthy();
-        expect(plugins[testPlugin.id]).toBeTruthy();
-        expect(plugins[testPlugin.id].active).toBeTruthy();
-    });
-
-    it('disablePlugin', async () => {
-        const testPlugin = {id: TestHelper.generateId(), webapp: {bundle_path: '/static/somebundle.js'}};
-
-        nock(Client4.getBaseRoute()).
-            get('/plugins').
-            reply(200, {active: [testPlugin], inactive: []});
-
-        await store.dispatch(Actions.getPlugins());
-
-        let state = store.getState();
-        let plugins = state.entities.admin.plugins;
-        expect(plugins).toBeTruthy();
-        expect(plugins[testPlugin.id]).toBeTruthy();
-        expect(plugins[testPlugin.id].active).toBeTruthy();
-
-        nock(Client4.getBaseRoute()).
-            post(`/plugins/${testPlugin.id}/disable`).
-            reply(200, OK_RESPONSE);
-
-        await store.dispatch(Actions.disablePlugin(testPlugin.id));
-
-        state = store.getState();
-        plugins = state.entities.admin.plugins;
-        expect(plugins).toBeTruthy();
-        expect(plugins[testPlugin.id]).toBeTruthy();
-        expect(!plugins[testPlugin.id].active).toBeTruthy();
     });
 
     it('getLdapGroups', async () => {

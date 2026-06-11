@@ -4,8 +4,7 @@
 import React from 'react';
 import {FormattedMessage, defineMessages} from 'react-intl';
 
-import type {AnalyticsRow, PluginAnalyticsRow, IndexedPluginAnalyticsRow, AnalyticsState} from '@mattermost/types/admin';
-import {AnalyticsVisualizationType} from '@mattermost/types/admin';
+import type {AnalyticsRow, AnalyticsState} from '@mattermost/types/admin';
 import type {ClientConfig, ClientLicense} from '@mattermost/types/config';
 import type {ServerLimits} from '@mattermost/types/limits';
 
@@ -42,12 +41,10 @@ type Props = {
     stats?: AnalyticsState;
     license: ClientLicense;
     config?: Partial<ClientConfig>;
-    pluginStatHandlers: GlobalState['plugins']['siteStatsHandlers'];
     serverLimits: ServerLimits;
 }
 
 type State = {
-    pluginSiteStats: Record<string, PluginAnalyticsRow>;
     lineChartsDataLoaded: boolean;
 }
 
@@ -97,7 +94,6 @@ export const searchableStrings = [
 
 export default class SystemAnalytics extends React.PureComponent<Props, State> {
     state = {
-        pluginSiteStats: {} as Record<string, PluginAnalyticsRow>,
         lineChartsDataLoaded: false,
     };
 
@@ -108,7 +104,6 @@ export default class SystemAnalytics extends React.PureComponent<Props, State> {
         if (this.props.isLicensed) {
             AdminActions.getAdvancedAnalytics();
         }
-        this.fetchPluginStats();
     }
 
     private loadLineChartData = async () => {
@@ -128,28 +123,6 @@ export default class SystemAnalytics extends React.PureComponent<Props, State> {
             this.loadLineChartData();
         }
     };
-
-    // fetchPluginStats does a call for each one of the registered handlers,
-    // wait and set the data in the state
-    private async fetchPluginStats() {
-        const pluginKeys = Object.keys(this.props.pluginStatHandlers);
-        if (!pluginKeys.length) {
-            return;
-        }
-
-        const allHandlers = Object.values(this.props.pluginStatHandlers).map((handler) => handler());
-        const allStats = await Promise.all(allHandlers);
-
-        const allStatsIndexed: IndexedPluginAnalyticsRow = {};
-        allStats.forEach((pluginStats, idx) => {
-            Object.entries(pluginStats).forEach(([name, value]) => {
-                const key = `${pluginKeys[idx]}.${name}`;
-                allStatsIndexed[key] = value;
-            });
-        });
-
-        this.setState({pluginSiteStats: allStatsIndexed});
-    }
 
     private getStatValue(stat: number | AnalyticsRow[] | undefined): number | undefined {
         if (typeof stat === 'number') {
@@ -430,58 +403,6 @@ export default class SystemAnalytics extends React.PureComponent<Props, State> {
             />
         );
 
-        // Extract plugin stats that should be displayed and pass them to widget
-        const pluginCounts = [];
-        const pluginLineCharts = [];
-        const pluginDoughnutCharts = [];
-
-        for (const [key, stat] of Object.entries(this.state.pluginSiteStats)) {
-            switch (stat.visualizationType) {
-            case AnalyticsVisualizationType.LineChart:
-                pluginLineCharts.push((
-                    <div
-                        className='row'
-                        key={'pluginstat.' + key}
-                    >
-                        <LineChart
-                            id={key}
-                            title={stat.name}
-                            data={stat.value}
-                            width={740}
-                            height={225}
-                        />
-                    </div>
-                ));
-                break;
-            case AnalyticsVisualizationType.DoughnutChart:
-                pluginDoughnutCharts.push((
-                    <div
-                        className='row'
-                        key={'pluginstat.' + key}
-                    >
-                        <DoughnutChart
-                            title={stat.name}
-                            data={stat.value}
-                            width={300}
-                            height={225}
-                        />
-                    </div>
-                ));
-                break;
-            case AnalyticsVisualizationType.Count:
-            default:
-                pluginCounts.push((
-                    <StatisticCount
-                        id={key}
-                        key={'pluginstat.' + key}
-                        title={stat.name}
-                        icon={stat.icon!}
-                        count={stat.value}
-                    />
-                ));
-            }
-        }
-
         const isEntrySku = this.props.license.SkuShortName === LicenseSkus.Entry;
         const shouldShowSingleChannelGuests = isLicensed && !isEntrySku && guestAccountsEnabled;
 
@@ -542,11 +463,8 @@ export default class SystemAnalytics extends React.PureComponent<Props, State> {
                             {dailyActiveUsers}
                             {monthlyActiveUsers}
                             {advancedStats}
-                            {pluginCounts}
                         </div>
                         {advancedGraphs}
-                        {pluginDoughnutCharts}
-                        {pluginLineCharts}
                         <details
                             onToggle={this.handleLineChartsToggle}
                             data-testid='details-expander'

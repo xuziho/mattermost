@@ -15,7 +15,6 @@ import (
 	"sync"
 
 	"github.com/golang-jwt/jwt/v5"
-	"github.com/mattermost/mattermost/server/public/plugin"
 
 	"github.com/mattermost/mattermost/server/public/model"
 	"github.com/mattermost/mattermost/server/public/shared/i18n"
@@ -91,33 +90,6 @@ func (a *App) sendPushNotificationSync(rctx request.CTX, post *model.Post, user 
 }
 
 func (a *App) sendPushNotificationToAllSessions(rctx request.CTX, msg *model.PushNotification, userID string, skipSessionId string) *model.AppError {
-	rejectionReason := ""
-	a.ch.RunMultiHook(func(hooks plugin.Hooks, _ *model.Manifest) bool {
-		var replacementNotification *model.PushNotification
-		replacementNotification, rejectionReason = hooks.NotificationWillBePushed(msg, userID)
-		if rejectionReason != "" {
-			rctx.Logger().Info("Notification cancelled by plugin.", mlog.String("rejection reason", rejectionReason))
-			return false
-		}
-		if replacementNotification != nil {
-			msg = replacementNotification
-		}
-		return true
-	}, plugin.NotificationWillBePushedID)
-
-	if rejectionReason != "" {
-		// Notifications rejected by a plugin should not be considered errors
-		// This is likely normal operation so no need for metrics here
-		rctx.Logger().LogM(mlog.MlvlNotificationDebug, "Notification rejected by plugin",
-			mlog.String("type", model.NotificationTypePush),
-			mlog.String("status", model.NotificationStatusNotSent),
-			mlog.String("reason", model.NotificationReasonRejectedByPlugin),
-			mlog.String("rejection_reason", rejectionReason),
-			mlog.String("user_id", userID),
-		)
-		return nil
-	}
-
 	sessions, appErr := a.getMobileAppSessions(userID)
 	if appErr != nil {
 		a.CountNotificationReason(model.NotificationStatusError, model.NotificationTypePush, model.NotificationReasonFetchError, model.NotificationNoPlatform)

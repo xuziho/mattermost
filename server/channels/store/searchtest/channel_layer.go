@@ -14,11 +14,7 @@ import (
 )
 
 var searchChannelStoreTests = []searchTest{
-	{
-		Name: "Should be able to autocomplete a channel by name",
-		Fn:   testAutocompleteChannelByName,
-		Tags: []string{EngineElasticSearch},
-	},
+
 	{
 		Name: "Should be able to autocomplete a channel by name (Postgres)",
 		Fn:   testAutocompleteChannelByNamePostgres,
@@ -29,36 +25,20 @@ var searchChannelStoreTests = []searchTest{
 		Fn:   testAutocompleteChannelByDisplayName,
 		Tags: []string{EngineAll},
 	},
-	{
-		Name: "Should be able to autocomplete a channel by a part of its name when has parts splitted by - character",
-		Fn:   testAutocompleteChannelByNameSplittedWithDashChar,
-		Tags: []string{EngineElasticSearch},
-	},
+
 	{
 		Name: "Should be able to autocomplete a channel by a part of its name when has parts splitted by - character (Postgres)",
 		Fn:   testAutocompleteChannelByNameSplittedWithDashCharPostgres,
 		Tags: []string{EnginePostgres},
 	},
-	{
-		Name: "Should be able to autocomplete a channel by a part of its name when has parts splitted by _ character",
-		Fn:   testAutocompleteChannelByNameSplittedWithUnderscoreChar,
-		Tags: []string{EngineElasticSearch},
-	},
-	{
-		Name: "Should be able to autocomplete a channel by a part of its display name when has parts splitted by whitespace character",
-		Fn:   testAutocompleteChannelByDisplayNameSplittedByWhitespaces,
-		Tags: []string{EngineElasticSearch},
-	},
+
+
 	{
 		Name: "Should be able to autocomplete retrieving all channels if the term is empty",
 		Fn:   testAutocompleteAllChannelsIfTermIsEmpty,
 		Tags: []string{EngineAll},
 	},
-	{
-		Name: "Should be able to autocomplete channels in a case insensitive manner",
-		Fn:   testSearchChannelsInCaseInsensitiveManner,
-		Tags: []string{EngineElasticSearch},
-	},
+
 	{
 		Name: "Should be able to autocomplete channels in a case insensitive manner (Postgres)",
 		Fn:   testSearchChannelsInCaseInsensitiveMannerPostgres,

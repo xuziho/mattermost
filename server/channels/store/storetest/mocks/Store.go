@@ -82,26 +82,6 @@ func (_m *Store) Audit() store.AuditStore {
 	return r0
 }
 
-// AutoTranslation provides a mock function with no fields
-func (_m *Store) AutoTranslation() store.AutoTranslationStore {
-	ret := _m.Called()
-
-	if len(ret) == 0 {
-		panic("no return value specified for AutoTranslation")
-	}
-
-	var r0 store.AutoTranslationStore
-	if rf, ok := ret.Get(0).(func() store.AutoTranslationStore); ok {
-		r0 = rf()
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(store.AutoTranslationStore)
-		}
-	}
-
-	return r0
-}
-
 // Bot provides a mock function with no fields
 func (_m *Store) Bot() store.BotStore {
 	ret := _m.Called()
@@ -287,25 +267,6 @@ func (_m *Store) Compliance() store.ComplianceStore {
 	return r0
 }
 
-// ContentFlagging provides a mock function with no fields
-func (_m *Store) ContentFlagging() store.ContentFlaggingStore {
-	ret := _m.Called()
-
-	if len(ret) == 0 {
-		panic("no return value specified for ContentFlagging")
-	}
-
-	var r0 store.ContentFlaggingStore
-	if rf, ok := ret.Get(0).(func() store.ContentFlaggingStore); ok {
-		r0 = rf()
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(store.ContentFlaggingStore)
-		}
-	}
-
-	return r0
-}
 
 // DesktopTokens provides a mock function with no fields
 func (_m *Store) DesktopTokens() store.DesktopTokensStore {
@@ -726,26 +687,6 @@ func (_m *Store) OutgoingOAuthConnection() store.OutgoingOAuthConnectionStore {
 	return r0
 }
 
-// Plugin provides a mock function with no fields
-func (_m *Store) Plugin() store.PluginStore {
-	ret := _m.Called()
-
-	if len(ret) == 0 {
-		panic("no return value specified for Plugin")
-	}
-
-	var r0 store.PluginStore
-	if rf, ok := ret.Get(0).(func() store.PluginStore); ok {
-		r0 = rf()
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(store.PluginStore)
-		}
-	}
-
-	return r0
-}
-
 // Post provides a mock function with no fields
 func (_m *Store) Post() store.PostStore {
 	ret := _m.Called()
@@ -940,26 +881,6 @@ func (_m *Store) ReadReceipt() store.ReadReceiptStore {
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(store.ReadReceiptStore)
-		}
-	}
-
-	return r0
-}
-
-// Recap provides a mock function with no fields
-func (_m *Store) Recap() store.RecapStore {
-	ret := _m.Called()
-
-	if len(ret) == 0 {
-		panic("no return value specified for Recap")
-	}
-
-	var r0 store.RecapStore
-	if rf, ok := ret.Get(0).(func() store.RecapStore); ok {
-		r0 = rf()
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(store.RecapStore)
 		}
 	}
 

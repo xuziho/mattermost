@@ -17,14 +17,9 @@ import (
 	"github.com/mattermost/mattermost/server/v8/channels/store"
 )
 
-const (
-	internalKeyPrefix = "mmi_"
-	botUserKey        = internalKeyPrefix + "botid"
-)
-
-// EnsureBot provides similar functionality with the plugin-api BotService. It doesn't accept
-// any ensureBotOptions hence it is not required for now.
 func (a *App) EnsureBot(rctx request.CTX, pluginID string, bot *model.Bot) (string, error) {
+	_ = pluginID
+
 	if bot == nil {
 		return "", errors.New("passed a nil bot")
 	}
@@ -33,45 +28,25 @@ func (a *App) EnsureBot(rctx request.CTX, pluginID string, bot *model.Bot) (stri
 		return "", errors.New("passed a bot with no username")
 	}
 
-	botIDBytes, appErr := a.GetPluginKey(pluginID, botUserKey)
-	if appErr != nil {
-		return "", appErr
-	}
-
-	// If the bot has already been created, check whether it still exists and use it
-	if botIDBytes != nil {
-		botID := string(botIDBytes)
-		if _, appErr = a.GetBot(rctx, botID, true); appErr != nil {
-			rctx.Logger().Debug("Unable to get bot.", mlog.String("bot_id", botID), mlog.Err(appErr))
-		} else {
-			// ensure existing bot is synced with what is being created
+	// Check for an existing bot user with that username. If one exists, then use that.
+	if user, appErr := a.GetUserByUsername(bot.Username); appErr == nil && user != nil {
+		if user.IsBot {
 			botPatch := &model.BotPatch{
 				Username:    &bot.Username,
 				DisplayName: &bot.DisplayName,
 				Description: &bot.Description,
 			}
 
-			if _, appErr = a.PatchBot(rctx, botID, botPatch); appErr != nil {
+			if _, appErr = a.PatchBot(rctx, user.Id, botPatch); appErr != nil {
 				return "", fmt.Errorf("failed to patch bot: %w", appErr)
 			}
 
-			return botID, nil
-		}
-	}
-
-	// Check for an existing bot user with that username. If one exists, then use that.
-	if user, appErr := a.GetUserByUsername(bot.Username); appErr == nil && user != nil {
-		if user.IsBot {
-			if appErr := a.SetPluginKey(pluginID, botUserKey, []byte(user.Id)); appErr != nil {
-				return "", fmt.Errorf("failed to set plugin key: %w", appErr)
-			}
 			return user.Id, nil
 		}
 
-		rctx.Logger().Error("Plugin attempted to use an account that already exists. Convert user to a bot "+
+		rctx.Logger().Error("Attempted to use an account that already exists. Convert user to a bot "+
 			"account in the CLI by running 'mattermost user convert <username> --bot'. If the user is an "+
-			"existing user account you want to preserve, change its username and restart the Mattermost server, "+
-			"after which the plugin will create a bot account with that name.", mlog.String("username",
+			"existing user account you want to preserve, change its username and try again.", mlog.String("username",
 			bot.Username),
 			mlog.String("user_id",
 				user.Id),
@@ -82,10 +57,6 @@ func (a *App) EnsureBot(rctx request.CTX, pluginID string, bot *model.Bot) (stri
 	createdBot, err := a.CreateBot(rctx, bot)
 	if err != nil {
 		return "", fmt.Errorf("failed to create bot: %w", err)
-	}
-
-	if appErr := a.SetPluginKey(pluginID, botUserKey, []byte(createdBot.UserId)); appErr != nil {
-		return "", fmt.Errorf("failed to set plugin key: %w", appErr)
 	}
 
 	return createdBot.UserId, nil
@@ -355,7 +326,7 @@ func (a *App) GetBots(rctx request.CTX, options *model.BotGetOptions) (model.Bot
 
 // IsBotExemptFromDMRestrictions checks if the given user ID is a bot that is
 // exempt from the RestrictDirectMessage=team enforcement. This includes the
-// system bot, bots owned by the current session's user, and plugin-owned bots.
+// system bot and bots owned by the current session's user.
 func (a *App) IsBotExemptFromDMRestrictions(rctx request.CTX, userID string) (bool, *model.AppError) {
 	bot, appErr := a.GetBot(rctx, userID, false)
 	if appErr != nil {
@@ -372,24 +343,7 @@ func (a *App) IsBotExemptFromDMRestrictions(rctx request.CTX, userID string) (bo
 		return true, nil
 	}
 
-	pluginsEnvironment := a.GetPluginsEnvironment()
-	if pluginsEnvironment == nil {
-		return false, nil
-	}
-
-	availablePlugins, err := pluginsEnvironment.Available()
-	if err != nil {
-		return false, model.NewAppError("IsBotExemptFromDMRestrictions", "app.plugin.get_plugins.app_error", nil, "", http.StatusInternalServerError).Wrap(err)
-	}
-
-	pluginIDs := make(map[string]bool, len(availablePlugins))
-	for _, plugin := range availablePlugins {
-		if plugin.Manifest != nil {
-			pluginIDs[plugin.Manifest.Id] = true
-		}
-	}
-
-	return pluginIDs[bot.OwnerId], nil
+	return false, nil
 }
 
 // UpdateBotActive marks a bot as active or inactive, along with its corresponding user.

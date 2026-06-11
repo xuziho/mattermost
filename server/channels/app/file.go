@@ -18,14 +18,12 @@ import (
 	"regexp"
 	"strings"
 	"sync"
-	"sync/atomic"
 	"time"
 
 	"maps"
 	"slices"
 
 	"github.com/mattermost/mattermost/server/public/model"
-	"github.com/mattermost/mattermost/server/public/plugin"
 	"github.com/mattermost/mattermost/server/public/shared/mlog"
 	"github.com/mattermost/mattermost/server/public/shared/request"
 	"github.com/mattermost/mattermost/server/v8/channels/app/imaging"
@@ -712,9 +710,8 @@ type UploadFileTask struct {
 	imageOrientation int
 
 	// Testing: overridable dependency functions
-	pluginsEnvironment *plugin.Environment
-	writeFile          func(io.Reader, string) (int64, *model.AppError)
-	saveToDatabase     func(request.CTX, *model.FileInfo) (*model.FileInfo, error)
+	writeFile      func(io.Reader, string) (int64, *model.AppError)
+	saveToDatabase func(request.CTX, *model.FileInfo) (*model.FileInfo, error)
 
 	imgDecoder *imaging.Decoder
 	imgEncoder *imaging.Encoder
@@ -747,16 +744,13 @@ func (t *UploadFileTask) init(a *App) {
 	}
 	t.teeInput = io.TeeReader(t.limitedInput, t.buf)
 
-	t.pluginsEnvironment = a.GetPluginsEnvironment()
 	t.writeFile = a.WriteFile
 	t.saveToDatabase = a.Srv().Store().FileInfo().Save
 }
 
 // UploadFileX uploads a single file as specified in t. It applies the upload
-// constraints, executes plugins and image processing logic as needed. It
-// returns a filled-out FileInfo and an optional error. A plugin may reject the
-// upload, returning a rejection error. In this case FileInfo would have
-// contained the last "good" FileInfo before the execution of that plugin.
+// constraints and image processing logic as needed. It returns a filled-out
+// FileInfo and an optional error.
 func (a *App) UploadFileX(rctx request.CTX, channelID, name string, input io.Reader,
 	opts ...func(*UploadFileTask),
 ) (*model.FileInfo, *model.AppError) {
@@ -812,19 +806,8 @@ func (a *App) UploadFileX(rctx request.CTX, channelID, name string, input io.Rea
 
 	t.fileinfo.Size = written
 
-	file, aerr := a.FileReader(t.fileinfo.Path)
-	if aerr != nil {
-		return nil, aerr
-	}
-	defer file.Close()
-
-	aerr = a.runPluginsHook(rctx, t.fileinfo, file)
-	if aerr != nil {
-		return nil, aerr
-	}
-
 	if !t.Raw && t.fileinfo.IsImage() {
-		file, aerr = a.FileReader(t.fileinfo.Path)
+		file, aerr := a.FileReader(t.fileinfo.Path)
 		if aerr != nil {
 			return nil, aerr
 		}
@@ -1067,29 +1050,6 @@ func (a *App) DoUploadFileExpectModification(rctx request.CTX, now time.Time, ra
 		nameWithoutExtension := filename[:strings.LastIndex(filename, ".")]
 		info.PreviewPath = pathPrefix + nameWithoutExtension + "_preview." + getFileExtFromMimeType(info.MimeType)
 		info.ThumbnailPath = pathPrefix + nameWithoutExtension + "_thumb." + getFileExtFromMimeType(info.MimeType)
-	}
-
-	var rejectionError *model.AppError
-	pluginContext := pluginContext(rctx)
-	a.ch.RunMultiHook(func(hooks plugin.Hooks, _ *model.Manifest) bool {
-		var newBytes bytes.Buffer
-		replacementInfo, rejectionReason := hooks.FileWillBeUploaded(pluginContext, info, bytes.NewReader(data), &newBytes)
-		if rejectionReason != "" {
-			rejectionError = model.NewAppError("DoUploadFile", "File rejected by plugin. "+rejectionReason, nil, "", http.StatusBadRequest)
-			return false
-		}
-		if replacementInfo != nil {
-			info = replacementInfo
-		}
-		if newBytes.Len() != 0 {
-			data = newBytes.Bytes()
-			info.Size = int64(len(data))
-		}
-
-		return true
-	}, plugin.FileWillBeUploadedID)
-	if rejectionError != nil {
-		return nil, data, rejectionError
 	}
 
 	if _, err := a.WriteFile(bytes.NewReader(data), info.Path); err != nil {
@@ -1708,67 +1668,9 @@ func (a *App) RemoveFileFromFileStore(rctx request.CTX, path string) {
 	}
 }
 
-// sendFileDownloadRejectedEvent sends a websocket event to notify the user that their file download was rejected.
-// When connectionID is provided, the event is only sent to that specific connection.
-func (a *App) sendFileDownloadRejectedEvent(info *model.FileInfo, userID string, connectionID string, rejectionReason string, downloadType model.FileDownloadType) {
-	if userID == "" {
-		a.Log().Debug("Skipping websocket event for public file download rejection")
-		return
-	}
-
-	message := model.NewWebSocketEvent(model.WebsocketEventFileDownloadRejected, "", info.ChannelId, userID, nil, "")
-	if connectionID != "" {
-		message.GetBroadcast().ConnectionId = connectionID
-	}
-	message.Add("file_id", info.Id)
-	message.Add("file_name", info.Name)
-	message.Add("rejection_reason", rejectionReason)
-	message.Add("channel_id", info.ChannelId)
-	message.Add("post_id", info.PostId)
-	message.Add("download_type", string(downloadType))
-	a.Publish(message)
-}
-
-// RunFileWillBeDownloadedHook executes the FileWillBeDownloaded hook with a timeout.
-// Returns empty string to allow download, or a rejection reason to block it.
+// RunFileWillBeDownloadedHook is retained for callers that still check the old
+// plugin download hook. Plugins are disabled in this build, so downloads are
+// always allowed.
 func (a *App) RunFileWillBeDownloadedHook(rctx request.CTX, fileInfo *model.FileInfo, userID string, connectionID string, downloadType model.FileDownloadType) string {
-	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(model.PluginSettingsDefaultHookTimeoutSeconds)*time.Second)
-	defer cancel()
-
-	var rejectionReason atomic.Value
-	done := make(chan struct{})
-	pluginCtx := pluginContext(rctx)
-
-	a.Srv().Go(func() {
-		defer close(done)
-		a.ch.RunMultiHook(func(hooks plugin.Hooks, _ *model.Manifest) bool {
-			rejectionReasonFromHook := hooks.FileWillBeDownloaded(pluginCtx, fileInfo, userID, downloadType)
-			rejectionReason.Store(rejectionReasonFromHook)
-			a.Log().Debug("FileWillBeDownloaded hook called",
-				mlog.String("file_id", fileInfo.Id),
-				mlog.String("user_id", userID),
-				mlog.String("download_type", string(downloadType)),
-				mlog.String("rejection_reason", rejectionReasonFromHook))
-			return rejectionReasonFromHook == ""
-		}, plugin.FileWillBeDownloadedID)
-	})
-
-	select {
-	case <-done:
-		rejectionReasonString := ""
-		if loaded := rejectionReason.Load(); loaded != nil {
-			rejectionReasonString = loaded.(string)
-		}
-		if rejectionReasonString != "" {
-			a.sendFileDownloadRejectedEvent(fileInfo, userID, connectionID, rejectionReasonString, downloadType)
-		}
-		return rejectionReasonString
-	case <-ctx.Done():
-		timeoutMessage := rctx.T("api.file.get_file.plugin_hook_timeout")
-		a.Log().Warn("FileWillBeDownloaded hook timed out, blocking download",
-			mlog.String("file_id", fileInfo.Id),
-			mlog.String("user_id", userID))
-		a.sendFileDownloadRejectedEvent(fileInfo, userID, connectionID, timeoutMessage, downloadType)
-		return timeoutMessage
-	}
+	return ""
 }

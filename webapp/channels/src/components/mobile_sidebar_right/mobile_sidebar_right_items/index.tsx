@@ -48,7 +48,6 @@ function mapStateToProps(state: GlobalState) {
 
     return {
         experimentalPrimaryTeam,
-        pluginMenuItems: state.plugins.components.MainMenu,
         moreTeamsToJoin,
         siteName,
         teamId: currentTeam?.id,

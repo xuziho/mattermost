@@ -39,8 +39,6 @@ func Migrate(from, to string) error {
 		files = append(files, string(dsn))
 	}
 
-	files = append(files, sourceConfig.PluginSettings.SignaturePublicKeyFiles...)
-
 	for _, file := range files {
 		if err := migrateFile(file, source, destination); err != nil {
 			return err

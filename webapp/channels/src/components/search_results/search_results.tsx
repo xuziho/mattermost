@@ -15,7 +15,6 @@ import {getConfig} from 'mattermost-redux/selectors/entities/general';
 import {getCurrentTeam} from 'mattermost-redux/selectors/entities/teams';
 import {isDateLine, getDateForDateLine} from 'mattermost-redux/utils/post_list';
 
-import {getFilesDropdownPluginMenuItems} from 'selectors/plugins';
 import {getSearchTeam} from 'selectors/rhs';
 
 import Scrollbars from 'components/common/scrollbars';
@@ -53,7 +52,6 @@ interface NoResultsProps {
 const SearchResults: React.FC<Props> = (props: Props): JSX.Element => {
     const scrollbars = useRef<HTMLDivElement>(null);
     const [searchType, setSearchType] = useState<string>(props.searchType);
-    const filesDropdownPluginMenuItems = useSelector(getFilesDropdownPluginMenuItems);
     const config = useSelector(getConfig);
     const currentChannel = useSelector(getCurrentChannel);
     const currentTeam = useSelector(getCurrentTeam);
@@ -356,7 +354,6 @@ const SearchResults: React.FC<Props> = (props: Props): JSX.Element => {
                     channelId={(item as FileSearchResultItemType).channel_id}
                     fileInfo={item as FileSearchResultItemType}
                     teamName={props.currentTeamName}
-                    pluginMenuItems={filesDropdownPluginMenuItems}
                 />
             );
         });

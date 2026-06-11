@@ -33,7 +33,6 @@ const useEditorEmojiPicker = (
     const intl = useIntl();
 
     const enableEmojiPicker = useSelector((state: GlobalState) => getConfig(state).EnableEmojiPicker === 'true');
-    const enableGifPicker = useSelector((state: GlobalState) => getConfig(state).EnableGifPicker === 'true');
 
     const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
@@ -70,12 +69,6 @@ const useEditorEmojiPicker = (
         setShowEmojiPicker(false);
     }, [insertTextAtCaret, textboxId]);
 
-    const handleGifClick = useCallback((gif: string) => {
-        insertTextAtCaret(gif);
-
-        setShowEmojiPicker(false);
-    }, [insertTextAtCaret]);
-
     const {
         emojiPicker,
         getReferenceProps,
@@ -84,8 +77,6 @@ const useEditorEmojiPicker = (
         showEmojiPicker,
         setShowEmojiPicker,
 
-        enableGifPicker,
-        onGifClick: handleGifClick,
         onEmojiClick: handleEmojiClick,
 
         overrideMiddleware: [

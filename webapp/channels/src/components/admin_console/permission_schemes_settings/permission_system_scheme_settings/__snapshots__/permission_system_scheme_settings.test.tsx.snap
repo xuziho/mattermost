@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+﻿// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`components/admin_console/permission_schemes_settings/permission_system_scheme_settings/permission_system_scheme_settings should match snapshot on roles with permissions 1`] = `
 <div>
@@ -96,7 +96,7 @@ exports[`components/admin_console/permission_schemes_settings/permission_system_
                               <path
                                 d="M23.1484532,13.3124932 C23.3437659,13.1171805 23.3437659,12.7968676 23.1484532,12.6015549 L21.8515766,11.3124908 C21.6562639,11.1171781 21.3437635,11.1171781 21.1484508,11.3124908 L15.0000083,17.4609333 L8.8515659,11.3124908 C8.65625317,11.1171781 8.34375279,11.1171781 8.14844006,11.3124908 L6.85156352,12.6015549 C6.65625078,12.7968676 6.65625078,13.1171805 6.85156352,13.3124932 L14.6484454,21.1015626 C14.8437582,21.2968754 15.1562585,21.2968754 15.3515713,21.1015626 L23.1484532,13.3124932 Z"
                                 fill="#979797"
-                                id=""
+                                id="飦?
                               />
                               <circle
                                 cx="15"
@@ -487,7 +487,7 @@ exports[`components/admin_console/permission_schemes_settings/permission_system_
                               <path
                                 d="M23.1484532,13.3124932 C23.3437659,13.1171805 23.3437659,12.7968676 23.1484532,12.6015549 L21.8515766,11.3124908 C21.6562639,11.1171781 21.3437635,11.1171781 21.1484508,11.3124908 L15.0000083,17.4609333 L8.8515659,11.3124908 C8.65625317,11.1171781 8.34375279,11.1171781 8.14844006,11.3124908 L6.85156352,12.6015549 C6.65625078,12.7968676 6.65625078,13.1171805 6.85156352,13.3124932 L14.6484454,21.1015626 C14.8437582,21.2968754 15.1562585,21.2968754 15.3515713,21.1015626 L23.1484532,13.3124932 Z"
                                 fill="#979797"
-                                id=""
+                                id="飦?
                               />
                               <circle
                                 cx="15"
@@ -1411,78 +1411,6 @@ exports[`components/admin_console/permission_schemes_settings/permission_system_
                           Manage OAuth 2.0, slash commands, webhooks and emoji.
                         </span>
                       </div>
-                      <div
-                        class="permission-group-permissions open"
-                      >
-                        <div
-                          class="permission-group"
-                        >
-                          <div
-                            class="permission-group-row "
-                            id="all_users-integrations-manage_agents_group"
-                          >
-                            <div
-                              class="fa fa-caret-right permission-arrow open"
-                            />
-                            <div
-                              class="permission-check "
-                              data-testid="all_users-integrations-manage_agents_group-checkbox"
-                            />
-                            <span
-                              class="permission-name"
-                            >
-                              Manage AI Agents
-                            </span>
-                            <span
-                              class="permission-description"
-                            >
-                              Manage own and others' AI agents.
-                            </span>
-                          </div>
-                          <div
-                            class="permission-group-permissions open"
-                          >
-                            <div
-                              class="permission-row"
-                              id="all_users-integrations-manage_agents_group-manage_own_agent"
-                            >
-                              <div
-                                class="permission-check "
-                                data-testid="all_users-integrations-manage_agents_group-manage_own_agent-checkbox"
-                              />
-                              <span
-                                class="permission-name"
-                              >
-                                Manage own AI agents
-                              </span>
-                              <span
-                                class="permission-description"
-                              >
-                                Create and manage your own AI agents.
-                              </span>
-                            </div>
-                            <div
-                              class="permission-row"
-                              id="all_users-integrations-manage_agents_group-manage_others_agent"
-                            >
-                              <div
-                                class="permission-check "
-                                data-testid="all_users-integrations-manage_agents_group-manage_others_agent-checkbox"
-                              />
-                              <span
-                                class="permission-name"
-                              >
-                                Manage others' AI agents
-                              </span>
-                              <span
-                                class="permission-description"
-                              >
-                                Create and manage AI agents for other users.
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
                     </div>
                     <div
                       class="permission-group"
@@ -1649,7 +1577,7 @@ exports[`components/admin_console/permission_schemes_settings/permission_system_
                               <path
                                 d="M23.1484532,13.3124932 C23.3437659,13.1171805 23.3437659,12.7968676 23.1484532,12.6015549 L21.8515766,11.3124908 C21.6562639,11.1171781 21.3437635,11.1171781 21.1484508,11.3124908 L15.0000083,17.4609333 L8.8515659,11.3124908 C8.65625317,11.1171781 8.34375279,11.1171781 8.14844006,11.3124908 L6.85156352,12.6015549 C6.65625078,12.7968676 6.65625078,13.1171805 6.85156352,13.3124932 L14.6484454,21.1015626 C14.8437582,21.2968754 15.1562585,21.2968754 15.3515713,21.1015626 L23.1484532,13.3124932 Z"
                                 fill="#979797"
-                                id=""
+                                id="飦?
                               />
                               <circle
                                 cx="15"
@@ -2497,7 +2425,7 @@ exports[`components/admin_console/permission_schemes_settings/permission_system_
                               <path
                                 d="M23.1484532,13.3124932 C23.3437659,13.1171805 23.3437659,12.7968676 23.1484532,12.6015549 L21.8515766,11.3124908 C21.6562639,11.1171781 21.3437635,11.1171781 21.1484508,11.3124908 L15.0000083,17.4609333 L8.8515659,11.3124908 C8.65625317,11.1171781 8.34375279,11.1171781 8.14844006,11.3124908 L6.85156352,12.6015549 C6.65625078,12.7968676 6.65625078,13.1171805 6.85156352,13.3124932 L14.6484454,21.1015626 C14.8437582,21.2968754 15.1562585,21.2968754 15.3515713,21.1015626 L23.1484532,13.3124932 Z"
                                 fill="#979797"
-                                id=""
+                                id="飦?
                               />
                               <circle
                                 cx="15"
@@ -3436,7 +3364,7 @@ exports[`components/admin_console/permission_schemes_settings/permission_system_
                               <path
                                 d="M23.1484532,13.3124932 C23.3437659,13.1171805 23.3437659,12.7968676 23.1484532,12.6015549 L21.8515766,11.3124908 C21.6562639,11.1171781 21.3437635,11.1171781 21.1484508,11.3124908 L15.0000083,17.4609333 L8.8515659,11.3124908 C8.65625317,11.1171781 8.34375279,11.1171781 8.14844006,11.3124908 L6.85156352,12.6015549 C6.65625078,12.7968676 6.65625078,13.1171805 6.85156352,13.3124932 L14.6484454,21.1015626 C14.8437582,21.2968754 15.1562585,21.2968754 15.3515713,21.1015626 L23.1484532,13.3124932 Z"
                                 fill="#979797"
-                                id=""
+                                id="飦?
                               />
                               <circle
                                 cx="15"
@@ -4080,78 +4008,6 @@ exports[`components/admin_console/permission_schemes_settings/permission_system_
                         >
                           Manage OAuth 2.0, slash commands, webhooks and emoji.
                         </span>
-                      </div>
-                      <div
-                        class="permission-group-permissions open"
-                      >
-                        <div
-                          class="permission-group"
-                        >
-                          <div
-                            class="permission-group-row  read-only"
-                            id="-integrations-manage_agents_group"
-                          >
-                            <div
-                              class="fa fa-caret-right permission-arrow open"
-                            />
-                            <div
-                              class="permission-check "
-                              data-testid="-integrations-manage_agents_group-checkbox"
-                            />
-                            <span
-                              class="permission-name"
-                            >
-                              Manage AI Agents
-                            </span>
-                            <span
-                              class="permission-description"
-                            >
-                              Manage own and others' AI agents.
-                            </span>
-                          </div>
-                          <div
-                            class="permission-group-permissions open"
-                          >
-                            <div
-                              class="permission-row read-only"
-                              id="-integrations-manage_agents_group-manage_own_agent"
-                            >
-                              <div
-                                class="permission-check "
-                                data-testid="-integrations-manage_agents_group-manage_own_agent-checkbox"
-                              />
-                              <span
-                                class="permission-name"
-                              >
-                                Manage own AI agents
-                              </span>
-                              <span
-                                class="permission-description"
-                              >
-                                Create and manage your own AI agents.
-                              </span>
-                            </div>
-                            <div
-                              class="permission-row read-only"
-                              id="-integrations-manage_agents_group-manage_others_agent"
-                            >
-                              <div
-                                class="permission-check "
-                                data-testid="-integrations-manage_agents_group-manage_others_agent-checkbox"
-                              />
-                              <span
-                                class="permission-name"
-                              >
-                                Manage others' AI agents
-                              </span>
-                              <span
-                                class="permission-description"
-                              >
-                                Create and manage AI agents for other users.
-                              </span>
-                            </div>
-                          </div>
-                        </div>
                       </div>
                     </div>
                     <div
@@ -4545,7 +4401,7 @@ exports[`components/admin_console/permission_schemes_settings/permission_system_
                               <path
                                 d="M23.1484532,13.3124932 C23.3437659,13.1171805 23.3437659,12.7968676 23.1484532,12.6015549 L21.8515766,11.3124908 C21.6562639,11.1171781 21.3437635,11.1171781 21.1484508,11.3124908 L15.0000083,17.4609333 L8.8515659,11.3124908 C8.65625317,11.1171781 8.34375279,11.1171781 8.14844006,11.3124908 L6.85156352,12.6015549 C6.65625078,12.7968676 6.65625078,13.1171805 6.85156352,13.3124932 L14.6484454,21.1015626 C14.8437582,21.2968754 15.1562585,21.2968754 15.3515713,21.1015626 L23.1484532,13.3124932 Z"
                                 fill="#979797"
-                                id=""
+                                id="飦?
                               />
                               <circle
                                 cx="15"
@@ -4825,7 +4681,7 @@ exports[`components/admin_console/permission_schemes_settings/permission_system_
                               <path
                                 d="M23.1484532,13.3124932 C23.3437659,13.1171805 23.3437659,12.7968676 23.1484532,12.6015549 L21.8515766,11.3124908 C21.6562639,11.1171781 21.3437635,11.1171781 21.1484508,11.3124908 L15.0000083,17.4609333 L8.8515659,11.3124908 C8.65625317,11.1171781 8.34375279,11.1171781 8.14844006,11.3124908 L6.85156352,12.6015549 C6.65625078,12.7968676 6.65625078,13.1171805 6.85156352,13.3124932 L14.6484454,21.1015626 C14.8437582,21.2968754 15.1562585,21.2968754 15.3515713,21.1015626 L23.1484532,13.3124932 Z"
                                 fill="#979797"
-                                id=""
+                                id="飦?
                               />
                               <circle
                                 cx="15"
@@ -5469,78 +5325,6 @@ exports[`components/admin_console/permission_schemes_settings/permission_system_
                           Manage OAuth 2.0, slash commands, webhooks and emoji.
                         </span>
                       </div>
-                      <div
-                        class="permission-group-permissions open"
-                      >
-                        <div
-                          class="permission-group"
-                        >
-                          <div
-                            class="permission-group-row "
-                            id="all_users-integrations-manage_agents_group"
-                          >
-                            <div
-                              class="fa fa-caret-right permission-arrow open"
-                            />
-                            <div
-                              class="permission-check "
-                              data-testid="all_users-integrations-manage_agents_group-checkbox"
-                            />
-                            <span
-                              class="permission-name"
-                            >
-                              Manage AI Agents
-                            </span>
-                            <span
-                              class="permission-description"
-                            >
-                              Manage own and others' AI agents.
-                            </span>
-                          </div>
-                          <div
-                            class="permission-group-permissions open"
-                          >
-                            <div
-                              class="permission-row"
-                              id="all_users-integrations-manage_agents_group-manage_own_agent"
-                            >
-                              <div
-                                class="permission-check "
-                                data-testid="all_users-integrations-manage_agents_group-manage_own_agent-checkbox"
-                              />
-                              <span
-                                class="permission-name"
-                              >
-                                Manage own AI agents
-                              </span>
-                              <span
-                                class="permission-description"
-                              >
-                                Create and manage your own AI agents.
-                              </span>
-                            </div>
-                            <div
-                              class="permission-row"
-                              id="all_users-integrations-manage_agents_group-manage_others_agent"
-                            >
-                              <div
-                                class="permission-check "
-                                data-testid="all_users-integrations-manage_agents_group-manage_others_agent-checkbox"
-                              />
-                              <span
-                                class="permission-name"
-                              >
-                                Manage others' AI agents
-                              </span>
-                              <span
-                                class="permission-description"
-                              >
-                                Create and manage AI agents for other users.
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
                     </div>
                     <div
                       class="permission-group"
@@ -5707,7 +5491,7 @@ exports[`components/admin_console/permission_schemes_settings/permission_system_
                               <path
                                 d="M23.1484532,13.3124932 C23.3437659,13.1171805 23.3437659,12.7968676 23.1484532,12.6015549 L21.8515766,11.3124908 C21.6562639,11.1171781 21.3437635,11.1171781 21.1484508,11.3124908 L15.0000083,17.4609333 L8.8515659,11.3124908 C8.65625317,11.1171781 8.34375279,11.1171781 8.14844006,11.3124908 L6.85156352,12.6015549 C6.65625078,12.7968676 6.65625078,13.1171805 6.85156352,13.3124932 L14.6484454,21.1015626 C14.8437582,21.2968754 15.1562585,21.2968754 15.3515713,21.1015626 L23.1484532,13.3124932 Z"
                                 fill="#979797"
-                                id=""
+                                id="飦?
                               />
                               <circle
                                 cx="15"
@@ -6275,7 +6059,7 @@ exports[`components/admin_console/permission_schemes_settings/permission_system_
                               <path
                                 d="M23.1484532,13.3124932 C23.3437659,13.1171805 23.3437659,12.7968676 23.1484532,12.6015549 L21.8515766,11.3124908 C21.6562639,11.1171781 21.3437635,11.1171781 21.1484508,11.3124908 L15.0000083,17.4609333 L8.8515659,11.3124908 C8.65625317,11.1171781 8.34375279,11.1171781 8.14844006,11.3124908 L6.85156352,12.6015549 C6.65625078,12.7968676 6.65625078,13.1171805 6.85156352,13.3124932 L14.6484454,21.1015626 C14.8437582,21.2968754 15.1562585,21.2968754 15.3515713,21.1015626 L23.1484532,13.3124932 Z"
                                 fill="#979797"
-                                id=""
+                                id="飦?
                               />
                               <circle
                                 cx="15"
@@ -6934,7 +6718,7 @@ exports[`components/admin_console/permission_schemes_settings/permission_system_
                               <path
                                 d="M23.1484532,13.3124932 C23.3437659,13.1171805 23.3437659,12.7968676 23.1484532,12.6015549 L21.8515766,11.3124908 C21.6562639,11.1171781 21.3437635,11.1171781 21.1484508,11.3124908 L15.0000083,17.4609333 L8.8515659,11.3124908 C8.65625317,11.1171781 8.34375279,11.1171781 8.14844006,11.3124908 L6.85156352,12.6015549 C6.65625078,12.7968676 6.65625078,13.1171805 6.85156352,13.3124932 L14.6484454,21.1015626 C14.8437582,21.2968754 15.1562585,21.2968754 15.3515713,21.1015626 L23.1484532,13.3124932 Z"
                                 fill="#979797"
-                                id=""
+                                id="飦?
                               />
                               <circle
                                 cx="15"
@@ -7578,78 +7362,6 @@ exports[`components/admin_console/permission_schemes_settings/permission_system_
                         >
                           Manage OAuth 2.0, slash commands, webhooks and emoji.
                         </span>
-                      </div>
-                      <div
-                        class="permission-group-permissions open"
-                      >
-                        <div
-                          class="permission-group"
-                        >
-                          <div
-                            class="permission-group-row  read-only"
-                            id="-integrations-manage_agents_group"
-                          >
-                            <div
-                              class="fa fa-caret-right permission-arrow open"
-                            />
-                            <div
-                              class="permission-check "
-                              data-testid="-integrations-manage_agents_group-checkbox"
-                            />
-                            <span
-                              class="permission-name"
-                            >
-                              Manage AI Agents
-                            </span>
-                            <span
-                              class="permission-description"
-                            >
-                              Manage own and others' AI agents.
-                            </span>
-                          </div>
-                          <div
-                            class="permission-group-permissions open"
-                          >
-                            <div
-                              class="permission-row read-only"
-                              id="-integrations-manage_agents_group-manage_own_agent"
-                            >
-                              <div
-                                class="permission-check "
-                                data-testid="-integrations-manage_agents_group-manage_own_agent-checkbox"
-                              />
-                              <span
-                                class="permission-name"
-                              >
-                                Manage own AI agents
-                              </span>
-                              <span
-                                class="permission-description"
-                              >
-                                Create and manage your own AI agents.
-                              </span>
-                            </div>
-                            <div
-                              class="permission-row read-only"
-                              id="-integrations-manage_agents_group-manage_others_agent"
-                            >
-                              <div
-                                class="permission-check "
-                                data-testid="-integrations-manage_agents_group-manage_others_agent-checkbox"
-                              />
-                              <span
-                                class="permission-name"
-                              >
-                                Manage others' AI agents
-                              </span>
-                              <span
-                                class="permission-description"
-                              >
-                                Create and manage AI agents for other users.
-                              </span>
-                            </div>
-                          </div>
-                        </div>
                       </div>
                     </div>
                     <div
@@ -7897,7 +7609,7 @@ exports[`components/admin_console/permission_schemes_settings/permission_system_
                               <path
                                 d="M23.1484532,13.3124932 C23.3437659,13.1171805 23.3437659,12.7968676 23.1484532,12.6015549 L21.8515766,11.3124908 C21.6562639,11.1171781 21.3437635,11.1171781 21.1484508,11.3124908 L15.0000083,17.4609333 L8.8515659,11.3124908 C8.65625317,11.1171781 8.34375279,11.1171781 8.14844006,11.3124908 L6.85156352,12.6015549 C6.65625078,12.7968676 6.65625078,13.1171805 6.85156352,13.3124932 L14.6484454,21.1015626 C14.8437582,21.2968754 15.1562585,21.2968754 15.3515713,21.1015626 L23.1484532,13.3124932 Z"
                                 fill="#979797"
-                                id=""
+                                id="飦?
                               />
                               <circle
                                 cx="15"
@@ -8176,7 +7888,7 @@ exports[`components/admin_console/permission_schemes_settings/permission_system_
                               <path
                                 d="M23.1484532,13.3124932 C23.3437659,13.1171805 23.3437659,12.7968676 23.1484532,12.6015549 L21.8515766,11.3124908 C21.6562639,11.1171781 21.3437635,11.1171781 21.1484508,11.3124908 L15.0000083,17.4609333 L8.8515659,11.3124908 C8.65625317,11.1171781 8.34375279,11.1171781 8.14844006,11.3124908 L6.85156352,12.6015549 C6.65625078,12.7968676 6.65625078,13.1171805 6.85156352,13.3124932 L14.6484454,21.1015626 C14.8437582,21.2968754 15.1562585,21.2968754 15.3515713,21.1015626 L23.1484532,13.3124932 Z"
                                 fill="#979797"
-                                id=""
+                                id="飦?
                               />
                               <circle
                                 cx="15"
@@ -8820,78 +8532,6 @@ exports[`components/admin_console/permission_schemes_settings/permission_system_
                           Manage OAuth 2.0, slash commands, webhooks and emoji.
                         </span>
                       </div>
-                      <div
-                        class="permission-group-permissions open"
-                      >
-                        <div
-                          class="permission-group"
-                        >
-                          <div
-                            class="permission-group-row "
-                            id="all_users-integrations-manage_agents_group"
-                          >
-                            <div
-                              class="fa fa-caret-right permission-arrow open"
-                            />
-                            <div
-                              class="permission-check "
-                              data-testid="all_users-integrations-manage_agents_group-checkbox"
-                            />
-                            <span
-                              class="permission-name"
-                            >
-                              Manage AI Agents
-                            </span>
-                            <span
-                              class="permission-description"
-                            >
-                              Manage own and others' AI agents.
-                            </span>
-                          </div>
-                          <div
-                            class="permission-group-permissions open"
-                          >
-                            <div
-                              class="permission-row"
-                              id="all_users-integrations-manage_agents_group-manage_own_agent"
-                            >
-                              <div
-                                class="permission-check "
-                                data-testid="all_users-integrations-manage_agents_group-manage_own_agent-checkbox"
-                              />
-                              <span
-                                class="permission-name"
-                              >
-                                Manage own AI agents
-                              </span>
-                              <span
-                                class="permission-description"
-                              >
-                                Create and manage your own AI agents.
-                              </span>
-                            </div>
-                            <div
-                              class="permission-row"
-                              id="all_users-integrations-manage_agents_group-manage_others_agent"
-                            >
-                              <div
-                                class="permission-check "
-                                data-testid="all_users-integrations-manage_agents_group-manage_others_agent-checkbox"
-                              />
-                              <span
-                                class="permission-name"
-                              >
-                                Manage others' AI agents
-                              </span>
-                              <span
-                                class="permission-description"
-                              >
-                                Create and manage AI agents for other users.
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
                     </div>
                     <div
                       class="permission-group"
@@ -9058,7 +8698,7 @@ exports[`components/admin_console/permission_schemes_settings/permission_system_
                               <path
                                 d="M23.1484532,13.3124932 C23.3437659,13.1171805 23.3437659,12.7968676 23.1484532,12.6015549 L21.8515766,11.3124908 C21.6562639,11.1171781 21.3437635,11.1171781 21.1484508,11.3124908 L15.0000083,17.4609333 L8.8515659,11.3124908 C8.65625317,11.1171781 8.34375279,11.1171781 8.14844006,11.3124908 L6.85156352,12.6015549 C6.65625078,12.7968676 6.65625078,13.1171805 6.85156352,13.3124932 L14.6484454,21.1015626 C14.8437582,21.2968754 15.1562585,21.2968754 15.3515713,21.1015626 L23.1484532,13.3124932 Z"
                                 fill="#979797"
-                                id=""
+                                id="飦?
                               />
                               <circle
                                 cx="15"
@@ -9626,7 +9266,7 @@ exports[`components/admin_console/permission_schemes_settings/permission_system_
                               <path
                                 d="M23.1484532,13.3124932 C23.3437659,13.1171805 23.3437659,12.7968676 23.1484532,12.6015549 L21.8515766,11.3124908 C21.6562639,11.1171781 21.3437635,11.1171781 21.1484508,11.3124908 L15.0000083,17.4609333 L8.8515659,11.3124908 C8.65625317,11.1171781 8.34375279,11.1171781 8.14844006,11.3124908 L6.85156352,12.6015549 C6.65625078,12.7968676 6.65625078,13.1171805 6.85156352,13.3124932 L14.6484454,21.1015626 C14.8437582,21.2968754 15.1562585,21.2968754 15.3515713,21.1015626 L23.1484532,13.3124932 Z"
                                 fill="#979797"
-                                id=""
+                                id="飦?
                               />
                               <circle
                                 cx="15"
@@ -10285,7 +9925,7 @@ exports[`components/admin_console/permission_schemes_settings/permission_system_
                               <path
                                 d="M23.1484532,13.3124932 C23.3437659,13.1171805 23.3437659,12.7968676 23.1484532,12.6015549 L21.8515766,11.3124908 C21.6562639,11.1171781 21.3437635,11.1171781 21.1484508,11.3124908 L15.0000083,17.4609333 L8.8515659,11.3124908 C8.65625317,11.1171781 8.34375279,11.1171781 8.14844006,11.3124908 L6.85156352,12.6015549 C6.65625078,12.7968676 6.65625078,13.1171805 6.85156352,13.3124932 L14.6484454,21.1015626 C14.8437582,21.2968754 15.1562585,21.2968754 15.3515713,21.1015626 L23.1484532,13.3124932 Z"
                                 fill="#979797"
-                                id=""
+                                id="飦?
                               />
                               <circle
                                 cx="15"
@@ -10930,78 +10570,6 @@ exports[`components/admin_console/permission_schemes_settings/permission_system_
                           Manage OAuth 2.0, slash commands, webhooks and emoji.
                         </span>
                       </div>
-                      <div
-                        class="permission-group-permissions open"
-                      >
-                        <div
-                          class="permission-group"
-                        >
-                          <div
-                            class="permission-group-row  read-only"
-                            id="-integrations-manage_agents_group"
-                          >
-                            <div
-                              class="fa fa-caret-right permission-arrow open"
-                            />
-                            <div
-                              class="permission-check "
-                              data-testid="-integrations-manage_agents_group-checkbox"
-                            />
-                            <span
-                              class="permission-name"
-                            >
-                              Manage AI Agents
-                            </span>
-                            <span
-                              class="permission-description"
-                            >
-                              Manage own and others' AI agents.
-                            </span>
-                          </div>
-                          <div
-                            class="permission-group-permissions open"
-                          >
-                            <div
-                              class="permission-row read-only"
-                              id="-integrations-manage_agents_group-manage_own_agent"
-                            >
-                              <div
-                                class="permission-check "
-                                data-testid="-integrations-manage_agents_group-manage_own_agent-checkbox"
-                              />
-                              <span
-                                class="permission-name"
-                              >
-                                Manage own AI agents
-                              </span>
-                              <span
-                                class="permission-description"
-                              >
-                                Create and manage your own AI agents.
-                              </span>
-                            </div>
-                            <div
-                              class="permission-row read-only"
-                              id="-integrations-manage_agents_group-manage_others_agent"
-                            >
-                              <div
-                                class="permission-check "
-                                data-testid="-integrations-manage_agents_group-manage_others_agent-checkbox"
-                              />
-                              <span
-                                class="permission-name"
-                              >
-                                Manage others' AI agents
-                              </span>
-                              <span
-                                class="permission-description"
-                              >
-                                Create and manage AI agents for other users.
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
                     </div>
                     <div
                       class="permission-group"
@@ -11248,7 +10816,7 @@ exports[`components/admin_console/permission_schemes_settings/permission_system_
                               <path
                                 d="M23.1484532,13.3124932 C23.3437659,13.1171805 23.3437659,12.7968676 23.1484532,12.6015549 L21.8515766,11.3124908 C21.6562639,11.1171781 21.3437635,11.1171781 21.1484508,11.3124908 L15.0000083,17.4609333 L8.8515659,11.3124908 C8.65625317,11.1171781 8.34375279,11.1171781 8.14844006,11.3124908 L6.85156352,12.6015549 C6.65625078,12.7968676 6.65625078,13.1171805 6.85156352,13.3124932 L14.6484454,21.1015626 C14.8437582,21.2968754 15.1562585,21.2968754 15.3515713,21.1015626 L23.1484532,13.3124932 Z"
                                 fill="#979797"
-                                id=""
+                                id="飦?
                               />
                               <circle
                                 cx="15"
@@ -11528,7 +11096,7 @@ exports[`components/admin_console/permission_schemes_settings/permission_system_
                               <path
                                 d="M23.1484532,13.3124932 C23.3437659,13.1171805 23.3437659,12.7968676 23.1484532,12.6015549 L21.8515766,11.3124908 C21.6562639,11.1171781 21.3437635,11.1171781 21.1484508,11.3124908 L15.0000083,17.4609333 L8.8515659,11.3124908 C8.65625317,11.1171781 8.34375279,11.1171781 8.14844006,11.3124908 L6.85156352,12.6015549 C6.65625078,12.7968676 6.65625078,13.1171805 6.85156352,13.3124932 L14.6484454,21.1015626 C14.8437582,21.2968754 15.1562585,21.2968754 15.3515713,21.1015626 L23.1484532,13.3124932 Z"
                                 fill="#979797"
-                                id=""
+                                id="飦?
                               />
                               <circle
                                 cx="15"
@@ -12172,78 +11740,6 @@ exports[`components/admin_console/permission_schemes_settings/permission_system_
                           Manage OAuth 2.0, slash commands, webhooks and emoji.
                         </span>
                       </div>
-                      <div
-                        class="permission-group-permissions open"
-                      >
-                        <div
-                          class="permission-group"
-                        >
-                          <div
-                            class="permission-group-row "
-                            id="all_users-integrations-manage_agents_group"
-                          >
-                            <div
-                              class="fa fa-caret-right permission-arrow open"
-                            />
-                            <div
-                              class="permission-check "
-                              data-testid="all_users-integrations-manage_agents_group-checkbox"
-                            />
-                            <span
-                              class="permission-name"
-                            >
-                              Manage AI Agents
-                            </span>
-                            <span
-                              class="permission-description"
-                            >
-                              Manage own and others' AI agents.
-                            </span>
-                          </div>
-                          <div
-                            class="permission-group-permissions open"
-                          >
-                            <div
-                              class="permission-row"
-                              id="all_users-integrations-manage_agents_group-manage_own_agent"
-                            >
-                              <div
-                                class="permission-check "
-                                data-testid="all_users-integrations-manage_agents_group-manage_own_agent-checkbox"
-                              />
-                              <span
-                                class="permission-name"
-                              >
-                                Manage own AI agents
-                              </span>
-                              <span
-                                class="permission-description"
-                              >
-                                Create and manage your own AI agents.
-                              </span>
-                            </div>
-                            <div
-                              class="permission-row"
-                              id="all_users-integrations-manage_agents_group-manage_others_agent"
-                            >
-                              <div
-                                class="permission-check "
-                                data-testid="all_users-integrations-manage_agents_group-manage_others_agent-checkbox"
-                              />
-                              <span
-                                class="permission-name"
-                              >
-                                Manage others' AI agents
-                              </span>
-                              <span
-                                class="permission-description"
-                              >
-                                Create and manage AI agents for other users.
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
                     </div>
                     <div
                       class="permission-group"
@@ -12410,7 +11906,7 @@ exports[`components/admin_console/permission_schemes_settings/permission_system_
                               <path
                                 d="M23.1484532,13.3124932 C23.3437659,13.1171805 23.3437659,12.7968676 23.1484532,12.6015549 L21.8515766,11.3124908 C21.6562639,11.1171781 21.3437635,11.1171781 21.1484508,11.3124908 L15.0000083,17.4609333 L8.8515659,11.3124908 C8.65625317,11.1171781 8.34375279,11.1171781 8.14844006,11.3124908 L6.85156352,12.6015549 C6.65625078,12.7968676 6.65625078,13.1171805 6.85156352,13.3124932 L14.6484454,21.1015626 C14.8437582,21.2968754 15.1562585,21.2968754 15.3515713,21.1015626 L23.1484532,13.3124932 Z"
                                 fill="#979797"
-                                id=""
+                                id="飦?
                               />
                               <circle
                                 cx="15"
@@ -12978,7 +12474,7 @@ exports[`components/admin_console/permission_schemes_settings/permission_system_
                               <path
                                 d="M23.1484532,13.3124932 C23.3437659,13.1171805 23.3437659,12.7968676 23.1484532,12.6015549 L21.8515766,11.3124908 C21.6562639,11.1171781 21.3437635,11.1171781 21.1484508,11.3124908 L15.0000083,17.4609333 L8.8515659,11.3124908 C8.65625317,11.1171781 8.34375279,11.1171781 8.14844006,11.3124908 L6.85156352,12.6015549 C6.65625078,12.7968676 6.65625078,13.1171805 6.85156352,13.3124932 L14.6484454,21.1015626 C14.8437582,21.2968754 15.1562585,21.2968754 15.3515713,21.1015626 L23.1484532,13.3124932 Z"
                                 fill="#979797"
-                                id=""
+                                id="飦?
                               />
                               <circle
                                 cx="15"
@@ -13637,7 +13133,7 @@ exports[`components/admin_console/permission_schemes_settings/permission_system_
                               <path
                                 d="M23.1484532,13.3124932 C23.3437659,13.1171805 23.3437659,12.7968676 23.1484532,12.6015549 L21.8515766,11.3124908 C21.6562639,11.1171781 21.3437635,11.1171781 21.1484508,11.3124908 L15.0000083,17.4609333 L8.8515659,11.3124908 C8.65625317,11.1171781 8.34375279,11.1171781 8.14844006,11.3124908 L6.85156352,12.6015549 C6.65625078,12.7968676 6.65625078,13.1171805 6.85156352,13.3124932 L14.6484454,21.1015626 C14.8437582,21.2968754 15.1562585,21.2968754 15.3515713,21.1015626 L23.1484532,13.3124932 Z"
                                 fill="#979797"
-                                id=""
+                                id="飦?
                               />
                               <circle
                                 cx="15"
@@ -14282,78 +13778,6 @@ exports[`components/admin_console/permission_schemes_settings/permission_system_
                           Manage OAuth 2.0, slash commands, webhooks and emoji.
                         </span>
                       </div>
-                      <div
-                        class="permission-group-permissions open"
-                      >
-                        <div
-                          class="permission-group"
-                        >
-                          <div
-                            class="permission-group-row  read-only"
-                            id="-integrations-manage_agents_group"
-                          >
-                            <div
-                              class="fa fa-caret-right permission-arrow open"
-                            />
-                            <div
-                              class="permission-check "
-                              data-testid="-integrations-manage_agents_group-checkbox"
-                            />
-                            <span
-                              class="permission-name"
-                            >
-                              Manage AI Agents
-                            </span>
-                            <span
-                              class="permission-description"
-                            >
-                              Manage own and others' AI agents.
-                            </span>
-                          </div>
-                          <div
-                            class="permission-group-permissions open"
-                          >
-                            <div
-                              class="permission-row read-only"
-                              id="-integrations-manage_agents_group-manage_own_agent"
-                            >
-                              <div
-                                class="permission-check "
-                                data-testid="-integrations-manage_agents_group-manage_own_agent-checkbox"
-                              />
-                              <span
-                                class="permission-name"
-                              >
-                                Manage own AI agents
-                              </span>
-                              <span
-                                class="permission-description"
-                              >
-                                Create and manage your own AI agents.
-                              </span>
-                            </div>
-                            <div
-                              class="permission-row read-only"
-                              id="-integrations-manage_agents_group-manage_others_agent"
-                            >
-                              <div
-                                class="permission-check "
-                                data-testid="-integrations-manage_agents_group-manage_others_agent-checkbox"
-                              />
-                              <span
-                                class="permission-name"
-                              >
-                                Manage others' AI agents
-                              </span>
-                              <span
-                                class="permission-description"
-                              >
-                                Create and manage AI agents for other users.
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
                     </div>
                     <div
                       class="permission-group"
@@ -14600,7 +14024,7 @@ exports[`components/admin_console/permission_schemes_settings/permission_system_
                               <path
                                 d="M23.1484532,13.3124932 C23.3437659,13.1171805 23.3437659,12.7968676 23.1484532,12.6015549 L21.8515766,11.3124908 C21.6562639,11.1171781 21.3437635,11.1171781 21.1484508,11.3124908 L15.0000083,17.4609333 L8.8515659,11.3124908 C8.65625317,11.1171781 8.34375279,11.1171781 8.14844006,11.3124908 L6.85156352,12.6015549 C6.65625078,12.7968676 6.65625078,13.1171805 6.85156352,13.3124932 L14.6484454,21.1015626 C14.8437582,21.2968754 15.1562585,21.2968754 15.3515713,21.1015626 L23.1484532,13.3124932 Z"
                                 fill="#979797"
-                                id=""
+                                id="飦?
                               />
                               <circle
                                 cx="15"
@@ -14879,7 +14303,7 @@ exports[`components/admin_console/permission_schemes_settings/permission_system_
                               <path
                                 d="M23.1484532,13.3124932 C23.3437659,13.1171805 23.3437659,12.7968676 23.1484532,12.6015549 L21.8515766,11.3124908 C21.6562639,11.1171781 21.3437635,11.1171781 21.1484508,11.3124908 L15.0000083,17.4609333 L8.8515659,11.3124908 C8.65625317,11.1171781 8.34375279,11.1171781 8.14844006,11.3124908 L6.85156352,12.6015549 C6.65625078,12.7968676 6.65625078,13.1171805 6.85156352,13.3124932 L14.6484454,21.1015626 C14.8437582,21.2968754 15.1562585,21.2968754 15.3515713,21.1015626 L23.1484532,13.3124932 Z"
                                 fill="#979797"
-                                id=""
+                                id="飦?
                               />
                               <circle
                                 cx="15"
@@ -15523,78 +14947,6 @@ exports[`components/admin_console/permission_schemes_settings/permission_system_
                           Manage OAuth 2.0, slash commands, webhooks and emoji.
                         </span>
                       </div>
-                      <div
-                        class="permission-group-permissions open"
-                      >
-                        <div
-                          class="permission-group"
-                        >
-                          <div
-                            class="permission-group-row "
-                            id="all_users-integrations-manage_agents_group"
-                          >
-                            <div
-                              class="fa fa-caret-right permission-arrow open"
-                            />
-                            <div
-                              class="permission-check "
-                              data-testid="all_users-integrations-manage_agents_group-checkbox"
-                            />
-                            <span
-                              class="permission-name"
-                            >
-                              Manage AI Agents
-                            </span>
-                            <span
-                              class="permission-description"
-                            >
-                              Manage own and others' AI agents.
-                            </span>
-                          </div>
-                          <div
-                            class="permission-group-permissions open"
-                          >
-                            <div
-                              class="permission-row"
-                              id="all_users-integrations-manage_agents_group-manage_own_agent"
-                            >
-                              <div
-                                class="permission-check "
-                                data-testid="all_users-integrations-manage_agents_group-manage_own_agent-checkbox"
-                              />
-                              <span
-                                class="permission-name"
-                              >
-                                Manage own AI agents
-                              </span>
-                              <span
-                                class="permission-description"
-                              >
-                                Create and manage your own AI agents.
-                              </span>
-                            </div>
-                            <div
-                              class="permission-row"
-                              id="all_users-integrations-manage_agents_group-manage_others_agent"
-                            >
-                              <div
-                                class="permission-check "
-                                data-testid="all_users-integrations-manage_agents_group-manage_others_agent-checkbox"
-                              />
-                              <span
-                                class="permission-name"
-                              >
-                                Manage others' AI agents
-                              </span>
-                              <span
-                                class="permission-description"
-                              >
-                                Create and manage AI agents for other users.
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
                     </div>
                     <div
                       class="permission-group"
@@ -15761,7 +15113,7 @@ exports[`components/admin_console/permission_schemes_settings/permission_system_
                               <path
                                 d="M23.1484532,13.3124932 C23.3437659,13.1171805 23.3437659,12.7968676 23.1484532,12.6015549 L21.8515766,11.3124908 C21.6562639,11.1171781 21.3437635,11.1171781 21.1484508,11.3124908 L15.0000083,17.4609333 L8.8515659,11.3124908 C8.65625317,11.1171781 8.34375279,11.1171781 8.14844006,11.3124908 L6.85156352,12.6015549 C6.65625078,12.7968676 6.65625078,13.1171805 6.85156352,13.3124932 L14.6484454,21.1015626 C14.8437582,21.2968754 15.1562585,21.2968754 15.3515713,21.1015626 L23.1484532,13.3124932 Z"
                                 fill="#979797"
-                                id=""
+                                id="飦?
                               />
                               <circle
                                 cx="15"
@@ -16329,7 +15681,7 @@ exports[`components/admin_console/permission_schemes_settings/permission_system_
                               <path
                                 d="M23.1484532,13.3124932 C23.3437659,13.1171805 23.3437659,12.7968676 23.1484532,12.6015549 L21.8515766,11.3124908 C21.6562639,11.1171781 21.3437635,11.1171781 21.1484508,11.3124908 L15.0000083,17.4609333 L8.8515659,11.3124908 C8.65625317,11.1171781 8.34375279,11.1171781 8.14844006,11.3124908 L6.85156352,12.6015549 C6.65625078,12.7968676 6.65625078,13.1171805 6.85156352,13.3124932 L14.6484454,21.1015626 C14.8437582,21.2968754 15.1562585,21.2968754 15.3515713,21.1015626 L23.1484532,13.3124932 Z"
                                 fill="#979797"
-                                id=""
+                                id="飦?
                               />
                               <circle
                                 cx="15"
@@ -16988,7 +16340,7 @@ exports[`components/admin_console/permission_schemes_settings/permission_system_
                               <path
                                 d="M23.1484532,13.3124932 C23.3437659,13.1171805 23.3437659,12.7968676 23.1484532,12.6015549 L21.8515766,11.3124908 C21.6562639,11.1171781 21.3437635,11.1171781 21.1484508,11.3124908 L15.0000083,17.4609333 L8.8515659,11.3124908 C8.65625317,11.1171781 8.34375279,11.1171781 8.14844006,11.3124908 L6.85156352,12.6015549 C6.65625078,12.7968676 6.65625078,13.1171805 6.85156352,13.3124932 L14.6484454,21.1015626 C14.8437582,21.2968754 15.1562585,21.2968754 15.3515713,21.1015626 L23.1484532,13.3124932 Z"
                                 fill="#979797"
-                                id=""
+                                id="飦?
                               />
                               <circle
                                 cx="15"
@@ -17632,78 +16984,6 @@ exports[`components/admin_console/permission_schemes_settings/permission_system_
                         >
                           Manage OAuth 2.0, slash commands, webhooks and emoji.
                         </span>
-                      </div>
-                      <div
-                        class="permission-group-permissions open"
-                      >
-                        <div
-                          class="permission-group"
-                        >
-                          <div
-                            class="permission-group-row  read-only"
-                            id="-integrations-manage_agents_group"
-                          >
-                            <div
-                              class="fa fa-caret-right permission-arrow open"
-                            />
-                            <div
-                              class="permission-check "
-                              data-testid="-integrations-manage_agents_group-checkbox"
-                            />
-                            <span
-                              class="permission-name"
-                            >
-                              Manage AI Agents
-                            </span>
-                            <span
-                              class="permission-description"
-                            >
-                              Manage own and others' AI agents.
-                            </span>
-                          </div>
-                          <div
-                            class="permission-group-permissions open"
-                          >
-                            <div
-                              class="permission-row read-only"
-                              id="-integrations-manage_agents_group-manage_own_agent"
-                            >
-                              <div
-                                class="permission-check "
-                                data-testid="-integrations-manage_agents_group-manage_own_agent-checkbox"
-                              />
-                              <span
-                                class="permission-name"
-                              >
-                                Manage own AI agents
-                              </span>
-                              <span
-                                class="permission-description"
-                              >
-                                Create and manage your own AI agents.
-                              </span>
-                            </div>
-                            <div
-                              class="permission-row read-only"
-                              id="-integrations-manage_agents_group-manage_others_agent"
-                            >
-                              <div
-                                class="permission-check "
-                                data-testid="-integrations-manage_agents_group-manage_others_agent-checkbox"
-                              />
-                              <span
-                                class="permission-name"
-                              >
-                                Manage others' AI agents
-                              </span>
-                              <span
-                                class="permission-description"
-                              >
-                                Create and manage AI agents for other users.
-                              </span>
-                            </div>
-                          </div>
-                        </div>
                       </div>
                     </div>
                     <div

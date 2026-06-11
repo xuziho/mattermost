@@ -5,7 +5,6 @@ import {Locator, expect} from '@playwright/test';
 
 /**
  * System Console -> User Management -> Permissions -> System Scheme (Edit Scheme).
- * Used to assert permission toggles (e.g. Manage Channel Auto Translation) per role section.
  */
 export default class PermissionsSystemScheme {
     readonly container: Locator;
@@ -32,49 +31,5 @@ export default class PermissionsSystemScheme {
 
     async toBeVisible() {
         await expect(this.systemSchemeHeader).toBeVisible();
-    }
-
-    /**
-     * Returns the permission row(s) for "Manage Channel Auto Translation" within the given section.
-     * There can be two (public and private channel).
-     */
-    getManageChannelAutoTranslationRows(section: Locator): Locator {
-        return section.locator('.permission-row').filter({hasText: 'Manage Channel Auto Translation'});
-    }
-
-    /**
-     * Asserts that "Manage Channel Auto Translation" is checked (ON) in the given section.
-     */
-    async expectManageChannelAutoTranslationChecked(section: Locator) {
-        const rows = this.getManageChannelAutoTranslationRows(section);
-        const count = await rows.count();
-        if (count === 0) {
-            throw new Error(
-                'Manage Channel Auto Translation permission rows not found in the section. ' +
-                    'Expected to find at least one permission row to verify the checked state.',
-            );
-        }
-        for (let i = 0; i < count; i++) {
-            const row = rows.nth(i);
-            await expect(row.locator('.permission-check.checked')).toBeVisible();
-        }
-    }
-
-    /**
-     * Asserts that "Manage Channel Auto Translation" is not checked (OFF) in the given section.
-     */
-    async expectManageChannelAutoTranslationUnchecked(section: Locator) {
-        const rows = this.getManageChannelAutoTranslationRows(section);
-        const count = await rows.count();
-        if (count === 0) {
-            throw new Error(
-                'Manage Channel Auto Translation permission rows not found in the section. ' +
-                    'Expected to find at least one permission row to verify the unchecked state.',
-            );
-        }
-        for (let i = 0; i < count; i++) {
-            const row = rows.nth(i);
-            await expect(row.locator('.permission-check.checked')).not.toBeVisible();
-        }
     }
 }

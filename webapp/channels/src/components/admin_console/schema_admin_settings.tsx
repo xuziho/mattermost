@@ -1088,23 +1088,6 @@ export class SchemaAdminSettings extends React.PureComponent<SchemaAdminSettings
                     );
                 }
 
-                // This is a bit of special case since designs for plugin config expect the Enable/Disable setting
-                // to be on top and out of the sections.
-                if (section.key.startsWith('PluginSettings.PluginStates') && section.key.endsWith('Enable.Section')) {
-                    sections.push(
-                        <SettingsGroup
-                            container={false}
-                            key={section.key}
-                        >
-                            {header}
-                            {settingsList}
-                            {footer}
-                        </SettingsGroup>,
-                    );
-
-                    return;
-                }
-
                 // Sections with enhanced properties use AdminSectionPanel for richer UI
                 const hasEnhancedProps = section.description || section.license_sku;
 
@@ -1289,24 +1272,24 @@ export class SchemaAdminSettings extends React.PureComponent<SchemaAdminSettings
                 <div className={'wrapper--fixed'}>
                     <AdminHeader>
                         <FormattedMessage
-                            id='error.plugin_not_found.title'
-                            defaultMessage='Plugin Not Found'
+                            id='error.admin_section_not_found.title'
+                            defaultMessage='Page Not Found'
                         />
                     </AdminHeader>
                     <div className='admin-console__wrapper'>
                         <div className='admin-console__content'>
                             <p>
                                 <FormattedMessage
-                                    id='error.plugin_not_found.desc'
-                                    defaultMessage='The plugin you are looking for does not exist.'
+                                    id='error.admin_section_not_found.desc'
+                                    defaultMessage='The system console page you are looking for does not exist.'
                                 />
                             </p>
                             <Link
-                                to={'plugin_management'}
+                                to={'/admin_console'}
                             >
                                 <FormattedMessage
-                                    id='admin.plugin.backToPlugins'
-                                    defaultMessage='Go back to the Plugins'
+                                    id='admin.section_not_found.backToConsole'
+                                    defaultMessage='Go back to the System Console'
                                 />
                             </Link>
                         </div>

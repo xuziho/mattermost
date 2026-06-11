@@ -86,7 +86,7 @@ func TestListImports(t *testing.T) {
 		require.Contains(t, imports, id+"_import_test.zip")
 		require.Contains(t, imports, id2+"_import_test.zip")
 
-		require.NoError(t, os.RemoveAll(importDir))
+		require.NoError(t, removeAllWithRetry(importDir))
 	}, "expected imports")
 
 	th.TestForSystemAdminAndLocal(t, func(t *testing.T, c *model.Client4) {
@@ -106,7 +106,7 @@ func TestListImports(t *testing.T) {
 		require.Len(t, imports, 1)
 		require.Equal(t, id+"_import_test.zip", imports[0])
 
-		require.NoError(t, os.RemoveAll(importDir))
+		require.NoError(t, removeAllWithRetry(importDir))
 	}, "change import directory")
 }
 

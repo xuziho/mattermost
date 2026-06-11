@@ -1,4 +1,4 @@
-// Copyright (c) 2015-present Mattermost, Inc. All Rights Reserved.
+﻿// Copyright (c) 2015-present Mattermost, Inc. All Rights Reserved.
 // See LICENSE.txt for license information.
 
 import {useMemo} from 'react';
@@ -11,7 +11,7 @@ import type {ClientConfig, ClientLicense} from '@mattermost/types/config';
 import type {ServerError} from '@mattermost/types/errors';
 import type {Group} from '@mattermost/types/groups';
 import {isMessageAttachmentArray} from '@mattermost/types/message_attachments';
-import type {Post, PostPriorityMetadata, PostTranslation} from '@mattermost/types/posts';
+import type {Post, PostPriorityMetadata} from '@mattermost/types/posts';
 import {PostPriority} from '@mattermost/types/posts';
 import type {Reaction} from '@mattermost/types/reactions';
 import type {UserProfile} from '@mattermost/types/users';
@@ -467,7 +467,7 @@ export function makeGetMentionsFromMessage(): (state: GlobalState, post: Post) =
     );
 }
 
-export function usePostAriaLabel(post: Post | undefined, autotranslated: boolean) {
+export function usePostAriaLabel(post: Post | undefined) {
     const intl = useIntl();
 
     const getDisplayName = useMemo(makeGetDisplayName, []);
@@ -497,16 +497,13 @@ export function usePostAriaLabel(post: Post | undefined, autotranslated: boolean
             emojiMap,
             mentions,
             teammateNameDisplaySetting,
-            autotranslated,
         );
     });
 }
 
-export function createAriaLabelForPost(post: Post, author: string, isFlagged: boolean, reactions: Record<string, Reaction> | undefined, intl: IntlShape, emojiMap: EmojiMap, mentions: Record<string, UserProfile>, teammateNameDisplaySetting: string, autotranslated: boolean): string {
+export function createAriaLabelForPost(post: Post, author: string, isFlagged: boolean, reactions: Record<string, Reaction> | undefined, intl: IntlShape, emojiMap: EmojiMap, mentions: Record<string, UserProfile>, teammateNameDisplaySetting: string): string {
     const {formatMessage, formatTime, formatDate} = intl;
 
-    const translation = getPostTranslation(post, intl.locale);
-    const isTranslated = autotranslated && post.type === '' && translation?.state === 'ready';
     let message = post.message || '';
 
     if (post.state === Posts.POST_DELETED) {
@@ -514,8 +511,6 @@ export function createAriaLabelForPost(post: Post, author: string, isFlagged: bo
             id: 'post_body.deleted',
             defaultMessage: '(message deleted)',
         });
-    } else if (isTranslated) {
-        message = getPostTranslatedMessage(message, translation);
     }
     let match;
 
@@ -634,25 +629,6 @@ export function createAriaLabelForPost(post: Post, author: string, isFlagged: bo
         });
     }
 
-    if (isTranslated) {
-        const originalLanguage = translation?.source_lang || 'unknown';
-        const originalLanguageName = originalLanguage === 'unknown' ? intl.formatMessage({
-            id: 'show_translation.unknown_language',
-            defaultMessage: 'Unknown',
-        }) : intl.formatDisplayName(originalLanguage, {type: 'language'});
-
-        const targetLanguageName = intl.formatDisplayName(intl.locale, {type: 'language'});
-
-        ariaLabel += formatMessage({
-            id: 'post.ariaLabel.translated',
-            defaultMessage: ', translated from {sourceLanguage} to {targetLanguage}',
-        },
-        {
-            sourceLanguage: originalLanguageName,
-            targetLanguage: targetLanguageName,
-        });
-    }
-
     return ariaLabel;
 }
 
@@ -678,22 +654,13 @@ export function areConsecutivePostsBySameUser(post: Post, previousPost: Post): b
     const withinTimeWindow = post.create_at - previousPost.create_at <= Posts.POST_COLLAPSE_TIMEOUT;
     const notFromWebhook = !(post.props && post.props.from_webhook) && !(previousPost.props && previousPost.props.from_webhook);
     const notSystemMessage = !isSystemMessage(post) && !isSystemMessage(previousPost);
-    const sameAiGeneratedStatus = post.props?.ai_generated_by === previousPost.props?.ai_generated_by;
     const notBoRMessage = post.type !== Constants.PostTypes.BURN_ON_READ && previousPost.type !== Constants.PostTypes.BURN_ON_READ; // And neither is a burn-on-read post
 
     return sameUser &&
         withinTimeWindow &&
         notFromWebhook &&
         notSystemMessage &&
-        sameAiGeneratedStatus &&
         notBoRMessage;
-}
-
-// Checks if a post has valid AI-generated metadata
-export function hasAiGeneratedMetadata(post: Post): boolean {
-    return Boolean(post.props && post.props.ai_generated_by && post.props.ai_generated_by_username) &&
-        typeof post.props.ai_generated_by === 'string' &&
-        typeof post.props.ai_generated_by_username === 'string';
 }
 
 // Constructs the URL of a post.
@@ -909,13 +876,4 @@ export function hasRequestedPersistentNotifications(priority?: PostPriorityMetad
         priority?.priority === PostPriority.URGENT &&
         priority?.persistent_notifications
     );
-}
-
-export function getPostTranslation(post: Post, locale: string): PostTranslation | undefined {
-    const normalizedLocale = locale.split('-')[0];
-    return post.metadata?.translations?.[normalizedLocale];
-}
-
-export function getPostTranslatedMessage(originalMessage: string, translation: PostTranslation): string {
-    return translation.object?.message || originalMessage;
 }

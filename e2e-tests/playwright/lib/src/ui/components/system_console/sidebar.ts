@@ -82,9 +82,6 @@ export default class SystemConsoleSidebar {
     get notifications() {
         return this.siteConfiguration.notifications;
     }
-    get pluginManagement() {
-        return this.plugins.pluginManagement;
-    }
 }
 
 class SidebarSection {
@@ -192,7 +189,6 @@ class SystemAttributesCategory extends SidebarCategory {
 class EnvironmentCategory extends SidebarCategory {
     readonly webServer: SidebarSection;
     readonly database: SidebarSection;
-    readonly elasticsearch: SidebarSection;
     readonly fileStorage: SidebarSection;
     readonly imageProxy: SidebarSection;
     readonly smtp: SidebarSection;
@@ -210,7 +206,6 @@ class EnvironmentCategory extends SidebarCategory {
         super(container);
         this.webServer = this.section('Web Server');
         this.database = this.section('Database');
-        this.elasticsearch = this.section('Elasticsearch');
         this.fileStorage = this.section('File Storage');
         this.imageProxy = this.section('Image Proxy');
         this.smtp = this.section('SMTP');
@@ -234,7 +229,6 @@ class SiteConfigurationCategory extends SidebarCategory {
     readonly systemWideNotifications: SidebarSection;
     readonly emoji: SidebarSection;
     readonly posts: SidebarSection;
-    readonly contentFlagging: SidebarSection;
     readonly moveThread: SidebarSection;
     readonly fileSharingAndDownloads: SidebarSection;
     readonly publicLinks: SidebarSection;
@@ -249,7 +243,6 @@ class SiteConfigurationCategory extends SidebarCategory {
         this.systemWideNotifications = this.section('System-wide Notifications');
         this.emoji = this.section('Emoji');
         this.posts = this.section('Posts');
-        this.contentFlagging = this.section('Data Spillage Handling');
         this.moveThread = this.section('Move Thread (Beta)');
         this.fileSharingAndDownloads = this.section('File Sharing and Downloads');
         this.publicLinks = this.section('Public Links');
@@ -281,13 +274,8 @@ class AuthenticationCategory extends SidebarCategory {
 }
 
 class PluginsCategory extends SidebarCategory {
-    readonly pluginManagement: SidebarSection;
-    readonly agents: SidebarSection;
-
     constructor(container: Locator) {
         super(container);
-        this.pluginManagement = this.section('Plugin Management');
-        this.agents = this.section('Agents');
     }
 
     getPlugin(pluginName: string): SidebarSection {

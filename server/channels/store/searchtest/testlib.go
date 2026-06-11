@@ -11,9 +11,8 @@ import (
 )
 
 const (
-	EngineAll           = "all"
-	EnginePostgres      = "postgres"
-	EngineElasticSearch = "elasticsearch"
+	EngineAll      = "all"
+	EnginePostgres = "postgres"
 )
 
 type SearchTestEngine struct {

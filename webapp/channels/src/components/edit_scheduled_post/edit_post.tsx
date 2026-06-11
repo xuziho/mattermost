@@ -54,7 +54,6 @@ export type Actions = {
     setDraft: (name: string, value: PostDraft | null) => void;
     unsetEditingPost: () => void;
     scrollPostListToBottom: () => void;
-    runMessageWillBeUpdatedHooks: (newPost: Partial<Post>, oldPost: Post) => Promise<ActionResult>;
     updateScheduledPost: (scheduledPost: ScheduledPost, connectionId: string) => Promise<ActionResult>;
 }
 
@@ -69,7 +68,6 @@ export type Props = {
     draft: PostDraft;
     config: {
         EnableEmojiPicker?: string;
-        EnableGifPicker?: string;
     };
     maxPostSize: number;
     useChannelMentions: boolean;
@@ -280,14 +278,6 @@ const EditPost = ({editingPost, actions, canEditPost, config, channelId, draft, 
             channel_id: editingPost.post.channel_id,
         };
 
-        const hookResult = await actions.runMessageWillBeUpdatedHooks(updatedPost, editingPost.post);
-        if (hookResult.error && hookResult.error.message) {
-            setPostError(<>{hookResult.error.message}</>);
-            return;
-        }
-
-        updatedPost = hookResult.data;
-
         if (postError) {
             setErrorClass('animation--highlight');
             setTimeout(() => setErrorClass(''), Constants.ANIMATION_TIMEOUT);
@@ -341,14 +331,6 @@ const EditPost = ({editingPost, actions, canEditPost, config, channelId, draft, 
             id: scheduledPost.id,
             channel_id: scheduledPost?.channel_id,
         };
-
-        const hookResult = await actions.runMessageWillBeUpdatedHooks(updatedPost, post);
-        if (hookResult.error && hookResult.error.message) {
-            setPostError(<>{hookResult.error.message}</>);
-            return;
-        }
-
-        updatedPost = hookResult.data;
 
         if (postError) {
             setErrorClass('animation--highlight');
@@ -547,23 +529,6 @@ const EditPost = ({editingPost, actions, canEditPost, config, channelId, draft, 
         textboxRef.current?.focus();
     };
 
-    const handleGifClick = (gif: string) => {
-        let newMessage = gif;
-
-        if (editText.length > 0) {
-            newMessage = (/\s+$/).test(editText) ? `${editText}${gif}` : `${editText} ${gif}`;
-        }
-
-        draftRef.current = {
-            ...draftRef.current,
-            message: newMessage,
-        };
-
-        setEditText(newMessage);
-        setShowEmojiPicker(false);
-        textboxRef.current?.focus();
-    };
-
     const toggleEmojiPicker = (e?: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
         e?.stopPropagation();
         setShowEmojiPicker(!showEmojiPicker);
@@ -580,8 +545,6 @@ const EditPost = ({editingPost, actions, canEditPost, config, channelId, draft, 
         showEmojiPicker,
         setShowEmojiPicker,
 
-        enableGifPicker: config.EnableGifPicker === 'true',
-        onGifClick: handleGifClick,
         onEmojiClick: handleEmojiClick,
     });
 

@@ -11,15 +11,14 @@
 // Group: @channels @autocomplete
 
 import * as TIMEOUTS from '../../../fixtures/timeouts';
-import {withTimestamp, createEmail} from '../enterprise/elasticsearch_autocomplete/helpers';
+import {withTimestamp, createEmail} from '../autocomplete/helpers';
 import {newTestPassword} from '../../../utils';
 
-describe('Autocomplete without Elasticsearch - Renaming', () => {
+describe('Database autocomplete - Renaming', () => {
     const timestamp = Date.now();
     let testTeam;
 
     before(() => {
-        cy.shouldHaveElasticsearchDisabled();
 
         // # Create new team for tests
         cy.apiCreateTeam(`search-${timestamp}`, `search-${timestamp}`).then(({team}) => {

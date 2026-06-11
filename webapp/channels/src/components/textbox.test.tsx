@@ -59,10 +59,6 @@ jest.mock('components/suggestion/emoticon_provider', () => {
     return jest.fn().mockImplementation(() => ({}));
 });
 
-jest.mock('components/remove_flagged_message_confirmation_modal/remove_flagged_message_confirmation_modal', () => {
-    return jest.fn(() => <div data-testid='keep-remove-flagged-message-confirmation-modal'>{'KeepRemoveFlaggedMessageConfirmationModal Mock'}</div>);
-});
-
 describe('components/TextBox', () => {
     const baseProps: Props = {
         channelId: 'channelId',
@@ -78,7 +74,6 @@ describe('components/TextBox', () => {
             autocompleteUsersInChannel: jest.fn(),
             autocompleteChannels: jest.fn(),
             searchAssociatedGroupsForReference: jest.fn(),
-            fetchAgents: jest.fn(),
         },
         useChannelMentions: true,
         tabIndex: 0,

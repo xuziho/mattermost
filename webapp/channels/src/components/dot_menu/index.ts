@@ -18,7 +18,6 @@ import {
     getCurrentTeamId,
     getCurrentTeam,
     getTeam,
-    contentFlaggingEnabledInTeam,
 } from 'mattermost-redux/selectors/entities/teams';
 import {makeGetThreadOrSynthetic} from 'mattermost-redux/selectors/entities/threads';
 import {getCurrentTimezone} from 'mattermost-redux/selectors/entities/timezone';
@@ -105,14 +104,11 @@ function makeMapStateToProps() {
             }
         }
 
-        const canFlagContent = channel && !isSystemMessage(post) && !isThisPostBurnOnReadPost(post) && contentFlaggingEnabledInTeam(state, channel.team_id);
-
         const isBoRPost = isBurnOnReadPost(state, post.id);
         const isPostSender = post.user_id === userId;
 
         return {
             channelIsArchived: isArchivedChannel(channel),
-            components: state.plugins.components,
             postEditTimeLimit: config.PostEditTimeLimit,
             isLicensed: license.IsLicensed === 'true',
             teamId: getCurrentTeamId(state),
@@ -139,7 +135,6 @@ function makeMapStateToProps() {
             canPin: !systemMessage && !isBoRPost && !isArchivedChannel(channel),
             canCopyText: !systemMessage && !isBoRPost,
             canCopyLink: !systemMessage && (!isBoRPost || isPostSender),
-            canFlagContent,
             isBurnOnReadPost: isBoRPost,
             isUnrevealedBurnOnReadPost: shouldDisplayConcealedPlaceholder(state, post.id),
         };

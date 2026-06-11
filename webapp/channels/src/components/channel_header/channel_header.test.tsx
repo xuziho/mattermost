@@ -48,7 +48,6 @@ describe('components/ChannelHeader', () => {
         hideGuestTags: false,
         remoteNames: [],
         sharedChannelsPluginsEnabled: false,
-        isChannelAutotranslated: false,
     };
 
     const populatedProps = {

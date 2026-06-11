@@ -64,10 +64,6 @@ func desanitize(actual, target *model.Config) {
 		target.SqlSettings.AtRestEncryptKey = actual.SqlSettings.AtRestEncryptKey
 	}
 
-	if *target.ElasticsearchSettings.Password == model.FakeSetting {
-		*target.ElasticsearchSettings.Password = *actual.ElasticsearchSettings.Password
-	}
-
 	if len(target.SqlSettings.DataSourceReplicas) == len(actual.SqlSettings.DataSourceReplicas) {
 		for i, value := range target.SqlSettings.DataSourceReplicas {
 			if value == model.FakeSetting {
@@ -96,26 +92,8 @@ func desanitize(actual, target *model.Config) {
 		target.ServiceSettings.GoogleDeveloperKey = actual.ServiceSettings.GoogleDeveloperKey
 	}
 
-	if target.ServiceSettings.GiphySdkKey != nil && *target.ServiceSettings.GiphySdkKey == model.FakeSetting {
-		target.ServiceSettings.GiphySdkKey = actual.ServiceSettings.GiphySdkKey
-	}
-
 	if target.CacheSettings.RedisPassword != nil && *target.CacheSettings.RedisPassword == model.FakeSetting {
 		target.CacheSettings.RedisPassword = actual.CacheSettings.RedisPassword
-	}
-
-	if target.AutoTranslationSettings.LibreTranslate != nil &&
-		target.AutoTranslationSettings.LibreTranslate.APIKey != nil &&
-		*target.AutoTranslationSettings.LibreTranslate.APIKey == model.FakeSetting {
-		target.AutoTranslationSettings.LibreTranslate.APIKey = actual.AutoTranslationSettings.LibreTranslate.APIKey
-	}
-
-	for id, settings := range target.PluginSettings.Plugins {
-		for k, v := range settings {
-			if v == model.FakeSetting {
-				settings[k] = actual.PluginSettings.Plugins[id][k]
-			}
-		}
 	}
 }
 

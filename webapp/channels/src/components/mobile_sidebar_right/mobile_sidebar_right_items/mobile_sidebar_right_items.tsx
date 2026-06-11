@@ -35,10 +35,6 @@ export interface Props extends PropsFromRedux, WrappedComponentProps {
 }
 
 export class MobileSidebarRightItems extends React.PureComponent<Props> {
-    static defaultProps = {
-        pluginMenuItems: [],
-    };
-
     onRecentMentionItemClick = (e: Event): void => {
         e.preventDefault();
 
@@ -70,20 +66,6 @@ export class MobileSidebarRightItems extends React.PureComponent<Props> {
 
     render() {
         const {formatMessage} = this.props.intl;
-
-        const pluginItems = this.props.pluginMenuItems.map((item) => (
-            <Menu.ItemAction
-                id={item.id + '_pluginmenuitem'}
-                key={item.id + '_pluginmenuitem'}
-                onClick={() => {
-                    if (item.action) {
-                        item.action();
-                    }
-                }}
-                text={item.text}
-                icon={item.mobileIcon}
-            />
-        ));
 
         const isCustomStatusSet = !this.props.isCustomStatusExpired && this.props.customStatus && ((this.props.customStatus.text && this.props.customStatus.text.length > 0) || (this.props.customStatus.emoji && this.props.customStatus.emoji.length > 0));
         const shouldConfirmBeforeStatusChange = this.props.autoResetPref === '' && this.props.status === UserStatuses.OUT_OF_OFFICE;
@@ -352,9 +334,6 @@ export class MobileSidebarRightItems extends React.PureComponent<Props> {
                             />
                         }
                     />
-                </Menu.Group>
-                <Menu.Group>
-                    {pluginItems}
                 </Menu.Group>
                 <Menu.Group>
                     <Menu.ItemToggleModalRedux

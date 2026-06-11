@@ -217,17 +217,6 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "max(container_uptime_seconds{container_name=\"mattermost-elasticsearch\"}) >bool 0 and on() (time() - max(timestamp(container_uptime_seconds{container_name=\"mattermost-elasticsearch\"})) < 15) or vector(0)",
-          "legendFormat": "Elasticsearch",
-          "range": true,
-          "refId": "H"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
-          "editorMode": "code",
           "expr": "max(container_uptime_seconds{container_name=\"mattermost-prometheus\"}) >bool 0 and on() (time() - max(timestamp(container_uptime_seconds{container_name=\"mattermost-prometheus\"})) < 15) or vector(0)",
           "legendFormat": "Prometheus",
           "range": true,

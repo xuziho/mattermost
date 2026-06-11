@@ -21,8 +21,6 @@ import type {UserProfile} from '@mattermost/types/users';
 import type {ActionResult} from 'mattermost-redux/types/actions';
 import {isEmail, getInputTypeFromValueType} from 'mattermost-redux/utils/helpers';
 
-import {getPluginDisplayName} from 'selectors/plugins';
-
 import AdminUserCard from 'components/admin_console/admin_user_card/admin_user_card';
 import BlockableLink from 'components/admin_console/blockable_link';
 import ResetPasswordModal from 'components/admin_console/reset_password_modal';
@@ -104,14 +102,12 @@ const CPAMultiSelect: React.FC<CPAMultiSelectProps> = ({
     );
 };
 
-// Private component to get plugin display name
 type PluginDisplayNameProps = {
     pluginId?: string;
 };
 
 const PluginDisplayName: React.FC<PluginDisplayNameProps> = ({pluginId}) => {
-    const displayName = useSelector((state: GlobalState) => getPluginDisplayName(state, pluginId));
-    return <>{displayName}</>;
+    return <>{pluginId || 'unknown'}</>;
 };
 
 export type Params = {

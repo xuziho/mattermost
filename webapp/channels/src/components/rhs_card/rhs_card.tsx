@@ -22,13 +22,11 @@ import UserProfile from 'components/user_profile';
 import Constants from 'utils/constants';
 import DelayedAction from 'utils/delayed_action';
 
-import type {PostPluginComponent} from 'types/store/plugins';
 import type {RhsState} from 'types/store/rhs';
 
 type Props = {
     isMobileView: boolean;
     selected?: Post;
-    pluginPostCardTypes?: Record<string, PostPluginComponent>;
     previousRhsState?: RhsState;
     enablePostUsernameOverride?: boolean;
     teamUrl?: string;
@@ -40,10 +38,6 @@ type State = {
 
 export default class RhsCard extends React.Component<Props, State> {
     scrollStopAction: DelayedAction;
-
-    static defaultProps = {
-        pluginPostCardTypes: {},
-    };
 
     constructor(props: Props) {
         super(props);
@@ -92,22 +86,13 @@ export default class RhsCard extends React.Component<Props, State> {
             return (<div/>);
         }
 
-        const {selected, pluginPostCardTypes, teamUrl} = this.props;
-        const postType = selected.type;
-        let content: ReactNode = null;
-        if (pluginPostCardTypes && Object.hasOwn(pluginPostCardTypes, postType)) {
-            const PluginComponent = pluginPostCardTypes[postType].component;
-            content = <PluginComponent post={selected}/>;
-        }
-
-        if (!content) {
-            const message = ensureString(selected.props?.card);
-            content = (
-                <div className='info-card'>
-                    <Markdown message={message}/>
-                </div>
-            );
-        }
+        const {selected, teamUrl} = this.props;
+        const message = ensureString(selected.props?.card);
+        const content: ReactNode = (
+            <div className='info-card'>
+                <Markdown message={message}/>
+            </div>
+        );
 
         let user = (
             <UserProfile

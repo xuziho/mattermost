@@ -1,11 +1,8 @@
 // Copyright (c) 2015-present Mattermost, Inc. All Rights Reserved.
 // See LICENSE.txt for license information.
 
-import React from 'react';
 import {defineMessage} from 'react-intl';
 
-import {CreationOutlineIcon} from '@mattermost/compass-icons/components';
-import type {Agent} from '@mattermost/types/agents';
 import type {Group} from '@mattermost/types/groups';
 import type {UserProfile} from '@mattermost/types/users';
 
@@ -35,8 +32,6 @@ type UserProfileWithLastViewAt = UserProfile & {last_viewed_at?: number};
 type CreatedProfile = UserProfile & {
     isCurrentUser?: boolean;
     last_viewed_at?: number;
-    isAgent?: boolean;
-    isDefaultAgent?: boolean;
 };
 
 type SpecialMention = {
@@ -51,7 +46,6 @@ export type Props = {
     autocompleteGroups: Group[] | null;
     searchAssociatedGroupsForReference: (prefix: string) => Promise<{data: Group[]}>;
     priorityProfiles: UserProfile[] | undefined;
-    defaultAgent?: Agent;
 }
 
 // Data structure returned by autocomplete API
@@ -59,7 +53,6 @@ type AutocompleteData = {
     users?: UserProfileWithLastViewAt[];
     groups?: Group[];
     out_of_channel?: UserProfileWithLastViewAt[];
-    agents?: UserProfileWithLastViewAt[];
 };
 
 // The AtMentionProvider provides matches for at mentions, including @here, @channel, @all,
@@ -73,7 +66,6 @@ export default class AtMentionProvider extends Provider {
     public autocompleteGroups: Group[] | null;
     public searchAssociatedGroupsForReference: (prefix: string) => Promise<{data: Group[]}>;
     public priorityProfiles: UserProfile[] | undefined;
-    public defaultAgent?: Agent;
 
     public data: AutocompleteData | null;
     public lastCompletedWord: string;
@@ -85,7 +77,7 @@ export default class AtMentionProvider extends Provider {
     constructor(props: Props) {
         super();
 
-        const {currentUserId, channelId, autocompleteUsersInChannel, useChannelMentions, autocompleteGroups, searchAssociatedGroupsForReference, priorityProfiles, defaultAgent} = props;
+        const {currentUserId, channelId, autocompleteUsersInChannel, useChannelMentions, autocompleteGroups, searchAssociatedGroupsForReference, priorityProfiles} = props;
 
         this.currentUserId = currentUserId;
         this.channelId = channelId;
@@ -94,7 +86,6 @@ export default class AtMentionProvider extends Provider {
         this.autocompleteGroups = autocompleteGroups;
         this.searchAssociatedGroupsForReference = searchAssociatedGroupsForReference;
         this.priorityProfiles = priorityProfiles;
-        this.defaultAgent = defaultAgent;
 
         this.data = null;
         this.lastCompletedWord = '';
@@ -104,7 +95,7 @@ export default class AtMentionProvider extends Provider {
         this.addLastViewAtToProfiles = makeAddLastViewAtToProfiles();
     }
 
-    setProps({currentUserId, channelId, autocompleteUsersInChannel, useChannelMentions, autocompleteGroups, searchAssociatedGroupsForReference, priorityProfiles, defaultAgent}: Props) {
+    setProps({currentUserId, channelId, autocompleteUsersInChannel, useChannelMentions, autocompleteGroups, searchAssociatedGroupsForReference, priorityProfiles}: Props) {
         this.currentUserId = currentUserId;
         this.channelId = channelId;
         this.autocompleteUsersInChannel = autocompleteUsersInChannel;
@@ -112,7 +103,6 @@ export default class AtMentionProvider extends Provider {
         this.autocompleteGroups = autocompleteGroups;
         this.searchAssociatedGroupsForReference = searchAssociatedGroupsForReference;
         this.priorityProfiles = priorityProfiles;
-        this.defaultAgent = defaultAgent;
     }
 
     // specialMentions matches one of @here, @channel or @all, unless using /msg.
@@ -323,25 +313,6 @@ export default class AtMentionProvider extends Provider {
         // Combine the local and remote members, sorting to mix the results together.
         const localAndRemoteMembers = localMembers.concat(remoteMembers).sort(orderUsers);
 
-        // Get agents - these are already User objects from the backend
-        // Only show agents if bridge is enabled (indicated by presence of agents data)
-        let agents: CreatedProfile[] = [];
-        if (this.data && this.data.agents && Array.isArray(this.data.agents) && this.data.agents.length > 0) {
-            const agentUsers = this.data.agents as UserProfileWithLastViewAt[];
-            agents = agentUsers.
-                filter((user: UserProfileWithLastViewAt) => this.filterProfile(user)).
-                map((user: UserProfileWithLastViewAt) => ({...this.createFromProfile(user), isAgent: true})).
-                sort(orderUsers);
-        }
-
-        const agentUsernames = new Set(agents.map((agent) => agent.username));
-        let filteredPriorityProfiles = priorityProfiles;
-        let filteredLocalAndRemoteMembers = localAndRemoteMembers;
-        if (this.data?.agents && agentUsernames.size > 0) {
-            filteredPriorityProfiles = priorityProfiles.filter((member) => !agentUsernames.has(member.username));
-            filteredLocalAndRemoteMembers = localAndRemoteMembers.filter((member) => !agentUsernames.has(member.username));
-        }
-
         // handle groups
         const localGroups = this.localGroups();
 
@@ -378,27 +349,10 @@ export default class AtMentionProvider extends Provider {
 
         const items = [];
 
-        const shouldShowDefaultAgentAtTop = this.latestPrefix === '';
-        if (shouldShowDefaultAgentAtTop && this.defaultAgent) {
-            const defaultAgentUser = this.findAgentUser(this.defaultAgent);
-            if (defaultAgentUser) {
-                items.push(defaultAgentGroup({...this.createFromProfile(defaultAgentUser), isAgent: true, isDefaultAgent: true}));
-            }
+        if (priorityProfiles.length > 0 || localAndRemoteMembers.length > 0) {
+            items.push(membersGroup([...priorityProfiles, ...localAndRemoteMembers]));
         }
 
-        if (filteredPriorityProfiles.length > 0 || filteredLocalAndRemoteMembers.length > 0) {
-            items.push(membersGroup([...filteredPriorityProfiles, ...filteredLocalAndRemoteMembers]));
-        }
-
-        // Filter out default agent from agents group when shown at top to avoid duplicate entries
-        let agentsToShow = agents;
-        if (shouldShowDefaultAgentAtTop && this.defaultAgent) {
-            agentsToShow = agents.filter((agent) => agent.username !== this.defaultAgent?.username);
-        }
-
-        if (agentsToShow.length > 0) {
-            items.push(agentsGroup(agentsToShow));
-        }
         if (localAndRemoteGroups.length > 0) {
             items.push(groupsGroup(localAndRemoteGroups));
         }
@@ -496,40 +450,12 @@ export default class AtMentionProvider extends Provider {
         return profile;
     }
 
-    findAgentUser(agent: Agent): UserProfileWithLastViewAt | undefined {
-        if (!this.data?.agents || !Array.isArray(this.data.agents)) {
-            return undefined;
-        }
-        return (this.data.agents as UserProfileWithLastViewAt[]).find(
-            (user) => user.username === agent.username,
-        );
-    }
 }
 
 export function membersGroup(items: CreatedProfile[]) {
     return {
         key: 'members',
         label: defineMessage({id: 'suggestion.mention.members', defaultMessage: 'Channel Members'}),
-        items,
-        terms: items.map((profile) => '@' + profile.username),
-        component: AtMentionSuggestion,
-    };
-}
-
-export function defaultAgentGroup(item: CreatedProfile) {
-    return {
-        key: 'defaultAgent',
-        items: [item],
-        terms: ['@' + item.username],
-        component: AtMentionSuggestion,
-    };
-}
-
-export function agentsGroup(items: CreatedProfile[]) {
-    return {
-        key: 'agents',
-        label: defineMessage({id: 'suggestion.mention.agents', defaultMessage: 'Agents'}),
-        icon: <CreationOutlineIcon size={16}/>,
         items,
         terms: items.map((profile) => '@' + profile.username),
         component: AtMentionSuggestion,

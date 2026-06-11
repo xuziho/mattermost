@@ -54,7 +54,6 @@ describe('PostMessagePreview', () => {
             toggleEmbedVisibility: jest.fn(),
         },
         isPostPriorityEnabled: false,
-        isChannelAutotranslated: false,
     };
 
     const baseState = {

@@ -4,10 +4,22 @@
 import os from 'node:os';
 
 import {expect, test} from '@playwright/test';
-import {PluginManifest} from '@mattermost/types/plugins';
 
 import {getAdminClient} from './server/init';
 import {testConfig} from './test_config';
+
+type TrialLicenseClient = {
+    requestTrialLicense: (request: {
+        receive_emails_accepted: boolean;
+        terms_accepted: boolean;
+        users: number;
+        contact_name: string;
+        contact_email: string;
+        company_name: string;
+        company_size: string;
+        company_country: string;
+    }) => Promise<unknown>;
+};
 
 export async function shouldHaveFeatureFlag(name: string, value: string | boolean) {
     const {adminClient} = await getAdminClient();
@@ -19,7 +31,6 @@ export async function shouldHaveFeatureFlag(name: string, value: string | boolea
         matched ? '' : `FeatureFlags["${name}'] expect "${value}" but actual "${config.FeatureFlags[name]}"`,
     ).toBeTruthy();
 }
-
 export async function shouldRunInLinux() {
     const platform = os.platform();
     expect(platform, 'Run in Linux or Playwright docker image only').toBe('linux');
@@ -48,7 +59,7 @@ export async function requestTrialLicense() {
     const {adminClient} = await getAdminClient();
     const admin = await adminClient.getMe();
     try {
-        await adminClient.requestTrialLicense({
+        await (adminClient as unknown as TrialLicenseClient).requestTrialLicense({
             receive_emails_accepted: true,
             terms_accepted: true,
             users: 100,
@@ -112,36 +123,4 @@ export async function ensureServerDeployment() {
             console.log(`hostname: ${info.hostname}, version: ${info.version}, config_hash: ${info.config_hash}`),
         );
     }
-}
-
-// ensurePluginsLoaded is used to ensure all pluginIds including from testConfig.ensurePluginsInstalled are installed and active.
-// If any pluginId is not installed, test will fail.
-// testConfig.ensurePluginsInstalled is derived from `PW_ENSURE_PLUGINS_INSTALLED` environment variable.
-export async function ensurePluginsLoaded(pluginIds: string[] = []) {
-    const {adminClient} = await getAdminClient();
-
-    const pluginStatus = await adminClient.getPluginStatuses();
-    const plugins = await adminClient.getPlugins();
-
-    // Ensure all plugins are installed and active.
-    testConfig.ensurePluginsInstalled
-        .concat(pluginIds)
-        .filter((pluginId) => Boolean(pluginId))
-        .forEach(async (pluginId) => {
-            const isInstalled = pluginStatus.some((plugin) => plugin.plugin_id === pluginId);
-
-            // If not installed, test will fail.
-            expect(isInstalled, `${pluginId} is not installed. Related test will fail.`).toBe(true);
-
-            const isActive = plugins.active.some((plugin: PluginManifest) => plugin.id === pluginId);
-            if (!isActive) {
-                await adminClient.enablePlugin(pluginId);
-
-                // eslint-disable-next-line no-console
-                console.log(`${pluginId} is installed and has been activated.`);
-            } else {
-                // eslint-disable-next-line no-console
-                console.log(`${pluginId} is installed and active.`);
-            }
-        });
 }

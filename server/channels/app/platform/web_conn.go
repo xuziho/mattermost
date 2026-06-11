@@ -23,7 +23,6 @@ import (
 	"github.com/vmihailenco/msgpack/v5"
 
 	"github.com/mattermost/mattermost/server/public/model"
-	"github.com/mattermost/mattermost/server/public/plugin"
 	"github.com/mattermost/mattermost/server/public/shared/i18n"
 	"github.com/mattermost/mattermost/server/public/shared/mlog"
 	"github.com/mattermost/mattermost/server/public/shared/request"
@@ -55,12 +54,6 @@ const websocketMessagePluginPrefix = "custom_"
 // thread/team. This is done to differentiate it from an explicitly set empty value.
 const UnsetPresenceIndicator = "<>"
 
-type pluginWSPostedHook struct {
-	connectionID string
-	userID       string
-	req          *model.WebSocketRequest
-}
-
 type WebConnConfig struct {
 	WebSocket         *websocket.Conn
 	Session           model.Session
@@ -89,7 +82,6 @@ type WebConn struct {
 	sessionExpiresAt  int64 // This should stay at the top for 64-bit alignment of 64-bit words accessed atomically
 	Platform          *PlatformService
 	Suite             SuiteIFace
-	HookRunner        HookRunner
 	WebSocket         *websocket.Conn
 	T                 i18n.TranslateFunc
 	Locale            string
@@ -138,7 +130,6 @@ type WebConn struct {
 
 	endWritePump chan struct{}
 	pumpFinished chan struct{}
-	pluginPosted chan pluginWSPostedHook
 
 	// These counters are to suppress spammy websocket.slow
 	// and websocket.full logs which happen continuously, if they
@@ -197,7 +188,7 @@ func (ps *PlatformService) PopulateWebConnConfig(s *model.Session, cfg *WebConnC
 }
 
 // NewWebConn returns a new WebConn instance.
-func (ps *PlatformService) NewWebConn(cfg *WebConnConfig, suite SuiteIFace, runner HookRunner) *WebConn {
+func (ps *PlatformService) NewWebConn(cfg *WebConnConfig, suite SuiteIFace) *WebConn {
 	userID := cfg.Session.UserId
 	session := cfg.Session
 	if cfg.Session.UserId != "" {
@@ -237,7 +228,6 @@ func (ps *PlatformService) NewWebConn(cfg *WebConnConfig, suite SuiteIFace, runn
 	wc := &WebConn{
 		Platform:           ps,
 		Suite:              suite,
-		HookRunner:         runner,
 		send:               cfg.activeQueue,
 		deadQueue:          cfg.deadQueue,
 		deadQueuePointer:   cfg.deadQueuePointer,
@@ -252,7 +242,6 @@ func (ps *PlatformService) NewWebConn(cfg *WebConnConfig, suite SuiteIFace, runn
 		reuseCount:         cfg.ReuseCount,
 		endWritePump:       make(chan struct{}),
 		pumpFinished:       make(chan struct{}),
-		pluginPosted:       make(chan pluginWSPostedHook, 10),
 		lastLogTimeSlow:    time.Now(),
 		lastLogTimeFull:    time.Now(),
 		originClient:       cfg.OriginClient,
@@ -272,25 +261,7 @@ func (ps *PlatformService) NewWebConn(cfg *WebConnConfig, suite SuiteIFace, runn
 	wc.SetActiveRHSThreadChannelID(UnsetPresenceIndicator)
 	wc.SetActiveThreadViewThreadChannelID(UnsetPresenceIndicator)
 
-	ps.Go(func() {
-		runner.RunMultiHook(func(hooks plugin.Hooks, _ *model.Manifest) bool {
-			hooks.OnWebSocketConnect(wc.GetConnectionID(), userID)
-			return true
-		}, plugin.OnWebSocketConnectID)
-	})
-
 	return wc
-}
-
-func (wc *WebConn) pluginPostedConsumer(wg *sync.WaitGroup) {
-	defer wg.Done()
-
-	for msg := range wc.pluginPosted {
-		wc.HookRunner.RunMultiHook(func(hooks plugin.Hooks, _ *model.Manifest) bool {
-			hooks.WebSocketMessageHasBeenPosted(msg.connectionID, msg.userID, msg.req)
-			return true
-		}, plugin.WebSocketMessageHasBeenPostedID)
-	}
 }
 
 // Close closes the WebConn.
@@ -411,23 +382,11 @@ func (wc *WebConn) Pump() {
 		wc.writePump()
 	})
 
-	wg.Add(1)
-	go wc.pluginPostedConsumer(&wg)
-
 	wc.readPump()
 	close(wc.endWritePump)
-	close(wc.pluginPosted)
 	wg.Wait()
 	wc.Platform.HubUnregister(wc)
 	close(wc.pumpFinished)
-
-	userID := wc.UserId
-	wc.Platform.Go(func() {
-		wc.HookRunner.RunMultiHook(func(hooks plugin.Hooks, _ *model.Manifest) bool {
-			hooks.OnWebSocketDisconnect(wc.GetConnectionID(), userID)
-			return true
-		}, plugin.OnWebSocketDisconnectID)
-	})
 }
 
 func (wc *WebConn) readPump() {
@@ -492,24 +451,6 @@ func (wc *WebConn) readPump() {
 		if !strings.HasPrefix(req.Action, websocketMessagePluginPrefix) {
 			wc.Platform.WebSocketRouter.ServeWebSocket(wc, &req)
 		}
-
-		clonedReq, err := req.Clone()
-		if err != nil {
-			wc.logSocketErr("websocket.cloneRequest", err)
-			continue
-		}
-
-		if session := wc.GetSession(); session != nil {
-			clonedReq.Session.Id = session.Id
-		}
-
-		if clonedReq.Data == nil {
-			clonedReq.Data = map[string]any{}
-		}
-		clonedReq.Data[model.WebSocketRemoteAddr] = wc.remoteAddress
-		clonedReq.Data[model.WebSocketXForwardedFor] = wc.xForwardedFor
-
-		wc.pluginPosted <- pluginWSPostedHook{wc.GetConnectionID(), wc.UserId, clonedReq}
 	}
 }
 

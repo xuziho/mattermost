@@ -321,11 +321,11 @@ export const KEYBOARD_SHORTCUTS = {
     msgShowEmojiPicker: defineMessages({
         default: {
             id: 'shortcuts.msgs.markdown.emoji',
-            defaultMessage: 'Emoji / Gif picker:\tCtrl|Alt|E',
+            defaultMessage: 'Emoji picker:\tCtrl|Alt|E',
         },
         mac: {
             id: 'shortcuts.msgs.markdown.emoji.mac',
-            defaultMessage: 'Emoji / Gif picker:\t⌘|⌥|E',
+            defaultMessage: 'Emoji picker:\t⌘|⌥|E',
         },
     }),
     msgMarkdownPreview: defineMessages({

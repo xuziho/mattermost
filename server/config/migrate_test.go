@@ -53,10 +53,6 @@ func TestMigrate(t *testing.T) {
 		cfg.SamlSettings.IdpCertificateFile = &files[0]
 		cfg.SamlSettings.PublicCertificateFile = &files[1]
 		cfg.SamlSettings.PrivateKeyFile = &files[2]
-		cfg.PluginSettings.SignaturePublicKeyFiles = []string{
-			files[3],
-			files[4],
-		}
 		cfg.SqlSettings.DataSourceReplicas = []string{
 			"postgres://mmuser:password@replicahost:5432/mattermost",
 		}

@@ -10536,18 +10536,6 @@
     "translation": "Datei kann nicht in eine eingeschränkte Direktnachricht hochgeladen werden."
   },
   {
-    "id": "model.config.is_valid.autotranslation.libretranslate.url.app_error",
-    "translation": "Die LibreTranslate URL muss eine gültige URL sein und mit http:// oder https:// beginnen."
-  },
-  {
-    "id": "model.config.is_valid.autotranslation.provider.app_error",
-    "translation": "Ungültiger Autotranslationsanbieter, darf nicht leer sein."
-  },
-  {
-    "id": "model.config.is_valid.autotranslation.provider.unsupported.app_error",
-    "translation": "Nicht unterstützter Autotranslationsanbieter."
-  },
-  {
     "id": "api.channel.get_channel.flagged_post_mismatch.app_error",
     "translation": "Die Kanal-ID stimmt nicht mit der Kanal-ID des markierten Beitrags überein."
   },
@@ -10574,10 +10562,6 @@
   {
     "id": "app.agents.get_agents.app_error",
     "translation": "Agenten konnten nicht abgerufen werden."
-  },
-  {
-    "id": "app.agents.get_agents.bridge_call_failed",
-    "translation": "Bridge-Aufruf fehlgeschlagen."
   },
   {
     "id": "app.agents.get_services.app_error",
@@ -11096,14 +11080,6 @@
     "translation": "Geplante Nachricht kann nicht in das Nachrichtenformat konvertiert werden."
   },
   {
-    "id": "api.recap.disabled.app_error",
-    "translation": "Diese Funktion ist nicht aktiviert."
-  },
-  {
-    "id": "api.recap.permission_denied",
-    "translation": "Du hast keine Erlaubnis, auf diese Zusammenfassung zuzugreifen."
-  },
-  {
     "id": "api.user.oauth_to_email.not_oauth_user.app_error",
     "translation": "Der Schalter kann nicht auf E-Mail-Authentifizierung umgestellt werden, da der Benutzer keine OAuth- oder SAML-Authentifizierung verwendet."
   },
@@ -11114,162 +11090,6 @@
   {
     "id": "app.ai.summarize.parse_failed",
     "translation": "Die Antwort auf die AI-Zusammenfassung konnte nicht analysiert werden."
-  },
-  {
-    "id": "app.recap.delete.app_error",
-    "translation": "Das Löschen der Zusammenfassung ist fehlgeschlagen."
-  },
-  {
-    "id": "app.recap.delete_channels.app_error",
-    "translation": "Zusammenfassungskanäle konnten nicht gelöscht werden."
-  },
-  {
-    "id": "app.recap.get.app_error",
-    "translation": "Keine Zusammenfassung erhalten."
-  },
-  {
-    "id": "app.recap.get_channel.app_error",
-    "translation": "Der Kanal wurde nicht gefunden."
-  },
-  {
-    "id": "app.recap.get_channels.app_error",
-    "translation": "Zusammenfassungskanal nicht gefunden."
-  },
-  {
-    "id": "app.recap.get_last_viewed.app_error",
-    "translation": "Der Zeitstempel der letzten Ansicht konnte nicht ermittelt werden."
-  },
-  {
-    "id": "app.recap.get_team.app_error",
-    "translation": "Team konnte nicht gefunden werden."
-  },
-  {
-    "id": "app.recap.list.app_error",
-    "translation": "Zusammenfassungen nicht gefunden."
-  },
-  {
-    "id": "app.recap.mark_read.app_error",
-    "translation": "Die Zusammenfassung konnte nicht als gelesen markiert werden."
-  },
-  {
-    "id": "app.recap.permission_denied",
-    "translation": "Keine Erlaubnis für Zusammenfassungen."
-  },
-  {
-    "id": "app.recap.save.app_error",
-    "translation": "Zusammenfassung konnte nicht gespeichert werden."
-  },
-  {
-    "id": "app.recap.save_channel.app_error",
-    "translation": "Zusammenfassungskanal konnte nicht gespeichert werden."
-  },
-  {
-    "id": "app.recap.update.app_error",
-    "translation": "Zusammenfassung konnte nicht aktualisiert werden."
-  },
-  {
-    "id": "ent.autotranslation.add_task.missing_object_id",
-    "translation": "Die Übersetzungsaufgabe muss eine Objekt-ID enthalten."
-  },
-  {
-    "id": "ent.autotranslation.add_task.missing_object_type",
-    "translation": "Die Übersetzungsaufgabe muss einen Objekttyp enthalten."
-  },
-  {
-    "id": "ent.autotranslation.add_task.nil_task",
-    "translation": "Eine Übersetzungsaufgabe kann nicht null sein."
-  },
-  {
-    "id": "ent.autotranslation.create_translation_failed",
-    "translation": "Die Übersetzung konnte nicht erstellt werden."
-  },
-  {
-    "id": "ent.autotranslation.detect_language.nil_context",
-    "translation": "Für die Erkennung von Sprache ist der Kontext erforderlich."
-  },
-  {
-    "id": "ent.autotranslation.detect_language.text_too_large",
-    "translation": "Der Text überschreitet die maximale Größe für die Spracherkennung."
-  },
-  {
-    "id": "ent.autotranslation.detect_remote.error",
-    "translation": "Die Erkennung der Sprache durch den Übersetzungsanbieter ist fehlgeschlagen."
-  },
-  {
-    "id": "ent.autotranslation.extract_content.mask_error",
-    "translation": "Der Inhalt konnte nicht für die Übersetzung maskiert werden."
-  },
-  {
-    "id": "ent.autotranslation.extract_post.nil_post",
-    "translation": "Das Post-Objekt kann nicht null sein."
-  },
-  {
-    "id": "ent.autotranslation.feature_unavailable",
-    "translation": "Auto-Übersetzung ist nicht verfügbar. Bitte kontaktiere deinen Systemadministrator, um deine Unternehmenslizenz zu aktualisieren."
-  },
-  {
-    "id": "ent.autotranslation.invalid_input",
-    "translation": "Der angegebene Code für die Sprache ist ungültig."
-  },
-  {
-    "id": "ent.autotranslation.mask_verification_failed",
-    "translation": "Die Übersetzung konnte nicht mit neuen Maskenwerten aktualisiert werden."
-  },
-  {
-    "id": "ent.autotranslation.no_translatable_content",
-    "translation": "Der Inhalt enthält keinen übersetzbaren Text."
-  },
-  {
-    "id": "ent.autotranslation.provider_not_available",
-    "translation": "Übersetzungsanbieter ist nicht verfügbar."
-  },
-  {
-    "id": "ent.autotranslation.provider_not_initialized",
-    "translation": "Der Übersetzungsanbieter ist nicht initialisiert."
-  },
-  {
-    "id": "ent.autotranslation.store_error",
-    "translation": "Auto-Übersetzungsanfrage kann nicht bearbeitet werden."
-  },
-  {
-    "id": "ent.autotranslation.unmask.missing_mask",
-    "translation": "Die Übersetzung enthält nicht erkannte Token."
-  },
-  {
-    "id": "ent.autotranslation.unmask.orphan_token",
-    "translation": "Die Übersetzung enthält ungültige Token."
-  },
-  {
-    "id": "ent.autotranslation.validate_content.invalid_json",
-    "translation": "Der JSON-Inhalt kann nicht geparst werden."
-  },
-  {
-    "id": "ent.autotranslation.validate_content.invalid_type",
-    "translation": "Nicht unterstützter Inhaltstyp für die Übersetzung."
-  },
-  {
-    "id": "ent.autotranslation.validate_content.nil_content",
-    "translation": "Der Inhalt kann nicht null sein."
-  },
-  {
-    "id": "ent.autotranslation.validate_content.text_too_large",
-    "translation": "Der Inhalt überschreitet die maximale Größe für die Übersetzung."
-  },
-  {
-    "id": "ent.autotranslation.validate_id.empty",
-    "translation": "Die erforderliche ID darf nicht leer sein."
-  },
-  {
-    "id": "ent.autotranslation.validate_id.invalid",
-    "translation": "Ungültiges ID-Format."
-  },
-  {
-    "id": "model.config.is_valid.autotranslation.agents.llm_service_id.app_error",
-    "translation": "Ungültige Konfiguration des Autotranslationsagenten: Der AI-Dienst darf nicht leer sein."
-  },
-  {
-    "id": "model.config.is_valid.autotranslation.timeout.app_error",
-    "translation": "Ungültige Zeitüberschreitung für die Einstellungen der automatischen Übersetzung. Muss eine positive Zahl sein."
   },
   {
     "id": "model.translation.is_valid.lang.app_error",
@@ -11308,10 +11128,6 @@
     "translation": "Ungültiger Übersetzungstyp. Muss 'String' oder 'Objekt' sein."
   },
   {
-    "id": "api.channel.patch_update_channel.auto_translation_restricted.app_error",
-    "translation": "Die automatische Übersetzung ist für diesen Kanal nicht erlaubt."
-  },
-  {
     "id": "api.channel.patch_update_channel.feature_not_available.app_error",
     "translation": "Die automatische Übersetzungsfunktion ist nicht verfügbar."
   },
@@ -11320,36 +11136,8 @@
     "translation": "Keine Änderungen im Patch."
   },
   {
-    "id": "api.channel.post_update_channel_autotranslation_message.create_post.error",
-    "translation": "Die Nachricht zur Aktualisierung der automatischen Übersetzung konnte nicht gesendet werden."
-  },
-  {
-    "id": "api.channel.post_update_channel_autotranslation_message.disabled",
-    "translation": "@%s hat die Autoübersetzung für diesen Kanal deaktiviert. Alle neuen Nachrichten werden in der Originalsprache angezeigt."
-  },
-  {
-    "id": "api.channel.post_update_channel_autotranslation_message.enabled",
-    "translation": "@%s hat die automatische Übersetzung für diesen Kanal aktiviert. Alle neuen Nachrichten werden in deiner bevorzugten Sprache angezeigt."
-  },
-  {
-    "id": "api.channel.post_update_channel_autotranslation_message.retrieve_user.error",
-    "translation": "Bei der Aktualisierung des Status der automatischen Übersetzung konnte der Benutzer nicht abgerufen werden"
-  },
-  {
-    "id": "api.channel.update_channel_member_autotranslation.channel_not_enabled.app_error",
-    "translation": "Die automatische Übersetzung ist für diesen Kanal nicht aktiviert."
-  },
-  {
-    "id": "api.channel.update_channel_member_autotranslation.feature_not_available.app_error",
-    "translation": "Die automatische Übersetzung ist nicht verfügbar."
-  },
-  {
     "id": "api.context.session_cookie_not_allowed.app_error",
     "translation": "Cookie-basierte Authentifizierung ist für diesen Endpunkt nicht erlaubt. Bitte verwende die Header-basierte Authentifizierung."
-  },
-  {
-    "id": "model.config.is_valid.autotranslation.workers.app_error",
-    "translation": "Die Zahl der Worker muss zwischen 1 und 64 liegen."
   },
   {
     "id": "api.post.fill_in_post_props.burn_on_read.bot_dm.app_error",
@@ -11426,10 +11214,6 @@
   {
     "id": "app.toast.send_toast_message.user_id.app_error",
     "translation": "Benutzer-ID ist erforderlich"
-  },
-  {
-    "id": "ent.autotranslation.add_task.worker_stopped",
-    "translation": "Die Übersetzungsaufgabe kann nicht hinzugefügt werden, weil der Worker angehalten wurde."
   },
   {
     "id": "model.config.is_valid.dcr_redirect_uri_allowlist.app_error",

@@ -22,8 +22,6 @@ import NewMessageSeparator from 'components/post_view/new_message_separator/new_
 import {PostListRowListIds, Locations} from 'utils/constants';
 import {isIdNotPost} from 'utils/post_utils';
 
-import type {NewMessagesSeparatorActionComponent} from 'types/store/plugins';
-
 export type PostListRowProps = {
     listId: string;
     previousListId?: string;
@@ -53,10 +51,6 @@ export type PostListRowProps = {
     exceededLimitChannelId?: string;
     firstInaccessiblePostTime?: number;
     channelId: string;
-
-    newMessagesSeparatorActions: NewMessagesSeparatorActionComponent[];
-
-    isChannelAutotranslated: boolean;
 
     actions: {
 
@@ -114,8 +108,6 @@ export default class PostListRow extends React.PureComponent<PostListRowProps> {
             return (
                 <NewMessageSeparator
                     separatorId={listId}
-                    newMessagesSeparatorActions={this.props.newMessagesSeparatorActions}
-                    channelId={this.props.channelId}
                 />
             );
         }
@@ -176,7 +168,6 @@ export default class PostListRow extends React.PureComponent<PostListRowProps> {
                 <CombinedUserActivityPost
                     location={Locations.CENTER}
                     combinedId={listId}
-                    isChannelAutotranslated={this.props.isChannelAutotranslated}
                     {...postProps}
                 />
             );
@@ -191,7 +182,6 @@ export default class PostListRow extends React.PureComponent<PostListRowProps> {
             <PostComponent
                 post={this.props.post}
                 location={Locations.CENTER}
-                isChannelAutotranslated={this.props.isChannelAutotranslated}
                 {...postProps}
             />
         );

@@ -10,11 +10,9 @@ import (
 	"net/http"
 	"path/filepath"
 	"strings"
-	"sync"
 	"time"
 
 	"github.com/mattermost/mattermost/server/public/model"
-	"github.com/mattermost/mattermost/server/public/plugin"
 	"github.com/mattermost/mattermost/server/public/shared/mlog"
 	"github.com/mattermost/mattermost/server/public/shared/request"
 	"github.com/mattermost/mattermost/server/v8/channels/store"
@@ -51,80 +49,6 @@ func (a *App) genFileInfoFromReader(name string, file io.ReadSeeker, size int64)
 		info.Height = config.Height
 	}
 	return info, nil
-}
-
-func (a *App) runPluginsHook(rctx request.CTX, info *model.FileInfo, file io.Reader) *model.AppError {
-	filePath := info.Path
-	// using a pipe to avoid loading the whole file content in memory.
-	r, w := io.Pipe()
-	errChan := make(chan *model.AppError, 1)
-	hookHasRunCh := make(chan struct{})
-
-	go func() {
-		defer w.Close()
-		defer close(hookHasRunCh)
-		defer close(errChan)
-		var rejErr *model.AppError
-		var once sync.Once
-		pluginContext := pluginContext(rctx)
-		a.ch.RunMultiHook(func(hooks plugin.Hooks, _ *model.Manifest) bool {
-			once.Do(func() {
-				hookHasRunCh <- struct{}{}
-			})
-			newInfo, rejStr := hooks.FileWillBeUploaded(pluginContext, info, file, w)
-			if rejStr != "" {
-				rejErr = model.NewAppError("runPluginsHook", "app.upload.run_plugins_hook.rejected",
-					map[string]any{"Filename": info.Name, "Reason": rejStr}, "", http.StatusBadRequest)
-				return false
-			}
-			if newInfo != nil {
-				info = newInfo
-			}
-			return true
-		}, plugin.FileWillBeUploadedID)
-		if rejErr != nil {
-			errChan <- rejErr
-		}
-	}()
-
-	// If the plugin hook has not run we can return early.
-	if _, ok := <-hookHasRunCh; !ok {
-		return nil
-	}
-
-	tmpPath := filePath + ".tmp"
-	written, err := a.WriteFile(r, tmpPath)
-	if err != nil {
-		if fileErr := a.RemoveFile(tmpPath); fileErr != nil {
-			rctx.Logger().Warn("Failed to remove file", mlog.Err(fileErr))
-		}
-		r.CloseWithError(err) // always returns nil
-		return err
-	}
-
-	if err = <-errChan; err != nil {
-		if fileErr := a.RemoveFile(info.Path); fileErr != nil {
-			rctx.Logger().Warn("Failed to remove file", mlog.Err(fileErr))
-		}
-		if fileErr := a.RemoveFile(tmpPath); fileErr != nil {
-			rctx.Logger().Warn("Failed to remove file", mlog.Err(fileErr))
-		}
-		return err
-	}
-
-	if written > 0 {
-		info.Size = written
-		if fileErr := a.MoveFile(tmpPath, info.Path); fileErr != nil {
-			return model.NewAppError("runPluginsHook", "app.upload.run_plugins_hook.move_fail",
-				nil, "", http.StatusInternalServerError).Wrap(fileErr)
-		}
-	} else {
-		if fileErr := a.RemoveFile(tmpPath); fileErr != nil {
-			rctx.Logger().Warn("Failed to remove file", mlog.Err(fileErr))
-		}
-	}
-
-	return nil
 }
 
 func (a *App) CreateUploadSession(rctx request.CTX, us *model.UploadSession) (*model.UploadSession, *model.AppError) {
@@ -305,11 +229,6 @@ func (a *App) UploadData(rctx request.CTX, us *model.UploadSession, rd io.Reader
 	info.RemoteId = model.NewPointer(us.RemoteId)
 	if us.ReqFileId != "" {
 		info.Id = us.ReqFileId
-	}
-
-	// run plugins upload hook
-	if err := a.runPluginsHook(rctx, info, file); err != nil {
-		return nil, err
 	}
 
 	// image post-processing

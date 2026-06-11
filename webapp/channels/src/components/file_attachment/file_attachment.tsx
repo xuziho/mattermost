@@ -10,7 +10,6 @@ import type {FileInfo} from '@mattermost/types/files';
 
 import {getFileThumbnailUrl, getFileUrl} from 'mattermost-redux/utils/file_utils';
 
-import {usePluginVisibilityInSharedChannel} from 'components/common/hooks/usePluginVisibilityInSharedChannel';
 import GetPublicModal from 'components/get_public_link_modal';
 import Menu from 'components/widgets/menu/menu';
 import MenuWrapper from 'components/widgets/menu/menu_wrapper';
@@ -70,8 +69,6 @@ export default function FileAttachment(props: Props) {
     const [showTooltip, setShowTooltip] = useState(true);
 
     const buttonRef = useRef<HTMLButtonElement | null>(null);
-
-    const pluginItemsVisible = usePluginVisibilityInSharedChannel(props.currentChannel?.id);
 
     const handleImageLoaded = () => {
         if (mounted.current) {
@@ -198,9 +195,8 @@ export default function FileAttachment(props: Props) {
     };
 
     const renderFileMenuItems = () => {
-        const {enablePublicLink, fileInfo, pluginMenuItems} = props;
+        const {enablePublicLink, fileInfo} = props;
 
-        let divider;
         const defaultItems = [];
         if (enablePublicLink) {
             defaultItems.push(
@@ -214,34 +210,9 @@ export default function FileAttachment(props: Props) {
             );
         }
 
-        let pluginItems: JSX.Element[] = [];
-        if (pluginItemsVisible) {
-            pluginItems = pluginMenuItems?.filter((item) => item?.match(fileInfo)).map((item) => {
-                return (
-                    <Menu.ItemAction
-                        id={item.id + '_pluginmenuitem'}
-                        key={item.id + '_pluginmenuitem'}
-                        onClick={() => item?.action(fileInfo)}
-                        text={item.text}
-                    />
-                );
-            });
-        }
-
-        const isMenuVisible = defaultItems?.length || pluginItems?.length;
+        const isMenuVisible = defaultItems?.length;
         if (!isMenuVisible) {
             return null;
-        }
-
-        const isDividerVisible = defaultItems?.length && pluginItems?.length;
-        if (isDividerVisible) {
-            divider = (
-                <li
-                    id={`divider_file_${fileInfo.id}_plugins`}
-                    className='MenuItem__divider'
-                    role='menuitem'
-                />
-            );
         }
 
         return (
@@ -273,8 +244,6 @@ export default function FileAttachment(props: Props) {
                     openUp={openUp}
                 >
                     {defaultItems}
-                    {divider}
-                    {pluginItems}
                 </Menu>
             </MenuWrapper>
         );

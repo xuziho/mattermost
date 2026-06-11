@@ -11,9 +11,8 @@ import type {Post} from '@mattermost/types/posts';
 
 import {savePreferences} from 'mattermost-redux/actions/preferences';
 import {General, Preferences as ReduxPreferences} from 'mattermost-redux/constants';
-import {getDirectTeammate, isMyChannelAutotranslated} from 'mattermost-redux/selectors/entities/channels';
+import {getDirectTeammate} from 'mattermost-redux/selectors/entities/channels';
 import {getConfig, isPermissionPoliciesEnabled} from 'mattermost-redux/selectors/entities/general';
-import {getCurrentUserLocale} from 'mattermost-redux/selectors/entities/i18n';
 import {getPost, makeGetCommentCountForPost, makeIsPostCommentMention, isPostAcknowledgementsEnabled, isPostPriorityEnabled, isPostFlagged} from 'mattermost-redux/selectors/entities/posts';
 import type {UserActivityPost} from 'mattermost-redux/selectors/entities/posts';
 import {
@@ -40,7 +39,7 @@ import {getIsMobileView} from 'selectors/views/browser';
 import {isArchivedChannel} from 'utils/channel_utils';
 import {Locations, Preferences, RHSStates} from 'utils/constants';
 import {isPopoutWindow} from 'utils/popouts/popout_windows';
-import {areConsecutivePostsBySameUser, canDeletePost, getPostTranslation, shouldShowActionsMenu, shouldShowDotMenu} from 'utils/post_utils';
+import {areConsecutivePostsBySameUser, canDeletePost, shouldShowActionsMenu, shouldShowDotMenu} from 'utils/post_utils';
 import {getDisplayNameByUser} from 'utils/utils';
 
 import type {GlobalState} from 'types/store';
@@ -72,7 +71,7 @@ function isFirstReply(post: Post, previousPost?: Post | null): boolean {
     return false;
 }
 
-function isConsecutivePost(state: GlobalState, ownProps: OwnProps, locale: string) {
+function isConsecutivePost(state: GlobalState, ownProps: OwnProps) {
     let post;
     if (ownProps.postId) {
         post = getPost(state, ownProps.postId);
@@ -85,14 +84,6 @@ function isConsecutivePost(state: GlobalState, ownProps: OwnProps, locale: strin
 
     if (previousPost && post && !post.metadata?.priority?.priority) {
         consecutivePost = areConsecutivePostsBySameUser(post, previousPost);
-    }
-
-    if (previousPost && post && consecutivePost && isMyChannelAutotranslated(state, post.channel_id)) {
-        const translation = getPostTranslation(post, locale);
-        const previousTranslation = getPostTranslation(previousPost, locale);
-        if (translation?.state !== previousTranslation?.state) {
-            consecutivePost = false;
-        }
     }
 
     return consecutivePost;
@@ -189,8 +180,6 @@ function makeMapStateToProps() {
             Preferences.LINK_PREVIEW_DISPLAY_DEFAULT === 'true',
         );
 
-        const locale = getCurrentUserLocale(state);
-
         return {
             enableEmojiPicker,
             enablePostUsernameOverride,
@@ -201,10 +190,9 @@ function makeMapStateToProps() {
             hasReplies: getReplyCount(state, post) > 0,
             replyCount: getReplyCount(state, post),
             canReply,
-            pluginPostTypes: state.plugins.postTypes,
             channelIsArchived: isArchivedChannel(channel),
             channelIsShared: channel?.shared,
-            isConsecutivePost: isConsecutivePost(state, ownProps, locale),
+            isConsecutivePost: isConsecutivePost(state, ownProps),
             previousPostIsComment,
             isFlagged: isPostFlagged(state, post.id),
             compactDisplay: get(state, Preferences.CATEGORY_DISPLAY_SETTINGS, Preferences.MESSAGE_DISPLAY, Preferences.MESSAGE_DISPLAY_DEFAULT) === Preferences.MESSAGE_DISPLAY_COMPACT,
@@ -242,7 +230,6 @@ function makeMapStateToProps() {
             isCardOpen: selectedCard && selectedCard.id === post.id,
             shouldShowDotMenu: shouldShowDotMenu(state, post, channel),
             canDelete: canDeletePost(state, post, channel),
-            pluginActions: state.plugins.components.PostAction,
             shouldDisplayBurnOnReadConcealed: shouldDisplayConcealedPlaceholder(state, post.id),
             burnOnReadDurationMinutes: getBurnOnReadDurationMinutes(state),
             burnOnReadSkipConfirmation: getBool(state, ReduxPreferences.CATEGORY_BURN_ON_READ, ReduxPreferences.BURN_ON_READ_SKIP_CONFIRMATION, false),

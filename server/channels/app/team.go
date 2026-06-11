@@ -17,7 +17,6 @@ import (
 	"strings"
 
 	"github.com/mattermost/mattermost/server/public/model"
-	"github.com/mattermost/mattermost/server/public/plugin"
 	"github.com/mattermost/mattermost/server/public/shared/i18n"
 	"github.com/mattermost/mattermost/server/public/shared/mlog"
 	"github.com/mattermost/mattermost/server/public/shared/request"
@@ -697,28 +696,7 @@ func (a *App) AddUserToTeamByInviteId(rctx request.CTX, inviteId string, userID 
 }
 
 func (a *App) JoinUserToTeam(rctx request.CTX, team *model.Team, user *model.User, userRequestorId string) (*model.TeamMember, *model.AppError) {
-	preSaveHook := func(tm *model.TeamMember) (*model.TeamMember, error) {
-		var rejectionReason string
-		pluginContext := pluginContext(rctx)
-		a.ch.RunMultiHook(func(hooks plugin.Hooks, _ *model.Manifest) bool {
-			updatedMember, reason := hooks.TeamMemberWillBeAdded(pluginContext, tm)
-			if reason != "" {
-				rejectionReason = reason
-				return false
-			}
-			if updatedMember != nil {
-				tm = updatedMember
-			}
-			return true
-		}, plugin.TeamMemberWillBeAddedID)
-		if rejectionReason != "" {
-			return nil, model.NewAppError("JoinUserToTeam", "app.team.join_user_to_team.rejected_by_plugin",
-				map[string]any{"Reason": rejectionReason}, "", http.StatusBadRequest)
-		}
-		return tm, nil
-	}
-
-	teamMember, alreadyAdded, err := a.ch.srv.teamService.JoinUserToTeam(rctx, team, user, preSaveHook)
+	teamMember, alreadyAdded, err := a.ch.srv.teamService.JoinUserToTeam(rctx, team, user)
 	if err != nil {
 		var appErr *model.AppError
 		var conflictErr *store.ErrConflict
@@ -774,19 +752,6 @@ func (a *App) JoinUserToTeam(rctx request.CTX, team *model.Team, user *model.Use
 	a.ClearSessionCacheForUser(user.Id)
 	a.InvalidateCacheForUser(user.Id)
 	a.invalidateCacheForUserTeams(user.Id)
-
-	var actor *model.User
-	if userRequestorId != "" {
-		actor, _ = a.GetUser(userRequestorId)
-	}
-
-	a.Srv().Go(func() {
-		pluginContext := pluginContext(rctx)
-		a.ch.RunMultiHook(func(hooks plugin.Hooks, _ *model.Manifest) bool {
-			hooks.UserHasJoinedTeam(pluginContext, teamMember, actor)
-			return true
-		}, plugin.UserHasJoinedTeamID)
-	})
 
 	message := model.NewWebSocketEvent(model.WebsocketEventAddedToTeam, "", "", user.Id, nil, "")
 	message.Add("team_id", team.Id)
@@ -1141,20 +1106,7 @@ func (a *App) RemoveUserFromTeam(rctx request.CTX, teamID string, userID string,
 	return nil
 }
 
-func (a *App) postProcessTeamMemberLeave(rctx request.CTX, teamMember *model.TeamMember, requestorId string) *model.AppError {
-	var actor *model.User
-	if requestorId != "" {
-		actor, _ = a.GetUser(requestorId)
-	}
-
-	a.Srv().Go(func() {
-		pluginContext := pluginContext(rctx)
-		a.ch.RunMultiHook(func(hooks plugin.Hooks, _ *model.Manifest) bool {
-			hooks.UserHasLeftTeam(pluginContext, teamMember, actor)
-			return true
-		}, plugin.UserHasLeftTeamID)
-	})
-
+func (a *App) postProcessTeamMemberLeave(rctx request.CTX, teamMember *model.TeamMember) *model.AppError {
 	user, nErr := a.Srv().Store().User().Get(context.Background(), teamMember.UserId)
 	if nErr != nil {
 		var nfErr *store.ErrNotFound
@@ -1242,7 +1194,7 @@ func (a *App) LeaveTeam(rctx request.CTX, team *model.Team, user *model.User, re
 		return model.NewAppError("RemoveTeamMemberFromTeam", "app.team.save_member.save.app_error", nil, "", http.StatusInternalServerError).Wrap(err)
 	}
 
-	if err := a.postProcessTeamMemberLeave(rctx, teamMember, requestorId); err != nil {
+	if err := a.postProcessTeamMemberLeave(rctx, teamMember); err != nil {
 		return err
 	}
 

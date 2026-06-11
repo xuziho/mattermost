@@ -170,52 +170,6 @@ describe('Selectors.Views.ChannelSettings', () => {
         expect(result).toBe(false);
     });
 
-    describe('DM and GM channels with RestrictDMAndGMAutotranslation', () => {
-        it('should return false when autotranslation is not enabled for DM', () => {
-            const state = getBaseState();
-            state.entities.general.config.EnableAutoTranslation = 'false';
-            const result = canAccessChannelSettings(state, dmChannelId);
-            expect(result).toBe(false);
-        });
-
-        it('should return false when autotranslation is not enabled for GM', () => {
-            const state = getBaseState();
-            state.entities.general.config.EnableAutoTranslation = 'false';
-            const result = canAccessChannelSettings(state, gmChannelId);
-            expect(result).toBe(false);
-        });
-
-        it('should return true for DM channel when RestrictDMAndGMAutotranslation is not enabled', () => {
-            const state = getBaseState();
-            state.entities.general.config.EnableAutoTranslation = 'true';
-            const result = canAccessChannelSettings(state, dmChannelId);
-            expect(result).toBe(true);
-        });
-
-        it('should return true for GM channel when RestrictDMAndGMAutotranslation is not enabled', () => {
-            const state = getBaseState();
-            state.entities.general.config.EnableAutoTranslation = 'true';
-            const result = canAccessChannelSettings(state, gmChannelId);
-            expect(result).toBe(true);
-        });
-
-        it('should return false for DM channel when RestrictDMAndGMAutotranslation is enabled', () => {
-            const state = getBaseState();
-            state.entities.general.config.EnableAutoTranslation = 'true';
-            state.entities.general.config.RestrictDMAndGMAutotranslation = 'true';
-            const result = canAccessChannelSettings(state, dmChannelId);
-            expect(result).toBe(false);
-        });
-
-        it('should return false for GM channel when RestrictDMAndGMAutotranslation is enabled', () => {
-            const state = getBaseState();
-            state.entities.general.config.EnableAutoTranslation = 'true';
-            state.entities.general.config.RestrictDMAndGMAutotranslation = 'true';
-            const result = canAccessChannelSettings(state, gmChannelId);
-            expect(result).toBe(false);
-        });
-    });
-
     it('should return true when user has only shared channels permission', () => {
         const state = getBaseState();
         state.entities.general.config.ExperimentalSharedChannels = 'true';

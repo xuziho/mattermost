@@ -163,7 +163,6 @@ const baseProps = {
     currentUserId,
     canUploadFiles: true,
     enableEmojiPicker: true,
-    enableGifPicker: true,
     handleBlur: jest.fn(),
     handlePostError: jest.fn(),
     emitTypingEvent: jest.fn(),

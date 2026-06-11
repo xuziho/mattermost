@@ -88,7 +88,7 @@ describe("shard-split.js", () => {
         "github.com/mattermost/mattermost/server/v8/channels/app",
         "github.com/mattermost/mattermost/server/v8/channels/store/sqlstore",
         "github.com/mattermost/mattermost/server/v8/config",
-        "github.com/mattermost/mattermost/server/v8/enterprise/elasticsearch",
+        "github.com/mattermost/mattermost/server/v8/enterprise/metrics",
         "github.com/mattermost/mattermost/server/v8/enterprise/compliance",
         "github.com/mattermost/mattermost/server/public/model",
       ];

@@ -145,25 +145,8 @@ func updateConfig(c *Context, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Do not allow plugin uploads to be toggled through the API
-	*cfg.PluginSettings.EnableUploads = *appCfg.PluginSettings.EnableUploads
-
-	// Do not allow certificates to be changed through the API
-	// This shallow-copies the slice header. So be careful if there are concurrent
-	// modifications to the slice.
-	cfg.PluginSettings.SignaturePublicKeyFiles = appCfg.PluginSettings.SignaturePublicKeyFiles
-
 	// Do not allow import directory to be changed through the API
 	*cfg.ImportSettings.Directory = *appCfg.ImportSettings.Directory
-	// if ES autocomplete was enabled, we need to make sure that index has been checked.
-	// we need to stop enabling ES autocomplete otherwise.
-	if !*appCfg.ElasticsearchSettings.EnableAutocomplete && *cfg.ElasticsearchSettings.EnableAutocomplete {
-		if !c.App.SearchEngine().ElasticsearchEngine.IsAutocompletionEnabled() {
-			c.Err = model.NewAppError("updateConfig", "api.config.update.elasticsearch.autocomplete_cannot_be_enabled_error", nil, "", http.StatusBadRequest)
-			return
-		}
-	}
-
 	c.App.HandleMessageExportConfig(cfg, appCfg)
 
 	if appErr := cfg.IsValid(); appErr != nil {
@@ -268,12 +251,6 @@ func patchConfig(c *Context, w http.ResponseWriter, r *http.Request) {
 		return writeFilter(c, structField)
 	}
 
-	// Do not allow plugin uploads to be toggled through the API
-	if cfg.PluginSettings.EnableUploads != nil && *cfg.PluginSettings.EnableUploads != *appCfg.PluginSettings.EnableUploads {
-		c.Err = model.NewAppError("patchConfig", "api.config.update_config.not_allowed_security.app_error", map[string]any{"Name": "PluginSettings.EnableUploads"}, "", http.StatusForbidden)
-		return
-	}
-
 	// Do not allow import directory to be changed through the API
 	if cfg.ImportSettings.Directory != nil && *cfg.ImportSettings.Directory != *appCfg.ImportSettings.Directory {
 		c.Err = model.NewAppError("patchConfig", "api.config.update_config.not_allowed_security.app_error", map[string]any{"Name": "ImportSettings.Directory"}, "", http.StatusForbidden)
@@ -282,11 +259,6 @@ func patchConfig(c *Context, w http.ResponseWriter, r *http.Request) {
 
 	if cfg.MessageExportSettings.EnableExport != nil {
 		c.App.HandleMessageExportConfig(cfg, appCfg)
-	}
-
-	// Treating an empty plugins map as nil preserves the existing configs.
-	if len(cfg.PluginSettings.Plugins) == 0 {
-		cfg.PluginSettings.Plugins = nil
 	}
 
 	updatedCfg, err := config.Merge(appCfg, cfg, &utils.MergeConfig{

@@ -139,7 +139,7 @@ describe('useBurnOnRead', () => {
             expect(result.current.additionalControl).toBeUndefined();
         });
 
-        it('should hide burn-on-read button in DMs with bots/AI agents', () => {
+        it('should hide burn-on-read button in DMs with bots', () => {
             const {getUser} = require('mattermost-redux/selectors/entities/users');
 
             // DM with a bot - channel name is user-id__bot-id

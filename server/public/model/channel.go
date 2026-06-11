@@ -94,7 +94,6 @@ type Channel struct {
 	SchemeId            *string            `json:"scheme_id"`
 	Props               map[string]any     `json:"props"`
 	GroupConstrained    *bool              `json:"group_constrained"`
-	AutoTranslation     bool               `json:"autotranslation"`
 	Shared              *bool              `json:"shared"`
 	TotalMsgCountRoot   int64              `json:"total_msg_count_root"`
 	PolicyID            *string            `json:"policy_id"`
@@ -125,7 +124,6 @@ func (o *Channel) Auditable() map[string]any {
 		"type":                 o.Type,
 		"update_at":            o.UpdateAt,
 		"policy_enforced":      o.PolicyEnforced,
-		"autotranslation":      o.AutoTranslation,
 		"policy_is_active":     o.PolicyIsActive, // this field is only for logging purposes
 	}
 }
@@ -153,7 +151,6 @@ type ChannelPatch struct {
 	Purpose             *string            `json:"purpose"`
 	GroupConstrained    *bool              `json:"group_constrained"`
 	BannerInfo          *ChannelBannerInfo `json:"banner_info"`
-	AutoTranslation     *bool              `json:"autotranslation"`
 	ManagedCategoryName *string            `json:"managed_category_name"`
 }
 
@@ -403,9 +400,6 @@ func (o *Channel) Patch(patch *ChannelPatch) {
 		}
 	}
 
-	if patch.AutoTranslation != nil {
-		o.AutoTranslation = *patch.AutoTranslation
-	}
 }
 
 func (o *Channel) MakeNonNil() {

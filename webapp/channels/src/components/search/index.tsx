@@ -43,7 +43,6 @@ function mapStateToProps(state: GlobalState) {
         searchTerms: getSearchTerms(state),
         searchType: getSearchType(state),
         searchVisible: rhsState !== null && (![
-            RHSStates.PLUGIN,
             RHSStates.CHANNEL_INFO,
             RHSStates.CHANNEL_MEMBERS,
             RHSStates.EDIT_HISTORY,

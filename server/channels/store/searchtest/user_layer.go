@@ -24,11 +24,7 @@ var searchUserStoreTests = []searchTest{
 		Fn:   testHonorChannelRestrictionsAutocompletingUsers,
 		Tags: []string{EngineAll},
 	},
-	{
-		Name: "Should honor team restrictions when autocompleting users",
-		Fn:   testHonorTeamRestrictionsAutocompletingUsers,
-		Tags: []string{EngineElasticSearch},
-	},
+
 	{
 		Name:        "Should return nothing if the user can't access the channels of a given search",
 		Fn:          testShouldReturnNothingWithoutProperAccess,
@@ -68,21 +64,9 @@ var searchUserStoreTests = []searchTest{
 		Fn:   testShouldNotMatchSpecificQueriesEmail,
 		Tags: []string{EngineAll},
 	},
-	{
-		Name: "Should be able to autocomplete a user by part of its username splitted by Dot",
-		Fn:   testAutocompleteUserByUsernameWithDot,
-		Tags: []string{EngineElasticSearch},
-	},
-	{
-		Name: "Should be able to autocomplete a user by part of its username splitted by underscore",
-		Fn:   testAutocompleteUserByUsernameWithUnderscore,
-		Tags: []string{EngineElasticSearch},
-	},
-	{
-		Name: "Should be able to autocomplete a user by part of its username splitted by hyphen",
-		Fn:   testAutocompleteUserByUsernameWithHyphen,
-		Tags: []string{EngineElasticSearch},
-	},
+
+
+
 	{
 		Name: "Should escape the percentage character",
 		Fn:   testShouldEscapePercentageCharacter,
@@ -96,12 +80,12 @@ var searchUserStoreTests = []searchTest{
 	{
 		Name: "Should be able to search inactive users",
 		Fn:   testShouldBeAbleToSearchInactiveUsers,
-		Tags: []string{EnginePostgres, EngineElasticSearch},
+		Tags: []string{EnginePostgres},
 	},
 	{
 		Name: "Should be able to search filtering by role",
 		Fn:   testShouldBeAbleToSearchFilteringByRole,
-		Tags: []string{EnginePostgres, EngineElasticSearch},
+		Tags: []string{EnginePostgres},
 	},
 	{
 		Name: "Should ignore leading @ when searching users",
@@ -128,11 +112,7 @@ var searchUserStoreTests = []searchTest{
 		Fn:   testSearchWithHyphenAtTheEndOfTheTerm,
 		Tags: []string{EngineAll},
 	},
-	{
-		Name: "Should support search all users in a team",
-		Fn:   testSearchUsersInTeam,
-		Tags: []string{EngineElasticSearch},
-	},
+
 	{
 		Name: "Should support search users by full name",
 		Fn:   testSearchUsersByFullName,

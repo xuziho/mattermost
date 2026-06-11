@@ -10538,10 +10538,6 @@
     "translation": "获取代理失败。"
   },
   {
-    "id": "app.agents.get_agents.bridge_call_failed",
-    "translation": "桥接调用失败。"
-  },
-  {
     "id": "app.agents.get_services.app_error",
     "translation": "获取 LLM 服务失败。"
   },
@@ -10564,18 +10560,6 @@
   {
     "id": "app.upload.create.cannot_upload_to_restricted_dm.error",
     "translation": "无法上传文件到受限的私信。"
-  },
-  {
-    "id": "model.config.is_valid.autotranslation.libretranslate.url.app_error",
-    "translation": "LibreTranslate 的 URL 必须为有效的 URL，并且以 http:// 或 https:// 开头。"
-  },
-  {
-    "id": "model.config.is_valid.autotranslation.provider.app_error",
-    "translation": "无效的自动翻译服务提供商，不能为空。"
-  },
-  {
-    "id": "model.config.is_valid.autotranslation.provider.unsupported.app_error",
-    "translation": "不支持的自动翻译服务提供商。"
   },
   {
     "id": "api.command.move_command.creator_no_permission.app_error",
@@ -11078,14 +11062,6 @@
     "translation": "无效的时间字段。"
   },
   {
-    "id": "api.recap.disabled.app_error",
-    "translation": "此功能尚未启用。"
-  },
-  {
-    "id": "api.recap.permission_denied",
-    "translation": "您没有权限访问此摘要。"
-  },
-  {
     "id": "api.user.oauth_to_email.not_oauth_user.app_error",
     "translation": "无法切换到邮箱认证，因为用户未使用 OAuth 或 SAML 认证。"
   },
@@ -11098,164 +11074,8 @@
     "translation": "解析 AI 摘要响应失败。"
   },
   {
-    "id": "app.recap.delete.app_error",
-    "translation": "删除摘要失败。"
-  },
-  {
-    "id": "app.recap.delete_channels.app_error",
-    "translation": "删除摘要频道失败。"
-  },
-  {
-    "id": "app.recap.get.app_error",
-    "translation": "获取摘要失败。"
-  },
-  {
-    "id": "app.recap.get_channel.app_error",
-    "translation": "获取频道失败。"
-  },
-  {
-    "id": "app.recap.get_channels.app_error",
-    "translation": "获取摘要频道失败。"
-  },
-  {
-    "id": "app.recap.get_last_viewed.app_error",
-    "translation": "获取最后查看时间戳失败。"
-  },
-  {
-    "id": "app.recap.get_team.app_error",
-    "translation": "获取团队失败。"
-  },
-  {
-    "id": "app.recap.list.app_error",
-    "translation": "获取摘要列表失败。"
-  },
-  {
-    "id": "app.recap.mark_read.app_error",
-    "translation": "将摘要标记为已读失败。"
-  },
-  {
-    "id": "app.recap.permission_denied",
-    "translation": "无摘要权限。"
-  },
-  {
-    "id": "app.recap.save.app_error",
-    "translation": "保存摘要失败。"
-  },
-  {
-    "id": "app.recap.save_channel.app_error",
-    "translation": "保存摘要频道失败。"
-  },
-  {
-    "id": "app.recap.update.app_error",
-    "translation": "更新摘要失败。"
-  },
-  {
     "id": "app.update_scheduled_post.convert_to_post.error",
     "translation": "无法将定时消息转换为消息格式。"
-  },
-  {
-    "id": "ent.autotranslation.add_task.missing_object_id",
-    "translation": "翻译任务必须包含对象 ID。"
-  },
-  {
-    "id": "ent.autotranslation.add_task.missing_object_type",
-    "translation": "翻译任务必须包含对象类型。"
-  },
-  {
-    "id": "ent.autotranslation.add_task.nil_task",
-    "translation": "翻译任务不能为空。"
-  },
-  {
-    "id": "ent.autotranslation.create_translation_failed",
-    "translation": "创建翻译失败。"
-  },
-  {
-    "id": "ent.autotranslation.detect_language.nil_context",
-    "translation": "语言检测需要上下文。"
-  },
-  {
-    "id": "ent.autotranslation.detect_language.text_too_large",
-    "translation": "文本超出语言检测的最大大小。"
-  },
-  {
-    "id": "ent.autotranslation.detect_remote.error",
-    "translation": "使用翻译提供方检测语言失败。"
-  },
-  {
-    "id": "ent.autotranslation.extract_content.mask_error",
-    "translation": "内容屏蔽失败，无法进行翻译。"
-  },
-  {
-    "id": "ent.autotranslation.extract_post.nil_post",
-    "translation": "消息对象不能为空。"
-  },
-  {
-    "id": "ent.autotranslation.feature_unavailable",
-    "translation": "自动翻译不可用。请联系系统管理员，升级企业许可证。"
-  },
-  {
-    "id": "ent.autotranslation.invalid_input",
-    "translation": "提供了无效的语言代码。"
-  },
-  {
-    "id": "ent.autotranslation.mask_verification_failed",
-    "translation": "使用新的屏蔽值更新翻译失败。"
-  },
-  {
-    "id": "ent.autotranslation.no_translatable_content",
-    "translation": "内容不包含可翻译文本。"
-  },
-  {
-    "id": "ent.autotranslation.provider_not_available",
-    "translation": "翻译提供方不可用。"
-  },
-  {
-    "id": "ent.autotranslation.provider_not_initialized",
-    "translation": "翻译提供方未初始化。"
-  },
-  {
-    "id": "ent.autotranslation.store_error",
-    "translation": "无法处理自动翻译请求。"
-  },
-  {
-    "id": "ent.autotranslation.unmask.missing_mask",
-    "translation": "翻译中包含未识别的标记。"
-  },
-  {
-    "id": "ent.autotranslation.unmask.orphan_token",
-    "translation": "翻译中包含无效标记。"
-  },
-  {
-    "id": "ent.autotranslation.validate_content.invalid_json",
-    "translation": "无法解析 JSON 内容。"
-  },
-  {
-    "id": "ent.autotranslation.validate_content.invalid_type",
-    "translation": "不支持此内容类型的翻译。"
-  },
-  {
-    "id": "ent.autotranslation.validate_content.nil_content",
-    "translation": "内容不能为空。"
-  },
-  {
-    "id": "ent.autotranslation.validate_content.text_too_large",
-    "translation": "内容超出最大限制。"
-  },
-  {
-    "id": "ent.autotranslation.validate_id.empty",
-    "translation": "必填 ID 不能为空。"
-  },
-  {
-    "id": "ent.autotranslation.validate_id.invalid",
-    "translation": "ID 格式无效。"
-  },
-  {
-    "id": "model.config.is_valid.autotranslation.agents.llm_service_id.app_error",
-    "translation": "自动翻译代理配置无效：AI 服务不能为空。"
-  },
-  {
-    "id": "model.config.is_valid.autotranslation.timeout.app_error",
-    "translation": "自动翻译设置的超时时间无效。必须为正数。"
   },
   {
     "id": "model.config.is_valid.guest_accounts.cannot_enforce_multifactor_authentication_when_guest_magic_link_is_enabled.app_error",
@@ -11298,40 +11118,12 @@
     "translation": "翻译类型无效。必须为 'string' 或 'object'。"
   },
   {
-    "id": "api.channel.patch_update_channel.auto_translation_restricted.app_error",
-    "translation": "此频道不允许自动翻译。"
-  },
-  {
     "id": "api.channel.patch_update_channel.feature_not_available.app_error",
     "translation": "自动翻译功能不可用。"
   },
   {
     "id": "api.channel.patch_update_channel.no_changes.app_error",
     "translation": "补丁中无改动。"
-  },
-  {
-    "id": "api.channel.post_update_channel_autotranslation_message.create_post.error",
-    "translation": "发送自动翻译更新消息失败。"
-  },
-  {
-    "id": "api.channel.post_update_channel_autotranslation_message.disabled",
-    "translation": "@%s 为此频道禁用了自动翻译。所有新消息将显示为原文。"
-  },
-  {
-    "id": "api.channel.post_update_channel_autotranslation_message.enabled",
-    "translation": "@%s 为此频道启用了自动翻译。所有新消息以您的偏好语言显示。"
-  },
-  {
-    "id": "api.channel.post_update_channel_autotranslation_message.retrieve_user.error",
-    "translation": "更新自动翻译状态时获取用户失败"
-  },
-  {
-    "id": "api.channel.update_channel_member_autotranslation.channel_not_enabled.app_error",
-    "translation": "此频道未启用自动翻译。"
-  },
-  {
-    "id": "api.channel.update_channel_member_autotranslation.feature_not_available.app_error",
-    "translation": "自动翻译不可用。"
   },
   {
     "id": "api.context.session_cookie_not_allowed.app_error",
@@ -11376,10 +11168,6 @@
   {
     "id": "app.import.validate_user_import_data.team_guest_missing_system_guest_role.error",
     "translation": "用户有团队访客角色但不是系统访客。"
-  },
-  {
-    "id": "model.config.is_valid.autotranslation.workers.app_error",
-    "translation": "工作者必须在 1 至 32 之间。"
   },
   {
     "id": "model.config.is_valid.elastic_search.enable_cjk_analyzers.app_error",

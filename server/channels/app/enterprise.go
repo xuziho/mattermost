@@ -38,18 +38,6 @@ func RegisterJobsMessageExportJobInterface(f func(*Server) ejobs.MessageExportJo
 	jobsMessageExportJobInterface = f
 }
 
-var jobsElasticsearchAggregatorInterface func(*Server) ejobs.ElasticsearchAggregatorInterface
-
-func RegisterJobsElasticsearchAggregatorInterface(f func(*Server) ejobs.ElasticsearchAggregatorInterface) {
-	jobsElasticsearchAggregatorInterface = f
-}
-
-var jobsElasticsearchIndexerInterface func(*Server) ejobs.IndexerJobInterface
-
-func RegisterJobsElasticsearchIndexerInterface(f func(*Server) ejobs.IndexerJobInterface) {
-	jobsElasticsearchIndexerInterface = f
-}
-
 var jobsLdapSyncInterface func(*App) ejobs.LdapSyncInterface
 
 func RegisterJobsLdapSyncInterface(f func(*App) ejobs.LdapSyncInterface) {
@@ -110,12 +98,6 @@ func RegisterPushProxyInterface(f func(*App) einterfaces.PushProxyInterface) {
 	pushProxyInterface = f
 }
 
-var autoTranslationInterface func(*Server) einterfaces.AutoTranslationInterface
-
-func RegisterAutoTranslationInterface(f func(*Server) einterfaces.AutoTranslationInterface) {
-	autoTranslationInterface = f
-}
-
 var intuneInterface func(*App) einterfaces.IntuneInterface
 
 func RegisterIntuneInterface(f func(*App) einterfaces.IntuneInterface) {
@@ -123,7 +105,4 @@ func RegisterIntuneInterface(f func(*App) einterfaces.IntuneInterface) {
 }
 
 func (s *Server) initEnterprise() {
-	if autoTranslationInterface != nil {
-		s.AutoTranslation = autoTranslationInterface(s)
-	}
 }

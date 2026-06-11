@@ -149,15 +149,6 @@
         ]
     },
     {
-        "section": "environment.elasticsearch",
-        "disabledInputs": [
-            {
-                "path": "/admin_console/environment/elasticsearch",
-                "selector": "enableIndexingtrue"
-            }
-        ]
-    },
-    {
         "section": "environment.storage",
         "disabledInputs": [
             {
@@ -334,15 +325,6 @@
             {
                 "path": "/admin_console/integrations/bot_accounts",
                 "selector": "ServiceSettings.EnableBotAccountCreationtrue"
-            }
-        ]
-    },
-    {
-        "section": "integrations.gif",
-        "disabledInputs": [
-            {
-                "path": "/admin_console/integrations/gif",
-                "selector": "ServiceSettings.EnableGifPickertrue"
             }
         ]
     },

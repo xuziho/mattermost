@@ -20,41 +20,21 @@ var searchFileInfoStoreTests = []searchTest{
 		Fn:   testFileInfoSearchFileInfosIncludingDMs,
 		Tags: []string{EngineAll},
 	},
-	{
-		Name: "Should be able to search posts using pagination",
-		Fn:   testFileInfoSearchFileInfosWithPagination,
-		Tags: []string{EngineElasticSearch},
-	},
+
 	{
 		Name: "Should be able to search for exact phrases in quotes",
 		Fn:   testFileInfoSearchExactPhraseInQuotes,
-		Tags: []string{EnginePostgres, EngineElasticSearch},
+		Tags: []string{EnginePostgres},
 	},
-	{
-		Name: "Should be able to search for email addresses with or without quotes",
-		Fn:   testFileInfoSearchEmailAddresses,
-		Tags: []string{EngineElasticSearch},
-	},
+
 	{
 		Name: "Should be able to search when markdown underscores are applied",
 		Fn:   testFileInfoSearchMarkdownUnderscores,
-		Tags: []string{EnginePostgres, EngineElasticSearch},
+		Tags: []string{EnginePostgres},
 	},
-	{
-		Name: "Should be able to search for non-latin words",
-		Fn:   testFileInfoSearchNonLatinWords,
-		Tags: []string{EngineElasticSearch},
-	},
-	{
-		Name: "Should be able to search for alternative spellings of words",
-		Fn:   testFileInfoSearchAlternativeSpellings,
-		Tags: []string{EngineElasticSearch},
-	},
-	{
-		Name: "Should be able to search for alternative spellings of words with and without accents",
-		Fn:   testFileInfoSearchAlternativeSpellingsAccents,
-		Tags: []string{EngineElasticSearch},
-	},
+
+
+
 	{
 		Name: "Should be able to search or exclude messages written by a specific user",
 		Fn:   testFileInfoSearchOrExcludeFileInfosBySpecificUser,
@@ -98,22 +78,18 @@ var searchFileInfoStoreTests = []searchTest{
 	{
 		Name: "Should be able to search using boolean operators",
 		Fn:   testFileInfoSearchUsingBooleanOperators,
-		Tags: []string{EnginePostgres, EngineElasticSearch},
+		Tags: []string{EnginePostgres},
 	},
 	{
 		Name: "Should be able to search with combined filters",
 		Fn:   testFileInfoSearchUsingCombinedFilters,
 		Tags: []string{EngineAll},
 	},
-	{
-		Name: "Should be able to ignore stop words",
-		Fn:   testFileInfoSearchIgnoringStopWords,
-		Tags: []string{EngineElasticSearch},
-	},
+
 	{
 		Name: "Should support search stemming",
 		Fn:   testFileInfoSupportStemming,
-		Tags: []string{EnginePostgres, EngineElasticSearch},
+		Tags: []string{EnginePostgres},
 	},
 	{
 		Name: "Should support search with wildcards",
@@ -136,11 +112,7 @@ var searchFileInfoStoreTests = []searchTest{
 		Tags: []string{EngineAll},
 		Skip: true,
 	},
-	{
-		Name: "Should support terms with underscore",
-		Fn:   testFileInfoSupportTermsWithUnderscore,
-		Tags: []string{EngineElasticSearch},
-	},
+
 	{
 		Name: "Should be able to search in deleted/archived channels",
 		Fn:   testFileInfoSearchInDeletedOrArchivedChannels,
@@ -156,33 +128,13 @@ var searchFileInfoStoreTests = []searchTest{
 	{
 		Name: "Should be able to search terms with dots",
 		Fn:   testFileInfoSearchTermsWithDots,
-		Tags: []string{EnginePostgres, EngineElasticSearch},
+		Tags: []string{EnginePostgres},
 	},
-	{
-		Name: "Should be able to search terms with underscores",
-		Fn:   testFileInfoSearchTermsWithUnderscores,
-		Tags: []string{EngineElasticSearch},
-	},
-	{
-		Name: "Should be able to combine stemming and wildcards",
-		Fn:   testFileInfoSupportStemmingAndWildcards,
-		Tags: []string{EngineElasticSearch},
-	},
-	{
-		Name: "Should support wildcard outside quotes",
-		Fn:   testFileInfoSupportWildcardOutsideQuotes,
-		Tags: []string{EngineElasticSearch},
-	},
-	{
-		Name: "Should not support slash as character separator",
-		Fn:   testFileInfoSlashShouldNotBeCharSeparator,
-		Tags: []string{EngineElasticSearch},
-	},
-	{
-		Name: "Should be able to search emails without quoting them",
-		Fn:   testFileInfoSearchEmailsWithoutQuotes,
-		Tags: []string{EngineElasticSearch},
-	},
+
+
+
+
+
 	{
 		Name: "Should be removed from search index when deleted",
 		Fn:   testSearchFileDeletedPost,
@@ -196,7 +148,7 @@ var searchFileInfoStoreTests = []searchTest{
 	{
 		Name: "Should search files part of channel bookmarks",
 		Fn:   testFileInfoSearchShowChannelBookmarkFiles,
-		Tags: []string{EnginePostgres, EngineElasticSearch},
+		Tags: []string{EnginePostgres},
 	},
 	{
 		Name: "Should search files across teams",

@@ -11,7 +11,7 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"github.com/mattermost/mattermost/server/public/model"
-	"github.com/mattermost/mattermost/server/public/plugin/plugintest/mock"
+	"github.com/stretchr/testify/mock"
 	"github.com/mattermost/mattermost/server/v8/channels/utils"
 	mocks2 "github.com/mattermost/mattermost/server/v8/channels/utils/mocks"
 	"github.com/mattermost/mattermost/server/v8/channels/utils/testutils"

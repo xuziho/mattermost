@@ -32,10 +32,8 @@ type UseEmojiPickerOptions = {
     showEmojiPicker: boolean;
     setShowEmojiPicker: (showEmojiPicker: boolean) => void;
 
-    enableGifPicker?: boolean;
     onAddCustomEmojiClick?: () => void;
     onEmojiClick: (emoji: Emoji) => void;
-    onGifClick?: (gif: string) => void;
 
     /**
      * Replaces the middleware for positioning the emoji picker in cases where we want it positioned differently.
@@ -53,10 +51,8 @@ export default function useEmojiPicker({
     showEmojiPicker,
     setShowEmojiPicker,
 
-    enableGifPicker,
     onAddCustomEmojiClick,
     onEmojiClick,
-    onGifClick,
 
     overrideMiddleware,
 }: UseEmojiPickerOptions): UseEmojiPickerReturn {
@@ -101,11 +97,9 @@ export default function useEmojiPicker({
 
     let emojiPicker = (
         <EmojiPickerTabs
-            enableGifPicker={enableGifPicker}
             onAddCustomEmojiClick={onAddCustomEmojiClick}
             onEmojiClose={hideEmojiPicker}
             onEmojiClick={onEmojiClick}
-            onGifClick={onGifClick}
         />
     );
 

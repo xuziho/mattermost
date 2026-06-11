@@ -321,32 +321,6 @@ func TestFileStoreGetEnvironmentOverrides(t *testing.T) {
 		assert.Equal(t, map[string]any{"ServiceSettings": map[string]any{"SiteURL": true}}, fs.GetEnvironmentOverrides())
 	})
 
-	t.Run("get override for a bool variable", func(t *testing.T) {
-		path, tearDown := setupConfigFile(t, testConfig)
-		defer tearDown()
-
-		fsInner, err := NewFileStore(path, false)
-		require.NoError(t, err)
-		fs, err := NewStoreFromBacking(fsInner, nil, false)
-		require.NoError(t, err)
-		defer fs.Close()
-
-		assert.Equal(t, false, *fs.Get().PluginSettings.EnableUploads)
-		assert.Empty(t, fs.GetEnvironmentOverrides())
-
-		os.Setenv("MM_PLUGINSETTINGS_ENABLEUPLOADS", "true")
-		defer os.Unsetenv("MM_PLUGINSETTINGS_ENABLEUPLOADS")
-
-		fsInner, err = NewFileStore(path, false)
-		require.NoError(t, err)
-		fs, err = NewStoreFromBacking(fsInner, nil, false)
-		require.NoError(t, err)
-		defer fs.Close()
-
-		assert.Equal(t, true, *fs.Get().PluginSettings.EnableUploads)
-		assert.Equal(t, map[string]any{"PluginSettings": map[string]any{"EnableUploads": true}}, fs.GetEnvironmentOverrides())
-	})
-
 	t.Run("get override for an int variable", func(t *testing.T) {
 		path, tearDown := setupConfigFile(t, testConfig)
 		defer tearDown()
@@ -669,31 +643,6 @@ func TestFileStoreLoad(t *testing.T) {
 		// check that on disk config does not include overwritten variable
 		actualConfig := getActualFileConfig(t, path)
 		assert.Equal(t, "http://minimal", *actualConfig.ServiceSettings.SiteURL)
-	})
-
-	t.Run("do not persist environment variables - boolean", func(t *testing.T) {
-		path, tearDown := setupConfigFile(t, minimalConfig)
-		defer tearDown()
-
-		os.Setenv("MM_PLUGINSETTINGS_ENABLEUPLOADS", "true")
-		defer os.Unsetenv("MM_PLUGINSETTINGS_ENABLEUPLOADS")
-
-		fsInner, err := NewFileStore(path, false)
-		require.NoError(t, err)
-		fs, err := NewStoreFromBacking(fsInner, nil, false)
-		require.NoError(t, err)
-		defer fs.Close()
-
-		assert.Equal(t, true, *fs.Get().PluginSettings.EnableUploads)
-
-		_, _, err = fs.Set(fs.Get())
-		require.NoError(t, err)
-
-		assert.Equal(t, true, *fs.Get().PluginSettings.EnableUploads)
-		assert.Equal(t, map[string]any{"PluginSettings": map[string]any{"EnableUploads": true}}, fs.GetEnvironmentOverrides())
-		// check that on disk config does not include overwritten variable
-		actualConfig := getActualFileConfig(t, path)
-		assert.Equal(t, false, *actualConfig.PluginSettings.EnableUploads)
 	})
 
 	t.Run("do not persist environment variables - int", func(t *testing.T) {

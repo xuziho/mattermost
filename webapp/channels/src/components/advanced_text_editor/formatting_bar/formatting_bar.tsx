@@ -131,10 +131,6 @@ interface FormattingBarProps {
      */
     additionalControls?: React.ReactNodeArray;
 
-    /**
-     * AI actions menu rendered at the far left of the formatting bar
-     */
-    aiActionsMenu?: React.ReactNode;
 }
 
 const DEFAULT_MIN_MODE_X_COORD = 55;
@@ -147,7 +143,6 @@ const FormattingBar = (props: FormattingBarProps): JSX.Element => {
         disableControls,
         location,
         additionalControls,
-        aiActionsMenu,
     } = props;
     const [showHiddenControls, setShowHiddenControls] = useState(false);
 
@@ -231,8 +226,6 @@ const FormattingBar = (props: FormattingBarProps): JSX.Element => {
             ref={formattingBarRef}
             data-testid='formattingBarContainer'
         >
-            {aiActionsMenu}
-            {aiActionsMenu && showSeparators && <Separator/>}
             {controls.map((mode) => {
                 return (
                     <React.Fragment key={mode}>

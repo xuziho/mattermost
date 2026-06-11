@@ -22,8 +22,6 @@ import Constants, {FileTypes, ZoomSettings} from 'utils/constants';
 import * as Keyboard from 'utils/keyboard';
 import * as Utils from 'utils/utils';
 
-import type {FilePreviewComponent} from 'types/store/plugins';
-
 import FilePreviewModalFooter from './file_preview_modal_footer/file_preview_modal_footer';
 import FilePreviewModalHeader from './file_preview_modal_header/file_preview_modal_header';
 import ImagePreview from './image_preview';
@@ -47,7 +45,6 @@ export type Props = {
     fileInfos: Array<FileInfo | LinkInfo>;
 
     isMobileView: boolean;
-    pluginFilePreviewComponents: FilePreviewComponent[];
     onExited: () => void;
 
     /**
@@ -79,7 +76,6 @@ export default class FilePreviewModal extends React.PureComponent<Props, State> 
     static defaultProps = {
         fileInfos: [],
         startIndex: 0,
-        pluginFilePreviewComponents: [],
     };
 
     constructor(props: Props) {
@@ -406,21 +402,6 @@ export default class FilePreviewModal extends React.PureComponent<Props, State> 
                         progress={progress}
                     />
                 );
-            }
-        }
-
-        if (isFileInfo(fileInfo) && !fileInfo.archived) {
-            for (const preview of this.props.pluginFilePreviewComponents) {
-                if (preview.override(fileInfo, this.props.post)) {
-                    content = (
-                        <preview.component
-                            fileInfo={fileInfo}
-                            post={this.props.post}
-                            onModalDismissed={this.handleModalClose}
-                        />
-                    );
-                    break;
-                }
             }
         }
 

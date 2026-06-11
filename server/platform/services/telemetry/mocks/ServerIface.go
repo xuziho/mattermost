@@ -10,8 +10,6 @@ import (
 
 	model "github.com/mattermost/mattermost/server/public/model"
 
-	plugin "github.com/mattermost/mattermost/server/public/plugin"
-
 	request "github.com/mattermost/mattermost/server/public/shared/request"
 )
 
@@ -34,26 +32,6 @@ func (_m *ServerIface) Config() *model.Config {
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*model.Config)
-		}
-	}
-
-	return r0
-}
-
-// GetPluginsEnvironment provides a mock function with no fields
-func (_m *ServerIface) GetPluginsEnvironment() *plugin.Environment {
-	ret := _m.Called()
-
-	if len(ret) == 0 {
-		panic("no return value specified for GetPluginsEnvironment")
-	}
-
-	var r0 *plugin.Environment
-	if rf, ok := ret.Get(0).(func() *plugin.Environment); ok {
-		r0 = rf()
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(*plugin.Environment)
 		}
 	}
 

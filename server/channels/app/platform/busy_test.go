@@ -165,7 +165,6 @@ func (c *ClusterMock) QueryLogs(rctx request.CTX, page, perPage int) (map[string
 func (c *ClusterMock) GenerateSupportPacket(rctx request.CTX, options *model.SupportPacketOptions) (map[string][]model.FileData, error) {
 	return nil, nil
 }
-func (c *ClusterMock) GetPluginStatuses() (model.PluginStatuses, *model.AppError) { return nil, nil }
 func (c *ClusterMock) ConfigChanged(previousConfig *model.Config, newConfig *model.Config, sendToOtherServer bool) *model.AppError {
 	return nil
 }

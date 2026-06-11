@@ -8,7 +8,6 @@ import (
 	"os"
 	"os/signal"
 	"runtime"
-	"strings"
 	"sync"
 	"syscall"
 	"time"
@@ -16,11 +15,9 @@ import (
 	"github.com/pkg/errors"
 
 	"github.com/mattermost/mattermost/server/public/model"
-	"github.com/mattermost/mattermost/server/public/plugin"
 	"github.com/mattermost/mattermost/server/public/shared/mlog"
 	"github.com/mattermost/mattermost/server/public/shared/request"
 	"github.com/mattermost/mattermost/server/v8/channels/app/imaging"
-	"github.com/mattermost/mattermost/server/v8/config"
 	"github.com/mattermost/mattermost/server/v8/einterfaces"
 	"github.com/mattermost/mattermost/server/v8/platform/services/imageproxy"
 	"github.com/mattermost/mattermost/server/v8/platform/shared/filestore"
@@ -43,16 +40,7 @@ type Channels struct {
 
 	postActionCookieSecret []byte
 
-	pluginCommandsLock            sync.RWMutex
-	pluginCommands                []*PluginCommand
-	pluginsLock                   sync.RWMutex
-	pluginsEnvironment            *plugin.Environment
-	pluginConfigListenerID        string
-	pluginClusterLeaderListenerID string
-
 	imageProxy *imageproxy.ImageProxy
-
-	agentsBridge AgentsBridge
 
 	// cached counts that are used during notice condition validation
 	cachedPostCount        int64
@@ -105,12 +93,6 @@ func NewChannels(s *Server) (*Channels, error) {
 		exportFilestore:   s.ExportFileBackend(),
 		cfgSvc:            s.Platform(),
 		interruptQuitChan: make(chan struct{}),
-	}
-
-	if s.agentsBridgeOverride != nil {
-		ch.agentsBridge = s.agentsBridgeOverride
-	} else {
-		ch.agentsBridge = newLiveAgentsBridge(ch)
 	}
 
 	// We are passing a partially filled Channels struct so that the enterprise
@@ -224,24 +206,10 @@ func NewChannels(s *Server) (*Channels, error) {
 		return nil, errors.Wrap(imgErr, "failed to create image encoder")
 	}
 
-	// Setup routes.
-	pluginsRoute := ch.srv.Router.PathPrefix("/plugins/{plugin_id:[A-Za-z0-9\\_\\-\\.]+}").Subrouter()
-	pluginsRoute.HandleFunc("", ch.ServePluginRequest)
-	pluginsRoute.HandleFunc("/public/{public_file:.*}", ch.ServePluginPublicRequest)
-	pluginsRoute.HandleFunc("/{anything:.*}", ch.ServePluginRequest)
-
 	return ch, nil
 }
 
-func (ch *Channels) SetAgentsBridge(bridge AgentsBridge) {
-	ch.agentsBridge = bridge
-}
-
 func (ch *Channels) Start() error {
-	// Start plugins
-	ctx := request.EmptyContext(ch.srv.Log())
-	ch.initPlugins(ctx, *ch.cfgSvc.Config().PluginSettings.Directory, *ch.cfgSvc.Config().PluginSettings.ClientDirectory)
-
 	interruptChan := make(chan os.Signal, 1)
 	signal.Notify(interruptChan, syscall.SIGINT, syscall.SIGTERM)
 	go func() {
@@ -256,34 +224,6 @@ func (ch *Channels) Start() error {
 		}
 	}()
 
-	ch.AddConfigListener(func(prevCfg, cfg *model.Config) {
-		// We compute the difference between configs
-		// to ensure we don't re-init plugins unnecessarily.
-		diffs, err := config.Diff(prevCfg, cfg)
-		if err != nil {
-			ch.srv.Log().Warn("Error in comparing configs", mlog.Err(err))
-			return
-		}
-
-		hasDiff := false
-		// TODO: This could be a method on ConfigDiffs itself
-		for _, diff := range diffs {
-			if strings.HasPrefix(diff.Path, "PluginSettings.") {
-				hasDiff = true
-				break
-			}
-		}
-
-		// Do only if some plugin related settings has changed.
-		if hasDiff {
-			if *cfg.PluginSettings.Enable {
-				ch.initPlugins(ctx, *cfg.PluginSettings.Directory, *ch.cfgSvc.Config().PluginSettings.ClientDirectory)
-			} else {
-				ch.ShutDownPlugins()
-			}
-		}
-	})
-
 	// TODO: This should be moved to the platform service.
 	if err := ch.srv.platform.EnsureAsymmetricSigningKey(); err != nil {
 		return errors.Wrapf(err, "unable to ensure asymmetric signing key")
@@ -297,8 +237,6 @@ func (ch *Channels) Start() error {
 }
 
 func (ch *Channels) Stop() error {
-	ch.ShutDownPlugins()
-
 	ch.dndTaskMut.Lock()
 	if ch.dndTask != nil {
 		ch.dndTask.Cancel()
@@ -316,24 +254,4 @@ func (ch *Channels) AddConfigListener(listener func(*model.Config, *model.Config
 
 func (ch *Channels) RemoveConfigListener(id string) {
 	ch.cfgSvc.RemoveConfigListener(id)
-}
-
-func (ch *Channels) RunMultiHook(hookRunnerFunc func(hooks plugin.Hooks, manifest *model.Manifest) bool, hookId int) {
-	if env := ch.GetPluginsEnvironment(); env != nil {
-		env.RunMultiPluginHook(hookRunnerFunc, hookId)
-	}
-}
-
-func (ch *Channels) HooksForPlugin(id string) (plugin.Hooks, error) {
-	env := ch.GetPluginsEnvironment()
-	if env == nil {
-		return nil, errors.New("plugins are not initialized")
-	}
-
-	hooks, err := env.HooksForPlugin(id)
-	if err != nil {
-		return nil, err
-	}
-
-	return hooks, nil
 }

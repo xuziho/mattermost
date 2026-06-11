@@ -193,88 +193,6 @@ func TestUpdateConfig(t *testing.T) {
 		})
 	})
 
-	t.Run("Ensure PluginSettings.EnableUploads settings are protected", func(t *testing.T) {
-		t.Run("sysadmin", func(t *testing.T) {
-			oldEnableUploads := *th.App.Config().PluginSettings.EnableUploads
-			*cfg.PluginSettings.EnableUploads = !oldEnableUploads
-
-			cfg, _, err = th.SystemAdminClient.UpdateConfig(context.Background(), cfg)
-			require.NoError(t, err)
-			assert.Equal(t, oldEnableUploads, *cfg.PluginSettings.EnableUploads)
-			assert.Equal(t, oldEnableUploads, *th.App.Config().PluginSettings.EnableUploads)
-
-			cfg.PluginSettings.EnableUploads = nil
-			cfg, _, err = th.SystemAdminClient.UpdateConfig(context.Background(), cfg)
-			require.NoError(t, err)
-			assert.Equal(t, oldEnableUploads, *cfg.PluginSettings.EnableUploads)
-			assert.Equal(t, oldEnableUploads, *th.App.Config().PluginSettings.EnableUploads)
-		})
-
-		t.Run("local mode", func(t *testing.T) {
-			oldEnableUploads := *th.App.Config().PluginSettings.EnableUploads
-			*cfg.PluginSettings.EnableUploads = !oldEnableUploads
-
-			cfg, _, err = th.LocalClient.UpdateConfig(context.Background(), cfg)
-			require.NoError(t, err)
-			assert.NotEqual(t, oldEnableUploads, *cfg.PluginSettings.EnableUploads)
-			assert.NotEqual(t, oldEnableUploads, *th.App.Config().PluginSettings.EnableUploads)
-
-			cfg.PluginSettings.EnableUploads = nil
-			cfg, _, err = th.LocalClient.UpdateConfig(context.Background(), cfg)
-			require.NoError(t, err)
-			assert.Equal(t, oldEnableUploads, *cfg.PluginSettings.EnableUploads)
-			assert.Equal(t, oldEnableUploads, *th.App.Config().PluginSettings.EnableUploads)
-		})
-	})
-
-	t.Run("Should not be able to modify PluginSettings.SignaturePublicKeyFiles", func(t *testing.T) {
-		t.Run("sysadmin", func(t *testing.T) {
-			oldPublicKeys := th.App.Config().PluginSettings.SignaturePublicKeyFiles
-			cfg.PluginSettings.SignaturePublicKeyFiles = append(cfg.PluginSettings.SignaturePublicKeyFiles, "new_signature")
-
-			cfg, _, err = th.SystemAdminClient.UpdateConfig(context.Background(), cfg)
-			require.NoError(t, err)
-			assert.Equal(t, oldPublicKeys, cfg.PluginSettings.SignaturePublicKeyFiles)
-			assert.Equal(t, oldPublicKeys, th.App.Config().PluginSettings.SignaturePublicKeyFiles)
-
-			cfg.PluginSettings.SignaturePublicKeyFiles = nil
-			cfg, _, err = th.SystemAdminClient.UpdateConfig(context.Background(), cfg)
-			require.NoError(t, err)
-			assert.Equal(t, oldPublicKeys, cfg.PluginSettings.SignaturePublicKeyFiles)
-			assert.Equal(t, oldPublicKeys, th.App.Config().PluginSettings.SignaturePublicKeyFiles)
-		})
-
-		t.Run("local mode", func(t *testing.T) {
-			oldPublicKeys := th.App.Config().PluginSettings.SignaturePublicKeyFiles
-			cfg.PluginSettings.SignaturePublicKeyFiles = append(cfg.PluginSettings.SignaturePublicKeyFiles, "new_signature")
-
-			cfg, _, err = th.LocalClient.UpdateConfig(context.Background(), cfg)
-			require.NoError(t, err)
-			assert.NotEqual(t, oldPublicKeys, cfg.PluginSettings.SignaturePublicKeyFiles)
-			assert.NotEqual(t, oldPublicKeys, th.App.Config().PluginSettings.SignaturePublicKeyFiles)
-
-			cfg.PluginSettings.SignaturePublicKeyFiles = nil
-			cfg, _, err = th.LocalClient.UpdateConfig(context.Background(), cfg)
-			require.NoError(t, err)
-			assert.Equal(t, oldPublicKeys, cfg.PluginSettings.SignaturePublicKeyFiles)
-			assert.Equal(t, oldPublicKeys, th.App.Config().PluginSettings.SignaturePublicKeyFiles)
-		})
-	})
-	t.Run("Should not be able to modify ComplianceSettings.Directory in cloud", func(t *testing.T) {
-		th.App.Srv().SetLicense(model.NewTestLicense("cloud"))
-		defer func() {
-			appErr := th.App.Srv().RemoveLicense()
-			require.Nil(t, appErr)
-		}()
-
-		cfg2 := th.App.Config().Clone()
-		*cfg2.ComplianceSettings.Directory = "hellodir"
-
-		_, resp, err = th.SystemAdminClient.UpdateConfig(context.Background(), cfg2)
-		require.Error(t, err)
-		CheckForbiddenStatus(t, resp)
-	})
-
 	t.Run("Should not be able to modify ImportSettings.Directory", func(t *testing.T) {
 		t.Run("sysadmin", func(t *testing.T) {
 			oldDirectory := *th.App.Config().ImportSettings.Directory
@@ -769,10 +687,7 @@ func TestPatchConfig(t *testing.T) {
 			assert.False(t, *oldConfig.PasswordSettings.Lowercase)
 			assert.NotEqual(t, 15, *oldConfig.PasswordSettings.MinimumLength)
 			assert.Equal(t, "DEBUG", *oldConfig.LogSettings.ConsoleLevel)
-			assert.True(t, oldConfig.PluginSettings.PluginStates["com.mattermost.nps"].Enable)
 
-			states := make(map[string]*model.PluginState)
-			states["com.mattermost.nps"] = &model.PluginState{Enable: *model.NewPointer(false)}
 			config := model.Config{PasswordSettings: model.PasswordSettings{
 				Lowercase:     model.NewPointer(true),
 				MinimumLength: model.NewPointer(15),
@@ -781,9 +696,6 @@ func TestPatchConfig(t *testing.T) {
 			},
 				TeamSettings: model.TeamSettings{
 					ExperimentalDefaultChannels: []string{"another-channel"},
-				},
-				PluginSettings: model.PluginSettings{
-					PluginStates: states,
 				},
 			}
 
@@ -795,7 +707,6 @@ func TestPatchConfig(t *testing.T) {
 			assert.True(t, *updatedConfig.PasswordSettings.Lowercase)
 			assert.Equal(t, "INFO", *updatedConfig.LogSettings.ConsoleLevel)
 			assert.Equal(t, []string{"another-channel"}, updatedConfig.TeamSettings.ExperimentalDefaultChannels)
-			assert.False(t, updatedConfig.PluginSettings.PluginStates["com.mattermost.nps"].Enable)
 			assert.Equal(t, "no-cache, no-store, must-revalidate", response.Header.Get("Cache-Control"))
 
 			// reset the config
@@ -812,22 +723,6 @@ func TestPatchConfig(t *testing.T) {
 			require.NoError(t, err)
 
 			assert.Equal(t, model.FakeSetting, *updatedConfig.SqlSettings.DataSource)
-		})
-
-		t.Run("not allowing to toggle enable uploads for plugin via api", func(t *testing.T) {
-			config := model.Config{PluginSettings: model.PluginSettings{
-				EnableUploads: model.NewPointer(true),
-			}}
-
-			updatedConfig, resp, err := client.PatchConfig(context.Background(), &config)
-			if client == th.LocalClient {
-				require.NoError(t, err)
-				CheckOKStatus(t, resp)
-				assert.Equal(t, true, *updatedConfig.PluginSettings.EnableUploads)
-			} else {
-				require.Error(t, err)
-				CheckForbiddenStatus(t, resp)
-			}
 		})
 
 		t.Run("not allowing to change import directory via api, unless local mode", func(t *testing.T) {
@@ -892,71 +787,6 @@ func TestPatchConfig(t *testing.T) {
 		require.NoError(t, err)
 	})
 
-	t.Run("should preserve plugin configs when toggling plugin enable off then on", func(t *testing.T) {
-		// Have some plugin settings setup
-		th.App.UpdateConfig(func(cfg *model.Config) {
-			cfg.PluginSettings.Enable = model.NewPointer(true)
-			cfg.PluginSettings.Plugins = map[string]map[string]any{
-				"com.example.oauth-plugin": {
-					"clientid":     "test-client-id",
-					"clientsecret": "test-client-secret",
-				},
-			}
-		})
-
-		// First PATCH: disable the plugin subsystem
-		disablePatch := &model.Config{}
-		disablePatch.PluginSettings.Enable = model.NewPointer(false)
-		disabledResponse, _, err := th.SystemAdminClient.PatchConfig(context.Background(), disablePatch)
-		require.NoError(t, err)
-		// The sanitized response returns an empty Plugins map when plugins are disabled
-		assert.Empty(t, disabledResponse.PluginSettings.Plugins)
-
-		// Second PATCH: re-enable plugins using the response from the first PATCH
-		disabledResponse.PluginSettings.Enable = model.NewPointer(true)
-		_, _, err = th.SystemAdminClient.PatchConfig(context.Background(), &model.Config{
-			PluginSettings: disabledResponse.PluginSettings,
-		})
-		require.NoError(t, err)
-
-		// Plugin configs must survive the round-trip unchanged
-		storedCfg := th.App.Config()
-		require.Contains(t, storedCfg.PluginSettings.Plugins, "com.example.oauth-plugin")
-		assert.Equal(t, "test-client-id", storedCfg.PluginSettings.Plugins["com.example.oauth-plugin"]["clientid"])
-	})
-
-	t.Run("local client should preserve plugin configs when toggling plugin enable off then on", func(t *testing.T) {
-		// Have some plugin settings setup
-		th.App.UpdateConfig(func(cfg *model.Config) {
-			cfg.PluginSettings.Enable = model.NewPointer(true)
-			cfg.PluginSettings.Plugins = map[string]map[string]any{
-				"com.example.oauth-plugin": {
-					"clientid":     "test-client-id",
-					"clientsecret": "test-client-secret",
-				},
-			}
-		})
-
-		// First PATCH: disable the plugin subsystem
-		disablePatch := &model.Config{}
-		disablePatch.PluginSettings.Enable = model.NewPointer(false)
-		disabledResponse, _, err := th.LocalClient.PatchConfig(context.Background(), disablePatch)
-		require.NoError(t, err)
-		// The sanitized response returns an empty Plugins map when plugins are disabled
-		assert.Empty(t, disabledResponse.PluginSettings.Plugins)
-
-		// Second PATCH: re-enable plugins using the response from the first PATCH
-		disabledResponse.PluginSettings.Enable = model.NewPointer(true)
-		_, _, err = th.LocalClient.PatchConfig(context.Background(), &model.Config{
-			PluginSettings: disabledResponse.PluginSettings,
-		})
-		require.NoError(t, err)
-
-		// Plugin configs must survive the round-trip unchanged
-		storedCfg := th.App.Config()
-		require.Contains(t, storedCfg.PluginSettings.Plugins, "com.example.oauth-plugin")
-		assert.Equal(t, "test-client-id", storedCfg.PluginSettings.Plugins["com.example.oauth-plugin"]["clientid"])
-	})
 }
 
 func TestMigrateConfig(t *testing.T) {

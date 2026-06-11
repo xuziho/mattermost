@@ -20,10 +20,8 @@ export const canAccessChannelSettings = createSelector(
     (state: GlobalState) => state,
     (state: GlobalState) => state.entities.channels.channels,
     (state: GlobalState, channelId: string) => channelId,
-    (state: GlobalState) => getConfig(state)?.RestrictDMAndGMAutotranslation === 'true',
-    (state: GlobalState) => getConfig(state)?.EnableAutoTranslation === 'true',
     (state: GlobalState) => getConfig(state)?.ExperimentalSharedChannels === 'true',
-    (state, channels, channelId, isDMAndGMAutotranslationRestricted, isAutoTranslationEnabled, isSharedChannelsEnabled) => {
+    (state, channels, channelId, isSharedChannelsEnabled) => {
         const channel = channels[channelId];
         if (!channel) {
             return false;
@@ -32,9 +30,8 @@ export const canAccessChannelSettings = createSelector(
         const isDM = channel.type === Constants.DM_CHANNEL;
         const isGM = channel.type === Constants.GM_CHANNEL;
 
-        // For DM and GM: allow Channel Settings when "Restrict auto-translation on DM and GM" is not enabled
         if (isDM || isGM) {
-            return isAutoTranslationEnabled && !isDMAndGMAutotranslationRestricted;
+            return false;
         }
 
         const isPrivate = channel.type === Constants.PRIVATE_CHANNEL;
@@ -63,15 +60,6 @@ export const canAccessChannelSettings = createSelector(
             bannerPermission,
         );
 
-        // Configuration tab (translation) permissions
-        const translationPermission = isPrivate ? Permissions.MANAGE_PRIVATE_CHANNEL_AUTO_TRANSLATION : Permissions.MANAGE_PUBLIC_CHANNEL_AUTO_TRANSLATION;
-        const hasTranslationPermission = haveIChannelPermission(
-            state,
-            teamId,
-            channelId,
-            translationPermission,
-        );
-
         // Configuration tab (shared channels) permissions
         const hasSharedChannelsPermission = isSharedChannelsEnabled &&
             haveISystemPermission(state, {permission: Permissions.MANAGE_SHARED_CHANNELS});
@@ -87,6 +75,6 @@ export const canAccessChannelSettings = createSelector(
         );
 
         // User can access channel settings if they have permission for at least one tab
-        return hasInfoPermission || hasBannerPermission || hasTranslationPermission || hasSharedChannelsPermission || hasArchivePermission;
+        return hasInfoPermission || hasBannerPermission || hasSharedChannelsPermission || hasArchivePermission;
     },
 );

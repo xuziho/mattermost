@@ -4,11 +4,8 @@
 package app
 
 import (
-	"bytes"
-	"encoding/json"
 	"errors"
 	"os"
-	"path/filepath"
 	"testing"
 
 	"github.com/goccy/go-yaml"
@@ -18,7 +15,6 @@ import (
 	"github.com/mattermost/mattermost/server/public/model"
 	"github.com/mattermost/mattermost/server/public/shared/request"
 	smocks "github.com/mattermost/mattermost/server/v8/channels/store/storetest/mocks"
-	"github.com/mattermost/mattermost/server/v8/channels/utils/fileutils"
 	"github.com/mattermost/mattermost/server/v8/config"
 )
 
@@ -68,7 +64,6 @@ func TestGenerateSupportPacket(t *testing.T) {
 		"stats.yaml",
 		"jobs.yaml",
 		"permissions.yaml",
-		"plugins.json",
 		"sanitized_config.json",
 		"diagnostics.yaml",
 		"cpu.prof",
@@ -81,7 +76,9 @@ func TestGenerateSupportPacket(t *testing.T) {
 		expectedFileNames = append(expectedFileNames, "database_schema.yaml")
 	}
 
-	expectedFileNamesWithLogs := append(expectedFileNames, "mattermost.log")
+	expectedFileNamesWithWarning := append([]string{}, expectedFileNames...)
+	expectedFileNamesWithWarning = append(expectedFileNamesWithWarning, "warning.txt")
+	expectedFileNamesWithLogsAndWarning := append(expectedFileNamesWithWarning, "mattermost.log")
 
 	t.Run("generate Support Packet with logs", func(t *testing.T) {
 		fileDatas := th.App.GenerateSupportPacket(th.Context, &model.SupportPacketOptions{
@@ -89,7 +86,7 @@ func TestGenerateSupportPacket(t *testing.T) {
 		})
 		rFileNames := getFileNames(t, fileDatas)
 
-		assert.ElementsMatch(t, expectedFileNamesWithLogs, rFileNames)
+		assert.ElementsMatch(t, expectedFileNamesWithLogsAndWarning, rFileNames)
 	})
 
 	t.Run("generate Support Packet without logs", func(t *testing.T) {
@@ -99,7 +96,7 @@ func TestGenerateSupportPacket(t *testing.T) {
 
 		rFileNames := getFileNames(t, fileDatas)
 
-		assert.ElementsMatch(t, expectedFileNames, rFileNames)
+		assert.ElementsMatch(t, expectedFileNamesWithWarning, rFileNames)
 	})
 
 	t.Run("remove the log files and ensure that warning.txt file is generated", func(t *testing.T) {
@@ -112,7 +109,7 @@ func TestGenerateSupportPacket(t *testing.T) {
 		})
 		rFileNames := getFileNames(t, fileDatas)
 
-		assert.ElementsMatch(t, append(expectedFileNames, "warning.txt"), rFileNames)
+		assert.ElementsMatch(t, expectedFileNamesWithWarning, rFileNames)
 	})
 
 	t.Run("steps that generated an error should still return file data", func(t *testing.T) {
@@ -159,181 +156,9 @@ func TestGenerateSupportPacket(t *testing.T) {
 
 		assert.Contains(t, rFileNames, "warning.txt")
 		assert.Contains(t, rFileNames, "stats.yaml")
-		assert.ElementsMatch(t, append(expectedFileNames, "warning.txt"), rFileNames)
+		assert.ElementsMatch(t, expectedFileNamesWithWarning, rFileNames)
 	})
 
-	pluginID := "testplugin"
-	pluginCode := `
-		package main
-		import (
-			"github.com/mattermost/mattermost/server/public/plugin"
-			"github.com/mattermost/mattermost/server/public/model"
-		)
-
-		type TestPlugin struct {
-			plugin.MattermostPlugin
-		}
-
-		func (p *TestPlugin) GenerateSupportData(c *plugin.Context) ([]*model.FileData, error) {
-			return []*model.FileData{{
-				Filename: "testplugin/diagnostics.yaml",
-				Body:     []byte("foo"),
-			}}, nil
-		}
-
-		func main() {
-			plugin.ClientMain(&TestPlugin{})
-		}`
-
-	t.Run("Support Packet always contains plugin data if the plugin doesn't define the support_packet prop", func(t *testing.T) {
-		pluginManifest := `{"id": "testplugin", "server": {"executable": "backend.exe"}}`
-		setupPluginAPITest(t, pluginCode, pluginManifest, pluginID, th.App, th.Context)
-		t.Cleanup(func() {
-			appErr := th.App.ch.RemovePlugin(pluginID)
-			require.Nil(t, appErr)
-		})
-
-		fileDatas := th.App.GenerateSupportPacket(th.Context, &model.SupportPacketOptions{
-			IncludeLogs: false,
-		})
-		rFileNames := getFileNames(t, fileDatas)
-
-		assert.ElementsMatch(t, append(expectedFileNames, "testplugin/diagnostics.yaml"), rFileNames)
-	})
-
-	t.Run("Support Packet contains plugin data if the plugin defines the support_packet prop and it gets queried", func(t *testing.T) {
-		pluginManifest := `{"id": "testplugin", "server": {"executable": "backend.exe"}, "props": {"support_packet": "some text"}}`
-		setupPluginAPITest(t, pluginCode, pluginManifest, pluginID, th.App, th.Context)
-		t.Cleanup(func() {
-			appErr := th.App.ch.RemovePlugin(pluginID)
-			require.Nil(t, appErr)
-		})
-
-		fileDatas := th.App.GenerateSupportPacket(th.Context, &model.SupportPacketOptions{
-			IncludeLogs:   false,
-			PluginPackets: []string{pluginID},
-		})
-		rFileNames := getFileNames(t, fileDatas)
-
-		assert.ElementsMatch(t, append(expectedFileNames, "testplugin/diagnostics.yaml"), rFileNames)
-	})
-
-	t.Run("Support Packet doesn't contain plugin data if the plugin defines the support_packet prop and it doesn't get queried", func(t *testing.T) {
-		pluginManifest := `{"id": "testplugin", "server": {"executable": "backend.exe"}, "props": {"support_packet": "some text"}}`
-		setupPluginAPITest(t, pluginCode, pluginManifest, pluginID, th.App, th.Context)
-		t.Cleanup(func() {
-			appErr := th.App.ch.RemovePlugin(pluginID)
-			require.Nil(t, appErr)
-		})
-
-		fileDatas := th.App.GenerateSupportPacket(th.Context, &model.SupportPacketOptions{
-			IncludeLogs: false,
-		})
-		rFileNames := getFileNames(t, fileDatas)
-
-		assert.ElementsMatch(t, expectedFileNames, rFileNames)
-	})
-
-	t.Run("Plugin config values in the Support Packet are obfuscated, if the plugin marks them as secrets", func(t *testing.T) {
-		pluginManifest := `{"id": "testplugin", "server": {"executable": "backend.exe"}, "settings_schema": {"settings": [{"key": "foo", "type": "text"}, {"key": "bar", "type": "text", "secret": true}]}}`
-		setupPluginAPITest(t, pluginCode, pluginManifest, pluginID, th.App, th.Context)
-		t.Cleanup(func() {
-			appErr := th.App.ch.RemovePlugin(pluginID)
-			require.Nil(t, appErr)
-		})
-
-		th.App.UpdateConfig(func(cfg *model.Config) {
-			cfg.PluginSettings.Plugins[pluginID] = map[string]any{
-				"foo": "foo_value",
-				"bar": "bar_value",
-			}
-		})
-
-		fileDatas := th.App.GenerateSupportPacket(th.Context, &model.SupportPacketOptions{
-			IncludeLogs: false,
-		})
-
-		found := false
-		for _, f := range fileDatas {
-			if f.Filename != "sanitized_config.json" {
-				continue
-			}
-
-			var config model.Config
-			err = json.Unmarshal(f.Body, &config)
-			require.NoError(t, err)
-
-			assert.Equal(t, "foo_value", config.PluginSettings.Plugins[pluginID]["foo"])
-			assert.Equal(t, model.FakeSetting, config.PluginSettings.Plugins[pluginID]["bar"])
-
-			found = true
-		}
-		assert.True(t, found)
-	})
-}
-
-func TestGetPluginsFile(t *testing.T) {
-	mainHelper.Parallel(t)
-	th := Setup(t)
-
-	getJobList := func(t *testing.T) *model.SupportPacketPluginList {
-		t.Helper()
-
-		fileData, err := th.App.getPluginsFile(th.Context)
-		assert.NoError(t, err)
-		require.NotNil(t, fileData)
-		assert.Equal(t, "plugins.json", fileData.Filename)
-		assert.Positive(t, len(fileData.Body))
-
-		var pl model.SupportPacketPluginList
-		err = json.Unmarshal(fileData.Body, &pl)
-		require.NoError(t, err)
-
-		return &pl
-	}
-
-	t.Run("no errors if no plugins are installed", func(t *testing.T) {
-		pl := getJobList(t)
-		assert.Len(t, pl.Enabled, 0)
-		assert.Len(t, pl.Disabled, 0)
-	})
-
-	t.Run("two plugins are installed", func(t *testing.T) {
-		path, found := fileutils.FindDir("tests")
-		require.True(t, found, "tests directory not found")
-
-		bundle1, err := os.ReadFile(filepath.Join(path, "testplugin.tar.gz"))
-		require.NoError(t, err)
-		manifest1, appErr := th.App.InstallPlugin(bytes.NewReader(bundle1), false)
-		require.Nil(t, appErr)
-		require.Equal(t, "testplugin", manifest1.Id)
-		appErr = th.App.EnablePlugin(manifest1.Id)
-		require.Nil(t, appErr)
-
-		bundle2, err := os.ReadFile(filepath.Join(path, "testplugin2.tar.gz"))
-		require.NoError(t, err)
-		manifest2, appErr := th.App.InstallPlugin(bytes.NewReader(bundle2), false)
-		require.Nil(t, appErr)
-		require.Equal(t, "testplugin2", manifest2.Id)
-
-		pl := getJobList(t)
-		require.Len(t, pl.Enabled, 1)
-		assert.Equal(t, "testplugin", pl.Enabled[0].Id)
-		require.Len(t, pl.Disabled, 1)
-		assert.Equal(t, "testplugin2", pl.Disabled[0].Id)
-	})
-
-	t.Run("error if plugin are disabled", func(t *testing.T) {
-		// Turn off plugins so we can get an error
-		th.App.UpdateConfig(func(cfg *model.Config) {
-			*cfg.PluginSettings.Enable = false
-		})
-
-		// Plugins off in settings so no fileData and we get a warning instead
-		fileData, err := th.App.getPluginsFile(th.Context)
-		assert.Nil(t, fileData)
-		assert.ErrorContains(t, err, "failed to get plugin list for Support Packet")
-	})
 }
 
 func TestGetSupportPacketStats(t *testing.T) {
@@ -504,8 +329,6 @@ func TestGetSupportPacketJobList(t *testing.T) {
 		assert.Empty(t, jobs.LDAPSyncJobs)
 		assert.Empty(t, jobs.DataRetentionJobs)
 		assert.Empty(t, jobs.MessageExportJobs)
-		assert.Empty(t, jobs.ElasticPostIndexingJobs)
-		assert.Empty(t, jobs.ElasticPostAggregationJobs)
 		assert.Empty(t, jobs.MigrationJobs)
 	})
 
@@ -528,8 +351,6 @@ func TestGetSupportPacketJobList(t *testing.T) {
 			getJob(model.JobTypeLdapSync),
 			getJob(model.JobTypeDataRetention),
 			getJob(model.JobTypeMessageExport),
-			getJob(model.JobTypeElasticsearchPostIndexing),
-			getJob(model.JobTypeElasticsearchPostAggregation),
 			getJob(model.JobTypeMigrations),
 		}
 
@@ -571,17 +392,9 @@ func TestGetSupportPacketJobList(t *testing.T) {
 		require.Len(t, jobs.MessageExportJobs, 1, "Should have 1 message export job")
 		verifyJob(t, expectedJobs[2], jobs.MessageExportJobs[0])
 
-		// Verify elasticsearch post indexing jobs
-		require.Len(t, jobs.ElasticPostIndexingJobs, 1, "Should have 1 elasticsearch post indexing job")
-		verifyJob(t, expectedJobs[3], jobs.ElasticPostIndexingJobs[0])
-
-		// Verify elasticsearch post aggregation jobs
-		require.Len(t, jobs.ElasticPostAggregationJobs, 1, "Should have 1 elasticsearch post aggregation job")
-		verifyJob(t, expectedJobs[4], jobs.ElasticPostAggregationJobs[0])
-
 		// Verify migration jobs
 		require.Len(t, jobs.MigrationJobs, 1, "Should have 1 migration job")
-		verifyJob(t, expectedJobs[5], jobs.MigrationJobs[0])
+		verifyJob(t, expectedJobs[3], jobs.MigrationJobs[0])
 	})
 }
 
@@ -611,7 +424,7 @@ func TestGetSupportPacketPermissionsInfo(t *testing.T) {
 	t.Run("No custom permissions", func(t *testing.T) {
 		permissions := generatePermissionInfo(t)
 
-		assert.Len(t, permissions.Roles, 24)
+		assert.Len(t, permissions.Roles, 20)
 		assert.Empty(t, permissions.Schemes)
 	})
 
@@ -625,7 +438,7 @@ func TestGetSupportPacketPermissionsInfo(t *testing.T) {
 	t.Run("with custom scheme", func(t *testing.T) {
 		permissions := generatePermissionInfo(t)
 
-		assert.Len(t, permissions.Roles, 34) // 24 default roles + 10 custom roles from the scheme
+		assert.Len(t, permissions.Roles, 26) // 20 default roles + 6 custom roles from the scheme
 		require.Len(t, permissions.Schemes, 1)
 		assert.Equal(t, scheme.Id, permissions.Schemes[0].Id)
 		assert.Equal(t, model.FakeSetting, permissions.Schemes[0].Name, "Name should be obfuscated")
@@ -647,7 +460,7 @@ func TestGetSupportPacketPermissionsInfo(t *testing.T) {
 		permissions := generatePermissionInfo(t)
 
 		require.Len(t, permissions.Schemes, 1)
-		require.Len(t, permissions.Roles, 35) // 24 default roles + 10 custom roles from the scheme + 1 custom role
+		require.Len(t, permissions.Roles, 27) // 20 default roles + 6 custom roles from the scheme + 1 custom role
 		found := false
 		for _, r := range permissions.Roles {
 			// Confirm that sensitive fields are obfuscated

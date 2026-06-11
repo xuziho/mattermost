@@ -29,8 +29,6 @@ function mapStateToProps(state: GlobalState) {
         maxFileSize,
         canUploadFiles: canUploadFiles(config),
         locale: getCurrentLocale(state),
-        pluginFileUploadMethods: state.plugins.components.FileUploadMethod,
-        pluginFilesWillUploadHooks: state.plugins.components.FilesWillUploadHook,
         centerChannelPostBeingEdited,
         rhsPostBeingEdited,
     };

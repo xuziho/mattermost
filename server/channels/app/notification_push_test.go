@@ -1617,9 +1617,6 @@ func TestPushNotificationRace(t *testing.T) {
 
 	memoryStore := config.NewTestMemoryStore()
 	mockStore := testlib.GetMockStoreForSetupFunctions()
-	pluginStore := mocks.PluginStore{}
-	pluginStore.On("List", mock.Anything, mock.Anything, mock.Anything).Return([]string{}, nil)
-	mockStore.On("Plugin").Return(&pluginStore)
 	mockPreferenceStore := mocks.PreferenceStore{}
 	mockPreferenceStore.On("Get",
 		mock.AnythingOfType("string"),

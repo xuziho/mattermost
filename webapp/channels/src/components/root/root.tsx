@@ -11,7 +11,7 @@ import {Client4} from 'mattermost-redux/client';
 
 import {temporarilySetPageLoadContext} from 'actions/telemetry_actions.jsx';
 
-import {makeAsyncComponent, makeAsyncPluggableComponent} from 'components/async_load';
+import {makeAsyncComponent} from 'components/async_load';
 import GlobalHeader from 'components/global_header/global_header';
 import {HFRoute} from 'components/header_footer_route/header_footer_route';
 import {HFTRoute, LoggedInHFTRoute} from 'components/header_footer_template_route';
@@ -20,7 +20,6 @@ import LoggedInRoute from 'components/logged_in_route';
 import Readout from 'components/readout/readout';
 import {WithUserTheme} from 'components/theme_provider';
 
-import {initializePlugins} from 'plugins';
 import 'utils/a11y_controller_instance';
 import {expirationScheduler} from 'utils/burn_on_read_expiration_scheduler';
 import {PageLoadContext, SCHEDULED_POST_URL_SUFFIX} from 'utils/constants';
@@ -36,8 +35,6 @@ import RootProvider from './root_provider';
 import RootRedirect from './root_redirect';
 
 import type {PropsFromRedux} from './index';
-
-import 'plugins/export';
 
 const MobileViewWatcher = makeAsyncComponent('MobileViewWatcher', lazy(() => import('components/mobile_view_watcher')));
 const WindowSizeObserver = makeAsyncComponent('WindowSizeObserver', lazy(() => import('components/window_size_observer/WindowSizeObserver')));
@@ -65,8 +62,6 @@ const AppBar = makeAsyncComponent('AppBar', lazy(() => import('components/app_ba
 const ComponentLibrary = makeAsyncComponent('ComponentLibrary', lazy(() => import('components/component_library')));
 const PopoutController = makeAsyncComponent('PopoutController', lazy(() => import('components/popout_controller')));
 
-const Pluggable = makeAsyncPluggableComponent();
-
 export type Props = PropsFromRedux & RouteComponentProps
 
 interface State {
@@ -92,9 +87,7 @@ export default class Root extends React.PureComponent<Props, State> {
     }
 
     onConfigLoaded = () => {
-        initializePlugins().then(() => {
-            this.setState({shouldMountAppRoutes: true});
-        });
+        this.setState({shouldMountAppRoutes: true});
 
         this.props.actions.migrateRecentEmojis();
         this.props.actions.loadRecentlyUsedCustomEmojis();
@@ -324,19 +317,6 @@ export default class Root extends React.PureComponent<Props, State> {
                         <TeamSidebar/>
                         <div className='main-wrapper'>
                             <Switch>
-                                {this.props.plugins?.map((plugin) => (
-                                    <Route
-                                        key={plugin.id}
-                                        path={'/plug/' + plugin.route}
-                                        render={() => (
-                                            <Pluggable
-                                                pluggableName={'CustomRouteComponent'}
-                                                pluggableId={plugin.id}
-                                                css={{gridArea: 'center'}}
-                                            />
-                                        )}
-                                    />
-                                ))}
                                 <LoggedInRoute
                                     path={`/:team(${TEAM_NAME_PATH_PATTERN})`}
                                     component={TeamController}
@@ -345,7 +325,6 @@ export default class Root extends React.PureComponent<Props, State> {
                             </Switch>
                             <SidebarRight/>
                         </div>
-                        <Pluggable pluggableName='Global'/>
                         <AppBar/>
                         <Readout/>
                     </WithUserTheme>
@@ -358,7 +337,7 @@ export default class Root extends React.PureComponent<Props, State> {
 export function doesRouteBelongToTeamControllerRoutes(pathname: RouteComponentProps['location']['pathname']): boolean {
     // Note: we have specifically added admin_console to the negative lookahead as admin_console can have integrations as subpaths (admin_console/integrations/bot_accounts)
     // and we don't want to treat those as team controller routes.
-    const TEAM_CONTROLLER_PATH_PATTERN = new RegExp(`^/(?!admin_console)([a-z0-9\\-_]+)/(channels|messages|threads|recaps|drafts|integrations|emoji|${SCHEDULED_POST_URL_SUFFIX})(/.*)?$`);
+    const TEAM_CONTROLLER_PATH_PATTERN = new RegExp(`^/(?!admin_console)([a-z0-9\\-_]+)/(channels|messages|threads|drafts|integrations|emoji|${SCHEDULED_POST_URL_SUFFIX})(/.*)?$`);
 
     return TEAM_CONTROLLER_PATH_PATTERN.test(pathname);
 }

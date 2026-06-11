@@ -4,7 +4,6 @@
 package storetest
 
 import (
-	"encoding/json"
 	"errors"
 	"fmt"
 	"slices"
@@ -71,7 +70,6 @@ func TestPostStore(t *testing.T, rctx request.CTX, ss store.Store, s SqlStore) {
 	t.Run("DeleteAllPostRemindersForPost", func(t *testing.T) { testDeleteAllPostRemindersForPost(t, rctx, ss, s) })
 	t.Run("GetNthRecentPostTime", func(t *testing.T) { testGetNthRecentPostTime(t, rctx, ss) })
 	t.Run("GetEditHistoryForPost", func(t *testing.T) { testGetEditHistoryForPost(t, rctx, ss) })
-	t.Run("RestoreContentFlaggedPost", func(t *testing.T) { testRestoreContentFlaggedPost(t, rctx, ss) })
 }
 
 func testPostStoreSave(t *testing.T, rctx request.CTX, ss store.Store) {
@@ -2972,10 +2970,12 @@ func testPostCountsByDay(t *testing.T, rctx request.CTX, ss store.Store) {
 	c1, nErr := ss.Channel().Save(rctx, c1, -1)
 	require.NoError(t, nErr)
 
+	yesterdayNoon := utils.StartOfDay(utils.Yesterday()).Add(12 * time.Hour)
+
 	o1 := &model.Post{}
 	o1.ChannelId = c1.Id
 	o1.UserId = model.NewId()
-	o1.CreateAt = utils.MillisFromTime(utils.Yesterday())
+	o1.CreateAt = utils.MillisFromTime(yesterdayNoon)
 	o1.Message = NewTestID()
 	o1.Hashtags = "hashtag"
 	o1, nErr = ss.Post().Save(rctx, o1)
@@ -3022,7 +3022,7 @@ func testPostCountsByDay(t *testing.T, rctx request.CTX, ss store.Store) {
 	b1.Message = "bot message one"
 	b1.ChannelId = c1.Id
 	b1.UserId = bot1.UserId
-	b1.CreateAt = utils.MillisFromTime(utils.Yesterday())
+	b1.CreateAt = utils.MillisFromTime(yesterdayNoon)
 	_, nErr = ss.Post().Save(rctx, b1)
 	require.NoError(t, nErr)
 
@@ -3030,7 +3030,7 @@ func testPostCountsByDay(t *testing.T, rctx request.CTX, ss store.Store) {
 	b1a.Message = "bot message two"
 	b1a.ChannelId = c1.Id
 	b1a.UserId = bot1.UserId
-	b1a.CreateAt = utils.MillisFromTime(utils.Yesterday()) - (1000 * 60 * 60 * 24 * 2)
+	b1a.CreateAt = utils.MillisFromTime(yesterdayNoon) - (1000 * 60 * 60 * 24 * 2)
 	_, nErr = ss.Post().Save(rctx, b1a)
 	require.NoError(t, nErr)
 
@@ -6084,100 +6084,6 @@ func testGetPostsForReporting(t *testing.T, rctx request.CTX, ss store.Store, s 
 
 		// If we got results in reasonable time, the indexes are being used
 		// A full table scan would timeout or be noticeably slow
-	})
-}
-
-func testRestoreContentFlaggedPost(t *testing.T, rctx request.CTX, ss store.Store) {
-	channel := &model.Channel{
-		DisplayName: "Test Channel",
-		Name:        "test_channel",
-		Type:        model.ChannelTypeOpen,
-	}
-	channel, err := ss.Channel().Save(rctx, channel, -1)
-	require.NoError(t, err)
-
-	botId := model.NewId()
-	statusFieldId := model.NewId()
-	contentFlaggingManagedFieldId := model.NewId()
-	groupId := model.NewId()
-
-	setupFlaggedPost := func(rootId string) *model.Post {
-		post := &model.Post{}
-		post.ChannelId = channel.Id
-		post.UserId = model.NewId()
-		post.Message = NewTestID()
-
-		if rootId != "" {
-			post.RootId = rootId
-		}
-
-		var err error
-		post, err = ss.Post().Save(rctx, post)
-		require.NoError(t, err)
-
-		err = ss.Post().Delete(rctx, post.Id, model.GetMillis(), botId)
-		require.NoError(t, err)
-
-		statusPropertyValue := &model.PropertyValue{
-			TargetID:   post.Id,
-			FieldID:    statusFieldId,
-			Value:      fmt.Appendf([]byte{}, "\"%s\"", model.ContentFlaggingStatusPending),
-			TargetType: model.PropertyValueTargetTypePost,
-			GroupID:    groupId,
-		}
-		_, err = ss.PropertyValue().Create(statusPropertyValue)
-		require.NoError(t, err)
-
-		contentFlaggingManagedPropertyValue := &model.PropertyValue{
-			TargetID:   post.Id,
-			FieldID:    contentFlaggingManagedFieldId,
-			Value:      json.RawMessage("true"),
-			TargetType: model.PropertyValueTargetTypePost,
-			GroupID:    groupId,
-		}
-		_, err = ss.PropertyValue().Create(contentFlaggingManagedPropertyValue)
-		require.NoError(t, err)
-
-		return post
-	}
-
-	t.Run("Should restore a single root post", func(t *testing.T) {
-		post := setupFlaggedPost("")
-
-		fetchedPost, err := ss.Post().GetSingle(rctx, post.Id, true)
-		require.NoError(t, err)
-		require.Greater(t, fetchedPost.DeleteAt, int64(0))
-
-		err = ss.Post().RestoreContentFlaggedPost(post, statusFieldId, contentFlaggingManagedFieldId)
-		require.NoError(t, err)
-
-		fetchedPost, err = ss.Post().GetSingle(rctx, post.Id, false)
-		require.NoError(t, err)
-		require.Equal(t, int64(0), fetchedPost.DeleteAt)
-	})
-
-	t.Run("Should restore a thread reply and update thread's reply count", func(t *testing.T) {
-		rootPost := &model.Post{}
-		rootPost.ChannelId = channel.Id
-		rootPost.UserId = model.NewId()
-		rootPost.Message = NewTestID()
-
-		var err error
-		rootPost, err = ss.Post().Save(rctx, rootPost)
-		require.NoError(t, err)
-
-		post := setupFlaggedPost(rootPost.Id)
-
-		err = ss.Post().RestoreContentFlaggedPost(post, statusFieldId, contentFlaggingManagedFieldId)
-		require.NoError(t, err)
-
-		fetchedPost, err := ss.Post().GetSingle(rctx, post.Id, false)
-		require.NoError(t, err)
-		require.Equal(t, int64(0), fetchedPost.DeleteAt)
-
-		thread, err := ss.Thread().Get(rootPost.Id)
-		require.NoError(t, err)
-		require.Equal(t, int64(1), thread.ReplyCount)
 	})
 }
 

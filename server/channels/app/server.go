@@ -53,9 +53,7 @@ import (
 	"github.com/mattermost/mattermost/server/v8/channels/jobs/last_accessible_post"
 	"github.com/mattermost/mattermost/server/v8/channels/jobs/migrations"
 	"github.com/mattermost/mattermost/server/v8/channels/jobs/mobile_session_metadata"
-	"github.com/mattermost/mattermost/server/v8/channels/jobs/plugins"
 	"github.com/mattermost/mattermost/server/v8/channels/jobs/post_persistent_notifications"
-	"github.com/mattermost/mattermost/server/v8/channels/jobs/recap"
 	"github.com/mattermost/mattermost/server/v8/channels/jobs/refresh_materialized_views"
 	"github.com/mattermost/mattermost/server/v8/channels/jobs/resend_invitation_email"
 	"github.com/mattermost/mattermost/server/v8/channels/jobs/s3_path_migration"
@@ -138,9 +136,6 @@ type Server struct {
 	IPFiltering             einterfaces.IPFilteringInterface
 	OutgoingOAuthConnection einterfaces.OutgoingOAuthConnectionInterface
 	PushProxy               einterfaces.PushProxyInterface
-	AutoTranslation         einterfaces.AutoTranslationInterface
-
-	agentsBridgeOverride AgentsBridge
 
 	ch *Channels
 }
@@ -245,19 +240,13 @@ func NewServer(options ...Option) (*Server, error) {
 	}
 
 	propertyAccessService := properties.NewPropertyAccessService(s.propertyService, func(pluginID string) bool {
-		if s.ch == nil {
-			return false
-		}
-
-		_, err := s.ch.GetPluginStatus(pluginID)
-		return err == nil
+		return false
 	})
 	s.propertyService.SetPropertyAccessService(propertyAccessService)
 
 	// Register builtin property groups after fully initializing the propertyService
 	if err = s.propertyService.RegisterBuiltinGroups([]*model.PropertyGroup{
 		{Name: model.CustomProfileAttributesPropertyGroupName},
-		{Name: model.ContentFlaggingGroupName},
 	}); err != nil {
 		return nil, errors.Wrap(err, "failed to register builtin property groups")
 	}
@@ -663,11 +652,6 @@ func (s *Server) Shutdown() {
 			s.Log().Error("Error shutting down intercluster services", mlog.Err(err))
 		}
 	}
-	if s.AutoTranslation != nil {
-		if err = s.AutoTranslation.Shutdown(); err != nil {
-			s.Log().Error("Error shutting down auto-translation service", mlog.Err(err))
-		}
-	}
 	s.serviceMux.RUnlock()
 
 	s.StopHTTPServer()
@@ -807,12 +791,6 @@ func (s *Server) Start() error {
 	if s.MailServiceConfig().SendEmailNotifications {
 		if err := mail.TestConnection(s.MailServiceConfig()); err != nil {
 			mlog.Error("Mail server connection test failed", mlog.Err(err))
-		}
-	}
-
-	if s.AutoTranslation != nil {
-		if err := s.AutoTranslation.Start(); err != nil {
-			return errors.Wrap(err, "Unable to start auto-translation service")
 		}
 	}
 
@@ -1360,16 +1338,6 @@ func (s *Server) initJobs() {
 		s.Jobs.RegisterJobType(model.JobTypeMessageExport, builder.MakeWorker(), builder.MakeScheduler())
 	}
 
-	if jobsElasticsearchAggregatorInterface != nil {
-		builder := jobsElasticsearchAggregatorInterface(s)
-		s.Jobs.RegisterJobType(model.JobTypeElasticsearchPostAggregation, builder.MakeWorker(), builder.MakeScheduler())
-	}
-
-	if jobsElasticsearchIndexerInterface != nil {
-		builder := jobsElasticsearchIndexerInterface(s)
-		s.Jobs.RegisterJobType(model.JobTypeElasticsearchPostIndexing, builder.MakeWorker(), nil)
-	}
-
 	if jobsLdapSyncInterface != nil {
 		builder := jobsLdapSyncInterface(New(ServerConnector(s.Channels())))
 		s.Jobs.RegisterJobType(model.JobTypeLdapSync, builder.MakeWorker(), builder.MakeScheduler())
@@ -1385,22 +1353,10 @@ func (s *Server) initJobs() {
 		s.Jobs.RegisterJobType(model.JobTypePushProxyAuth, builder.MakeWorker(), builder.MakeScheduler())
 	}
 
-	if s.AutoTranslation != nil {
-		s.Jobs.RegisterJobType(model.JobTypeAutoTranslationRecovery,
-			s.AutoTranslation.MakeWorker(),
-			s.AutoTranslation.MakeScheduler())
-	}
-
 	s.Jobs.RegisterJobType(
 		model.JobTypeMigrations,
 		migrations.MakeWorker(s.Jobs, s.Store()),
 		migrations.MakeScheduler(s.Jobs, s.Store()),
-	)
-
-	s.Jobs.RegisterJobType(
-		model.JobTypePlugins,
-		plugins.MakeWorker(s.Jobs, New(ServerConnector(s.Channels()))),
-		plugins.MakeScheduler(s.Jobs),
 	)
 
 	s.Jobs.RegisterJobType(
@@ -1506,12 +1462,6 @@ func (s *Server) initJobs() {
 		model.JobTypeDeleteDmsPreferencesMigration,
 		delete_dms_preferences_migration.MakeWorker(s.Jobs, s.Store(), New(ServerConnector(s.Channels()))),
 		nil)
-
-	s.Jobs.RegisterJobType(
-		model.JobTypeRecap,
-		recap.MakeWorker(s.Jobs, s.Store(), New(ServerConnector(s.Channels()))),
-		nil,
-	)
 
 	s.Jobs.RegisterJobType(
 		model.JobTypeDeleteExpiredPosts,

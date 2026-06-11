@@ -28,9 +28,6 @@ func TestIsValid(t *testing.T) {
 		{"Invalid ReleaseNotesURL", &Manifest{Id: "com.company.test", Name: "some name", ReleaseNotesURL: "some url"}, true},
 		{"Invalid version", &Manifest{Id: "com.company.test", Name: "some name", HomepageURL: "http://someurl.com", SupportURL: "http://someotherurl.com", Version: "version"}, true},
 		{"Invalid min version", &Manifest{Id: "com.company.test", Name: "some name", HomepageURL: "http://someurl.com", SupportURL: "http://someotherurl.com", Version: "5.10.0", MinServerVersion: "version"}, true},
-		{"SettingSchema error", &Manifest{Id: "com.company.test", Name: "some name", HomepageURL: "http://someurl.com", SupportURL: "http://someotherurl.com", Version: "5.10.0", MinServerVersion: "5.10.8", SettingsSchema: &PluginSettingsSchema{
-			Settings: []*PluginSetting{{Type: "Invalid"}},
-		}}, true},
 		{"Minimal valid manifest", &Manifest{Id: "com.company.test", Name: "some name"}, false},
 		{"Happy case", &Manifest{
 			Id:               "com.company.test",
@@ -47,68 +44,6 @@ func TestIsValid(t *testing.T) {
 			Webapp: &ManifestWebapp{
 				BundlePath: "thebundlepath",
 			},
-			SettingsSchema: &PluginSettingsSchema{
-				Header: "theheadertext",
-				Footer: "thefootertext",
-				Settings: []*PluginSetting{
-					{
-						Key:         "thesetting",
-						DisplayName: "thedisplayname",
-						Type:        "dropdown",
-						HelpText:    "thehelptext",
-						Options: []*PluginOption{
-							{
-								DisplayName: "theoptiondisplayname",
-								Value:       "thevalue",
-							},
-						},
-						Default: "thedefault",
-					},
-				},
-				Sections: []*PluginSettingsSection{
-					{
-						Key:      "section1",
-						Title:    "section title",
-						Subtitle: "section subtitle",
-						Settings: []*PluginSetting{
-							{
-								Key:         "section1setting1",
-								DisplayName: "thedisplayname",
-								Type:        "custom",
-							},
-							{
-								Key:         "section1setting2",
-								DisplayName: "thedisplayname",
-								Type:        "custom",
-							},
-						},
-						Header: "section header",
-						Footer: "section footer",
-					},
-					{
-						Key: "section2",
-						Settings: []*PluginSetting{
-							{
-								Key:         "section2setting1",
-								DisplayName: "thedisplayname",
-								Type:        "custom",
-							},
-						},
-					},
-					{
-						Key:      "section3",
-						Custom:   true,
-						Fallback: true,
-						Settings: []*PluginSetting{
-							{
-								Key:         "section3setting1",
-								DisplayName: "thedisplayname",
-								Type:        "custom",
-							},
-						},
-					},
-				},
-			},
 		}, false},
 	}
 
@@ -119,214 +54,6 @@ func TestIsValid(t *testing.T) {
 				assert.Error(t, err)
 			} else {
 				assert.NoError(t, err)
-			}
-		})
-	}
-}
-
-func TestIsValidSettingsSchema(t *testing.T) {
-	testCases := []struct {
-		Title          string
-		settingsSchema *PluginSettingsSchema
-		ExpectError    bool
-	}{
-		{"Invalid Setting", &PluginSettingsSchema{Settings: []*PluginSetting{{Type: "invalid"}}}, true},
-		{"Happy case", &PluginSettingsSchema{Settings: []*PluginSetting{{Type: "text"}}}, false},
-	}
-
-	for _, tc := range testCases {
-		t.Run(tc.Title, func(t *testing.T) {
-			err := tc.settingsSchema.isValid()
-			if tc.ExpectError {
-				assert.Error(t, err)
-			} else {
-				assert.NoError(t, err)
-			}
-		})
-	}
-}
-
-func TestPluginSettingsSectionIsValid(t *testing.T) {
-	for name, test := range map[string]struct {
-		Section       PluginSettingsSection
-		ExpectedError string
-	}{
-		"missing key": {
-			Section: PluginSettingsSection{
-				Settings: []*PluginSetting{
-					{
-						Type:        "custom",
-						Placeholder: "some Text",
-					},
-				},
-			},
-			ExpectedError: "invalid empty Key",
-		},
-		"invalid setting": {
-			Section: PluginSettingsSection{
-				Key: "sectionKey",
-				Settings: []*PluginSetting{
-					{
-						Type: "invalid",
-					},
-				},
-			},
-			ExpectedError: "invalid setting type: invalid",
-		},
-		"valid empty": {
-			Section: PluginSettingsSection{
-				Key:      "sectionKey",
-				Settings: []*PluginSetting{},
-			},
-		},
-		"valid": {
-			Section: PluginSettingsSection{
-				Key: "sectionKey",
-				Settings: []*PluginSetting{
-					{
-						Type:        "custom",
-						Placeholder: "some Text",
-					},
-				},
-			},
-		},
-	} {
-		t.Run(name, func(t *testing.T) {
-			err := test.Section.IsValid()
-			if test.ExpectedError != "" {
-				assert.EqualError(t, err, test.ExpectedError)
-			} else {
-				assert.NoError(t, err)
-			}
-		})
-	}
-}
-
-func TestSettingIsValid(t *testing.T) {
-	for name, test := range map[string]struct {
-		Setting     PluginSetting
-		ExpectError bool
-	}{
-		"Invalid setting type": {
-			PluginSetting{Type: "invalid"},
-			true,
-		},
-		"RegenerateHelpText error": {
-			PluginSetting{Type: "text", RegenerateHelpText: "some text"},
-			true,
-		},
-		"Placeholder error": {
-			PluginSetting{Type: "bool", Placeholder: "some text"},
-			true,
-		},
-		"Nil Options": {
-			PluginSetting{Type: "bool"},
-			false,
-		},
-		"Options error": {
-			PluginSetting{Type: "generated", Options: []*PluginOption{}},
-			true,
-		},
-		"Options displayName error": {
-			PluginSetting{
-				Type: "radio",
-				Options: []*PluginOption{{
-					Value: "some value",
-				}},
-			},
-			true,
-		},
-		"Options value error": {
-			PluginSetting{
-				Type: "radio",
-				Options: []*PluginOption{{
-					DisplayName: "some name",
-				}},
-			},
-			true,
-		},
-		"Happy case": {
-			PluginSetting{
-				Type: "radio",
-				Options: []*PluginOption{{
-					DisplayName: "Name",
-					Value:       "value",
-				}},
-			},
-			false,
-		},
-		"Valid number setting": {
-			PluginSetting{
-				Type:    "number",
-				Default: 10,
-			},
-			false,
-		},
-		"Placeholder is disallowed for bool settings": {
-			PluginSetting{
-				Type:        "bool",
-				Placeholder: "some Text",
-			},
-			true,
-		},
-		"Placeholder is allowed for text settings": {
-			PluginSetting{
-				Type:        "text",
-				Placeholder: "some Text",
-			},
-			false,
-		},
-		"Placeholder is allowed for long text settings": {
-			PluginSetting{
-				Type:        "longtext",
-				Placeholder: "some Text",
-			},
-			false,
-		},
-		"Placeholder is allowed for custom settings": {
-			PluginSetting{
-				Type:        "custom",
-				Placeholder: "some Text",
-			},
-			false,
-		},
-	} {
-		t.Run(name, func(t *testing.T) {
-			err := test.Setting.isValid()
-			if test.ExpectError {
-				assert.Error(t, err)
-			} else {
-				assert.NoError(t, err)
-			}
-		})
-	}
-}
-
-func TestConvertTypeToPluginSettingType(t *testing.T) {
-	testCases := []struct {
-		Title               string
-		Type                string
-		ExpectedSettingType PluginSettingType
-		ExpectError         bool
-	}{
-		{"bool", "bool", Bool, false},
-		{"dropdown", "dropdown", Dropdown, false},
-		{"generated", "generated", Generated, false},
-		{"radio", "radio", Radio, false},
-		{"text", "text", Text, false},
-		{"longtext", "longtext", LongText, false},
-		{"username", "username", Username, false},
-		{"custom", "custom", Custom, false},
-		{"invalid", "invalid", Bool, true},
-	}
-
-	for _, tc := range testCases {
-		t.Run(tc.Title, func(t *testing.T) {
-			settingType, err := convertTypeToPluginSettingType(tc.Type)
-			if !tc.ExpectError {
-				assert.Equal(t, settingType, tc.ExpectedSettingType)
-			} else {
-				assert.Error(t, err)
 			}
 		})
 	}
@@ -395,27 +122,6 @@ func TestManifestUnmarshal(t *testing.T) {
 		Webapp: &ManifestWebapp{
 			BundlePath: "thebundlepath",
 		},
-		SettingsSchema: &PluginSettingsSchema{
-			Header: "theheadertext",
-			Footer: "thefootertext",
-			Settings: []*PluginSetting{
-				{
-					Key:                "thesetting",
-					DisplayName:        "thedisplayname",
-					Type:               "dropdown",
-					HelpText:           "thehelptext",
-					RegenerateHelpText: "theregeneratehelptext",
-					Placeholder:        "theplaceholder",
-					Options: []*PluginOption{
-						{
-							DisplayName: "theoptiondisplayname",
-							Value:       "thevalue",
-						},
-					},
-					Default: "thedefault",
-				},
-			},
-		},
 	}
 
 	t.Run("yaml", func(t *testing.T) {
@@ -435,20 +141,6 @@ server:
           linux-arm64: theexecutable-linux-arm64
 webapp:
     bundle_path: thebundlepath
-settings_schema:
-    header: theheadertext
-    footer: thefootertext
-    settings:
-        - key: thesetting
-          display_name: thedisplayname
-          type: dropdown
-          help_text: thehelptext
-          regenerate_help_text: theregeneratehelptext
-          placeholder: theplaceholder
-          options:
-              - display_name: theoptiondisplayname
-                value: thevalue
-          default: thedefault
 `), &yamlResult))
 		assert.Equal(t, expected, yamlResult)
 	})
@@ -572,27 +264,6 @@ func TestManifestClientManifest(t *testing.T) {
 			BundlePath: "thebundlepath",
 			BundleHash: []byte{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
 		},
-		SettingsSchema: &PluginSettingsSchema{
-			Header: "theheadertext",
-			Footer: "thefootertext",
-			Settings: []*PluginSetting{
-				{
-					Key:                "thesetting",
-					DisplayName:        "thedisplayname",
-					Type:               "dropdown",
-					HelpText:           "thehelptext",
-					RegenerateHelpText: "theregeneratehelptext",
-					Placeholder:        "theplaceholder",
-					Options: []*PluginOption{
-						{
-							DisplayName: "theoptiondisplayname",
-							Value:       "thevalue",
-						},
-					},
-					Default: "thedefault",
-				},
-			},
-		},
 	}
 
 	sanitized := manifest.ClientManifest()
@@ -602,7 +273,6 @@ func TestManifestClientManifest(t *testing.T) {
 	assert.Equal(t, manifest.MinServerVersion, sanitized.MinServerVersion)
 	assert.Equal(t, "/static/theid/theid_000102030405060708090a0b0c0d0e0f_bundle.js", sanitized.Webapp.BundlePath)
 	assert.Equal(t, manifest.Webapp.BundleHash, sanitized.Webapp.BundleHash)
-	assert.Equal(t, manifest.SettingsSchema, sanitized.SettingsSchema)
 	assert.Empty(t, sanitized.Description)
 	assert.Empty(t, sanitized.Server)
 
@@ -613,7 +283,6 @@ func TestManifestClientManifest(t *testing.T) {
 	assert.NotEmpty(t, manifest.Name)
 	assert.NotEmpty(t, manifest.Description)
 	assert.NotEmpty(t, manifest.Server)
-	assert.NotEmpty(t, manifest.SettingsSchema)
 }
 
 func TestManifestGetExecutableForRuntime(t *testing.T) {

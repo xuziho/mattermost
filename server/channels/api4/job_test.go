@@ -236,8 +236,6 @@ func TestGetJobsByType(t *testing.T) {
 	require.Error(t, err)
 	CheckForbiddenStatus(t, resp)
 
-	_, _, err = th.SystemManagerClient.GetJobsByType(context.Background(), model.JobTypeElasticsearchPostIndexing, 0, 60)
-	require.NoError(t, err)
 }
 
 func TestGetJobsByType_TeamAdminAccessControlSync(t *testing.T) {
@@ -400,8 +398,8 @@ func TestDownloadJob(t *testing.T) {
 	err = os.MkdirAll(filepath.Dir(filePath), 0770)
 	require.NoError(t, err)
 
-	_, createErr := os.Create(filePath)
-	require.NoError(t, createErr)
+	err = os.WriteFile(filePath, nil, 0600)
+	require.NoError(t, err)
 
 	// Normal user cannot download the results of these job (not the right permission)
 	_, resp, err = th.Client.DownloadJob(context.Background(), job.Id)
@@ -434,8 +432,8 @@ func TestDownloadJob(t *testing.T) {
 	err = os.MkdirAll(filepath.Dir(filePath), 0770)
 	require.NoError(t, err)
 
-	_, createErr = os.Create(filePath)
-	require.NoError(t, createErr)
+	err = os.WriteFile(filePath, nil, 0600)
+	require.NoError(t, err)
 
 	_, _, err = th.SystemAdminClient.DownloadJob(context.Background(), job.Id)
 	require.NoError(t, err)
@@ -444,7 +442,7 @@ func TestDownloadJob(t *testing.T) {
 	jobName = model.NewId()
 	job = &model.Job{
 		Id:   jobName,
-		Type: model.JobTypePlugins,
+		Type: model.JobTypeImportProcess,
 		Data: map[string]string{
 			"export_type": "csv",
 		},

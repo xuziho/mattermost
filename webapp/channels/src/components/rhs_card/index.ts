@@ -22,7 +22,6 @@ function mapStateToProps(state: GlobalState) {
         enablePostUsernameOverride,
         isMobileView: getIsMobileView(state),
         selected,
-        pluginPostCardTypes: state.plugins.postCardTypes,
         teamUrl: getCurrentRelativeTeamUrl(state),
     };
 }

@@ -80,8 +80,6 @@ func GenerateClientConfig(c *model.Config, telemetryID string, license *model.Li
 	props["SQLDriverName"] = *c.SqlSettings.DriverName
 
 	props["EnableEmojiPicker"] = strconv.FormatBool(*c.ServiceSettings.EnableEmojiPicker)
-	props["EnableGifPicker"] = strconv.FormatBool(*c.ServiceSettings.EnableGifPicker)
-	props["GiphySdkKey"] = getGiphySdkKey(c.ServiceSettings)
 	props["MaxFileSize"] = strconv.FormatInt(*c.FileSettings.MaxFileSize, 10)
 
 	props["MaxNotificationsPerChannel"] = strconv.FormatInt(*c.TeamSettings.MaxNotificationsPerChannel, 10)
@@ -241,14 +239,6 @@ func GenerateClientConfig(c *model.Config, telemetryID string, license *model.Li
 			props["MobileEnableSecureFilePreview"] = strconv.FormatBool(*c.NativeAppSettings.MobileEnableSecureFilePreview)
 			props["MobileAllowPdfLinkNavigation"] = strconv.FormatBool(*c.NativeAppSettings.MobileAllowPdfLinkNavigation)
 
-			props["ContentFlaggingEnabled"] = strconv.FormatBool(c.FeatureFlags.ContentFlagging && *c.ContentFlaggingSettings.EnableContentFlagging)
-			props["EnableAutoTranslation"] = strconv.FormatBool(c.FeatureFlags.AutoTranslation && *c.AutoTranslationSettings.Enable)
-			if c.FeatureFlags.AutoTranslation {
-				props["AutoTranslationLanguages"] = strings.Join(*c.AutoTranslationSettings.TargetLanguages, ",")
-			} else {
-				props["AutoTranslationLanguages"] = ""
-			}
-			props["RestrictDMAndGMAutotranslation"] = strconv.FormatBool(*c.AutoTranslationSettings.RestrictDMAndGM)
 		}
 	}
 
@@ -317,9 +307,6 @@ func GenerateLimitedClientConfig(c *model.Config, telemetryID string, license *m
 	props["DiagnosticsEnabled"] = strconv.FormatBool(*c.LogSettings.EnableDiagnostics)
 
 	props["HasImageProxy"] = strconv.FormatBool(*c.ImageProxySettings.Enable)
-
-	props["PluginsEnabled"] = strconv.FormatBool(*c.PluginSettings.Enable)
-	props["AppsPluginEnabled"] = strconv.FormatBool(*c.PluginSettings.Enable && c.PluginSettings.PluginStates[model.PluginIdApps] != nil && c.PluginSettings.PluginStates[model.PluginIdApps].Enable)
 
 	props["PasswordMinimumLength"] = strconv.Itoa(*c.PasswordSettings.MinimumLength)
 	props["PasswordRequireLowercase"] = strconv.FormatBool(*c.PasswordSettings.Lowercase)
@@ -430,18 +417,4 @@ func GenerateLimitedClientConfig(c *model.Config, telemetryID string, license *m
 	}
 
 	return props
-}
-
-func getGiphySdkKey(ss model.ServiceSettings) string {
-	if model.GetServiceEnvironment() == model.ServiceEnvironmentProduction {
-		if *ss.GiphySdkKey != "" {
-			return *ss.GiphySdkKey
-		}
-
-		return model.MattermostGiphySdkKey
-	} else if model.GetServiceEnvironment() == model.ServiceEnvironmentDev || model.GetServiceEnvironment() == model.ServiceEnvironmentTest {
-		return model.ServiceSettingsDefaultGiphySdkKeyTest
-	}
-
-	return ""
 }

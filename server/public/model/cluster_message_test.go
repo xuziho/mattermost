@@ -139,30 +139,6 @@ func TestClusterMessageLogFields(t *testing.T) {
 		assertNoLogField(t, fields, "ws_event")
 	})
 
-	t.Run("plugin event extracts plugin_id and event_id", func(t *testing.T) {
-		fields := (&ClusterMessage{
-			Event:    ClusterEventPluginEvent,
-			SendType: ClusterSendReliable,
-			Props: map[string]string{
-				"PluginID": "com.example.plugin",
-				"EventID":  "my-event",
-			},
-		}).LogFields()
-
-		assertLogField(t, fields, "plugin_id", "com.example.plugin")
-		assertLogField(t, fields, "event_id", "my-event")
-	})
-
-	t.Run("plugin event with no props omits plugin fields", func(t *testing.T) {
-		fields := (&ClusterMessage{
-			Event:    ClusterEventPluginEvent,
-			SendType: ClusterSendReliable,
-		}).LogFields()
-
-		assertNoLogField(t, fields, "plugin_id")
-		assertNoLogField(t, fields, "event_id")
-	})
-
 	t.Run("unrelated event type returns only base fields", func(t *testing.T) {
 		fields := (&ClusterMessage{
 			Event:    ClusterEventInvalidateCacheForChannel,

@@ -55,7 +55,6 @@ type Params struct {
 	Service                            string
 	JobId                              string
 	JobType                            string
-	RecapId                            string
 	ActionId                           string
 	RoleId                             string
 	RoleName                           string
@@ -110,7 +109,6 @@ type Params struct {
 	ExcludeRemote                      bool
 	AccessControlPolicyEnforced        bool
 	ExcludeAccessControlPolicyEnforced bool
-	ContentReviewerId                  string
 
 	//Bookmarks
 	ChannelBookmarkId string
@@ -178,7 +176,6 @@ func ParamsFromRequest(r *http.Request) *Params {
 	params.EmojiName = props["emoji_name"]
 	params.JobId = props["job_id"]
 	params.JobType = props["job_type"]
-	params.RecapId = props["recap_id"]
 	params.ActionId = props["action_id"]
 	params.RoleId = props["role_id"]
 	params.RoleName = props["role_name"]
@@ -300,7 +297,6 @@ func ParamsFromRequest(r *http.Request) *Params {
 	params.ExcludePolicyConstrained, _ = strconv.ParseBool(query.Get("exclude_policy_constrained"))
 	params.AccessControlPolicyEnforced, _ = strconv.ParseBool(query.Get("access_control_policy_enforced"))
 	params.ExcludeAccessControlPolicyEnforced, _ = strconv.ParseBool(query.Get("exclude_access_control_policy_enforced"))
-	params.ContentReviewerId = props["content_reviewer_id"]
 
 	if val := query.Get("group_source"); val != "" {
 		switch val {

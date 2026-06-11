@@ -8,7 +8,6 @@ import (
 	"os"
 	"testing"
 
-	"github.com/mattermost/mattermost/server/public/model"
 	"github.com/mattermost/mattermost/server/v8/channels/api4"
 	"github.com/mattermost/mattermost/server/v8/channels/testlib"
 )
@@ -67,14 +66,6 @@ type TestNewServiceSettings struct {
 type TestNewTeamSettings struct {
 	SiteName       *string
 	MaxUserPerTeam *int
-}
-
-type TestPluginSettings struct {
-	Enable                  *bool
-	Directory               *string `restricted:"true"`
-	Plugins                 map[string]map[string]any
-	PluginStates            map[string]*model.PluginState
-	SignaturePublicKeyFiles []string
 }
 
 func TestMain(m *testing.M) {

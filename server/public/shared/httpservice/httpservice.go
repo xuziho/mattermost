@@ -13,7 +13,6 @@ import (
 	"unicode"
 
 	"github.com/mattermost/mattermost/server/public/model"
-	"github.com/mattermost/mattermost/server/public/plugin"
 )
 
 // HTTPService wraps the functionality for making http requests to provide some improvements to the default client
@@ -50,18 +49,6 @@ func MakeHTTPService(configService getConfig) HTTPService {
 		configService,
 		RequestTimeout,
 	}
-}
-
-type pluginAPIConfigServiceAdapter struct {
-	pluginAPIConfigService plugin.API
-}
-
-func (p *pluginAPIConfigServiceAdapter) Config() *model.Config {
-	return p.pluginAPIConfigService.GetConfig()
-}
-
-func MakeHTTPServicePlugin(configService plugin.API) HTTPService {
-	return MakeHTTPService(&pluginAPIConfigServiceAdapter{configService})
 }
 
 func (h *HTTPServiceImpl) MakeClient(trustURLs bool) *http.Client {

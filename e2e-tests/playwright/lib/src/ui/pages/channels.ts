@@ -54,7 +54,7 @@ export default class ChannelsPage {
     readonly userAccountMenu;
     readonly teamMenu;
 
-    readonly emojiGifPickerPopup;
+    readonly emojiPickerPopup;
     readonly scheduleMessageMenu;
 
     constructor(page: Page) {
@@ -92,7 +92,7 @@ export default class ChannelsPage {
         this.teamMenu = new components.TeamMenu(page.locator('#sidebarTeamMenu'));
 
         // Popovers
-        this.emojiGifPickerPopup = new components.EmojiGifPicker(page.locator('#emojiGifPicker'));
+        this.emojiPickerPopup = new components.EmojiPicker(page.locator('#emojiPicker'));
         this.scheduledDraftModal = new components.ScheduledDraftModal(page.locator('div.modal-content'));
         this.scheduleMessageModal = new components.ScheduleMessageModal(
             page.getByRole('dialog', {name: 'Schedule message'}),

@@ -11,7 +11,6 @@ export class TestConfig {
     adminUsername: string;
     adminPassword: string;
     adminEmail: string;
-    ensurePluginsInstalled: string[];
     haClusterEnabled: boolean;
     haClusterNodeCount: number;
     haClusterName: string;
@@ -30,10 +29,6 @@ export class TestConfig {
         this.adminUsername = process.env.PW_ADMIN_USERNAME || 'sysadmin';
         this.adminPassword = process.env.PW_ADMIN_PASSWORD || 'Sys@dmin-sample1';
         this.adminEmail = process.env.PW_ADMIN_EMAIL || 'sysadmin@sample.mattermost.com';
-        this.ensurePluginsInstalled =
-            typeof process.env?.PW_ENSURE_PLUGINS_INSTALLED === 'string'
-                ? process.env.PW_ENSURE_PLUGINS_INSTALLED.split(',').filter((plugin) => Boolean(plugin))
-                : [];
         this.haClusterEnabled = parseBool(process.env.PW_HA_CLUSTER_ENABLED, false);
         this.haClusterNodeCount = parseNumber(process.env.PW_HA_CLUSTER_NODE_COUNT, 2);
         this.haClusterName = process.env.PW_HA_CLUSTER_NAME || 'mm_dev_cluster';

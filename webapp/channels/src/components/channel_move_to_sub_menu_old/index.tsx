@@ -25,11 +25,11 @@ import {getCategoriesForCurrentTeam} from 'selectors/views/channel_sidebar';
 
 import EditCategoryModal from 'components/edit_category_modal';
 import Menu from 'components/widgets/menu/menu';
+import type {MenuItem} from 'components/widgets/menu/menu_items/submenu_item';
 
 import Constants, {ModalIdentifiers} from 'utils/constants';
 
 import type {GlobalState} from 'types/store';
-import type {Menu as MenuType} from 'types/store/plugins';
 
 type Props = {
     channel: Channel;
@@ -69,7 +69,7 @@ const ChannelMoveToSubMenuOld = (props: Props) => {
         }));
     }
 
-    function createSubmenuItemsForCategoryArray(categories: ChannelCategory[]): MenuType[] {
+    function createSubmenuItemsForCategoryArray(categories: ChannelCategory[]): MenuItem[] {
         const allCategories = categories.map((category: ChannelCategory) => {
             let text = category.display_name;
 

@@ -19,7 +19,6 @@ import (
 	"slices"
 
 	"github.com/mattermost/mattermost/server/public/model"
-	"github.com/mattermost/mattermost/server/public/plugin"
 	"github.com/mattermost/mattermost/server/public/shared/i18n"
 	"github.com/mattermost/mattermost/server/public/shared/mlog"
 	"github.com/mattermost/mattermost/server/public/shared/request"
@@ -300,54 +299,6 @@ func (a *App) CreatePost(rctx request.CTX, post *model.Post, channel *model.Chan
 		return nil, false, err
 	}
 
-	// Temporary fix so old plugins don't clobber new fields in MessageAttachment struct, see MM-13088
-	if attachments, ok := post.GetProp(model.PostPropsAttachments).([]*model.MessageAttachment); ok {
-		jsonAttachments, err := json.Marshal(attachments)
-		if err == nil {
-			attachmentsInterface := []any{}
-			err = json.Unmarshal(jsonAttachments, &attachmentsInterface)
-			post.AddProp(model.PostPropsAttachments, attachmentsInterface)
-		}
-		if err != nil {
-			rctx.Logger().Warn("Could not convert post attachments to map interface.", mlog.Err(err))
-		}
-	}
-
-	var metadata *model.PostMetadata
-	if post.Metadata != nil {
-		metadata = post.Metadata.Copy()
-	}
-	var rejectionError *model.AppError
-	pluginContext := pluginContext(rctx)
-
-	if post.Type != model.PostTypeBurnOnRead {
-		a.ch.RunMultiHook(func(hooks plugin.Hooks, _ *model.Manifest) bool {
-			replacementPost, rejectionReason := hooks.MessageWillBePosted(pluginContext, post.ForPlugin())
-			if rejectionReason != "" {
-				id := "Post rejected by plugin. " + rejectionReason
-				if rejectionReason == plugin.DismissPostError {
-					id = plugin.DismissPostError
-				}
-				rejectionError = model.NewAppError("createPost", id, nil, "", http.StatusBadRequest)
-				return false
-			}
-			if replacementPost != nil {
-				post = replacementPost
-				if post.Metadata != nil && metadata != nil {
-					post.Metadata.Priority = metadata.Priority
-				} else {
-					post.Metadata = metadata
-				}
-			}
-
-			return true
-		}, plugin.MessageWillBePostedID)
-
-		if rejectionError != nil {
-			return nil, false, rejectionError
-		}
-	}
-
 	// Pre-fill the CreateAt field for link previews to get the correct timestamp.
 	if post.CreateAt == 0 {
 		post.CreateAt = model.GetMillis()
@@ -400,49 +351,11 @@ func (a *App) CreatePost(rctx request.CTX, post *model.Post, channel *model.Chan
 		}
 	}
 
-	// We make a copy of the post for the plugin hook to avoid a race condition,
-	// and to remove the non-GOB-encodable Metadata from it.
-	// Skip plugin hooks for burn-on-read posts
-	if rpost.Type != model.PostTypeBurnOnRead {
-		pluginPost := rpost.ForPlugin()
-		a.Srv().Go(func() {
-			a.ch.RunMultiHook(func(hooks plugin.Hooks, _ *model.Manifest) bool {
-				hooks.MessageHasBeenPosted(pluginContext, pluginPost)
-				return true
-			}, plugin.MessageHasBeenPostedID)
-		})
-	}
-
 	// Normally, we would let the API layer call PreparePostForClient, but we do it here since it also needs
 	// to be done when we send the post over the websocket in handlePostEvents
 	// PS: we don't want to include PostPriority from the db to avoid the replica lag,
 	// so we just return the one that was passed with post
 	rpost = a.PreparePostForClient(rctx, rpost, &model.PreparePostForClientOpts{IsEditPost: true})
-
-	// Initialize translations for the post before sending WebSocket events
-	// This ensures translation metadata is included in the 'posted' event
-	// Check if auto-translation is available before making database calls
-	if a.AutoTranslation() != nil && a.AutoTranslation().IsFeatureAvailable() {
-		enabled, atErr := a.AutoTranslation().IsChannelEnabled(rpost.ChannelId)
-		if atErr == nil && enabled {
-			_, translateErr := a.AutoTranslation().Translate(rctx.Context(), model.TranslationObjectTypePost, rpost.Id, rpost.ChannelId, rpost.UserId, rpost)
-			if translateErr != nil {
-				var notAvailErr *model.ErrAutoTranslationNotAvailable
-				switch {
-				case errors.As(translateErr, &notAvailErr):
-					// Feature not available - log at debug level and continue
-					rctx.Logger().Debug("Auto-translation feature not available", mlog.String("post_id", rpost.Id), mlog.Err(translateErr))
-				case translateErr.Id == "ent.autotranslation.no_translatable_content":
-					// No translatable content (only URLs/mentions) - this is expected, don't log
-				default:
-					// Unexpected error - log at warn level but don't fail post creation
-					rctx.Logger().Warn("Failed to translate post", mlog.String("post_id", rpost.Id), mlog.Err(translateErr))
-				}
-			}
-		} else if atErr != nil {
-			rctx.Logger().Warn("Failed to check if channel is enabled for auto-translation", mlog.String("channel_id", rpost.ChannelId), mlog.Err(atErr))
-		}
-	}
 
 	a.applyPostWillBeConsumedHook(&rpost)
 
@@ -606,24 +519,6 @@ func (a *App) FillInPostProps(rctx request.CTX, post *model.Post, channel *model
 	}
 	if shouldAddProp {
 		post.AddProp(model.PostPropsGroupHighlightDisabled, true)
-	}
-
-	// Populate AI-generated username from provided user ID
-	if aiGenUserID, ok := post.GetProp(model.PostPropsAIGeneratedByUserID).(string); ok && aiGenUserID != "" {
-		user, err := a.GetUser(aiGenUserID)
-		if err != nil {
-			// If user doesn't exist, remove the ai_generated_by prop to avoid storing invalid data
-			rctx.Logger().Warn("Failed to get user for AI-generated post, removing ai_generated_by prop", mlog.String("user_id", aiGenUserID), mlog.Err(err))
-			post.DelProp(model.PostPropsAIGeneratedByUserID)
-		} else {
-			// Only allow AI-generated username if the user is the post creator or a bot
-			if user.Id == post.UserId || user.IsBot {
-				post.AddProp(model.PostPropsAIGeneratedByUsername, user.Username)
-			} else {
-				// User ID cannot be a different non-bot user - return error
-				return model.NewAppError("FillInPostProps", "api.post.fill_in_post_props.invalid_ai_generated_user.app_error", nil, "", http.StatusBadRequest)
-			}
-		}
 	}
 
 	if post.Type == model.PostTypeBurnOnRead {
@@ -883,26 +778,12 @@ func (a *App) UpdatePost(rctx request.CTX, receivedUpdatedPost *model.Post, upda
 		oldPost.RemoteId = model.NewPointer(*receivedUpdatedPost.RemoteId)
 	}
 
-	var rejectionReason string
-	pluginContext := pluginContext(rctx)
-	if newPost.Type != model.PostTypeBurnOnRead {
-		a.ch.RunMultiHook(func(hooks plugin.Hooks, _ *model.Manifest) bool {
-			newPost, rejectionReason = hooks.MessageWillBeUpdated(pluginContext, newPost.ForPlugin(), oldPost.ForPlugin())
-			return newPost != nil
-		}, plugin.MessageWillBeUpdatedID)
-		if newPost == nil {
-			return nil, false, model.NewAppError("UpdatePost", "Post rejected by plugin. "+rejectionReason, nil, "", http.StatusBadRequest)
-		}
-	}
-
 	// Always use incoming metadata when provided, otherwise retain existing
 	if receivedUpdatedPost.Metadata != nil {
 		newPost.Metadata = receivedUpdatedPost.Metadata.Copy()
 		// MM-67055: Strip embeds - always server-generated. Preserves Priority/Acks for Shared Channels sync.
 		newPost.Metadata.Embeds = nil
 	} else {
-		// Restore the post metadata that was stripped by the plugin. Set it to
-		// the last known good.
 		newPost.Metadata = oldPost.Metadata
 	}
 
@@ -916,17 +797,6 @@ func (a *App) UpdatePost(rctx request.CTX, receivedUpdatedPost *model.Post, upda
 		}
 	}
 
-	pluginOldPost := oldPost.ForPlugin()
-	pluginNewPost := newPost.ForPlugin()
-	if newPost.Type != model.PostTypeBurnOnRead {
-		a.Srv().Go(func() {
-			a.ch.RunMultiHook(func(hooks plugin.Hooks, _ *model.Manifest) bool {
-				hooks.MessageHasBeenUpdated(pluginContext, pluginNewPost, pluginOldPost)
-				return true
-			}, plugin.MessageHasBeenUpdatedID)
-		})
-	}
-
 	rpost = a.PreparePostForClientWithEmbedsAndImages(rctx, rpost, &model.PreparePostForClientOpts{IsEditPost: true, IncludePriority: true})
 
 	// Ensure IsFollowing is nil since this updated post will be broadcast to all users
@@ -937,31 +807,6 @@ func (a *App) UpdatePost(rctx request.CTX, receivedUpdatedPost *model.Post, upda
 	rpost, nErr = a.addPostPreviewProp(rctx, rpost)
 	if nErr != nil {
 		return nil, false, model.NewAppError("UpdatePost", "app.post.update.app_error", nil, "", http.StatusInternalServerError).Wrap(nErr)
-	}
-
-	// Re-translate post if content changed
-	// Our updated Translate() function detects content changes via NormHash comparison
-	// and automatically re-initializes translations for all configured languages
-	if a.AutoTranslation() != nil && a.AutoTranslation().IsFeatureAvailable() {
-		enabled, atErr := a.AutoTranslation().IsChannelEnabled(rpost.ChannelId)
-		if atErr == nil && enabled {
-			_, translateErr := a.AutoTranslation().Translate(rctx.Context(), model.TranslationObjectTypePost, rpost.Id, rpost.ChannelId, rpost.UserId, rpost)
-			if translateErr != nil {
-				var notAvailErr *model.ErrAutoTranslationNotAvailable
-				switch {
-				case errors.As(translateErr, &notAvailErr):
-					// Feature not available - log at debug level and continue
-					rctx.Logger().Debug("Auto-translation feature not available for edited post", mlog.String("post_id", rpost.Id), mlog.Err(translateErr))
-				case translateErr.Id == "ent.autotranslation.no_translatable_content":
-					// No translatable content (only URLs/mentions) - this is expected, don't log
-				default:
-					// Unexpected error - log at warn level but don't fail post update
-					rctx.Logger().Warn("Failed to translate edited post", mlog.String("post_id", rpost.Id), mlog.Err(translateErr))
-				}
-			}
-		} else if atErr != nil {
-			rctx.Logger().Warn("Failed to check if channel is enabled for auto-translation", mlog.String("channel_id", rpost.ChannelId), mlog.Err(atErr))
-		}
 	}
 
 	message := model.NewWebSocketEvent(model.WebsocketEventPostEdited, "", rpost.ChannelId, "", nil, "")
@@ -1313,17 +1158,7 @@ func (a *App) GetPosts(rctx request.CTX, channelID string, offset int, limit int
 }
 
 func (a *App) GetPostsEtag(channelID string, collapsedThreads bool) string {
-	if a.AutoTranslation() == nil || !a.AutoTranslation().IsFeatureAvailable() {
-		return a.Srv().Store().Post().GetEtag(channelID, true, collapsedThreads, false)
-	}
-
-	channelEnabled, err := a.AutoTranslation().IsChannelEnabled(channelID)
-	if err != nil || !channelEnabled {
-		return a.Srv().Store().Post().GetEtag(channelID, true, collapsedThreads, false)
-	}
-
-	// Channel has auto-translation enabled - include translation etag
-	return a.Srv().Store().Post().GetEtag(channelID, true, collapsedThreads, true)
+	return a.Srv().Store().Post().GetEtag(channelID, true, collapsedThreads, false)
 }
 
 func (a *App) GetPostsSince(rctx request.CTX, options model.GetPostsSinceOptions) (*model.PostList, *model.AppError) {
@@ -1331,8 +1166,6 @@ func (a *App) GetPostsSince(rctx request.CTX, options model.GetPostsSinceOptions
 	if err != nil {
 		return nil, model.NewAppError("GetPostsSince", "app.post.get_posts_since.app_error", nil, "", http.StatusInternalServerError).Wrap(err)
 	}
-
-	a.supplementWithTranslationUpdatedPosts(rctx, postList, options.ChannelId, options.Time, options.CollapsedThreads)
 
 	if appErr := a.filterInaccessiblePosts(postList, filterPostOptions{assumeSortedCreatedAt: true}); appErr != nil {
 		return nil, appErr
@@ -1347,73 +1180,6 @@ func (a *App) GetPostsSince(rctx request.CTX, options model.GetPostsSinceOptions
 	a.applyPostsWillBeConsumedHook(postList.Posts)
 
 	return postList, nil
-}
-
-// supplementWithTranslationUpdatedPosts finds posts whose translations were updated after `since`
-// and adds them to the post list (Posts map only, not Order) so the client receives fresh translations.
-func (a *App) supplementWithTranslationUpdatedPosts(rctx request.CTX, postList *model.PostList, channelID string, since int64, collapsedThreads bool) {
-	if a.AutoTranslation() == nil || !a.AutoTranslation().IsFeatureAvailable() {
-		return
-	}
-
-	userID := rctx.Session().UserId
-	userLang, appErr := a.AutoTranslation().GetUserLanguage(userID, channelID)
-	if appErr != nil {
-		rctx.Logger().Debug("Failed to get user language for translation-since supplement", mlog.String("channel_id", channelID), mlog.Err(appErr))
-		return
-	}
-	if userLang == "" {
-		return
-	}
-
-	translationsMap, err := a.Srv().Store().AutoTranslation().GetTranslationsSinceForChannel(channelID, userLang, since)
-	if err != nil {
-		rctx.Logger().Warn("Failed to get translations since for channel", mlog.String("channel_id", channelID), mlog.Err(err))
-		return
-	}
-
-	// Filter to post IDs not already in the post list
-	var missingPostIDs []string
-	for postID := range translationsMap {
-		if _, exists := postList.Posts[postID]; !exists {
-			missingPostIDs = append(missingPostIDs, postID)
-		}
-	}
-
-	if len(missingPostIDs) == 0 {
-		return
-	}
-
-	posts, err := a.Srv().Store().Post().GetPostsByIds(missingPostIDs)
-	if err != nil {
-		rctx.Logger().Warn("Failed to fetch posts for translation-since supplement", mlog.Err(err))
-		return
-	}
-
-	for _, post := range posts {
-		if post.DeleteAt != 0 {
-			continue
-		}
-		if collapsedThreads && post.RootId != "" {
-			continue
-		}
-		t, ok := translationsMap[post.Id]
-		if !ok {
-			continue
-		}
-
-		if post.Metadata == nil {
-			post.Metadata = &model.PostMetadata{}
-		}
-		if post.Metadata.Translations == nil {
-			post.Metadata.Translations = make(map[string]*model.PostTranslation)
-		}
-		post.Metadata.Translations[t.Lang] = t.ToPostTranslation()
-
-		// Add to Posts map only — not to Order — so the client gets the updated translation
-		// without changing the chronological post list.
-		postList.Posts[post.Id] = post
-	}
 }
 
 func (a *App) GetSinglePost(rctx request.CTX, postID string, includeDeleted bool) (*model.Post, *model.AppError) {
@@ -2828,37 +2594,9 @@ func (a *App) GetPostInfo(rctx request.CTX, postID string, channel *model.Channe
 }
 
 func (a *App) applyPostsWillBeConsumedHook(posts map[string]*model.Post) {
-	if !a.Config().FeatureFlags.ConsumePostHook {
-		return
-	}
-
-	postsSlice := make([]*model.Post, 0, len(posts))
-
-	for _, post := range posts {
-		postsSlice = append(postsSlice, post.ForPlugin())
-	}
-	a.ch.RunMultiHook(func(hooks plugin.Hooks, _ *model.Manifest) bool {
-		postReplacements := hooks.MessagesWillBeConsumed(postsSlice)
-		for _, postReplacement := range postReplacements {
-			posts[postReplacement.Id] = postReplacement
-		}
-		return true
-	}, plugin.MessagesWillBeConsumedID)
 }
 
 func (a *App) applyPostWillBeConsumedHook(post **model.Post) {
-	if !a.Config().FeatureFlags.ConsumePostHook || (*post).Type == model.PostTypeBurnOnRead {
-		return
-	}
-
-	ps := []*model.Post{*post}
-	a.ch.RunMultiHook(func(hooks plugin.Hooks, _ *model.Manifest) bool {
-		rp := hooks.MessagesWillBeConsumed(ps)
-		if len(rp) > 0 {
-			(*post) = rp[0]
-		}
-		return true
-	}, plugin.MessagesWillBeConsumedID)
 }
 
 func makePostLink(siteURL, teamName, postID string) string {
@@ -3186,15 +2924,6 @@ func (a *App) CleanUpAfterPostDeletion(rctx request.CTX, post *model.Post, delet
 		a.deleteFlaggedPosts(rctx, post.Id)
 	})
 
-	pluginPost := post.ForPlugin()
-	pluginContext := pluginContext(rctx)
-	a.Srv().Go(func() {
-		a.ch.RunMultiHook(func(hooks plugin.Hooks, _ *model.Manifest) bool {
-			hooks.MessageHasBeenDeleted(pluginContext, pluginPost)
-			return true
-		}, plugin.MessageHasBeenDeletedID)
-	})
-
 	a.Srv().Go(func() {
 		if err = a.RemoveNotifications(rctx, post, channel); err != nil {
 			rctx.Logger().Error("DeletePost failed to delete notification", mlog.Err(err))
@@ -3245,264 +2974,6 @@ func (a *App) SendTestMessage(rctx request.CTX, userID string) (*model.Post, *mo
 	}
 
 	return post, nil
-}
-
-// RewriteMessage rewrites a message using AI based on the specified action
-func (a *App) RewriteMessage(
-	rctx request.CTX,
-	agentID string,
-	message string,
-	action model.RewriteAction,
-	customPrompt string,
-	rootID string,
-) (*model.RewriteResponse, *model.AppError) {
-	// Build thread context if rootID is provided
-	var threadContext string
-	if rootID != "" {
-		context, appErr := a.buildThreadContextForRewrite(rctx, rootID)
-		if appErr != nil {
-			return nil, appErr
-		}
-		threadContext = context
-	}
-
-	userPrompt := getRewritePromptForAction(action, message, customPrompt, threadContext)
-	if userPrompt == "" {
-		return nil, model.NewAppError("RewriteMessage", "app.post.rewrite.invalid_action", nil, fmt.Sprintf("invalid action: %s", action), 400)
-	}
-
-	userLocale := ""
-	if session := rctx.Session(); session != nil && session.UserId != "" {
-		user, appErr := a.GetUser(session.UserId)
-		if appErr == nil {
-			userLocale = user.Locale
-		} else {
-			rctx.Logger().Warn("Failed to get user for rewrite locale", mlog.Err(appErr), mlog.String("user_id", session.UserId))
-		}
-	}
-
-	systemPrompt := buildRewriteSystemPrompt(userLocale)
-
-	sessionUserID := ""
-	if session := rctx.Session(); session != nil {
-		sessionUserID = session.UserId
-	}
-
-	completionRequest := BridgeCompletionRequest{
-		Operation:       BridgeOperationRewrite,
-		ClientOperation: "message_rewrite",
-		Messages: []BridgeMessage{
-			{Role: "system", Message: systemPrompt},
-			{Role: "user", Message: userPrompt},
-		},
-		OperationSubType: normalizeRewriteAction(action),
-		UserID:           sessionUserID,
-	}
-
-	completion, err := a.ch.agentsBridge.AgentCompletion(sessionUserID, agentID, completionRequest)
-	if err != nil {
-		return nil, model.NewAppError("RewriteMessage", "app.post.rewrite.agent_call_failed", nil, err.Error(), 500)
-	}
-
-	var response model.RewriteResponse
-	if err := json.Unmarshal([]byte(completion), &response); err != nil {
-		return nil, model.NewAppError("RewriteMessage", "app.post.rewrite.parse_response_failed", nil, err.Error(), 500)
-	}
-
-	if response.RewrittenText == "" {
-		return nil, model.NewAppError("RewriteMessage", "app.post.rewrite.empty_response", nil, "", 500)
-	}
-
-	return &response, nil
-}
-
-// buildThreadContextForRewrite builds context from root post + last 10 posts in the thread
-func (a *App) buildThreadContextForRewrite(rctx request.CTX, rootID string) (string, *model.AppError) {
-	const maxContextPosts = 10
-
-	anchorPost, appErr, _ := a.GetPostIfAuthorized(rctx, rootID, rctx.Session(), false)
-	if appErr != nil {
-		return "", appErr
-	}
-	threadRootID := anchorPost.RootId
-	if threadRootID == "" {
-		threadRootID = anchorPost.Id
-	}
-
-	// Get the thread posts (only after confirming the session may read the anchor post's channel)
-	postList, appErr := a.GetPostThread(rctx, anchorPost.Id, model.GetPostsOptions{}, rctx.Session().UserId)
-	if appErr != nil {
-		return "", appErr
-	}
-
-	if postList == nil || len(postList.Posts) == 0 {
-		return "", nil
-	}
-
-	// Get root post
-	rootPost, ok := postList.Posts[threadRootID]
-	if !ok {
-		return "", nil
-	}
-
-	// Skip if root post is a system post or deleted
-	if strings.HasPrefix(rootPost.Type, model.PostSystemMessagePrefix) || rootPost.DeleteAt > 0 {
-		return "", nil
-	}
-
-	// Collect reply posts, filtering out system posts and deleted posts
-	var replies []*model.Post
-	for _, postID := range postList.Order {
-		if postID == threadRootID {
-			continue // Skip root post
-		}
-		post, ok := postList.Posts[postID]
-		if !ok {
-			continue
-		}
-		// Skip system posts
-		if strings.HasPrefix(post.Type, model.PostSystemMessagePrefix) {
-			continue
-		}
-		// Skip deleted posts
-		if post.DeleteAt > 0 {
-			continue
-		}
-		replies = append(replies, post)
-	}
-
-	// Get last maxContextPosts replies
-	var contextReplies []*model.Post
-	startIdx := 0
-	if len(replies) > maxContextPosts {
-		startIdx = len(replies) - maxContextPosts
-	}
-	contextReplies = replies[startIdx:]
-
-	// Get user profiles for all posts in context
-	userIDs := []string{rootPost.UserId}
-	for _, reply := range contextReplies {
-		userIDs = append(userIDs, reply.UserId)
-	}
-	slices.Sort(userIDs)
-	userIDs = slices.Compact(userIDs)
-
-	users, appErr := a.GetUsersByIds(rctx, userIDs, &store.UserGetByIdsOpts{})
-	if appErr != nil {
-		return "", appErr
-	}
-
-	userMap := make(map[string]string, len(users))
-	for _, user := range users {
-		userMap[user.Id] = user.Username
-	}
-
-	// Build context string
-	var contextBuilder strings.Builder
-	contextBuilder.WriteString("Thread context:\n")
-
-	rootUsername := userMap[rootPost.UserId]
-	if rootUsername == "" {
-		rootUsername = "Unknown"
-	}
-	contextBuilder.WriteString(fmt.Sprintf("Root post (%s): %s\n", rootUsername, rootPost.Message))
-
-	if len(contextReplies) > 0 {
-		contextBuilder.WriteString("\nRecent replies:\n")
-		for _, reply := range contextReplies {
-			username := userMap[reply.UserId]
-			if username == "" {
-				username = "Unknown"
-			}
-			contextBuilder.WriteString(fmt.Sprintf("- %s: %s\n", username, reply.Message))
-		}
-	}
-
-	return contextBuilder.String(), nil
-}
-
-// normalizeRewriteAction maps a RewriteAction to a known subtype string for
-// operation tracking. Unknown actions are mapped to "unknown".
-func normalizeRewriteAction(action model.RewriteAction) string {
-	switch action {
-	case model.RewriteActionCustom,
-		model.RewriteActionShorten,
-		model.RewriteActionElaborate,
-		model.RewriteActionImproveWriting,
-		model.RewriteActionFixSpelling,
-		model.RewriteActionSimplify,
-		model.RewriteActionSummarize:
-		return string(action)
-	default:
-		return "unknown"
-	}
-}
-
-// getRewritePromptForAction returns the appropriate prompt and system prompt for the given rewrite action
-func getRewritePromptForAction(action model.RewriteAction, message string, customPrompt string, threadContext string) string {
-	var actionPrompt string
-
-	if message == "" {
-		actionPrompt = fmt.Sprintf(`Write according to these instructions: %s`, customPrompt)
-	} else {
-		switch action {
-		case model.RewriteActionCustom:
-			actionPrompt = fmt.Sprintf(`%s
-
-%s`, customPrompt, message)
-
-		case model.RewriteActionShorten:
-			actionPrompt = fmt.Sprintf(`Make this up to 2 to 3 times shorter: %s`, message)
-
-		case model.RewriteActionElaborate:
-			actionPrompt = fmt.Sprintf(`Make this up to 2 to 3 times longer, using Markdown if necessary: %s`, message)
-
-		case model.RewriteActionImproveWriting:
-			actionPrompt = fmt.Sprintf(`Improve this writing, using Markdown if necessary: %s`, message)
-
-		case model.RewriteActionFixSpelling:
-			actionPrompt = fmt.Sprintf(`Fix spelling and grammar: %s`, message)
-
-		case model.RewriteActionSimplify:
-			actionPrompt = fmt.Sprintf(`Simplify this: %s`, message)
-
-		case model.RewriteActionSummarize:
-			actionPrompt = fmt.Sprintf(`Summarize this, using Markdown if necessary: %s`, message)
-
-		default:
-			// Invalid action - return empty string to trigger validation error
-			return ""
-		}
-	}
-
-	// If no action prompt was generated, return empty string
-	if actionPrompt == "" {
-		return ""
-	}
-
-	// Build final prompt with thread context if available
-	if threadContext != "" {
-		var promptBuilder strings.Builder
-		promptBuilder.WriteString("=== THREAD CONTEXT (for reference only) ===\n")
-		promptBuilder.WriteString(threadContext)
-		promptBuilder.WriteString("\n\n=== REWRITE TASK ===\n")
-		promptBuilder.WriteString(actionPrompt)
-		promptBuilder.WriteString("\n\nRewrite the message considering the thread context above.")
-		return promptBuilder.String()
-	}
-
-	return actionPrompt
-}
-
-func buildRewriteSystemPrompt(userLocale string) string {
-	locale := strings.TrimSpace(userLocale)
-	if locale == "" {
-		return model.RewriteSystemPrompt
-	}
-
-	return fmt.Sprintf(`%s
-
-User locale: %s. Preserve locale-specific spelling, grammar, and formatting. Keep locale identifiers (like %s) unchanged. Do not translate between locales.`, model.RewriteSystemPrompt, locale, locale)
 }
 
 // RevealPost reveals a burn-on-read post for a specific user, creating a read receipt
@@ -3910,7 +3381,7 @@ func (a *App) BurnPost(rctx request.CTX, post *model.Post, userID string, connec
 
 	// If user is the author, permanently delete the post
 	if post.UserId == userID {
-		return a.PermanentDeletePostDataRetainStub(rctx, post, userID)
+		return a.PermanentDeletePost(rctx, post.Id, userID)
 	}
 
 	// If not the author, check read receipt

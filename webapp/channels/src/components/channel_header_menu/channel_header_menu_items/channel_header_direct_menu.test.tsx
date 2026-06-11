@@ -27,11 +27,6 @@ function getBaseState(overrides?: DeepPartial<GlobalState>): DeepPartial<GlobalS
                     [DM_CHANNEL_ID]: channel,
                 },
             },
-            general: {
-                config: {
-                    EnableAutoTranslation: 'true',
-                },
-            },
             users: {
                 currentUserId: CURRENT_USER_ID,
                 profiles: {
@@ -43,12 +38,6 @@ function getBaseState(overrides?: DeepPartial<GlobalState>): DeepPartial<GlobalS
     };
 }
 
-function getStateWithRestrictedDMAndGM(): DeepPartial<GlobalState> {
-    const state = getBaseState();
-    state!.entities!.general!.config!.RestrictDMAndGMAutotranslation = 'true';
-    return state;
-}
-
 describe('components/ChannelHeaderMenu/ChannelHeaderDirectMenu', () => {
     const channel = TestHelper.getChannelMock({id: DM_CHANNEL_ID, type: 'D'});
     const user = TestHelper.getUserMock({id: CURRENT_USER_ID});
@@ -58,12 +47,10 @@ describe('components/ChannelHeaderMenu/ChannelHeaderDirectMenu', () => {
         isMuted: false,
         isMobile: false,
         isFavorite: false,
-        pluginItems: [],
         isChannelBookmarksEnabled: false,
-        isChannelAutotranslated: false,
     };
 
-    it('shows Channel Settings when RestrictDMAndGMAutotranslation is not enabled', () => {
+    it('shows Channel Settings', () => {
         renderWithContext(
             <WithTestMenuContext>
                 <ChannelHeaderDirectMenu {...defaultProps}/>
@@ -73,45 +60,5 @@ describe('components/ChannelHeaderMenu/ChannelHeaderDirectMenu', () => {
 
         expect(screen.getByText('Channel Settings')).toBeInTheDocument();
         expect(screen.queryByText('Edit Header')).not.toBeInTheDocument();
-    });
-
-    it('shows Edit Header when RestrictDMAndGMAutotranslation is enabled', () => {
-        renderWithContext(
-            <WithTestMenuContext>
-                <ChannelHeaderDirectMenu {...defaultProps}/>
-            </WithTestMenuContext>,
-            getStateWithRestrictedDMAndGM(),
-        );
-
-        expect(screen.getByText('Edit Header')).toBeInTheDocument();
-        expect(screen.queryByText('Channel Settings')).not.toBeInTheDocument();
-    });
-
-    it('shows Auto-translation menu when isChannelAutotranslated is true', () => {
-        renderWithContext(
-            <WithTestMenuContext>
-                <ChannelHeaderDirectMenu
-                    {...defaultProps}
-                    isChannelAutotranslated={true}
-                />
-            </WithTestMenuContext>,
-            getBaseState(),
-        );
-
-        expect(screen.getByText(/Auto-translation/i)).toBeInTheDocument();
-    });
-
-    it('does not show Auto-translation menu when isChannelAutotranslated is false', () => {
-        renderWithContext(
-            <WithTestMenuContext>
-                <ChannelHeaderDirectMenu
-                    {...defaultProps}
-                    isChannelAutotranslated={false}
-                />
-            </WithTestMenuContext>,
-            getBaseState(),
-        );
-
-        expect(screen.queryByText(/Auto-translation/i)).not.toBeInTheDocument();
     });
 });

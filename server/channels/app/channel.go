@@ -17,7 +17,6 @@ import (
 	"github.com/mattermost/mattermost/server/v8/platform/services/sharedchannel"
 
 	"github.com/mattermost/mattermost/server/public/model"
-	"github.com/mattermost/mattermost/server/public/plugin"
 	"github.com/mattermost/mattermost/server/public/shared/i18n"
 	"github.com/mattermost/mattermost/server/public/shared/mlog"
 	"github.com/mattermost/mattermost/server/public/shared/request"
@@ -318,14 +317,6 @@ func (a *App) CreateChannel(rctx request.CTX, channel *model.Channel, addMember 
 		}
 	}
 
-	a.Srv().Go(func() {
-		pluginContext := pluginContext(rctx)
-		a.ch.RunMultiHook(func(hooks plugin.Hooks, _ *model.Manifest) bool {
-			hooks.ChannelHasBeenCreated(pluginContext, sc)
-			return true
-		}, plugin.ChannelHasBeenCreatedID)
-	})
-
 	return sc, nil
 }
 
@@ -407,14 +398,6 @@ func (a *App) getOrCreateDirectChannelWithUser(rctx request.CTX, user, otherUser
 func (a *App) handleCreationEvent(rctx request.CTX, userID, otherUserID string, channel *model.Channel) {
 	a.Srv().Platform().InvalidateChannelCacheForUser(userID)
 	a.Srv().Platform().InvalidateChannelCacheForUser(otherUserID)
-
-	a.Srv().Go(func() {
-		pluginContext := pluginContext(rctx)
-		a.ch.RunMultiHook(func(hooks plugin.Hooks, _ *model.Manifest) bool {
-			hooks.ChannelHasBeenCreated(pluginContext, channel)
-			return true
-		}, plugin.ChannelHasBeenCreatedID)
-	})
 
 	message := model.NewWebSocketEvent(model.WebsocketEventDirectAdded, "", channel.Id, "", nil, "")
 	message.Add("creator_id", userID)
@@ -694,14 +677,6 @@ func (a *App) createGroupChannel(rctx request.CTX, userIDs []string, creatorID s
 		}
 	}
 
-	a.Srv().Go(func() {
-		pluginContext := pluginContext(rctx)
-		a.ch.RunMultiHook(func(hooks plugin.Hooks, _ *model.Manifest) bool {
-			hooks.ChannelHasBeenCreated(pluginContext, channel)
-			return true
-		}, plugin.ChannelHasBeenCreatedID)
-	})
-
 	return channel, nil
 }
 
@@ -964,7 +939,6 @@ func (a *App) PatchChannel(rctx request.CTX, channel *model.Channel, patch *mode
 	oldChannelDisplayName := channel.DisplayName
 	oldChannelHeader := channel.Header
 	oldChannelPurpose := channel.Purpose
-	oldChannelAutotranslation := channel.AutoTranslation
 
 	channel.Patch(patch)
 	a.handleChannelCategoryName(channel)
@@ -989,12 +963,6 @@ func (a *App) PatchChannel(rctx request.CTX, channel *model.Channel, patch *mode
 
 	if channel.Purpose != oldChannelPurpose {
 		if err = a.PostUpdateChannelPurposeMessage(rctx, userID, channel, oldChannelPurpose, channel.Purpose); err != nil {
-			rctx.Logger().Warn(err.Error())
-		}
-	}
-
-	if channel.AutoTranslation != oldChannelAutotranslation {
-		if err = a.postUpdateChannelAutotranslationMessage(rctx, userID, channel, channel.AutoTranslation); err != nil {
 			rctx.Logger().Warn(err.Error())
 		}
 	}
@@ -1469,23 +1437,6 @@ func (a *App) UpdateChannelMemberNotifyProps(rctx request.CTX, data map[string]s
 	return member, nil
 }
 
-func (a *App) UpdateChannelMemberAutotranslation(rctx request.CTX, channelID string, userID string, autoTranslationDisabled bool) (*model.ChannelMember, *model.AppError) {
-	member, err := a.GetChannelMember(rctx, channelID, userID)
-	if err != nil {
-		return nil, err
-	}
-
-	member.AutoTranslationDisabled = autoTranslationDisabled
-	member, err = a.updateChannelMember(rctx, member)
-	if err != nil {
-		return nil, err
-	}
-
-	a.Srv().Store().AutoTranslation().InvalidateUserAutoTranslation(userID, channelID)
-
-	return member, nil
-}
-
 func (a *App) PatchChannelMembersNotifyProps(rctx request.CTX, members []*model.ChannelMemberIdentifier, notifyProps map[string]string) ([]*model.ChannelMember, *model.AppError) {
 	if len(members) > UpdateMultipleMaximum {
 		return nil, model.NewAppError("PatchChannelMembersNotifyProps", "app.channel.patch_channel_members_notify_props.too_many", map[string]any{"Max": UpdateMultipleMaximum}, "", http.StatusBadRequest)
@@ -1618,18 +1569,6 @@ func (a *App) DeleteChannel(rctx request.CTX, channel *model.Channel, userID str
 	if channel.Name == model.DefaultChannelName {
 		err := model.NewAppError("deleteChannel", "api.channel.delete_channel.cannot.app_error", map[string]any{"Channel": model.DefaultChannelName}, "", http.StatusBadRequest)
 		return err
-	}
-
-	var archiveRejectionReason string
-	pluginContext := pluginContext(rctx)
-	a.ch.RunMultiHook(func(hooks plugin.Hooks, _ *model.Manifest) bool {
-		archiveRejectionReason = hooks.ChannelWillBeArchived(pluginContext, channel)
-		return archiveRejectionReason == ""
-	}, plugin.ChannelWillBeArchivedID)
-
-	if archiveRejectionReason != "" {
-		return model.NewAppError("DeleteChannel", "app.channel.delete_channel.rejected_by_plugin",
-			map[string]any{"Reason": archiveRejectionReason}, "", http.StatusBadRequest)
 	}
 
 	deleteAt := model.GetMillis()
@@ -1778,25 +1717,6 @@ func (a *App) addUserToChannel(rctx request.CTX, user *model.User, channel *mode
 		}
 	}
 
-	var rejectionReason string
-	pluginContext := pluginContext(rctx)
-	a.ch.RunMultiHook(func(hooks plugin.Hooks, _ *model.Manifest) bool {
-		updatedMember, reason := hooks.ChannelMemberWillBeAdded(pluginContext, newMember)
-		if reason != "" {
-			rejectionReason = reason
-			return false
-		}
-		if updatedMember != nil {
-			newMember = updatedMember
-		}
-		return true
-	}, plugin.ChannelMemberWillBeAddedID)
-
-	if rejectionReason != "" {
-		return nil, model.NewAppError("AddUserToChannel", "app.channel.add_user.to.channel.rejected_by_plugin",
-			map[string]any{"Reason": rejectionReason}, "", http.StatusBadRequest)
-	}
-
 	newMember, nErr = a.Srv().Store().Channel().SaveMember(rctx, newMember)
 	if nErr != nil {
 		return nil, model.NewAppError("AddUserToChannel", "api.channel.add_user.to.channel.failed.app_error", nil,
@@ -1904,14 +1824,6 @@ func (a *App) AddChannelMember(rctx request.CTX, userID string, channel *model.C
 	if err != nil {
 		return nil, err
 	}
-
-	a.Srv().Go(func() {
-		pluginContext := pluginContext(rctx)
-		a.ch.RunMultiHook(func(hooks plugin.Hooks, _ *model.Manifest) bool {
-			hooks.UserHasJoinedChannel(pluginContext, cm, userRequestor)
-			return true
-		}, plugin.UserHasJoinedChannelID)
-	})
 
 	if opts.UserRequestorID == "" || userID == opts.UserRequestorID {
 		if err := a.postJoinChannelMessage(rctx, user, channel); err != nil {
@@ -2026,37 +1938,6 @@ func (a *App) PostUpdateChannelPurposeMessage(rctx request.CTX, userID string, c
 	}
 	if _, _, err := a.CreatePost(rctx, post, channel, model.CreatePostFlags{SetOnline: true}); err != nil {
 		return model.NewAppError("", "app.channel.post_update_channel_purpose_message.post.error", nil, "", http.StatusInternalServerError).Wrap(err)
-	}
-
-	return nil
-}
-
-func (a *App) postUpdateChannelAutotranslationMessage(rctx request.CTX, userID string, channel *model.Channel, newChannelAutotranslation bool) *model.AppError {
-	user, err := a.Srv().Store().User().Get(context.Background(), userID)
-	if err != nil {
-		return model.NewAppError("PostUpdateChannelAutotranslationMessage", "api.channel.post_update_channel_autotranslation_message.retrieve_user.error", nil, "", http.StatusBadRequest).Wrap(err)
-	}
-
-	var message string
-	if newChannelAutotranslation {
-		message = fmt.Sprintf(i18n.T("api.channel.post_update_channel_autotranslation_message.enabled"), user.Username)
-	} else {
-		message = fmt.Sprintf(i18n.T("api.channel.post_update_channel_autotranslation_message.disabled"), user.Username)
-	}
-
-	post := &model.Post{
-		ChannelId: channel.Id,
-		Message:   message,
-		Type:      model.PostTypeAutotranslationChange,
-		UserId:    userID,
-		Props: model.StringInterface{
-			"username": user.Username,
-			"enabled":  newChannelAutotranslation,
-		},
-	}
-
-	if _, _, err := a.CreatePost(rctx, post, channel, model.CreatePostFlags{SetOnline: true}); err != nil {
-		return model.NewAppError("PostUpdateChannelAutotranslationMessage", "api.channel.post_update_channel_autotranslation_message.create_post.error", nil, "", http.StatusInternalServerError).Wrap(err)
 	}
 
 	return nil
@@ -2559,18 +2440,10 @@ func (a *App) JoinChannel(rctx request.CTX, channel *model.Channel, userID strin
 		return model.NewAppError("JoinChannel", "api.channel.join_channel.permissions.app_error", nil, "", http.StatusBadRequest)
 	}
 
-	cm, err := a.AddUserToChannel(rctx, user, channel, false)
+	_, err := a.AddUserToChannel(rctx, user, channel, false)
 	if err != nil {
 		return err
 	}
-
-	a.Srv().Go(func() {
-		pluginContext := pluginContext(rctx)
-		a.ch.RunMultiHook(func(hooks plugin.Hooks, _ *model.Manifest) bool {
-			hooks.UserHasJoinedChannel(pluginContext, cm, nil)
-			return true
-		}, plugin.UserHasJoinedChannelID)
-	})
 
 	if err := a.postJoinChannelMessage(rctx, user, channel); err != nil {
 		return err
@@ -2818,8 +2691,7 @@ func (a *App) removeUserFromChannel(rctx request.CTX, userIDToRemove string, rem
 		}
 	}
 
-	cm, err := a.GetChannelMember(rctx, channel.Id, userIDToRemove)
-	if err != nil {
+	if _, err := a.GetChannelMember(rctx, channel.Id, userIDToRemove); err != nil {
 		return err
 	}
 
@@ -2848,7 +2720,7 @@ func (a *App) removeUserFromChannel(rctx request.CTX, userIDToRemove string, rem
 				return model.NewAppError("removeUserFromChannel", "api.team.remove_user_from_team.missing.app_error", nil, "", http.StatusBadRequest).Wrap(err)
 			}
 
-			if err = a.postProcessTeamMemberLeave(rctx, teamMember, removerUserId); err != nil {
+			if err = a.postProcessTeamMemberLeave(rctx, teamMember); err != nil {
 				return err
 			}
 		}
@@ -2856,21 +2728,6 @@ func (a *App) removeUserFromChannel(rctx request.CTX, userIDToRemove string, rem
 
 	a.Srv().Platform().InvalidateChannelCacheForUser(userIDToRemove)
 	a.invalidateCacheForChannelMembers(channel.Id)
-	a.Srv().Store().AutoTranslation().InvalidateUserAutoTranslation(userIDToRemove, channel.Id)
-	a.Srv().Store().AutoTranslation().InvalidateUserLocaleCache(userIDToRemove)
-
-	var actorUser *model.User
-	if removerUserId != "" {
-		actorUser, _ = a.GetUser(removerUserId)
-	}
-
-	a.Srv().Go(func() {
-		pluginContext := pluginContext(rctx)
-		a.ch.RunMultiHook(func(hooks plugin.Hooks, _ *model.Manifest) bool {
-			hooks.UserHasLeftChannel(pluginContext, cm, actorUser)
-			return true
-		}, plugin.UserHasLeftChannelID)
-	})
 
 	message := model.NewWebSocketEvent(model.WebsocketEventUserRemoved, "", channel.Id, "", nil, "")
 	message.Add("user_id", userIDToRemove)

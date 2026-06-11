@@ -1,4 +1,4 @@
-.PHONY: build package run stop run-client run-server run-node run-haserver stop-haserver stop-client stop-server restart restart-server restart-client restart-haserver start-docker update-docker clean-dist clean nuke check-style check-client-style check-server-style check-unit-tests test dist run-client-tests setup-run-client-tests cleanup-run-client-tests test-client build-linux build-osx build-freebsd build-windows package-prep package-linux package-osx package-windows internal-test-web-client vet run-server-for-web-client-tests diff-config prepackaged-plugins prepackaged-binaries test-server test-server-ee test-server-elasticsearch test-server-quick test-server-race test-mmctl-unit test-mmctl-e2e test-mmctl test-mmctl-coverage mmctl-build mmctl-docs new-migration migrations-extract test-public mocks-public run-server-faketime
+.PHONY: build package run stop run-client run-server run-node run-haserver stop-haserver stop-client stop-server restart restart-server restart-client restart-haserver start-docker update-docker clean-dist clean nuke check-style check-client-style check-server-style check-unit-tests test dist run-client-tests setup-run-client-tests cleanup-run-client-tests test-client build-linux build-osx build-freebsd build-windows package-prep package-linux package-osx package-windows internal-test-web-client vet run-server-for-web-client-tests diff-config mmctl-build-if-needed test-server test-server-ee test-server-quick test-server-race test-mmctl-unit test-mmctl-e2e test-mmctl test-mmctl-coverage mmctl-build mmctl-docs new-migration migrations-extract test-public mocks-public run-server-faketime
 
 ROOT := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 
@@ -155,28 +155,6 @@ MMCTL_PACKAGES=$(shell $(GO) list ./... | grep -E 'server/v8/cmd/mmctl')
 
 TEMPLATES_DIR=templates
 
-# Plugins Packages
-PLUGIN_PACKAGES ?= $(PLUGIN_PACKAGES:)
-PLUGIN_PACKAGES += mattermost-plugin-github-v2.7.0
-PLUGIN_PACKAGES += mattermost-plugin-gitlab-v1.12.2
-PLUGIN_PACKAGES += mattermost-plugin-jira-v4.7.0
-PLUGIN_PACKAGES += mattermost-plugin-servicenow-v2.4.0
-PLUGIN_PACKAGES += mattermost-plugin-zoom-v1.13.0
-PLUGIN_PACKAGES += mattermost-plugin-agents-v2.0.3
-PLUGIN_PACKAGES += mattermost-plugin-user-survey-v1.1.1
-PLUGIN_PACKAGES += mattermost-plugin-mscalendar-v1.6.0
-PLUGIN_PACKAGES += mattermost-plugin-msteams-meetings-v2.4.1
-PLUGIN_PACKAGES += mattermost-plugin-metrics-v0.7.0
-PLUGIN_PACKAGES += mattermost-plugin-channel-export-v1.3.0
-
-# Overwrite the definition of PLUGIN_PACKAGES with the list of FIPS-ready plugins
-# Note that the '+' in the file name is encoded as %2B for the URL we use to
-# download the package from to work. This will no longer be needed when we unify
-# the way we pre-package FIPS and non-FIPS plugins.
-ifeq ($(FIPS_ENABLED),true)
-	PLUGIN_PACKAGES  = mattermost-plugin-agents-v2.0.3%2Bcab391a-fips
-endif
-
 EE_PACKAGES=$(shell $(GO) list $(BUILD_ENTERPRISE_DIR)/...)
 
 ifeq ($(BUILD_ENTERPRISE_READY),true)
@@ -202,7 +180,6 @@ include config.mk
 include build/*.mk
 include public/Makefile
 
-LDFLAGS += -X "github.com/mattermost/mattermost/server/public/model.MattermostGiphySdkKey=$(MM_GIPHY_SDK_KEY)"
 
 RUN_IN_BACKGROUND ?=
 ifeq ($(RUN_SERVER_IN_BACKGROUND),true)
@@ -292,25 +269,14 @@ else
 	docker volume rm mattermost-server_postgres-14-data || true
 endif
 
-plugin-checker: setup-go-work
-	$(GO) run $(GOFLAGS) ./public/plugin/checker
-
-prepackaged-plugins: ## Populate the prepackaged-plugins directory.
-	@echo Downloading prepackaged plugins: $(PLUGIN_PACKAGES)
-	mkdir -p prepackaged_plugins
-	@cd prepackaged_plugins && for plugin_package in $(PLUGIN_PACKAGES) ; do \
-		curl -f -O -L https://plugins.releases.mattermost.com/release/$$plugin_package.tar.gz; \
-		curl -f -O -L https://plugins.releases.mattermost.com/release/$$plugin_package.tar.gz.sig; \
-	done
-
-prepackaged-binaries: ## Populate the prepackaged-binaries to the bin directory
+mmctl-build-if-needed: ## Populate the mmctl binary to the bin directory
 ifeq ($(shell test -f bin/mmctl && printf "yes"),yes)
 	@echo "MMCTL already exists in bin/mmctl, not compiling."
 else
 	$(MAKE) mmctl-build
 endif
 
-golang-versions: ## Install Golang versions used for compatibility testing (e.g. plugins)
+golang-versions: ## Install Golang versions used for compatibility testing
 	@for version in $(GO_COMPATIBILITY_TEST_VERSIONS); do \
 		$(GO) install golang.org/dl/go$$version@latest && \
 		$(GOBIN)/go$$version download; \
@@ -359,10 +325,6 @@ ldap-mocks: setup-go-work ## Creates mock files for ldap.
 	$(GO) install github.com/vektra/mockery/v2/...@v2.53.4
 	$(GOBIN)/mockery --dir $(BUILD_ENTERPRISE_DIR)/ldap --all --inpackage --note 'Regenerate this file using `make ldap-mocks`.'
 
-plugin-mocks: setup-go-work ## Creates mock files for plugins.
-	$(GO) install github.com/vektra/mockery/v2/...@v2.53.4
-	$(GOBIN)/mockery --config public/plugin/.mockery.yaml
-
 einterfaces-mocks: setup-go-work ## Creates mock files for einterfaces.
 	$(GO) install github.com/vektra/mockery/v2/...@v2.53.4
 	$(GOBIN)/mockery --config einterfaces/.mockery.yaml
@@ -391,12 +353,9 @@ mmctl-mocks: setup-go-work ## Creates mocks for mmctl
 	$(GO) install github.com/golang/mock/mockgen@v1.6.0
 	$(GOBIN)/mockgen -destination=cmd/mmctl/mocks/client_mock.go -copyright_file=cmd/mmctl/mocks/copyright.txt -package=mocks github.com/mattermost/mattermost/server/v8/cmd/mmctl/client Client
 
-pluginapi: setup-go-work ## Generates api and hooks glue code for plugins
-	cd ./public && $(GO) generate $(GOFLAGS) ./plugin
+mocks: store-mocks filestore-mocks ldap-mocks einterfaces-mocks searchengine-mocks sharedchannel-mocks misc-mocks email-mocks platform-mocks mmctl-mocks mocks-public cache-mocks
 
-mocks: store-mocks filestore-mocks ldap-mocks plugin-mocks einterfaces-mocks searchengine-mocks sharedchannel-mocks misc-mocks email-mocks platform-mocks mmctl-mocks mocks-public cache-mocks
-
-layers: store-layers pluginapi
+layers: store-layers
 
 generated: mocks layers
 
@@ -425,7 +384,7 @@ ifneq ($(SKIP_SETUP_GO_WORK),true)
 	fi
 endif
 
-check-style: plugin-checker vet golangci-lint ## Runs style/lint checks
+check-style: vet golangci-lint ## Runs style/lint checks
 
 gotestsum:
 	$(GO) install gotest.tools/gotestsum@v1.13.0
@@ -488,15 +447,6 @@ test-server-ee: export GOTESTSUM_JSONFILE := $(GOTESTSUM_JSONFILE)
 test-server-ee: check-prereqs-enterprise start-docker gotestsum ## Runs EE tests.
 	@echo Running only EE tests
 	$(GOBIN)/gotestsum --packages="$(EE_PACKAGES)" -- $(GOFLAGS) -timeout=20m
-
-ES_PACKAGES=$(shell $(GO) list ./enterprise/elasticsearch/...)
-
-test-server-elasticsearch: export GOTESTSUM_FORMAT := $(GOTESTSUM_FORMAT)
-test-server-elasticsearch: export GOTESTSUM_JUNITFILE := $(GOTESTSUM_JUNITFILE)
-test-server-elasticsearch: export GOTESTSUM_JSONFILE := $(GOTESTSUM_JSONFILE)
-test-server-elasticsearch: check-prereqs-enterprise start-docker gotestsum ## Runs Elasticsearch tests.
-	@echo Running only Elasticsearch tests
-	$(GOBIN)/gotestsum --rerun-fails=3 --packages="$(ES_PACKAGES)" -- $(GOFLAGS) -timeout=20m
 
 test-server-quick: export GOTESTSUM_FORMAT := $(GOTESTSUM_FORMAT)
 test-server-quick: export GOTESTSUM_JUNITFILE := $(GOTESTSUM_JUNITFILE)
@@ -589,7 +539,7 @@ validate-go-version: ## Validates the installed version of go against Mattermost
 build-templates: ## Compile all mjml email templates
 	cd $(TEMPLATES_DIR) && $(MAKE) build
 
-run-server: setup-go-work prepackaged-binaries validate-go-version start-docker client ## Starts the server.
+run-server: setup-go-work mmctl-build-if-needed validate-go-version start-docker client ## Starts the server.
 	@echo Running mattermost for development
 ifeq ($(MM_USE_PGVECTOR),true)
 	@echo With pgvector PostgreSQL support enabled
@@ -598,7 +548,7 @@ endif
 	mkdir -p $(BUILD_WEBAPP_DIR)/channels/dist/files
 	$(GO) run $(GOFLAGS) -ldflags '$(LDFLAGS)' -tags '$(BUILD_TAGS)' $(PLATFORM_FILES) $(RUN_IN_BACKGROUND)
 
-run-server-faketime: setup-go-work prepackaged-binaries validate-go-version start-docker client ## Starts the server with FAKETIME.
+run-server-faketime: setup-go-work mmctl-build-if-needed validate-go-version start-docker client ## Starts the server with FAKETIME.
 ifndef FAKETIME
 	$(error FAKETIME is not set. Usage: make run-server-faketime FAKETIME="+30d")
 endif

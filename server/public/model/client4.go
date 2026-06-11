@@ -307,10 +307,6 @@ func (c *Client4) postsRoute() clientRoute {
 	return newClientRoute("posts")
 }
 
-func (c *Client4) contentFlaggingRoute() clientRoute {
-	return newClientRoute("content_flagging")
-}
-
 func (c *Client4) postsEphemeralRoute() clientRoute {
 	return newClientRoute("posts").Join("ephemeral")
 }
@@ -343,20 +339,8 @@ func (c *Client4) uploadRoute(uploadId string) clientRoute {
 	return c.uploadsRoute().Join(uploadId)
 }
 
-func (c *Client4) pluginsRoute() clientRoute {
-	return newClientRoute("plugins")
-}
-
-func (c *Client4) pluginRoute(pluginId string) clientRoute {
-	return c.pluginsRoute().Join(pluginId)
-}
-
 func (c *Client4) systemRoute() clientRoute {
 	return newClientRoute("system")
-}
-
-func (c *Client4) aiBridgeTestHelperRoute() clientRoute {
-	return c.systemRoute().Join("e2e", "ai_bridge")
 }
 
 func (c *Client4) testEmailRoute() clientRoute {
@@ -449,10 +433,6 @@ func (c *Client4) dataRetentionRoute() clientRoute {
 
 func (c *Client4) dataRetentionPolicyRoute(policyID string) clientRoute {
 	return c.dataRetentionRoute().Join("policies", policyID)
-}
-
-func (c *Client4) elasticsearchRoute() clientRoute {
-	return newClientRoute("elasticsearch")
 }
 
 func (c *Client4) commandsRoute() clientRoute {
@@ -2150,20 +2130,6 @@ func (c *Client4) GetTeam(ctx context.Context, teamId, etag string) (*Team, *Res
 	return DecodeJSONFromResponse[*Team](r)
 }
 
-// GetTeamAsContentReviewer returns a team based on the provided team id string, fetching it as a Content Reviewer for a flagged post.
-func (c *Client4) GetTeamAsContentReviewer(ctx context.Context, teamId, etag, flaggedPostId string) (*Team, *Response, error) {
-	values := url.Values{}
-	values.Set(AsContentReviewerParam, c.boolString(true))
-	values.Set("flagged_post_id", flaggedPostId)
-
-	r, err := c.doAPIGetWithQuery(ctx, c.teamRoute(teamId), values, etag)
-	if err != nil {
-		return nil, BuildResponse(r), err
-	}
-	defer closeBody(r)
-	return DecodeJSONFromResponse[*Team](r)
-}
-
 // GetAllTeams returns all teams based on permissions.
 func (c *Client4) GetAllTeams(ctx context.Context, etag string, page int, perPage int) ([]*Team, *Response, error) {
 	values := url.Values{}
@@ -2843,20 +2809,6 @@ func (c *Client4) GetChannel(ctx context.Context, channelId string) (*Channel, *
 	return DecodeJSONFromResponse[*Channel](r)
 }
 
-// GetChannelAsContentReviewer returns a channel based on the provided channel id string, fetching it as a Content Reviewer for a flagged post.
-func (c *Client4) GetChannelAsContentReviewer(ctx context.Context, channelId, etag, flaggedPostId string) (*Channel, *Response, error) {
-	values := url.Values{}
-	values.Set(AsContentReviewerParam, c.boolString(true))
-	values.Set("flagged_post_id", flaggedPostId)
-
-	r, err := c.doAPIGetWithQuery(ctx, c.channelRoute(channelId), values, etag)
-	if err != nil {
-		return nil, BuildResponse(r), err
-	}
-	defer closeBody(r)
-	return DecodeJSONFromResponse[*Channel](r)
-}
-
 // GetChannelStats returns statistics for a channel.
 func (c *Client4) GetChannelStats(ctx context.Context, channelId string, etag string, excludeFilesCount bool) (*ChannelStats, *Response, error) {
 	values := url.Values{}
@@ -3290,17 +3242,6 @@ func (c *Client4) UpdateChannelMemberSchemeRoles(ctx context.Context, channelId 
 // UpdateChannelNotifyProps will update the notification properties on a channel for a user.
 func (c *Client4) UpdateChannelNotifyProps(ctx context.Context, channelId, userId string, props map[string]string) (*Response, error) {
 	r, err := c.doAPIPutJSON(ctx, c.channelMemberRoute(channelId, userId).Join("notify_props"), props)
-	if err != nil {
-		return BuildResponse(r), err
-	}
-	defer closeBody(r)
-	return BuildResponse(r), nil
-}
-
-// UpdateChannelMemberAutotranslation will update the autotranslation setting for a user in a channel.
-func (c *Client4) UpdateChannelMemberAutotranslation(ctx context.Context, channelId, userId string, autoTranslationDisabled bool) (*Response, error) {
-	requestBody := map[string]any{"autotranslation_disabled": autoTranslationDisabled}
-	r, err := c.doAPIPutJSON(ctx, c.channelMemberRoute(channelId, userId).Join("autotranslation"), requestBody)
 	if err != nil {
 		return BuildResponse(r), err
 	}
@@ -3808,112 +3749,6 @@ func (c *Client4) GetPostsForReporting(ctx context.Context, options ReportPostOp
 	return DecodeJSONFromResponse[*ReportPostListResponse](r)
 }
 
-func (c *Client4) FlagPostForContentReview(ctx context.Context, postId string, flagRequest *FlagContentRequest) (*Response, error) {
-	r, err := c.doAPIPostJSON(ctx, c.contentFlaggingRoute().Join("post", postId, "flag"), flagRequest)
-	if err != nil {
-		return BuildResponse(r), err
-	}
-	defer closeBody(r)
-	return BuildResponse(r), nil
-}
-
-func (c *Client4) GetContentFlaggedPost(ctx context.Context, postId string) (*Post, *Response, error) {
-	r, err := c.doAPIGet(ctx, c.contentFlaggingRoute().Join("post", postId), "")
-	if err != nil {
-		return nil, BuildResponse(r), err
-	}
-	defer closeBody(r)
-	return DecodeJSONFromResponse[*Post](r)
-}
-
-func (c *Client4) GetFlaggingConfiguration(ctx context.Context) (*ContentFlaggingReportingConfig, *Response, error) {
-	r, err := c.doAPIGet(ctx, c.contentFlaggingRoute().Join("flag", "config"), "")
-	if err != nil {
-		return nil, BuildResponse(r), err
-	}
-	defer closeBody(r)
-	return DecodeJSONFromResponse[*ContentFlaggingReportingConfig](r)
-}
-
-func (c *Client4) GetFlaggingConfigurationForTeam(ctx context.Context, teamId string) (*ContentFlaggingReportingConfig, *Response, error) {
-	values := url.Values{}
-	values.Set("team_id", teamId)
-	r, err := c.doAPIGetWithQuery(ctx, c.contentFlaggingRoute().Join("flag", "config"), values, "")
-	if err != nil {
-		return nil, BuildResponse(r), err
-	}
-	defer closeBody(r)
-	return DecodeJSONFromResponse[*ContentFlaggingReportingConfig](r)
-}
-
-func (c *Client4) GetTeamPostFlaggingFeatureStatus(ctx context.Context, teamId string) (map[string]bool, *Response, error) {
-	r, err := c.doAPIGet(ctx, c.contentFlaggingRoute().Join("team", teamId, "status"), "")
-	if err != nil {
-		return nil, BuildResponse(r), err
-	}
-	defer closeBody(r)
-	return DecodeJSONFromResponse[map[string]bool](r)
-}
-
-func (c *Client4) SaveContentFlaggingSettings(ctx context.Context, config *ContentFlaggingSettingsRequest) (*Response, error) {
-	r, err := c.doAPIPutJSON(ctx, c.contentFlaggingRoute().Join("config"), config)
-	if err != nil {
-		return BuildResponse(r), err
-	}
-	defer closeBody(r)
-	return BuildResponse(r), nil
-}
-
-func (c *Client4) GetContentFlaggingSettings(ctx context.Context) (*ContentFlaggingSettingsRequest, *Response, error) {
-	r, err := c.doAPIGet(ctx, c.contentFlaggingRoute().Join("config"), "")
-	if err != nil {
-		return nil, BuildResponse(r), err
-	}
-	defer closeBody(r)
-	return DecodeJSONFromResponse[*ContentFlaggingSettingsRequest](r)
-}
-
-func (c *Client4) AssignContentFlaggingReviewer(ctx context.Context, postId, reviewerId string) (*Response, error) {
-	r, err := c.doAPIPost(ctx, c.contentFlaggingRoute().Join("post", postId, "assign", reviewerId), "")
-	if err != nil {
-		return BuildResponse(r), err
-	}
-	defer closeBody(r)
-	return BuildResponse(r), nil
-}
-
-func (c *Client4) SearchContentFlaggingReviewers(ctx context.Context, teamID, term string) ([]*User, *Response, error) {
-	values := url.Values{}
-	values.Set("term", term)
-	r, err := c.doAPIGetWithQuery(ctx, c.contentFlaggingRoute().Join("team", teamID, "reviewers", "search"), values, "")
-	if err != nil {
-		return nil, BuildResponse(r), err
-	}
-
-	defer closeBody(r)
-	return DecodeJSONFromResponse[[]*User](r)
-}
-
-func (c *Client4) RemoveFlaggedPost(ctx context.Context, postId string, actionRequest *FlagContentActionRequest) (*Response, error) {
-	r, err := c.doAPIPutJSON(ctx, c.contentFlaggingRoute().Join("post", postId, "remove"), actionRequest)
-	if err != nil {
-		return BuildResponse(r), err
-	}
-
-	defer closeBody(r)
-	return BuildResponse(r), nil
-}
-
-func (c *Client4) KeepFlaggedPost(ctx context.Context, postId string, actionRequest *FlagContentActionRequest) (*Response, error) {
-	r, err := c.doAPIPutJSON(ctx, c.contentFlaggingRoute().Join("post", postId, "keep"), actionRequest)
-	if err != nil {
-		return BuildResponse(r), err
-	}
-
-	defer closeBody(r)
-	return BuildResponse(r), nil
-}
-
 // SearchFiles returns any posts with matching terms string.
 func (c *Client4) SearchFiles(ctx context.Context, teamId string, terms string, isOrSearch bool) (*FileInfoList, *Response, error) {
 	params := SearchParameter{
@@ -4105,19 +3940,6 @@ func (c *Client4) UploadFileAsRequestBody(ctx context.Context, data []byte, chan
 // GetFile gets the bytes for a file by id.
 func (c *Client4) GetFile(ctx context.Context, fileId string) ([]byte, *Response, error) {
 	r, err := c.doAPIGet(ctx, c.fileRoute(fileId), "")
-	if err != nil {
-		return nil, BuildResponse(r), err
-	}
-	defer closeBody(r)
-	return ReadBytesFromResponse(r)
-}
-
-func (c *Client4) GetFileAsContentReviewer(ctx context.Context, fileId, flaggedPostId string) ([]byte, *Response, error) {
-	values := url.Values{}
-	values.Set(AsContentReviewerParam, c.boolString(true))
-	values.Set("flagged_post_id", flaggedPostId)
-
-	r, err := c.doAPIGetWithQuery(ctx, c.fileRoute(fileId), values, "")
 	if err != nil {
 		return nil, BuildResponse(r), err
 	}
@@ -5535,29 +5357,6 @@ func (c *Client4) CreateOutgoingOAuthConnection(ctx context.Context, connection 
 	return DecodeJSONFromResponse[*OutgoingOAuthConnection](r)
 }
 
-// Elasticsearch Section
-
-// TestElasticsearch will attempt to connect to the configured Elasticsearch server and return OK if configured.
-// correctly.
-func (c *Client4) TestElasticsearch(ctx context.Context) (*Response, error) {
-	r, err := c.doAPIPost(ctx, c.elasticsearchRoute().Join("test"), "")
-	if err != nil {
-		return BuildResponse(r), err
-	}
-	defer closeBody(r)
-	return BuildResponse(r), nil
-}
-
-// PurgeElasticsearchIndexes immediately deletes all Elasticsearch indexes.
-func (c *Client4) PurgeElasticsearchIndexes(ctx context.Context) (*Response, error) {
-	r, err := c.doAPIPost(ctx, c.elasticsearchRoute().Join("purge_indexes"), "")
-	if err != nil {
-		return BuildResponse(r), err
-	}
-	defer closeBody(r)
-	return BuildResponse(r), nil
-}
-
 // Data Retention Section
 
 // GetDataRetentionPolicy will get the current global data retention policy details.
@@ -6402,148 +6201,6 @@ func (c *Client4) GetChannelsForScheme(ctx context.Context, schemeId string, pag
 	}
 	defer closeBody(r)
 	return DecodeJSONFromResponse[ChannelList](r)
-}
-
-// Plugin Section
-
-// UploadPlugin takes an io.Reader stream pointing to the contents of a .tar.gz plugin.
-func (c *Client4) UploadPlugin(ctx context.Context, file io.Reader) (*Manifest, *Response, error) {
-	return c.uploadPlugin(ctx, file, false)
-}
-
-func (c *Client4) UploadPluginForced(ctx context.Context, file io.Reader) (*Manifest, *Response, error) {
-	return c.uploadPlugin(ctx, file, true)
-}
-
-func (c *Client4) uploadPlugin(ctx context.Context, file io.Reader, force bool) (*Manifest, *Response, error) {
-	body := new(bytes.Buffer)
-	writer := multipart.NewWriter(body)
-
-	if force {
-		err := writer.WriteField("force", c.boolString(true))
-		if err != nil {
-			return nil, nil, err
-		}
-	}
-
-	part, err := writer.CreateFormFile("plugin", "plugin.tar.gz")
-	if err != nil {
-		return nil, nil, err
-	}
-
-	if _, err = io.Copy(part, file); err != nil {
-		return nil, nil, err
-	}
-
-	if err = writer.Close(); err != nil {
-		return nil, nil, err
-	}
-
-	r, err := c.doAPIRequestReaderRoute(ctx, http.MethodPost, c.pluginsRoute(), writer.FormDataContentType(), body, nil)
-	if err != nil {
-		return nil, BuildResponse(r), err
-	}
-
-	return DecodeJSONFromResponse[*Manifest](r)
-}
-
-func (c *Client4) InstallPluginFromURL(ctx context.Context, downloadURL string, force bool) (*Manifest, *Response, error) {
-	values := url.Values{}
-	values.Set("plugin_download_url", downloadURL)
-	values.Set("force", c.boolString(force))
-	r, err := c.doAPIPostWithQuery(ctx, c.pluginsRoute().Join("install_from_url"), values, "")
-	if err != nil {
-		return nil, BuildResponse(r), err
-	}
-	defer closeBody(r)
-	return DecodeJSONFromResponse[*Manifest](r)
-}
-
-// ReattachPlugin asks the server to reattach to a plugin launched by another process.
-//
-// Only available in local mode, and currently only used for testing.
-func (c *Client4) ReattachPlugin(ctx context.Context, request *PluginReattachRequest) (*Response, error) {
-	r, err := c.doAPIPostJSON(ctx, c.pluginsRoute().Join("reattach"), request)
-	if err != nil {
-		return BuildResponse(r), err
-	}
-	defer closeBody(r)
-
-	return BuildResponse(r), nil
-}
-
-// DetachPlugin detaches a previously reattached plugin.
-//
-// Only available in local mode, and currently only used for testing.
-func (c *Client4) DetachPlugin(ctx context.Context, pluginID string) (*Response, error) {
-	r, err := c.doAPIPost(ctx, c.pluginRoute(pluginID).Join("detach"), "")
-	if err != nil {
-		return BuildResponse(r), err
-	}
-	defer closeBody(r)
-
-	return BuildResponse(r), nil
-}
-
-// GetPlugins will return a list of plugin manifests for currently active plugins.
-func (c *Client4) GetPlugins(ctx context.Context) (*PluginsResponse, *Response, error) {
-	r, err := c.doAPIGet(ctx, c.pluginsRoute(), "")
-	if err != nil {
-		return nil, BuildResponse(r), err
-	}
-	defer closeBody(r)
-	return DecodeJSONFromResponse[*PluginsResponse](r)
-}
-
-// GetPluginStatuses will return the plugins installed on any server in the cluster, for reporting
-// to the administrator via the system console.
-func (c *Client4) GetPluginStatuses(ctx context.Context) (PluginStatuses, *Response, error) {
-	r, err := c.doAPIGet(ctx, c.pluginsRoute().Join("statuses"), "")
-	if err != nil {
-		return nil, BuildResponse(r), err
-	}
-	defer closeBody(r)
-	return DecodeJSONFromResponse[PluginStatuses](r)
-}
-
-// RemovePlugin will disable and delete a plugin.
-func (c *Client4) RemovePlugin(ctx context.Context, id string) (*Response, error) {
-	r, err := c.doAPIDelete(ctx, c.pluginRoute(id))
-	if err != nil {
-		return BuildResponse(r), err
-	}
-	defer closeBody(r)
-	return BuildResponse(r), nil
-}
-
-// GetWebappPlugins will return a list of plugins that the webapp should download.
-func (c *Client4) GetWebappPlugins(ctx context.Context) ([]*Manifest, *Response, error) {
-	r, err := c.doAPIGet(ctx, c.pluginsRoute().Join("webapp"), "")
-	if err != nil {
-		return nil, BuildResponse(r), err
-	}
-	defer closeBody(r)
-	return DecodeJSONFromResponse[[]*Manifest](r)
-}
-
-// EnablePlugin will enable an plugin installed.
-func (c *Client4) EnablePlugin(ctx context.Context, id string) (*Response, error) {
-	r, err := c.doAPIPost(ctx, c.pluginRoute(id).Join("enable"), "")
-	if err != nil {
-		return BuildResponse(r), err
-	}
-	defer closeBody(r)
-	return BuildResponse(r), nil
-}
-
-// DisablePlugin will disable an enabled plugin.
-func (c *Client4) DisablePlugin(ctx context.Context, id string) (*Response, error) {
-	r, err := c.doAPIPost(ctx, c.pluginRoute(id).Join("disable"), "")
-	if err != nil {
-		return BuildResponse(r), err
-	}
-	defer closeBody(r)
-	return BuildResponse(r), nil
 }
 
 // UpdateChannelScheme will update a channel's scheme.
@@ -7444,33 +7101,6 @@ func (c *Client4) GetAppliedSchemaMigrations(ctx context.Context) ([]AppliedMigr
 	return DecodeJSONFromResponse[[]AppliedMigration](r)
 }
 
-func (c *Client4) SetAIBridgeTestHelper(ctx context.Context, config *AIBridgeTestHelperConfig) (*AIBridgeTestHelperState, *Response, error) {
-	r, err := c.doAPIPutJSON(ctx, c.aiBridgeTestHelperRoute(), config)
-	if err != nil {
-		return nil, BuildResponse(r), err
-	}
-	defer closeBody(r)
-	return DecodeJSONFromResponse[*AIBridgeTestHelperState](r)
-}
-
-func (c *Client4) GetAIBridgeTestHelper(ctx context.Context) (*AIBridgeTestHelperState, *Response, error) {
-	r, err := c.doAPIGet(ctx, c.aiBridgeTestHelperRoute(), "")
-	if err != nil {
-		return nil, BuildResponse(r), err
-	}
-	defer closeBody(r)
-	return DecodeJSONFromResponse[*AIBridgeTestHelperState](r)
-}
-
-func (c *Client4) DeleteAIBridgeTestHelper(ctx context.Context) (*Response, error) {
-	r, err := c.doAPIDelete(ctx, c.aiBridgeTestHelperRoute())
-	if err != nil {
-		return BuildResponse(r), err
-	}
-	defer closeBody(r)
-	return BuildResponse(r), nil
-}
-
 // Usage Section
 
 // GetPostsUsage returns rounded off total usage of posts for the instance
@@ -7884,15 +7514,6 @@ func (c *Client4) PatchPropertyValues(ctx context.Context, groupName, objectType
 	}
 	defer closeBody(r)
 	return DecodeJSONFromResponse[[]*PropertyValue](r)
-}
-
-func (c *Client4) GetPostPropertyValues(ctx context.Context, postId string) ([]PropertyValue, *Response, error) {
-	r, err := c.doAPIGet(ctx, c.contentFlaggingRoute().Join("post", postId, "field_values"), "")
-	if err != nil {
-		return nil, BuildResponse(r), err
-	}
-	defer closeBody(r)
-	return DecodeJSONFromResponse[[]PropertyValue](r) // TODO: Fix!
 }
 
 // Access Control Policies Section

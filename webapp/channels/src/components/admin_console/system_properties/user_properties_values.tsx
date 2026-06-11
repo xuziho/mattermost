@@ -13,8 +13,6 @@ import CreatableSelect from 'react-select/creatable';
 import {SyncIcon, PowerPlugOutlineIcon} from '@mattermost/compass-icons/components';
 import {supportsOptions, type PropertyFieldOption, type UserPropertyField} from '@mattermost/types/properties';
 
-import {getPluginDisplayName} from 'selectors/plugins';
-
 import Constants from 'utils/constants';
 import {isKeyPressed} from 'utils/keyboard';
 
@@ -40,7 +38,7 @@ const UserPropertyValues = ({
     autoFocus,
 }: Props) => {
     const {formatMessage} = useIntl();
-    const pluginDisplayName = useSelector((state: GlobalState) => getPluginDisplayName(state, field.attrs?.source_plugin_id));
+    const pluginDisplayName = field.attrs?.source_plugin_id || 'unknown';
     const isOrphaned = useIsFieldOrphaned(field);
 
     const [query, setQuery] = React.useState('');

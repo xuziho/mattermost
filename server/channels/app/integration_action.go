@@ -26,17 +26,13 @@ import (
 	"io"
 	"net/http"
 	"net/url"
-	"path"
 	"strings"
 	"time"
-
-	"github.com/gorilla/mux"
 
 	"github.com/mattermost/mattermost/server/public/model"
 	"github.com/mattermost/mattermost/server/public/shared/mlog"
 	"github.com/mattermost/mattermost/server/public/shared/request"
 	"github.com/mattermost/mattermost/server/v8/channels/store"
-	"github.com/mattermost/mattermost/server/v8/channels/utils"
 )
 
 func (a *App) DoPostActionWithCookie(rctx request.CTX, postID, actionId, userID, selectedOption string, cookie *model.PostActionCookie) (string, *model.AppError) {
@@ -309,16 +305,10 @@ func (a *App) DoPostActionWithCookie(rctx request.CTX, postID, actionId, userID,
 
 // DoActionRequest performs an HTTP POST request to an integration's action endpoint.
 // Caller must consume and close returned http.Response as necessary.
-// For internal requests, requests are routed directly to a plugin ServerHTTP hook
 func (a *App) DoActionRequest(rctx request.CTX, rawURL string, body []byte) (*http.Response, *model.AppError) {
 	inURL, err := url.Parse(rawURL)
 	if err != nil {
 		return nil, model.NewAppError("DoActionRequest", "api.post.do_action.action_integration.app_error", nil, "", http.StatusBadRequest).Wrap(err)
-	}
-
-	rawURLPath := path.Clean(rawURL)
-	if strings.HasPrefix(rawURLPath, "/plugins/") || strings.HasPrefix(rawURLPath, "plugins/") {
-		return a.DoLocalRequest(rctx, rawURLPath, body)
 	}
 
 	req, err := http.NewRequestWithContext(rctx.Context(), "POST", rawURL, bytes.NewReader(body))
@@ -346,112 +336,7 @@ func (a *App) DoActionRequest(rctx request.CTX, rawURL string, body []byte) (*ht
 }
 
 func (a *App) getPostActionClient(rctx request.CTX, inURL *url.URL, req *http.Request) *http.Client {
-	// Allow access to plugin routes for action buttons
-	var httpClient *http.Client
-	subpath, _ := utils.GetSubpathFromConfig(a.Config())
-	siteURL, _ := url.Parse(*a.Config().ServiceSettings.SiteURL)
-	if inURL.Hostname() == siteURL.Hostname() && strings.HasPrefix(path.Clean(inURL.Path), path.Join(subpath, "plugins")) {
-		req.Header.Set(model.HeaderAuth, "Bearer "+rctx.Session().Token)
-		httpClient = a.HTTPService().MakeClient(true)
-	} else {
-		httpClient = a.HTTPService().MakeClient(false)
-	}
-	return httpClient
-}
-
-type LocalResponseWriter struct {
-	data    []byte
-	headers http.Header
-	status  int
-}
-
-func (w *LocalResponseWriter) Header() http.Header {
-	if w.headers == nil {
-		w.headers = make(http.Header)
-	}
-	return w.headers
-}
-
-func (w *LocalResponseWriter) Write(bytes []byte) (int, error) {
-	w.data = make([]byte, len(bytes))
-	copy(w.data, bytes)
-	return len(w.data), nil
-}
-
-func (w *LocalResponseWriter) WriteHeader(statusCode int) {
-	w.status = statusCode
-}
-
-func (a *App) doPluginRequest(rctx request.CTX, method, rawURL string, values url.Values, body []byte) (*http.Response, *model.AppError) {
-	return a.ch.doPluginRequest(rctx, method, rawURL, values, body)
-}
-
-func (ch *Channels) doPluginRequest(rctx request.CTX, method, rawURL string, values url.Values, body []byte) (*http.Response, *model.AppError) {
-	rawURL = strings.TrimPrefix(rawURL, "/")
-	inURL, err := url.Parse(rawURL)
-	if err != nil {
-		return nil, model.NewAppError("doPluginRequest", "api.post.do_action.action_integration.app_error", nil, "", http.StatusBadRequest).Wrap(err)
-	}
-	result := strings.Split(path.Clean(inURL.Path), "/")
-	if len(result) < 2 {
-		return nil, model.NewAppError("doPluginRequest", "api.post.do_action.action_integration.app_error", nil, "err=Unable to find pluginId", http.StatusBadRequest)
-	}
-
-	if result[0] != "plugins" {
-		return nil, model.NewAppError("doPluginRequest", "api.post.do_action.action_integration.app_error", nil, "err=plugins not in path", http.StatusBadRequest)
-	}
-
-	pluginID := result[1]
-
-	path := strings.TrimPrefix(inURL.Path, "plugins/"+pluginID)
-
-	base, err := url.Parse(path)
-	if err != nil {
-		return nil, model.NewAppError("doPluginRequest", "api.post.do_action.action_integration.app_error", nil, "", http.StatusBadRequest).Wrap(err)
-	}
-
-	// merge the rawQuery params (if any) with the function's provided values
-	rawValues := inURL.Query()
-	if len(rawValues) != 0 {
-		if values == nil {
-			values = make(url.Values)
-		}
-		for k, vs := range rawValues {
-			for _, v := range vs {
-				values.Add(k, v)
-			}
-		}
-	}
-	if values != nil {
-		base.RawQuery = values.Encode()
-	}
-
-	w := &LocalResponseWriter{}
-	r, err := http.NewRequest(method, base.String(), bytes.NewReader(body))
-	if err != nil {
-		return nil, model.NewAppError("doPluginRequest", "api.post.do_action.action_integration.app_error", nil, "", http.StatusBadRequest).Wrap(err)
-	}
-	r.Header.Set("Mattermost-User-Id", rctx.Session().UserId)
-	r.Header.Set(model.HeaderAuth, "Bearer "+rctx.Session().Token)
-	params := make(map[string]string)
-	params["plugin_id"] = pluginID
-	r = mux.SetURLVars(r, params)
-
-	ch.ServePluginRequest(w, r)
-
-	resp := &http.Response{
-		StatusCode: w.status,
-		Proto:      "HTTP/1.1",
-		ProtoMajor: 1,
-		ProtoMinor: 1,
-		Header:     w.headers,
-		Body:       io.NopCloser(bytes.NewReader(w.data)),
-	}
-	if resp.StatusCode == 0 {
-		resp.StatusCode = http.StatusOK
-	}
-
-	return resp, nil
+	return a.HTTPService().MakeClient(false)
 }
 
 type MailToLinkContent struct {
@@ -465,10 +350,6 @@ type MailToLinkContent struct {
 func (mlc *MailToLinkContent) ToJSON() string {
 	b, _ := json.Marshal(mlc)
 	return string(b)
-}
-
-func (a *App) DoLocalRequest(rctx request.CTX, rawURL string, body []byte) (*http.Response, *model.AppError) {
-	return a.doPluginRequest(rctx, "POST", rawURL, nil, body)
 }
 
 func (a *App) OpenInteractiveDialog(rctx request.CTX, request model.OpenDialogRequest) *model.AppError {

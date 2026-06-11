@@ -5,7 +5,6 @@ package platform
 
 import (
 	"os"
-	"path/filepath"
 	"sync"
 	"testing"
 
@@ -158,8 +157,6 @@ func setupTestHelper(dbStore store.Store, dbSettings *model.SqlSettings, enterpr
 	// Setting lifetime/idle to 0 prevents the cleaner from starting.
 	memoryConfig.SqlSettings.ConnMaxLifetimeMilliseconds = model.NewPointer(0)
 	memoryConfig.SqlSettings.ConnMaxIdleTimeMilliseconds = model.NewPointer(0)
-	*memoryConfig.PluginSettings.Directory = filepath.Join(tempWorkspace, "plugins")
-	*memoryConfig.PluginSettings.ClientDirectory = filepath.Join(tempWorkspace, "webapp")
 	*memoryConfig.LogSettings.EnableSentry = false // disable error reporting during tests
 	*memoryConfig.AnnouncementSettings.AdminNoticesEnabled = false
 	*memoryConfig.AnnouncementSettings.UserNoticesEnabled = false

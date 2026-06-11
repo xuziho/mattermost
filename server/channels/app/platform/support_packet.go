@@ -193,19 +193,6 @@ func (ps *PlatformService) getSupportPacketDiagnostics(rctx request.CTX) (*model
 		d.SAML.ProviderType = detectSAMLProviderType(idpDescriptorURL)
 	}
 
-	/* Elastic Search */
-	if se := ps.SearchEngine.ElasticsearchEngine; se != nil {
-		d.ElasticSearch.Backend = *ps.Config().ElasticsearchSettings.Backend
-		if *ps.Config().ElasticsearchSettings.EnableIndexing {
-			appErr := se.TestConfig(rctx, ps.Config())
-			if appErr != nil {
-				d.ElasticSearch.Error = appErr.Error()
-			}
-		}
-		d.ElasticSearch.ServerVersion = se.GetFullVersion()
-		d.ElasticSearch.ServerPlugins = se.GetPlugins()
-	}
-
 	b, err := yaml.Marshal(&d)
 	if err != nil {
 		rErr = multierror.Append(errors.Wrap(err, "failed to marshal Support Packet into yaml"))

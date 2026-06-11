@@ -5,10 +5,12 @@ package sqlstore
 
 import (
 	"context"
+	"errors"
 	"strings"
 	"sync"
 	"testing"
 
+	"github.com/lib/pq"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
@@ -47,7 +49,7 @@ func TestSqlX(t *testing.T) {
 			query := `SELECT pg_sleep(:timeout);`
 			arg := struct{ Timeout int }{Timeout: 2}
 			_, err = tx.NamedQuery(query, arg)
-			require.Equal(t, context.DeadlineExceeded, err)
+			requireContextDeadlineOrQueryCanceled(t, err)
 			require.NoError(t, tx.Commit())
 		}
 	})
@@ -120,7 +122,7 @@ func TestSqlxSelect(t *testing.T) {
 				query := "SELECT pg_sleep(2)"
 				err = store.GetMaster().SelectCtx(ctx, &result, query)
 				require.Error(t, err)
-				require.Equal(t, context.DeadlineExceeded, err)
+				requireContextDeadlineOrQueryCanceled(t, err)
 			})
 
 			t.Run("SelectBuilderCtx", func(t *testing.T) {
@@ -138,8 +140,23 @@ func TestSqlxSelect(t *testing.T) {
 					Select("pg_sleep(2)")
 				err = store.GetMaster().SelectBuilderCtx(ctx, &result, builder)
 				require.Error(t, err)
-				require.Equal(t, context.DeadlineExceeded, err)
+				requireContextDeadlineOrQueryCanceled(t, err)
 			})
 		})
 	}
+}
+
+func requireContextDeadlineOrQueryCanceled(t *testing.T, err error) {
+	t.Helper()
+
+	if errors.Is(err, context.DeadlineExceeded) {
+		return
+	}
+
+	var pqErr *pq.Error
+	if errors.As(err, &pqErr) && pqErr.Code == "57014" {
+		return
+	}
+
+	require.Equal(t, context.DeadlineExceeded, err)
 }

@@ -67,7 +67,6 @@ type ChannelMember struct {
 	SchemeUser              bool      `json:"scheme_user"`
 	SchemeAdmin             bool      `json:"scheme_admin"`
 	ExplicitRoles           string    `json:"explicit_roles"`
-	AutoTranslationDisabled bool      `json:"autotranslation_disabled"`
 }
 
 func (o *ChannelMember) Auditable() map[string]any {

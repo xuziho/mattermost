@@ -8,16 +8,11 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"os"
-	"path/filepath"
 	"testing"
-	"time"
 
-	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
 	"github.com/mattermost/mattermost/server/public/model"
-	"github.com/mattermost/mattermost/server/public/plugin"
-	"github.com/mattermost/mattermost/server/public/plugin/utils"
 	"github.com/mattermost/mattermost/server/public/shared/mlog"
 	"github.com/mattermost/mattermost/server/public/shared/request"
 	"github.com/mattermost/mattermost/server/v8/channels/app"
@@ -145,19 +140,6 @@ func setupTestHelper(tb testing.TB, includeCacheLayer bool, options []app.Option
 	return th
 }
 
-func (th *TestHelper) InitPlugins() *TestHelper {
-	pluginDir := filepath.Join(th.tempWorkspace, "plugins")
-	webappDir := filepath.Join(th.tempWorkspace, "webapp")
-
-	th.App.InitPlugins(th.Context, pluginDir, webappDir)
-
-	return th
-}
-
-func (th *TestHelper) NewPluginAPI(manifest *model.Manifest) plugin.API {
-	return th.App.NewPluginAPI(th.Context, manifest)
-}
-
 func (th *TestHelper) InitBasic(tb testing.TB) *TestHelper {
 	tb.Helper()
 
@@ -180,176 +162,6 @@ func (th *TestHelper) InitBasic(tb testing.TB) *TestHelper {
 	return th
 }
 
-func TestStaticFilesRequest(t *testing.T) {
-	th := Setup(t).InitPlugins()
-
-	pluginID := "com.mattermost.sample"
-
-	// Setup the directory directly in the plugin working path.
-	pluginDir := filepath.Join(*th.App.Config().PluginSettings.Directory, pluginID)
-	err := os.MkdirAll(pluginDir, 0777)
-	require.NoError(t, err)
-	pluginDir, err = filepath.Abs(pluginDir)
-	require.NoError(t, err)
-
-	// Compile the backend
-	backend := filepath.Join(pluginDir, "backend.exe")
-	pluginCode := `
-	package main
-
-	import (
-		"github.com/mattermost/mattermost/server/public/plugin"
-	)
-
-	type MyPlugin struct {
-		plugin.MattermostPlugin
-	}
-
-	func main() {
-		plugin.ClientMain(&MyPlugin{})
-	}
-`
-	utils.CompileGo(t, pluginCode, backend)
-
-	// Write out the frontend
-	mainJS := `var x = alert();`
-	mainJSPath := filepath.Join(pluginDir, "main.js")
-	require.NoError(t, err)
-	err = os.WriteFile(mainJSPath, []byte(mainJS), 0777)
-	require.NoError(t, err)
-
-	// Write the plugin.json manifest
-	pluginManifest := `{"id": "com.mattermost.sample", "server": {"executable": "backend.exe"}, "webapp": {"bundle_path":"main.js"}, "settings_schema": {"settings": []}}`
-	err = os.WriteFile(filepath.Join(pluginDir, "plugin.json"), []byte(pluginManifest), 0600)
-	require.NoError(t, err)
-
-	// Activate the plugin
-	manifest, activated, reterr := th.App.GetPluginsEnvironment().Activate(pluginID)
-	require.NoError(t, reterr)
-	require.NotNil(t, manifest)
-	require.True(t, activated)
-
-	// Verify access to the bundle with requisite headers
-	req, err := http.NewRequest("GET", "/static/plugins/com.mattermost.sample/com.mattermost.sample_724ed0e2ebb2b841_bundle.js", nil)
-	require.NoError(t, err)
-	res := httptest.NewRecorder()
-	th.Web.MainRouter.ServeHTTP(res, req)
-	assert.Equal(t, http.StatusOK, res.Code)
-	assert.Equal(t, mainJS, res.Body.String())
-	assert.Equal(t, []string{"max-age=31556926, public"}, res.Result().Header[http.CanonicalHeaderKey("Cache-Control")])
-
-	// Verify cached access to the bundle with an If-Modified-Since timestamp in the future
-	future := time.Now().Add(24 * time.Hour)
-	req, err = http.NewRequest("GET", "/static/plugins/com.mattermost.sample/com.mattermost.sample_724ed0e2ebb2b841_bundle.js", nil)
-	require.NoError(t, err)
-	req.Header.Add("If-Modified-Since", future.Format(time.RFC850))
-	res = httptest.NewRecorder()
-	th.Web.MainRouter.ServeHTTP(res, req)
-	assert.Equal(t, http.StatusNotModified, res.Code)
-	assert.Empty(t, res.Body.String())
-	assert.Equal(t, []string{"max-age=31556926, public"}, res.Result().Header[http.CanonicalHeaderKey("Cache-Control")])
-
-	// Verify access to the bundle with an If-Modified-Since timestamp in the past
-	past := time.Now().Add(-24 * time.Hour)
-	req, err = http.NewRequest("GET", "/static/plugins/com.mattermost.sample/com.mattermost.sample_724ed0e2ebb2b841_bundle.js", nil)
-	require.NoError(t, err)
-	req.Header.Add("If-Modified-Since", past.Format(time.RFC850))
-	res = httptest.NewRecorder()
-	th.Web.MainRouter.ServeHTTP(res, req)
-	assert.Equal(t, http.StatusOK, res.Code)
-	assert.Equal(t, mainJS, res.Body.String())
-	assert.Equal(t, []string{"max-age=31556926, public"}, res.Result().Header[http.CanonicalHeaderKey("Cache-Control")])
-
-	// Verify handling of 404.
-	req, err = http.NewRequest("GET", "/static/plugins/com.mattermost.sample/404.js", nil)
-	require.NoError(t, err)
-	res = httptest.NewRecorder()
-	th.Web.MainRouter.ServeHTTP(res, req)
-	assert.Equal(t, http.StatusNotFound, res.Code)
-	assert.Equal(t, "404 page not found\n", res.Body.String())
-	assert.Equal(t, []string{"no-cache, public"}, res.Result().Header[http.CanonicalHeaderKey("Cache-Control")])
-}
-
-func TestPublicFilesRequest(t *testing.T) {
-	th := Setup(t).InitPlugins()
-
-	pluginDir, err := os.MkdirTemp("", "")
-	require.NoError(t, err)
-	webappPluginDir, err := os.MkdirTemp("", "")
-	require.NoError(t, err)
-	defer os.RemoveAll(pluginDir)
-	defer os.RemoveAll(webappPluginDir)
-
-	env, err := plugin.NewEnvironment(th.NewPluginAPI, app.NewDriverImpl(th.Server), pluginDir, webappPluginDir, th.App.Log(), nil)
-	require.NoError(t, err)
-
-	pluginID := "com.mattermost.sample"
-	pluginCode :=
-		`
-	package main
-
-	import (
-		"github.com/mattermost/mattermost/server/public/plugin"
-	)
-
-	type MyPlugin struct {
-		plugin.MattermostPlugin
-	}
-
-	func main() {
-		plugin.ClientMain(&MyPlugin{})
-	}
-
-	`
-	// Compile and write the plugin
-	backend := filepath.Join(pluginDir, pluginID, "backend.exe")
-	utils.CompileGo(t, pluginCode, backend)
-
-	// Write the plugin.json manifest
-	pluginManifest := `{"id": "com.mattermost.sample", "server": {"executable": "backend.exe"}, "settings_schema": {"settings": []}}`
-	err = os.WriteFile(filepath.Join(pluginDir, pluginID, "plugin.json"), []byte(pluginManifest), 0600)
-	require.NoError(t, err)
-
-	// Write the test public file
-	helloHTML := `Hello from the static files public folder for the com.mattermost.sample plugin!`
-	htmlFolderPath := filepath.Join(pluginDir, pluginID, "public")
-	err = os.MkdirAll(htmlFolderPath, os.ModePerm)
-	require.NoError(t, err)
-	htmlFilePath := filepath.Join(htmlFolderPath, "hello.html")
-
-	htmlFileErr := os.WriteFile(htmlFilePath, []byte(helloHTML), 0600)
-	assert.NoError(t, htmlFileErr)
-
-	nefariousHTML := `You shouldn't be able to get here!`
-	htmlFileErr = os.WriteFile(filepath.Join(pluginDir, pluginID, "nefarious-file-access.html"), []byte(nefariousHTML), 0600)
-	assert.NoError(t, htmlFileErr)
-
-	manifest, activated, reterr := env.Activate(pluginID)
-	require.NoError(t, reterr)
-	require.NotNil(t, manifest)
-	require.True(t, activated)
-
-	th.App.Channels().SetPluginsEnvironment(env)
-
-	req, err := http.NewRequest("GET", "/plugins/com.mattermost.sample/public/hello.html", nil)
-	require.NoError(t, err)
-	res := httptest.NewRecorder()
-	th.Web.MainRouter.ServeHTTP(res, req)
-	assert.Equal(t, helloHTML, res.Body.String())
-
-	req, err = http.NewRequest("GET", "/plugins/com.mattermost.sample/nefarious-file-access.html", nil)
-	require.NoError(t, err)
-	res = httptest.NewRecorder()
-	th.Web.MainRouter.ServeHTTP(res, req)
-	assert.Equal(t, 404, res.Code)
-
-	req, err = http.NewRequest("GET", "/plugins/com.mattermost.sample/public/../nefarious-file-access.html", nil)
-	require.NoError(t, err)
-	res = httptest.NewRecorder()
-	th.Web.MainRouter.ServeHTTP(res, req)
-	assert.Equal(t, 301, res.Code)
-}
-
 /* Test disabled for now so we don't require the client to build. Maybe re-enable after client gets moved out.
 func TestStatic(t *testing.T) {
 	Setup()
@@ -365,7 +177,7 @@ func TestStatic(t *testing.T) {
 */
 
 func TestStaticFilesCaching(t *testing.T) {
-	th := Setup(t).InitPlugins()
+	th := Setup(t)
 
 	fakeMainBundleName := "main.1234ab.js"
 	fakeRootHTML := `<html>

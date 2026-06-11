@@ -10,7 +10,6 @@ import type {Compliance} from '@mattermost/types/compliance';
 import type {AdminConfig, EnvironmentConfig} from '@mattermost/types/config';
 import type {DataRetentionCustomPolicy} from '@mattermost/types/data_retention';
 import type {MixedUnlinkedGroupRedux} from '@mattermost/types/groups';
-import type {PluginRedux, PluginStatusRedux} from '@mattermost/types/plugins';
 import type {SamlCertificateStatus, SamlMetadataResponse} from '@mattermost/types/saml';
 import type {UserAccessToken, UserProfile} from '@mattermost/types/users';
 import type {RelationOneToOne, IDMappedObjects} from '@mattermost/types/utilities';
@@ -18,7 +17,6 @@ import type {RelationOneToOne, IDMappedObjects} from '@mattermost/types/utilitie
 import type {MMReduxAction} from 'mattermost-redux/action_types';
 import {AdminTypes, UserTypes} from 'mattermost-redux/action_types';
 import {Stats} from 'mattermost-redux/constants';
-import PluginState from 'mattermost-redux/constants/plugins';
 
 function logs(state: string[] = [], action: MMReduxAction) {
     switch (action.type) {
@@ -67,20 +65,6 @@ function config(state: Partial<AdminConfig> = {}, action: MMReduxAction) {
     switch (action.type) {
     case AdminTypes.RECEIVED_CONFIG: {
         return action.data;
-    }
-    case AdminTypes.ENABLED_PLUGIN: {
-        const nextPluginSettings = {...state.PluginSettings!};
-        const nextPluginStates = {...nextPluginSettings.PluginStates};
-        nextPluginStates[action.data] = {Enable: true};
-        nextPluginSettings.PluginStates = nextPluginStates;
-        return {...state, PluginSettings: nextPluginSettings};
-    }
-    case AdminTypes.DISABLED_PLUGIN: {
-        const nextPluginSettings = {...state.PluginSettings!};
-        const nextPluginStates = {...nextPluginSettings.PluginStates};
-        nextPluginStates[action.data] = {Enable: false};
-        nextPluginSettings.PluginStates = nextPluginStates;
-        return {...state, PluginSettings: nextPluginSettings};
     }
     case UserTypes.LOGOUT_SUCCESS:
         return {};
@@ -374,153 +358,6 @@ function userAccessTokensByUser(state: RelationOneToOne<UserProfile, Record<stri
     }
 }
 
-function plugins(state: Record<string, PluginRedux> = {}, action: MMReduxAction) {
-    switch (action.type) {
-    case AdminTypes.RECEIVED_PLUGINS: {
-        const nextState = {...state};
-        const activePlugins = action.data.active;
-        for (const plugin of activePlugins) {
-            nextState[plugin.id] = {...plugin, active: true};
-        }
-
-        const inactivePlugins = action.data.inactive;
-        for (const plugin of inactivePlugins) {
-            nextState[plugin.id] = {...plugin, active: false};
-        }
-        return nextState;
-    }
-    case AdminTypes.REMOVED_PLUGIN: {
-        const nextState = {...state};
-        Reflect.deleteProperty(nextState, action.data);
-        return nextState;
-    }
-    case AdminTypes.ENABLED_PLUGIN: {
-        const nextState = {...state};
-        const plugin = nextState[action.data];
-        if (plugin && !plugin.active) {
-            nextState[action.data] = {...plugin, active: true};
-            return nextState;
-        }
-        return state;
-    }
-    case AdminTypes.DISABLED_PLUGIN: {
-        const nextState = {...state};
-        const plugin = nextState[action.data];
-        if (plugin && plugin.active) {
-            nextState[action.data] = {...plugin, active: false};
-            return nextState;
-        }
-        return state;
-    }
-    case UserTypes.LOGOUT_SUCCESS:
-        return {};
-
-    default:
-        return state;
-    }
-}
-
-function pluginStatuses(state: Record<string, PluginStatusRedux> = {}, action: MMReduxAction) {
-    switch (action.type) {
-    case AdminTypes.RECEIVED_PLUGIN_STATUSES: {
-        const nextState: any = {};
-
-        for (const plugin of (action.data || [])) {
-            const id = plugin.plugin_id;
-
-            // The plugin may be in different states across the cluster. Pick the highest one to
-            // surface an error.
-            const pluginState = Math.max((nextState[id] && nextState[id].state) || 0, plugin.state);
-
-            const instances = [
-                ...((nextState[id] && nextState[id].instances) || []),
-                {
-                    cluster_id: plugin.cluster_id,
-                    version: plugin.version,
-                    state: plugin.state,
-                },
-            ];
-
-            nextState[id] = {
-                id,
-                name: (nextState[id] && nextState[id].name) || plugin.name,
-                description: (nextState[id] && nextState[id].description) || plugin.description,
-                version: (nextState[id] && nextState[id].version) || plugin.version,
-                active: pluginState > 0,
-                state: pluginState,
-                error: plugin.error,
-                instances,
-            };
-        }
-
-        return nextState;
-    }
-
-    case AdminTypes.ENABLE_PLUGIN_REQUEST: {
-        const pluginId = action.data;
-        if (!state[pluginId]) {
-            return state;
-        }
-
-        return {
-            ...state,
-            [pluginId]: {
-                ...state[pluginId],
-                state: PluginState.PLUGIN_STATE_STARTING,
-            },
-        };
-    }
-
-    case AdminTypes.ENABLE_PLUGIN_FAILURE: {
-        const pluginId = action.data;
-        if (!state[pluginId]) {
-            return state;
-        }
-
-        return {
-            ...state,
-            [pluginId]: {
-                ...state[pluginId],
-                state: PluginState.PLUGIN_STATE_NOT_RUNNING,
-            },
-        };
-    }
-
-    case AdminTypes.DISABLE_PLUGIN_REQUEST: {
-        const pluginId = action.data;
-        if (!state[pluginId]) {
-            return state;
-        }
-
-        return {
-            ...state,
-            [pluginId]: {
-                ...state[pluginId],
-                state: PluginState.PLUGIN_STATE_STOPPING,
-            },
-        };
-    }
-
-    case AdminTypes.REMOVED_PLUGIN: {
-        const pluginId = action.data;
-        if (!state[pluginId]) {
-            return state;
-        }
-
-        const nextState = {...state};
-        Reflect.deleteProperty(nextState, pluginId);
-
-        return nextState;
-    }
-
-    case UserTypes.LOGOUT_SUCCESS:
-        return {};
-
-    default:
-        return state;
-    }
-}
-
 function ldapGroupsCount(state = 0, action: MMReduxAction) {
     switch (action.type) {
     case AdminTypes.RECEIVED_LDAP_GROUPS:
@@ -739,12 +576,6 @@ export default combineReducers({
 
     // object with token ids as keys, and user access tokens as values without actual token
     userAccessTokens,
-
-    // object with plugin ids as keys and objects representing plugin manifests as values
-    plugins,
-
-    // object with plugin ids as keys and objects representing plugin statuses across the cluster
-    pluginStatuses,
 
     // object representing the ldap groups
     ldapGroups,

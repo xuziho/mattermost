@@ -197,22 +197,11 @@ func TestFilterInaccessiblePosts(t *testing.T) {
 	mainHelper.Parallel(t)
 	th := Setup(t)
 
-	// Set up license with PostHistory limits to enable post filtering
-	cloudLicenseWithLimits := model.NewTestLicense("cloud")
-	cloudLicenseWithLimits.Limits = &model.LicenseLimits{PostHistory: 100}
-	th.App.Srv().SetLicense(cloudLicenseWithLimits)
-
-	err := th.App.Srv().Store().System().Save(&model.System{
-		Name:  model.SystemLastAccessiblePostTime,
-		Value: "2",
-	})
-	require.NoError(t, err)
-
 	postFromCreateAt := func(at int64) *model.Post {
 		return &model.Post{CreateAt: at}
 	}
 
-	t.Run("ascending order returns correct posts", func(t *testing.T) {
+	t.Run("ascending order leaves all posts accessible", func(t *testing.T) {
 		postList := &model.PostList{
 			Posts: map[string]*model.Post{
 				"post_a": postFromCreateAt(0),
@@ -228,20 +217,24 @@ func TestFilterInaccessiblePosts(t *testing.T) {
 		require.Nil(t, appErr)
 
 		assert.Equal(t, map[string]*model.Post{
+			"post_a": postFromCreateAt(0),
+			"post_b": postFromCreateAt(1),
 			"post_c": postFromCreateAt(2),
 			"post_d": postFromCreateAt(3),
 			"post_e": postFromCreateAt(4),
 		}, postList.Posts)
 
 		assert.Equal(t, []string{
+			"post_a",
+			"post_b",
 			"post_c",
 			"post_d",
 			"post_e",
 		}, postList.Order)
-		assert.Equal(t, int64(1), postList.FirstInaccessiblePostTime)
+		assert.Equal(t, int64(0), postList.FirstInaccessiblePostTime)
 	})
 
-	t.Run("descending order returns correct posts", func(t *testing.T) {
+	t.Run("descending order leaves all posts accessible", func(t *testing.T) {
 		postList := &model.PostList{
 			Posts: map[string]*model.Post{
 				"post_a": postFromCreateAt(0),
@@ -257,6 +250,8 @@ func TestFilterInaccessiblePosts(t *testing.T) {
 		require.Nil(t, appErr)
 
 		assert.Equal(t, map[string]*model.Post{
+			"post_a": postFromCreateAt(0),
+			"post_b": postFromCreateAt(1),
 			"post_c": postFromCreateAt(2),
 			"post_d": postFromCreateAt(3),
 			"post_e": postFromCreateAt(4),
@@ -266,12 +261,14 @@ func TestFilterInaccessiblePosts(t *testing.T) {
 			"post_e",
 			"post_d",
 			"post_c",
+			"post_b",
+			"post_a",
 		}, postList.Order)
 
-		assert.Equal(t, int64(1), postList.FirstInaccessiblePostTime)
+		assert.Equal(t, int64(0), postList.FirstInaccessiblePostTime)
 	})
 
-	t.Run("handles mixed create at ordering correctly if correct options given", func(t *testing.T) {
+	t.Run("mixed create at ordering leaves all posts accessible", func(t *testing.T) {
 		postList := &model.PostList{
 			Posts: map[string]*model.Post{
 				"post_a": postFromCreateAt(0),
@@ -287,6 +284,8 @@ func TestFilterInaccessiblePosts(t *testing.T) {
 		require.Nil(t, appErr)
 
 		assert.Equal(t, map[string]*model.Post{
+			"post_a": postFromCreateAt(0),
+			"post_b": postFromCreateAt(1),
 			"post_c": postFromCreateAt(2),
 			"post_d": postFromCreateAt(3),
 			"post_e": postFromCreateAt(4),
@@ -294,12 +293,14 @@ func TestFilterInaccessiblePosts(t *testing.T) {
 
 		assert.Equal(t, []string{
 			"post_e",
+			"post_b",
+			"post_a",
 			"post_d",
 			"post_c",
 		}, postList.Order)
 	})
 
-	t.Run("handles posts missing from order when doing linear search", func(t *testing.T) {
+	t.Run("posts missing from order are left accessible", func(t *testing.T) {
 		postList := &model.PostList{
 			Posts: map[string]*model.Post{
 				"post_a": postFromCreateAt(0),
@@ -315,13 +316,18 @@ func TestFilterInaccessiblePosts(t *testing.T) {
 		require.Nil(t, appErr)
 
 		assert.Equal(t, map[string]*model.Post{
+			"post_a": postFromCreateAt(0),
+			"post_b": postFromCreateAt(1),
+			"post_c": postFromCreateAt(1),
 			"post_d": postFromCreateAt(3),
 			"post_e": postFromCreateAt(4),
 		}, postList.Posts)
 
 		assert.Equal(t, []string{
 			"post_e",
+			"post_a",
 			"post_d",
+			"post_b",
 		}, postList.Order)
 	})
 }
@@ -330,61 +336,40 @@ func TestGetFilteredAccessiblePosts(t *testing.T) {
 	mainHelper.Parallel(t)
 	th := Setup(t)
 
-	entryLicenseWithLimits := model.NewTestLicenseSKU(model.LicenseShortSkuMattermostEntry)
-	entryLicenseWithLimits.Limits = &model.LicenseLimits{PostHistory: 100}
-	th.App.Srv().SetLicense(entryLicenseWithLimits)
-
-	err := th.App.Srv().Store().System().Save(&model.System{
-		Name:  model.SystemLastAccessiblePostTime,
-		Value: "2",
-	})
-	require.NoError(t, err)
-
 	postFromCreateAt := func(at int64) *model.Post {
 		return &model.Post{CreateAt: at}
 	}
 
-	t.Run("ascending order returns correct posts", func(t *testing.T) {
+	t.Run("ascending order returns all posts", func(t *testing.T) {
 		posts := []*model.Post{postFromCreateAt(0), postFromCreateAt(1), postFromCreateAt(2), postFromCreateAt(3), postFromCreateAt(4)}
 		filteredPosts, firstInaccessiblePostTime, appErr := th.App.getFilteredAccessiblePosts(posts, filterPostOptions{assumeSortedCreatedAt: true})
 
 		assert.Nil(t, appErr)
-		assert.Equal(t, []*model.Post{postFromCreateAt(2), postFromCreateAt(3), postFromCreateAt(4)}, filteredPosts)
-		assert.Equal(t, int64(1), firstInaccessiblePostTime)
+		assert.Equal(t, posts, filteredPosts)
+		assert.Equal(t, int64(0), firstInaccessiblePostTime)
 	})
 
-	t.Run("descending order returns correct posts", func(t *testing.T) {
+	t.Run("descending order returns all posts", func(t *testing.T) {
 		posts := []*model.Post{postFromCreateAt(4), postFromCreateAt(3), postFromCreateAt(2), postFromCreateAt(1), postFromCreateAt(0)}
 		filteredPosts, firstInaccessiblePostTime, appErr := th.App.getFilteredAccessiblePosts(posts, filterPostOptions{assumeSortedCreatedAt: true})
 
 		assert.Nil(t, appErr)
-		assert.Equal(t, []*model.Post{postFromCreateAt(4), postFromCreateAt(3), postFromCreateAt(2)}, filteredPosts)
-		assert.Equal(t, int64(1), firstInaccessiblePostTime)
+		assert.Equal(t, posts, filteredPosts)
+		assert.Equal(t, int64(0), firstInaccessiblePostTime)
 	})
 
-	t.Run("handles mixed create at ordering correctly if correct options given", func(t *testing.T) {
+	t.Run("mixed create at ordering returns all posts", func(t *testing.T) {
 		posts := []*model.Post{postFromCreateAt(4), postFromCreateAt(1), postFromCreateAt(0), postFromCreateAt(3), postFromCreateAt(2)}
 		filteredPosts, _, appErr := th.App.getFilteredAccessiblePosts(posts, filterPostOptions{assumeSortedCreatedAt: false})
 
 		assert.Nil(t, appErr)
-		assert.Equal(t, []*model.Post{postFromCreateAt(4), postFromCreateAt(3), postFromCreateAt(2)}, filteredPosts)
+		assert.Equal(t, posts, filteredPosts)
 	})
 }
 
 func TestIsInaccessiblePost(t *testing.T) {
 	mainHelper.Parallel(t)
 	th := Setup(t)
-
-	// Set up license with PostHistory limits to enable post filtering
-	entryLicenseWithLimits := model.NewTestLicenseSKU(model.LicenseShortSkuMattermostEntry)
-	entryLicenseWithLimits.Limits = &model.LicenseLimits{PostHistory: 100}
-	th.App.Srv().SetLicense(entryLicenseWithLimits)
-
-	err := th.App.Srv().Store().System().Save(&model.System{
-		Name:  model.SystemLastAccessiblePostTime,
-		Value: "2",
-	})
-	require.NoError(t, err)
 
 	post := &model.Post{CreateAt: 3}
 	firstInaccessiblePostTime, appErr := th.App.isInaccessiblePost(post)
@@ -394,7 +379,7 @@ func TestIsInaccessiblePost(t *testing.T) {
 	post = &model.Post{CreateAt: 1}
 	firstInaccessiblePostTime, appErr = th.App.isInaccessiblePost(post)
 	assert.Nil(t, appErr)
-	assert.Equal(t, int64(1), firstInaccessiblePostTime)
+	assert.Equal(t, int64(0), firstInaccessiblePostTime)
 }
 
 func Test_getInaccessibleRange(t *testing.T) {

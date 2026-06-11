@@ -50,7 +50,6 @@ export type TeamsState = {
     stats: RelationOneToOne<Team, TeamStats>;
     groupsAssociatedToTeam: any;
     totalCount: number;
-    contentFlaggingStatus: Record<Team['id'], boolean>;
 };
 
 export type TeamUnread = {

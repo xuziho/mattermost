@@ -441,8 +441,6 @@ tags:
     description: Endpoints for creating, getting and downloading compliance reports.
   - name: cluster
     description: Endpoints for configuring and interacting with high availability clusters.
-  - name: elasticsearch
-    description: Endpoints for configuring and interacting with Elasticsearch.
   - name: data retention
     description: Endpoint for getting data retention policy settings.
   - name: jobs
@@ -469,10 +467,6 @@ tags:
     description: Endpoints related to metrics, including the Client Performance Monitoring feature.
   - name: audit_logs
     description: Endpoints for managing audit log certificates and configuration.
-  - name: recaps
-    description: Endpoints for creating and managing AI-powered channel recaps that summarize unread messages.
-  - name: agents
-    description: Endpoints for interacting with AI agents and LLM services.
 servers:
   - url: "{your-mattermost-url}"
     variables:

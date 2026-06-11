@@ -294,19 +294,6 @@ func TestGetClientConfig(t *testing.T) {
 			},
 		},
 		{
-			"test key for GiphySdkKey",
-			&model.Config{
-				ServiceSettings: model.ServiceSettings{
-					GiphySdkKey: model.NewPointer(""),
-				},
-			},
-			"",
-			nil,
-			map[string]string{
-				"GiphySdkKey": model.ServiceSettingsDefaultGiphySdkKeyTest,
-			},
-		},
-		{
 			"mobile log download value",
 			&model.Config{
 				SupportSettings: model.SupportSettings{

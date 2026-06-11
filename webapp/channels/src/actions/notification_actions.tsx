@@ -2,7 +2,6 @@
 // See LICENSE.txt for license information.
 
 import type {Channel, ChannelMembership} from '@mattermost/types/channels';
-import type {ServerError} from '@mattermost/types/errors';
 import {isMessageAttachmentArray} from '@mattermost/types/message_attachments';
 import type {Post} from '@mattermost/types/posts';
 import type {UserProfile} from '@mattermost/types/users';
@@ -38,7 +37,6 @@ import * as Utils from 'utils/utils';
 
 import type {ActionFuncAsync, GlobalState} from 'types/store';
 
-import {runDesktopNotificationHooks} from './hooks';
 import type {NewPostMessageProps} from './new_post';
 
 type NotificationResult = {
@@ -53,7 +51,6 @@ type NotificationHooksArgs = {
     silent: boolean;
     soundName: string;
     url: string;
-    notify: boolean;
 }
 
 /**
@@ -144,26 +141,8 @@ export function sendDesktopNotification(post: Post, msgProps: NewPostMessageProp
         const updatedState = getState();
         const url = isCrtReply ? getPermalinkURL(updatedState, teamId, post.id) : getChannelURL(updatedState, channel, teamId);
 
-        // Allow plugins to change the notification, or re-enable a notification
-        const args: NotificationHooksArgs = {title, body, silent: !desktopSoundEnabled, soundName, url, notify: true};
-
-        // TODO verify the type of the desktop hook.
-        // The channel may not be complete at this moment
-        // and may cause crashes down the line if not
-        // properly typed.
-        const hookResult = await dispatch(runDesktopNotificationHooks(post, msgProps, channel as any, teamId, args));
-        if (hookResult.error) {
-            dispatch(logError(hookResult.error as ServerError));
-            return {data: {status: 'error', reason: 'desktop_notification_hook', data: String(hookResult.error)}};
-        }
-
-        const argsAfterHooks = hookResult.data!;
-
-        if (!argsAfterHooks.notify && !forceNotification) {
-            return {data: {status: 'not_sent', reason: 'desktop_notification_hook', data: String(hookResult)}};
-        }
-
-        const result = dispatch(notifyMe(argsAfterHooks.title, argsAfterHooks.body, channel.id, teamId, argsAfterHooks.silent, argsAfterHooks.soundName, argsAfterHooks.url));
+        const args: NotificationHooksArgs = {title, body, silent: !desktopSoundEnabled, soundName, url};
+        const result = dispatch(notifyMe(args.title, args.body, channel.id, teamId, args.silent, args.soundName, args.url));
 
         //Don't add extra sounds on native desktop clients
         if (desktopSoundEnabled && !isDesktopApp() && !isMobileApp()) {

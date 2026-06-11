@@ -21,7 +21,6 @@ describe('components/post_edit_history', () => {
             id: 'post_id',
             message: 'post message',
         }),
-        isChannelAutotranslated: false,
         dispatch: jest.fn(),
     };
     const mock = jest.spyOn(Client4, 'getPostEditHistory');

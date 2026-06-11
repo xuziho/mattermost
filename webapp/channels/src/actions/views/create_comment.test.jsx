@@ -7,7 +7,6 @@ import {
 import {Posts} from 'mattermost-redux/constants';
 
 import {executeCommand} from 'actions/command';
-import * as HookActions from 'actions/hooks';
 import * as PostActions from 'actions/post_actions';
 import {
     onSubmit,
@@ -47,11 +46,6 @@ jest.mock('actions/command', () => ({
 
 jest.mock('actions/global_actions', () => ({
     emitUserCommentedEvent: jest.fn(),
-}));
-
-jest.mock('actions/hooks', () => ({
-    runMessageWillBePostedHooks: jest.fn((post) => () => ({data: post})),
-    runSlashCommandWillBePostedHooks: jest.fn((message, args) => () => ({data: {message, args}})),
 }));
 
 jest.mock('actions/post_actions', () => ({
@@ -192,7 +186,6 @@ describe('rhs view actions', () => {
         test('it call PostActions.createPost with post', async () => {
             await store.dispatch(submitPost(channelId, rootId, draft));
 
-            expect(HookActions.runMessageWillBePostedHooks).toHaveBeenCalled();
             expect(PostActions.createPost).toHaveBeenCalled();
 
             expect(lastCall(PostActions.createPost.mock.calls)[0]).toEqual(
@@ -202,14 +195,6 @@ describe('rhs view actions', () => {
             expect(lastCall(PostActions.createPost.mock.calls)[1]).toBe(draft.fileInfos);
         });
 
-        test('it does not call PostActions.createPost when hooks fail', async () => {
-            HookActions.runMessageWillBePostedHooks.mockImplementation(() => () => ({error: {message: 'An error occurred'}}));
-
-            await store.dispatch(submitPost(channelId, rootId, draft));
-
-            expect(HookActions.runMessageWillBePostedHooks).toHaveBeenCalled();
-            expect(PostActions.createPost).not.toHaveBeenCalled();
-        });
     });
 
     describe('submitCommand', () => {
@@ -224,7 +209,6 @@ describe('rhs view actions', () => {
         test('it calls executeCommand', async () => {
             await store.dispatch(submitCommand(channelId, rootId, draft));
 
-            expect(HookActions.runSlashCommandWillBePostedHooks).toHaveBeenCalled();
             expect(executeCommand).toHaveBeenCalled();
 
             // First argument
@@ -232,25 +216,6 @@ describe('rhs view actions', () => {
 
             // Second argument
             expect(lastCall(executeCommand.mock.calls)[1]).toEqual(args);
-        });
-
-        test('it does not call executeComaand when hooks fail', async () => {
-            HookActions.runSlashCommandWillBePostedHooks.mockImplementation(() => () => ({error: {message: 'An error occurred'}}));
-
-            await store.dispatch(submitCommand(channelId, rootId, draft));
-
-            expect(HookActions.runSlashCommandWillBePostedHooks).toHaveBeenCalled();
-            expect(executeCommand).not.toHaveBeenCalled();
-        });
-
-        test('it should not error in case of an empty response', async () => {
-            HookActions.runSlashCommandWillBePostedHooks.mockImplementation(() => () => ({data: {}}));
-
-            const res = await store.dispatch(submitCommand(channelId, rootId, draft));
-            expect(res).toStrictEqual({});
-
-            expect(HookActions.runSlashCommandWillBePostedHooks).toHaveBeenCalled();
-            expect(executeCommand).not.toHaveBeenCalled();
         });
 
         test('it calls submitPost on error.sendMessage', async () => {

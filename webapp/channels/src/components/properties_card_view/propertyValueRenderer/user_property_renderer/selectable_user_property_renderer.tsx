@@ -3,11 +3,12 @@
 
 import React, {useCallback, useEffect, useState} from 'react';
 import {useIntl} from 'react-intl';
+import AsyncSelect from 'react-select/async';
 
 import type {PropertyField} from '@mattermost/types/properties';
+import type {UserProfile} from '@mattermost/types/users';
 
 import './selectable_user_property_renderer.scss';
-import {UserSelector} from 'components/admin_console/content_flagging/user_multiselector/user_multiselector';
 import type {UserPropertyMetadata} from 'components/properties_card_view/properties_card_view';
 
 type Props = {
@@ -18,11 +19,11 @@ type Props = {
 
 export function SelectableUserPropertyRenderer({field, metadata, initialValue}: Props) {
     const {formatMessage} = useIntl();
-    const [value, setValue] = useState('');
+    const [value, setValue] = useState<UserProfile | null>(null);
 
     useEffect(() => {
         if (initialValue) {
-            setValue(initialValue);
+            setValue({id: initialValue, username: initialValue} as UserProfile);
         }
     }, [initialValue]);
 
@@ -33,11 +34,15 @@ export function SelectableUserPropertyRenderer({field, metadata, initialValue}: 
         </span>
     );
 
-    const onSelect = useCallback((userId: string) => {
-        if (metadata?.setUser) {
-            metadata.setUser(userId);
-            setValue(userId);
+    const onSelect = useCallback((user: UserProfile | null) => {
+        if (user) {
+            metadata?.setUser?.(user.id);
+            setValue(user);
         }
+    }, [metadata]);
+
+    const loadOptions = useCallback((term: string) => {
+        return metadata?.searchUsers?.(term) ?? Promise.resolve([]);
     }, [metadata]);
 
     return (
@@ -45,14 +50,17 @@ export function SelectableUserPropertyRenderer({field, metadata, initialValue}: 
             className='SelectableUserPropertyRenderer'
             data-testid='selectable-user-property'
         >
-            <UserSelector
-                isMulti={false}
-                id={`selectable-user-property-renderer-${field.id}`}
+            <AsyncSelect<UserProfile, false>
+                inputId={`selectable-user-property-renderer-${field.id}`}
+                className='react-select'
+                classNamePrefix='react-select'
+                value={value}
                 placeholder={placeholder}
-                showDropdownIndicator={true}
-                searchFunc={metadata?.searchUsers}
-                singleSelectOnChange={onSelect}
-                singleSelectInitialValue={value}
+                loadOptions={loadOptions}
+                getOptionLabel={(user) => user.username}
+                getOptionValue={(user) => user.id}
+                onChange={onSelect}
+                isClearable={true}
             />
         </div>
     );

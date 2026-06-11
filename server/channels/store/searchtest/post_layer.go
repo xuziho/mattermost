@@ -20,11 +20,7 @@ var searchPostStoreTests = []searchTest{
 		Fn:   testSearchPostsIncludingDMs,
 		Tags: []string{EngineAll},
 	},
-	{
-		Name: "Should be able to search posts using pagination",
-		Fn:   testSearchPostsWithPagination,
-		Tags: []string{EngineElasticSearch},
-	},
+
 	{
 		Name: "Should return pinned and unpinned posts",
 		Fn:   testSearchReturnPinnedAndUnpinned,
@@ -33,23 +29,19 @@ var searchPostStoreTests = []searchTest{
 	{
 		Name: "Should be able to search for quoted patterns with AND OR combinations",
 		Fn:   testSearchANDORQuotesCombinations,
-		Tags: []string{EnginePostgres, EngineElasticSearch},
+		Tags: []string{EnginePostgres},
 	},
 	{
 		Name: "Should be able to search for email addresses with or without quotes",
 		Fn:   testSearchEmailAddresses,
-		Tags: []string{EnginePostgres, EngineElasticSearch},
+		Tags: []string{EnginePostgres},
 	},
 	{
 		Name: "Should be able to search when markdown underscores are applied",
 		Fn:   testSearchMarkdownUnderscores,
-		Tags: []string{EnginePostgres, EngineElasticSearch},
+		Tags: []string{EnginePostgres},
 	},
-	{
-		Name: "Should be able to search for non-latin words",
-		Fn:   testSearchNonLatinWords,
-		Tags: []string{EngineElasticSearch},
-	},
+
 	{
 		Name: "Should be able to search CJK words with substring matching",
 		Fn:   testSearchCJKSubstringMatching,
@@ -58,18 +50,10 @@ var searchPostStoreTests = []searchTest{
 	{
 		Name: "Should be able to search CJK words in realistic sentences",
 		Fn:   testSearchCJKAcceptanceCriteria,
-		Tags: []string{EnginePostgres, EngineElasticSearch},
+		Tags: []string{EnginePostgres},
 	},
-	{
-		Name: "Should be able to search for alternative spellings of words",
-		Fn:   testSearchAlternativeSpellings,
-		Tags: []string{EngineElasticSearch},
-	},
-	{
-		Name: "Should be able to search for alternative spellings of words with and without accents",
-		Fn:   testSearchAlternativeSpellingsAccents,
-		Tags: []string{EngineElasticSearch},
-	},
+
+
 	{
 		Name: "Should be able to search or exclude messages written by a specific user",
 		Fn:   testSearchOrExcludePostsBySpecificUser,
@@ -108,22 +92,18 @@ var searchPostStoreTests = []searchTest{
 	{
 		Name: "Should be able to search using boolean operators",
 		Fn:   testSearchUsingBooleanOperators,
-		Tags: []string{EnginePostgres, EngineElasticSearch},
+		Tags: []string{EnginePostgres},
 	},
 	{
 		Name: "Should be able to search with combined filters",
 		Fn:   testSearchUsingCombinedFilters,
 		Tags: []string{EngineAll},
 	},
-	{
-		Name: "Should be able to ignore stop words",
-		Fn:   testSearchIgnoringStopWords,
-		Tags: []string{EngineElasticSearch},
-	},
+
 	{
 		Name: "Should support search stemming",
 		Fn:   testSupportStemming,
-		Tags: []string{EnginePostgres, EngineElasticSearch},
+		Tags: []string{EnginePostgres},
 	},
 	{
 		Name: "Should support search with wildcards",
@@ -146,11 +126,7 @@ var searchPostStoreTests = []searchTest{
 		Tags: []string{EngineAll},
 		Skip: true,
 	},
-	{
-		Name: "Should support terms with underscore",
-		Fn:   testSupportTermsWithUnderscore,
-		Tags: []string{EngineElasticSearch},
-	},
+
 	{
 		Name: "Should search or exclude post using hashtags",
 		Fn:   testSearchOrExcludePostsWithHashtags,
@@ -161,11 +137,7 @@ var searchPostStoreTests = []searchTest{
 		Fn:   testSearchHashtagWithMarkdown,
 		Tags: []string{EngineAll},
 	},
-	{
-		Name: "Should support searching for multiple hashtags",
-		Fn:   testSearchWithMultipleHashtags,
-		Tags: []string{EngineElasticSearch},
-	},
+
 	{
 		Name: "Should support searching hashtags with dots",
 		Fn:   testSearchPostsWithDotsInHashtags,
@@ -231,52 +203,32 @@ var searchPostStoreTests = []searchTest{
 	{
 		Name: "Should be able to search terms with dots",
 		Fn:   testSearchTermsWithDots,
-		Tags: []string{EnginePostgres, EngineElasticSearch},
+		Tags: []string{EnginePostgres},
 	},
-	{
-		Name: "Should be able to search terms with underscores",
-		Fn:   testSearchTermsWithUnderscores,
-		Tags: []string{EngineElasticSearch},
-	},
+
 	{
 		Name: "Should be able to search posts made by bot accounts",
 		Fn:   testSearchBotAccountsPosts,
 		Tags: []string{EngineAll},
 	},
-	{
-		Name: "Should be able to combine stemming and wildcards",
-		Fn:   testSupportStemmingAndWildcards,
-		Tags: []string{EngineElasticSearch},
-	},
-	{
-		Name: "Should support wildcard outside quotes",
-		Fn:   testSupportWildcardOutsideQuotes,
-		Tags: []string{EngineElasticSearch},
-	},
+
+
 	{
 		Name: "Should support hashtags with 3 or more characters",
 		Fn:   testHashtagSearchShouldSupportThreeOrMoreCharacters,
 		Tags: []string{EngineAll},
 	},
-	{
-		Name: "Should not support slash as character separator",
-		Fn:   testSlashShouldNotBeCharSeparator,
-		Tags: []string{EngineElasticSearch},
-	},
+
 	{
 		Name: "Should be able to search in comments",
 		Fn:   testSupportSearchInComments,
 		Tags: []string{EngineAll},
 	},
-	{
-		Name: "Should be able to search terms within links",
-		Fn:   testSupportSearchTermsWithinLinks,
-		Tags: []string{EngineElasticSearch},
-	},
+
 	{
 		Name: "Should not return links that are embedded in markdown",
 		Fn:   testShouldNotReturnLinksEmbeddedInMarkdown,
-		Tags: []string{EnginePostgres, EngineElasticSearch},
+		Tags: []string{EnginePostgres},
 	},
 	{
 		Name: "Should search across teams",
@@ -677,7 +629,7 @@ func testSearchNonLatinWords(t *testing.T, th *SearchTestHelper) {
 
 func testSearchCJKSubstringMatching(t *testing.T, th *SearchTestHelper) {
 	// Postgres LIKE-based CJK search does substring matching, so searching "你"
-	// matches both "你" and "你好" (unlike Elasticsearch's token matching).
+	// matches both "你" and "你好".
 	// These tests verify Postgres-specific substring and operator behavior.
 	t.Run("Should be able to search chinese words", func(t *testing.T) {
 		p1, err := th.createPost(th.User.Id, th.ChannelBasic.Id, "你好", "", model.PostTypeDefault, 0, false)
@@ -830,7 +782,7 @@ func testSearchCJKSubstringMatching(t *testing.T, th *SearchTestHelper) {
 
 func testSearchCJKAcceptanceCriteria(t *testing.T, th *SearchTestHelper) {
 	// These tests verify CJK search works in realistic scenarios and should
-	// pass on both Postgres (LIKE) and Elasticsearch (with CJK tokenizer).
+	// pass with Postgres LIKE.
 	t.Run("Should find katakana term in business context sentences", func(t *testing.T) {
 		p1, err := th.createPost(th.User.Id, th.ChannelBasic.Id, "重要なビジネス環境では、信頼できるコミュニケーションが不可欠です。", "", model.PostTypeDefault, 0, false)
 		require.NoError(t, err)

@@ -1,8 +1,6 @@
 // Copyright (c) 2015-present Mattermost, Inc. All Rights Reserved.
 // See LICENSE.txt for license information.
 
-import {batchActions} from 'redux-batched-actions';
-
 import type {LogFilter} from '@mattermost/types/admin';
 import type {
     Channel,
@@ -399,24 +397,6 @@ export function removeIdpSamlCertificate() {
     });
 }
 
-export function testElasticsearch(config?: AdminConfig) {
-    return bindClientFunc({
-        clientFunc: Client4.testElasticsearch,
-        params: [
-            config,
-        ],
-    });
-}
-
-export function purgeElasticsearchIndexes(indexes?: string[]) {
-    return bindClientFunc({
-        clientFunc: Client4.purgeElasticsearchIndexes,
-        params: [
-            indexes,
-        ],
-    });
-}
-
 export function uploadLicense(fileData: File) {
     return bindClientFunc({
         clientFunc: Client4.uploadLicense,
@@ -481,88 +461,6 @@ export function getBotPostsPerDayAnalytics(teamId = '') {
 
 export function getUsersPerDayAnalytics(teamId = '') {
     return getAnalytics('user_counts_with_posts_day', teamId);
-}
-
-export function uploadPlugin(fileData: File, force = false): ActionFuncAsync {
-    return async (dispatch, getState) => {
-        let data;
-        try {
-            data = await Client4.uploadPlugin(fileData, force);
-        } catch (error) {
-            forceLogoutIfNecessary(error as ServerError, dispatch, getState);
-            dispatch(logError(error as ServerError));
-            return {error};
-        }
-
-        return {data};
-    };
-}
-
-export function getPlugins() {
-    return bindClientFunc({
-        clientFunc: Client4.getPlugins,
-        onSuccess: [AdminTypes.RECEIVED_PLUGINS],
-    });
-}
-
-export function getPluginStatuses() {
-    return bindClientFunc({
-        clientFunc: Client4.getPluginStatuses,
-        onSuccess: [AdminTypes.RECEIVED_PLUGIN_STATUSES],
-    });
-}
-
-export function removePlugin(pluginId: string): ActionFuncAsync {
-    return async (dispatch, getState) => {
-        try {
-            await Client4.removePlugin(pluginId);
-        } catch (error) {
-            forceLogoutIfNecessary(error as ServerError, dispatch, getState);
-            dispatch(logError(error as ServerError));
-            return {error};
-        }
-
-        dispatch(batchActions([
-            {type: AdminTypes.REMOVED_PLUGIN, data: pluginId},
-            {type: AdminTypes.DISABLED_PLUGIN, data: pluginId},
-        ]));
-
-        return {data: true};
-    };
-}
-
-export function enablePlugin(pluginId: string): ActionFuncAsync {
-    return async (dispatch, getState) => {
-        try {
-            await Client4.enablePlugin(pluginId);
-        } catch (error) {
-            forceLogoutIfNecessary(error as ServerError, dispatch, getState);
-            dispatch(logError(error as ServerError));
-            return {error};
-        }
-
-        dispatch({type: AdminTypes.ENABLED_PLUGIN, data: pluginId});
-
-        return {data: true};
-    };
-}
-
-export function disablePlugin(pluginId: string): ActionFuncAsync {
-    return async (dispatch, getState) => {
-        dispatch({type: AdminTypes.DISABLE_PLUGIN_REQUEST, data: pluginId});
-
-        try {
-            await Client4.disablePlugin(pluginId);
-        } catch (error) {
-            forceLogoutIfNecessary(error as ServerError, dispatch, getState);
-            dispatch(logError(error as ServerError));
-            return {error};
-        }
-
-        dispatch({type: AdminTypes.DISABLED_PLUGIN, data: pluginId});
-
-        return {data: true};
-    };
 }
 
 export function getSamlMetadataFromIdp(samlMetadataURL: string) {

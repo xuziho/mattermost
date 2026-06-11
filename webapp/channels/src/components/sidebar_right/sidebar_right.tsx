@@ -18,7 +18,6 @@ import RhsCard from 'components/rhs_card';
 import RhsThread from 'components/rhs_thread';
 import Search from 'components/search/index';
 
-import RhsPlugin from 'plugins/rhs_plugin';
 import a11yController from 'utils/a11y_controller_instance';
 import {focusElement, getFirstFocusableChild} from 'utils/a11y_utils';
 import Constants from 'utils/constants';
@@ -40,7 +39,6 @@ export type Props = {
     isChannelFiles: boolean;
     isChannelInfo: boolean;
     isChannelMembers: boolean;
-    isPluginView: boolean;
     isPostEditHistory: boolean;
     previousRhsState: RhsState;
     rhsChannel?: Channel;
@@ -265,7 +263,6 @@ export default class SidebarRight extends React.PureComponent<Props, State> {
             postCardVisible,
             previousRhsState,
             searchVisible,
-            isPluginView,
             isOpen,
             isChannelInfo,
             isChannelMembers,
@@ -295,8 +292,6 @@ export default class SidebarRight extends React.PureComponent<Props, State> {
             );
         } else if (postCardVisible) {
             content = <RhsCard previousRhsState={previousRhsState}/>;
-        } else if (isPluginView) {
-            content = <RhsPlugin/>;
         } else if (isChannelInfo) {
             currentChannelNeeded = true;
             content = <ChannelInfoRhs/>;
@@ -315,7 +310,7 @@ export default class SidebarRight extends React.PureComponent<Props, State> {
 
         const channelDisplayName = rhsChannel ? rhsChannel.display_name : '';
 
-        const isSidebarRightExpanded = (postRightVisible || postCardVisible || isPluginView || searchVisible || isPostEditHistory) && isExpanded;
+        const isSidebarRightExpanded = (postRightVisible || postCardVisible || searchVisible || isPostEditHistory) && isExpanded;
         const containerClassName = classNames('sidebar--right', 'move--left is-open', {
             'sidebar--right--expanded expanded': isSidebarRightExpanded,
         });

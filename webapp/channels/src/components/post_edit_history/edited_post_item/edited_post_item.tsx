@@ -56,11 +56,10 @@ const itemMessages = defineMessages({
 export type Props = PropsFromRedux & {
     post: Post;
     isCurrent?: boolean;
-    isChannelAutotranslated: boolean;
 }
 
-const EditedPostItem = ({post, isCurrent = false, postCurrentVersion, actions, isChannelAutotranslated}: Props) => {
-    const {formatMessage, locale} = useIntl();
+const EditedPostItem = ({post, isCurrent = false, postCurrentVersion, actions}: Props) => {
+    const {formatMessage} = useIntl();
     const [open, setOpen] = useState(isCurrent);
 
     const dispatch = useDispatch();
@@ -151,12 +150,11 @@ const EditedPostItem = ({post, isCurrent = false, postCurrentVersion, actions, i
                 actions: {
                     handleRestore,
                 },
-                isChannelAutotranslated,
             },
         };
 
         actions.openModal(restorePostModalData);
-    }, [actions, handleRestore, isChannelAutotranslated, post, postHeader]);
+    }, [actions, handleRestore, post, postHeader]);
 
     const togglePost = () => {
         setOpen((prevState) => !prevState);
@@ -177,8 +175,6 @@ const EditedPostItem = ({post, isCurrent = false, postCurrentVersion, actions, i
             post={post}
             isRHS={true}
             showPostEditedIndicator={false}
-            userLanguage={locale}
-            isChannelAutotranslated={isChannelAutotranslated}
         />
     );
 
@@ -226,7 +222,6 @@ const EditedPostItem = ({post, isCurrent = false, postCurrentVersion, actions, i
                 className={'a11y__section post'}
                 id={'searchResult_' + post.id}
                 post={post}
-                autotranslated={isChannelAutotranslated}
             >
                 <div
                     className='edit-post-history__title__container'

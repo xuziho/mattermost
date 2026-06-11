@@ -14,12 +14,17 @@ test(
     'Should add emoji to post textbox correctly and handle focus/selection correctly',
     {tag: '@emoji_picker'},
     async ({pw}) => {
+        const slightlySmilingFace = '\u{1F642}';
+        const upsideDownFace = '\u{1F643}';
+        const faceWithRaisedEyebrow = '\u{1F928}';
+        const neutralFace = '\u{1F610}';
+
         // # Initialize a test user
         const {user} = await pw.initSetup();
 
         // # Log in as a user in new browser context
         const {channelsPage} = await pw.testBrowser.login(user);
-        const {emojiGifPickerPopup} = channelsPage;
+        const {emojiPickerPopup} = channelsPage;
         const {postCreate} = channelsPage.centerView;
 
         // # Navigate to default channel page
@@ -30,23 +35,23 @@ test(
         await postCreate.openEmojiPicker();
 
         // * Verify emoji picker popup appears
-        await emojiGifPickerPopup.toBeVisible();
+        await emojiPickerPopup.toBeVisible();
 
         // # Click on an emoji
-        await emojiGifPickerPopup.clickEmoji('slightly smiling face');
+        await emojiPickerPopup.clickEmoji('slightly smiling face');
 
         // * Verify emoji picker popup disappears
-        await emojiGifPickerPopup.notToBeVisible();
+        await emojiPickerPopup.notToBeVisible();
 
         // * Verify that the emoji was correctly added to the post textbox (as unicode), followed by a space
-        await expectPostCreateState(postCreate.input, '🙂 ', '');
+        await expectPostCreateState(postCreate.input, `${slightlySmilingFace} `, '');
 
         // # Repeat those steps with another emoji
         await postCreate.openEmojiPicker();
-        await emojiGifPickerPopup.clickEmoji('upside down face');
+        await emojiPickerPopup.clickEmoji('upside down face');
 
         // * Verify that the second emoji was correctly added to the post textbox (as unicode), also followed by a space
-        await expectPostCreateState(postCreate.input, '🙂 🙃 ', '');
+        await expectPostCreateState(postCreate.input, `${slightlySmilingFace} ${upsideDownFace} `, '');
 
         // # Clear the textbox and replace it with some text
         await postCreate.writeMessage('ab');
@@ -59,10 +64,10 @@ test(
 
         // # Open the emoji picker again and select another emoji
         await postCreate.openEmojiPicker();
-        await emojiGifPickerPopup.clickEmoji('face with raised eyebrow');
+        await emojiPickerPopup.clickEmoji('face with raised eyebrow');
 
         // * Verify that the emoji was added with surrounding whitespace (as unicode) and that the caret is placed after that
-        await expectPostCreateState(postCreate.input, 'a 🤨 ', 'b');
+        await expectPostCreateState(postCreate.input, `a ${faceWithRaisedEyebrow} `, 'b');
 
         // # Clear the textbox and replace it with some words
         await postCreate.writeMessage('this is a test');
@@ -78,10 +83,10 @@ test(
 
         // # Open the emoji picker again and select another emoji
         await postCreate.openEmojiPicker();
-        await emojiGifPickerPopup.clickEmoji('neutral face');
+        await emojiPickerPopup.clickEmoji('neutral face');
 
         // * Verify that the emoji was added without an extra space before it (as unicode)
-        await expectPostCreateState(postCreate.input, 'this is a 😐 ', 'test');
+        await expectPostCreateState(postCreate.input, `this is a ${neutralFace} `, 'test');
     },
 );
 

@@ -22,7 +22,6 @@ import (
 	"github.com/mattermost/mattermost/server/public/shared/request"
 	"github.com/mattermost/mattermost/server/v8/channels/utils/fileutils"
 	eMocks "github.com/mattermost/mattermost/server/v8/einterfaces/mocks"
-	"github.com/mattermost/mattermost/server/v8/platform/services/searchengine/mocks"
 )
 
 func TestGeneratePublicLinkHash(t *testing.T) {
@@ -465,7 +464,7 @@ func TestSearchFilesInTeamForUser(t *testing.T) {
 	perPage := 5
 	searchTerm := "searchTerm"
 
-	setup := func(t *testing.T, enableElasticsearch bool) (*TestHelper, []*model.FileInfo) {
+	setup := func(t *testing.T) (*TestHelper, []*model.FileInfo) {
 		th := Setup(t).InitBasic(t)
 
 		fileInfos := make([]*model.FileInfo, 7)
@@ -487,24 +486,11 @@ func TestSearchFilesInTeamForUser(t *testing.T) {
 			fileInfos[i] = fileInfo
 		}
 
-		if enableElasticsearch {
-			th.App.Srv().SetLicense(model.NewTestLicense("elastic_search"))
-
-			th.App.UpdateConfig(func(cfg *model.Config) {
-				*cfg.ElasticsearchSettings.EnableIndexing = true
-				*cfg.ElasticsearchSettings.EnableSearching = true
-			})
-		} else {
-			th.App.UpdateConfig(func(cfg *model.Config) {
-				*cfg.ElasticsearchSettings.EnableSearching = false
-			})
-		}
-
 		return th, fileInfos
 	}
 
 	t.Run("should return everything as first page of fileInfos from database", func(t *testing.T) {
-		th, fileInfos := setup(t, false)
+		th, fileInfos := setup(t)
 
 		page := 0
 
@@ -525,7 +511,7 @@ func TestSearchFilesInTeamForUser(t *testing.T) {
 	})
 
 	t.Run("should not return later pages of fileInfos from database", func(t *testing.T) {
-		th, _ := setup(t, false)
+		th, _ := setup(t)
 
 		page := 1
 
@@ -537,125 +523,6 @@ func TestSearchFilesInTeamForUser(t *testing.T) {
 		require.True(t, allFilesHaveMembership)
 	})
 
-	t.Run("should return first page of fileInfos from ElasticSearch", func(t *testing.T) {
-		th, fileInfos := setup(t, true)
-
-		page := 0
-		resultsPage := []string{
-			fileInfos[6].Id,
-			fileInfos[5].Id,
-			fileInfos[4].Id,
-			fileInfos[3].Id,
-			fileInfos[2].Id,
-		}
-
-		es := &mocks.SearchEngineInterface{}
-		es.On("SearchFiles", mock.Anything, mock.Anything, page, perPage).Return(resultsPage, nil)
-		es.On("Start").Return(nil).Maybe()
-		es.On("IsActive").Return(true)
-		es.On("IsHealthy").Return(true)
-		es.On("IsSearchEnabled").Return(true)
-		th.App.Srv().Platform().SearchEngine.ElasticsearchEngine = es
-		defer func() {
-			th.App.Srv().Platform().SearchEngine.ElasticsearchEngine = nil
-		}()
-
-		results, allFilesHaveMembership, err := th.App.SearchFilesInTeamForUser(th.Context, searchTerm, th.BasicUser.Id, th.BasicTeam.Id, false, false, 0, page, perPage)
-
-		require.Nil(t, err)
-		require.NotNil(t, results)
-		assert.Equal(t, resultsPage, results.Order)
-		require.True(t, allFilesHaveMembership)
-		es.AssertExpectations(t)
-	})
-
-	t.Run("should return later pages of fileInfos from ElasticSearch", func(t *testing.T) {
-		th, fileInfos := setup(t, true)
-
-		page := 1
-		resultsPage := []string{
-			fileInfos[1].Id,
-			fileInfos[0].Id,
-		}
-
-		es := &mocks.SearchEngineInterface{}
-		es.On("SearchFiles", mock.Anything, mock.Anything, page, perPage).Return(resultsPage, nil)
-		es.On("Start").Return(nil).Maybe()
-		es.On("IsActive").Return(true)
-		es.On("IsHealthy").Return(true)
-		es.On("IsSearchEnabled").Return(true)
-		th.App.Srv().Platform().SearchEngine.ElasticsearchEngine = es
-		defer func() {
-			th.App.Srv().Platform().SearchEngine.ElasticsearchEngine = nil
-		}()
-
-		results, allFilesHaveMembership, err := th.App.SearchFilesInTeamForUser(th.Context, searchTerm, th.BasicUser.Id, th.BasicTeam.Id, false, false, 0, page, perPage)
-
-		require.Nil(t, err)
-		require.NotNil(t, results)
-		assert.Equal(t, resultsPage, results.Order)
-		require.True(t, allFilesHaveMembership)
-		es.AssertExpectations(t)
-	})
-
-	t.Run("should fall back to database if ElasticSearch fails on first page", func(t *testing.T) {
-		th, fileInfos := setup(t, true)
-
-		page := 0
-
-		es := &mocks.SearchEngineInterface{}
-		es.On("SearchFiles", mock.Anything, mock.Anything, page, perPage).Return(nil, &model.AppError{})
-		es.On("GetName").Return("mock")
-		es.On("Start").Return(nil).Maybe()
-		es.On("IsActive").Return(true)
-		es.On("IsHealthy").Return(true)
-		es.On("IsSearchEnabled").Return(true)
-		th.App.Srv().Platform().SearchEngine.ElasticsearchEngine = es
-		defer func() {
-			th.App.Srv().Platform().SearchEngine.ElasticsearchEngine = nil
-		}()
-
-		results, allFilesHaveMembership, err := th.App.SearchFilesInTeamForUser(th.Context, searchTerm, th.BasicUser.Id, th.BasicTeam.Id, false, false, 0, page, perPage)
-
-		require.Nil(t, err)
-		require.NotNil(t, results)
-		assert.Equal(t, []string{
-			fileInfos[6].Id,
-			fileInfos[5].Id,
-			fileInfos[4].Id,
-			fileInfos[3].Id,
-			fileInfos[2].Id,
-			fileInfos[1].Id,
-			fileInfos[0].Id,
-		}, results.Order)
-		require.True(t, allFilesHaveMembership)
-		es.AssertExpectations(t)
-	})
-
-	t.Run("should return nothing if ElasticSearch fails on later pages", func(t *testing.T) {
-		th, _ := setup(t, true)
-
-		page := 1
-
-		es := &mocks.SearchEngineInterface{}
-		es.On("SearchFiles", mock.Anything, mock.Anything, page, perPage).Return(nil, &model.AppError{})
-		es.On("GetName").Return("mock")
-		es.On("Start").Return(nil).Maybe()
-		es.On("IsActive").Return(true)
-		es.On("IsHealthy").Return(true)
-		es.On("IsSearchEnabled").Return(true)
-		th.App.Srv().Platform().SearchEngine.ElasticsearchEngine = es
-		defer func() {
-			th.App.Srv().Platform().SearchEngine.ElasticsearchEngine = nil
-		}()
-
-		results, allFilesHaveMembership, err := th.App.SearchFilesInTeamForUser(th.Context, searchTerm, th.BasicUser.Id, th.BasicTeam.Id, false, false, 0, page, perPage)
-
-		require.Nil(t, err)
-		assert.Equal(t, []string{}, results.Order)
-		require.True(t, allFilesHaveMembership)
-		es.AssertExpectations(t)
-	})
 }
 
 func TestExtractContentFromFileInfo(t *testing.T) {

@@ -35,7 +35,6 @@ func genStore() *mocks.Store {
 	mock.On("SharedChannel").Return(&mocks.SharedChannelStore{})
 	mock.On("OAuth").Return(&mocks.OAuthStore{})
 	mock.On("OutgoingOAuthConnection").Return(&mocks.OutgoingOAuthConnectionStore{})
-	mock.On("Plugin").Return(&mocks.PluginStore{})
 	mock.On("Post").Return(&mocks.PostStore{})
 	mock.On("Thread").Return(&mocks.ThreadStore{})
 	mock.On("Preference").Return(&mocks.PreferenceStore{})
@@ -65,10 +64,7 @@ func genStore() *mocks.Store {
 	mock.On("PropertyValue").Return(&mocks.PropertyValueStore{})
 	mock.On("AccessControlPolicy").Return(&mocks.AccessControlPolicyStore{})
 	mock.On("Attributes").Return(&mocks.AttributesStore{})
-	mock.On("AutoTranslation").Return(&mocks.AutoTranslationStore{})
-	mock.On("ContentFlagging").Return(&mocks.ContentFlaggingStore{})
 	mock.On("ReadReceipt").Return(&mocks.ReadReceiptStore{})
-	mock.On("Recap").Return(&mocks.RecapStore{})
 	mock.On("TemporaryPost").Return(&mocks.TemporaryPostStore{})
 	mock.On("View").Return(&mocks.ViewStore{})
 	return mock

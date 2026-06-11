@@ -2,7 +2,6 @@
 // See LICENSE.txt for license information.
 
 import React from 'react';
-import {useIntl} from 'react-intl';
 
 import type {Post} from '@mattermost/types/posts';
 
@@ -11,39 +10,29 @@ import {Posts} from 'mattermost-redux/constants';
 import PostBodyAdditionalContent from 'components/post_view/post_body_additional_content';
 import PostMessageView from 'components/post_view/post_message_view';
 
-import type {PluginsState} from 'types/store/plugins';
-
 type Props = {
     id?: string;
     post: Post;
     isEmbedVisible?: boolean;
-    pluginPostTypes?: PluginsState['postTypes'];
     isRHS: boolean;
     compactDisplay?: boolean;
-    isChannelAutotranslated: boolean;
 }
 
 export default function MessageWithAdditionalContent({
     post,
     isEmbedVisible,
-    pluginPostTypes,
     isRHS,
     compactDisplay,
-    isChannelAutotranslated,
 }: Props) {
-    const hasPlugin = post.type && pluginPostTypes && Object.hasOwn(pluginPostTypes, post.type);
-    const {locale} = useIntl();
     let msg;
     const messageWrapper = (
         <PostMessageView
             post={post}
             isRHS={isRHS}
             compactDisplay={compactDisplay}
-            isChannelAutotranslated={isChannelAutotranslated}
-            userLanguage={locale}
         />
     );
-    if (post.state === Posts.POST_DELETED || hasPlugin) {
+    if (post.state === Posts.POST_DELETED) {
         msg = messageWrapper;
     } else {
         msg = (

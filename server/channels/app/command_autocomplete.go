@@ -4,10 +4,8 @@
 package app
 
 import (
-	"encoding/json"
 	"errors"
 	"fmt"
-	"net/url"
 	"sort"
 	"strings"
 
@@ -251,44 +249,7 @@ func (a *App) getDynamicListArgument(rctx request.CTX, commandArgs *model.Comman
 		return parseListItems(listItems, parsed, toBeParsed)
 	}
 
-	params := url.Values{}
-	params.Add("user_input", parsed+toBeParsed)
-	params.Add("parsed", parsed)
-
-	// Encode the information normally provided to a plugin slash command handler into the request parameters
-	// Encode PluginContext:
-	pluginContext := pluginContext(rctx)
-	params.Add("request_id", pluginContext.RequestId)
-	params.Add("session_id", pluginContext.SessionId)
-	params.Add("ip_address", pluginContext.IPAddress)
-	params.Add("accept_language", pluginContext.AcceptLanguage)
-	params.Add("user_agent", pluginContext.UserAgent)
-
-	// Encode CommandArgs:
-	params.Add("channel_id", commandArgs.ChannelId)
-	params.Add("team_id", commandArgs.TeamId)
-	params.Add("root_id", commandArgs.RootId)
-	params.Add("user_id", commandArgs.UserId)
-
-	// Use configured SiteURL to prevent SSRF via Host header spoofing (MM-67142)
-	siteURL := *a.Config().ServiceSettings.SiteURL
-	if siteURL != "" {
-		params.Add("site_url", siteURL)
-	}
-
-	resp, err := a.doPluginRequest(rctx, "GET", dynamicArg.FetchURL, params, nil)
-
-	if err != nil {
-		rctx.Logger().Error("Can't fetch dynamic list arguments for", mlog.String("url", dynamicArg.FetchURL), mlog.Err(err))
-		return false, parsed, toBeParsed, []model.AutocompleteSuggestion{}
-	}
-
-	var listItems []model.AutocompleteListItem
-	if jsonErr := json.NewDecoder(resp.Body).Decode(&listItems); jsonErr != nil {
-		rctx.Logger().Warn("Failed to decode from JSON", mlog.Err(jsonErr))
-	}
-
-	return parseListItems(listItems, parsed, toBeParsed)
+	return false, parsed, toBeParsed, []model.AutocompleteSuggestion{}
 }
 
 func parseListItems(items []model.AutocompleteListItem, parsed, toBeParsed string) (bool, string, string, []model.AutocompleteSuggestion) {

@@ -5,7 +5,6 @@ package platform
 
 import (
 	"bytes"
-	"errors"
 	"net"
 	"net/http"
 	"net/http/httptest"
@@ -17,29 +16,14 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"github.com/mattermost/mattermost/server/public/model"
-	"github.com/mattermost/mattermost/server/public/plugin"
 )
-
-type hookRunner struct {
-}
-
-func (h *hookRunner) RunMultiHook(hookRunnerFunc func(hooks plugin.Hooks, _ *model.Manifest) bool, hookId int) {
-
-}
-func (h *hookRunner) HooksForPlugin(id string) (plugin.Hooks, error) {
-	return nil, errors.New("not implemented")
-}
-
-func (h *hookRunner) GetPluginsEnvironment() *plugin.Environment {
-	return nil
-}
 
 func TestWebConnAddDeadQueue(t *testing.T) {
 	th := Setup(t)
 
 	wc := th.Service.NewWebConn(&WebConnConfig{
 		WebSocket: &websocket.Conn{},
-	}, th.Suite, &hookRunner{})
+	}, th.Suite)
 
 	for i := range 2 {
 		msg := &model.WebSocketEvent{}
@@ -67,7 +51,7 @@ func TestWebConnIsInDeadQueue(t *testing.T) {
 
 	wc := th.Service.NewWebConn(&WebConnConfig{
 		WebSocket: &websocket.Conn{},
-	}, th.Suite, &hookRunner{})
+	}, th.Suite)
 
 	var i int
 	for ; i < 2; i++ {
@@ -127,7 +111,7 @@ func TestWebConnClearDeadQueue(t *testing.T) {
 
 	wc := th.Service.NewWebConn(&WebConnConfig{
 		WebSocket: &websocket.Conn{},
-	}, th.Suite, &hookRunner{})
+	}, th.Suite)
 
 	var i int
 	for ; i < 2; i++ {
@@ -152,7 +136,7 @@ func TestWebConnDrainDeadQueue(t *testing.T) {
 		cfg := &WebConnConfig{
 			WebSocket: c,
 		}
-		return th.Service.NewWebConn(cfg, th.Suite, &hookRunner{})
+		return th.Service.NewWebConn(cfg, th.Suite)
 	}
 
 	t.Run("Empty Queue", func(t *testing.T) {
@@ -256,7 +240,7 @@ func TestWebConnRejectBinaryFrameUnauthenticated(t *testing.T) {
 
 		wc := th.Service.NewWebConn(&WebConnConfig{
 			WebSocket: conn,
-		}, th.Suite, &hookRunner{})
+		}, th.Suite)
 
 		require.False(t, wc.IsAuthenticated())
 

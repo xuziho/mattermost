@@ -204,7 +204,7 @@ describe('Verify Accessibility Support in different input fields', () => {
             // * Verify if the focus is on the numbered list button
             cy.get('#FormattingControl_ol').should('be.focused').and('have.attr', 'aria-label', 'numbered list');
 
-            // # Skip any additional controls (priority, AI rewrite, BOR) which vary by enterprise config
+            // # Skip any additional controls which vary by enterprise config
             cy.get('#toggleFormattingBarButton').focus();
 
             // * Verify if the focus is on the formatting options button

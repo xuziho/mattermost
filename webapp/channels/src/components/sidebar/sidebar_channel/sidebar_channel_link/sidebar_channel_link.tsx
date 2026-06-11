@@ -14,7 +14,6 @@ import CustomStatusEmoji from 'components/custom_status/custom_status_emoji';
 import SharedChannelIndicator from 'components/shared_channel_indicator';
 import WithTooltip from 'components/with_tooltip';
 
-import Pluggable from 'plugins/pluggable';
 import Constants, {RHSStates} from 'utils/constants';
 import {wrapEmojis} from 'utils/emoji_utils';
 import {cmdOrCtrlPressed} from 'utils/keyboard';
@@ -237,11 +236,7 @@ export class SidebarChannelLink extends React.PureComponent<Props, State> {
                 >
                     {labelElement}
                     {customStatus}
-                    <Pluggable
-                        pluggableName='SidebarChannelLinkLabel'
-                        channel={this.props.channel}
-                    />
-                    {sharedChannelIcon}
+                        {sharedChannelIcon}
                 </div>
                 <ChannelPencilIcon id={channel.id}/>
                 <ChannelMentionBadge

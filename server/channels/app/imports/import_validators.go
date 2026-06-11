@@ -858,7 +858,7 @@ func ValidateAttachmentPathForImport(path, basePath string) (string, bool) {
 		return "", false
 	}
 
-	return joined, true
+	return filepath.ToSlash(joined), true
 }
 
 func ValidateAttachmentImportData(data *AttachmentImportData) *model.AppError {

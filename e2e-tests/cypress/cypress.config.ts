@@ -32,7 +32,6 @@ export default defineConfig({
         cwsAPIURL: 'http://localhost:8076',
         dbClient: 'postgres',
         dbConnection: 'postgres://mmuser:mostest@localhost/mattermost_test?sslmode=disable&connect_timeout=10',
-        elasticsearchConnectionURL: 'http://localhost:9200',
         firstTest: false,
         keycloakAppName: 'mattermost',
         keycloakBaseUrl: 'http://localhost:8484',

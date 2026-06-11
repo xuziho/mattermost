@@ -6,13 +6,10 @@ import React from 'react';
 import type {PreferencesType} from '@mattermost/types/preferences';
 import type {UserProfile} from '@mattermost/types/users';
 
-import type {PluginConfiguration} from 'types/plugins/user_settings';
-
 import AdvancedTab from './advanced';
 import DisplayTab from './display';
 import GeneralTab from './general';
 import NotificationsTab from './notifications';
-import PluginTab from './plugin';
 import SecurityTab from './security';
 import SidebarTab from './sidebar';
 
@@ -25,7 +22,6 @@ export type Props = {
     closeModal: () => void;
     collapseModal: () => void;
     setRequireConfirm: () => void;
-    pluginSettings: {[tabName: string]: PluginConfiguration};
     userPreferences?: PreferencesType;
     adminMode?: boolean;
 };
@@ -111,18 +107,6 @@ export default function UserSettings(props: Props) {
                     adminMode={props.adminMode}
                     user={props.user}
                     userPreferences={props.userPreferences}
-                />
-            </div>
-        );
-    } else if (props.activeTab && props.pluginSettings[props.activeTab]) {
-        return (
-            <div>
-                <PluginTab
-                    activeSection={props.activeSection}
-                    updateSection={props.updateSection}
-                    closeModal={props.closeModal}
-                    collapseModal={props.collapseModal}
-                    settings={props.pluginSettings[props.activeTab]}
                 />
             </div>
         );

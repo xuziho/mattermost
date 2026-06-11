@@ -72,7 +72,6 @@ export type Channel = {
     policy_is_active?: boolean;
     default_category_name?: string;
     managed_category_name?: string;
-    autotranslation?: boolean;
 };
 
 export type ServerChannel = Channel & {
@@ -138,7 +137,6 @@ export type ChannelMembership = {
     scheme_user: boolean;
     scheme_admin: boolean;
     post_root_id?: string;
-    autotranslation_disabled?: boolean;
 };
 
 export type ChannelUnread = {

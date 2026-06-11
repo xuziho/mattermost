@@ -12,13 +12,24 @@ import {showMobileSubMenuModal} from 'actions/global_actions';
 import Constants from 'utils/constants';
 import * as Keyboard from 'utils/keyboard';
 
-import type {Menu} from 'types/store/plugins';
-
 import {isMobile as isMobileViewHack} from '../is_mobile_view_hack';
 
 import './menu_item.scss';
 
-// Requires an object conforming to a submenu structure passed to registerPostDropdownSubMenuAction
+export type MenuItem = {
+    id: string;
+    parentMenuId?: string | null;
+    text: React.ReactNode;
+    selectedValueText?: React.ReactNode;
+    icon?: React.ReactNode;
+    subMenu?: MenuItem[];
+    action?: (id: string) => void;
+    filter?: (id: string) => boolean;
+    direction?: 'left' | 'right';
+    isHeader?: boolean;
+};
+
+// Requires an object conforming to a submenu structure
 // of the form:
 // {
 //     "id": "A",
@@ -45,7 +56,7 @@ export type Props = WrappedComponentProps & {
     text: React.ReactNode;
     selectedValueText?: React.ReactNode;
     renderSelected?: boolean;
-    subMenu?: Menu[];
+    subMenu?: MenuItem[];
     subMenuClass?: string;
     icon?: React.ReactNode;
     action?: (id: string) => void;

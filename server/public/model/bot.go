@@ -13,7 +13,7 @@ import (
 const (
 	BotDisplayNameMaxRunes   = UserFirstNameMaxRunes
 	BotDescriptionMaxRunes   = 1024
-	BotCreatorIdMaxRunes     = KeyValuePluginIdMaxRunes // UserId or PluginId
+	BotCreatorIdMaxRunes     = 26
 	BotWarnMetricBotUsername = "mattermost-advisor"
 	BotSystemBotUsername     = "system-bot"
 )

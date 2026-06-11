@@ -26,9 +26,6 @@ import {
     showPinnedPosts,
     showMentions,
     closeRightHandSide,
-    showRHSPlugin,
-    hideRHSPlugin,
-    toggleRHSPlugin,
     toggleMenu,
     openMenu,
     closeMenu,
@@ -612,87 +609,6 @@ describe('rhs view actions', () => {
         });
 
         expect(store.getActions()).toEqual(compareStore.getActions());
-    });
-
-    describe('Plugin actions', () => {
-        const stateWithPluginRhs = cloneDeep(initialState);
-        set(stateWithPluginRhs, `views.rhs.${pluggableId}`, pluggableId);
-        set(stateWithPluginRhs, 'views.rhs.rhsState', RHSStates.PLUGIN);
-
-        const stateWithoutPluginRhs = cloneDeep(initialState);
-        set(stateWithoutPluginRhs, 'views.rhs.rhsState', RHSStates.PIN);
-
-        describe('showRHSPlugin', () => {
-            it('dispatches the right action', () => {
-                store.dispatch(showRHSPlugin(pluggableId));
-
-                const compareStore = mockStore(initialState);
-                compareStore.dispatch({
-                    type: ActionTypes.UPDATE_RHS_STATE,
-                    state: RHSStates.PLUGIN,
-                    pluggableId,
-                });
-
-                expect(store.getActions()).toEqual(compareStore.getActions());
-            });
-        });
-
-        describe('hideRHSPlugin', () => {
-            it('it dispatches the right action when plugin rhs is opened', () => {
-                store = mockStore(stateWithPluginRhs);
-
-                store.dispatch(hideRHSPlugin(pluggableId));
-
-                const compareStore = mockStore(stateWithPluginRhs);
-                compareStore.dispatch(closeRightHandSide());
-
-                expect(store.getActions()).toEqual(compareStore.getActions());
-            });
-
-            it('it doesn\'t dispatch the action when plugin rhs is closed', () => {
-                store = mockStore(stateWithoutPluginRhs);
-
-                store.dispatch(hideRHSPlugin(pluggableId));
-
-                const compareStore = mockStore(initialState);
-
-                expect(store.getActions()).toEqual(compareStore.getActions());
-            });
-
-            it('it doesn\'t dispatch the action when other plugin rhs is opened', () => {
-                store = mockStore(stateWithPluginRhs);
-
-                store.dispatch(hideRHSPlugin('pluggableId2'));
-
-                const compareStore = mockStore(initialState);
-
-                expect(store.getActions()).toEqual(compareStore.getActions());
-            });
-        });
-
-        describe('toggleRHSPlugin', () => {
-            it('it dispatches hide action when rhs is open', () => {
-                store = mockStore(stateWithPluginRhs);
-
-                store.dispatch(toggleRHSPlugin(pluggableId));
-
-                const compareStore = mockStore(initialState);
-                compareStore.dispatch(closeRightHandSide());
-
-                expect(store.getActions()).toEqual(compareStore.getActions());
-            });
-
-            it('it dispatches hide action when rhs is closed', () => {
-                store = mockStore(stateWithoutPluginRhs);
-
-                store.dispatch(toggleRHSPlugin(pluggableId));
-
-                const compareStore = mockStore(initialState);
-                compareStore.dispatch(showRHSPlugin(pluggableId));
-
-                expect(store.getActions()).toEqual(compareStore.getActions());
-            });
-        });
     });
 
     describe('openAtPrevious', () => {

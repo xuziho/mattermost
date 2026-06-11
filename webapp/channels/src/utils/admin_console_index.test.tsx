@@ -5,8 +5,6 @@ import {createIntl} from 'react-intl';
 
 import AdminDefinition from 'components/admin_console/admin_definition';
 
-import {samplePlugin1, samplePlugin2} from 'tests/helpers/admin_console_plugin_index_sample_pluings';
-
 import {generateIndex} from './admin_console_index';
 
 const enMessages = require('../i18n/en');
@@ -16,7 +14,7 @@ describe('AdminConsoleIndex.generateIndex', () => {
     it('should generate an index where I can search', () => {
         const intl = createIntl({locale: 'en', messages: enMessages, defaultLocale: 'en'});
 
-        const idx = generateIndex(AdminDefinition, intl, {});
+        const idx = generateIndex(AdminDefinition, intl);
         expect(idx.search('ldap')).toEqual([
             'environment/session_lengths',
             'authentication/mfa',
@@ -47,7 +45,7 @@ describe('AdminConsoleIndex.generateIndex', () => {
     xit('should generate a index where I can search in other language', () => {
         const intl = createIntl({locale: 'es', messages: esMessages, defaultLocale: 'es'});
 
-        const idx = generateIndex(AdminDefinition, intl, {});
+        const idx = generateIndex(AdminDefinition, intl);
         expect(idx.search('ldap').sort()).toEqual([
             'authentication/mfa',
             'authentication/ldap',
@@ -74,12 +72,12 @@ describe('AdminConsoleIndex.generateIndex', () => {
         expect(idx.search('notexistingword')).toEqual([]);
     });
 
-    it('should generate a index including the plugin settings', () => {
+    it('should not index removed plugin settings pages', () => {
         const intl = createIntl({locale: 'en', messages: enMessages, defaultLocale: 'en'});
 
-        const idx = generateIndex(AdminDefinition, intl, {[samplePlugin1.id]: samplePlugin1, [samplePlugin2.id]: samplePlugin2});
+        const idx = generateIndex(AdminDefinition, intl);
 
-        expect(idx.search('random')).toEqual(['site_config/users_and_teams', 'plugin_Some-random-plugin', 'site_config/public_links']);
-        expect(idx.search('autolink')).toEqual(['plugin_mattermost-autolink']);
+        expect(idx.search('random')).toEqual(['site_config/users_and_teams', 'site_config/public_links']);
+        expect(idx.search('autolink')).toEqual([]);
     });
 });

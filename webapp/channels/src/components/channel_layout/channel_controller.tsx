@@ -19,7 +19,6 @@ import Sidebar from 'components/sidebar';
 import CRTPostsChannelResetWatcher from 'components/threading/channel_threads/posts_channel_reset_watcher';
 import UnreadsStatusHandler from 'components/unreads_status_handler';
 
-import Pluggable from 'plugins/pluggable';
 import {Constants} from 'utils/constants';
 import {isInternetExplorer, isEdge} from 'utils/user_agent';
 
@@ -82,7 +81,6 @@ export default function ChannelController(props: Props) {
                 <UnreadsStatusHandler/>
                 <div className={classNames('container-fluid channel-view-inner')}>
                     {props.shouldRenderCenterChannel ? <CenterChannel/> : <LoadingScreen centered={true}/>}
-                    <Pluggable pluggableName='Root'/>
                     <ResetStatusModal/>
                 </div>
             </div>

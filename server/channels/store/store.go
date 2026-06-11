@@ -54,7 +54,6 @@ type Store interface {
 	Job() JobStore
 	UserAccessToken() UserAccessTokenStore
 	ChannelMemberHistory() ChannelMemberHistoryStore
-	Plugin() PluginStore
 	TermsOfService() TermsOfServiceStore
 	Group() GroupStore
 	UserTermsOfService() UserTermsOfServiceStore
@@ -94,10 +93,7 @@ type Store interface {
 	PropertyValue() PropertyValueStore
 	AccessControlPolicy() AccessControlPolicyStore
 	Attributes() AttributesStore
-	AutoTranslation() AutoTranslationStore
 	GetSchemaDefinition() (*model.SupportPacketDatabaseSchema, error)
-	ContentFlagging() ContentFlaggingStore
-	Recap() RecapStore
 	ReadReceipt() ReadReceiptStore
 	TemporaryPost() TemporaryPostStore
 }
@@ -425,7 +421,6 @@ type PostStore interface {
 	GetNthRecentPostTime(n int64) (int64, error)
 	// RefreshPostStats refreshes the various materialized views for admin console post stats.
 	RefreshPostStats() error
-	RestoreContentFlaggedPost(post *model.Post, statusFieldId, contentFlaggingManagedFieldId string) error
 	PermanentDeleteAssociatedData(postIds []string) error
 }
 
@@ -515,8 +510,6 @@ type UserStore interface {
 	RefreshPostStatsForUsers() error
 	GetUserReport(filter *model.UserReportOptions) ([]*model.UserReportQuery, error)
 	GetUserCountForReport(filter *model.UserReportOptions) (int64, error)
-	SearchCommonContentFlaggingReviewers(term string) ([]*model.User, error)
-	SearchTeamContentFlaggingReviewers(teamId, term string) ([]*model.User, error)
 }
 
 type BotStore interface {
@@ -839,18 +832,6 @@ type UserAccessTokenStore interface {
 	UpdateTokenDisable(tokenID string) error
 }
 
-type PluginStore interface {
-	SaveOrUpdate(keyVal *model.PluginKeyValue) (*model.PluginKeyValue, error)
-	CompareAndSet(keyVal *model.PluginKeyValue, oldValue []byte) (bool, error)
-	CompareAndDelete(keyVal *model.PluginKeyValue, oldValue []byte) (bool, error)
-	SetWithOptions(pluginID string, key string, value []byte, options model.PluginKVSetOptions) (bool, error)
-	Get(pluginID, key string) (*model.PluginKeyValue, error)
-	Delete(pluginID, key string) error
-	DeleteAllForPlugin(PluginID string) error
-	DeleteAllExpired() error
-	List(pluginID string, page, perPage int) ([]string, error)
-}
-
 type RoleStore interface {
 	Save(role *model.Role) (*model.Role, error)
 	Get(roleID string) (*model.Role, error)
@@ -1162,42 +1143,6 @@ type AttributesStore interface {
 	GetChannelMembersToRemove(rctx request.CTX, channelID string, opts model.SubjectSearchOptions) ([]*model.ChannelMember, error)
 }
 
-type AutoTranslationStore interface {
-	IsUserEnabled(userID, channelID string) (bool, error)
-	GetUserLanguage(userID, channelID string) (string, error)
-	// GetActiveDestinationLanguages returns distinct locales of users who have auto-translation enabled.
-	GetActiveDestinationLanguages(channelID, excludeUserID string, filterUserIDs []string) ([]string, error)
-	Get(objectType, objectID, dstLang string) (*model.Translation, error)
-	GetBatch(objectType string, objectIDs []string, dstLang string) (map[string]*model.Translation, error)
-	GetAllForObject(objectType, objectID string) ([]*model.Translation, error)
-	Save(translation *model.Translation) error
-	GetByStateOlderThan(state model.TranslationState, olderThanMillis int64, limit int) ([]*model.Translation, error)
-
-	ClearCaches()
-	// InvalidateUserAutoTranslation invalidates all auto-translation caches for a user in a channel.
-	// This is called when a user is removed from a channel.
-	InvalidateUserAutoTranslation(userID, channelID string)
-	// InvalidateUserLocaleCache invalidates all language caches for a user across all channels.
-	// This is called when a user changes their locale preference.
-	InvalidateUserLocaleCache(userID string)
-	// GetLatestPostUpdateAtForChannel returns the most recent updateAt timestamp for post translations
-	// in the given channel (across all locales). Returns 0 if no translations exist.
-	GetLatestPostUpdateAtForChannel(channelID string) (int64, error)
-	// InvalidatePostTranslationEtag invalidates the cached post translation etag for a channel.
-	// This should be called after saving a new post translation.
-	InvalidatePostTranslationEtag(channelID string)
-	// GetTranslationsSinceForChannel returns translations updated after `since` for posts in the
-	// given channel and destination language. Only non-processing translations are returned.
-	// The result is keyed by post ID.
-	GetTranslationsSinceForChannel(channelID, dstLang string, since int64) (map[string]*model.Translation, error)
-}
-
-type ContentFlaggingStore interface {
-	SaveReviewerSettings(reviewerSettings model.ReviewerIDsSettings) error
-	GetReviewerSettings() (*model.ReviewerIDsSettings, error)
-	ClearCaches()
-}
-
 type ReadReceiptStore interface {
 	InvalidateReadReceiptForPostsCache(postID string)
 	Save(rctx request.CTX, receipt *model.ReadReceipt) (*model.ReadReceipt, error)
@@ -1304,17 +1249,4 @@ type ThreadMembershipImportData struct {
 	LastViewed int64
 	// UnreadMentions is the number of unread mentions to set the UnreadMentions field to.
 	UnreadMentions int64
-}
-
-type RecapStore interface {
-	SaveRecap(recap *model.Recap) (*model.Recap, error)
-	UpdateRecap(recap *model.Recap) (*model.Recap, error)
-	GetRecap(id string) (*model.Recap, error)
-	GetRecapsForUser(userId string, page, perPage int) ([]*model.Recap, error)
-	UpdateRecapStatus(id, status string) error
-	MarkRecapAsRead(id string) error
-	DeleteRecap(id string) error
-	DeleteRecapChannels(recapId string) error
-	SaveRecapChannel(recapChannel *model.RecapChannel) error
-	GetRecapChannelsByRecapId(recapId string) ([]*model.RecapChannel, error)
 }

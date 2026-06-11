@@ -109,9 +109,6 @@ export const getDefaultConfig = () => {
     const cypressEnv = Cypress.env();
 
     const fromCypressEnv = {
-        ElasticsearchSettings: {
-            ConnectionURL: cypressEnv.elasticsearchConnectionURL,
-        },
         EmailSettings: {
             PushNotificationServer: cypressEnv.pushNotificationServer,
         },
@@ -231,26 +228,6 @@ function isTeamEdition() {
 Cypress.Commands.add('shouldRunOnTeamEdition', () => {
     isTeamEdition().then((isTeam) => {
         expect(isTeam, isTeam ? '' : 'Should run on Team edition only').to.equal(true);
-    });
-});
-
-function isElasticsearchEnabled() {
-    return cy.apiGetConfig().then(({config}) => {
-        let isEnabled = false;
-
-        if (config.ElasticsearchSettings) {
-            const {EnableAutocomplete, EnableIndexing, EnableSearching} = config.ElasticsearchSettings;
-
-            isEnabled = EnableAutocomplete && EnableIndexing && EnableSearching;
-        }
-
-        return cy.wrap(isEnabled);
-    });
-}
-
-Cypress.Commands.add('shouldHaveElasticsearchDisabled', () => {
-    isElasticsearchEnabled().then((data) => {
-        expect(data, data ? 'Should have Elasticsearch disabled' : '').to.equal(false);
     });
 });
 

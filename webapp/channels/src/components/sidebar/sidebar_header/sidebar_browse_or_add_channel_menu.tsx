@@ -3,7 +3,6 @@
 
 import React from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
-import {useSelector} from 'react-redux';
 
 import {
     PlusIcon,
@@ -13,10 +12,6 @@ import {
     GlobeIcon,
     AccountOutlineIcon,
 } from '@mattermost/compass-icons/components';
-
-import {getCurrentTeamId} from 'mattermost-redux/selectors/entities/teams';
-
-import {getSidebarBrowseOrAddChannelMenuPluginComponents} from 'selectors/plugins';
 
 import * as Menu from 'components/menu';
 
@@ -38,8 +33,6 @@ type Props = {
 
 export default function SidebarBrowserOrAddChannelMenu(props: Props) {
     const {formatMessage} = useIntl();
-    const currentTeamId = useSelector(getCurrentTeamId);
-    const pluginMenuItems = useSelector(getSidebarBrowseOrAddChannelMenuPluginComponents);
 
     let createNewChannelMenuItem: JSX.Element | null = null;
     if (props.canCreateChannel) {
@@ -149,27 +142,6 @@ export default function SidebarBrowserOrAddChannelMenu(props: Props) {
         />
     );
 
-    let pluggableMenuItems: JSX.Element[] = [];
-    if (pluginMenuItems) {
-        pluggableMenuItems = pluginMenuItems.map((item) => {
-            const handlePluginItemClick = () => {
-                if (item.action) {
-                    item.action(currentTeamId);
-                }
-            };
-
-            return (
-                <Menu.Item
-                    id={item.id + '_pluginmenuitem'}
-                    key={item.id + '_pluginmenuitem'}
-                    onClick={handlePluginItemClick}
-                    leadingElement={item.icon}
-                    labels={<span>{item.text}</span>}
-                />
-            );
-        });
-    }
-
     return (
         <Menu.Container
             menuButton={{
@@ -193,7 +165,6 @@ export default function SidebarBrowserOrAddChannelMenu(props: Props) {
             {browseChannelsMenuItem}
             {createDirectMessageMenuItem}
             {createUserGroupMenuItem}
-            {pluggableMenuItems}
             {Boolean(createNewCategoryMenuItem) &&
                 <Menu.Separator/>
             }

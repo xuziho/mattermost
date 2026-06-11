@@ -1,7 +1,6 @@
 // Copyright (c) 2015-present Mattermost, Inc. All Rights Reserved.
 // See LICENSE.txt for license information.
 
-import type {ReactNode} from 'react';
 import React from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
 import {useSelector} from 'react-redux';
@@ -24,7 +23,6 @@ import ChannelPermissionGate from 'components/permissions_gates/channel_permissi
 
 import type {GlobalState} from 'types/store';
 
-import MenuItemAutotranslation from '../menu_items/autotranslation';
 import MenuItemChannelBookmarks from '../menu_items/channel_bookmarks_submenu';
 import MenuItemChannelSettings from '../menu_items/channel_settings_menu';
 import CloseMessage from '../menu_items/close_message';
@@ -32,7 +30,6 @@ import MenuItemConvertToPrivate from '../menu_items/convert_gm_to_private';
 import EditConversationHeader from '../menu_items/edit_conversation_header';
 import MenuItemNotification from '../menu_items/notification';
 import MenuItemOpenMembersRHS from '../menu_items/open_members_rhs';
-import MenuItemPluginItems from '../menu_items/plugins_submenu';
 import MenuItemToggleFavoriteChannel from '../menu_items/toggle_favorite_channel';
 import MenuItemToggleInfo from '../menu_items/toggle_info';
 import MenuItemToggleMuteChannel from '../menu_items/toggle_mute_channel';
@@ -44,12 +41,10 @@ interface Props extends Menu.FirstMenuItemProps {
     isMuted: boolean;
     isMobile: boolean;
     isFavorite: boolean;
-    pluginItems: ReactNode[];
     isChannelBookmarksEnabled: boolean;
-    isChannelAutotranslated: boolean;
 }
 
-const ChannelHeaderGroupMenu = ({channel, user, isMuted, isMobile, isFavorite, pluginItems, isChannelBookmarksEnabled, isChannelAutotranslated, ...rest}: Props) => {
+const ChannelHeaderGroupMenu = ({channel, user, isMuted, isMobile, isFavorite, isChannelBookmarksEnabled, ...rest}: Props) => {
     const isGroupConstrained = channel?.group_constrained === true;
     const isArchived = channel.delete_at !== 0;
     const {formatMessage} = useIntl();
@@ -130,11 +125,6 @@ const ChannelHeaderGroupMenu = ({channel, user, isMuted, isMobile, isFavorite, p
                     )}
                 </>
             )}
-            {isChannelAutotranslated && (
-                <MenuItemAutotranslation
-                    channel={channel}
-                />
-            )}
             {!isArchived && !isGuest(user.roles) && isChannelBookmarksEnabled && (
                 <MenuItemChannelBookmarks
                     channel={channel}
@@ -161,9 +151,6 @@ const ChannelHeaderGroupMenu = ({channel, user, isMuted, isMobile, isFavorite, p
                 </ChannelPermissionGate>
             )}
             <ChannelMoveToSubMenu channel={channel}/>
-            {!isMobile && (
-                <MenuItemPluginItems pluginItems={pluginItems}/>
-            )}
             <Menu.Separator/>
             <CloseMessage
                 currentUserID={user.id}

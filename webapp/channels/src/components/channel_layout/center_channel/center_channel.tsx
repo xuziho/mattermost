@@ -29,13 +29,6 @@ const Drafts = makeAsyncComponent('Drafts', lazy(() => import('components/drafts
         </div>
     ),
 );
-const Recaps = makeAsyncComponent('Recaps', lazy(() => import('components/recaps')),
-    (
-        <div className='app__content'>
-            <LoadingScreen/>
-        </div>
-    ),
-);
 const PermalinkView = makeAsyncComponent('PermalinkView', lazy(() => import('components/permalink_view')));
 
 type Props = PropsFromRedux & OwnProps;
@@ -104,10 +97,6 @@ export default class CenterChannel extends React.PureComponent<Props, State> {
                                 component={GlobalThreads}
                             />
                         ) : null}
-                        <Route
-                            path={`/:team(${TEAM_NAME_PATH_PATTERN})/recaps`}
-                            component={Recaps}
-                        />
                         <Route
                             path={`/:team(${TEAM_NAME_PATH_PATTERN})/drafts`}
                             component={Drafts}

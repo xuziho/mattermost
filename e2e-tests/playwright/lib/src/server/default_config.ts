@@ -10,7 +10,6 @@ import {
     ExperimentalSettings,
     LogSettings,
     PasswordSettings,
-    PluginSettings,
     ServiceSettings,
     TeamSettings,
 } from '@mattermost/types/config';
@@ -31,7 +30,6 @@ type TestAdminConfig = {
     ExperimentalSettings: Partial<ExperimentalSettings>;
     LogSettings: Partial<LogSettings>;
     PasswordSettings: Partial<PasswordSettings>;
-    PluginSettings: Partial<PluginSettings>;
     ServiceSettings: Partial<ServiceSettings>;
     TeamSettings: Partial<TeamSettings>;
 };
@@ -57,19 +55,9 @@ const onPremServerConfig = (): Partial<TestAdminConfig> => {
             Symbol: false,
             EnableForgotLink: true,
         },
-        PluginSettings: {
-            EnableUploads: true,
-            PluginStates: {
-                'com.mattermost.nps': {
-                    Enable: false,
-                },
-            },
-        },
         ServiceSettings: {
             SiteURL: testConfig.baseURL,
-            EnableOnboardingFlow: false,
             EnableSecurityFixAlert: false,
-            GiphySdkKey: 's0glxvzVg9azvPipKxcPLpXV0q1x1fVP',
             EnableTesting: true,
         },
         TeamSettings: {
@@ -145,8 +133,6 @@ const defaultServerConfig: AdminConfig = {
         WebsocketSecurePort: 443,
         WebsocketPort: 80,
         WebserverMode: 'gzip',
-        EnableGifPicker: true,
-        GiphySdkKey: '',
         EnableCustomEmoji: true,
         EnableEmojiPicker: true,
         PostEditTimeLimit: -1,
@@ -161,7 +147,6 @@ const defaultServerConfig: AdminConfig = {
         ExperimentalEnableAuthenticationTransfer: true,
         ClusterLogTimeoutMilliseconds: 2000,
         EnableTutorial: true,
-        EnableOnboardingFlow: true,
         ExperimentalEnableDefaultChannelLeaveJoinMessages: true,
         ExperimentalGroupUnreadChannels: 'disabled',
         EnableAPITeamDeletion: false,
@@ -385,16 +370,11 @@ const defaultServerConfig: AdminConfig = {
         TermsOfServiceLink: 'https://mattermost.com/pl/terms-of-use/',
         PrivacyPolicyLink: 'https://mattermost.com/pl/privacy-policy/',
         AboutLink: 'https://mattermost.com/pl/about-mattermost',
-        HelpLink: 'https://mattermost.com/pl/help/',
-        ReportAProblemLink: 'https://mattermost.com/pl/report-a-bug',
-        ReportAProblemType: 'default',
-        ReportAProblemMail: '',
         AllowDownloadLogs: true,
         ForgotPasswordLink: '',
         SupportEmail: '',
         CustomTermsOfServiceEnabled: false,
         CustomTermsOfServiceReAcceptancePeriod: 365,
-        EnableAskCommunityLink: true,
     },
     AnnouncementSettings: {
         EnableBanner: false,
@@ -618,37 +598,6 @@ const defaultServerConfig: AdminConfig = {
     AnalyticsSettings: {
         MaxUsersForStatistics: 2500,
     },
-    ElasticsearchSettings: {
-        ConnectionURL: 'http://localhost:9200',
-        Backend: 'elasticsearch',
-        Username: 'elastic',
-        Password: 'changeme',
-        EnableIndexing: false,
-        EnableSearching: false,
-        EnableCJKAnalyzers: false,
-        EnableAutocomplete: false,
-        Sniff: true,
-        PostIndexReplicas: 1,
-        PostIndexShards: 1,
-        ChannelIndexReplicas: 1,
-        ChannelIndexShards: 1,
-        UserIndexReplicas: 1,
-        UserIndexShards: 1,
-        AggregatePostsAfterDays: 365,
-        PostsAggregatorJobStartTime: '03:00',
-        IndexPrefix: '',
-        GlobalSearchPrefix: '',
-        LiveIndexingBatchSize: 10,
-        BatchSize: 10000,
-        RequestTimeoutSeconds: 30,
-        SkipTLSVerification: false,
-        CA: '',
-        ClientCert: '',
-        ClientKey: '',
-        Trace: '',
-        IgnoredPurgeIndexes: '',
-        EnableSearchPublicChannelsWithoutMembership: false,
-    },
     DataRetentionSettings: {
         EnableMessageDeletion: false,
         EnableFileDeletion: false,
@@ -687,26 +636,6 @@ const defaultServerConfig: AdminConfig = {
         CleanupJobsThresholdDays: -1,
         CleanupConfigThresholdDays: -1,
     },
-    PluginSettings: {
-        Enable: true,
-        EnableUploads: false,
-        AllowInsecureDownloadURL: false,
-        EnableHealthCheck: true,
-        Directory: './plugins',
-        ClientDirectory: './client/plugins',
-        Plugins: {},
-        PluginStates: {
-            'com.mattermost.nps': {
-                Enable: true,
-            },
-            'mattermost-ai': {
-                Enable: true,
-            },
-        },
-        RequirePluginSignature: false,
-        SignaturePublicKeyFiles: [],
-        ChimeraOAuthProxyURL: '',
-    },
     DisplaySettings: {
         CustomURLSchemes: [],
         MaxMarkdownNodes: 0,
@@ -724,13 +653,6 @@ const defaultServerConfig: AdminConfig = {
         ImageProxyType: 'local',
         RemoteImageProxyURL: '',
         RemoteImageProxyOptions: '',
-    },
-    CloudSettings: {
-        CWSURL: 'https://customers.mattermost.com',
-        CWSAPIURL: 'https://portal.internal.prod.cloud.mattermost.com',
-        CWSMock: false,
-        Disable: false,
-        PreviewModalBucketURL: '',
     },
     FeatureFlags: {
         TestFeature: 'off',
@@ -760,14 +682,10 @@ const defaultServerConfig: AdminConfig = {
         CustomProfileAttributes: true,
         AttributeBasedAccessControl: true,
         PermissionPolicies: true,
-        ContentFlagging: true,
         InteractiveDialogAppsForm: true,
         EnableMattermostEntry: true,
         MobileSSOCodeExchange: false,
-        AutoTranslation: true,
         BurnOnRead: true,
-        EnableAIPluginBridge: false,
-        EnableAIRecaps: false,
         CJKSearch: false,
     },
     ImportSettings: {
@@ -799,52 +717,5 @@ const defaultServerConfig: AdminConfig = {
     AccessControlSettings: {
         EnableAttributeBasedAccessControl: false,
         EnableUserManagedAttributes: false,
-    },
-    ContentFlaggingSettings: {
-        EnableContentFlagging: false,
-        NotificationSettings: {
-            EventTargetMapping: {
-                assigned: ['reviewers'],
-                dismissed: ['reviewers', 'reporter'],
-                flagged: ['reviewers'],
-                removed: ['reviewers', 'author', 'reporter'],
-            },
-        },
-        AdditionalSettings: {
-            Reasons: [
-                'Classification mismatch',
-                'Need-to-know violation',
-                'Personally identifiable information (PII) exposure',
-                'Operational security (OPSEC) concern',
-                'Controlled Unclassified Information (CUI) violation',
-                'Unauthorized disclosure',
-                'Other',
-            ],
-            ReporterCommentRequired: true,
-            ReviewerCommentRequired: true,
-            HideFlaggedContent: true,
-        },
-        ReviewerSettings: {
-            CommonReviewers: true,
-            CommonReviewerIds: [],
-            TeamReviewersSetting: {},
-            SystemAdminsAsReviewers: false,
-            TeamAdminsAsReviewers: true,
-        },
-    },
-    AutoTranslationSettings: {
-        Enable: false,
-        RestrictDMAndGM: false,
-        Provider: '',
-        TargetLanguages: ['en'],
-        Workers: 6,
-        TimeoutMs: 5000,
-        LibreTranslate: {
-            URL: '',
-            APIKey: '',
-        },
-        Agents: {
-            LLMServiceID: '',
-        },
     },
 };

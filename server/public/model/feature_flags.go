@@ -63,8 +63,6 @@ type FeatureFlags struct {
 	// Requires AttributeBasedAccessControl to also be enabled.
 	PermissionPolicies bool
 
-	ContentFlagging bool
-
 	// Enable AppsForm for Interactive Dialogs instead of legacy dialog implementation
 	InteractiveDialogAppsForm bool
 
@@ -75,18 +73,8 @@ type FeatureFlags struct {
 	// Mobile clients should use the direct SSO callback flow with srv parameter verification.
 	MobileSSOCodeExchange bool
 
-	// FEATURE_FLAG_REMOVAL: AutoTranslation - Remove this when MVP is to be released
-	// Enable auto-translation feature for messages in channels
-	AutoTranslation bool
-
 	// Enable burn-on-read messages that automatically delete after viewing
 	BurnOnRead bool
-
-	// FEATURE_FLAG_REMOVAL: EnableAIPluginBridge
-	EnableAIPluginBridge bool
-
-	// FEATURE_FLAG_REMOVAL: EnableAIRecaps - Remove this when GA is released
-	EnableAIRecaps bool
 
 	// Enable LIKE-based CJK (Chinese, Japanese, Korean) search for PostgreSQL
 	CJKSearch bool
@@ -116,21 +104,13 @@ func (f *FeatureFlags) SetDefaults() {
 	f.CustomProfileAttributes = true
 	f.AttributeBasedAccessControl = true
 	f.PermissionPolicies = false
-	f.ContentFlagging = true
 	f.InteractiveDialogAppsForm = true
 	f.EnableMattermostEntry = true
 
 	// DEPRECATED: Disabled by default - mobile clients use direct SSO callback flow
 	f.MobileSSOCodeExchange = false
 
-	f.AutoTranslation = true
-
 	f.BurnOnRead = true
-
-	// FEATURE_FLAG_REMOVAL: EnableAIPluginBridge - Remove this default when MVP is to be released
-	f.EnableAIPluginBridge = false
-
-	f.EnableAIRecaps = false
 
 	f.CJKSearch = false
 

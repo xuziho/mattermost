@@ -33,7 +33,6 @@ function mapStateToProps(state: GlobalState, ownProps: OwnProps) {
         canDownloadFiles: canDownloadFiles(config),
         enablePublicLink: config.EnablePublicLink === 'true',
         isMobileView: getIsMobileView(state),
-        pluginFilePreviewComponents: state.plugins.components.FilePreview,
         post: ownProps.post || getPost(state, ownProps.postId || ''),
     };
 }

@@ -22,10 +22,7 @@ import {focusElement} from 'utils/a11y_utils';
 import Constants from 'utils/constants';
 import {cmdOrCtrlPressed, isKeyPressed} from 'utils/keyboard';
 import {stopTryNotificationRing} from 'utils/notification_sounds';
-import {isValidUrl} from 'utils/url';
 import {getDisplayName} from 'utils/utils';
-
-import type {PluginConfiguration} from 'types/plugins/user_settings';
 
 import './user_settings_modal.scss';
 
@@ -39,7 +36,6 @@ export type OwnProps = {
 
 export type Props = OwnProps & {
     intl: IntlShape;
-    pluginSettings: {[pluginId: string]: PluginConfiguration};
     user?: UserProfile;
     onExited: () => void;
     focusOriginElement?: string;
@@ -305,19 +301,6 @@ class UserSettingsModal extends React.PureComponent<Props, State> {
         ];
     };
 
-    getPluginsSettingsTab = () => {
-        return Object.values(this.props.pluginSettings).map((v) => {
-            const useURL = v.icon && (isValidUrl(v.icon) || v.icon.startsWith('/'));
-            const className = v.icon ? `icon ${v.icon}` : 'icon icon-power-plug-outline';
-            return {
-                name: v.id,
-                uiName: v.uiName,
-                icon: useURL ? {url: v.icon!} : className,
-                iconTitle: v.uiName,
-            };
-        });
-    };
-
     render() {
         const {formatMessage} = this.props.intl;
 
@@ -391,7 +374,7 @@ class UserSettingsModal extends React.PureComponent<Props, State> {
                                 <div className='settings-links'>
                                     <SettingsSidebar
                                         tabs={this.props.isContentProductSettings ? this.getUserSettingsTabs() : this.getProfileSettingsTab()}
-                                        pluginTabs={this.props.isContentProductSettings ? this.getPluginsSettingsTab() : []}
+                                        pluginTabs={[]}
                                         activeTab={this.state.active_tab}
                                         updateTab={this.updateTab}
                                     />
@@ -408,7 +391,6 @@ class UserSettingsModal extends React.PureComponent<Props, State> {
                                             this.requireConfirm = requireConfirm || false;
                                             this.customConfirmAction = customConfirmAction || null;
                                         }}
-                                        pluginSettings={this.props.pluginSettings}
                                         user={this.props.user}
                                         adminMode={this.props.adminMode}
                                         userPreferences={this.props.userPreferences}

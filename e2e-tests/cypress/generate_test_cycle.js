@@ -57,7 +57,7 @@
  * 5. "node generate_test_cycle.js --stage='@prod' --exclude-group='@enterprise'"
  *      - will create test cycle for all production tests except @enterprise group
  *      - typical test run for Team Edition
- * 6. "node generate_test_cycle.js --stage='@prod' --sort-first='@elasticsearch' --sort-last='@mfa'"
+ * 6. "node generate_test_cycle.js --stage='@prod' --sort-first='@channels' --sort-last='@mfa'"
  *      - will create test cycle for all production tests with specs specifically ordered as first and last
  */
 

@@ -72,12 +72,6 @@
     "system_read_only_admin": "read"
   },
   {
-    "section": "environment.elasticsearch",
-    "system_manager": "read+write",
-    "system_user_manager": "none",
-    "system_read_only_admin": "read"
-  },
-  {
     "section": "environment.storage",
     "system_manager": "read+write",
     "system_user_manager": "none",

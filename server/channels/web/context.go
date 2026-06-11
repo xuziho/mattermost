@@ -783,28 +783,6 @@ func (c *Context) RequireInvoiceId() *Context {
 	return c
 }
 
-func (c *Context) RequireContentReviewerId() *Context {
-	if c.Err != nil {
-		return c
-	}
-
-	if !model.IsValidId(c.Params.ContentReviewerId) {
-		c.SetInvalidURLParam("content_reviewer_id")
-	}
-	return c
-}
-
-func (c *Context) RequireRecapId() *Context {
-	if c.Err != nil {
-		return c
-	}
-
-	if !model.IsValidId(c.Params.RecapId) {
-		c.SetInvalidURLParam("recap_id")
-	}
-	return c
-}
-
 func (c *Context) RequireViewId() *Context {
 	if c.Err != nil {
 		return c

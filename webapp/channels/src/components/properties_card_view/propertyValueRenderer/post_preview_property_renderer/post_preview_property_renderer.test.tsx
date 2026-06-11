@@ -12,8 +12,6 @@ import type {Team} from '@mattermost/types/teams';
 import type {UserProfile} from '@mattermost/types/users';
 import type {DeepPartial} from '@mattermost/types/utilities';
 
-import {Client4} from 'mattermost-redux/client';
-
 import type {PostPreviewFieldMetadata} from 'components/properties_card_view/properties_card_view';
 
 import {renderWithContext} from 'tests/react_testing_utils';
@@ -62,7 +60,7 @@ describe('PostPreviewPropertyRenderer', () => {
         } as PropertyValue<string>,
         metadata: {
             fetchDeletedPost: true,
-            getPost: (postId: string) => Client4.getFlaggedPost(postId),
+            getPost: jest.fn().mockResolvedValue(mockPost),
             post: mockPost,
             channel: mockChannel,
             team: mockTeam,

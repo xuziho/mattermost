@@ -1,11 +1,7 @@
 // Copyright (c) 2015-present Mattermost, Inc. All Rights Reserved.
 // See LICENSE.txt for license information.
 
-import {useSelector} from 'react-redux';
-
 import type {UserPropertyField} from '@mattermost/types/properties';
-
-import type {GlobalState} from 'types/store';
 
 export function isFieldOrphaned(
     field: UserPropertyField,
@@ -20,6 +16,5 @@ export function isFieldOrphaned(
 }
 
 export function useIsFieldOrphaned(field: UserPropertyField): boolean {
-    const installedPlugins = useSelector((state: GlobalState) => state.entities.admin.plugins ?? {});
-    return isFieldOrphaned(field, installedPlugins);
+    return isFieldOrphaned(field, {});
 }

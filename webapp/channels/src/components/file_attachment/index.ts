@@ -13,7 +13,6 @@ import {isFileRejected} from 'mattermost-redux/selectors/entities/files';
 import {getConfig} from 'mattermost-redux/selectors/entities/general';
 
 import {openModal} from 'actions/views/modals';
-import {getFilesDropdownPluginMenuItems} from 'selectors/plugins';
 
 import {canDownloadFiles} from 'utils/file_utils';
 
@@ -33,7 +32,6 @@ function mapStateToProps(state: GlobalState, ownProps: OwnProps) {
         canDownloadFiles: !ownProps.preventDownload && canDownloadFiles(config),
         enableSVGs: config.EnableSVGs === 'true',
         enablePublicLink: config.EnablePublicLink === 'true',
-        pluginMenuItems: getFilesDropdownPluginMenuItems(state),
         currentChannel: getCurrentChannel(state),
         isFileRejected: isFileRejected(state, ownProps.fileInfo.id),
     };

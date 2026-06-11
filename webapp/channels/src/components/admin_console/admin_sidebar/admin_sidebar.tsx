@@ -7,8 +7,6 @@ import React from 'react';
 import {FormattedMessage, injectIntl} from 'react-intl';
 import type {IntlShape} from 'react-intl';
 
-import type {PluginRedux} from '@mattermost/types/plugins';
-
 import AdminSidebarCategory from 'components/admin_console/admin_sidebar/admin_sidebar_category';
 import AdminSidebarSection from 'components/admin_console/admin_sidebar/admin_sidebar_section';
 import AdminSidebarHeader from 'components/admin_console/admin_sidebar_header';
@@ -28,6 +26,8 @@ import type {PropsFromRedux} from './index';
 export interface Props extends PropsFromRedux {
     intl: IntlShape;
     onSearchChange: (term: string) => void;
+    plugins?: Record<string, unknown>;
+    actions?: Record<string, unknown>;
 }
 
 type State = {
@@ -38,10 +38,6 @@ type State = {
 class AdminSidebar extends React.PureComponent<Props, State> {
     searchRef: React.RefObject<HTMLInputElement>;
     idx: Index | null;
-
-    static defaultProps = {
-        plugins: {},
-    };
 
     constructor(props: Props) {
         super(props);
@@ -54,10 +50,6 @@ class AdminSidebar extends React.PureComponent<Props, State> {
     }
 
     componentDidMount() {
-        if (this.props.config.PluginSettings?.Enable) {
-            this.props.actions.getPlugins();
-        }
-
         if (this.searchRef.current && !getHistory().location.hash) {
             // default focus if no other target/hash is specified for auto-focus
             this.searchRef.current.focus();
@@ -68,9 +60,8 @@ class AdminSidebar extends React.PureComponent<Props, State> {
 
     componentDidUpdate(prevProps: Props) {
         if (this.idx !== null &&
-            (!isEqual(this.props.plugins, prevProps.plugins) ||
-                !isEqual(this.props.adminDefinition, prevProps.adminDefinition))) {
-            this.idx = generateIndex(this.props.adminDefinition, this.props.intl, this.props.plugins);
+            !isEqual(this.props.adminDefinition, prevProps.adminDefinition)) {
+            this.idx = generateIndex(this.props.adminDefinition, this.props.intl);
         }
     }
 
@@ -83,7 +74,7 @@ class AdminSidebar extends React.PureComponent<Props, State> {
         }
 
         if (this.idx === null) {
-            this.idx = generateIndex(this.props.adminDefinition, this.props.intl, this.props.plugins);
+            this.idx = generateIndex(this.props.adminDefinition, this.props.intl);
         }
         let query = '';
         for (const term of filter.split(' ')) {
@@ -197,12 +188,6 @@ class AdminSidebar extends React.PureComponent<Props, State> {
                     ));
                 });
 
-                // Special case for plugins entries
-                if ((section as typeof AdminDefinition['plugins']).id === 'plugins') {
-                    const sidebarPluginItems = this.renderPluginsMenu();
-                    sidebarItems.push(...sidebarPluginItems);
-                }
-
                 // If no visible items, don't display this section
                 if (sidebarItems.length === 0) {
                     return null;
@@ -228,36 +213,6 @@ class AdminSidebar extends React.PureComponent<Props, State> {
             return null;
         });
         return sidebarSections;
-    };
-
-    isPluginPresentInSections = (plugin: PluginRedux) => {
-        return this.state.sections && this.state.sections.indexOf(`plugin_${plugin.id}`) >= 0;
-    };
-
-    renderPluginsMenu = () => {
-        const {config, plugins} = this.props;
-        if (config.PluginSettings?.Enable && plugins) {
-            return Object.values(plugins).sort((a, b) => {
-                const nameCompare = a.name.localeCompare(b.name);
-                if (nameCompare !== 0) {
-                    return nameCompare;
-                }
-
-                return a.id.localeCompare(b.id);
-            }).
-                filter((plugin) => this.state.sections === null || this.isPluginPresentInSections(plugin)).
-                map((plugin) => {
-                    return (
-                        <AdminSidebarSection
-                            key={'customplugin' + plugin.id}
-                            name={'plugins/plugin_' + plugin.id}
-                            title={plugin.name}
-                        />
-                    );
-                });
-        }
-
-        return [];
     };
 
     handleClearFilter = () => {

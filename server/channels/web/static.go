@@ -37,14 +37,11 @@ func (w *Web) InitStatic() {
 		subpath, _ := utils.GetSubpathFromConfig(w.srv.Config())
 
 		staticHandler := staticFilesHandler(http.StripPrefix(path.Join(subpath, "static"), http.FileServer(http.Dir(staticDir))))
-		pluginHandler := staticFilesHandler(http.StripPrefix(path.Join(subpath, "static", "plugins"), http.FileServer(http.Dir(*w.srv.Config().PluginSettings.ClientDirectory))))
 
 		if *w.srv.Config().ServiceSettings.WebserverMode == "gzip" {
 			staticHandler = gzhttp.GzipHandler(staticHandler)
-			pluginHandler = gzhttp.GzipHandler(pluginHandler)
 		}
 
-		w.MainRouter.PathPrefix("/static/plugins/").Handler(pluginHandler)
 		w.MainRouter.PathPrefix("/static/").Handler(staticHandler)
 		w.MainRouter.Handle("/robots.txt", http.HandlerFunc(robotsHandler))
 		w.MainRouter.Handle("/unsupported_browser.js", http.HandlerFunc(unsupportedBrowserScriptHandler))

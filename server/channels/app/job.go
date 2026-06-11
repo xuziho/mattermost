@@ -206,15 +206,10 @@ func (a *App) SessionHasPermissionToCreateJob(session model.Session, job *model.
 		return a.SessionHasPermissionTo(session, model.PermissionCreateDataRetentionJob), model.PermissionCreateDataRetentionJob
 	case model.JobTypeMessageExport:
 		return a.SessionHasPermissionTo(session, model.PermissionCreateComplianceExportJob), model.PermissionCreateComplianceExportJob
-	case model.JobTypeElasticsearchPostIndexing:
-		return a.SessionHasPermissionTo(session, model.PermissionCreateElasticsearchPostIndexingJob), model.PermissionCreateElasticsearchPostIndexingJob
-	case model.JobTypeElasticsearchPostAggregation:
-		return a.SessionHasPermissionTo(session, model.PermissionCreateElasticsearchPostAggregationJob), model.PermissionCreateElasticsearchPostAggregationJob
 	case model.JobTypeLdapSync:
 		return a.SessionHasPermissionTo(session, model.PermissionCreateLdapSyncJob), model.PermissionCreateLdapSyncJob
 	case
 		model.JobTypeMigrations,
-		model.JobTypePlugins,
 		model.JobTypeExpiryNotify,
 		model.JobTypeActiveUsers,
 		model.JobTypeImportProcess,
@@ -275,15 +270,10 @@ func (a *App) SessionHasPermissionToManageJob(session model.Session, job *model.
 		permission = model.PermissionManageDataRetentionJob
 	case model.JobTypeMessageExport:
 		permission = model.PermissionManageComplianceExportJob
-	case model.JobTypeElasticsearchPostIndexing:
-		permission = model.PermissionManageElasticsearchPostIndexingJob
-	case model.JobTypeElasticsearchPostAggregation:
-		permission = model.PermissionManageElasticsearchPostAggregationJob
 	case model.JobTypeLdapSync:
 		permission = model.PermissionManageLdapSyncJob
 	case
 		model.JobTypeMigrations,
-		model.JobTypePlugins,
 		model.JobTypeExpiryNotify,
 		model.JobTypeActiveUsers,
 		model.JobTypeImportProcess,
@@ -309,15 +299,10 @@ func (a *App) SessionHasPermissionToReadJob(session model.Session, jobType strin
 		return a.SessionHasPermissionTo(session, model.PermissionReadDataRetentionJob), model.PermissionReadDataRetentionJob
 	case model.JobTypeMessageExport:
 		return a.SessionHasPermissionTo(session, model.PermissionReadComplianceExportJob), model.PermissionReadComplianceExportJob
-	case model.JobTypeElasticsearchPostIndexing:
-		return a.SessionHasPermissionTo(session, model.PermissionReadElasticsearchPostIndexingJob), model.PermissionReadElasticsearchPostIndexingJob
-	case model.JobTypeElasticsearchPostAggregation:
-		return a.SessionHasPermissionTo(session, model.PermissionReadElasticsearchPostAggregationJob), model.PermissionReadElasticsearchPostAggregationJob
 	case model.JobTypeLdapSync:
 		return a.SessionHasPermissionTo(session, model.PermissionReadLdapSyncJob), model.PermissionReadLdapSyncJob
 	case
 		model.JobTypeMigrations,
-		model.JobTypePlugins,
 		model.JobTypeExpiryNotify,
 		model.JobTypeActiveUsers,
 		model.JobTypeImportProcess,

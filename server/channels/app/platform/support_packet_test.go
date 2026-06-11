@@ -21,7 +21,6 @@ import (
 	"github.com/mattermost/mattermost/server/v8/channels/testlib"
 	"github.com/mattermost/mattermost/server/v8/config"
 	emocks "github.com/mattermost/mattermost/server/v8/einterfaces/mocks"
-	semocks "github.com/mattermost/mattermost/server/v8/platform/services/searchengine/mocks"
 	fmocks "github.com/mattermost/mattermost/server/v8/platform/shared/filestore/mocks"
 )
 
@@ -242,9 +241,6 @@ func TestGetSupportPacketDiagnostics(t *testing.T) {
 		/* SAML */
 		assert.Empty(t, d.SAML.ProviderType)
 
-		/* Elastic Search */
-		assert.Empty(t, d.ElasticSearch.ServerVersion)
-		assert.Empty(t, d.ElasticSearch.ServerPlugins)
 	})
 
 	t.Run("filestore fails", func(t *testing.T) {
@@ -415,77 +411,6 @@ func TestGetSupportPacketDiagnostics(t *testing.T) {
 		assert.Equal(t, "unknown", packet.SAML.ProviderType)
 	})
 
-	t.Run("Elasticsearch config test when indexing disabled", func(t *testing.T) {
-		th.Service.UpdateConfig(func(cfg *model.Config) {
-			cfg.ElasticsearchSettings.Backend = model.NewPointer(model.ElasticsearchSettingsESBackend)
-			cfg.ElasticsearchSettings.EnableIndexing = model.NewPointer(false)
-		})
-
-		esMock := &semocks.SearchEngineInterface{}
-		esMock.On("GetFullVersion").Return("7.10.0")
-		esMock.On("GetPlugins").Return([]string{"plugin1", "plugin2"})
-		originalES := th.Service.SearchEngine.ElasticsearchEngine
-		t.Cleanup(func() {
-			th.Service.SearchEngine.ElasticsearchEngine = originalES
-		})
-		th.Service.SearchEngine.ElasticsearchEngine = esMock
-
-		packet := getDiagnostics(t)
-
-		assert.Equal(t, model.ElasticsearchSettingsESBackend, packet.ElasticSearch.Backend)
-		assert.Equal(t, "7.10.0", packet.ElasticSearch.ServerVersion)
-		assert.Equal(t, []string{"plugin1", "plugin2"}, packet.ElasticSearch.ServerPlugins)
-		assert.Empty(t, packet.ElasticSearch.Error)
-	})
-
-	t.Run("Elasticsearch config test when indexing enabled and config valid", func(t *testing.T) {
-		th.Service.UpdateConfig(func(cfg *model.Config) {
-			cfg.ElasticsearchSettings.Backend = model.NewPointer(model.ElasticsearchSettingsOSBackend)
-			cfg.ElasticsearchSettings.EnableIndexing = model.NewPointer(true)
-		})
-
-		esMock := &semocks.SearchEngineInterface{}
-		esMock.On("GetFullVersion").Return("2.5.0")
-		esMock.On("GetPlugins").Return([]string{"opensearch-plugin"})
-		esMock.On("TestConfig", mock.AnythingOfType("*request.Context"), mock.Anything).Return(nil)
-		originalES := th.Service.SearchEngine.ElasticsearchEngine
-		t.Cleanup(func() {
-			th.Service.SearchEngine.ElasticsearchEngine = originalES
-		})
-		th.Service.SearchEngine.ElasticsearchEngine = esMock
-
-		packet := getDiagnostics(t)
-
-		assert.Equal(t, model.ElasticsearchSettingsOSBackend, packet.ElasticSearch.Backend)
-		assert.Equal(t, "2.5.0", packet.ElasticSearch.ServerVersion)
-		assert.Equal(t, []string{"opensearch-plugin"}, packet.ElasticSearch.ServerPlugins)
-		assert.Empty(t, packet.ElasticSearch.Error)
-	})
-
-	t.Run("Elasticsearch config test when indexing enabled and config invalid", func(t *testing.T) {
-		th.Service.UpdateConfig(func(cfg *model.Config) {
-			cfg.ElasticsearchSettings.Backend = model.NewPointer(model.ElasticsearchSettingsESBackend)
-			cfg.ElasticsearchSettings.EnableIndexing = model.NewPointer(true)
-		})
-
-		esMock := &semocks.SearchEngineInterface{}
-		esMock.On("GetFullVersion").Return("7.10.0")
-		esMock.On("GetPlugins").Return([]string{"plugin1", "plugin2"})
-		esMock.On("TestConfig", mock.AnythingOfType("*request.Context"), mock.Anything).Return(
-			model.NewAppError("TestConfig", "ent.elasticsearch.test_config.connection_failed", nil, "connection refused", 500))
-		originalES := th.Service.SearchEngine.ElasticsearchEngine
-		t.Cleanup(func() {
-			th.Service.SearchEngine.ElasticsearchEngine = originalES
-		})
-		th.Service.SearchEngine.ElasticsearchEngine = esMock
-
-		packet := getDiagnostics(t)
-
-		assert.Equal(t, model.ElasticsearchSettingsESBackend, packet.ElasticSearch.Backend)
-		assert.Equal(t, "7.10.0", packet.ElasticSearch.ServerVersion)
-		assert.Equal(t, []string{"plugin1", "plugin2"}, packet.ElasticSearch.ServerPlugins)
-		assert.Equal(t, "TestConfig: ent.elasticsearch.test_config.connection_failed, connection refused", packet.ElasticSearch.Error)
-	})
 }
 
 func TestGetSanitizedConfigFile(t *testing.T) {

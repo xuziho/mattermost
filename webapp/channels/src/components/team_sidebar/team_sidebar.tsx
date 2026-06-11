@@ -18,7 +18,6 @@ import SystemPermissionGate from 'components/permissions_gates/system_permission
 import TeamButton from 'components/team_sidebar/components/team_button';
 
 import WebSocketClient from 'client/web_websocket_client';
-import Pluggable from 'plugins/pluggable';
 import {Constants} from 'utils/constants';
 import * as Keyboard from 'utils/keyboard';
 import {filterAndSortTeamsByDisplayName} from 'utils/team_utils';
@@ -183,7 +182,6 @@ export class TeamSidebar extends React.PureComponent<Props, State> {
         }
         root!.classList.add('multi-teams');
 
-        const plugins = [];
         const sortedTeams = filterAndSortTeamsByDisplayName(this.props.myTeams, this.props.locale, this.props.userTeamsOrderPreference);
 
         const teams = sortedTeams.map((team: Team, index: number) => {
@@ -264,15 +262,6 @@ export class TeamSidebar extends React.PureComponent<Props, State> {
             );
         }
 
-        plugins.push(
-            <div
-                key='team-sidebar-bottom-plugin'
-                className='team-sidebar-bottom-plugin is-empty'
-            >
-                <Pluggable pluggableName='BottomTeamSidebar'/>
-            </div>,
-        );
-
         return (
             <div
                 className={classNames('team-sidebar', {'move--right': this.props.isOpen})}
@@ -307,7 +296,6 @@ export class TeamSidebar extends React.PureComponent<Props, State> {
                         {joinableTeams}
                     </div>
                 </Scrollbars>
-                {plugins}
             </div>
         );
     }

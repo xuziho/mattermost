@@ -158,8 +158,6 @@ export const TrialPeriodDays = {
 };
 
 export const suitePluginIds = {
-    agents: 'mattermost-ai',
-
     apps: 'com.mattermost.apps',
     nps: 'com.mattermost.nps',
     channelExport: 'com.mattermost.plugin-channel-export',
@@ -207,22 +205,6 @@ export const ActionTypes = keyMirror({
 
     BROWSER_CHANGE_FOCUS: null,
     BROWSER_WINDOW_RESIZED: null,
-
-    RECEIVED_PLUGIN_COMPONENT: null,
-    REMOVED_PLUGIN_COMPONENT: null,
-    RECEIVED_PLUGIN_POST_COMPONENT: null,
-    RECEIVED_PLUGIN_POST_CARD_COMPONENT: null,
-    REMOVED_PLUGIN_POST_COMPONENT: null,
-    REMOVED_PLUGIN_POST_CARD_COMPONENT: null,
-    RECEIVED_WEBAPP_PLUGINS: null,
-    RECEIVED_WEBAPP_PLUGIN: null,
-    REMOVED_WEBAPP_PLUGIN: null,
-    RECEIVED_ADMIN_CONSOLE_REDUCER: null,
-    REMOVED_ADMIN_CONSOLE_REDUCER: null,
-    RECEIVED_ADMIN_CONSOLE_CUSTOM_COMPONENT: null,
-    RECEIVED_ADMIN_CONSOLE_CUSTOM_SECTION: null,
-    RECEIVED_PLUGIN_STATS_HANDLER: null,
-    RECEIVED_PLUGIN_USER_SETTINGS: null,
 
     MODAL_OPEN: null,
     MODAL_CLOSE: null,
@@ -335,8 +317,6 @@ export const ModalIdentifiers = {
     USER_SETTINGS: 'user_settings',
     QUICK_SWITCH: 'quick_switch',
     REMOVED_FROM_CHANNEL: 'removed_from_channel',
-    SHOW_TRANSLATION: 'show_translation',
-    DISABLE_AUTOTRANSLATION_CONFIRM: 'disable_autotranslation_confirm',
     EMAIL_INVITE: 'email_invite',
     INTERACTIVE_DIALOG: 'interactive_dialog',
     APPS_MODAL: 'apps_modal',
@@ -424,9 +404,6 @@ export const ModalIdentifiers = {
     USER_PROPERTY_FIELD_DELETE: 'user_property_field_delete',
     ATTRIBUTE_MODAL_LDAP: 'attribute_modal_ldap',
     ATTRIBUTE_MODAL_SAML: 'attribute_modal_saml',
-    FLAG_POST: 'flag_post',
-    REMOVE_FLAGGED_POST: 'remove_flagged_post',
-    CREATE_RECAP_MODAL: 'create_recap_modal',
 };
 
 export const UserStatuses = {
@@ -556,8 +533,6 @@ export const SocketEvents = {
     CPA_FIELD_UPDATED: 'custom_profile_attributes_field_updated',
     CPA_FIELD_DELETED: 'custom_profile_attributes_field_deleted',
     CPA_VALUES_UPDATED: 'custom_profile_attributes_values_updated',
-    CONTENT_FLAGGING_REPORT_VALUE_CHANGED: 'content_flagging_report_value_updated',
-    RECAP_UPDATED: 'recap_updated',
 };
 
 export const TutorialSteps = {
@@ -629,8 +604,6 @@ export const PostTypes = {
     ME: 'me',
     REMINDER: 'reminder',
     WRANGLER: 'system_wrangler',
-    CUSTOM_DATA_SPILLAGE_REPORT: 'custom_spillage_report',
-    AUTO_TRANSLATION_CHANGE: 'system_autotranslation',
     BURN_ON_READ: 'burn_on_read',
 };
 
@@ -717,7 +690,6 @@ export const ErrorPageTypes = {
 
 export const JobTypes = {
     DATA_RETENTION: 'data_retention',
-    ELASTICSEARCH_POST_INDEXING: 'elasticsearch_post_indexing',
     BLEVE_POST_INDEXING: 'bleve_post_indexing',
     LDAP_SYNC: 'ldap_sync',
     MESSAGE_EXPORT: 'message_export',
@@ -864,7 +836,6 @@ export const RHSStates = {
     SEARCH: 'search',
     FLAG: 'flag',
     PIN: 'pin',
-    PLUGIN: 'plugin',
     CHANNEL_FILES: 'channel-files',
     CHANNEL_INFO: 'channel-info',
     CHANNEL_MEMBERS: 'channel-members',
@@ -978,8 +949,6 @@ export const PermissionsScope = {
     [Permissions.CREATE_GROUP_CHANNEL]: 'system_scope',
     [Permissions.MANAGE_PUBLIC_CHANNEL_PROPERTIES]: 'channel_scope',
     [Permissions.MANAGE_PRIVATE_CHANNEL_PROPERTIES]: 'channel_scope',
-    [Permissions.MANAGE_PUBLIC_CHANNEL_AUTO_TRANSLATION]: 'channel_scope',
-    [Permissions.MANAGE_PRIVATE_CHANNEL_AUTO_TRANSLATION]: 'channel_scope',
     [Permissions.LIST_PUBLIC_TEAMS]: 'system_scope',
     [Permissions.JOIN_PUBLIC_TEAMS]: 'system_scope',
     [Permissions.LIST_PRIVATE_TEAMS]: 'system_scope',
@@ -1039,8 +1008,6 @@ export const PermissionsScope = {
     [Permissions.DELETE_CUSTOM_GROUP]: 'system_scope',
     [Permissions.RESTORE_CUSTOM_GROUP]: 'system_scope',
     [Permissions.MANAGE_CUSTOM_GROUP_MEMBERS]: 'system_scope',
-    [Permissions.MANAGE_OWN_AGENT]: 'system_scope',
-    [Permissions.MANAGE_OTHERS_AGENT]: 'system_scope',
     [Permissions.USE_SLASH_COMMANDS]: 'channel_scope',
     [Permissions.ADD_BOOKMARK_PUBLIC_CHANNEL]: 'channel_scope',
     [Permissions.EDIT_BOOKMARK_PUBLIC_CHANNEL]: 'channel_scope',
@@ -1098,7 +1065,6 @@ export const DefaultRolePermissions = {
         Permissions.INVITE_GUEST,
         Permissions.CREATE_EMOJIS,
         Permissions.RESTORE_CUSTOM_GROUP,
-        Permissions.MANAGE_OWN_AGENT,
         Permissions.ADD_BOOKMARK_PUBLIC_CHANNEL,
         Permissions.EDIT_BOOKMARK_PUBLIC_CHANNEL,
         Permissions.DELETE_BOOKMARK_PUBLIC_CHANNEL,
@@ -1129,8 +1095,6 @@ export const DefaultRolePermissions = {
         Permissions.ORDER_BOOKMARK_PRIVATE_CHANNEL,
         Permissions.MANAGE_PUBLIC_CHANNEL_BANNER,
         Permissions.MANAGE_PRIVATE_CHANNEL_BANNER,
-        Permissions.MANAGE_PUBLIC_CHANNEL_AUTO_TRANSLATION,
-        Permissions.MANAGE_PRIVATE_CHANNEL_AUTO_TRANSLATION,
         Permissions.MANAGE_CHANNEL_ACCESS_RULES,
     ],
     team_admin: [
@@ -1240,11 +1204,6 @@ export const ZoomSettings = {
     SCALE_DELTA: 0.25,
     MIN_SCALE: 0.25,
     MAX_SCALE: 3.0,
-};
-
-export const DataSpillagePropertyNames = {
-    FlaggedBy: 'reporting_user_id',
-    Status: 'status',
 };
 
 export const Constants = {
@@ -1890,7 +1849,6 @@ export const ConsolePages = {
     COMPLIANCE_EXPORT: '/admin_console/compliance/export',
     CUSTOM_TERMS: '/admin_console/compliance/custom_terms_of_service',
     DATA_RETENTION: '/admin_console/compliance/data_retention_settings',
-    ELASTICSEARCH: '/admin_console/environment/elasticsearch',
     GUEST_ACCOUNTS: '/admin_console/authentication/guest_access',
     LICENSE: '/admin_console',
     SAML: '/admin_console/authentication/saml',

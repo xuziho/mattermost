@@ -17,16 +17,12 @@ import PostImage from 'components/post_view/post_image';
 import PostMessagePreview from 'components/post_view/post_message_preview';
 import YoutubeVideo from 'components/youtube_video';
 
-import webSocketClient from 'client/web_websocket_client';
 import type {TextFormattingOptions} from 'utils/text_formatting';
-
-import type {PostWillRenderEmbedComponent} from 'types/store/plugins';
 
 import EmbeddedBindings from '../embedded_bindings/embedded_bindings';
 
 export type Props = {
     post: Post;
-    pluginPostWillRenderEmbedComponents?: PostWillRenderEmbedComponent[];
     children?: JSX.Element;
     isEmbedVisible?: boolean;
     options?: Partial<TextFormattingOptions>;
@@ -48,29 +44,10 @@ export default class PostBodyAdditionalContent extends React.PureComponent<Props
     };
 
     isEmbedToggleable = (embed: PostEmbed) => {
-        const postWillRenderEmbedComponents = this.props.pluginPostWillRenderEmbedComponents || [];
-        for (const c of postWillRenderEmbedComponents) {
-            if (c.match(embed)) {
-                return Boolean(c.toggleable);
-            }
-        }
-
         return embed.type === 'image' || (embed.type === 'opengraph' && YoutubeVideo.isYoutubeLink(embed.url));
     };
 
     renderEmbed = (embed: PostEmbed) => {
-        const postWillRenderEmbedComponents = this.props.pluginPostWillRenderEmbedComponents || [];
-        for (const c of postWillRenderEmbedComponents) {
-            if (c.match(embed)) {
-                const Component = c.component;
-                return this.props.isEmbedVisible && (
-                    <Component
-                        embed={embed}
-                        webSocketClient={webSocketClient}
-                    />
-                );
-            }
-        }
         switch (embed.type) {
         case 'image':
             if (!this.props.isEmbedVisible) {

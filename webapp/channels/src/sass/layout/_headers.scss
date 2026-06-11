@@ -207,14 +207,6 @@
                     }
                 }
 
-                &:has(.header-placeholder) .autotranslation-header {
-                    &::after {
-                        height: 20px;
-                        border-left: solid 1px rgba(var(--center-channel-color-rgb), 0.12);
-                        margin-left: 8px;
-                        content: "";
-                    }
-                }
             }
         }
     }
@@ -433,14 +425,6 @@
                 }
             }
 
-            .autotranslation-header {
-                &::after {
-                    height: 20px;
-                    border-left: solid 1px rgba(var(--center-channel-color-rgb), 0.12);
-                    margin-left: 8px;
-                    content: "";
-                }
-            }
         }
 
         .header-description__text {

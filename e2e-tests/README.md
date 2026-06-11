@@ -20,7 +20,7 @@ Instructions, detailed:
   * `CWS_URL` (mandatory when `SERVER=cloud`, only used in such case): when spinning up a cloud-like test server that communicates with a test instance of a customer web server.
   * `TEST`: either `cypress` (default), `playwright`, or `none` (to avoid creating the cypress/playwright sidecar containers, e.g. if you only want to launch a server instance)
   * `ENABLED_DOCKER_SERVICES`: a space-separated list of services to start alongside the server. Default to `postgres inbucket`, for smoke test purposes and for lightweight and faster start-up time. Depending on the test requirement being worked on, you may want to override as needed, as such:
-    - Cypress full tests require all services to be running: `postgres inbucket minio openldap elasticsearch keycloak`.
+    - Cypress full tests require all services to be running: `postgres inbucket minio openldap keycloak`.
     - Cypress smoke tests require only the following: `postgres inbucket`.
     - Playwright full tests require only the following: `postgres inbucket`.
   * The following variables, will be passed over to the server container: `MM_LICENSE` (no enterprise features will be available if this is unset; required when `SERVER=cloud`), and the exploded `MM_ENV` (a comma-separated list of env var specifications)

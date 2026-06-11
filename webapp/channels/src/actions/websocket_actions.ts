@@ -35,13 +35,10 @@ import {
     UserTypes,
     RoleTypes,
     GeneralTypes,
-    AdminTypes,
     IntegrationTypes,
     PreferenceTypes,
-    AppsTypes,
     ChannelBookmarkTypes,
     ScheduledPostTypes,
-    ContentFlaggingTypes,
 } from 'mattermost-redux/action_types';
 import {fetchAppBindings, fetchRHSAppsBindings} from 'mattermost-redux/actions/apps';
 import {addChannelToInitialCategory, fetchMyCategories, handleManagedCategoryPropertyValuesUpdated, receivedCategoryOrder} from 'mattermost-redux/actions/channel_categories';
@@ -68,9 +65,7 @@ import {
     receivedNewPost,
     receivedPost,
     resetReloadPostsInChannel,
-    resetReloadPostsInTranslatedChannels,
 } from 'mattermost-redux/actions/posts';
-import {getRecap} from 'mattermost-redux/actions/recaps';
 import {loadRolesIfNeeded} from 'mattermost-redux/actions/roles';
 import {fetchTeamScheduledPosts} from 'mattermost-redux/actions/scheduled_posts';
 import {fetchChannelRemotes} from 'mattermost-redux/actions/shared_channels';
@@ -102,7 +97,6 @@ import {
     getCurrentChannel,
     getCurrentChannelId,
     getRedirectChannelNameForTeam,
-    hasAutotranslationBecomeEnabled,
 } from 'mattermost-redux/selectors/entities/channels';
 import {getIsUserStatusesConfigEnabled} from 'mattermost-redux/selectors/entities/common';
 import {getConfig, getLicense, isCustomProfileAttributesEnabled} from 'mattermost-redux/selectors/entities/general';
@@ -150,7 +144,6 @@ import InfoToast from 'components/info_toast/info_toast';
 import RemovedFromChannelModal from 'components/removed_from_channel_modal';
 
 import WebSocketClient from 'client/web_websocket_client';
-import {loadPlugin, loadPluginsIfNecessary, removePlugin} from 'plugins';
 import {getHistory} from 'utils/browser_history';
 import {ActionTypes, Constants, AnnouncementBarMessages, SocketEvents, UserStatuses, ModalIdentifiers, PageLoadContext} from 'utils/constants';
 import {getIntl} from 'utils/i18n';
@@ -166,8 +159,6 @@ const dispatch = store.dispatch;
 const getState = store.getState;
 
 const MAX_WEBSOCKET_FAILS = 7;
-
-const pluginEventHandlers: Record<string, Record<string, (msg: WebSocketMessages.Unknown) => void>> = {};
 
 export function initialize() {
     if (!window.WebSocket) {
@@ -229,16 +220,6 @@ export function close() {
     WebSocketClient.removeReconnectListener(reconnect);
     WebSocketClient.removeMissedMessageListener(restart);
     WebSocketClient.removeCloseListener(handleClose);
-}
-
-const pluginReconnectHandlers: Record<string, () => void> = {};
-
-export function registerPluginReconnectHandler(pluginId: string, handler: () => void) {
-    pluginReconnectHandlers[pluginId] = handler;
-}
-
-export function unregisterPluginReconnectHandler(pluginId: string) {
-    Reflect.deleteProperty(pluginReconnectHandlers, pluginId);
 }
 
 function restart() {
@@ -311,14 +292,6 @@ export function reconnect() {
         WebSocketClient.updateActiveTeam(currentTeamId);
     }
 
-    loadPluginsIfNecessary();
-
-    Object.values(pluginReconnectHandlers).forEach((handler) => {
-        if (handler && typeof handler === 'function') {
-            handler();
-        }
-    });
-
     // Refresh custom profile attributes on reconnect
     if (isEnterpriseLicense(getLicense(state)) && isCustomProfileAttributesEnabled(state)) {
         dispatch(getCustomProfileAttributeFields());
@@ -341,26 +314,6 @@ function syncThreads(teamId: string, userId: string) {
         return;
     }
     dispatch(getCountsAndThreadsSince(userId, teamId, newestThread.last_reply_at));
-}
-
-export function registerPluginWebSocketEvent(pluginId: string, event: string, action: (msg: WebSocketMessages.Unknown) => void) {
-    if (!pluginEventHandlers[pluginId]) {
-        pluginEventHandlers[pluginId] = {};
-    }
-    pluginEventHandlers[pluginId][event] = action;
-}
-
-export function unregisterPluginWebSocketEvent(pluginId: string, event: string) {
-    const events = pluginEventHandlers[pluginId];
-    if (!events) {
-        return;
-    }
-
-    Reflect.deleteProperty(events, event);
-}
-
-export function unregisterAllPluginWebSocketEvents(pluginId: string) {
-    Reflect.deleteProperty(pluginEventHandlers, pluginId);
 }
 
 function handleFirstConnect() {
@@ -558,14 +511,6 @@ export function handleEvent(msg: WebSocketMessage) {
         handleMultipleChannelsViewedEvent(msg);
         break;
 
-    case WebSocketEvents.PluginEnabled:
-        handlePluginEnabled(msg);
-        break;
-
-    case WebSocketEvents.PluginDisabled:
-        handlePluginDisabled(msg);
-        break;
-
     case WebSocketEvents.UserRoleUpdated:
         handleUserRoleUpdated(msg);
         break;
@@ -576,10 +521,6 @@ export function handleEvent(msg: WebSocketMessage) {
 
     case WebSocketEvents.LicenseChanged:
         handleLicenseChanged(msg);
-        break;
-
-    case WebSocketEvents.PluginStatusesChanged:
-        handlePluginStatusesChangedEvent(msg);
         break;
 
     case WebSocketEvents.OpenDialog:
@@ -646,12 +587,6 @@ export function handleEvent(msg: WebSocketMessage) {
     case SocketEvents.APPS_FRAMEWORK_REFRESH_BINDINGS:
         dispatch(handleRefreshAppsBindings());
         break;
-    case SocketEvents.APPS_FRAMEWORK_PLUGIN_ENABLED:
-        dispatch(handleAppsPluginEnabled());
-        break;
-    case SocketEvents.APPS_FRAMEWORK_PLUGIN_DISABLED:
-        dispatch(handleAppsPluginDisabled());
-        break;
     case WebSocketEvents.PostAcknowledgementAdded:
         dispatch(handlePostAcknowledgementAdded(msg));
         break;
@@ -689,14 +624,8 @@ export function handleEvent(msg: WebSocketMessage) {
     case WebSocketEvents.CPAFieldDeleted:
         dispatch(handleCustomAttributesDeleted(msg));
         break;
-    case WebSocketEvents.ContentFlaggingReportValueUpdated:
-        dispatch(handleContentFlaggingReportValueChanged(msg));
-        break;
     case WebSocketEvents.PostTranslationUpdated:
         dispatch(handlePostTranslationUpdated(msg));
-        break;
-    case WebSocketEvents.RecapUpdated:
-        dispatch(handleRecapUpdated(msg));
         break;
     case WebSocketEvents.FileDownloadRejected:
         dispatch(handleFileDownloadRejected(msg));
@@ -707,15 +636,6 @@ export function handleEvent(msg: WebSocketMessage) {
     default:
     }
 
-    Object.values(pluginEventHandlers).forEach((pluginEvents) => {
-        if (!pluginEvents) {
-            return;
-        }
-
-        if (Object.hasOwn(pluginEvents, msg.event) && typeof pluginEvents[msg.event] === 'function') {
-            pluginEvents[msg.event](msg);
-        }
-    });
 }
 
 function handleSharedChannelRemoteUpdatedEvent(msg: WebSocketMessages.SharedChannelRemoteUpdated) {
@@ -760,9 +680,6 @@ export function handleChannelUpdatedEvent(msg: WebSocketMessages.ChannelUpdated)
                 actions.push({type: ChannelTypes.GM_CONVERTED_TO_CHANNEL, data: channel});
             }
 
-            if (hasAutotranslationBecomeEnabled(state, channel)) {
-                doDispatch(resetReloadPostsInChannel(channel.id));
-            }
         }
 
         doDispatch(batchActions(actions));
@@ -808,14 +725,7 @@ function handleChannelMemberUpdatedEvent(msg: WebSocketMessages.ChannelMemberUpd
         const roles = channelMember.roles.split(' ');
         doDispatch(loadRolesIfNeeded(roles));
 
-        const state = doGetState();
-        const becameEnabled = hasAutotranslationBecomeEnabled(state, channelMember);
-
         doDispatch({type: ChannelTypes.RECEIVED_MY_CHANNEL_MEMBER, data: channelMember});
-
-        if (becameEnabled) {
-            doDispatch(resetReloadPostsInChannel(channelMember.channel_id));
-        }
     };
 }
 
@@ -1333,10 +1243,6 @@ export async function handleUserUpdatedEvent(msg: WebSocketMessages.UserUpdated)
             });
             dispatch(loadRolesIfNeeded(user.roles.split(' ')));
         }
-        const autotranslationIsEnabled = getConfig(state)?.EnableAutoTranslation === 'true';
-        if (autotranslationIsEnabled && user.locale !== currentUser.locale) {
-            dispatch(resetReloadPostsInTranslatedChannels());
-        }
     } else {
         dispatch({
             type: UserTypes.RECEIVED_PROFILE,
@@ -1491,20 +1397,6 @@ function handleMultipleChannelsViewedEvent(msg: WebSocketMessages.MultipleChanne
     }
 }
 
-export function handlePluginEnabled(msg: WebSocketMessages.Plugin) {
-    const manifest = msg.data.manifest;
-    dispatch({type: ActionTypes.RECEIVED_WEBAPP_PLUGIN, data: manifest});
-
-    loadPlugin(manifest).catch((error) => {
-        console.error(error.message); //eslint-disable-line no-console
-    });
-}
-
-export function handlePluginDisabled(msg: WebSocketMessages.Plugin) {
-    const manifest = msg.data.manifest;
-    removePlugin(manifest);
-}
-
 function handleUserRoleUpdated(msg: WebSocketMessages.UserRoleUpdated) {
     const user = store.getState().entities.users.profiles[msg.data.user_id];
 
@@ -1523,17 +1415,7 @@ function handleUserRoleUpdated(msg: WebSocketMessages.UserRoleUpdated) {
 }
 
 function handleConfigChanged(msg: WebSocketMessages.ConfigChanged) {
-    const state = getState();
-    const currentConfig = getConfig(state);
     const newConfig = msg.data.config;
-
-    // Check if EnableAutoTranslation changed from enabled to disabled
-    const enableAutoTranslationWasEnabled = currentConfig?.EnableAutoTranslation === 'true';
-    const enableAutoTranslationIsEnabled = newConfig?.EnableAutoTranslation === 'true';
-
-    if (!enableAutoTranslationWasEnabled && enableAutoTranslationIsEnabled) {
-        dispatch(resetReloadPostsInTranslatedChannels());
-    }
 
     store.dispatch({type: GeneralTypes.CLIENT_CONFIG_RECEIVED, data: newConfig});
 }
@@ -1543,10 +1425,6 @@ function handleLicenseChanged(msg: WebSocketMessages.LicenseChanged) {
 
     // Refresh server limits when license changes since limits may have changed
     dispatch(getServerLimits());
-}
-
-function handlePluginStatusesChangedEvent(msg: WebSocketMessages.PluginStatusesChanged) {
-    store.dispatch({type: AdminTypes.RECEIVED_PLUGIN_STATUSES, data: msg.data.plugin_statuses});
 }
 
 function handleOpenDialogEvent(msg: WebSocketMessages.OpenDialog) {
@@ -1761,20 +1639,6 @@ function handleRefreshAppsBindings(): ThunkActionFunc<void> {
 
         doDispatch(fetchRHSAppsBindings(channelID));
         return {data: true};
-    };
-}
-
-export function handleAppsPluginEnabled() {
-    dispatch(handleRefreshAppsBindings());
-
-    return {
-        type: AppsTypes.APPS_PLUGIN_ENABLED,
-    };
-}
-
-export function handleAppsPluginDisabled() {
-    return {
-        type: AppsTypes.APPS_PLUGIN_DISABLED,
     };
 }
 
@@ -2050,13 +1914,6 @@ export function handleCustomAttributesDeleted(msg: WebSocketMessages.CPAFieldDel
     };
 }
 
-export function handleContentFlaggingReportValueChanged(msg: WebSocketMessages.ContentFlaggingReportValueUpdated) {
-    return {
-        type: ContentFlaggingTypes.CONTENT_FLAGGING_REPORT_VALUE_UPDATED,
-        data: msg.data,
-    };
-}
-
 export function handlePostTranslationUpdated(msg: WebSocketMessages.PostTranslationUpdated): ThunkActionFunc<void> {
     return (dispatch, getState) => {
         const locale = getCurrentLocale(getState());
@@ -2073,15 +1930,6 @@ export function handlePostTranslationUpdated(msg: WebSocketMessages.PostTranslat
                 ...t,
             },
         });
-    };
-}
-
-export function handleRecapUpdated(msg: WebSocketMessages.RecapUpdated): ThunkActionFunc<void> {
-    const recapId = msg.data.recap_id;
-
-    return async (doDispatch) => {
-        // Fetch the updated recap and dispatch to Redux
-        doDispatch(getRecap(recapId));
     };
 }
 

@@ -30,11 +30,10 @@ type Props = {
         handleRestore: (post: Post) => void;
     };
     onExited: () => void;
-    isChannelAutotranslated: boolean;
 }
 
-const RestorePostModal = ({post, postHeader, actions, onExited, isChannelAutotranslated}: Props) => {
-    const {formatMessage, locale} = useIntl();
+const RestorePostModal = ({post, postHeader, actions, onExited}: Props) => {
+    const {formatMessage} = useIntl();
     const onHide = () => onExited();
 
     const handleRestore = async () => {
@@ -67,8 +66,6 @@ const RestorePostModal = ({post, postHeader, actions, onExited, isChannelAutotra
                     overflowType='ellipsis'
                     maxHeight={100}
                     showPostEditedIndicator={false}
-                    userLanguage={locale}
-                    isChannelAutotranslated={isChannelAutotranslated}
                 />
                 <FileAttachmentListContainer
                     post={post}

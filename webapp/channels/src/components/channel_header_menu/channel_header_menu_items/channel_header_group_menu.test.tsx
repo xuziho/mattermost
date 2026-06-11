@@ -32,29 +32,11 @@ function getBaseState(): DeepPartial<GlobalState> {
                     [GM_CHANNEL_ID]: channel,
                 },
             },
-            general: {
-                config: {
-                    EnableAutoTranslation: 'true',
-                },
-            },
             users: {
                 currentUserId: CURRENT_USER_ID,
                 profiles: {
                     [CURRENT_USER_ID]: currentUser,
                 },
-            },
-        },
-    };
-}
-
-function getStateWithRestrictedDMAndGM(): DeepPartial<GlobalState> {
-    const state = getBaseState();
-    return {
-        ...state,
-        entities: {
-            ...state.entities,
-            general: {
-                config: {RestrictDMAndGMAutotranslation: 'true'},
             },
         },
     };
@@ -74,12 +56,10 @@ describe('components/ChannelHeaderMenu/ChannelHeaderGroupMenu', () => {
         isMuted: false,
         isMobile: false,
         isFavorite: false,
-        pluginItems: [],
         isChannelBookmarksEnabled: false,
-        isChannelAutotranslated: false,
     };
 
-    it('shows Channel Settings when RestrictDMAndGMAutotranslation is not enabled', () => {
+    it('shows Channel Settings', () => {
         renderWithContext(
             <WithTestMenuContext>
                 <ChannelHeaderGroupMenu {...defaultProps}/>
@@ -89,45 +69,6 @@ describe('components/ChannelHeaderMenu/ChannelHeaderGroupMenu', () => {
 
         expect(screen.getByText('Channel Settings')).toBeInTheDocument();
         expect(screen.queryByText('Edit Header')).not.toBeInTheDocument();
-    });
-
-    it('shows Settings submenu when RestrictDMAndGMAutotranslation is enabled', () => {
-        renderWithContext(
-            <WithTestMenuContext>
-                <ChannelHeaderGroupMenu {...defaultProps}/>
-            </WithTestMenuContext>,
-            getStateWithRestrictedDMAndGM(),
-        );
-
-        expect(screen.getByText('Settings')).toBeInTheDocument();
-    });
-
-    it('shows Auto-translation menu when isChannelAutotranslated is true', () => {
-        renderWithContext(
-            <WithTestMenuContext>
-                <ChannelHeaderGroupMenu
-                    {...defaultProps}
-                    isChannelAutotranslated={true}
-                />
-            </WithTestMenuContext>,
-            getBaseState(),
-        );
-
-        expect(screen.getByText(/Auto-translation/i)).toBeInTheDocument();
-    });
-
-    it('does not show Auto-translation menu when isChannelAutotranslated is false', () => {
-        renderWithContext(
-            <WithTestMenuContext>
-                <ChannelHeaderGroupMenu
-                    {...defaultProps}
-                    isChannelAutotranslated={false}
-                />
-            </WithTestMenuContext>,
-            getBaseState(),
-        );
-
-        expect(screen.queryByText(/Auto-translation/i)).not.toBeInTheDocument();
     });
 
     it('does not show Channel Settings when the channel is archived', () => {
@@ -156,7 +97,7 @@ describe('components/ChannelHeaderMenu/ChannelHeaderGroupMenu', () => {
             ...channel,
             delete_at: 1234567890,
         });
-        const archivedChannelState = getStateWithRestrictedDMAndGM();
+        const archivedChannelState = getBaseState();
         archivedChannelState.entities!.channels!.channels![GM_CHANNEL_ID] = {
             ...archivedChannelState.entities!.channels!.channels![GM_CHANNEL_ID],
             delete_at: 1234567890,

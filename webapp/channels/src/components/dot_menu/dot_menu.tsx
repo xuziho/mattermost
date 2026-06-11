@@ -7,7 +7,6 @@ import {FormattedMessage, injectIntl} from 'react-intl';
 import type {IntlShape} from 'react-intl';
 
 import {
-    AlertOutlineIcon,
     ArrowRightBoldOutlineIcon,
     BookmarkIcon,
     BookmarkOutlineIcon,
@@ -23,7 +22,6 @@ import {
     PinIcon,
     PinOutlineIcon,
     ReplyOutlineIcon,
-    TranslateIcon,
     TrashCanOutlineIcon,
 } from '@mattermost/compass-icons/components';
 import type {Post} from '@mattermost/types/posts';
@@ -31,11 +29,8 @@ import type {UserThread} from '@mattermost/types/threads';
 
 import Permissions from 'mattermost-redux/constants/permissions';
 
-import {closeModal} from 'actions/views/modals';
-
 import BurnOnReadConfirmationModal from 'components/burn_on_read_confirmation_modal';
 import DeletePostModal from 'components/delete_post_modal';
-import FlagPostModal from 'components/flag_message_modal/flag_post_modal';
 import ForwardPostModal from 'components/forward_post_modal';
 import * as Menu from 'components/menu';
 import MoveThreadModal from 'components/move_thread_modal';
@@ -66,16 +61,8 @@ const ShortcutKey = ({shortcutKey: shortcut}: ShortcutKeyProps) => (
     </span>
 );
 
-function getMessageToCopy(post: Post, isChannelAutotranslated: boolean, locale: string): string {
-    const originalMessage = post.message_source || post.message;
-    if (!isChannelAutotranslated || post.type !== '') {
-        return originalMessage;
-    }
-    const translation = PostUtils.getPostTranslation(post, locale);
-    if (!translation || translation.state !== 'ready') {
-        return originalMessage;
-    }
-    return PostUtils.getPostTranslatedMessage(originalMessage, translation);
+function getMessageToCopy(post: Post): string {
+    return post.message_source || post.message;
 }
 
 type Props = {
@@ -104,8 +91,6 @@ type Props = {
     canPin: boolean;
     canCopyText: boolean;
     canCopyLink: boolean;
-    canFlagContent?: boolean;
-
     actions: {
 
         /**
@@ -172,7 +157,6 @@ type Props = {
     isFollowingThread?: boolean;
     isMentionedInRootPost?: boolean;
     threadReplyCount?: number;
-    isChannelAutotranslated: boolean;
     isBurnOnReadPost: boolean;
     isUnrevealedBurnOnReadPost: boolean;
 }
@@ -258,7 +242,7 @@ export class DotMenuClass extends React.PureComponent<Props, State> {
     };
 
     copyText = () => {
-        Utils.copyToClipboard(getMessageToCopy(this.props.post, this.props.isChannelAutotranslated, this.props.intl.locale));
+        Utils.copyToClipboard(getMessageToCopy(this.props.post));
     };
 
     handlePinMenuItemActivated = (): void => {
@@ -310,19 +294,6 @@ export class DotMenuClass extends React.PureComponent<Props, State> {
 
             this.props.actions.openModal(deletePostModalData);
         }
-    };
-
-    handleFlagPostMenuItemClicked = () => {
-        const flagPostModalData = {
-            modalId: ModalIdentifiers.FLAG_POST,
-            dialogType: FlagPostModal,
-            dialogProps: {
-                postId: this.props.post.id,
-                onExited: () => closeModal(ModalIdentifiers.FLAG_POST),
-            },
-        };
-
-        this.props.actions.openModal(flagPostModalData);
     };
 
     handleMoveThreadMenuItemActivated = (e: ChangeEvent): void => {
@@ -489,17 +460,6 @@ export class DotMenuClass extends React.PureComponent<Props, State> {
         this.props.handleDropdownOpened?.(open);
     };
 
-    handleShowTranslation = async () => {
-        // Use dynamic import to avoid circular dependency
-        // This breaks the cycle because the import only happens at runtime, not at module load time
-        const {default: ShowTranslationModal} = await import('components/show_translation_modal');
-        this.props.actions.openModal({
-            modalId: ModalIdentifiers.SHOW_TRANSLATION,
-            dialogType: ShowTranslationModal,
-            dialogProps: {postId: this.props.post.id},
-        });
-    };
-
     render(): JSX.Element {
         const {formatMessage} = this.props.intl;
         const isFollowingThread = this.props.isFollowingThread ?? this.props.isMentionedInRootPost;
@@ -513,9 +473,6 @@ export class DotMenuClass extends React.PureComponent<Props, State> {
             isBurnOnReadPostSender || // Sender always sees delete
             !this.props.isUnrevealedBurnOnReadPost // Receiver sees delete only if revealed (not concealed)
         );
-
-        const translation = PostUtils.getPostTranslation(this.props.post, this.props.intl.locale);
-        const showTranslation = this.props.isChannelAutotranslated && translation?.state === 'ready' && this.props.post.type === '';
 
         const forwardPostItemText = (
             <span className={'dot-menu__item-new-badge'}>
@@ -594,20 +551,17 @@ export class DotMenuClass extends React.PureComponent<Props, State> {
         const showRemind = !isSystemMessage;
         const showPin = Boolean(!isSystemMessage && !this.props.isReadOnly && !isBurnOnReadPost);
         const showMove = Boolean(!isSystemMessage && this.props.canMove);
-        const showShowTranslation = !isSystemMessage && showTranslation;
         const showCopyText = !isSystemMessage && !isBurnOnReadPost;
         const showCopyLink = !isSystemMessage && (!isBurnOnReadPost || this.props.post.user_id === this.props.userId);
         const showEdit = this.state.canEdit && !isBurnOnReadPost;
-        const showFlagContent = this.props.canFlagContent;
-
         // Delete button should show if:
         // 1. Non-BoR with delete permission, OR
         // 2. BoR post meeting above criteria
         const showDelete = (!isBurnOnReadPost && this.state.canDelete) || shouldShowDeleteForBoR;
 
         const firstSectionHasItems = showReply || showForward || showReactions || showFollowPost || showMarkAsUnread || showSave || showRemind || showPin || showMove;
-        const secondSectionHasItems = showShowTranslation || showCopyText || showCopyLink;
-        const thirdSectionHasItems = showEdit || showDelete || showFlagContent;
+        const secondSectionHasItems = showCopyText || showCopyLink;
+        const thirdSectionHasItems = showEdit || showDelete;
 
         return (
             <Menu.Container
@@ -751,20 +705,6 @@ export class DotMenuClass extends React.PureComponent<Props, State> {
                     />
                 }
                 {firstSectionHasItems && secondSectionHasItems && <Menu.Separator/>}
-                {showShowTranslation && (
-                    <Menu.Item
-                        id={`show_translation_${this.props.post.id}`}
-                        data-testid={`show_translation_${this.props.post.id}`}
-                        labels={
-                            <FormattedMessage
-                                id='post_info.show_translation'
-                                defaultMessage='Show translation'
-                            />
-                        }
-                        leadingElement={<TranslateIcon size={18}/>}
-                        onClick={this.handleShowTranslation}
-                    />
-                )}
                 {showCopyText &&
                     <Menu.Item
                         id={`copy_${this.props.post.id}`}
@@ -806,23 +746,6 @@ export class DotMenuClass extends React.PureComponent<Props, State> {
                         leadingElement={<PencilOutlineIcon size={18}/>}
                         trailingElements={<ShortcutKey shortcutKey='E'/>}
                         onClick={this.handleEditMenuItemActivated}
-                    />
-                }
-                {
-                    showFlagContent &&
-                    <Menu.Item
-                        id={`flag_post_${this.props.post.id}`}
-                        className='flag_post_menu_item'
-                        data-testid={`flag_post_${this.props.post.id}`}
-                        leadingElement={<AlertOutlineIcon size={18}/>}
-                        labels={
-                            <FormattedMessage
-                                id='post_info.quarantine'
-                                defaultMessage='Quarantine for Review'
-                            />
-                        }
-                        onClick={this.handleFlagPostMenuItemClicked}
-                        isDestructive={true}
                     />
                 }
                 {showDelete &&

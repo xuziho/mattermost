@@ -13,7 +13,6 @@ import (
 	"github.com/pkg/errors"
 
 	"github.com/mattermost/mattermost/server/public/model"
-	"github.com/mattermost/mattermost/server/public/plugin"
 	"github.com/mattermost/mattermost/server/public/shared/i18n"
 	"github.com/mattermost/mattermost/server/public/shared/mlog"
 	"github.com/mattermost/mattermost/server/public/shared/request"
@@ -116,7 +115,7 @@ func (a *App) buildEmailNotification(
 		RecipientId:       user.Id,
 		RootId:            post.RootId,
 
-		// Context for plugin decision-making (immutable)
+		// Notification context
 		ChannelType:     string(channel.Type),
 		ChannelName:     channelName,
 		TeamName:        team.DisplayName,
@@ -169,40 +168,7 @@ func (a *App) sendNotificationEmail(rctx request.CTX, notification *PostNotifica
 		}
 	}
 
-	// Create EmailNotification object for plugin customization
 	emailNotification := a.buildEmailNotification(rctx, notification, user, team)
-
-	// Call plugin hook to allow customization of emailNotification
-	rejectionReason := ""
-	a.ch.RunMultiHook(func(hooks plugin.Hooks, manifest *model.Manifest) bool {
-		var replacementContent *model.EmailNotificationContent
-		replacementContent, rejectionReason = hooks.EmailNotificationWillBeSent(emailNotification)
-		if rejectionReason != "" {
-			rctx.Logger().Info("Email notification cancelled by plugin.",
-				mlog.String("rejection_reason", rejectionReason),
-				mlog.String("plugin_id", manifest.Id),
-				mlog.String("plugin_name", manifest.Name))
-			return false
-		}
-		if replacementContent != nil {
-			emailNotification.EmailNotificationContent = *replacementContent
-		}
-		return true
-	}, plugin.EmailNotificationWillBeSentID)
-
-	if rejectionReason != "" {
-		// Email notification rejected by plugin
-		a.CountNotificationReason(model.NotificationStatusNotSent, model.NotificationTypeEmail, model.NotificationReasonRejectedByPlugin, model.NotificationNoPlatform)
-		rctx.Logger().LogM(mlog.MlvlNotificationDebug, "Email notification rejected by plugin",
-			mlog.String("type", model.NotificationTypeEmail),
-			mlog.String("status", model.NotificationStatusNotSent),
-			mlog.String("reason", model.NotificationReasonRejectedByPlugin),
-			mlog.String("rejection_reason", rejectionReason),
-			mlog.String("user_id", user.Id),
-			mlog.String("post_id", post.Id),
-		)
-		return nil, nil
-	}
 
 	if *a.Config().EmailSettings.EnableEmailBatching {
 		var sendBatched bool

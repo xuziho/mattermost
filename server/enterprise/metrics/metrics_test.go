@@ -5,15 +5,13 @@ package metrics
 
 import (
 	"fmt"
-	"strconv"
 	"testing"
 
 	"github.com/mattermost/mattermost/server/public/model"
 	"github.com/mattermost/mattermost/server/v8/channels/api4"
 	"github.com/mattermost/mattermost/server/v8/channels/app"
-	seMocks "github.com/mattermost/mattermost/server/v8/platform/services/searchengine/mocks"
 
-	"github.com/mattermost/mattermost/server/public/plugin/plugintest/mock"
+	"github.com/stretchr/testify/mock"
 	"github.com/mattermost/mattermost/server/v8/channels/store/storetest/mocks"
 
 	"github.com/prometheus/client_golang/prometheus"
@@ -29,7 +27,6 @@ func configureMetrics(th *api4.TestHelper) {
 	})
 	th.App.Srv().SetLicense(model.NewTestLicense("metrics"))
 }
-
 func TestMetrics(t *testing.T) {
 	th := api4.SetupEnterpriseWithStoreMock(t, app.StartMetrics)
 
@@ -90,91 +87,6 @@ func TestMetrics(t *testing.T) {
 	c.Inc()
 }
 
-func TestPluginMetrics(t *testing.T) {
-	th := api4.SetupEnterprise(t, app.StartMetrics)
-
-	configureMetrics(th)
-	mi := th.App.Metrics()
-
-	miImpl, ok := mi.(*MetricsInterfaceImpl)
-	require.True(t, ok, fmt.Sprintf("App.Metrics is not *MetricsInterfaceImpl, but %T", mi))
-
-	t.Run("test ObservePluginHookDuration", func(t *testing.T) {
-		pluginID := "id_"
-		hookName := "hook_"
-		elapsed := 999.1
-		m := &prometheusModels.Metric{}
-
-		for _, success := range []bool{true, false} {
-			actualMetric, err := miImpl.PluginHookTimeHistogram.GetMetricWith(prometheus.Labels{"plugin_id": pluginID, "hook_name": hookName, "success": strconv.FormatBool(success)})
-			require.NoError(t, err)
-			require.NoError(t, actualMetric.(prometheus.Histogram).Write(m))
-			require.Equal(t, uint64(0), m.Histogram.GetSampleCount())
-			require.Equal(t, 0.0, m.Histogram.GetSampleSum())
-
-			mi.ObservePluginHookDuration(pluginID, hookName, success, elapsed)
-			actualMetric, err = miImpl.PluginHookTimeHistogram.GetMetricWith(prometheus.Labels{"plugin_id": pluginID, "hook_name": hookName, "success": strconv.FormatBool(success)})
-			require.NoError(t, err)
-			require.NoError(t, actualMetric.(prometheus.Histogram).Write(m))
-			require.Equal(t, uint64(1), m.Histogram.GetSampleCount())
-			require.InDelta(t, elapsed, m.Histogram.GetSampleSum(), 0.001)
-		}
-	})
-
-	t.Run("test ObservePluginAPIDuration", func(t *testing.T) {
-		pluginID := "id_"
-		apiName := "api_"
-		elapsed := 999.1
-		m := &prometheusModels.Metric{}
-
-		for _, success := range []bool{true, false} {
-			actualMetric, err := miImpl.PluginAPITimeHistogram.GetMetricWith(prometheus.Labels{"plugin_id": pluginID, "api_name": apiName, "success": strconv.FormatBool(success)})
-			require.NoError(t, err)
-			require.NoError(t, actualMetric.(prometheus.Histogram).Write(m))
-			require.Equal(t, uint64(0), m.Histogram.GetSampleCount())
-			require.Equal(t, 0.0, m.Histogram.GetSampleSum())
-
-			mi.ObservePluginAPIDuration(pluginID, apiName, success, elapsed)
-			actualMetric, err = miImpl.PluginAPITimeHistogram.GetMetricWith(prometheus.Labels{"plugin_id": pluginID, "api_name": apiName, "success": strconv.FormatBool(success)})
-			require.NoError(t, err)
-			require.NoError(t, actualMetric.(prometheus.Histogram).Write(m))
-			require.Equal(t, uint64(1), m.Histogram.GetSampleCount())
-			require.InDelta(t, elapsed, m.Histogram.GetSampleSum(), 0.001)
-		}
-	})
-
-	t.Run("test ObservePluginMultiHookIterationDuration", func(t *testing.T) {
-		pluginID := "id_"
-		elapsed := 999.1
-		m := &prometheusModels.Metric{}
-
-		actualMetric, err := miImpl.PluginMultiHookTimeHistogram.GetMetricWith(prometheus.Labels{"plugin_id": pluginID})
-		require.NoError(t, err)
-		require.NoError(t, actualMetric.(prometheus.Histogram).Write(m))
-		require.Equal(t, uint64(0), m.Histogram.GetSampleCount())
-		require.Equal(t, 0.0, m.Histogram.GetSampleSum())
-
-		mi.ObservePluginMultiHookIterationDuration(pluginID, elapsed)
-		actualMetric, err = miImpl.PluginMultiHookTimeHistogram.GetMetricWith(prometheus.Labels{"plugin_id": pluginID})
-		require.NoError(t, err)
-		require.NoError(t, actualMetric.(prometheus.Histogram).Write(m))
-		require.Equal(t, uint64(1), m.Histogram.GetSampleCount())
-		require.InDelta(t, elapsed, m.Histogram.GetSampleSum(), 0.001)
-	})
-
-	t.Run("test ObservePluginMultiHookDuration", func(t *testing.T) {
-		elapsed := 50.0
-		m := &prometheusModels.Metric{}
-
-		require.NoError(t, miImpl.PluginMultiHookServerTimeHistogram.Write(m))
-		require.InDelta(t, 0.0, m.Histogram.GetSampleSum(), 0.001)
-
-		mi.ObservePluginMultiHookDuration(elapsed)
-		require.NoError(t, miImpl.PluginMultiHookServerTimeHistogram.Write(m))
-		require.InDelta(t, elapsed, m.Histogram.GetSampleSum(), 0.001)
-	})
-}
-
 func TestMobileMetrics(t *testing.T) {
 	th := api4.SetupEnterprise(t, app.StartMetrics)
 
@@ -228,7 +140,6 @@ func TestMobileMetrics(t *testing.T) {
 		})
 	}
 }
-
 func TestExtractDBCluster(t *testing.T) {
 	testCases := []struct {
 		description         string
@@ -258,56 +169,4 @@ func TestExtractDBCluster(t *testing.T) {
 			require.Equal(t, tc.expectedClusterName, host)
 		})
 	}
-}
-
-func TestSearchEngineStatusGauge(t *testing.T) {
-	th := api4.SetupEnterprise(t, app.StartMetrics)
-
-	configureMetrics(th)
-	mi := th.App.Metrics()
-
-	miImpl, ok := mi.(*MetricsInterfaceImpl)
-	require.True(t, ok, fmt.Sprintf("App.Metrics is not *MetricsInterfaceImpl, but %T", mi))
-
-	readGauge := func() float64 {
-		m := &prometheusModels.Metric{}
-		require.NoError(t, miImpl.SearchEngineStatusGauge.Write(m))
-		return m.Gauge.GetValue()
-	}
-
-	setEngine := func(t *testing.T, engine *seMocks.SearchEngineInterface) {
-		t.Helper()
-		miImpl.Platform.SearchEngine.ElasticsearchEngine = engine
-		t.Cleanup(func() {
-			miImpl.Platform.SearchEngine.ElasticsearchEngine = nil
-		})
-	}
-
-	t.Run("nil engine returns 1", func(t *testing.T) {
-		miImpl.Platform.SearchEngine.ElasticsearchEngine = nil
-		require.Equal(t, 1.0, readGauge())
-	})
-
-	t.Run("disabled engine returns 1", func(t *testing.T) {
-		esMock := &seMocks.SearchEngineInterface{}
-		esMock.On("IsEnabled").Return(false)
-		setEngine(t, esMock)
-		require.Equal(t, 1.0, readGauge())
-	})
-
-	t.Run("enabled healthy engine returns 1", func(t *testing.T) {
-		esMock := &seMocks.SearchEngineInterface{}
-		esMock.On("IsEnabled").Return(true)
-		esMock.On("IsHealthy").Return(true)
-		setEngine(t, esMock)
-		require.Equal(t, 1.0, readGauge())
-	})
-
-	t.Run("enabled unhealthy engine returns 0", func(t *testing.T) {
-		esMock := &seMocks.SearchEngineInterface{}
-		esMock.On("IsEnabled").Return(true)
-		esMock.On("IsHealthy").Return(false)
-		setEngine(t, esMock)
-		require.Equal(t, 0.0, readGauge())
-	})
 }

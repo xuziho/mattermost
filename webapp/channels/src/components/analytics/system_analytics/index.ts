@@ -19,7 +19,6 @@ function mapStateToProps(state: GlobalState) {
         license,
         stats: state.entities.admin.analytics,
         config: getConfig(state),
-        pluginStatHandlers: state.plugins.siteStatsHandlers,
         serverLimits: getServerLimits(state),
     };
 }

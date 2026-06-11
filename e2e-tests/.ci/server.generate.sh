@@ -17,7 +17,7 @@ enable_docker_service() {
 
 assert_docker_services_validity() {
   local SERVICES_TO_CHECK="$*"
-  local SERVICES_VALID="postgres minio inbucket openldap elasticsearch opensearch redis keycloak cypress webhook-interactions playwright"
+  local SERVICES_VALID="postgres minio inbucket openldap redis keycloak cypress webhook-interactions playwright"
   local SERVICES_REQUIRED="postgres inbucket"
   for SERVICE_NAME in $SERVICES_TO_CHECK; do
     if ! mme2e_is_token_in_list "$SERVICE_NAME" "$SERVICES_VALID"; then
@@ -138,48 +138,6 @@ $(if mme2e_is_token_in_list "openldap" "$ENABLED_DOCKER_SERVICES"; then
         service: openldap
     healthcheck:
       test: [ "CMD", "bash", "-o", "pipefail", "-c", "ss -ltn \"sport = :636\" | grep -qE \"^LISTEN\"" ]
-      interval: 10s
-      timeout: 15s
-      retries: 12'
-  fi)
-
-$(if mme2e_is_token_in_list "elasticsearch" "$ENABLED_DOCKER_SERVICES"; then
-    echo '
-  elasticsearch:
-    restart: "no"
-    network_mode: host
-    networks: !reset []
-    environment:
-        xpack.security.enabled: "false"
-        action.destructive_requires_name: "false"
-    extends:
-        file: ../../server/build/docker-compose.common.yml
-        service: elasticsearch
-    healthcheck:
-      test: [ "CMD", "curl", "-fsS", "localhost:9200/_cluster/health?wait_for_status=green&timeout=5s" ]
-      interval: 10s
-      timeout: 15s
-      retries: 12'
-    if [ "$MME2E_ARCHTYPE" = "arm64" ]; then
-      echo '
-    image: mattermostdevelopment/mattermost-elasticsearch:8.9.0
-    platform: linux/arm64/v8'
-    fi
-  fi)
-
-$(if mme2e_is_token_in_list "opensearch" "$ENABLED_DOCKER_SERVICES"; then
-    echo '
-  opensearch:
-    restart: "no"
-    network_mode: host
-    networks: !reset []
-    environment:
-        http.port: 9200
-    extends:
-        file: ../../server/build/docker-compose.common.yml
-        service: opensearch
-    healthcheck:
-      test: [ "CMD", "curl", "-fsS", "localhost:9200/_cluster/health?wait_for_status=green&timeout=5s" ]
       interval: 10s
       timeout: 15s
       retries: 12'
@@ -351,15 +309,6 @@ generate_env_files() {
     echo "$env" >>.env.server
   done
 
-  # Generating service-specific env vars
-  for SERVICE in $ENABLED_DOCKER_SERVICES; do
-    case $SERVICE in
-    opensearch)
-      echo "MM_ELASTICSEARCHSETTINGS_BACKEND=opensearch" >>.env.server
-      ;;
-    esac
-  done
-
   # Generating TEST-specific env files
   # Some are defaulted in .e2erc due to being needed to other scripts as well
   export REPO=mattermost # Static, but declared here for making generate_test_cycle.js easier to run
@@ -390,9 +339,6 @@ generate_env_files() {
         ;;
       keycloak)
         echo "CYPRESS_keycloakBaseUrl=http://localhost:8484" >>.env.cypress
-        ;;
-      elasticsearch | opensearch)
-        echo "CYPRESS_elasticsearchConnectionURL=http://localhost:9200" >>.env.cypress
         ;;
       esac
     done

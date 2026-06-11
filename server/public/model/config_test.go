@@ -6,7 +6,6 @@ package model
 import (
 	"encoding/json"
 	"fmt"
-	"maps"
 	"reflect"
 	"strings"
 	"testing"
@@ -35,8 +34,7 @@ func TestConfigDefaults(t *testing.T) {
 			if v.Type().Kind() == reflect.Ptr {
 				// Ignoring these 2 settings.
 				// TODO: remove them completely in v8.0.
-				if name == "config.ElasticsearchSettings.BulkIndexingTimeWindowSeconds" ||
-					name == "config.ClusterSettings.EnableExperimentalGossipEncryption" {
+				if name == "config.ClusterSettings.EnableExperimentalGossipEncryption" {
 					return
 				}
 
@@ -460,71 +458,12 @@ func TestConfigDefaultServiceSettingsExperimentalGroupUnreadChannels(t *testing.
 	require.Equal(t, *c1.ServiceSettings.ExperimentalGroupUnreadChannels, GroupUnreadChannelsDisabled)
 }
 
-func TestConfigDefaultNPSPluginState(t *testing.T) {
-	t.Run("should not enable NPS plugin by default", func(t *testing.T) {
-		c1 := Config{}
-		c1.SetDefaults()
-
-		assert.False(t, c1.PluginSettings.PluginStates["com.mattermost.nps"].Enable)
-	})
-
-	t.Run("should not enable NPS plugin if diagnostics are enabled", func(t *testing.T) {
-		c1 := Config{
-			LogSettings: LogSettings{
-				EnableDiagnostics: NewPointer(true),
-			},
-		}
-
-		c1.SetDefaults()
-
-		assert.False(t, c1.PluginSettings.PluginStates["com.mattermost.nps"].Enable)
-	})
-
-	t.Run("should not enable NPS plugin if diagnostics are disabled", func(t *testing.T) {
-		c1 := Config{
-			LogSettings: LogSettings{
-				EnableDiagnostics: NewPointer(false),
-			},
-		}
-
-		c1.SetDefaults()
-
-		assert.False(t, c1.PluginSettings.PluginStates["com.mattermost.nps"].Enable)
-	})
-
-	t.Run("should not re-enable NPS plugin after it has been disabled", func(t *testing.T) {
-		c1 := Config{
-			PluginSettings: PluginSettings{
-				PluginStates: map[string]*PluginState{
-					"com.mattermost.nps": {
-						Enable: false,
-					},
-				},
-			},
-		}
-
-		c1.SetDefaults()
-
-		assert.False(t, c1.PluginSettings.PluginStates["com.mattermost.nps"].Enable)
-	})
-}
-
 func TestConfigDefaultAnnouncementNotices(t *testing.T) {
 	c1 := Config{}
 	c1.SetDefaults()
 
 	assert.False(t, *c1.AnnouncementSettings.AdminNoticesEnabled)
 	assert.False(t, *c1.AnnouncementSettings.UserNoticesEnabled)
-}
-
-func TestConfigDefaultChannelExportPluginState(t *testing.T) {
-	t.Run("should not enable ChannelExport plugin by default", func(t *testing.T) {
-		BuildEnterpriseReady = "true"
-		c1 := Config{}
-		c1.SetDefaults()
-
-		assert.Nil(t, c1.PluginSettings.PluginStates["com.mattermost.plugin-channel-export"])
-	})
 }
 
 func TestTeamSettingsIsValidSiteNameEmpty(t *testing.T) {
@@ -908,7 +847,7 @@ func TestDisplaySettingsIsValidCustomURLSchemes(t *testing.T) {
 		},
 		{
 			name:  "invalid letters",
-			value: []string{"école"},
+			value: []string{"茅cole"},
 			valid: false,
 		},
 	}
@@ -1603,8 +1542,6 @@ func TestConfigSanitize(t *testing.T) {
 	*c.GitLabSettings.Secret = "bingo"
 	*c.OpenIdSettings.Secret = "secret"
 	*c.ServiceSettings.GoogleDeveloperKey = "google-api-key"
-	*c.ServiceSettings.GiphySdkKey = "giphy-sdk-key"
-	*c.AutoTranslationSettings.LibreTranslate.APIKey = "libre-api-key"
 	c.SqlSettings.DataSourceReplicas = []string{"stuff"}
 	c.SqlSettings.DataSourceSearchReplicas = []string{"stuff"}
 	c.SqlSettings.ReplicaLagSettings = []*ReplicaLagSettings{{
@@ -1622,12 +1559,9 @@ func TestConfigSanitize(t *testing.T) {
 	assert.Equal(t, FakeSetting, *c.EmailSettings.SMTPPassword)
 	assert.Equal(t, FakeSetting, *c.GitLabSettings.Secret)
 	assert.Equal(t, FakeSetting, *c.OpenIdSettings.Secret)
-	assert.Equal(t, FakeSetting, *c.AutoTranslationSettings.LibreTranslate.APIKey)
 	assert.Equal(t, FakeSetting, *c.SqlSettings.DataSource)
 	assert.Equal(t, FakeSetting, *c.SqlSettings.AtRestEncryptKey)
-	assert.Equal(t, FakeSetting, *c.ElasticsearchSettings.Password)
 	assert.Equal(t, FakeSetting, *c.ServiceSettings.GoogleDeveloperKey)
-	assert.Equal(t, FakeSetting, *c.ServiceSettings.GiphySdkKey)
 	assert.Equal(t, FakeSetting, c.SqlSettings.DataSourceReplicas[0])
 	assert.Equal(t, FakeSetting, c.SqlSettings.DataSourceSearchReplicas[0])
 
@@ -1653,269 +1587,6 @@ func TestConfigSanitize(t *testing.T) {
 		expectedURL := "postgres://" + SanitizedPassword + ":" + SanitizedPassword + "@localhost:5432/mattermost_test?sslmode=disable"
 		assert.Equal(t, expectedURL, *c.SqlSettings.DataSource)
 	})
-}
-
-func TestPluginSettingsSanitize(t *testing.T) {
-	const (
-		pluginID1 = "plugin.id"
-		pluginID2 = "another.plugin"
-	)
-	settingsPlugin1 := map[string]any{
-		"someoldsettings": "some old value",
-		"somesetting":     "some value",
-		"secrettext":      "a secret",
-		"secretnumber":    123,
-	}
-
-	settingsPlugin2 := map[string]any{
-		"somesetting": 456,
-	}
-
-	for name, tc := range map[string]struct {
-		manifests []*Manifest
-		expected  map[string]map[string]any
-	}{
-		"nil list of manifests": {
-			manifests: nil,
-			expected:  map[string]map[string]any{},
-		},
-		"empty list of manifests": {
-			manifests: []*Manifest{},
-			expected:  map[string]map[string]any{},
-		},
-		"one plugin installed without settings schema": {
-			manifests: []*Manifest{
-				{
-					Id:             pluginID1,
-					SettingsSchema: nil,
-				},
-			},
-			expected: map[string]map[string]any{
-				pluginID1: {
-					"someoldsettings": "some old value",
-					"somesetting":     "some value",
-					"secrettext":      "a secret",
-					"secretnumber":    123,
-				},
-			},
-		},
-		"one plugin installed empty settings schema": {
-			manifests: []*Manifest{
-				{
-					Id:             pluginID1,
-					SettingsSchema: &PluginSettingsSchema{},
-				},
-			},
-			expected: map[string]map[string]any{
-				pluginID1: {
-					"someoldsettings": "some old value",
-					"somesetting":     "some value",
-					"secrettext":      "a secret",
-					"secretnumber":    123,
-				},
-			},
-		},
-		"one plugin installed empty settings list": {
-			manifests: []*Manifest{
-				{
-					Id: pluginID1,
-					SettingsSchema: &PluginSettingsSchema{
-						Settings: []*PluginSetting{},
-					},
-				},
-			},
-			expected: map[string]map[string]any{
-				pluginID1: {
-					"someoldsettings": "some old value",
-					"somesetting":     "some value",
-					"secrettext":      "a secret",
-					"secretnumber":    123,
-				},
-			},
-		},
-		"one plugin installed": {
-			manifests: []*Manifest{
-				{
-					Id: pluginID1,
-					SettingsSchema: &PluginSettingsSchema{
-						Settings: []*PluginSetting{
-							{
-								Key:    "somesetting",
-								Type:   "text",
-								Secret: false,
-							},
-							{
-								Key:    "secrettext",
-								Type:   "text",
-								Secret: true,
-							},
-							{
-								Key:    "secretnumber",
-								Type:   "number",
-								Secret: true,
-							},
-						},
-					},
-				},
-			},
-			expected: map[string]map[string]any{
-				pluginID1: {
-					"someoldsettings": "some old value",
-					"somesetting":     "some value",
-					"secrettext":      FakeSetting,
-					"secretnumber":    FakeSetting,
-				},
-			},
-		},
-		"two plugins installed": {
-			manifests: []*Manifest{
-				{
-					Id: pluginID1,
-					SettingsSchema: &PluginSettingsSchema{
-						Settings: []*PluginSetting{
-							{
-								Key:    "somesetting",
-								Type:   "text",
-								Secret: false,
-							},
-							{
-								Key:    "secrettext",
-								Type:   "text",
-								Secret: true,
-							},
-							{
-								Key:    "secretnumber",
-								Type:   "number",
-								Secret: true,
-							},
-						},
-					},
-				},
-				{
-					Id: pluginID2,
-					SettingsSchema: &PluginSettingsSchema{
-						Settings: []*PluginSetting{
-							{
-								Key:    "somesetting",
-								Type:   "number",
-								Secret: false,
-							},
-						},
-					},
-				},
-			},
-			expected: map[string]map[string]any{
-				pluginID1: {
-					"someoldsettings": "some old value",
-					"somesetting":     "some value",
-					"secrettext":      FakeSetting,
-					"secretnumber":    FakeSetting,
-				},
-				pluginID2: {
-					"somesetting": 456,
-				},
-			},
-		},
-		"secret settings in sections are sanitized": {
-			manifests: []*Manifest{
-				{
-					Id: pluginID1,
-					SettingsSchema: &PluginSettingsSchema{
-						Settings: []*PluginSetting{
-							{
-								Key:    "somesetting",
-								Type:   "text",
-								Secret: false,
-							},
-						},
-						Sections: []*PluginSettingsSection{
-							{
-								Key: "section1",
-								Settings: []*PluginSetting{
-									{
-										Key:    "secrettext",
-										Type:   "text",
-										Secret: true,
-									},
-									{
-										Key:    "secretnumber",
-										Type:   "number",
-										Secret: true,
-									},
-								},
-							},
-						},
-					},
-				},
-			},
-			expected: map[string]map[string]any{
-				pluginID1: {
-					"someoldsettings": "some old value",
-					"somesetting":     "some value",
-					"secrettext":      FakeSetting,
-					"secretnumber":    FakeSetting,
-				},
-			},
-		},
-		"secret settings across multiple sections": {
-			manifests: []*Manifest{
-				{
-					Id: pluginID1,
-					SettingsSchema: &PluginSettingsSchema{
-						Sections: []*PluginSettingsSection{
-							{
-								Key: "section1",
-								Settings: []*PluginSetting{
-									{
-										Key:    "somesetting",
-										Type:   "text",
-										Secret: false,
-									},
-									{
-										Key:    "secrettext",
-										Type:   "text",
-										Secret: true,
-									},
-								},
-							},
-							{
-								Key: "section2",
-								Settings: []*PluginSetting{
-									{
-										Key:    "secretnumber",
-										Type:   "number",
-										Secret: true,
-									},
-								},
-							},
-						},
-					},
-				},
-			},
-			expected: map[string]map[string]any{
-				pluginID1: {
-					"someoldsettings": "some old value",
-					"somesetting":     "some value",
-					"secrettext":      FakeSetting,
-					"secretnumber":    FakeSetting,
-				},
-			},
-		},
-	} {
-		t.Run(name, func(t *testing.T) {
-			c := PluginSettings{}
-			c.SetDefaults(*NewLogSettings())
-
-			c.Plugins[pluginID1] = make(map[string]any)
-			maps.Copy(c.Plugins[pluginID1], settingsPlugin1)
-			c.Plugins[pluginID2] = make(map[string]any)
-			maps.Copy(c.Plugins[pluginID2], settingsPlugin2)
-
-			c.Sanitize(tc.manifests)
-
-			assert.Equal(t, tc.expected, c.Plugins, name)
-		})
-	}
 }
 
 func TestSanitizeDataSource(t *testing.T) {
@@ -2159,30 +1830,6 @@ func TestConfigServiceSettingsIsValid(t *testing.T) {
 		appErr = cfg.ServiceSettings.isValid()
 		require.NotNil(t, appErr)
 		require.Equal(t, "model.config.is_valid.dcr_redirect_uri_allowlist.app_error", appErr.Id)
-	})
-}
-
-func TestConfigDefaultAIPluginState(t *testing.T) {
-	t.Run("should not enable AI plugin by default on self-hosted", func(t *testing.T) {
-		c1 := Config{}
-		c1.SetDefaults()
-
-		assert.False(t, c1.PluginSettings.PluginStates["mattermost-ai"].Enable)
-	})
-
-	t.Run("should not re-enable AI plugin after it has been disabled", func(t *testing.T) {
-		c1 := Config{
-			PluginSettings: PluginSettings{
-				PluginStates: map[string]*PluginState{
-					"mattermost-ai": {
-						Enable: false,
-					},
-				},
-			},
-		}
-
-		c1.SetDefaults()
-		assert.False(t, c1.PluginSettings.PluginStates["mattermost-ai"].Enable)
 	})
 }
 
@@ -2572,24 +2219,6 @@ func TestFilterConfig(t *testing.T) {
 		require.Empty(t, m)
 	})
 
-	t.Run("should be able to handle float64 values", func(t *testing.T) {
-		cfg := &Config{}
-		cfg.SetDefaults()
-		cfg.PluginSettings.Plugins = map[string]map[string]any{
-			"com.mattermost.plugin-a": {
-				"setting": 1.0,
-			},
-		}
-
-		m, err := FilterConfig(cfg, ConfigFilterOptions{
-			GetConfigOptions: GetConfigOptions{
-				RemoveDefaults: true,
-			},
-		})
-		require.NoError(t, err)
-		require.Equal(t, 1.0, m["PluginSettings"].(map[string]any)["Plugins"].(map[string]any)["com.mattermost.plugin-a"].(map[string]any)["setting"])
-	})
-
 	t.Run("should be able to filter specific tag", func(t *testing.T) {
 		cfg := &Config{}
 		cfg.SetDefaults()
@@ -2648,145 +2277,6 @@ func TestFilterConfig(t *testing.T) {
 		_, ok = m["SqlSettings"]
 		require.False(t, ok)
 	})
-}
-
-func TestAutoTranslationSettingsDefaults(t *testing.T) {
-	t.Run("should set default values", func(t *testing.T) {
-		c := Config{}
-		c.SetDefaults()
-
-		require.False(t, *c.AutoTranslationSettings.Enable)
-		require.Equal(t, "", *c.AutoTranslationSettings.Provider)
-		require.Equal(t, 5000, *c.AutoTranslationSettings.TimeoutMs)
-		require.Equal(t, "", *c.AutoTranslationSettings.LibreTranslate.URL)
-		require.Equal(t, "", *c.AutoTranslationSettings.LibreTranslate.APIKey)
-		// TODO: Enable Agents provider in future release
-		// require.Equal(t, "", *c.AutoTranslationSettings.Agents.BotUserId)
-	})
-}
-
-func TestAutoTranslationSettingsIsValid(t *testing.T) {
-	testCases := []struct {
-		name        string
-		settings    AutoTranslationSettings
-		expectError bool
-		errorId     string
-	}{
-		{
-			name: "disabled settings should be valid",
-			settings: AutoTranslationSettings{
-				Enable: NewPointer(false),
-			},
-			expectError: false,
-		},
-		{
-			name: "enabled with no provider should fail",
-			settings: AutoTranslationSettings{
-				Enable:   NewPointer(true),
-				Provider: nil,
-			},
-			expectError: true,
-			errorId:     "model.config.is_valid.autotranslation.provider.app_error",
-		},
-		{
-			name: "enabled with unsupported provider should fail",
-			settings: AutoTranslationSettings{
-				Enable:   NewPointer(true),
-				Provider: NewPointer("unsupported"),
-			},
-			expectError: true,
-			errorId:     "model.config.is_valid.autotranslation.provider.unsupported.app_error",
-		},
-		{
-			name: "libretranslate without URL should fail",
-			settings: AutoTranslationSettings{
-				Enable:   NewPointer(true),
-				Provider: NewPointer("libretranslate"),
-				LibreTranslate: &LibreTranslateProviderSettings{
-					URL: NewPointer(""),
-				},
-			},
-			expectError: true,
-			errorId:     "model.config.is_valid.autotranslation.libretranslate.url.app_error",
-		},
-		// TODO: Enable Agents provider in future release
-		// {
-		// 	name: "agents without bot user ID should fail",
-		// 	settings: AutoTranslationSettings{
-		// 		Enable:   NewPointer(true),
-		// 		Provider: NewPointer("agents"),
-		// 		Agents: &AgentsProviderSettings{
-		// 			BotUserId: NewPointer(""),
-		// 		},
-		// 	},
-		// 	expectError: true,
-		// 	errorId:     "model.config.is_valid.autotranslation.agents.bot_user_id.app_error",
-		// },
-		{
-			name: "valid libretranslate settings",
-			settings: AutoTranslationSettings{
-				Enable:   NewPointer(true),
-				Provider: NewPointer("libretranslate"),
-				LibreTranslate: &LibreTranslateProviderSettings{
-					URL:    NewPointer("https://lt.example.com"),
-					APIKey: NewPointer("optional-key"),
-				},
-			},
-			expectError: false,
-		},
-		{
-			name: "valid workers at 48",
-			settings: AutoTranslationSettings{
-				Enable:   NewPointer(true),
-				Provider: NewPointer("libretranslate"),
-				Workers:  NewPointer(48),
-				LibreTranslate: &LibreTranslateProviderSettings{
-					URL:    NewPointer("https://lt.example.com"),
-					APIKey: NewPointer("optional-key"),
-				},
-			},
-			expectError: false,
-		},
-		{
-			name:    "invalid workers above 64",
-			errorId: "model.config.is_valid.autotranslation.workers.app_error",
-			settings: AutoTranslationSettings{
-				Enable:   NewPointer(true),
-				Provider: NewPointer("libretranslate"),
-				Workers:  NewPointer(65),
-				LibreTranslate: &LibreTranslateProviderSettings{
-					URL:    NewPointer("https://lt.example.com"),
-					APIKey: NewPointer("optional-key"),
-				},
-			},
-			expectError: true,
-		},
-		// TODO: Enable Agents provider in future release
-		// {
-		// 	name: "valid agents settings",
-		// 	settings: AutoTranslationSettings{
-		// 		Enable:   NewPointer(true),
-		// 		Provider: NewPointer("agents"),
-		// 		Agents: &AgentsProviderSettings{
-		// 			BotUserId: NewPointer("bot123"),
-		// 		},
-		// 	},
-		// 	expectError: false,
-		// },
-	}
-
-	for _, tc := range testCases {
-		t.Run(tc.name, func(t *testing.T) {
-			tc.settings.SetDefaults()
-			err := tc.settings.isValid()
-			if tc.expectError {
-				require.NotNil(t, err)
-				require.Equal(t, tc.errorId, err.Id)
-			} else {
-				require.Nil(t, err)
-			}
-		})
-	}
 }
 
 func TestConfigAccessTagsMapToValidPermissions(t *testing.T) {

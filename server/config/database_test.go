@@ -287,28 +287,6 @@ func TestDatabaseStoreGetEnvironmentOverrides(t *testing.T) {
 		assert.Equal(t, map[string]any{"ServiceSettings": map[string]any{"SiteURL": true}}, ds.GetEnvironmentOverrides())
 	})
 
-	t.Run("get override for a bool variable", func(t *testing.T) {
-		_, tearDown := setupConfigDatabase(t, testConfig, nil)
-		defer tearDown()
-
-		ds, err := newTestDatabaseStore(nil)
-		require.NoError(t, err)
-		defer ds.Close()
-
-		assert.Equal(t, false, *ds.Get().PluginSettings.EnableUploads)
-		assert.Empty(t, ds.GetEnvironmentOverrides())
-
-		os.Setenv("MM_PLUGINSETTINGS_ENABLEUPLOADS", "true")
-		defer os.Unsetenv("MM_PLUGINSETTINGS_ENABLEUPLOADS")
-
-		ds, err = newTestDatabaseStore(nil)
-		require.NoError(t, err)
-		defer ds.Close()
-
-		assert.Equal(t, true, *ds.Get().PluginSettings.EnableUploads)
-		assert.Equal(t, map[string]any{"PluginSettings": map[string]any{"EnableUploads": true}}, ds.GetEnvironmentOverrides())
-	})
-
 	t.Run("get override for an int variable", func(t *testing.T) {
 		_, tearDown := setupConfigDatabase(t, testConfig, nil)
 		defer tearDown()
@@ -673,29 +651,6 @@ func TestDatabaseStoreLoad(t *testing.T) {
 		// check that in DB config does not include overwritten variable
 		_, actualConfig := getActualDatabaseConfig(t)
 		assert.Equal(t, "http://minimal", *actualConfig.ServiceSettings.SiteURL)
-	})
-
-	t.Run("do not persist environment variables - boolean", func(t *testing.T) {
-		_, tearDown := setupConfigDatabase(t, minimalConfig, nil)
-		defer tearDown()
-
-		os.Setenv("MM_PLUGINSETTINGS_ENABLEUPLOADS", "true")
-		defer os.Unsetenv("MM_PLUGINSETTINGS_ENABLEUPLOADS")
-
-		ds, err := newTestDatabaseStore(nil)
-		require.NoError(t, err)
-		defer ds.Close()
-
-		assert.Equal(t, true, *ds.Get().PluginSettings.EnableUploads)
-
-		_, _, err = ds.Set(ds.Get())
-		require.NoError(t, err)
-
-		assert.Equal(t, true, *ds.Get().PluginSettings.EnableUploads)
-		assert.Equal(t, map[string]any{"PluginSettings": map[string]any{"EnableUploads": true}}, ds.GetEnvironmentOverrides())
-		// check that in DB config does not include overwritten variable
-		_, actualConfig := getActualDatabaseConfig(t)
-		assert.Equal(t, false, *actualConfig.PluginSettings.EnableUploads)
 	})
 
 	t.Run("do not persist environment variables - int", func(t *testing.T) {

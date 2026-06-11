@@ -19,7 +19,6 @@ describe('Autocomplete with Database - Users', () => {
     let testUsers: Record<string, SimpleUser>;
 
     before(() => {
-        cy.shouldHaveElasticsearchDisabled();
 
         createSearchData(prefix).then((searchData) => {
             testUsers = searchData.users;

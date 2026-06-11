@@ -14,8 +14,8 @@
 {"Time":"2025-03-20T10:00:00Z","Action":"pass","Package":"github.com/mattermost/mattermost/server/v8/channels/store/sqlstore","Test":"TestUserStore","Elapsed":22.0}
 {"Time":"2025-03-20T10:00:00Z","Action":"pass","Package":"github.com/mattermost/mattermost/server/v8/config","Test":"TestConfigStore","Elapsed":5.0}
 {"Time":"2025-03-20T10:00:00Z","Action":"pass","Package":"github.com/mattermost/mattermost/server/v8/config","Test":"TestConfigMigrate","Elapsed":3.0}
-{"Time":"2025-03-20T10:00:00Z","Action":"pass","Package":"github.com/mattermost/mattermost/server/v8/enterprise/elasticsearch","Test":"TestSearchPosts","Elapsed":8.0}
-{"Time":"2025-03-20T10:00:00Z","Action":"pass","Package":"github.com/mattermost/mattermost/server/v8/enterprise/elasticsearch","Test":"TestIndexPosts","Elapsed":6.0}
+{"Time":"2025-03-20T10:00:00Z","Action":"pass","Package":"github.com/mattermost/mattermost/server/v8/enterprise/metrics","Test":"TestMetrics","Elapsed":8.0}
+{"Time":"2025-03-20T10:00:00Z","Action":"pass","Package":"github.com/mattermost/mattermost/server/v8/enterprise/metrics","Test":"TestDatabaseClusterName","Elapsed":6.0}
 {"Time":"2025-03-20T10:00:00Z","Action":"pass","Package":"github.com/mattermost/mattermost/server/v8/enterprise/compliance","Test":"TestExportCompliance","Elapsed":4.0}
 {"Time":"2025-03-20T10:00:00Z","Action":"pass","Package":"github.com/mattermost/mattermost/server/public/model","Test":"TestModelValidation","Elapsed":2.0}
 {"Time":"2025-03-20T10:00:00Z","Action":"pass","Package":"github.com/mattermost/mattermost/server/public/model","Test":"TestModelSerialization","Elapsed":1.5}

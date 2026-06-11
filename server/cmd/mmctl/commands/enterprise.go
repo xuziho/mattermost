@@ -11,7 +11,6 @@ package commands
 
 import (
 	// Enterprise Deps
-	_ "github.com/elastic/go-elasticsearch/v8"
 	_ "github.com/gorilla/handlers"
 	_ "github.com/hako/durafmt"
 	_ "github.com/hashicorp/memberlist"

@@ -11,7 +11,6 @@ import type {ServerError} from '@mattermost/types/errors';
 import {patchChannel} from 'mattermost-redux/actions/channels';
 import {fetchChannelRemotes} from 'mattermost-redux/actions/shared_channels';
 import {Client4} from 'mattermost-redux/client';
-import {isChannelAutotranslated as isChannelAutotranslatedSelector} from 'mattermost-redux/selectors/entities/channels';
 import {getRemotesForChannel} from 'mattermost-redux/selectors/entities/shared_channels';
 
 import ColorInput from 'components/color_input';
@@ -43,7 +42,6 @@ type Props = {
     channel: Channel;
     setAreThereUnsavedChanges?: (unsaved: boolean) => void;
     showTabSwitchError?: boolean;
-    canManageChannelTranslation?: boolean;
     canManageBanner?: boolean;
     canManageSharedChannels?: boolean;
 }
@@ -58,7 +56,6 @@ function ChannelSettingsConfigurationTab({
     channel,
     setAreThereUnsavedChanges,
     showTabSwitchError,
-    canManageChannelTranslation,
     canManageBanner,
     canManageSharedChannels = false,
 }: Props) {
@@ -140,19 +137,7 @@ function ChannelSettingsConfigurationTab({
 
     const toggleBannerTextPreview = useCallback(() => setShowBannerTextPreview((show) => !show), []);
 
-    // Auto-translation section
-    const autoTranslationHeading = formatMessage({id: 'channel_translation.label.name', defaultMessage: 'Auto-translation'});
-    const autoTranslationSubHeading = formatMessage({id: 'channel_translation.label.subtext', defaultMessage: 'When enabled, messages in this channel will be translated to members\' own languages. Members can opt-out of this from the channel menu to view the original message instead.'});
-
-    const initialIsChannelAutotranslated = useSelector((state: GlobalState) => isChannelAutotranslatedSelector(state, channel.id));
     const initialRemotes = useSelector((state: GlobalState) => getRemotesForChannel(state, channel.id));
-    const [isChannelAutotranslated, setIsChannelAutotranslated] = useState(initialIsChannelAutotranslated);
-    const hasAutoTranslationChanges = isChannelAutotranslated !== initialIsChannelAutotranslated;
-
-    const handleAutoTranslationToggle = useCallback(async () => {
-        setIsChannelAutotranslated((prev) => !prev);
-    }, []);
-
     // Shared channels section
     const [workspaceRemotes, setWorkspaceRemotes] = useState<WorkspaceWithStatus[]>(() =>
         (initialRemotes || []).map((r) => ({...r})),
@@ -249,7 +234,6 @@ function ChannelSettingsConfigurationTab({
 
     // Common
     const hasUnsavedChanges = hasBannerChanges ||
-        hasAutoTranslationChanges ||
         (canManageSharedChannels && hasWorkspaceChanges);
 
     useEffect(() => {
@@ -293,11 +277,7 @@ function ChannelSettingsConfigurationTab({
             };
         }
 
-        if (isChannelAutotranslated !== initialIsChannelAutotranslated) {
-            updated.autotranslation = isChannelAutotranslated;
-        }
-
-        if (hasAutoTranslationChanges || hasBannerChanges) {
+        if (hasBannerChanges) {
             const {error} = await dispatch(patchChannel(channel.id, updated));
             if (error) {
                 handleServerError(error as ServerError);
@@ -355,13 +335,10 @@ function ChannelSettingsConfigurationTab({
         dispatch,
         formatMessage,
         handleServerError,
-        hasAutoTranslationChanges,
         hasBannerChanges,
         hasWorkspaceChanges,
         initialBannerInfo,
-        initialIsChannelAutotranslated,
         initialRemotes,
-        isChannelAutotranslated,
         updatedChannelBanner,
         workspaceRemotes,
     ]);
@@ -552,42 +529,6 @@ function ChannelSettingsConfigurationTab({
                         </div>
                     }
                 </>
-            )}
-
-            {(canManageSharedChannels || canManageBanner) && canManageChannelTranslation && (
-                <div className='ChannelSettingsModal__configurationTab__configurationDivider'/>
-            )}
-
-            {canManageChannelTranslation && (
-                <div className='channel_translation_header'>
-                    <div className='channel_translation_header__text'>
-                        <label
-                            className='Input_legend'
-                            aria-label={autoTranslationHeading}
-                        >
-                            {autoTranslationHeading}
-                        </label>
-                        <label
-                            className='Input_subheading'
-                            aria-label={autoTranslationSubHeading}
-                        >
-                            {autoTranslationSubHeading}
-                        </label>
-                    </div>
-
-                    <div className='channel_translation_header__toggle'>
-                        <Toggle
-                            id='channelTranslationToggle'
-                            ariaLabel={autoTranslationHeading}
-                            size='btn-md'
-                            disabled={false}
-                            onToggle={handleAutoTranslationToggle}
-                            toggled={isChannelAutotranslated}
-                            tabIndex={0}
-                            toggleClassName='btn-toggle-primary'
-                        />
-                    </div>
-                </div>
             )}
 
             {showSaveChangesPanel && (

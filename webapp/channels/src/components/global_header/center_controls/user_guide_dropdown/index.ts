@@ -7,17 +7,8 @@ import {bindActionCreators} from 'redux';
 import type {Dispatch} from 'redux';
 
 import {openModal} from 'actions/views/modals';
-import {getUserGuideDropdownPluginMenuItems} from 'selectors/plugins';
-
-import type {GlobalState} from 'types/store';
 
 import UserGuideDropdown from './user_guide_dropdown';
-
-function mapStateToProps(state: GlobalState) {
-    return {
-        pluginMenuItems: getUserGuideDropdownPluginMenuItems(state),
-    };
-}
 
 function mapDispatchToProps(dispatch: Dispatch) {
     return {
@@ -27,7 +18,7 @@ function mapDispatchToProps(dispatch: Dispatch) {
     };
 }
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
+const connector = connect(null, mapDispatchToProps);
 
 export type PropsFromRedux = ConnectedProps<typeof connector>;
 

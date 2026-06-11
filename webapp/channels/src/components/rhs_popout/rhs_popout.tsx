@@ -10,7 +10,6 @@ import {selectTeam} from 'mattermost-redux/actions/teams';
 import {getChannelByName} from 'mattermost-redux/selectors/entities/channels';
 
 import {useTeamByName} from 'components/common/hooks/use_team';
-import RhsPluginPopout from 'components/rhs_plugin_popout';
 import RhsSearchPopout from 'components/rhs_search_popout';
 import UnreadsStatusHandler from 'components/unreads_status_handler';
 
@@ -57,10 +56,6 @@ export default function RhsPopout() {
                             <Route
                                 path={`${match.path}/search`}
                                 component={RhsSearchPopout}
-                            />
-                            <Route
-                                path={`${match.path}/plugin/:pluginId`}
-                                component={RhsPluginPopout}
                             />
                         </Switch>
                     </div>

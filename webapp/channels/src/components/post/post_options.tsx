@@ -14,7 +14,6 @@ import {isPostEphemeral} from 'mattermost-redux/utils/post_utils';
 
 import ActionsMenu from 'components/actions_menu';
 import CommentIcon from 'components/common/comment_icon';
-import {usePluginVisibilityInSharedChannel} from 'components/common/hooks/usePluginVisibilityInSharedChannel';
 import DotMenu from 'components/dot_menu';
 import PostFlagIcon from 'components/post_view/post_flag_icon';
 import PostReaction from 'components/post_view/post_reaction';
@@ -22,8 +21,6 @@ import PostRecentReactions from 'components/post_view/post_recent_reactions';
 
 import {Locations, Constants} from 'utils/constants';
 import {isSystemMessage, fromAutoResponder} from 'utils/post_utils';
-
-import type {PostActionComponent} from 'types/store/plugins';
 
 type Props = {
     post: Post;
@@ -53,8 +50,6 @@ type Props = {
     isPostHeaderVisible?: boolean | null;
     isPostBeingEdited?: boolean;
     canDelete?: boolean;
-    pluginActions: PostActionComponent[];
-    isChannelAutotranslated: boolean;
     isBurnOnReadPost?: boolean;
     shouldDisplayBurnOnReadConcealed?: boolean;
     actions: {
@@ -207,26 +202,6 @@ const PostOptions = (props: Props): JSX.Element => {
         </li>
     );
 
-    let pluginItems: ReactNode = null;
-    const pluginItemsVisible = usePluginVisibilityInSharedChannel(post.channel_id);
-
-    if ((!isEphemeral && !post.failed && !systemMessage && !isBurnOnReadPost) && hoverLocal && pluginItemsVisible) {
-        pluginItems = props.pluginActions?.
-            map((item) => {
-                if (item.component) {
-                    const Component = item.component;
-                    return (
-                        <li key={item.id}>
-                            <Component
-                                post={props.post}
-                            />
-                        </li>
-                    );
-                }
-                return null;
-            }) || [];
-    }
-
     const dotMenu = (
         <li>
             <DotMenu
@@ -239,7 +214,6 @@ const PostOptions = (props: Props): JSX.Element => {
                 isReadOnly={isReadOnly || channelIsArchived}
                 isMenuOpen={showDotMenu}
                 enableEmojiPicker={props.enableEmojiPicker}
-                isChannelAutotranslated={props.isChannelAutotranslated}
             />
         </li>
     );
@@ -301,7 +275,6 @@ const PostOptions = (props: Props): JSX.Element => {
                 {showRecentReactions}
                 {postReaction}
                 {flagIcon}
-                {pluginItems}
                 {actionsMenu}
                 {commentIcon}
                 {(collapsedThreadsEnabled || showRecentlyUsedReactions) && dotMenu}

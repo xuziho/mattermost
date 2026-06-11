@@ -146,14 +146,6 @@ declare namespace Cypress {
         apiInvalidateCache(): Chainable<Record<string, any>>;
 
         /**
-         * Allow test if matches elastic search disabled.
-         * Otherwise, fail fast.
-         * @example
-         *   cy.shouldHaveElasticsearchDisabled();
-         */
-        shouldHaveElasticsearchDisabled(): Chainable;
-
-        /**
          * Compatibility no-op for tests that used to skip cloud deployments.
          * Otherwise, fail fast.
          * @example

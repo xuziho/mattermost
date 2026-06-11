@@ -3,7 +3,6 @@
 
 import type {LogObject} from '@mattermost/types/admin';
 import type {DataRetentionCustomPolicies, DataRetentionCustomPolicy} from '@mattermost/types/data_retention';
-import type {PluginStatusRedux} from '@mattermost/types/plugins';
 import type {GlobalState} from '@mattermost/types/store';
 
 import {createSelector} from 'mattermost-redux/selectors/create_selector';
@@ -75,12 +74,4 @@ export function getDataRetentionCustomPolicy(state: GlobalState, id: string): Da
 
 export function getAdminAnalytics(state: GlobalState) {
     return state.entities.admin.analytics;
-}
-
-export function getPluginStatuses(state: GlobalState): Record<string, PluginStatusRedux> | undefined {
-    return state.entities.admin.pluginStatuses;
-}
-
-export function getPluginStatus(state: GlobalState, id: string): PluginStatusRedux | undefined {
-    return getPluginStatuses(state)?.[id];
 }

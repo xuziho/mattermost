@@ -33,11 +33,6 @@ jest.mock('components/unreads_status_handler', () => ({
     default: () => <div data-testid='unreads-status-handler'>{'UnreadsStatusHandler'}</div>,
 }));
 
-jest.mock('components/rhs_plugin_popout', () => ({
-    __esModule: true,
-    default: () => <div data-testid='rhs-plugin-popout'>{'RHS Plugin Popout'}</div>,
-}));
-
 jest.mock('components/rhs_search_popout', () => ({
     __esModule: true,
     default: () => <div data-testid='rhs-search-popout'>{'RHS Search Popout'}</div>,
@@ -110,11 +105,6 @@ describe('RhsPopout', () => {
     it('should render RhsSearchPopout for search route', () => {
         renderPopout('/_popout/rhs/team1/search?q=test');
         expect(screen.getByTestId('rhs-search-popout')).toBeInTheDocument();
-    });
-
-    it('should render RhsPluginPopout for plugin route', () => {
-        renderPopout('/_popout/rhs/team1/plugin/test-plugin');
-        expect(screen.getByTestId('rhs-plugin-popout')).toBeInTheDocument();
     });
 
     it('should not dispatch channel actions when no channel in query params', async () => {

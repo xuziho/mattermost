@@ -46,20 +46,7 @@ class UserGuideDropdown extends React.PureComponent<Props, State> {
     renderDropdownItems = (): React.ReactNode => {
         const {
             intl,
-            pluginMenuItems,
         } = this.props;
-
-        const pluginItems = pluginMenuItems?.map((item) => {
-            return (
-                <Menu.ItemAction
-                    id={item.id + '_pluginmenuitem'}
-                    iconClassName='icon-thumbs-up-down'
-                    key={item.id + '_pluginmenuitem'}
-                    onClick={item.action}
-                    text={item.text}
-                />
-            );
-        });
 
         return (
             <Menu.Group>
@@ -69,7 +56,6 @@ class UserGuideDropdown extends React.PureComponent<Props, State> {
                     onClick={this.openKeyboardShortcutsModal}
                     text={intl.formatMessage({id: 'userGuideHelp.keyboardShortcuts', defaultMessage: 'Keyboard shortcuts'})}
                 />
-                {pluginItems}
             </Menu.Group>
         );
     };

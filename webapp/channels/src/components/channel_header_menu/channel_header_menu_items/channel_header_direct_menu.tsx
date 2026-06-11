@@ -1,7 +1,6 @@
 // Copyright (c) 2015-present Mattermost, Inc. All Rights Reserved.
 // See LICENSE.txt for license information.
 
-import type {ReactNode} from 'react';
 import React from 'react';
 import {useSelector} from 'react-redux';
 
@@ -18,12 +17,10 @@ import * as Menu from 'components/menu';
 
 import type {GlobalState} from 'types/store';
 
-import MenuItemAutotranslation from '../menu_items/autotranslation';
 import MenuItemChannelBookmarks from '../menu_items/channel_bookmarks_submenu';
 import MenuItemChannelSettings from '../menu_items/channel_settings_menu';
 import CloseMessage from '../menu_items/close_message';
 import EditConversationHeader from '../menu_items/edit_conversation_header';
-import MenuItemPluginItems from '../menu_items/plugins_submenu';
 import MenuItemToggleFavoriteChannel from '../menu_items/toggle_favorite_channel';
 import MenuItemToggleInfo from '../menu_items/toggle_info';
 import MenuItemToggleMuteChannel from '../menu_items/toggle_mute_channel';
@@ -35,12 +32,10 @@ interface Props extends Menu.FirstMenuItemProps {
     isMuted: boolean;
     isMobile: boolean;
     isFavorite: boolean;
-    pluginItems: ReactNode[];
     isChannelBookmarksEnabled: boolean;
-    isChannelAutotranslated: boolean;
 }
 
-const ChannelHeaderDirectMenu = ({channel, user, isMuted, isMobile, isFavorite, pluginItems, isChannelBookmarksEnabled, isChannelAutotranslated, ...rest}: Props) => {
+const ChannelHeaderDirectMenu = ({channel, user, isMuted, isMobile, isFavorite, isChannelBookmarksEnabled, ...rest}: Props) => {
     const canAccessChannelSettingsForChannel = useSelector((state: GlobalState) => canAccessChannelSettings(state, channel.id));
 
     return (
@@ -75,11 +70,6 @@ const ChannelHeaderDirectMenu = ({channel, user, isMuted, isMobile, isFavorite, 
                     channel={channel}
                 />
             )}
-            {isChannelAutotranslated && (
-                <MenuItemAutotranslation
-                    channel={channel}
-                />
-            )}
             <Menu.Separator/>
             {!isGuest(user.roles) && isChannelBookmarksEnabled && (
                 <MenuItemChannelBookmarks
@@ -89,9 +79,6 @@ const ChannelHeaderDirectMenu = ({channel, user, isMuted, isMobile, isFavorite, 
             <ChannelMoveToSubMenu
                 channel={channel}
             />
-            {!isMobile && (
-                <MenuItemPluginItems pluginItems={pluginItems}/>
-            )}
             <Menu.Separator/>
             <CloseMessage
                 currentUserID={user.id}

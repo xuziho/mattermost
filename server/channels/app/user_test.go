@@ -359,52 +359,6 @@ func TestCreateUser(t *testing.T) {
 		require.Nil(t, u)
 	})
 
-	t.Run("should sanitize user authdata before publishing to plugin hooks", func(t *testing.T) {
-		tearDown, _, _ := SetAppEnvironmentWithPlugins(t,
-			[]string{
-				`
-			package main
-
-			import (
-				"github.com/mattermost/mattermost/server/public/plugin"
-				"github.com/mattermost/mattermost/server/public/model"
-			)
-
-			type MyPlugin struct {
-				plugin.MattermostPlugin
-			}
-
-			func (p *MyPlugin) UserHasBeenCreated(c *plugin.Context, user *model.User) {
-				user.Nickname = "sanitized"
-				if len(user.Password) > 0 {
-					user.Nickname = "not-sanitized"
-				}
-				p.API.UpdateUser(user)
-			}
-
-			func main() {
-				plugin.ClientMain(&MyPlugin{})
-			}
-		`,
-			}, th.App, th.NewPluginAPI)
-		defer tearDown()
-
-		user := &model.User{
-			Email:       model.NewId() + "success+test@example.com",
-			Nickname:    "Darth Vader",
-			Username:    "vader" + model.NewId(),
-			Password:    model.NewTestPassword(),
-			AuthService: "",
-		}
-		_, err := th.App.CreateUser(th.Context, user)
-		require.Nil(t, err)
-
-		time.Sleep(1 * time.Second)
-
-		user, err = th.App.GetUser(user.Id)
-		require.Nil(t, err)
-		require.Equal(t, "sanitized", user.Nickname)
-	})
 }
 
 func TestUpdateUserActive(t *testing.T) {

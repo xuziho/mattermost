@@ -200,38 +200,6 @@ func (_m *ClusterInterface) GetMyClusterInfo() *model.ClusterInfo {
 	return r0
 }
 
-// GetPluginStatuses provides a mock function with no fields
-func (_m *ClusterInterface) GetPluginStatuses() (model.PluginStatuses, *model.AppError) {
-	ret := _m.Called()
-
-	if len(ret) == 0 {
-		panic("no return value specified for GetPluginStatuses")
-	}
-
-	var r0 model.PluginStatuses
-	var r1 *model.AppError
-	if rf, ok := ret.Get(0).(func() (model.PluginStatuses, *model.AppError)); ok {
-		return rf()
-	}
-	if rf, ok := ret.Get(0).(func() model.PluginStatuses); ok {
-		r0 = rf()
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(model.PluginStatuses)
-		}
-	}
-
-	if rf, ok := ret.Get(1).(func() *model.AppError); ok {
-		r1 = rf()
-	} else {
-		if ret.Get(1) != nil {
-			r1 = ret.Get(1).(*model.AppError)
-		}
-	}
-
-	return r0, r1
-}
-
 // GetWSQueues provides a mock function with given fields: userID, connectionID, seqNum
 func (_m *ClusterInterface) GetWSQueues(userID string, connectionID string, seqNum int64) (map[string]*model.WSQueues, error) {
 	ret := _m.Called(userID, connectionID, seqNum)

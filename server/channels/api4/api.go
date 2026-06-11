@@ -68,9 +68,6 @@ type Routes struct {
 	Uploads *mux.Router // 'api/v4/uploads'
 	Upload  *mux.Router // 'api/v4/uploads/{upload_id:[A-Za-z0-9]+}'
 
-	Plugins *mux.Router // 'api/v4/plugins'
-	Plugin  *mux.Router // 'api/v4/plugins/{plugin_id:[A-Za-z0-9\\_\\-\\.]+}'
-
 	PublicFile *mux.Router // '/files/{file_id:[A-Za-z0-9]+}/public'
 
 	Commands *mux.Router // 'api/v4/commands'
@@ -94,8 +91,6 @@ type Routes struct {
 
 	LDAP *mux.Router // 'api/v4/ldap'
 
-	Elasticsearch *mux.Router // 'api/v4/elasticsearch'
-
 	DataRetention *mux.Router // 'api/v4/data_retention'
 
 	Brand *mux.Router // 'api/v4/brand'
@@ -103,8 +98,6 @@ type Routes struct {
 	System *mux.Router // 'api/v4/system'
 
 	Jobs *mux.Router // 'api/v4/jobs'
-
-	Recaps *mux.Router // 'api/v4/recaps'
 
 	Preferences *mux.Router // 'api/v4/users/{user_id:[A-Za-z0-9]+}/preferences'
 
@@ -161,11 +154,6 @@ type Routes struct {
 
 	AccessControlPolicies *mux.Router // 'api/v4/access_control_policies'
 	AccessControlPolicy   *mux.Router // 'api/v4/access_control_policies/{policy_id:[A-Za-z0-9]+}'
-
-	ContentFlagging *mux.Router // 'api/v4/content_flagging'
-
-	Agents      *mux.Router // 'api/v4/agents'
-	LLMServices *mux.Router // 'api/v4/llmservices'
 
 	Properties     *mux.Router // 'api/v4/properties'
 	PropertyFields *mux.Router // 'api/v4/properties/groups/{group_name:[a-z][a-z0-9_]*}/{object_type:[a-z]+}/fields'
@@ -237,9 +225,6 @@ func Init(srv *app.Server) (*API, error) {
 	api.BaseRoutes.Uploads = api.BaseRoutes.APIRoot.PathPrefix("/uploads").Subrouter()
 	api.BaseRoutes.Upload = api.BaseRoutes.Uploads.PathPrefix("/{upload_id:[A-Za-z0-9]+}").Subrouter()
 
-	api.BaseRoutes.Plugins = api.BaseRoutes.APIRoot.PathPrefix("/plugins").Subrouter()
-	api.BaseRoutes.Plugin = api.BaseRoutes.Plugins.PathPrefix("/{plugin_id:[A-Za-z0-9\\_\\-\\.]+}").Subrouter()
-
 	api.BaseRoutes.Commands = api.BaseRoutes.APIRoot.PathPrefix("/commands").Subrouter()
 	api.BaseRoutes.Command = api.BaseRoutes.Commands.PathPrefix("/{command_id:[A-Za-z0-9]+}").Subrouter()
 
@@ -265,8 +250,6 @@ func Init(srv *app.Server) (*API, error) {
 	api.BaseRoutes.Public = api.BaseRoutes.APIRoot.PathPrefix("/public").Subrouter()
 	api.BaseRoutes.Reactions = api.BaseRoutes.APIRoot.PathPrefix("/reactions").Subrouter()
 	api.BaseRoutes.Jobs = api.BaseRoutes.APIRoot.PathPrefix("/jobs").Subrouter()
-	api.BaseRoutes.Recaps = api.BaseRoutes.APIRoot.PathPrefix("/recaps").Subrouter()
-	api.BaseRoutes.Elasticsearch = api.BaseRoutes.APIRoot.PathPrefix("/elasticsearch").Subrouter()
 	api.BaseRoutes.DataRetention = api.BaseRoutes.APIRoot.PathPrefix("/data_retention").Subrouter()
 
 	api.BaseRoutes.Emojis = api.BaseRoutes.APIRoot.PathPrefix("/emoji").Subrouter()
@@ -318,11 +301,6 @@ func Init(srv *app.Server) (*API, error) {
 	api.BaseRoutes.AccessControlPolicies = api.BaseRoutes.APIRoot.PathPrefix("/access_control_policies").Subrouter()
 	api.BaseRoutes.AccessControlPolicy = api.BaseRoutes.APIRoot.PathPrefix("/access_control_policies/{policy_id:[A-Za-z0-9]+}").Subrouter()
 
-	api.BaseRoutes.ContentFlagging = api.BaseRoutes.APIRoot.PathPrefix("/content_flagging").Subrouter()
-
-	api.BaseRoutes.Agents = api.BaseRoutes.APIRoot.PathPrefix("/agents").Subrouter()
-	api.BaseRoutes.LLMServices = api.BaseRoutes.APIRoot.PathPrefix("/llmservices").Subrouter()
-
 	api.BaseRoutes.Properties = api.BaseRoutes.APIRoot.PathPrefix("/properties").Subrouter()
 	api.BaseRoutes.PropertyFields = api.BaseRoutes.Properties.PathPrefix("/groups/{group_name:[a-z][a-z0-9_]*}/{object_type:[a-z]+}/fields").Subrouter()
 	api.BaseRoutes.PropertyField = api.BaseRoutes.PropertyFields.PathPrefix("/{field_id:[A-Za-z0-9]+}").Subrouter()
@@ -336,7 +314,6 @@ func Init(srv *app.Server) (*API, error) {
 	api.InitFile()
 	api.InitUpload()
 	api.InitSystem()
-	api.InitAIBridgeTestHelper()
 	api.InitLicense()
 	api.InitConfig()
 	api.InitWebhook()
@@ -345,18 +322,15 @@ func Init(srv *app.Server) (*API, error) {
 	api.InitCompliance()
 	api.InitCluster()
 	api.InitLdap()
-	api.InitElasticsearch()
 	api.InitDataRetention()
 	api.InitBrand()
 	api.InitJob()
-	api.InitRecap()
 	api.InitCommand()
 	api.InitStatus()
 	api.InitWebSocket()
 	api.InitEmoji()
 	api.InitOAuth()
 	api.InitReaction()
-	api.InitPlugin()
 	api.InitRole()
 	api.InitScheme()
 	api.InitImage()
@@ -381,8 +355,6 @@ func Init(srv *app.Server) (*API, error) {
 	api.InitCustomProfileAttributes()
 	api.InitAuditLogging()
 	api.InitAccessControlPolicy()
-	api.InitContentFlagging()
-	api.InitAgents()
 	api.InitProperties()
 
 	// If we allow testing then listen for manual testing URL hits
@@ -429,9 +401,6 @@ func InitLocal(srv *app.Server) *API {
 	api.BaseRoutes.ChannelMembers = api.BaseRoutes.Channel.PathPrefix("/members").Subrouter()
 	api.BaseRoutes.ChannelMember = api.BaseRoutes.ChannelMembers.PathPrefix("/{user_id:[A-Za-z0-9]+}").Subrouter()
 	api.BaseRoutes.ChannelMembersForUser = api.BaseRoutes.User.PathPrefix("/teams/{team_id:[A-Za-z0-9]+}/channels/members").Subrouter()
-
-	api.BaseRoutes.Plugins = api.BaseRoutes.APIRoot.PathPrefix("/plugins").Subrouter()
-	api.BaseRoutes.Plugin = api.BaseRoutes.Plugins.PathPrefix("/{plugin_id:[A-Za-z0-9\\_\\-\\.]+}").Subrouter()
 
 	api.BaseRoutes.Commands = api.BaseRoutes.APIRoot.PathPrefix("/commands").Subrouter()
 	api.BaseRoutes.Command = api.BaseRoutes.Commands.PathPrefix("/{command_id:[A-Za-z0-9]+}").Subrouter()
@@ -480,7 +449,6 @@ func InitLocal(srv *app.Server) *API {
 	api.InitChannelLocal()
 	api.InitConfigLocal()
 	api.InitWebhookLocal()
-	api.InitPluginLocal()
 	api.InitCommandLocal()
 	api.InitLicenseLocal()
 	api.InitBotLocal()

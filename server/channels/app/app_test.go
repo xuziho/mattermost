@@ -145,8 +145,6 @@ func TestDoAdvancedPermissionsMigration(t *testing.T) {
 			model.PermissionManagePublicChannelBanner.Id,
 			model.PermissionManagePrivateChannelBanner.Id,
 			model.PermissionManageChannelAccessRules.Id,
-			model.PermissionManagePublicChannelAutoTranslation.Id,
-			model.PermissionManagePrivateChannelAutoTranslation.Id,
 		},
 		"team_user": {
 			model.PermissionListTeamChannels.Id,
@@ -208,7 +206,6 @@ func TestDoAdvancedPermissionsMigration(t *testing.T) {
 			model.PermissionDeleteCustomGroup.Id,
 			model.PermissionRestoreCustomGroup.Id,
 			model.PermissionManageCustomGroupMembers.Id,
-			model.PermissionManageOwnAgent.Id,
 		},
 		"system_post_all": {
 			model.PermissionCreatePost.Id,
@@ -277,7 +274,6 @@ func TestDoEmojisPermissionsMigration(t *testing.T) {
 		model.PermissionCreateEmojis.Id,
 		model.PermissionDeleteEmojis.Id,
 		model.PermissionViewMembers.Id,
-		model.PermissionManageOwnAgent.Id,
 	}
 	assert.ElementsMatch(t, expected3, role3.Permissions, fmt.Sprintf("'%v' did not have expected permissions", model.SystemUserRoleId))
 

@@ -8,7 +8,6 @@ import {AxeBuilder} from '@axe-core/playwright';
 import {TestBrowser} from './browser_context';
 import {
     ensureLicense,
-    ensurePluginsLoaded,
     ensureServerDeployment,
     shouldHaveFeatureFlag,
     shouldRunInLinux,
@@ -17,8 +16,6 @@ import {
 } from './flag';
 import {getBlobFromAsset, getFileFromAsset} from './file';
 import {
-    configureAIBridgeMock,
-    createMockAIAgent,
     createNewUserProfile,
     createNewTeam,
     createRandomChannel,
@@ -26,18 +23,11 @@ import {
     createRandomTeam,
     createRandomUser,
     createUserWithAttributes,
-    enableAIBridgeTestMode,
-    getAIBridgeMock,
     getAdminClient,
     initSetup,
     isOutsideRemoteUserHour,
     makeClient,
     mergeWithOnPremServerConfig,
-    recapCompletion,
-    resetAIBridgeMock,
-    rewriteCompletion,
-    installAndEnablePlugin,
-    isPluginActive,
 } from './server';
 import {
     toBeFocusedWithFocusVisible,
@@ -93,19 +83,9 @@ export class PlaywrightExtended {
     readonly getFileFromAsset;
 
     // ./server
-    readonly ensurePluginsLoaded;
     readonly getAdminClient;
     readonly mergeWithOnPremServerConfig;
     readonly initSetup;
-    readonly enableAIBridgeTestMode;
-    readonly configureAIBridgeMock;
-    readonly getAIBridgeMock;
-    readonly resetAIBridgeMock;
-    readonly createMockAIAgent;
-    readonly rewriteCompletion;
-    readonly recapCompletion;
-    readonly installAndEnablePlugin;
-    readonly isPluginActive;
 
     // ./test_action
     readonly toBeFocusedWithFocusVisible;
@@ -161,20 +141,10 @@ export class PlaywrightExtended {
         this.getFileFromAsset = getFileFromAsset;
 
         // ./server
-        this.ensurePluginsLoaded = ensurePluginsLoaded;
         this.initSetup = initSetup;
         this.getAdminClient = getAdminClient;
         this.mergeWithOnPremServerConfig = mergeWithOnPremServerConfig;
-        this.enableAIBridgeTestMode = enableAIBridgeTestMode;
-        this.configureAIBridgeMock = configureAIBridgeMock;
-        this.getAIBridgeMock = getAIBridgeMock;
-        this.resetAIBridgeMock = resetAIBridgeMock;
-        this.createMockAIAgent = createMockAIAgent;
-        this.rewriteCompletion = rewriteCompletion;
-        this.recapCompletion = recapCompletion;
         this.isOutsideRemoteUserHour = isOutsideRemoteUserHour;
-        this.installAndEnablePlugin = installAndEnablePlugin;
-        this.isPluginActive = isPluginActive;
 
         // ./test_action
         this.toBeFocusedWithFocusVisible = toBeFocusedWithFocusVisible;

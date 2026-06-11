@@ -8,41 +8,16 @@ import * as PostList from 'mattermost-redux/utils/post_list';
 
 import NotificationSeparator from 'components/widgets/separator/notification-separator';
 
-import type {NewMessagesSeparatorActionComponent} from 'types/store/plugins';
-
 type Props = {
     separatorId: string;
     wrapperRef?: React.RefObject<HTMLDivElement>;
-    newMessagesSeparatorActions: NewMessagesSeparatorActionComponent[];
-    channelId?: string;
-    threadId?: string;
 }
 
 const NewMessageSeparator = ({
-    newMessagesSeparatorActions,
-    channelId,
-    threadId,
     wrapperRef,
     separatorId,
 }: Props) => {
-    const lastViewedAt = PostList.getTimestampForStartOfNewMessages(separatorId);
-
-    const pluginItems = newMessagesSeparatorActions?.
-        map((item) => {
-            if (!item.component) {
-                return null;
-            }
-
-            const Component = item.component;
-            return (
-                <Component
-                    key={item.id}
-                    lastViewedAt={lastViewedAt}
-                    channelId={channelId}
-                    threadId={threadId}
-                />
-            );
-        });
+    PostList.getTimestampForStartOfNewMessages(separatorId);
 
     return (
         <div
@@ -54,7 +29,6 @@ const NewMessageSeparator = ({
                     id='posts_view.newMsg'
                     defaultMessage='New Messages'
                 />
-                {pluginItems}
             </NotificationSeparator>
         </div>
     );

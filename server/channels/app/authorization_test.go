@@ -16,7 +16,7 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"github.com/mattermost/mattermost/server/public/model"
-	"github.com/mattermost/mattermost/server/public/plugin/plugintest/mock"
+	"github.com/stretchr/testify/mock"
 	"github.com/mattermost/mattermost/server/v8/channels/store/storetest/mocks"
 )
 
@@ -259,10 +259,6 @@ func TestSessionHasPermissionToChannel(t *testing.T) {
 		// Regression test for MM-29812
 		// Mock the channel store so getting the channel returns with an error, as per the bug report.
 		mockStore := mocks.Store{}
-
-		pluginStore := mocks.PluginStore{}
-		pluginStore.On("List", mock.Anything, mock.Anything, mock.Anything).Return([]string{}, nil)
-		mockStore.On("Plugin").Return(&pluginStore)
 
 		mockChannelStore := mocks.ChannelStore{}
 		mockChannelStore.On("Get", mock.Anything, mock.Anything).Return(nil, fmt.Errorf("arbitrary error"))

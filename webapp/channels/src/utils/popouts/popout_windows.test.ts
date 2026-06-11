@@ -6,7 +6,7 @@ import {getBasePath} from 'utils/url';
 import {isDesktopApp} from 'utils/user_agent';
 
 import {POPOUT_FOCUSED, POPOUT_BLURRED, getFocusedPopoutInfo} from './focus';
-import {FOCUS_REPLY_POST, popoutChannel, popoutRhsPlugin, popoutRhsSearch, popoutThread} from './popout_windows';
+import {FOCUS_REPLY_POST, popoutChannel, popoutRhsSearch, popoutThread} from './popout_windows';
 
 jest.mock('utils/desktop_api', () => ({
     __esModule: true,
@@ -126,50 +126,6 @@ describe('popout_windows', () => {
 
             expect(getMockSetupBrowserPopout()).toHaveBeenCalledWith(
                 '/company/mattermost/_popout/thread/test-team/thread-123',
-            );
-        });
-    });
-
-    describe('popoutRhsPlugin', () => {
-        it('should call popout with correct path and props for desktop app', async () => {
-            setupDesktop();
-
-            await popoutRhsPlugin('{pluginDisplayName} - {serverName}', 'test-plugin-id', 'test-team', 'test-channel');
-
-            expect(mockDesktopApp.setupDesktopPopout).toHaveBeenCalledWith(
-                '/_popout/rhs/test-team/plugin/test-plugin-id?channel=test-channel',
-                {
-                    isRHS: true,
-                    titleTemplate: '{pluginDisplayName} - {serverName}',
-                },
-            );
-        });
-
-        it('should call popout with correct path and props for browser popout', async () => {
-            setupBrowser();
-
-            await popoutRhsPlugin('{pluginDisplayName} - {serverName}', 'test-plugin-id', 'test-team', 'test-channel');
-
-            expect(getMockSetupBrowserPopout()).toHaveBeenCalledWith(
-                '/_popout/rhs/test-team/plugin/test-plugin-id?channel=test-channel',
-            );
-        });
-
-        it('should return popout listeners', async () => {
-            setupDesktop();
-
-            const result = await popoutRhsPlugin('{pluginDisplayName} - {serverName}', 'test-plugin-id', 'test-team', 'test-channel');
-
-            expect(result).toEqual(mockListeners);
-        });
-
-        it('should include subpath in popout URL when basename is set', async () => {
-            setupBrowser('/company/mattermost');
-
-            await popoutRhsPlugin('{pluginDisplayName} - {serverName}', 'test-plugin-id', 'test-team', 'test-channel');
-
-            expect(getMockSetupBrowserPopout()).toHaveBeenCalledWith(
-                '/company/mattermost/_popout/rhs/test-team/plugin/test-plugin-id?channel=test-channel',
             );
         });
     });

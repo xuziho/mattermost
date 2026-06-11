@@ -4,7 +4,7 @@
 import classNames from 'classnames';
 import React, {PureComponent} from 'react';
 import type {ChangeEvent, DragEvent, MouseEvent, TouchEvent, RefObject} from 'react';
-import {defineMessages, FormattedMessage, injectIntl} from 'react-intl';
+import {defineMessages, injectIntl} from 'react-intl';
 import type {IntlShape} from 'react-intl';
 
 import {PaperclipIcon} from '@mattermost/compass-icons/components';
@@ -20,8 +20,6 @@ import {
     DropOverlayIdRHS,
 } from 'components/file_upload_overlay/file_upload_overlay';
 import KeyboardShortcutSequence, {KEYBOARD_SHORTCUTS} from 'components/keyboard_shortcuts/keyboard_shortcuts_sequence';
-import Menu from 'components/widgets/menu/menu';
-import MenuWrapper from 'components/widgets/menu/menu_wrapper';
 import WithTooltip from 'components/with_tooltip';
 
 import Constants from 'utils/constants';
@@ -41,8 +39,6 @@ import {
     localizeMessage,
     isTextDroppableEvent,
 } from 'utils/utils';
-
-import type {FilesWillUploadHook, FileUploadMethodAction} from 'types/store/plugins';
 
 const holders = defineMessages({
     limited: {
@@ -72,13 +68,6 @@ const holders = defineMessages({
 });
 
 const OVERLAY_TIMEOUT = 500;
-
-const customStyles = {
-    left: 'inherit',
-    right: 0,
-    bottom: '100%',
-    top: 'auto',
-};
 
 export type TextEditorLocationType = 'post' | 'comment' | 'thread' | 'edit_post';
 
@@ -145,12 +134,6 @@ export type Props = {
     canUploadFiles: boolean;
 
     /**
-     * Plugin file upload methods to be added
-     */
-    pluginFileUploadMethods: FileUploadMethodAction[];
-    pluginFilesWillUploadHooks: FilesWillUploadHook[];
-
-    /**
      * Function called when xhr fires progress event.
      */
     onUploadProgress: (filePreviewInfo: FilePreviewInfo) => void;
@@ -169,23 +152,16 @@ export type Props = {
 
 type State = {
     requests: Record<string, XMLHttpRequest>;
-    menuOpen: boolean;
 };
 
 export class FileUpload extends PureComponent<Props, State> {
     fileInput: RefObject<HTMLInputElement>;
     unbindDragsterEvents?: () => void;
 
-    static defaultProps = {
-        pluginFileUploadMethods: [],
-        pluginFilesWillUploadHooks: [],
-    };
-
     constructor(props: Props) {
         super(props);
         this.state = {
             requests: {},
-            menuOpen: false,
         };
         this.fileInput = React.createRef();
     }
@@ -267,29 +243,11 @@ export class FileUpload extends PureComponent<Props, State> {
         this.props.onUploadError(err, clientId, channelId, currentRootId);
     };
 
-    pluginUploadFiles = (files: File[]) => {
-        // clear any existing errors
-        this.props.onUploadError(null);
-        this.uploadFiles(files);
-    };
-
-    checkPluginHooksAndUploadFiles = (files: FileList | File[]) => {
+    uploadSelectedFiles = (files: FileList | File[]) => {
         // clear any existing errors
         this.props.onUploadError(null);
 
-        let sortedFiles = Array.from(files).sort((a, b) => a.name.localeCompare(b.name, this.props.locale, {numeric: true}));
-
-        const willUploadHooks = this.props.pluginFilesWillUploadHooks;
-        for (const h of willUploadHooks) {
-            const result = h.hook?.(sortedFiles, this.pluginUploadFiles);
-
-            // Display an error message if there is one but don't reject the upload
-            if (result?.message) {
-                this.props.onUploadError(result.message);
-            }
-
-            sortedFiles = result?.files || [];
-        }
+        const sortedFiles = Array.from(files).sort((a, b) => a.name.localeCompare(b.name, this.props.locale, {numeric: true}));
 
         if (sortedFiles && sortedFiles.length) {
             this.uploadFiles(sortedFiles);
@@ -368,7 +326,7 @@ export class FileUpload extends PureComponent<Props, State> {
 
     handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length > 0) {
-            this.checkPluginHooksAndUploadFiles(e.target.files);
+            this.uploadSelectedFiles(e.target.files);
 
             clearFileInput(e.target);
         }
@@ -413,7 +371,7 @@ export class FileUpload extends PureComponent<Props, State> {
         }
 
         if (files.length) {
-            this.checkPluginHooksAndUploadFiles(files);
+            this.uploadSelectedFiles(files);
         }
 
         this.props.onFileUploadChange();
@@ -538,7 +496,7 @@ export class FileUpload extends PureComponent<Props, State> {
                 // so we do that here because we want to only paste the files from the clipboard and not other content.
                 e.preventDefault();
 
-                this.checkPluginHooksAndUploadFiles(fileList);
+                this.uploadSelectedFiles(fileList);
                 this.props.onFileUploadChange();
             }
         }
@@ -594,7 +552,6 @@ export class FileUpload extends PureComponent<Props, State> {
         } else {
             this.handleMaxUploadReached(e);
         }
-        this.setState({menuOpen: false});
     };
 
     simulateInputClick = (e: MouseEvent<HTMLButtonElement | HTMLAnchorElement> | TouchEvent) => {
@@ -619,12 +576,15 @@ export class FileUpload extends PureComponent<Props, State> {
 
         const uploadsRemaining = Constants.MAX_UPLOAD_FILES - this.props.fileCount;
 
-        let bodyAction;
         const buttonAriaLabel = formatMessage({id: 'accessibility.button.attachment', defaultMessage: 'attachment'});
         const iconAriaLabel = formatMessage({id: 'generic_icons.attach', defaultMessage: 'Attachment Icon'});
 
-        if (this.props.pluginFileUploadMethods.length === 0) {
-            bodyAction = (
+        if (!this.props.canUploadFiles) {
+            return null;
+        }
+
+        return (
+            <div className={uploadsRemaining <= 0 ? ' style--none btn-file__disabled' : 'style--none'}>
                 <div>
                     <WithTooltip
                         title={
@@ -664,100 +624,6 @@ export class FileUpload extends PureComponent<Props, State> {
                         accept={accept}
                     />
                 </div>
-            );
-        } else {
-            const pluginFileUploadMethods = this.props.pluginFileUploadMethods.map((item) => {
-                return (
-                    <li
-                        key={item.pluginId + '_fileuploadpluginmenuitem'}
-                        onClick={() => {
-                            if (item.action) {
-                                item.action(this.checkPluginHooksAndUploadFiles);
-                            }
-                            this.setState({menuOpen: false});
-                        }}
-                    >
-                        <a href='#'>
-                            <span className='mr-2'>
-                                {item.icon}
-                            </span>
-                            {item.text}
-                        </a>
-                    </li>
-                );
-            });
-            bodyAction = (
-                <div>
-                    <input
-                        tabIndex={-1}
-                        aria-label={formatMessage(holders.uploadFile)}
-                        ref={this.fileInput}
-                        type='file'
-                        className='file-attachment-menu-item-input'
-                        onChange={this.handleChange}
-                        onClick={this.handleLocalFileUploaded}
-                        multiple={multiple}
-                        accept={accept}
-                    />
-                    <MenuWrapper>
-                        <WithTooltip
-                            title={
-                                <KeyboardShortcutSequence
-                                    shortcut={KEYBOARD_SHORTCUTS.filesUpload}
-                                    hoistDescription={true}
-                                    isInsideTooltip={true}
-                                />
-                            }
-                        >
-                            <button
-                                type='button'
-                                id='fileUploadButton'
-                                aria-label={buttonAriaLabel}
-                                className='style--none AdvancedTextEditor__action-button'
-                            >
-                                <PaperclipIcon
-                                    size={18}
-                                    color={'currentColor'}
-                                    aria-label={iconAriaLabel}
-                                />
-                            </button>
-                        </WithTooltip>
-                        <Menu
-                            id='fileUploadOptions'
-                            openLeft={true}
-                            openUp={true}
-                            ariaLabel={formatMessage({id: 'file_upload.menuAriaLabel', defaultMessage: 'Upload type selector'})}
-                            customStyles={customStyles}
-                        >
-                            <li>
-                                <a
-                                    href='#'
-                                    onClick={this.simulateInputClick}
-                                    onTouchEnd={this.simulateInputClick}
-                                >
-                                    <span className='mr-2'>
-                                        <i className='fa fa-laptop'/>
-                                    </span>
-                                    <FormattedMessage
-                                        id='yourcomputer'
-                                        defaultMessage='Your computer'
-                                    />
-                                </a>
-                            </li>
-                            {pluginFileUploadMethods}
-                        </Menu>
-                    </MenuWrapper>
-                </div>
-            );
-        }
-
-        if (!this.props.canUploadFiles) {
-            return null;
-        }
-
-        return (
-            <div className={uploadsRemaining <= 0 ? ' style--none btn-file__disabled' : 'style--none'}>
-                {bodyAction}
             </div>
         );
     }

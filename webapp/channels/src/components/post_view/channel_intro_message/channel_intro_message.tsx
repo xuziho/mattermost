@@ -30,7 +30,6 @@ import {getMonthLong} from 'utils/i18n';
 import * as Utils from 'utils/utils';
 
 import AddMembersButton from './add_members_button';
-import PluggableIntroButtons from './pluggable_intro_buttons';
 
 type Props = {
     currentUserId: string;
@@ -196,7 +195,6 @@ function createGMIntroMessage(
                 {createFavoriteButton(isFavorite, toggleFavorite)}
                 {createSetHeaderButton(channel)}
                 {!isMobileView && createNotificationPreferencesButton(channel, currentUser)}
-                <PluggableIntroButtons channel={channel}/>
             </div>
         );
 
@@ -252,10 +250,8 @@ function createDMIntroMessage(
     if (teammate) {
         const src = teammate ? Utils.imageURLForUser(teammate.id, teammate.last_picture_update) : '';
 
-        let pluggableButton = null;
         let setHeaderButton = null;
         if (!teammate?.is_bot) {
-            pluggableButton = <PluggableIntroButtons channel={channel}/>;
             setHeaderButton = createSetHeaderButton(channel);
         }
 
@@ -263,7 +259,6 @@ function createDMIntroMessage(
             <div className='channel-intro__actions'>
                 {createFavoriteButton(isFavorite, toggleFavorite)}
                 {setHeaderButton}
-                {pluggableButton}
             </div>
         );
 
@@ -351,7 +346,7 @@ function createOffTopicIntroMessage(
             totalUsers={totalUsers}
             usersLimit={usersLimit}
             channel={channel}
-            pluginButtons={<PluggableIntroButtons channel={channel}/>}
+            pluginButtons={null}
         />
     );
 
@@ -414,11 +409,9 @@ function createDefaultIntroMessage(
     const inviteUsers = totalUsers < usersLimit;
 
     let setHeaderButton = null;
-    let pluginButtons = null;
     let actionButtons = null;
 
     if (!isReadOnly) {
-        pluginButtons = <PluggableIntroButtons channel={channel}/>;
         const children = createSetHeaderButton(channel);
         if (children) {
             setHeaderButton = (
@@ -448,7 +441,7 @@ function createDefaultIntroMessage(
                             totalUsers={totalUsers}
                             usersLimit={usersLimit}
                             channel={channel}
-                            pluginButtons={pluginButtons}
+                            pluginButtons={null}
                         />
                     }
                     {teamIsGroupConstrained &&
@@ -484,7 +477,6 @@ function createDefaultIntroMessage(
                 {createFavoriteButton(isFavorite, toggleFavorite, isInManagedCategory)}
                 {setHeaderButton}
                 {createNotificationPreferencesButton(channel, currentUser)}
-                {teamIsGroupConstrained && pluginButtons}
             </div>
         );
     }
@@ -656,7 +648,7 @@ function createStandardIntroMessage(
             totalUsers={totalUsers}
             usersLimit={usersLimit}
             channel={channel}
-            pluginButtons={<PluggableIntroButtons channel={channel}/>}
+            pluginButtons={null}
         />
     );
 
@@ -673,7 +665,6 @@ function createStandardIntroMessage(
                 {teamInviteLink}
                 {setHeaderButton}
                 {!isMobileView && createNotificationPreferencesButton(channel, currentUser)}
-                <PluggableIntroButtons channel={channel}/>
             </div>
         );
     }

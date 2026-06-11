@@ -16,8 +16,6 @@ import type {UserPropertyField, UserPropertyFieldType} from '@mattermost/types/p
 import {Client4} from 'mattermost-redux/client';
 import {getCustomProfileAttributes} from 'mattermost-redux/selectors/entities/general';
 
-import {getPluginDisplayName} from 'selectors/plugins';
-
 import SettingsGroup from 'components/admin_console/settings_group';
 import TextSetting from 'components/admin_console/text_setting';
 
@@ -34,7 +32,7 @@ type PluginManagedFieldHelpTextProps = {
 };
 
 const PluginManagedFieldHelpText = ({pluginId}: PluginManagedFieldHelpTextProps) => {
-    const pluginDisplayName = useSelector((state: GlobalState) => getPluginDisplayName(state, pluginId));
+    const pluginDisplayName = pluginId || 'unknown';
     return (
         <FormattedMessage
             id='admin.customProfileAttributes.managedByPlugin'

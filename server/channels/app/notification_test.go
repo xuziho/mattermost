@@ -520,7 +520,7 @@ func connectFakeWebSocket(t *testing.T, th *TestHelper, userID string, connectio
 		TFunc:        i18n.IdentityTfunc(),
 		Locale:       "en",
 		ConnectionID: connectionID,
-	}, th.App, th.App.Channels())
+	}, th.App)
 	require.NoError(t, th.App.Srv().Platform().HubRegister(webConn))
 
 	// Start reading from it

@@ -9788,10 +9788,6 @@
     "translation": "Невозможно добавить разрешение, которое ограничено схемой разрешений команды или системы."
   },
   {
-    "id": "api.channel.patch_update_channel.auto_translation_restricted.app_error",
-    "translation": "Автоматический перевод для этого канала запрещен."
-  },
-  {
     "id": "api.channel.patch_update_channel.feature_not_available.app_error",
     "translation": "Функция автоматического перевода недоступна."
   },
@@ -9804,32 +9800,8 @@
     "translation": "Невозможно обновить ограниченный канал личных сообщений."
   },
   {
-    "id": "api.channel.post_update_channel_autotranslation_message.create_post.error",
-    "translation": "Не удалось отправить сообщение об обновлении автоперевода."
-  },
-  {
-    "id": "api.channel.post_update_channel_autotranslation_message.disabled",
-    "translation": "@%s отключил автоперевод для этого канала. Все новые сообщения будут появляться на языке оригинала."
-  },
-  {
-    "id": "api.channel.post_update_channel_autotranslation_message.enabled",
-    "translation": "@%s включил автоперевод для этого канала. Все новые сообщения будут появляться на выбранном тобой языке."
-  },
-  {
-    "id": "api.channel.post_update_channel_autotranslation_message.retrieve_user.error",
-    "translation": "Не удалось получить пользователя при обновлении статуса автоперевода"
-  },
-  {
     "id": "api.channel.update_channel.not_allowed.app_error",
     "translation": "Каналы, задействованные в политике, не могут быть обновлены."
-  },
-  {
-    "id": "api.channel.update_channel_member_autotranslation.channel_not_enabled.app_error",
-    "translation": "Автоперевод не включен для этого канала."
-  },
-  {
-    "id": "api.channel.update_channel_member_autotranslation.feature_not_available.app_error",
-    "translation": "Автоперевод недоступен."
   },
   {
     "id": "api.channel.update_channel_member_roles.unset_user_scheme.app_error",
@@ -10068,14 +10040,6 @@
     "translation": "Невозможно ставить реакции в ограниченных ЛС"
   },
   {
-    "id": "api.recap.disabled.app_error",
-    "translation": "Эта функция не включена."
-  },
-  {
-    "id": "api.recap.permission_denied",
-    "translation": "У Вас нет разрешения на доступ к этому краткому обзору."
-  },
-  {
     "id": "api.remote_cluster.import_not_allowed.app_error",
     "translation": "Импорт удаленного кластера не разрешен"
   },
@@ -10254,10 +10218,6 @@
   {
     "id": "app.agents.get_agents.app_error",
     "translation": "Не удалось получить агентов."
-  },
-  {
-    "id": "app.agents.get_agents.bridge_call_failed",
-    "translation": "Вызов моста не удался."
   },
   {
     "id": "app.agents.get_services.app_error",

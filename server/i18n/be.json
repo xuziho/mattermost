@@ -10504,18 +10504,6 @@
     "translation": "Памылка кадавання JSON для адказу API"
   },
   {
-    "id": "model.config.is_valid.autotranslation.libretranslate.url.app_error",
-    "translation": "URL LibreTranslate павінен быць сапраўдным URL і пачынацца з http:// або https://."
-  },
-  {
-    "id": "model.config.is_valid.autotranslation.provider.app_error",
-    "translation": "Несапраўдны пастаўшчык аўтаматычнага перакладу, не можа быць пустым."
-  },
-  {
-    "id": "model.config.is_valid.autotranslation.provider.unsupported.app_error",
-    "translation": "Непадтрымоўваны пастаўшчык аўтаматычнага перакладу."
-  },
-  {
     "id": "api.channel.get_channel.flagged_post_mismatch.app_error",
     "translation": "Ідэнтыфікатар канала не супадае з ідэнтыфікатарам маркіраванага паведамлення."
   },
@@ -10542,10 +10530,6 @@
   {
     "id": "app.agents.get_agents.app_error",
     "translation": "Не атрымалася атрымаць агентаў."
-  },
-  {
-    "id": "app.agents.get_agents.bridge_call_failed",
-    "translation": "Злучэнне моста не атрымалася."
   },
   {
     "id": "app.agents.get_services.app_error",

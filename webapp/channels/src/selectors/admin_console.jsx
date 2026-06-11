@@ -1,8 +1,6 @@
 // Copyright (c) 2015-present Mattermost, Inc. All Rights Reserved.
 // See LICENSE.txt for license information.
 
-import cloneDeep from 'lodash/cloneDeep';
-
 import Permissions from 'mattermost-redux/constants/permissions';
 import {ResourceToSysConsolePermissionsTable, RESOURCE_KEYS} from 'mattermost-redux/constants/permissions_sysconsole';
 import {createSelector} from 'mattermost-redux/selectors/create_selector';
@@ -16,21 +14,12 @@ import {isEnterpriseLicense} from '../utils/license_utils';
 export const getAdminDefinition = createSelector(
     'getAdminDefinition',
     () => AdminDefinition,
-    (state) => state.plugins.adminConsoleReducers,
-    (adminDefinition, reducers) => {
-        let result = cloneDeep(AdminDefinition);
-        for (const reducer of Object.values(reducers)) {
-            result = reducer(result);
-        }
-        return result;
-    },
+    (adminDefinition) => adminDefinition,
 );
 
-export const getAdminConsoleCustomComponents = (state, pluginId) =>
-    state.plugins.adminConsoleCustomComponents[pluginId] || {};
+export const getAdminConsoleCustomComponents = () => ({});
 
-export const getAdminConsoleCustomSections = (state, pluginId) =>
-    state.plugins.adminConsoleCustomSections[pluginId] || {};
+export const getAdminConsoleCustomSections = () => ({});
 
 export const getConsoleAccess = createSelector(
     'getConsoleAccess',

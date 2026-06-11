@@ -145,7 +145,7 @@ func PostBurnOnReadCheckWithApp(where string, a *App, rctx request.CTX, userId, 
 		return model.NewAppError(where, "api.post.fill_in_post_props.burn_on_read.shared_channel.app_error", nil, "", http.StatusBadRequest)
 	}
 
-	// Burn-on-read is not allowed in self-DMs or DMs with bots (including AI agents, plugins)
+	// Burn-on-read is not allowed in self-DMs or DMs with bots.
 	if channel.Type == model.ChannelTypeDirect {
 		// Check if it's a self-DM by comparing the channel name with the expected self-DM name
 		selfDMName := model.GetDMNameFromIds(userId, userId)
@@ -153,7 +153,7 @@ func PostBurnOnReadCheckWithApp(where string, a *App, rctx request.CTX, userId, 
 			return model.NewAppError(where, "api.post.fill_in_post_props.burn_on_read.self_dm.app_error", nil, "", http.StatusBadRequest)
 		}
 
-		// Check if the DM is with a bot (AI agents, plugins, etc.)
+		// Check if the DM is with a bot.
 		otherUserId := channel.GetOtherUserIdForDM(userId)
 		if otherUserId != "" && otherUserId != userId {
 			otherUser, err := a.GetUser(otherUserId)

@@ -50,7 +50,6 @@ describe('PostAriaLabelDiv', () => {
             message: 'This is a test.',
             create_at: new Date('2020-01-15T12:00:00Z').getTime(),
         }),
-        autotranslated: false,
     };
 
     test('should render aria-label in the given locale', () => {

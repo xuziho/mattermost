@@ -18,8 +18,6 @@ import {LogErrorBarMode} from 'mattermost-redux/actions/errors';
 import type {ActionResult} from 'mattermost-redux/types/actions';
 import {isEmail} from 'mattermost-redux/utils/helpers';
 
-import {getPluginDisplayName} from 'selectors/plugins';
-
 import SettingItem from 'components/setting_item';
 import SettingItemMax from 'components/setting_item_max';
 import SettingPicture from 'components/setting_picture';
@@ -193,14 +191,12 @@ type State = {
     customAttributeValues: Record<string, string | string[]>;
 }
 
-// Private component to get plugin display name
 type PluginDisplayNameProps = {
     pluginId?: string;
 };
 
 const PluginDisplayName: React.FC<PluginDisplayNameProps> = ({pluginId}) => {
-    const displayName = useSelector((state: GlobalState) => getPluginDisplayName(state, pluginId));
-    return <>{displayName}</>;
+    return <>{pluginId || 'unknown'}</>;
 };
 
 export class UserSettingsGeneralTab extends PureComponent<Props, State> {

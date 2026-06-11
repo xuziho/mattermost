@@ -1,7 +1,6 @@
 // Copyright (c) 2015-present Mattermost, Inc. All Rights Reserved.
 // See LICENSE.txt for license information.
 
-import type {ReactNode} from 'react';
 import React from 'react';
 import {FormattedMessage} from 'react-intl';
 
@@ -18,7 +17,6 @@ import ChannelPermissionGate from 'components/permissions_gates/channel_permissi
 import {Constants} from 'utils/constants';
 
 import MenuItemArchiveChannel from '../menu_items/archive_channel';
-import MenuItemAutotranslation from '../menu_items/autotranslation';
 import MenuItemChannelBookmarks from '../menu_items/channel_bookmarks_submenu';
 import MenuItemChannelSettings from '../menu_items/channel_settings_menu';
 import MenuItemCloseChannel from '../menu_items/close_channel';
@@ -26,7 +24,6 @@ import MenuItemGroupsMenuItems from '../menu_items/groups';
 import MenuItemLeaveChannel from '../menu_items/leave_channel';
 import MenuItemNotification from '../menu_items/notification';
 import MenuItemOpenMembersRHS from '../menu_items/open_members_rhs';
-import MenuItemPluginItems from '../menu_items/plugins_submenu';
 import MenuItemToggleFavoriteChannel from '../menu_items/toggle_favorite_channel';
 import MenuItemToggleInfo from '../menu_items/toggle_info';
 import MenuItemToggleMuteChannel from '../menu_items/toggle_mute_channel';
@@ -42,12 +39,10 @@ interface Props extends Menu.FirstMenuItemProps {
     isMobile: boolean;
     isFavorite: boolean;
     isLicensedForLDAPGroups: boolean;
-    pluginItems: ReactNode[];
     isChannelBookmarksEnabled: boolean;
-    isChannelAutotranslated: boolean;
 }
 
-const ChannelHeaderPublicMenu = ({channel, user, isMuted, isDefault, isMobile, isFavorite, isLicensedForLDAPGroups, pluginItems, isChannelBookmarksEnabled, isChannelAutotranslated, ...rest}: Props) => {
+const ChannelHeaderPublicMenu = ({channel, user, isMuted, isDefault, isMobile, isFavorite, isLicensedForLDAPGroups, isChannelBookmarksEnabled, ...rest}: Props) => {
     const isGroupConstrained = channel?.group_constrained === true;
     const isArchived = channel.delete_at !== 0;
     const isPrivate = channel?.type === Constants.PRIVATE_CHANNEL;
@@ -82,11 +77,6 @@ const ChannelHeaderPublicMenu = ({channel, user, isMuted, isDefault, isMobile, i
                         />
                     )}
                 </>
-            )}
-            {isChannelAutotranslated && (
-                <MenuItemAutotranslation
-                    channel={channel}
-                />
             )}
             <Menu.Separator/>
             {isMobile && (
@@ -161,9 +151,6 @@ const ChannelHeaderPublicMenu = ({channel, user, isMuted, isDefault, isMobile, i
 
             <Menu.Separator/>
             <ChannelMoveToSubMenu channel={channel}/>
-            {!isMobile && (
-                <MenuItemPluginItems pluginItems={pluginItems}/>
-            )}
             {!isDefault && (
                 <Menu.Separator/>
             )}

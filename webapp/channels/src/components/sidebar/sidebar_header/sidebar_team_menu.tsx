@@ -26,7 +26,6 @@ import {haveISystemPermission} from 'mattermost-redux/selectors/entities/roles_h
 import {getJoinableTeamIds} from 'mattermost-redux/selectors/entities/teams';
 
 import {openModal} from 'actions/views/modals';
-import {getMainMenuPluginComponents} from 'selectors/plugins';
 
 import AddGroupsToTeamModal from 'components/add_groups_to_team_modal';
 import InvitationModal from 'components/invitation_modal';
@@ -108,7 +107,6 @@ export default function SidebarTeamMenu(props: Props) {
             )}
             <Menu.Separator/>
             <LearnAboutTeamsMenuItem/>
-            <PluginMenuItems/>
         </Menu.Container>
     );
 }
@@ -414,36 +412,4 @@ function LearnAboutTeamsMenuItem() {
             )}
         />
     );
-}
-
-function PluginMenuItems() {
-    const pluginInMainMenu = useSelector(getMainMenuPluginComponents);
-
-    if (pluginInMainMenu.length > 0) {
-        const pluginMenuItems = pluginInMainMenu.map((plugin) => {
-            function handleClick() {
-                if (plugin.action) {
-                    plugin.action();
-                }
-            }
-
-            return (
-                <Menu.Item
-                    id={`${plugin.id}_pluginmenuitem`}
-                    key={plugin.id}
-                    onClick={handleClick}
-                    labels={<span>{plugin.text}</span>}
-                />
-            );
-        });
-
-        return (
-            <>
-                <Menu.Separator/>
-                {pluginMenuItems}
-            </>
-        );
-    }
-
-    return null;
 }

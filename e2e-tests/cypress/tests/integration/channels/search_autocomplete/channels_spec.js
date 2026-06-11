@@ -13,17 +13,16 @@
 import {
     createPrivateChannel,
     searchForChannel,
-} from '../enterprise/elasticsearch_autocomplete/helpers';
+} from '../autocomplete/helpers';
 import {getAdminAccount} from '../../../support/env';
 
-describe('Autocomplete without Elasticsearch - Channel', () => {
+describe('Database autocomplete - Channel', () => {
     const admin = getAdminAccount();
     let testTeam;
     let testUser;
     let offTopicUrl;
 
     before(() => {
-        cy.shouldHaveElasticsearchDisabled();
 
         // # Login as test user and go to off-topic
         cy.apiInitSetup({loginAfter: true}).then((out) => {

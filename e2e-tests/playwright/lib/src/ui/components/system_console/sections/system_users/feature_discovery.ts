@@ -1,0 +1,20 @@
+// Copyright (c) 2015-present Mattermost, Inc. All Rights Reserved.
+// See LICENSE.txt for license information.
+
+import {Locator, expect} from '@playwright/test';
+
+export default class FeatureDiscovery {
+    readonly container: Locator;
+
+    constructor(container: Locator) {
+        this.container = container;
+    }
+
+    async toBeVisible() {
+        await expect(this.container.getByTestId('featureDiscovery')).toBeVisible();
+    }
+
+    async toHaveTitle(title: string) {
+        await expect(this.container.getByText(title, {exact: true})).toBeVisible();
+    }
+}

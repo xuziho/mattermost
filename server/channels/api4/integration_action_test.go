@@ -489,25 +489,6 @@ func TestLookupDialog(t *testing.T) {
 		assert.Nil(t, lookupResp)
 	})
 
-	t.Run("should handle plugin URL", func(t *testing.T) {
-		lookup := model.SubmitDialogRequest{
-			URL:        "/plugins/myplugin/lookup",
-			CallbackId: "callbackid",
-			State:      "somestate",
-			UserId:     th.BasicUser.Id,
-			ChannelId:  th.BasicChannel.Id,
-			TeamId:     th.BasicTeam.Id,
-			Submission: map[string]any{"query": "test"},
-		}
-
-		// Should fail because plugin doesn't exist, but URL validation should pass
-		lookupResp, resp, err := client.LookupInteractiveDialog(context.Background(), lookup)
-		require.Error(t, err)
-		// Should not be a bad request (URL validation error), but a different error
-		assert.NotEqual(t, http.StatusBadRequest, resp.StatusCode)
-		assert.Nil(t, lookupResp)
-	})
-
 	t.Run("should handle empty response", func(t *testing.T) {
 		ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			w.Header().Set("Content-Type", "application/json")

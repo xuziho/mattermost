@@ -75,7 +75,6 @@ const baseProps = {
     isMobileView: false,
     hasInaccessiblePosts: false,
     shouldStartFromBottomWhenUnread: false,
-    isChannelAutotranslated: false,
 };
 
 describe('components/post_view/post_list', () => {

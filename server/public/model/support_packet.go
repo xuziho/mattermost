@@ -74,12 +74,6 @@ type SupportPacketDiagnostics struct {
 		ProviderType string `yaml:"provider_type,omitempty"`
 	} `yaml:"saml"`
 
-	ElasticSearch struct {
-		Backend       string   `yaml:"backend,omitempty"`
-		ServerVersion string   `yaml:"server_version,omitempty"`
-		ServerPlugins []string `yaml:"server_plugins,omitempty"`
-		Error         string   `yaml:"error,omitempty"`
-	} `yaml:"elastic"`
 }
 
 type SupportPacketStats struct {
@@ -105,8 +99,6 @@ type SupportPacketJobList struct {
 	LDAPSyncJobs               []*Job `yaml:"ldap_sync_jobs"`
 	DataRetentionJobs          []*Job `yaml:"data_retention_jobs"`
 	MessageExportJobs          []*Job `yaml:"message_export_jobs"`
-	ElasticPostIndexingJobs    []*Job `yaml:"elastic_post_indexing_jobs"`
-	ElasticPostAggregationJobs []*Job `yaml:"elastic_post_aggregation_jobs"`
 	MigrationJobs              []*Job `yaml:"migration_jobs"`
 }
 

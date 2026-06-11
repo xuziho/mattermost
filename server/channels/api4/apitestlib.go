@@ -27,7 +27,6 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"github.com/mattermost/mattermost/server/public/model"
-	"github.com/mattermost/mattermost/server/public/plugin/plugintest/mock"
 	"github.com/mattermost/mattermost/server/public/shared/mlog"
 	"github.com/mattermost/mattermost/server/public/shared/request"
 	"github.com/mattermost/mattermost/server/v8/channels/app"
@@ -38,6 +37,7 @@ import (
 	"github.com/mattermost/mattermost/server/v8/channels/wsapi"
 	"github.com/mattermost/mattermost/server/v8/config"
 	"github.com/mattermost/mattermost/server/v8/platform/services/searchengine"
+	"github.com/stretchr/testify/mock"
 )
 
 type TestHelper struct {
@@ -96,8 +96,6 @@ func setupTestHelper(tb testing.TB, dbStore store.Store, sqlSettings *model.SqlS
 	memoryConfig.SetDefaults()
 	*memoryConfig.ServiceSettings.LicenseFileLocation = filepath.Join(tempWorkspace, "license.json")
 	*memoryConfig.FileSettings.Directory = filepath.Join(tempWorkspace, "data")
-	*memoryConfig.PluginSettings.Directory = filepath.Join(tempWorkspace, "plugins")
-	*memoryConfig.PluginSettings.ClientDirectory = filepath.Join(tempWorkspace, "webapp")
 	*memoryConfig.FileSettings.Directory = filepath.Join(tempWorkspace, "data")
 	*memoryConfig.ServiceSettings.EnableLocalMode = true
 	*memoryConfig.ServiceSettings.LocalModeSocketLocation = filepath.Join(tempWorkspace, "mattermost_local.sock")
@@ -119,30 +117,11 @@ func setupTestHelper(tb testing.TB, dbStore store.Store, sqlSettings *model.SqlS
 	*memoryConfig.AnnouncementSettings.AdminNoticesEnabled = false
 	*memoryConfig.AnnouncementSettings.UserNoticesEnabled = false
 	// Enabling Redis with Postgres.
-	if *memoryConfig.SqlSettings.DriverName == model.DatabaseDriverPostgres && !mainHelper.Options.RunParallel {
-		*memoryConfig.CacheSettings.CacheType = model.CacheTypeRedis
-		redisHost := "localhost"
-		if os.Getenv("IS_CI") == "true" {
-			redisHost = "redis"
-		}
-		*memoryConfig.CacheSettings.RedisAddress = redisHost + ":6379"
-		*memoryConfig.CacheSettings.DisableClientCache = true
-		*memoryConfig.CacheSettings.RedisDB = 0
-		*memoryConfig.CacheSettings.RedisCachePrefix = model.NewId()
-		options = append(options, app.ForceEnableRedis())
-	}
 	if updateConfig != nil {
 		updateConfig(memoryConfig)
 	}
 	err = memoryStore.Set(memoryConfig)
 	require.NoError(tb, err)
-	for _, signaturePublicKeyFile := range memoryConfig.PluginSettings.SignaturePublicKeyFiles {
-		var signaturePublicKey []byte
-		signaturePublicKey, err = os.ReadFile(signaturePublicKeyFile)
-		require.NoError(tb, err, "failed to read signature public key file %s", signaturePublicKeyFile)
-		err = memoryStore.SetFile(signaturePublicKeyFile, signaturePublicKey)
-		require.NoError(tb, err)
-	}
 
 	configStore, err := config.NewStoreFromBacking(memoryStore, nil, false)
 	require.NoError(tb, err)
@@ -196,10 +175,6 @@ func setupTestHelper(tb testing.TB, dbStore store.Store, sqlSettings *model.SqlS
 		*cfg.EmailSettings.SendEmailNotifications = true
 		*cfg.ServiceSettings.SiteURL = ""
 
-		// Disable sniffing, otherwise elastic client fails to connect to docker node
-		// More details: https://github.com/olivere/elastic/wiki/Sniffing
-		*cfg.ElasticsearchSettings.Sniff = false
-
 		*cfg.TeamSettings.EnableOpenServer = true
 
 		*cfg.ServiceSettings.ListenAddress = "localhost:0"
@@ -245,7 +220,7 @@ func setupTestHelper(tb testing.TB, dbStore store.Store, sqlSettings *model.SqlS
 		th.ShutdownApp()
 
 		if th.tempWorkspace != "" {
-			err := os.RemoveAll(th.tempWorkspace)
+			err := removeAllWithRetry(th.tempWorkspace)
 			require.NoError(tb, err)
 		}
 	})
@@ -1277,24 +1252,62 @@ func (th *TestHelper) cleanupTestFile(info *model.FileInfo) error {
 			}
 		}
 	} else if *cfg.FileSettings.DriverName == model.ImageDriverLocal {
-		if err := os.Remove(*cfg.FileSettings.Directory + info.Path); err != nil {
+		if err := removeWithRetry(*cfg.FileSettings.Directory + info.Path); err != nil {
 			return err
 		}
 
 		if info.ThumbnailPath != "" {
-			if err := os.Remove(*cfg.FileSettings.Directory + info.ThumbnailPath); err != nil {
+			if err := removeWithRetry(*cfg.FileSettings.Directory + info.ThumbnailPath); err != nil {
 				return err
 			}
 		}
 
 		if info.PreviewPath != "" {
-			if err := os.Remove(*cfg.FileSettings.Directory + info.PreviewPath); err != nil {
+			if err := removeWithRetry(*cfg.FileSettings.Directory + info.PreviewPath); err != nil {
 				return err
 			}
 		}
 	}
 
 	return nil
+}
+
+func removeWithRetry(path string) error {
+	return retryFileOperation(func() error {
+		err := os.Remove(path)
+		if os.IsNotExist(err) {
+			return nil
+		}
+		return err
+	})
+}
+
+func removeAllWithRetry(path string) error {
+	return retryFileOperation(func() error {
+		err := os.RemoveAll(path)
+		if os.IsNotExist(err) {
+			return nil
+		}
+		return err
+	})
+}
+
+func retryFileOperation(fn func() error) error {
+	err := fn()
+	if err == nil {
+		return nil
+	}
+
+	for range 80 {
+		time.Sleep(50 * time.Millisecond)
+		if retryErr := fn(); retryErr == nil {
+			return nil
+		} else {
+			err = retryErr
+		}
+	}
+
+	return err
 }
 
 func (th *TestHelper) MakeUserChannelAdmin(tb testing.TB, user *model.User, channel *model.Channel) {

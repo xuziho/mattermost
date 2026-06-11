@@ -12,7 +12,6 @@ import (
 	"github.com/avct/uasurfer"
 
 	"github.com/mattermost/mattermost/server/public/model"
-	"github.com/mattermost/mattermost/server/public/plugin"
 	"github.com/mattermost/mattermost/server/public/shared/request"
 	"github.com/mattermost/mattermost/server/v8/channels/utils"
 )
@@ -85,17 +84,6 @@ func (a *App) GetUserForLogin(rctx request.CTX, id, loginId string) (*model.User
 }
 
 func (a *App) DoLogin(rctx request.CTX, w http.ResponseWriter, r *http.Request, user *model.User, deviceID string, isMobile, isOAuthUser, isSaml bool) (*model.Session, *model.AppError) {
-	var rejectionReason string
-	pluginContext := pluginContext(rctx)
-	a.ch.RunMultiHook(func(hooks plugin.Hooks, _ *model.Manifest) bool {
-		rejectionReason = hooks.UserWillLogIn(pluginContext, user)
-		return rejectionReason == ""
-	}, plugin.UserWillLogInID)
-
-	if rejectionReason != "" {
-		return nil, model.NewAppError("DoLogin", "Login rejected by plugin: "+rejectionReason, nil, "", http.StatusBadRequest)
-	}
-
 	session := &model.Session{UserId: user.Id, Roles: user.GetRawRoles(), DeviceId: deviceID, IsOAuth: false, Props: map[string]string{
 		model.UserAuthServiceIsMobile: strconv.FormatBool(isMobile),
 		model.UserAuthServiceIsSaml:   strconv.FormatBool(isSaml),
@@ -156,13 +144,6 @@ func (a *App) DoLogin(rctx request.CTX, w http.ResponseWriter, r *http.Request, 
 			a.Ldap().UpdateProfilePictureIfNecessary(rctx, userVal, sessionVal)
 		})
 	}
-
-	a.Srv().Go(func() {
-		a.ch.RunMultiHook(func(hooks plugin.Hooks, _ *model.Manifest) bool {
-			hooks.UserHasLoggedIn(pluginContext, user)
-			return true
-		}, plugin.UserHasLoggedInID)
-	})
 
 	return session, nil
 }

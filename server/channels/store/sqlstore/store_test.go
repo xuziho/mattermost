@@ -7,7 +7,7 @@ import (
 	"database/sql"
 	"fmt"
 	"os"
-	"path/filepath"
+	"path"
 	"regexp"
 	"sort"
 	"strconv"
@@ -22,7 +22,6 @@ import (
 	"golang.org/x/sync/errgroup"
 
 	"github.com/mattermost/mattermost/server/public/model"
-	"github.com/mattermost/mattermost/server/public/plugin/plugintest/mock"
 	"github.com/mattermost/mattermost/server/public/shared/mlog"
 	"github.com/mattermost/mattermost/server/public/shared/request"
 	"github.com/mattermost/mattermost/server/v8/channels/db"
@@ -30,6 +29,7 @@ import (
 	"github.com/mattermost/mattermost/server/v8/channels/store/searchtest"
 	"github.com/mattermost/mattermost/server/v8/channels/store/storetest"
 	"github.com/mattermost/mattermost/server/v8/einterfaces/mocks"
+	"github.com/stretchr/testify/mock"
 )
 
 type storeType struct {
@@ -969,7 +969,7 @@ func TestGetDBSchemaVersion(t *testing.T) {
 			store, err := New(*settings, logger, nil)
 			require.NoError(t, err)
 
-			assetsList, err := assets.ReadDir(filepath.Join("migrations", driver))
+			assetsList, err := assets.ReadDir(path.Join("migrations", driver))
 			require.NoError(t, err)
 
 			var assetNamesForDriver []string
@@ -1043,7 +1043,7 @@ func TestGetAppliedMigrations(t *testing.T) {
 			store, err := New(*settings, logger, nil)
 			require.NoError(t, err)
 
-			assetsList, err := assets.ReadDir(filepath.Join("migrations", driver))
+			assetsList, err := assets.ReadDir(path.Join("migrations", driver))
 			require.NoError(t, err)
 
 			var migrationsFromFiles []model.AppliedMigration

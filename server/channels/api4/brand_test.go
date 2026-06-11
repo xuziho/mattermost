@@ -6,6 +6,7 @@ package api4
 import (
 	"context"
 	"net/http"
+	"path/filepath"
 	"strings"
 	"testing"
 
@@ -89,7 +90,7 @@ func TestUploadBrandImageTwice(t *testing.T) {
 	require.Len(t, files, 1, "Expected only the original image file")
 
 	// ListDirectory returns paths with the directory prefix included
-	fileName := files[0]
+	fileName := filepath.ToSlash(files[0])
 	fileName = strings.TrimPrefix(fileName, "brand/")
 	require.Equal(t, "image.png", fileName, "Expected the original image file")
 
@@ -113,6 +114,7 @@ func TestUploadBrandImageTwice(t *testing.T) {
 	hasBackup := false
 	for _, file := range files {
 		// ListDirectory returns paths with the directory prefix included
+		file = filepath.ToSlash(file)
 		fileName := strings.TrimPrefix(file, "brand/")
 
 		if fileName == "image.png" {

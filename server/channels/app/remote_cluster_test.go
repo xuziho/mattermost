@@ -4,14 +4,12 @@
 package app
 
 import (
-	"strings"
 	"testing"
 	"time"
 
 	"github.com/stretchr/testify/require"
 
 	"github.com/mattermost/mattermost/server/public/model"
-	"github.com/mattermost/mattermost/server/v8/channels/testlib"
 	"github.com/mattermost/mattermost/server/v8/platform/services/remotecluster"
 )
 
@@ -46,13 +44,7 @@ func setupRemoteCluster(tb testing.TB) *TestHelper {
 	})
 }
 
-// TestSharedChannelServicesAvailableBeforePluginActivation guards the fix for
-// MM-68622. Plugins that call shared channels APIs from OnActivate previously
-// failed with "Shared Channels Service is disabled" because
-// startInterClusterServices ran after Channels().Start() initialized plugins.
-// Server.Start now starts the inter-cluster services first, so the services
-// must be available by the time plugin initialization begins.
-func TestSharedChannelServicesAvailableBeforePluginActivation(t *testing.T) {
+func TestSharedChannelServicesAvailableAfterServerStart(t *testing.T) {
 	mainHelper.Parallel(t)
 	th := setupRemoteCluster(t).InitBasic(t)
 
@@ -60,41 +52,6 @@ func TestSharedChannelServicesAvailableBeforePluginActivation(t *testing.T) {
 		"remote cluster service must be initialized after Server.Start")
 	require.NotNil(t, th.Server.GetSharedChannelSyncService(),
 		"shared channel sync service must be initialized after Server.Start")
-
-	// Order check: scs.resume() logs "Shared Channel Service active" from
-	// scs.Start(), and initPlugins logs "Starting up plugins" from
-	// Channels().Start(). The first must precede the second, otherwise plugin
-	// OnActivate would observe a nil service.
-	require.NoError(t, th.TestLogger.Flush())
-	entries := testlib.ParseLogEntries(t, strings.NewReader(th.LogBuffer.String()))
-
-	scsActiveIdx, pluginInitIdx := -1, -1
-	for i, e := range entries {
-		if scsActiveIdx == -1 && e.Msg == "Shared Channel Service active" {
-			scsActiveIdx = i
-		}
-		if pluginInitIdx == -1 && e.Msg == "Starting up plugins" {
-			pluginInitIdx = i
-		}
-	}
-	require.NotEqual(t, -1, scsActiveIdx,
-		"expected log message 'Shared Channel Service active' from scs.resume()")
-	require.NotEqual(t, -1, pluginInitIdx,
-		"expected log message 'Starting up plugins' from initPlugins")
-	require.Less(t, scsActiveIdx, pluginInitIdx,
-		"shared channel service must activate before plugin initialization (MM-68622)")
-
-	// Plugin entry path: this is the App-layer call a plugin would make from
-	// OnActivate. Before MM-68622 it would return "Shared Channels Service is
-	// disabled" because GetSharedChannelSyncService() was still nil.
-	pluginID := "com.test.startup-" + model.NewId()
-	_, err := th.App.RegisterPluginForSharedChannels(th.Context, model.RegisterPluginOpts{
-		Displayname: "startup test plugin",
-		PluginID:    pluginID,
-		CreatorID:   th.BasicUser.Id,
-	})
-	require.NoError(t, err,
-		"RegisterPluginForSharedChannels must succeed when shared channels is enabled")
 }
 
 func TestAddRemoteCluster(t *testing.T) {

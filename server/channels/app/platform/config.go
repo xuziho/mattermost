@@ -19,7 +19,6 @@ import (
 	"strconv"
 
 	"github.com/mattermost/mattermost/server/public/model"
-	"github.com/mattermost/mattermost/server/public/plugin"
 	"github.com/mattermost/mattermost/server/public/shared/mlog"
 	"github.com/mattermost/mattermost/server/public/shared/request"
 	"github.com/mattermost/mattermost/server/public/utils"
@@ -45,15 +44,7 @@ func (ps *PlatformService) Config() *model.Config {
 func (ps *PlatformService) getSanitizedConfig(rctx request.CTX, opts *model.SanitizeOptions) *model.Config {
 	cfg := ps.Config().Clone()
 
-	manifests, err := ps.getPluginManifests()
-	if err != nil {
-		// getPluginManifests might error, e.g. when plugins are disabled.
-		// Sanitize all plugin settings in this case.
-		rctx.Logger().Warn("Failed to get plugin manifests for config sanitization. Will sanitize all plugin settings.", mlog.Err(err))
-		cfg.Sanitize(nil, opts)
-	} else {
-		cfg.Sanitize(manifests, opts)
-	}
+	cfg.Sanitize(nil, opts)
 
 	return cfg
 }
@@ -89,24 +80,6 @@ func (ps *PlatformService) IsConfigReadOnly() bool {
 // SaveConfig replaces the active configuration, optionally notifying cluster peers.
 // It returns both the previous and current configs.
 func (ps *PlatformService) SaveConfig(newCfg *model.Config, sendConfigChangeClusterMessage bool) (*model.Config, *model.Config, *model.AppError) {
-	if ps.pluginEnv != nil {
-		var hookErr error
-		ps.pluginEnv.RunMultiHook(func(hooks plugin.Hooks, _ *model.Manifest) bool {
-			var cfg *model.Config
-			cfg, hookErr = hooks.ConfigurationWillBeSaved(newCfg)
-			if hookErr == nil && cfg != nil {
-				newCfg = cfg
-			}
-			return hookErr == nil
-		}, plugin.ConfigurationWillBeSavedID)
-		if hookErr != nil {
-			if appErr, ok := hookErr.(*model.AppError); ok {
-				return nil, nil, appErr
-			}
-			return nil, nil, model.NewAppError("saveConfig", "app.save_config.plugin_hook_error", nil, "", http.StatusBadRequest).Wrap(hookErr)
-		}
-	}
-
 	// Validate log file paths (logs errors for now, will block server startup in future version)
 	config.WarnIfLogPathsOutsideRoot(newCfg)
 

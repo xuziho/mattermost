@@ -9,6 +9,7 @@ import (
 	"io"
 	"os"
 	"path/filepath"
+	"runtime"
 	"time"
 
 	"github.com/pkg/errors"
@@ -187,10 +188,29 @@ func (b *LocalFileBackend) AppendFile(fr io.Reader, path string) (int64, error) 
 }
 
 func (b *LocalFileBackend) RemoveFile(path string) error {
-	if err := os.Remove(filepath.Join(b.directory, path)); err != nil {
+	fp := filepath.Join(b.directory, path)
+	if err := removeLocalFile(fp); err != nil {
 		return errors.Wrapf(err, "unable to remove the file %s", path)
 	}
 	return nil
+}
+
+func removeLocalFile(path string) error {
+	err := os.Remove(path)
+	if err == nil || runtime.GOOS != "windows" {
+		return err
+	}
+
+	for range 20 {
+		time.Sleep(25 * time.Millisecond)
+		if retryErr := os.Remove(path); retryErr == nil {
+			return nil
+		} else {
+			err = retryErr
+		}
+	}
+
+	return err
 }
 
 // basePath: path to get to the file but won't be added to the end result

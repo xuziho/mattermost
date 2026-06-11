@@ -53,8 +53,6 @@ const (
 	PermissionDeletePrivateChannel                = "delete_private_channel"
 	PermissionManagePublicChannelProperties       = "manage_public_channel_properties"
 	PermissionManagePrivateChannelProperties      = "manage_private_channel_properties"
-	PermissionManagePublicChannelAutoTranslation  = "manage_public_channel_auto_translation"
-	PermissionManagePrivateChannelAutoTranslation = "manage_private_channel_auto_translation"
 	PermissionConvertPublicChannelToPrivate       = "convert_public_channel_to_private"
 	PermissionConvertPrivateChannelToPublic       = "convert_private_channel_to_public"
 	PermissionViewMembers                         = "view_members"
@@ -727,7 +725,6 @@ func (a *App) getAddEnvironmentSubsectionPermissions() (permissionsMap, error) {
 	permissionsEnvironmentRead := []string{
 		model.PermissionSysconsoleReadEnvironmentWebServer.Id,
 		model.PermissionSysconsoleReadEnvironmentDatabase.Id,
-		model.PermissionSysconsoleReadEnvironmentElasticsearch.Id,
 		model.PermissionSysconsoleReadEnvironmentFileStorage.Id,
 		model.PermissionSysconsoleReadEnvironmentImageProxy.Id,
 		model.PermissionSysconsoleReadEnvironmentSMTP.Id,
@@ -742,7 +739,6 @@ func (a *App) getAddEnvironmentSubsectionPermissions() (permissionsMap, error) {
 	permissionsEnvironmentWrite := []string{
 		model.PermissionSysconsoleWriteEnvironmentWebServer.Id,
 		model.PermissionSysconsoleWriteEnvironmentDatabase.Id,
-		model.PermissionSysconsoleWriteEnvironmentElasticsearch.Id,
 		model.PermissionSysconsoleWriteEnvironmentFileStorage.Id,
 		model.PermissionSysconsoleWriteEnvironmentImageProxy.Id,
 		model.PermissionSysconsoleWriteEnvironmentSMTP.Id,
@@ -753,18 +749,6 @@ func (a *App) getAddEnvironmentSubsectionPermissions() (permissionsMap, error) {
 		model.PermissionSysconsoleWriteEnvironmentSessionLengths.Id,
 		model.PermissionSysconsoleWriteEnvironmentPerformanceMonitoring.Id,
 		model.PermissionSysconsoleWriteEnvironmentDeveloper.Id,
-	}
-
-	permissionsElasticsearchRead := []string{
-		model.PermissionReadElasticsearchPostIndexingJob.Id,
-		model.PermissionReadElasticsearchPostAggregationJob.Id,
-	}
-
-	permissionsElasticsearchWrite := []string{
-		model.PermissionTestElasticsearch.Id,
-		model.PermissionCreateElasticsearchPostIndexingJob.Id,
-		model.PermissionCreateElasticsearchPostAggregationJob.Id,
-		model.PermissionPurgeElasticsearchIndexes.Id,
 	}
 
 	permissionsWebServerWrite := []string{
@@ -784,11 +768,6 @@ func (a *App) getAddEnvironmentSubsectionPermissions() (permissionsMap, error) {
 			On:  permissionExists(model.PermissionSysconsoleWriteEnvironment.Id),
 			Add: permissionsEnvironmentWrite,
 		},
-		// Give these ancillary permissions to anyone with READ_ENVIRONMENT_ELASTICSEARCH
-		permissionTransformation{
-			On:  permissionExists(model.PermissionSysconsoleReadEnvironmentElasticsearch.Id),
-			Add: permissionsElasticsearchRead,
-		},
 		// Give these ancillary permissions to anyone with WRITE_ENVIRONMENT_WEB_SERVER
 		permissionTransformation{
 			On:  permissionExists(model.PermissionSysconsoleWriteEnvironmentWebServer.Id),
@@ -798,11 +777,6 @@ func (a *App) getAddEnvironmentSubsectionPermissions() (permissionsMap, error) {
 		permissionTransformation{
 			On:  permissionExists(model.PermissionSysconsoleWriteEnvironmentDatabase.Id),
 			Add: []string{model.PermissionRecycleDatabaseConnections.Id},
-		},
-		// Give these ancillary permissions to anyone with WRITE_ENVIRONMENT_ELASTICSEARCH
-		permissionTransformation{
-			On:  permissionExists(model.PermissionSysconsoleWriteEnvironmentElasticsearch.Id),
-			Add: permissionsElasticsearchWrite,
 		},
 		// Give these ancillary permissions to anyone with WRITE_ENVIRONMENT_FILE_STORAGE
 		permissionTransformation{
@@ -1051,13 +1025,6 @@ func (a *App) getAddManageJobAncillaryPermissionsMigration() (permissionsMap, er
 			On:  permissionExists(model.PermissionSysconsoleWriteComplianceComplianceExport.Id),
 			Add: []string{model.PermissionManageComplianceExportJob.Id},
 		},
-		permissionTransformation{
-			On: permissionExists(model.PermissionSysconsoleWriteEnvironmentElasticsearch.Id),
-			Add: []string{
-				model.PermissionManageElasticsearchPostIndexingJob.Id,
-				model.PermissionManageElasticsearchPostAggregationJob.Id,
-			},
-		},
 	}, nil
 }
 
@@ -1164,22 +1131,6 @@ func (a *App) getAddTeamAccessRulesPermissionMigration() (permissionsMap, error)
 	}, nil
 }
 
-func (a *App) getAddChannelAutoTranslationPermissionMigration() (permissionsMap, error) {
-	return permissionsMap{
-		permissionTransformation{
-			On: permissionOr(
-				isRole(model.ChannelAdminRoleId),
-				isRole(model.TeamAdminRoleId),
-				isRole(model.SystemAdminRoleId),
-			),
-			Add: []string{
-				model.PermissionManagePublicChannelAutoTranslation.Id,
-				model.PermissionManagePrivateChannelAutoTranslation.Id,
-			},
-		},
-	}, nil
-}
-
 // Only sysadmins, team admins, and users with channels and groups managements have access to "convert channel to public"
 func (a *App) getRestrictAcessToChannelConversionToPublic() (permissionsMap, error) {
 	return []permissionTransformation{
@@ -1211,24 +1162,6 @@ func (a *App) getRestoreManageOAuthPermissionMigration() (permissionsMap, error)
 		permissionTransformation{
 			On:  isExactRole(model.SystemAdminRoleId),
 			Add: []string{model.PermissionManageOAuth.Id},
-		},
-	}, nil
-}
-
-func (a *App) getAddManageAgentPermissionsMigration() (permissionsMap, error) {
-	return permissionsMap{
-		permissionTransformation{
-			On: isExactRole(model.SystemAdminRoleId),
-			Add: []string{
-				model.PermissionManageOwnAgent.Id,
-				model.PermissionManageOthersAgent.Id,
-			},
-		},
-		permissionTransformation{
-			On: isExactRole(model.SystemUserRoleId),
-			Add: []string{
-				model.PermissionManageOwnAgent.Id,
-			},
 		},
 	}, nil
 }
@@ -1295,10 +1228,8 @@ func (s *Server) doPermissionsMigrations() error {
 		{Key: model.MigrationKeyAddChannelBannerPermissions, Migration: a.getAddChannelBannerPermissionMigration},
 		{Key: model.MigrationKeyAddChannelAccessRulesPermission, Migration: a.getAddChannelAccessRulesPermissionMigration},
 		{Key: model.MigrationKeyAddTeamAccessRulesPermission, Migration: a.getAddTeamAccessRulesPermissionMigration},
-		{Key: model.MigrationKeyAddChannelAutoTranslationPermissions, Migration: a.getAddChannelAutoTranslationPermissionMigration},
 		{Key: model.MigrationKeyAddSharedChannelManagerPermissions, Migration: a.getAddSharedChannelManagerPermissionsMigration},
 		{Key: model.MigrationKeyRestoreManageOAuthPermission, Migration: a.getRestoreManageOAuthPermissionMigration},
-		{Key: model.MigrationKeyAddManageAgentPermissions, Migration: a.getAddManageAgentPermissionsMigration},
 		{Key: model.MigrationKeyAddEditFileAttachmentPermission, Migration: a.getAddEditFileAttachmentPermissionMigration},
 	}
 

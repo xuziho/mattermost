@@ -17,7 +17,6 @@ import PostListRow from 'components/post_view/post_list_row';
 import ScrollToBottomArrows from 'components/post_view/scroll_to_bottom_arrows';
 import ToastWrapper from 'components/toast_wrapper';
 
-import Pluggable from 'plugins/pluggable';
 import Constants, {PostListRowListIds, EventTypes, PostRequestTypes} from 'utils/constants';
 import DelayedAction from 'utils/delayed_action';
 import {isChannelPopoutWindow} from 'utils/popouts/popout_windows';
@@ -93,8 +92,6 @@ type Props = {
     focusedPostId?: string;
 
     shouldStartFromBottomWhenUnread: boolean;
-
-    isChannelAutotranslated: boolean;
 
     actions: {
 
@@ -357,7 +354,6 @@ export default class PostList extends React.PureComponent<Props, State> {
                     loadingNewerPosts={this.props.loadingNewerPosts}
                     loadingOlderPosts={this.props.loadingOlderPosts}
                     channelId={this.props.channelId}
-                    isChannelAutotranslated={this.props.isChannelAutotranslated}
                 />
             </div>
         );
@@ -686,18 +682,15 @@ export default class PostList extends React.PureComponent<Props, State> {
                             id='postListContent'
                             className='post-list__content'
                         >
-                            <LatestPostReader
-                                postIds={this.props.postListIds}
-                                autotranslated={this.props.isChannelAutotranslated}
-                            />
+                        <LatestPostReader
+                            postIds={this.props.postListIds}
+                        />
                             <AutoSizer>
                                 {({height, width}) => (
                                     <>
-                                        <div>
-                                            <Pluggable pluggableName='ChannelToast'/>
-
-                                            {this.renderToasts(width)}
-                                        </div>
+                            <div>
+                                {this.renderToasts(width)}
+                            </div>
 
                                         <DynamicVirtualizedList
                                             ref={this.listRef}

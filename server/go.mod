@@ -16,7 +16,6 @@ require (
 	github.com/cespare/xxhash/v2 v2.3.0
 	github.com/dgryski/dgoogauth v0.0.0-20190221195224-5a805980a5f3
 	github.com/dyatlov/go-opengraph/opengraph v0.0.0-20220524092352-606d7b1e5f8a
-	github.com/elastic/go-elasticsearch/v8 v8.19.3
 	github.com/fatih/color v1.19.0
 	github.com/getsentry/sentry-go v0.44.1
 	github.com/goccy/go-yaml v1.19.2
@@ -42,7 +41,6 @@ require (
 	github.com/mattermost/gosaml2 v0.10.0
 	github.com/mattermost/ldap v0.0.0-20231116144001-0f480c025956
 	github.com/mattermost/logr/v2 v2.0.22
-	github.com/mattermost/mattermost-plugin-ai v1.14.0
 	github.com/mattermost/mattermost/server/public v0.3.0
 	github.com/mattermost/morph v1.1.0
 	github.com/mattermost/rsc v0.0.0-20160330161541-bbaefb05eaa0
@@ -50,7 +48,6 @@ require (
 	github.com/mholt/archives v0.1.5
 	github.com/microcosm-cc/bluemonday v1.0.27
 	github.com/minio/minio-go/v7 v7.0.99
-	github.com/opensearch-project/opensearch-go/v4 v4.6.0
 	github.com/pkg/errors v0.9.1
 	github.com/prometheus/client_golang v1.23.2
 	github.com/prometheus/client_model v0.6.2

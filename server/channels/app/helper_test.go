@@ -20,7 +20,6 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"github.com/mattermost/mattermost/server/public/model"
-	"github.com/mattermost/mattermost/server/public/plugin"
 	"github.com/mattermost/mattermost/server/public/shared/mlog"
 	"github.com/mattermost/mattermost/server/public/shared/request"
 	"github.com/mattermost/mattermost/server/v8/channels/store"
@@ -69,8 +68,6 @@ func setupTestHelper(dbStore store.Store, sqlStore *sqlstore.SqlStore, sqlSettin
 	memoryConfig.SqlSettings = model.SafeDereference(sqlSettings)
 	*memoryConfig.ServiceSettings.LicenseFileLocation = filepath.Join(tempWorkspace, "license.json")
 	*memoryConfig.FileSettings.Directory = filepath.Join(tempWorkspace, "data")
-	*memoryConfig.PluginSettings.Directory = filepath.Join(tempWorkspace, "plugins")
-	*memoryConfig.PluginSettings.ClientDirectory = filepath.Join(tempWorkspace, "webapp")
 	*memoryConfig.LogSettings.EnableSentry = false // disable error reporting during tests
 
 	// Check for environment variable override for console log level (useful for debugging tests)
@@ -93,13 +90,6 @@ func setupTestHelper(dbStore store.Store, sqlStore *sqlstore.SqlStore, sqlSettin
 		updateConfig(memoryConfig)
 	}
 
-	for _, signaturePublicKeyFile := range memoryConfig.PluginSettings.SignaturePublicKeyFiles {
-		var signaturePublicKey []byte
-		signaturePublicKey, err = os.ReadFile(signaturePublicKeyFile)
-		require.NoError(tb, err, "failed to read signature public key file %s", signaturePublicKeyFile)
-		err = configStore.SetFile(signaturePublicKeyFile, signaturePublicKey)
-		require.NoError(tb, err)
-	}
 	_, _, err = configStore.Set(memoryConfig)
 	require.NoError(tb, err)
 
@@ -269,13 +259,9 @@ func SetupWithStoreMock(tb testing.TB) *TestHelper {
 	statusMock.On("UpdateLastActivityAt", "user1", mock.Anything).Return(nil)
 	statusMock.On("SaveOrUpdate", mock.AnythingOfType("*model.Status")).Return(nil)
 
-	pluginMock := mocks.PluginStore{}
-	pluginMock.On("Get", mock.AnythingOfType("string"), mock.AnythingOfType("string")).Return(&model.PluginKeyValue{}, nil)
-
 	emptyMockStore := mocks.Store{}
 	emptyMockStore.On("Close").Return(nil)
 	emptyMockStore.On("Status").Return(&statusMock)
-	emptyMockStore.On("Plugin").Return(&pluginMock).Maybe()
 	th.App.Srv().SetStore(&emptyMockStore)
 
 	return th
@@ -704,14 +690,6 @@ func (th *TestHelper) SetupChannelScheme(tb testing.TB) *model.Scheme {
 	return scheme
 }
 
-func (th *TestHelper) SetupPluginAPI() *PluginAPI {
-	manifest := &model.Manifest{
-		Id: "pluginid",
-	}
-
-	return NewPluginAPI(th.App, th.Context, manifest)
-}
-
 func (th *TestHelper) RemovePermissionFromRole(tb testing.TB, permission string, roleName string) {
 	role, err1 := th.App.GetRoleByName(th.Context, roleName)
 	require.Nil(tb, err1)
@@ -789,10 +767,6 @@ func NewTestId() string {
 	}
 
 	return string(newId)
-}
-
-func (th *TestHelper) NewPluginAPI(manifest *model.Manifest) plugin.API {
-	return th.App.NewPluginAPI(th.Context, manifest)
 }
 
 func decodeJSON[T any](tb testing.TB, o any, result *T) *T {

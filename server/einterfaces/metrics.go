@@ -68,11 +68,6 @@ type MetricsInterface interface {
 	IncrementUserIndexCounter()
 	IncrementChannelIndexCounter()
 
-	ObservePluginHookDuration(pluginID, hookName string, success bool, elapsed float64)
-	ObservePluginMultiHookIterationDuration(pluginID string, elapsed float64)
-	ObservePluginMultiHookDuration(elapsed float64)
-	ObservePluginAPIDuration(pluginID, apiName string, success bool, elapsed float64)
-
 	ObserveEnabledUsers(users int64)
 	GetLoggerMetricsCollector() mlog.MetricsCollector
 
@@ -141,12 +136,4 @@ type MetricsInterface interface {
 	ObserveAccessControlEvaluateDuration(value float64)
 	IncrementAccessControlCacheInvalidation()
 
-	// Auto-translation metrics
-	ObserveAutoTranslateTranslateDuration(objectType string, elapsed float64)
-	ObserveAutoTranslateLinguaDetectionDuration(elapsed float64)
-	ObserveAutoTranslateProviderCallDuration(provider, result string, elapsed float64)
-	SetAutoTranslateQueueDepth(depth float64)
-	ObserveAutoTranslateWorkerTaskDuration(elapsed float64)
-	AddAutoTranslateRecoveryStuckFound(count float64)
-	IncrementAutoTranslateNormHash(result string)
 }

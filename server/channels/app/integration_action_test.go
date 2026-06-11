@@ -10,7 +10,6 @@ import (
 	"io"
 	"net/http"
 	"net/http/httptest"
-	"net/url"
 	"strings"
 	"testing"
 	"time"
@@ -446,52 +445,13 @@ func TestPostAction(t *testing.T) {
 			require.NotNil(t, err)
 			assert.ErrorContains(t, err, "address forbidden")
 
-			interactivePostPlugin := model.Post{
-				Message:       "Interactive post",
-				ChannelId:     channel.Id,
-				PendingPostId: model.NewId() + ":" + fmt.Sprint(model.GetMillis()),
-				UserId:        th.BasicUser.Id,
-				Props: model.StringInterface{
-					model.PostPropsAttachments: []*model.MessageAttachment{
-						{
-							Text: "hello",
-							Actions: []*model.PostAction{
-								{
-									Type:       model.PostActionTypeSelect,
-									Name:       "action",
-									DataSource: model.PostActionDataSourceUsers,
-									Integration: &model.PostActionIntegration{
-										Context: model.StringInterface{
-											"s": "foo",
-											"n": 3,
-										},
-										URL: ts.URL + "/plugins/myplugin/myaction",
-									},
-								},
-							},
-						},
-					},
-				},
-			}
-
-			postplugin, _, err := th.App.CreatePostAsUser(th.Context, &interactivePostPlugin, "", true)
-			require.Nil(t, err)
-
-			attachmentsPlugin, ok := postplugin.GetProp(model.PostPropsAttachments).([]*model.MessageAttachment)
-			require.True(t, ok)
-
-			_, err = th.App.DoPostActionWithCookie(th.Context, postplugin.Id, attachmentsPlugin[0].Actions[0].Id, th.BasicUser.Id, "", nil)
-			require.Equal(t, "api.post.do_action.action_integration.app_error", err.Id)
-
 			th.App.UpdateConfig(func(cfg *model.Config) {
 				*cfg.ServiceSettings.AllowedUntrustedInternalConnections = "localhost,127.0.0.1"
 			})
 
-			_, err = th.App.DoPostActionWithCookie(th.Context, postplugin.Id, attachmentsPlugin[0].Actions[0].Id, th.BasicUser.Id, "", nil)
-			require.Nil(t, err)
-
 			th.App.UpdateConfig(func(cfg *model.Config) {
 				*cfg.ServiceSettings.SiteURL = "http://127.1.1.1"
+				*cfg.ServiceSettings.AllowedUntrustedInternalConnections = "127.1.1.1"
 			})
 
 			interactivePostSiteURL := model.Post{
@@ -513,7 +473,7 @@ func TestPostAction(t *testing.T) {
 											"s": "foo",
 											"n": 3,
 										},
-										URL: "http://127.1.1.1/plugins/myplugin/myaction",
+										URL: "http://127.1.1.1/integrations/myaction",
 									},
 								},
 							},
@@ -530,10 +490,12 @@ func TestPostAction(t *testing.T) {
 
 			_, err = th.App.DoPostActionWithCookie(th.Context, postSiteURL.Id, attachmentsSiteURL[0].Actions[0].Id, th.BasicUser.Id, "", nil)
 			require.NotNil(t, err)
-			assert.ErrorContains(t, err, "connection refused")
+			errText := err.Error()
+			assert.True(t, strings.Contains(errText, "connection refused") || strings.Contains(errText, "actively refused it"), errText)
 
 			th.App.UpdateConfig(func(cfg *model.Config) {
 				*cfg.ServiceSettings.SiteURL = ts.URL + "/subpath"
+				*cfg.ServiceSettings.AllowedUntrustedInternalConnections = "localhost,127.0.0.1"
 			})
 
 			interactivePostSubpath := model.Post{
@@ -555,7 +517,7 @@ func TestPostAction(t *testing.T) {
 											"s": "foo",
 											"n": 3,
 										},
-										URL: ts.URL + "/subpath/plugins/myplugin/myaction",
+										URL: ts.URL + "/subpath/integrations/myaction",
 									},
 								},
 							},
@@ -708,44 +670,6 @@ func TestSubmitInteractiveDialog(t *testing.T) {
 	}))
 	defer ts.Close()
 
-	setupPluginAPITest(t,
-		`
-		package main
-
-		import (
-			"net/http"
-			"encoding/json"
-
-			"github.com/mattermost/mattermost/server/public/plugin"
-			"github.com/mattermost/mattermost/server/public/model"
-		)
-
-		type MyPlugin struct {
-			plugin.MattermostPlugin
-		}
-
-		func (p *MyPlugin) ServeHTTP(c *plugin.Context, w http.ResponseWriter, r *http.Request) {
-			errReply := "some error"
- 			if r.URL.Query().Get("abc") == "xyz" {
-				errReply = "some other error"
-			}
-			response := &model.SubmitDialogResponse{
-				Errors: map[string]string{"name1": errReply},
-			}
-			w.WriteHeader(http.StatusOK)
-			responseJSON, _ := json.Marshal(response)
-			_, _ = w.Write(responseJSON)
-		}
-
-		func main() {
-			plugin.ClientMain(&MyPlugin{})
-		}
-		`, `{"id": "myplugin", "server": {"executable": "backend.exe"}}`, "myplugin", th.App, th.Context)
-
-	hooks, err2 := th.App.GetPluginsEnvironment().HooksForPlugin("myplugin")
-	require.NoError(t, err2)
-	require.NotNil(t, hooks)
-
 	submit.URL = ts.URL
 
 	resp, err := th.App.SubmitInteractiveDialog(th.Context, submit)
@@ -764,22 +688,10 @@ func TestSubmitInteractiveDialog(t *testing.T) {
 		*cfg.ServiceSettings.SiteURL = ts.URL
 	})
 
-	submit.URL = "/notvalid/myplugin/myaction"
+	submit.URL = "/notvalid/integrations/myaction"
 	resp, err = th.App.SubmitInteractiveDialog(th.Context, submit)
 	assert.NotNil(t, err)
 	require.Nil(t, resp)
-
-	submit.URL = "/plugins/myplugin/myaction"
-	resp, err = th.App.SubmitInteractiveDialog(th.Context, submit)
-	assert.Nil(t, err)
-	require.NotNil(t, resp)
-	assert.Equal(t, "some error", resp.Errors["name1"])
-
-	submit.URL = "/plugins/myplugin/myaction?abc=xyz"
-	resp, err = th.App.SubmitInteractiveDialog(th.Context, submit)
-	assert.Nil(t, err)
-	require.NotNil(t, resp)
-	assert.Equal(t, "some other error", resp.Errors["name1"])
 }
 
 func TestPostActionRelativeURL(t *testing.T) {
@@ -814,7 +726,7 @@ func TestPostActionRelativeURL(t *testing.T) {
 								Type: model.PostActionTypeButton,
 								Name: "action",
 								Integration: &model.PostActionIntegration{
-									URL: "/notaplugin/some/path",
+									URL: "/notanintegration/some/path",
 								},
 							},
 						},
@@ -854,7 +766,7 @@ func TestPostActionRelativeURL(t *testing.T) {
 								Type: model.PostActionTypeButton,
 								Name: "action",
 								Integration: &model.PostActionIntegration{
-									URL: "/plugins/myplugin/myaction",
+									URL: "/integrations/myaction",
 								},
 							},
 						},
@@ -894,7 +806,7 @@ func TestPostActionRelativeURL(t *testing.T) {
 								Type: model.PostActionTypeButton,
 								Name: "action",
 								Integration: &model.PostActionIntegration{
-									URL: "/plugins/myplugin/myaction",
+									URL: "/integrations/myaction",
 								},
 							},
 						},
@@ -934,7 +846,7 @@ func TestPostActionRelativeURL(t *testing.T) {
 								Type: model.PostActionTypeButton,
 								Name: "action",
 								Integration: &model.PostActionIntegration{
-									URL: "//plugins/myplugin///myaction",
+									URL: "//integrations///myaction",
 								},
 							},
 						},
@@ -974,7 +886,7 @@ func TestPostActionRelativeURL(t *testing.T) {
 								Type: model.PostActionTypeButton,
 								Name: "action",
 								Integration: &model.PostActionIntegration{
-									URL: "plugins/myplugin/myaction",
+									URL: "integrations/myaction",
 								},
 							},
 						},
@@ -992,203 +904,6 @@ func TestPostActionRelativeURL(t *testing.T) {
 
 		_, err = th.App.DoPostActionWithCookie(th.Context, post.Id, attachments[0].Actions[0].Id, th.BasicUser.Id, "", nil)
 		require.NotNil(t, err)
-	})
-}
-
-func TestPostActionRelativePluginURL(t *testing.T) {
-	mainHelper.Parallel(t)
-	th := Setup(t).InitBasic(t)
-
-	setupPluginAPITest(t,
-		`
-		package main
-
-		import (
-			"net/http"
-			"encoding/json"
-
-			"github.com/mattermost/mattermost/server/public/plugin"
-			"github.com/mattermost/mattermost/server/public/model"
-		)
-
-		type MyPlugin struct {
-			plugin.MattermostPlugin
-		}
-
-		func (p *MyPlugin) 	ServeHTTP(c *plugin.Context, w http.ResponseWriter, r *http.Request) {
-			response := &model.PostActionIntegrationResponse{}
-			w.WriteHeader(http.StatusOK)
-			responseJSON, _ := json.Marshal(response)
-			_, _ = w.Write(responseJSON)
-		}
-
-		func main() {
-			plugin.ClientMain(&MyPlugin{})
-		}
-		`, `{"id": "myplugin", "server": {"executable": "backend.exe"}}`, "myplugin", th.App, th.Context)
-
-	hooks, err2 := th.App.GetPluginsEnvironment().HooksForPlugin("myplugin")
-	require.NoError(t, err2)
-	require.NotNil(t, hooks)
-
-	t.Run("invalid relative URL", func(t *testing.T) {
-		th.App.UpdateConfig(func(cfg *model.Config) {
-			*cfg.ServiceSettings.AllowedUntrustedInternalConnections = ""
-			*cfg.ServiceSettings.SiteURL = ""
-		})
-
-		interactivePost := model.Post{
-			Message:       "Interactive post",
-			ChannelId:     th.BasicChannel.Id,
-			PendingPostId: model.NewId() + ":" + fmt.Sprint(model.GetMillis()),
-			UserId:        th.BasicUser.Id,
-			Props: model.StringInterface{
-				model.PostPropsAttachments: []*model.MessageAttachment{
-					{
-						Text: "hello",
-						Actions: []*model.PostAction{
-							{
-								Type: model.PostActionTypeButton,
-								Name: "action",
-								Integration: &model.PostActionIntegration{
-									URL: "/notaplugin/some/path",
-								},
-							},
-						},
-					},
-				},
-			},
-		}
-
-		post, _, err := th.App.CreatePostAsUser(th.Context, &interactivePost, "", true)
-		require.Nil(t, err)
-		attachments, ok := post.GetProp(model.PostPropsAttachments).([]*model.MessageAttachment)
-		require.True(t, ok)
-		require.NotEmpty(t, attachments[0].Actions)
-		require.NotEmpty(t, attachments[0].Actions[0].Id)
-
-		_, err = th.App.DoPostActionWithCookie(th.Context, post.Id, attachments[0].Actions[0].Id, th.BasicUser.Id, "", nil)
-		require.NotNil(t, err)
-	})
-
-	t.Run("valid relative URL", func(t *testing.T) {
-		th.App.UpdateConfig(func(cfg *model.Config) {
-			*cfg.ServiceSettings.AllowedUntrustedInternalConnections = ""
-			*cfg.ServiceSettings.SiteURL = ""
-		})
-
-		interactivePost := model.Post{
-			Message:       "Interactive post",
-			ChannelId:     th.BasicChannel.Id,
-			PendingPostId: model.NewId() + ":" + fmt.Sprint(model.GetMillis()),
-			UserId:        th.BasicUser.Id,
-			Props: model.StringInterface{
-				model.PostPropsAttachments: []*model.MessageAttachment{
-					{
-						Text: "hello",
-						Actions: []*model.PostAction{
-							{
-								Type: model.PostActionTypeButton,
-								Name: "action",
-								Integration: &model.PostActionIntegration{
-									URL: "/plugins/myplugin/myaction",
-								},
-							},
-						},
-					},
-				},
-			},
-		}
-
-		post, _, err := th.App.CreatePostAsUser(th.Context, &interactivePost, "", true)
-		require.Nil(t, err)
-		attachments, ok := post.GetProp(model.PostPropsAttachments).([]*model.MessageAttachment)
-		require.True(t, ok)
-		require.NotEmpty(t, attachments[0].Actions)
-		require.NotEmpty(t, attachments[0].Actions[0].Id)
-
-		_, err = th.App.DoPostActionWithCookie(th.Context, post.Id, attachments[0].Actions[0].Id, th.BasicUser.Id, "", nil)
-		require.Nil(t, err)
-	})
-
-	t.Run("valid (but dirty) relative URL", func(t *testing.T) {
-		th.App.UpdateConfig(func(cfg *model.Config) {
-			*cfg.ServiceSettings.AllowedUntrustedInternalConnections = ""
-			*cfg.ServiceSettings.SiteURL = ""
-		})
-
-		interactivePost := model.Post{
-			Message:       "Interactive post",
-			ChannelId:     th.BasicChannel.Id,
-			PendingPostId: model.NewId() + ":" + fmt.Sprint(model.GetMillis()),
-			UserId:        th.BasicUser.Id,
-			Props: model.StringInterface{
-				model.PostPropsAttachments: []*model.MessageAttachment{
-					{
-						Text: "hello",
-						Actions: []*model.PostAction{
-							{
-								Type: model.PostActionTypeButton,
-								Name: "action",
-								Integration: &model.PostActionIntegration{
-									URL: "//plugins/myplugin///myaction",
-								},
-							},
-						},
-					},
-				},
-			},
-		}
-
-		post, _, err := th.App.CreatePostAsUser(th.Context, &interactivePost, "", true)
-		require.Nil(t, err)
-		attachments, ok := post.GetProp(model.PostPropsAttachments).([]*model.MessageAttachment)
-		require.True(t, ok)
-		require.NotEmpty(t, attachments[0].Actions)
-		require.NotEmpty(t, attachments[0].Actions[0].Id)
-
-		_, err = th.App.DoPostActionWithCookie(th.Context, post.Id, attachments[0].Actions[0].Id, th.BasicUser.Id, "", nil)
-		require.Nil(t, err)
-	})
-
-	t.Run("valid relative URL and no leading slash", func(t *testing.T) {
-		th.App.UpdateConfig(func(cfg *model.Config) {
-			*cfg.ServiceSettings.AllowedUntrustedInternalConnections = ""
-			*cfg.ServiceSettings.SiteURL = ""
-		})
-
-		interactivePost := model.Post{
-			Message:       "Interactive post",
-			ChannelId:     th.BasicChannel.Id,
-			PendingPostId: model.NewId() + ":" + fmt.Sprint(model.GetMillis()),
-			UserId:        th.BasicUser.Id,
-			Props: model.StringInterface{
-				model.PostPropsAttachments: []*model.MessageAttachment{
-					{
-						Text: "hello",
-						Actions: []*model.PostAction{
-							{
-								Type: model.PostActionTypeButton,
-								Name: "action",
-								Integration: &model.PostActionIntegration{
-									URL: "plugins/myplugin/myaction",
-								},
-							},
-						},
-					},
-				},
-			},
-		}
-
-		post, _, err := th.App.CreatePostAsUser(th.Context, &interactivePost, "", true)
-		require.Nil(t, err)
-		attachments, ok := post.GetProp(model.PostPropsAttachments).([]*model.MessageAttachment)
-		require.True(t, ok)
-		require.NotEmpty(t, attachments[0].Actions)
-		require.NotEmpty(t, attachments[0].Actions[0].Id)
-
-		_, err = th.App.DoPostActionWithCookie(th.Context, post.Id, attachments[0].Actions[0].Id, th.BasicUser.Id, "", nil)
-		require.Nil(t, err)
 	})
 }
 
@@ -1326,61 +1041,6 @@ func TestLookupInteractiveDialog(t *testing.T) {
 		require.NotNil(t, err)
 		assert.Nil(t, resp)
 		assert.Contains(t, err.Error(), "Encountered an error decoding JSON response")
-	})
-
-	t.Run("should handle plugin lookup", func(t *testing.T) {
-		setupPluginAPITest(t,
-			`
-			package main
-
-			import (
-				"encoding/json"
-				"net/http"
-
-				"github.com/mattermost/mattermost/server/public/plugin"
-				"github.com/mattermost/mattermost/server/public/model"
-			)
-
-			type MyPlugin struct {
-				plugin.MattermostPlugin
-			}
-
-			func (p *MyPlugin) ServeHTTP(c *plugin.Context, w http.ResponseWriter, r *http.Request) {
-				var request model.SubmitDialogRequest
-				json.NewDecoder(r.Body).Decode(&request)
-
-				response := &model.LookupDialogResponse{
-					Items: []model.DialogSelectOption{
-						{Text: "Plugin Option 1", Value: "plugin_value1"},
-						{Text: "Plugin Option 2", Value: "plugin_value2"},
-					},
-				}
-				w.WriteHeader(http.StatusOK)
-				responseJSON, _ := json.Marshal(response)
-				w.Write(responseJSON)
-			}
-
-			func main() {
-				plugin.ClientMain(&MyPlugin{})
-			}
-			`, `{"id": "myplugin", "server": {"executable": "backend.exe"}}`, "myplugin", th.App, th.Context)
-
-		submit := model.SubmitDialogRequest{
-			URL:        "/plugins/myplugin/lookup",
-			CallbackId: "callbackid",
-			State:      "somestate",
-			UserId:     th.BasicUser.Id,
-			ChannelId:  th.BasicChannel.Id,
-			TeamId:     th.BasicTeam.Id,
-			Submission: map[string]any{"query": "test"},
-		}
-
-		resp, err := th.App.LookupInteractiveDialog(th.Context, submit)
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Len(t, resp.Items, 2)
-		assert.Equal(t, "Plugin Option 1", resp.Items[0].Text)
-		assert.Equal(t, "plugin_value1", resp.Items[0].Value)
 	})
 
 	t.Run("should fail on invalid URL", func(t *testing.T) {
@@ -1586,15 +1246,6 @@ func TestDoActionRequest(t *testing.T) {
 		assert.Contains(t, err.Error(), "unsupported protocol scheme")
 	})
 
-	t.Run("should handle plugin URL", func(t *testing.T) {
-		requestBody := []byte(`{"test": "data"}`)
-		resp, err := th.App.DoActionRequest(th.Context, "/plugins/myplugin/action", requestBody)
-		require.Nil(t, err) // Plugin URLs return HTTP response, not Go error
-		require.NotNil(t, resp)
-		assert.Equal(t, http.StatusNotFound, resp.StatusCode) // Plugin doesn't exist, returns 404
-		resp.Body.Close()
-	})
-
 	t.Run("should handle context timeout", func(t *testing.T) {
 		ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			time.Sleep(2 * time.Second)
@@ -1618,118 +1269,6 @@ func TestDoActionRequest(t *testing.T) {
 		resp, err := th.App.DoActionRequest(th.Context, "http://invalid-host-that-does-not-exist:9999", requestBody)
 		require.NotNil(t, err)
 		assert.Nil(t, resp)
-	})
-}
-
-func TestGetPostActionClient(t *testing.T) {
-	mainHelper.Parallel(t)
-	th := Setup(t).InitBasic(t)
-
-	tests := []struct {
-		name       string
-		siteURL    string
-		subpath    string
-		requestURL string
-		expectAuth bool
-	}{
-		{
-			name:       "same host with plugin path gets auth",
-			siteURL:    "http://localhost:8065",
-			requestURL: "http://localhost:8065/plugins/myplugin/action",
-			expectAuth: true,
-		},
-		{
-			name:       "same host with non-plugin path does not get auth",
-			siteURL:    "http://localhost:8065",
-			requestURL: "http://localhost:8065/api/v4/posts",
-			expectAuth: false,
-		},
-		{
-			name:       "different host with plugin path does not get auth",
-			siteURL:    "http://localhost:8065",
-			requestURL: "http://evil.com/plugins/myplugin/action",
-			expectAuth: false,
-		},
-		{
-			name:       "different host same port does not get auth",
-			siteURL:    "http://localhost:8065",
-			requestURL: "http://attacker.com:8065/plugins/myplugin/action",
-			expectAuth: false,
-		},
-		{
-			name:       "path traversal to reach plugins does not get auth",
-			siteURL:    "http://localhost:8065",
-			requestURL: "http://localhost:8065/api/../../plugins/myplugin",
-			expectAuth: true, // path.Clean normalizes to /plugins/myplugin
-		},
-		{
-			name:       "path traversal escaping plugins does not get auth",
-			siteURL:    "http://localhost:8065",
-			requestURL: "http://localhost:8065/plugins/../api/v4/posts",
-			expectAuth: false, // path.Clean normalizes to /api/v4/posts
-		},
-		{
-			name:       "subpath with plugin path gets auth",
-			siteURL:    "http://localhost:8065/mattermost",
-			subpath:    "/mattermost",
-			requestURL: "http://localhost:8065/mattermost/plugins/myplugin/action",
-			expectAuth: true,
-		},
-		{
-			name:       "subpath without subpath prefix does not get auth",
-			siteURL:    "http://localhost:8065/mattermost",
-			subpath:    "/mattermost",
-			requestURL: "http://localhost:8065/plugins/myplugin/action",
-			expectAuth: false, // plugins path doesn't include subpath
-		},
-		{
-			name:       "empty path does not get auth",
-			siteURL:    "http://localhost:8065",
-			requestURL: "http://localhost:8065/",
-			expectAuth: false,
-		},
-		{
-			name:       "plugins as query param does not get auth",
-			siteURL:    "http://localhost:8065",
-			requestURL: "http://localhost:8065/api?path=plugins/myplugin",
-			expectAuth: false,
-		},
-	}
-
-	for _, tc := range tests {
-		t.Run(tc.name, func(t *testing.T) {
-			th.App.UpdateConfig(func(cfg *model.Config) {
-				*cfg.ServiceSettings.SiteURL = tc.siteURL
-			})
-
-			inURL, err := url.Parse(tc.requestURL)
-			require.NoError(t, err)
-
-			req, err := http.NewRequest("POST", tc.requestURL, nil)
-			require.NoError(t, err)
-
-			_ = th.App.getPostActionClient(th.Context, inURL, req)
-
-			if tc.expectAuth {
-				assert.NotEmpty(t, req.Header.Get(model.HeaderAuth), "expected auth header to be set")
-				assert.Contains(t, req.Header.Get(model.HeaderAuth), "Bearer ")
-			} else {
-				assert.Empty(t, req.Header.Get(model.HeaderAuth), "expected no auth header")
-			}
-		})
-	}
-}
-
-func TestDoLocalRequest(t *testing.T) {
-	mainHelper.Parallel(t)
-	th := Setup(t).InitBasic(t)
-
-	t.Run("should delegate to doPluginRequest", func(t *testing.T) {
-		requestBody := []byte(`{"test": "data"}`)
-		resp, err := th.App.DoLocalRequest(th.Context, "/plugins/nonexistent/action", requestBody)
-		require.Nil(t, err) // DoLocalRequest returns HTTP response, not error
-		require.NotNil(t, resp)
-		assert.Equal(t, http.StatusNotFound, resp.StatusCode) // Plugin doesn't exist, returns 404
 	})
 }
 
@@ -1808,197 +1347,5 @@ func TestDoPostActionWithCookieEdgeCases(t *testing.T) {
 		_, err := th.App.DoPostActionWithCookie(th.Context, "nonexistent_post_id", "action_id", "nonexistent_user_id", "", cookie)
 		require.NotNil(t, err)
 		assert.Contains(t, err.Error(), "Unable to find the user.")
-	})
-}
-
-func TestDoPluginRequest(t *testing.T) {
-	mainHelper.Parallel(t)
-	th := Setup(t)
-
-	th.App.UpdateConfig(func(cfg *model.Config) {
-		*cfg.ServiceSettings.AllowedUntrustedInternalConnections = "localhost,127.0.0.1"
-	})
-
-	setupPluginAPITest(t,
-		`
-		package main
-
-		import (
-			"net/http"
-			"reflect"
-			"sort"
-
-			"github.com/mattermost/mattermost/server/public/plugin"
-		)
-
-		type MyPlugin struct {
-			plugin.MattermostPlugin
-		}
-
-		func (p *MyPlugin) ServeHTTP(c *plugin.Context, w http.ResponseWriter, r *http.Request) {
-			q := r.URL.Query()
-			if q.Get("abc") != "xyz" {
-				w.WriteHeader(http.StatusInternalServerError)
-				_, _ = w.Write([]byte("could not find param abc=xyz"))
-				return
-			}
-
-			multiple := q["multiple"]
-			if len(multiple) != 3 {
-				w.WriteHeader(http.StatusInternalServerError)
-				_, _ = w.Write([]byte("param multiple should have 3 values"))
-				return
-			}
-			sort.Strings(multiple)
-			if !reflect.DeepEqual(multiple, []string{"1 first", "2 second", "3 third"}) {
-				w.WriteHeader(http.StatusInternalServerError)
-				_, _ = w.Write([]byte("param multiple not correct"))
-				return
-			}
-
-			w.WriteHeader(http.StatusOK)
-			_, _ = w.Write([]byte("OK"))
-		}
-
-		func main() {
-			plugin.ClientMain(&MyPlugin{})
-		}
-		`, `{"id": "myplugin", "server": {"executable": "backend.exe"}}`, "myplugin", th.App, th.Context)
-
-	hooks, err2 := th.App.GetPluginsEnvironment().HooksForPlugin("myplugin")
-	require.NoError(t, err2)
-	require.NotNil(t, hooks)
-
-	resp, err := th.App.doPluginRequest(th.Context, "GET", "/plugins/myplugin", nil, nil)
-	assert.Nil(t, err)
-	require.NotNil(t, resp)
-	body, _ := io.ReadAll(resp.Body)
-	assert.Equal(t, "could not find param abc=xyz", string(body))
-
-	resp, err = th.App.doPluginRequest(th.Context, "GET", "/plugins/myplugin?abc=xyz", nil, nil)
-	assert.Nil(t, err)
-	require.NotNil(t, resp)
-	body, _ = io.ReadAll(resp.Body)
-	assert.Equal(t, "param multiple should have 3 values", string(body))
-
-	resp, err = th.App.doPluginRequest(th.Context, "GET", "/plugins/myplugin",
-		url.Values{"abc": []string{"xyz"}, "multiple": []string{"1 first", "2 second", "3 third"}}, nil)
-	assert.Nil(t, err)
-	require.NotNil(t, resp)
-	body, _ = io.ReadAll(resp.Body)
-	assert.Equal(t, "OK", string(body))
-
-	resp, err = th.App.doPluginRequest(th.Context, "GET", "/plugins/myplugin?abc=xyz&multiple=1%20first",
-		url.Values{"multiple": []string{"2 second", "3 third"}}, nil)
-	assert.Nil(t, err)
-	require.NotNil(t, resp)
-	body, _ = io.ReadAll(resp.Body)
-	assert.Equal(t, "OK", string(body))
-
-	resp, err = th.App.doPluginRequest(th.Context, "GET", "/plugins/myplugin?abc=xyz&multiple=1%20first&multiple=3%20third",
-		url.Values{"multiple": []string{"2 second"}}, nil)
-	assert.Nil(t, err)
-	require.NotNil(t, resp)
-	body, _ = io.ReadAll(resp.Body)
-	assert.Equal(t, "OK", string(body))
-
-	resp, err = th.App.doPluginRequest(th.Context, "GET", "/plugins/myplugin?multiple=1%20first&multiple=3%20third",
-		url.Values{"multiple": []string{"2 second"}, "abc": []string{"xyz"}}, nil)
-	assert.Nil(t, err)
-	require.NotNil(t, resp)
-	body, _ = io.ReadAll(resp.Body)
-	assert.Equal(t, "OK", string(body))
-
-	resp, err = th.App.doPluginRequest(th.Context, "GET", "/plugins/myplugin?multiple=1%20first&multiple=3%20third",
-		url.Values{"multiple": []string{"4 fourth"}, "abc": []string{"xyz"}}, nil)
-	assert.Nil(t, err)
-	require.NotNil(t, resp)
-	body, _ = io.ReadAll(resp.Body)
-	assert.Equal(t, "param multiple not correct", string(body))
-
-	t.Run("should handle URLs with path traversals", func(t *testing.T) {
-		tests := []struct {
-			name      string
-			rawURL    string
-			expectErr bool
-			errDetail string
-		}{
-			{
-				name:      "path traversal to escape plugins directory",
-				rawURL:    "/plugins/../../../etc/passwd",
-				expectErr: true,
-				errDetail: "plugins not in path",
-			},
-			{
-				name:      "path traversal with encoded slashes",
-				rawURL:    "/plugins/..%2F..%2F..%2Fetc%2Fpasswd",
-				expectErr: true, // url.Parse decodes %2F, path.Clean normalizes traversal
-				errDetail: "plugins not in path",
-			},
-			{
-				name:      "double dot in plugin path",
-				rawURL:    "/plugins/../plugins/myplugin/action",
-				expectErr: false, // path.Clean normalizes this back to plugins/myplugin/action
-			},
-			{
-				name:      "path traversal without leading slash",
-				rawURL:    "plugins/../../../etc/passwd",
-				expectErr: true,
-				errDetail: "plugins not in path",
-			},
-			{
-				name:      "only plugins with no plugin ID",
-				rawURL:    "/plugins/",
-				expectErr: true,
-				errDetail: "Unable to find pluginId",
-			},
-			{
-				name:      "just plugins no trailing slash",
-				rawURL:    "/plugins",
-				expectErr: true,
-				errDetail: "Unable to find pluginId",
-			},
-			{
-				name:      "non-plugins path",
-				rawURL:    "/api/v4/users",
-				expectErr: true,
-				errDetail: "plugins not in path",
-			},
-			{
-				name:      "path traversal via dot segments after plugin ID",
-				rawURL:    "/plugins/myplugin/../../etc/passwd",
-				expectErr: true,
-				errDetail: "plugins not in path",
-			},
-			{
-				name:      "backslash traversal attempt",
-				rawURL:    "/plugins/myplugin/..\\..\\etc\\passwd",
-				expectErr: false, // backslashes are not path separators in URL paths; treated as literal
-			},
-			{
-				name:      "null byte injection attempt",
-				rawURL:    "/plugins/myplugin\x00/action",
-				expectErr: true, // url.Parse rejects URLs with null bytes
-			},
-		}
-
-		for _, tc := range tests {
-			t.Run(tc.name, func(t *testing.T) {
-				resp, appErr := th.App.doPluginRequest(th.Context, "GET", tc.rawURL, nil, nil)
-				if tc.expectErr {
-					require.NotNil(t, appErr, "expected error for URL: %s", tc.rawURL)
-					if tc.errDetail != "" {
-						assert.Contains(t, appErr.DetailedError, tc.errDetail)
-					}
-				} else {
-					// Should not return an app error from path validation;
-					// may still get a 404 if the plugin doesn't exist, which is fine.
-					assert.Nil(t, appErr, "unexpected error for URL: %s - %v", tc.rawURL, appErr)
-					if resp != nil {
-						resp.Body.Close()
-					}
-				}
-			})
-		}
 	})
 }

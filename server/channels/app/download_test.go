@@ -17,9 +17,9 @@ import (
 func TestDownloadFromURL(t *testing.T) {
 	mainHelper.Parallel(t)
 	th := Setup(t)
-
-	app := th.App
-	app.Config().PluginSettings.AllowInsecureDownloadURL = model.NewPointer(true)
+	th.App.UpdateConfig(func(cfg *model.Config) {
+		*cfg.ServiceSettings.EnableInsecureOutgoingConnections = true
+	})
 
 	// To keep track of how many times an endpoint is retried. This needs to be reset
 	// for each test run.
@@ -40,7 +40,8 @@ func TestDownloadFromURL(t *testing.T) {
 		http.Error(w, "This would fail forever", http.StatusInternalServerError)
 	})
 
-	testServer := httptest.NewServer(mux)
+	testServer := httptest.NewTLSServer(mux)
+	defer testServer.Close()
 
 	tests := []struct {
 		name        string

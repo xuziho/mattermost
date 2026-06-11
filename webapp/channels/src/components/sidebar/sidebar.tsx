@@ -9,7 +9,6 @@ import DataPrefetch from 'components/data_prefetch';
 import ResizableLhs from 'components/resizable_sidebar/resizable_lhs';
 import SidebarHeader from 'components/sidebar/sidebar_header';
 
-import Pluggable from 'plugins/pluggable';
 import Constants, {ModalIdentifiers, RHSStates} from 'utils/constants';
 import {isKeyPressed, cmdOrCtrlPressed} from 'utils/keyboard';
 import {localizeMessage} from 'utils/utils';
@@ -253,9 +252,6 @@ export default class Sidebar extends React.PureComponent<Props, State> {
                     data-a11y-sort-order='6'
                 >
                     <ChannelNavigator/>
-                </div>
-                <div className='sidebar--left__icons'>
-                    <Pluggable pluggableName='LeftSidebarHeader'/>
                 </div>
                 <SidebarList
                     handleOpenMoreDirectChannelsModal={this.handleOpenMoreDirectChannelsModal}

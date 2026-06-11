@@ -20,7 +20,6 @@ import type {
 function mapStateToProps(state: GlobalState, ownProps: Omit<Props, 'appsEnabled' | 'actions'>) {
     return {
         isEmbedVisible: isEmbedVisible(state, ownProps.post.id),
-        pluginPostWillRenderEmbedComponents: state.plugins.components.PostWillRenderEmbedComponent,
         appsEnabled: appsEnabled(state),
     };
 }

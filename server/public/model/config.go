@@ -39,8 +39,6 @@ const (
 
 	DatabaseDriverPostgres = "postgres"
 
-	SearchengineElasticsearch = "elasticsearch"
-
 	MinioAccessKey = "minioaccesskey"
 	MinioSecretKey = "miniosecretkey"
 	MinioBucket    = "mattermost-test"
@@ -119,7 +117,6 @@ const (
 	ServiceSettingsDefaultMaxLoginAttempts       = 10
 	ServiceSettingsDefaultAllowCorsFrom          = ""
 	ServiceSettingsDefaultListenAndAddress       = ":8065"
-	ServiceSettingsDefaultGiphySdkKeyTest        = "s0glxvzVg9azvPipKxcPLpXV0q1x1fVP"
 	ServiceSettingsDefaultDeveloperFlags         = ""
 	ServiceSettingsDefaultUniqueReactionsPerPost = 50
 	ServiceSettingsDefaultMaxURLLength           = 2048
@@ -205,28 +202,7 @@ const (
 	AnnouncementSettingsDefaultBannerTextColor              = "#333333"
 	AnnouncementSettingsDefaultNoticesJsonURL               = "https://notices.mattermost.com/"
 	AnnouncementSettingsDefaultNoticesFetchFrequencySeconds = 3600
-
-	AutoTranslationDefaultWorkers = 6
-
-	TeamSettingsDefaultTeamText = "default"
-
-	ElasticsearchSettingsDefaultConnectionURL               = "http://localhost:9200"
-	ElasticsearchSettingsDefaultUsername                    = "elastic"
-	ElasticsearchSettingsDefaultPassword                    = "changeme"
-	ElasticsearchSettingsDefaultPostIndexReplicas           = 1
-	ElasticsearchSettingsDefaultPostIndexShards             = 1
-	ElasticsearchSettingsDefaultChannelIndexReplicas        = 1
-	ElasticsearchSettingsDefaultChannelIndexShards          = 1
-	ElasticsearchSettingsDefaultUserIndexReplicas           = 1
-	ElasticsearchSettingsDefaultUserIndexShards             = 1
-	ElasticsearchSettingsDefaultAggregatePostsAfterDays     = 365
-	ElasticsearchSettingsDefaultPostsAggregatorJobStartTime = "03:00"
-	ElasticsearchSettingsDefaultIndexPrefix                 = ""
-	ElasticsearchSettingsDefaultLiveIndexingBatchSize       = 10
-	ElasticsearchSettingsDefaultRequestTimeoutSeconds       = 30
-	ElasticsearchSettingsDefaultBatchSize                   = 10000
-	ElasticsearchSettingsESBackend                          = "elasticsearch"
-	ElasticsearchSettingsOSBackend                          = "opensearch"
+	TeamSettingsDefaultTeamText                             = "default"
 
 	DataRetentionSettingsDefaultMessageRetentionDays           = 365
 	DataRetentionSettingsDefaultMessageRetentionHours          = 0
@@ -238,10 +214,6 @@ const (
 	DataRetentionSettingsDefaultRetentionIdsBatchSize          = 100
 
 	OutgoingIntegrationRequestsDefaultTimeout = 30
-
-	PluginSettingsDefaultDirectory          = "./plugins"
-	PluginSettingsDefaultClientDirectory    = "./client/plugins"
-	PluginSettingsDefaultHookTimeoutSeconds = 30
 
 	ComplianceExportDirectoryFormat                = "compliance-export-2006-01-02-15h04m"
 	ComplianceExportPath                           = "export"
@@ -389,8 +361,6 @@ type ServiceSettings struct {
 	WebsocketSecurePort                               *int    `access:"write_restrictable"` // telemetry: none
 	WebsocketPort                                     *int    `access:"write_restrictable"` // telemetry: none
 	WebserverMode                                     *string `access:"environment_web_server,write_restrictable"`
-	EnableGifPicker                                   *bool   `access:"integrations_gif"`
-	GiphySdkKey                                       *string `access:"integrations_gif"`
 	EnableCustomEmoji                                 *bool   `access:"site_emoji"`
 	EnableEmojiPicker                                 *bool   `access:"site_emoji"`
 	PostEditTimeLimit                                 *int    `access:"user_management_permissions"`
@@ -453,8 +423,6 @@ type ServiceSettings struct {
 	FrameAncestors                                    *string `access:"write_restrictable"` // telemetry: none
 	DeleteAccountLink                                 *string `access:"site_users_and_teams,write_restrictable"`
 }
-
-var MattermostGiphySdkKey string
 
 func (s *ServiceSettings) SetDefaults(isUpdate bool) {
 	if s.EnableEmailInvitations == nil {
@@ -802,14 +770,6 @@ func (s *ServiceSettings) SetDefaults(isUpdate bool) {
 
 	if s.EnableEmojiPicker == nil {
 		s.EnableEmojiPicker = NewPointer(true)
-	}
-
-	if s.EnableGifPicker == nil {
-		s.EnableGifPicker = NewPointer(true)
-	}
-
-	if s.GiphySdkKey == nil || *s.GiphySdkKey == "" {
-		s.GiphySdkKey = NewPointer("")
 	}
 
 	if s.ExperimentalEnableAuthenticationTransfer == nil {
@@ -2774,79 +2734,6 @@ func (s *LocalizationSettings) SetDefaults() {
 	}
 }
 
-type AutoTranslationSettings struct {
-	Enable          *bool                           `access:"site_localization"`
-	RestrictDMAndGM *bool                           `access:"site_localization"`
-	Provider        *string                         `access:"site_localization"`
-	TargetLanguages *[]string                       `access:"site_localization"`
-	Workers         *int                            `access:"site_localization"`
-	TimeoutMs       *int                            `access:"site_localization"`
-	LibreTranslate  *LibreTranslateProviderSettings `access:"site_localization"`
-	Agents          *AgentsProviderSettings         `access:"site_localization"`
-}
-
-// LibreTranslateProviderSettings configures the LibreTranslate translation provider.
-type LibreTranslateProviderSettings struct {
-	URL    *string `access:"site_localization"` // LibreTranslate server URL
-	APIKey *string `access:"site_localization"` // Optional API key for authenticated requests
-}
-
-type AgentsProviderSettings struct {
-	LLMServiceID *string `access:"site_localization"`
-}
-
-func (s *AutoTranslationSettings) SetDefaults() {
-	if s.Enable == nil {
-		s.Enable = NewPointer(false)
-	}
-
-	if s.Provider == nil {
-		s.Provider = NewPointer("")
-	}
-
-	if s.TargetLanguages == nil {
-		s.TargetLanguages = &[]string{"en"}
-	}
-
-	if s.Workers == nil {
-		s.Workers = NewPointer(AutoTranslationDefaultWorkers)
-	}
-
-	if s.TimeoutMs == nil {
-		s.TimeoutMs = NewPointer(5000)
-	}
-
-	if s.LibreTranslate == nil {
-		s.LibreTranslate = &LibreTranslateProviderSettings{}
-	}
-	s.LibreTranslate.SetDefaults()
-
-	if s.Agents == nil {
-		s.Agents = &AgentsProviderSettings{}
-	}
-	s.Agents.SetDefaults()
-
-	if s.RestrictDMAndGM == nil {
-		s.RestrictDMAndGM = NewPointer(false)
-	}
-}
-
-func (s *LibreTranslateProviderSettings) SetDefaults() {
-	if s.URL == nil {
-		s.URL = NewPointer("")
-	}
-
-	if s.APIKey == nil {
-		s.APIKey = NewPointer("")
-	}
-}
-
-func (s *AgentsProviderSettings) SetDefaults() {
-	if s.LLMServiceID == nil {
-		s.LLMServiceID = NewPointer("")
-	}
-}
-
 type SamlSettings struct {
 	// Basic
 	Enable                        *bool `access:"authentication_saml"`
@@ -3107,157 +2994,6 @@ func (s *NativeAppSettings) AreDownloadLinksValid() *AppError {
 	return nil
 }
 
-type ElasticsearchSettings struct {
-	ConnectionURL                               *string `access:"environment_elasticsearch,write_restrictable"`
-	Backend                                     *string `access:"environment_elasticsearch,write_restrictable"`
-	Username                                    *string `access:"environment_elasticsearch,write_restrictable"`
-	Password                                    *string `access:"environment_elasticsearch,write_restrictable"`
-	EnableIndexing                              *bool   `access:"environment_elasticsearch,write_restrictable"`
-	EnableSearching                             *bool   `access:"environment_elasticsearch,write_restrictable"`
-	EnableCJKAnalyzers                          *bool   `access:"environment_elasticsearch,write_restrictable"`
-	EnableAutocomplete                          *bool   `access:"environment_elasticsearch,write_restrictable"`
-	Sniff                                       *bool   `access:"environment_elasticsearch,write_restrictable"`
-	PostIndexReplicas                           *int    `access:"environment_elasticsearch,write_restrictable"`
-	PostIndexShards                             *int    `access:"environment_elasticsearch,write_restrictable"`
-	ChannelIndexReplicas                        *int    `access:"environment_elasticsearch,write_restrictable"`
-	ChannelIndexShards                          *int    `access:"environment_elasticsearch,write_restrictable"`
-	UserIndexReplicas                           *int    `access:"environment_elasticsearch,write_restrictable"`
-	UserIndexShards                             *int    `access:"environment_elasticsearch,write_restrictable"`
-	AggregatePostsAfterDays                     *int    `access:"environment_elasticsearch,write_restrictable"` // telemetry: none
-	PostsAggregatorJobStartTime                 *string `access:"environment_elasticsearch,write_restrictable"` // telemetry: none
-	IndexPrefix                                 *string `access:"environment_elasticsearch,write_restrictable"`
-	GlobalSearchPrefix                          *string `access:"environment_elasticsearch,write_restrictable"`
-	LiveIndexingBatchSize                       *int    `access:"environment_elasticsearch,write_restrictable"`
-	BulkIndexingTimeWindowSeconds               *int    `json:",omitempty"` // telemetry: none
-	BatchSize                                   *int    `access:"environment_elasticsearch,write_restrictable"`
-	RequestTimeoutSeconds                       *int    `access:"environment_elasticsearch,write_restrictable"`
-	SkipTLSVerification                         *bool   `access:"environment_elasticsearch,write_restrictable"`
-	CA                                          *string `access:"environment_elasticsearch,write_restrictable"`
-	ClientCert                                  *string `access:"environment_elasticsearch,write_restrictable"`
-	ClientKey                                   *string `access:"environment_elasticsearch,write_restrictable"`
-	Trace                                       *string `access:"environment_elasticsearch,write_restrictable"`
-	IgnoredPurgeIndexes                         *string `access:"environment_elasticsearch,write_restrictable"` // telemetry: none
-	EnableSearchPublicChannelsWithoutMembership *bool   `access:"environment_elasticsearch,write_restrictable"`
-}
-
-func (s *ElasticsearchSettings) SetDefaults() {
-	if s.ConnectionURL == nil {
-		s.ConnectionURL = NewPointer(ElasticsearchSettingsDefaultConnectionURL)
-	}
-
-	if s.Backend == nil {
-		s.Backend = NewPointer(ElasticsearchSettingsESBackend)
-	}
-
-	if s.Username == nil {
-		s.Username = NewPointer(ElasticsearchSettingsDefaultUsername)
-	}
-
-	if s.Password == nil {
-		s.Password = NewPointer(ElasticsearchSettingsDefaultPassword)
-	}
-
-	if s.CA == nil {
-		s.CA = NewPointer("")
-	}
-
-	if s.ClientCert == nil {
-		s.ClientCert = NewPointer("")
-	}
-
-	if s.ClientKey == nil {
-		s.ClientKey = NewPointer("")
-	}
-
-	if s.EnableIndexing == nil {
-		s.EnableIndexing = NewPointer(false)
-	}
-
-	if s.EnableSearching == nil {
-		s.EnableSearching = NewPointer(false)
-	}
-
-	if s.EnableCJKAnalyzers == nil {
-		s.EnableCJKAnalyzers = NewPointer(false)
-	}
-
-	if s.EnableAutocomplete == nil {
-		s.EnableAutocomplete = NewPointer(false)
-	}
-
-	if s.Sniff == nil {
-		s.Sniff = NewPointer(true)
-	}
-
-	if s.PostIndexReplicas == nil {
-		s.PostIndexReplicas = NewPointer(ElasticsearchSettingsDefaultPostIndexReplicas)
-	}
-
-	if s.PostIndexShards == nil {
-		s.PostIndexShards = NewPointer(ElasticsearchSettingsDefaultPostIndexShards)
-	}
-
-	if s.ChannelIndexReplicas == nil {
-		s.ChannelIndexReplicas = NewPointer(ElasticsearchSettingsDefaultChannelIndexReplicas)
-	}
-
-	if s.ChannelIndexShards == nil {
-		s.ChannelIndexShards = NewPointer(ElasticsearchSettingsDefaultChannelIndexShards)
-	}
-
-	if s.UserIndexReplicas == nil {
-		s.UserIndexReplicas = NewPointer(ElasticsearchSettingsDefaultUserIndexReplicas)
-	}
-
-	if s.UserIndexShards == nil {
-		s.UserIndexShards = NewPointer(ElasticsearchSettingsDefaultUserIndexShards)
-	}
-
-	if s.AggregatePostsAfterDays == nil {
-		s.AggregatePostsAfterDays = NewPointer(ElasticsearchSettingsDefaultAggregatePostsAfterDays)
-	}
-
-	if s.PostsAggregatorJobStartTime == nil {
-		s.PostsAggregatorJobStartTime = NewPointer(ElasticsearchSettingsDefaultPostsAggregatorJobStartTime)
-	}
-
-	if s.IndexPrefix == nil {
-		s.IndexPrefix = NewPointer(ElasticsearchSettingsDefaultIndexPrefix)
-	}
-
-	if s.GlobalSearchPrefix == nil {
-		s.GlobalSearchPrefix = NewPointer("")
-	}
-
-	if s.LiveIndexingBatchSize == nil {
-		s.LiveIndexingBatchSize = NewPointer(ElasticsearchSettingsDefaultLiveIndexingBatchSize)
-	}
-
-	if s.BatchSize == nil {
-		s.BatchSize = NewPointer(ElasticsearchSettingsDefaultBatchSize)
-	}
-
-	if s.RequestTimeoutSeconds == nil {
-		s.RequestTimeoutSeconds = NewPointer(ElasticsearchSettingsDefaultRequestTimeoutSeconds)
-	}
-
-	if s.SkipTLSVerification == nil {
-		s.SkipTLSVerification = NewPointer(false)
-	}
-
-	if s.Trace == nil {
-		s.Trace = NewPointer("")
-	}
-
-	if s.IgnoredPurgeIndexes == nil {
-		s.IgnoredPurgeIndexes = NewPointer("")
-	}
-
-	if s.EnableSearchPublicChannelsWithoutMembership == nil {
-		s.EnableSearchPublicChannelsWithoutMembership = NewPointer(false)
-	}
-}
-
 type DataRetentionSettings struct {
 	EnableMessageDeletion          *bool   `access:"compliance_data_retention_policy"`
 	EnableFileDeletion             *bool   `access:"compliance_data_retention_policy"`
@@ -3363,123 +3099,6 @@ func (s *JobSettings) SetDefaults() {
 
 	if s.CleanupConfigThresholdDays == nil {
 		s.CleanupConfigThresholdDays = NewPointer(-1)
-	}
-}
-
-type PluginState struct {
-	Enable bool
-}
-
-type PluginSettings struct {
-	Enable                   *bool                     `access:"plugins,write_restrictable"`
-	EnableUploads            *bool                     `access:"plugins,write_restrictable"`
-	AllowInsecureDownloadURL *bool                     `access:"plugins,write_restrictable"`
-	EnableHealthCheck        *bool                     `access:"plugins,write_restrictable"`
-	Directory                *string                   `access:"plugins,write_restrictable"` // telemetry: none
-	ClientDirectory          *string                   `access:"plugins,write_restrictable"` // telemetry: none
-	Plugins                  map[string]map[string]any `access:"plugins"`                    // telemetry: none
-	PluginStates             map[string]*PluginState   `access:"plugins"`                    // telemetry: none
-	RequirePluginSignature   *bool                     `access:"plugins,write_restrictable"`
-	SignaturePublicKeyFiles  []string                  `access:"plugins,write_restrictable"`
-	ChimeraOAuthProxyURL     *string                   `access:"plugins,write_restrictable"`
-}
-
-func (s *PluginSettings) SetDefaults(ls LogSettings) {
-	if s.Enable == nil {
-		s.Enable = NewPointer(true)
-	}
-
-	if s.EnableUploads == nil {
-		s.EnableUploads = NewPointer(false)
-	}
-
-	if s.AllowInsecureDownloadURL == nil {
-		s.AllowInsecureDownloadURL = NewPointer(false)
-	}
-
-	if s.EnableHealthCheck == nil {
-		s.EnableHealthCheck = NewPointer(true)
-	}
-
-	if s.Directory == nil || *s.Directory == "" {
-		s.Directory = NewPointer(PluginSettingsDefaultDirectory)
-	}
-
-	if s.ClientDirectory == nil || *s.ClientDirectory == "" {
-		s.ClientDirectory = NewPointer(PluginSettingsDefaultClientDirectory)
-	}
-
-	if s.Plugins == nil {
-		s.Plugins = make(map[string]map[string]any)
-	}
-
-	if s.PluginStates == nil {
-		s.PluginStates = make(map[string]*PluginState)
-	}
-
-	if s.PluginStates[PluginIdNPS] == nil {
-		s.PluginStates[PluginIdNPS] = &PluginState{Enable: false}
-	}
-
-	if s.PluginStates[PluginIdAI] == nil {
-		s.PluginStates[PluginIdAI] = &PluginState{Enable: false}
-	}
-
-	if s.RequirePluginSignature == nil {
-		s.RequirePluginSignature = NewPointer(false)
-	}
-
-	if s.SignaturePublicKeyFiles == nil {
-		s.SignaturePublicKeyFiles = []string{}
-	}
-
-	if s.ChimeraOAuthProxyURL == nil {
-		s.ChimeraOAuthProxyURL = NewPointer("")
-	}
-}
-
-// Sanitize cleans up the plugin settings by removing any sensitive information.
-// It does so by checking if the setting is marked as secret in the plugin manifest.
-// If it is, the setting is replaced with a fake value.
-// If a plugin is no longer installed, no stored settings for that plugin are returned.
-// If the list of manifests in nil, i.e. plugins are disabled, all settings are sanitized.
-func (s *PluginSettings) Sanitize(pluginManifests []*Manifest) {
-	manifestMap := make(map[string]*Manifest, len(pluginManifests))
-
-	for _, manifest := range pluginManifests {
-		manifestMap[manifest.Id] = manifest
-	}
-
-	for id, settings := range s.Plugins {
-		manifest := manifestMap[id]
-
-		for key := range settings {
-			if manifest == nil {
-				// Don't return plugin settings for plugins that are not installed
-				delete(s.Plugins, id)
-				break
-			}
-			if manifest.SettingsSchema == nil {
-				// If the plugin doesn't define any settings, none of them can be secrets.
-				break
-			}
-
-			for _, definedSetting := range manifest.SettingsSchema.Settings {
-				if definedSetting.Secret && strings.EqualFold(definedSetting.Key, key) {
-					settings[key] = FakeSetting
-					break
-				}
-			}
-
-			for _, section := range manifest.SettingsSchema.Sections {
-				for _, definedSetting := range section.Settings {
-					if definedSetting.Secret && strings.EqualFold(definedSetting.Key, key) {
-						settings[key] = FakeSetting
-						break
-					}
-				}
-			}
-		}
 	}
 }
 
@@ -3839,7 +3458,7 @@ const ConfigAccessTagAnySysConsoleRead = "*_read"
 // Config fields support the 'access' tag with the following values corresponding to the suffix of the associated
 // PermissionSysconsole* permission Id: 'about', 'reporting', 'user_management_users',
 // 'user_management_groups', 'user_management_teams', 'user_management_channels',
-// 'user_management_permissions', 'environment_web_server', 'environment_database', 'environment_elasticsearch',
+// 'user_management_permissions', 'environment_web_server', 'environment_database',
 // 'environment_file_storage', 'environment_image_proxy', 'environment_smtp', 'environment_push_notification_server',
 // 'environment_high_availability', 'environment_rate_limiting', 'environment_logging', 'environment_session_lengths',
 // 'environment_performance_monitoring', 'environment_developer', 'site', 'authentication', 'plugins',
@@ -3899,11 +3518,9 @@ type Config struct {
 	MetricsSettings             MetricsSettings
 	ExperimentalSettings        ExperimentalSettings
 	AnalyticsSettings           AnalyticsSettings
-	ElasticsearchSettings       ElasticsearchSettings
 	DataRetentionSettings       DataRetentionSettings
 	MessageExportSettings       MessageExportSettings
 	JobSettings                 JobSettings
-	PluginSettings              PluginSettings
 	DisplaySettings             DisplaySettings
 	GuestAccountsSettings       GuestAccountsSettings
 	ImageProxySettings          ImageProxySettings
@@ -3913,8 +3530,6 @@ type Config struct {
 	WranglerSettings            WranglerSettings
 	ConnectedWorkspacesSettings ConnectedWorkspacesSettings
 	AccessControlSettings       AccessControlSettings
-	ContentFlaggingSettings     ContentFlaggingSettings
-	AutoTranslationSettings     AutoTranslationSettings
 }
 
 func (o *Config) Auditable() map[string]any {
@@ -4006,12 +3621,9 @@ func (o *Config) SetDefaults() {
 	o.ThemeSettings.SetDefaults()
 	o.CacheSettings.SetDefaults()
 	o.ClusterSettings.SetDefaults()
-	o.PluginSettings.SetDefaults(o.LogSettings)
 	o.AnalyticsSettings.SetDefaults()
 	o.ComplianceSettings.SetDefaults()
 	o.LocalizationSettings.SetDefaults()
-	o.AutoTranslationSettings.SetDefaults()
-	o.ElasticsearchSettings.SetDefaults()
 	o.NativeAppSettings.SetDefaults()
 	o.IntuneSettings.SetDefaults()
 	o.DataRetentionSettings.SetDefaults()
@@ -4032,7 +3644,6 @@ func (o *Config) SetDefaults() {
 	o.WranglerSettings.SetDefaults()
 	o.ConnectedWorkspacesSettings.SetDefaults(isUpdate, o.ExperimentalSettings)
 	o.AccessControlSettings.SetDefaults()
-	o.ContentFlaggingSettings.SetDefaults()
 }
 
 func (o *Config) IsValid() *AppError {
@@ -4125,10 +3736,6 @@ func (o *Config) IsValid() *AppError {
 		return appErr
 	}
 
-	if appErr := o.ElasticsearchSettings.isValid(); appErr != nil {
-		return appErr
-	}
-
 	if appErr := o.DataRetentionSettings.isValid(); appErr != nil {
 		return appErr
 	}
@@ -4142,10 +3749,6 @@ func (o *Config) IsValid() *AppError {
 	}
 
 	if appErr := o.LocalizationSettings.isValid(); appErr != nil {
-		return appErr
-	}
-
-	if appErr := o.AutoTranslationSettings.isValid(); appErr != nil {
 		return appErr
 	}
 
@@ -4187,10 +3790,6 @@ func (o *Config) IsValid() *AppError {
 				return NewAppError("Config.IsValid", "model.config.is_valid.report_a_problem_link.invalid.app_error", nil, "", http.StatusBadRequest)
 			}
 		}
-	}
-
-	if appErr := o.ContentFlaggingSettings.IsValid(); appErr != nil {
-		return appErr
 	}
 
 	if appErr := o.GuestAccountsSettings.IsValid(); appErr != nil {
@@ -4655,81 +4254,6 @@ func (s *ServiceSettings) isValid() *AppError {
 	return nil
 }
 
-func (s *ElasticsearchSettings) isValid() *AppError {
-	if *s.EnableIndexing {
-		if *s.ConnectionURL == "" {
-			return NewAppError("Config.IsValid", "model.config.is_valid.elastic_search.connection_url.app_error", nil, "", http.StatusBadRequest)
-		}
-	}
-
-	if *s.EnableSearching && !*s.EnableIndexing {
-		return NewAppError("Config.IsValid", "model.config.is_valid.elastic_search.enable_searching.app_error", map[string]any{
-			"Searching":      "ElasticsearchSettings.EnableSearching",
-			"EnableIndexing": "ElasticsearchSettings.EnableIndexing",
-		}, "", http.StatusBadRequest)
-	}
-
-	if *s.EnableCJKAnalyzers && !*s.EnableSearching {
-		return NewAppError("Config.IsValid", "model.config.is_valid.elastic_search.enable_cjk_analyzers.app_error", map[string]any{
-			"EnableCJKAnalyzers": "ElasticsearchSettings.EnableCJKAnalyzers",
-			"Searching":          "ElasticsearchSettings.EnableSearching",
-		}, "", http.StatusBadRequest)
-	}
-
-	if *s.EnableAutocomplete && !*s.EnableIndexing {
-		return NewAppError("Config.IsValid", "model.config.is_valid.elastic_search.enable_autocomplete.app_error", map[string]any{
-			"Autocomplete":   "ElasticsearchSettings.EnableAutocomplete",
-			"EnableIndexing": "ElasticsearchSettings.EnableIndexing",
-		}, "", http.StatusBadRequest)
-	}
-
-	if *s.AggregatePostsAfterDays < 1 {
-		return NewAppError("Config.IsValid", "model.config.is_valid.elastic_search.aggregate_posts_after_days.app_error", nil, "", http.StatusBadRequest)
-	}
-
-	if _, err := time.Parse("15:04", *s.PostsAggregatorJobStartTime); err != nil {
-		return NewAppError("Config.IsValid", "model.config.is_valid.elastic_search.posts_aggregator_job_start_time.app_error", nil, "", http.StatusBadRequest).Wrap(err)
-	}
-
-	if *s.LiveIndexingBatchSize < 1 {
-		return NewAppError("Config.IsValid", "model.config.is_valid.elastic_search.live_indexing_batch_size.app_error", nil, "", http.StatusBadRequest)
-	}
-
-	minBatchSize := 1
-	if *s.BatchSize < minBatchSize {
-		return NewAppError("Config.IsValid", "model.config.is_valid.elastic_search.bulk_indexing_batch_size.app_error", map[string]any{"BatchSize": minBatchSize}, "", http.StatusBadRequest)
-	}
-
-	if *s.RequestTimeoutSeconds < 1 {
-		return NewAppError("Config.IsValid", "model.config.is_valid.elastic_search.request_timeout_seconds.app_error", nil, "", http.StatusBadRequest)
-	}
-
-	if ign := *s.IgnoredPurgeIndexes; ign != "" {
-		s := strings.SplitSeq(ign, ",")
-		for ix := range s {
-			if strings.HasPrefix(ix, "-") {
-				return NewAppError("Config.IsValid", "model.config.is_valid.elastic_search.ignored_indexes_dash_prefix.app_error", nil, "", http.StatusBadRequest)
-			}
-		}
-	}
-
-	if *s.Backend != ElasticsearchSettingsOSBackend && *s.Backend != ElasticsearchSettingsESBackend {
-		return NewAppError("Config.IsValid", "model.config.is_valid.elastic_search.invalid_backend.app_error", nil, "", http.StatusBadRequest)
-	}
-
-	if *s.GlobalSearchPrefix != "" && *s.IndexPrefix == "" {
-		return NewAppError("Config.IsValid", "model.config.is_valid.elastic_search.empty_index_prefix.app_error", nil, "", http.StatusBadRequest)
-	}
-
-	if *s.GlobalSearchPrefix != "" && *s.IndexPrefix != "" {
-		if !strings.HasPrefix(*s.IndexPrefix, *s.GlobalSearchPrefix) {
-			return NewAppError("Config.IsValid", "model.config.is_valid.elastic_search.incorrect_search_prefix.app_error", map[string]any{"IndexPrefix": *s.IndexPrefix, "GlobalSearchPrefix": *s.GlobalSearchPrefix}, "", http.StatusBadRequest)
-		}
-	}
-
-	return nil
-}
-
 func (s *DataRetentionSettings) isValid() *AppError {
 	if s.MessageRetentionDays == nil || *s.MessageRetentionDays < 0 {
 		return NewAppError("Config.IsValid", "model.config.is_valid.data_retention.message_retention_days_too_low.app_error", nil, "", http.StatusBadRequest)
@@ -4765,41 +4289,6 @@ func (s *DataRetentionSettings) isValid() *AppError {
 
 	if _, err := time.Parse("15:04", *s.DeletionJobStartTime); err != nil {
 		return NewAppError("Config.IsValid", "model.config.is_valid.data_retention.deletion_job_start_time.app_error", nil, "", http.StatusBadRequest).Wrap(err)
-	}
-
-	return nil
-}
-
-func (s *AutoTranslationSettings) isValid() *AppError {
-	if s.Enable == nil || !*s.Enable {
-		return nil
-	}
-
-	if *s.Provider == "" {
-		return NewAppError("Config.IsValid", "model.config.is_valid.autotranslation.provider.app_error", nil, "", http.StatusBadRequest)
-	}
-
-	switch *s.Provider {
-	case "libretranslate":
-		if s.LibreTranslate == nil || s.LibreTranslate.URL == nil || *s.LibreTranslate.URL == "" || !IsValidHTTPURL(*s.LibreTranslate.URL) {
-			return NewAppError("Config.IsValid", "model.config.is_valid.autotranslation.libretranslate.url.app_error", nil, "", http.StatusBadRequest)
-		}
-	case "agents":
-		if s.Agents == nil || s.Agents.LLMServiceID == nil || *s.Agents.LLMServiceID == "" {
-			return NewAppError("Config.IsValid", "model.config.is_valid.autotranslation.agents.llm_service_id.app_error", nil, "", http.StatusBadRequest)
-		}
-	default:
-		return NewAppError("Config.IsValid", "model.config.is_valid.autotranslation.provider.unsupported.app_error", nil, "", http.StatusBadRequest)
-	}
-
-	// Validate timeout if set (must be positive)
-	if s.TimeoutMs != nil && *s.TimeoutMs <= 0 {
-		return NewAppError("Config.IsValid", "model.config.is_valid.autotranslation.timeout.app_error", nil, "", http.StatusBadRequest)
-	}
-
-	// Validate workers if set (must be between 1 and 64)
-	if s.Workers != nil && (*s.Workers < 1 || *s.Workers > 64) {
-		return NewAppError("Config.IsValid", "model.config.is_valid.autotranslation.workers.app_error", nil, "", http.StatusBadRequest)
 	}
 
 	return nil
@@ -4986,10 +4475,6 @@ func (o *Config) Sanitize(pluginManifests []*Manifest, opts *SanitizeOptions) {
 		*o.SqlSettings.AtRestEncryptKey = FakeSetting
 	}
 
-	if o.ElasticsearchSettings.Password != nil {
-		*o.ElasticsearchSettings.Password = FakeSetting
-	}
-
 	for i := range o.SqlSettings.DataSourceReplicas {
 		o.SqlSettings.DataSourceReplicas[i] = sanitizeDataSourceField(o.SqlSettings.DataSourceReplicas[i], "SqlSettings.DataSourceReplicas")
 	}
@@ -5019,21 +4504,10 @@ func (o *Config) Sanitize(pluginManifests []*Manifest, opts *SanitizeOptions) {
 		*o.ServiceSettings.GoogleDeveloperKey = FakeSetting
 	}
 
-	if o.ServiceSettings.GiphySdkKey != nil && *o.ServiceSettings.GiphySdkKey != "" {
-		*o.ServiceSettings.GiphySdkKey = FakeSetting
-	}
-
 	if o.CacheSettings.RedisPassword != nil {
 		*o.CacheSettings.RedisPassword = FakeSetting
 	}
 
-	if o.AutoTranslationSettings.LibreTranslate != nil &&
-		o.AutoTranslationSettings.LibreTranslate.APIKey != nil &&
-		*o.AutoTranslationSettings.LibreTranslate.APIKey != "" {
-		*o.AutoTranslationSettings.LibreTranslate.APIKey = FakeSetting
-	}
-
-	o.PluginSettings.Sanitize(pluginManifests)
 }
 
 // SanitizeDataSource redacts sensitive information (username and password) from a PostgreSQL

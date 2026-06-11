@@ -12,7 +12,6 @@ import (
 	"time"
 
 	"github.com/mattermost/mattermost/server/public/model"
-	"github.com/mattermost/mattermost/server/public/plugin"
 	"github.com/mattermost/mattermost/server/v8/channels/utils"
 )
 
@@ -154,7 +153,7 @@ func completeSaml(c *Context, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	user, assertion, err := samlInterface.DoLogin(c.AppContext, encodedXML, relayProps)
+	user, _, err := samlInterface.DoLogin(c.AppContext, encodedXML, relayProps)
 	if err != nil {
 		c.LogAudit("fail")
 		handleError(err)
@@ -189,24 +188,6 @@ func completeSaml(c *Context, w http.ResponseWriter, r *http.Request) {
 				c.LogErrorByCode(model.NewAppError("SendSignInChangeEmail", "api.user.send_sign_in_change_email_and_forget.error", nil, "", http.StatusInternalServerError).Wrap(err))
 			}
 		})
-	}
-
-	pluginContext := &plugin.Context{
-		RequestId:      c.AppContext.RequestId(),
-		SessionId:      c.AppContext.Session().Id,
-		IPAddress:      c.AppContext.IPAddress(),
-		AcceptLanguage: c.AppContext.AcceptLanguage(),
-		UserAgent:      c.AppContext.UserAgent(),
-	}
-
-	var hookErr error
-	c.App.Channels().RunMultiHook(func(hooks plugin.Hooks, manifest *model.Manifest) bool {
-		hookErr = hooks.OnSAMLLogin(pluginContext, user, assertion)
-		return hookErr == nil
-	}, plugin.OnSAMLLoginID)
-	if hookErr != nil {
-		handleError(model.NewAppError("completeSaml", "api.user.authorize_oauth_user.saml_hook_error.app_error", nil, "", http.StatusInternalServerError).Wrap(hookErr))
-		return
 	}
 
 	auditRec.AddMeta("obtained_user_id", user.Id)

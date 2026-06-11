@@ -16,8 +16,6 @@ import type {Props as TimestampProps} from 'components/timestamp/timestamp';
 
 import {Locations} from 'utils/constants';
 
-import type {NewMessagesSeparatorActionComponent} from 'types/store/plugins';
-
 import Reply from './reply';
 
 type Props = {
@@ -29,9 +27,6 @@ type Props = {
     onCardClick: (post: Post) => void;
     previousPostId: string;
     timestampProps?: Partial<TimestampProps>;
-    threadId: string;
-    newMessagesSeparatorActions: NewMessagesSeparatorActionComponent[];
-    isChannelAutotranslated: boolean;
 };
 
 function noop() {}
@@ -44,9 +39,6 @@ function ThreadViewerRow({
     onCardClick,
     previousPostId,
     timestampProps,
-    threadId,
-    newMessagesSeparatorActions,
-    isChannelAutotranslated,
 }: Props) {
     switch (true) {
     case PostListUtils.isDateLine(listId): {
@@ -63,8 +55,6 @@ function ThreadViewerRow({
         return (
             <NewMessageSeparator
                 separatorId={listId}
-                threadId={threadId}
-                newMessagesSeparatorActions={newMessagesSeparatorActions}
             />
         );
 
@@ -77,7 +67,6 @@ function ThreadViewerRow({
                     handleCardClick={onCardClick}
                     timestampProps={timestampProps}
                     location={Locations.RHS_ROOT}
-                    isChannelAutotranslated={isChannelAutotranslated}
                 />
                 {!isDeletedPost && <RootPostDivider postId={listId}/>}
             </>
@@ -91,7 +80,6 @@ function ThreadViewerRow({
                 isLastPost={isLastPost}
                 shouldHighlight={false}
                 togglePostMenu={noop}
-                isChannelAutotranslated={false}
             />
         );
     }
@@ -104,7 +92,6 @@ function ThreadViewerRow({
                 onCardClick={onCardClick}
                 previousPostId={previousPostId}
                 timestampProps={timestampProps}
-                isChannelAutotranslated={isChannelAutotranslated}
             />
         );
     }

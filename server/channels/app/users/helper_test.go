@@ -6,7 +6,6 @@ package users
 import (
 	"bytes"
 	"os"
-	"path/filepath"
 	"testing"
 
 	"github.com/mattermost/mattermost/server/public/model"
@@ -50,8 +49,6 @@ func setupTestHelper(s store.Store, _ bool, tb testing.TB) *TestHelper {
 	configStore := config.NewTestMemoryStore()
 
 	config := configStore.Get()
-	*config.PluginSettings.Directory = filepath.Join(tempWorkspace, "plugins")
-	*config.PluginSettings.ClientDirectory = filepath.Join(tempWorkspace, "webapp")
 	*config.LogSettings.EnableSentry = false // disable error reporting during tests
 	*config.AnnouncementSettings.AdminNoticesEnabled = false
 	*config.AnnouncementSettings.UserNoticesEnabled = false

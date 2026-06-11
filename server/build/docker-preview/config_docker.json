@@ -1,8 +1,7 @@
 {
     "ServiceSettings": {
         "EnableOAuthServiceProvider": true,
-        "EnableDeveloper": false,
-        "EnableGifPicker": true
+        "EnableDeveloper": false
     },
     "SqlSettings": {
         "DriverName": "postgres",
@@ -18,12 +17,5 @@
         "SMTPServer": "",
         "SMTPPort": "",
         "PushNotificationContents": "generic"
-    },
-    "ElasticsearchSettings": {
-        "ConnectionUrl": ""
-    },
-    "PluginSettings": {
-        "EnableUploads": true,
-        "PluginStates": {}
     }
 }

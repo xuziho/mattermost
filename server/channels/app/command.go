@@ -96,13 +96,6 @@ func (a *App) ListAutocompleteCommands(teamID string, T i18n.TranslateFunc) ([]*
 		seen[CmdCustomStatusTrigger] = true
 	}
 
-	for _, cmd := range a.CommandsForTeam(teamID) {
-		if cmd.AutoComplete && !seen[cmd.Trigger] {
-			seen[cmd.Trigger] = true
-			commands = append(commands, cmd)
-		}
-	}
-
 	if *a.Config().ServiceSettings.EnableCommands {
 		teamCmds, err := a.Srv().Store().Command().GetByTeam(teamID)
 		if err != nil {
@@ -178,13 +171,6 @@ func (a *App) ListAllCommandsByUser(teamID string, userID string, T i18n.Transla
 		}
 	}
 
-	for _, cmd := range a.CommandsForTeam(teamID) {
-		if !seen[cmd.Trigger] {
-			seen[cmd.Trigger] = true
-			commands = append(commands, cmd)
-		}
-	}
-
 	if *a.Config().ServiceSettings.EnableCommands {
 		teamCmds, err := a.Srv().Store().Command().GetByTeam(teamID)
 		if err != nil {
@@ -230,17 +216,8 @@ func (a *App) ExecuteCommand(rctx request.CTX, args *model.CommandArgs) (*model.
 
 	args.TriggerId = triggerId
 
-	// Plugins can override built in and custom commands
-	cmd, response, appErr := a.tryExecutePluginCommand(rctx, args)
-	if appErr != nil {
-		return nil, appErr
-	} else if cmd != nil && response != nil {
-		response.TriggerId = clientTriggerId
-		return a.HandleCommandResponse(rctx, cmd, args, response, true)
-	}
-
 	// Custom commands can override built ins
-	cmd, response, appErr = a.tryExecuteCustomCommand(rctx, args, trigger, message)
+	cmd, response, appErr := a.tryExecuteCustomCommand(rctx, args, trigger, message)
 	if appErr != nil {
 		return nil, appErr
 	} else if cmd != nil && response != nil {

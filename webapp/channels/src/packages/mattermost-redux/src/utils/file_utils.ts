@@ -56,20 +56,12 @@ export function getFileUrl(fileId: string): string {
     return Client4.getFileRoute(fileId);
 }
 
-export function getFileDownloadUrl(fileId: string, asContentReviewer?: boolean, flaggedPostId?: string): string {
-    const queryParamsArgs: Record<string, any> = {};
-    queryParamsArgs.download = 1;
+export function getFileDownloadUrl(fileId: string): string {
+	const queryParamsArgs: Record<string, any> = {};
+	queryParamsArgs.download = 1;
 
-    if (asContentReviewer) {
-        queryParamsArgs.as_content_reviewer = true;
-    }
-
-    if (flaggedPostId) {
-        queryParamsArgs.flagged_post_id = flaggedPostId;
-    }
-
-    const queryParams = buildQueryString(queryParamsArgs);
-    return `${Client4.getFileRoute(fileId)}${queryParams}`;
+	const queryParams = buildQueryString(queryParamsArgs);
+	return `${Client4.getFileRoute(fileId)}${queryParams}`;
 }
 
 export function getFileThumbnailUrl(fileId: string): string {

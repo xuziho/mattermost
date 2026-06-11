@@ -24,7 +24,6 @@ import MessageWithAdditionalContent from 'components/message_with_additional_con
 import PriorityLabel from 'components/post_priority/post_priority_label';
 import PostProfilePicture from 'components/post_profile_picture';
 import PostAcknowledgements from 'components/post_view/acknowledgements';
-import AiGeneratedIndicator from 'components/post_view/ai_generated_indicator/ai_generated_indicator';
 import BurnOnReadBadge from 'components/post_view/burn_on_read_badge';
 import BurnOnReadConcealedPlaceholder from 'components/post_view/burn_on_read_concealed_placeholder';
 import BurnOnReadTimerChip from 'components/post_view/burn_on_read_timer_chip';
@@ -53,10 +52,8 @@ import * as PostUtils from 'utils/post_utils';
 import {makeIsEligibleForClick} from 'utils/utils';
 
 import type {ModalData} from 'types/actions';
-import type {PostActionComponent, PostPluginComponent} from 'types/store/plugins';
 
 import {withPostErrorBoundary} from './post_error_boundary';
-import PostHeaderTranslateIcon from './post_header_translate_icon';
 import PostOptions from './post_options';
 import PostUserProfile from './user_profile';
 
@@ -74,7 +71,6 @@ export type Props = {
     enableEmojiPicker?: boolean;
     enablePostUsernameOverride?: boolean;
     isReadOnly?: boolean;
-    pluginPostTypes?: {[postType: string]: PostPluginComponent};
     channelIsArchived?: boolean;
     channelIsShared?: boolean;
     isConsecutivePost?: boolean;
@@ -131,8 +127,6 @@ export type Props = {
     isPostPriorityEnabled: boolean;
     isCardOpen?: boolean;
     canDelete?: boolean;
-    pluginActions: PostActionComponent[];
-    isChannelAutotranslated: boolean;
     shouldDisplayBurnOnReadConcealed?: boolean;
     burnOnReadDurationMinutes: number;
     burnOnReadSkipConfirmation?: boolean;
@@ -162,8 +156,6 @@ function PostComponent(props: Props) {
     const [hasReceivedA11yFocus, setHasReceivedA11yFocus] = useState(false);
     const [burnOnReadRevealing, setBurnOnReadRevealing] = useState(false);
     const [burnOnReadRevealError, setBurnOnReadRevealError] = useState<string | null>(null);
-
-    const {locale} = useIntl();
 
     const isSystemMessage = PostUtils.isSystemMessage(post);
     const fromAutoResponder = PostUtils.fromAutoResponder(post);
@@ -452,11 +444,6 @@ function PostComponent(props: Props) {
         }
     }, [handleCommentClick, handleJumpClick, openCenterThread, post, props.currentTeam?.id, props.location, teamId, isSearchPopoutWindow]);
 
-    const translation = PostUtils.getPostTranslation(post, locale);
-
-    // Only show translation for normal (no custom type) posts
-    const isTranslating = translation?.state === 'processing' && post.type === '';
-
     const handleRevealBurnOnRead = useCallback(async (postId: string) => {
         setBurnOnReadRevealing(true);
         setBurnOnReadRevealError(null);
@@ -608,8 +595,6 @@ function PostComponent(props: Props) {
                         mentionHighlight: props.isMentionSearch,
                     }}
                     isRHS={isRHS}
-                    isChannelAutotranslated={props.isChannelAutotranslated}
-                    userLanguage={locale}
                 />
             </PostBodyAdditionalContent>
         );
@@ -618,10 +603,8 @@ function PostComponent(props: Props) {
             <MessageWithAdditionalContent
                 post={post}
                 isEmbedVisible={props.isEmbedVisible}
-                pluginPostTypes={props.pluginPostTypes}
                 isRHS={isRHS}
                 compactDisplay={props.compactDisplay}
-                isChannelAutotranslated={props.isChannelAutotranslated}
             />
         );
     }
@@ -746,11 +729,7 @@ function PostComponent(props: Props) {
                 onClick={handlePostClick}
                 onMouseOver={handleMouseOver}
                 onMouseLeave={handleMouseLeave}
-                autotranslated={props.isChannelAutotranslated}
             >
-                {props.isChannelAutotranslated && isTranslating && (
-                    <div className='post-message__shimmer'/>
-                )}
                 {(Boolean(isSearchResultItem) || (props.location !== Locations.CENTER && props.isFlagged)) &&
                     <div
                         className='search-channel__name__container'
@@ -823,21 +802,6 @@ function PostComponent(props: Props) {
                                 {priority}
                                 {burnOnReadBadge}
                                 {burnOnReadTimerChip}
-                                {((!props.compactDisplay && !(hasSameRoot(props) && props.isConsecutivePost)) || (props.compactDisplay && isRHS)) &&
-                                    PostUtils.hasAiGeneratedMetadata(post) && (
-                                    <AiGeneratedIndicator
-                                        userId={post.props.ai_generated_by as string}
-                                        username={post.props.ai_generated_by_username as string}
-                                        postAuthorId={post.user_id}
-                                    />
-                                )}
-                                {!isModal && !props.isConsecutivePost && props.isChannelAutotranslated && (
-                                    <PostHeaderTranslateIcon
-                                        postId={post.id}
-                                        translationState={translation?.state}
-                                        postType={post.type}
-                                    />
-                                )}
                                 {Boolean(post.props && post.props.card) &&
                                     <WithTooltip
                                         title={

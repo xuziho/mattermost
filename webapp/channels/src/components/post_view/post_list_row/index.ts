@@ -24,16 +24,13 @@ function mapStateToProps(state: GlobalState, ownProps: OwnProps) {
     const shortcutReactToLastPostEmittedFrom = getShortcutReactToLastPostEmittedFrom(state);
     const post = getPost(state, ownProps.listId);
     const currentUserId = getCurrentUserId(state);
-    const newMessagesSeparatorActions = state.plugins.components.NewMessagesSeparatorAction;
-
     const props: Pick<
     PostListRowProps,
-    'shortcutReactToLastPostEmittedFrom'| 'exceededLimitChannelId' | 'firstInaccessiblePostTime' | 'post' | 'currentUserId' | 'newMessagesSeparatorActions'
+    'shortcutReactToLastPostEmittedFrom'| 'exceededLimitChannelId' | 'firstInaccessiblePostTime' | 'post' | 'currentUserId'
     > = {
         shortcutReactToLastPostEmittedFrom,
         post,
         currentUserId,
-        newMessagesSeparatorActions,
     };
     if ((ownProps.listId === PostListRowListIds.OLDER_MESSAGES_LOADER || ownProps.listId === PostListRowListIds.CHANNEL_INTRO_MESSAGE)) {
         const currentChannelId = getCurrentChannelId(state);

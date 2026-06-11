@@ -320,28 +320,6 @@
     "AnalyticsSettings": {
         "MaxUsersForStatistics": 2500
     },
-    "ElasticsearchSettings": {
-        "ConnectionUrl": "http://localhost:9200",
-        "Backend": "elasticsearch",
-        "Username": "elastic",
-        "Password": "changeme",
-        "EnableIndexing": false,
-        "EnableSearching": false,
-        "EnableAutocomplete": false,
-        "Sniff": true,
-        "PostIndexReplicas": 1,
-        "PostIndexShards": 1,
-        "ChannelIndexReplicas": 1,
-        "ChannelIndexShards": 1,
-        "UserIndexReplicas": 1,
-        "UserIndexShards": 1,
-        "AggregatePostsAfterDays": 365,
-        "PostsAggregatorJobStartTime": "03:00",
-        "IndexPrefix": "",
-        "LiveIndexingBatchSize": 1,
-        "BatchSize": 10000,
-        "RequestTimeoutSeconds": 30
-    },
     "DataRetentionSettings": {
         "EnableMessageDeletion": false,
         "EnableFileDeletion": false,
@@ -365,21 +343,6 @@
     "JobSettings": {
         "RunJobs": true,
         "RunScheduler": true
-    },
-    "PluginSettings": {
-        "Enable": true,
-        "EnableUploads": true,
-        "Directory": "./test-plugins",
-        "ClientDirectory": "./test-client-plugins",
-        "Plugins": {},
-        "PluginStates": {
-            "jira": {
-                "Enable": true
-            },
-            "testplugin": {
-                "Enable": false
-            }
-        }
     },
     "DisplaySettings": {
         "CustomUrlSchemes": []

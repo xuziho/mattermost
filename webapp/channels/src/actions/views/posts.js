@@ -18,8 +18,6 @@ import {containsAtChannel, groupsMentionedInText} from 'utils/post_utils';
 import {getSiteURL} from 'utils/url';
 import {getTimestamp} from 'utils/utils';
 
-import {runMessageWillBePostedHooks} from '../hooks';
-
 export function editPost(post) {
     return async (dispatch) => {
         const result = await dispatch(PostActions.editPost(post));
@@ -72,14 +70,6 @@ export function forwardPost(post, channel, message = '') {
         if (!useLDAPGroupMentions && !useCustomGroupMentions && groupsMentionedInText(newPost.message, groupsWithAllowReference)) {
             newPost.props.disable_group_highlight = true;
         }
-
-        const hookResult = await dispatch(runMessageWillBePostedHooks(newPost));
-
-        if (hookResult.error) {
-            return hookResult;
-        }
-
-        newPost = hookResult.data;
 
         return dispatch(PostActions.createPost(newPost, []));
     };

@@ -6,7 +6,6 @@ package teams
 import (
 	"bytes"
 	"os"
-	"path/filepath"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -52,8 +51,6 @@ func setupTestHelper(s store.Store, includeCacheLayer bool, tb testing.TB) *Test
 	configStore := config.NewTestMemoryStore()
 
 	config := configStore.Get()
-	*config.PluginSettings.Directory = filepath.Join(tempWorkspace, "plugins")
-	*config.PluginSettings.ClientDirectory = filepath.Join(tempWorkspace, "webapp")
 	*config.LogSettings.EnableSentry = false // disable error reporting during tests
 	*config.AnnouncementSettings.AdminNoticesEnabled = false
 	*config.AnnouncementSettings.UserNoticesEnabled = false

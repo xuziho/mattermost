@@ -57,41 +57,6 @@ export default class FileSearchResultItem extends React.PureComponent<Props, Sta
         this.setState({keepOpen: open});
     };
 
-    private renderPluginItems = () => {
-        const {fileInfo, channel, enableSharedChannelsPlugins} = this.props;
-        const isSharedChannel = channel?.shared || false;
-
-        if (isSharedChannel && !enableSharedChannelsPlugins) {
-            return null;
-        }
-
-        const pluginItems = this.props.pluginMenuItems?.filter((item) => item?.match(fileInfo)).map((item) => {
-            return (
-                <Menu.ItemAction
-                    id={item.id + '_pluginmenuitem'}
-                    key={item.id + '_pluginmenuitem'}
-                    onClick={() => item.action?.(fileInfo)}
-                    text={item.text}
-                />
-            );
-        });
-
-        if (!pluginItems?.length) {
-            return null;
-        }
-
-        return (
-            <>
-                <li
-                    id={`divider_file_${this.props.fileInfo.id}_plugins`}
-                    className='MenuItem__divider'
-                    role='menuitem'
-                />
-                {pluginItems}
-            </>
-        );
-    };
-
     private showPreview = () => {
         this.props.actions.openModal({
             modalId: ModalIdentifiers.FILE_PREVIEW_MODAL,
@@ -178,7 +143,6 @@ export default class FileSearchResultItem extends React.PureComponent<Props, Sta
                                         ariaLabel={localizeMessage({id: 'file_search_result_item.copy_link', defaultMessage: 'Copy link'})}
                                         text={localizeMessage({id: 'file_search_result_item.copy_link', defaultMessage: 'Copy link'})}
                                     />
-                                    {this.renderPluginItems()}
                                 </Menu>
                             </MenuWrapper>
                         </WithTooltip>

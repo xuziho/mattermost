@@ -79,13 +79,6 @@ export const adminConsoleNavigation = [
         url: 'admin_console/environment/database',
     },
     {
-        type: ['e20'],
-        section: 'Environment',
-        header: 'Elasticsearch',
-        sidebar: 'Elasticsearch',
-        url: 'admin_console/environment/elasticsearch',
-    },
-    {
         type: ['team', 'e20'],
         section: 'Environment',
         header: 'File Storage',
@@ -271,12 +264,6 @@ export const adminConsoleNavigation = [
     },
     {
         type: ['team', 'e20'],
-        header: 'Plugin Management',
-        sidebar: 'Plugin Management',
-        url: 'admin_console/plugins/plugin_management',
-    },
-    {
-        type: ['team', 'e20'],
         header: 'Integration Management',
         sidebar: 'Integration Management',
         url: 'admin_console/integrations/integration_management',
@@ -286,12 +273,6 @@ export const adminConsoleNavigation = [
         header: 'Bot Accounts',
         sidebar: 'Bot Accounts',
         url: 'admin_console/integrations/bot_accounts',
-    },
-    {
-        type: ['team', 'e20'],
-        header: 'GIF',
-        sidebar: 'GIF',
-        url: 'admin_console/integrations/gif',
     },
     {
         type: ['team', 'e20'],

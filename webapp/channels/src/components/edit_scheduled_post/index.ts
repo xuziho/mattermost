@@ -17,7 +17,6 @@ import {haveIChannelPermission} from 'mattermost-redux/selectors/entities/roles'
 import {getCurrentTeamId} from 'mattermost-redux/selectors/entities/teams';
 import {getCurrentUserId, isCurrentUserSystemAdmin} from 'mattermost-redux/selectors/entities/users';
 
-import {runMessageWillBeUpdatedHooks} from 'actions/hooks';
 import {unsetEditingPost} from 'actions/post_actions';
 import {setGlobalItem} from 'actions/storage';
 import {scrollPostListToBottom} from 'actions/views/channel';
@@ -92,7 +91,6 @@ function mapDispatchToProps(dispatch: Dispatch) {
             editPost,
             setDraft: setGlobalItem,
             unsetEditingPost,
-            runMessageWillBeUpdatedHooks,
             updateScheduledPost,
         }, dispatch),
     };

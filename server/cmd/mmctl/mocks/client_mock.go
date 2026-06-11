@@ -525,21 +525,6 @@ func (mr *MockClientMockRecorder) DisableBot(arg0, arg1 interface{}) *gomock.Cal
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DisableBot", reflect.TypeOf((*MockClient)(nil).DisableBot), arg0, arg1)
 }
 
-// DisablePlugin mocks base method.
-func (m *MockClient) DisablePlugin(arg0 context.Context, arg1 string) (*model.Response, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "DisablePlugin", arg0, arg1)
-	ret0, _ := ret[0].(*model.Response)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// DisablePlugin indicates an expected call of DisablePlugin.
-func (mr *MockClientMockRecorder) DisablePlugin(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DisablePlugin", reflect.TypeOf((*MockClient)(nil).DisablePlugin), arg0, arg1)
-}
-
 // DoAPIPost mocks base method.
 func (m *MockClient) DoAPIPost(arg0 context.Context, arg1, arg2 string) (*http.Response, error) {
 	m.ctrl.T.Helper()
@@ -600,21 +585,6 @@ func (m *MockClient) EnableBot(arg0 context.Context, arg1 string) (*model.Bot, *
 func (mr *MockClientMockRecorder) EnableBot(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "EnableBot", reflect.TypeOf((*MockClient)(nil).EnableBot), arg0, arg1)
-}
-
-// EnablePlugin mocks base method.
-func (m *MockClient) EnablePlugin(arg0 context.Context, arg1 string) (*model.Response, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "EnablePlugin", arg0, arg1)
-	ret0, _ := ret[0].(*model.Response)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// EnablePlugin indicates an expected call of EnablePlugin.
-func (mr *MockClientMockRecorder) EnablePlugin(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "EnablePlugin", reflect.TypeOf((*MockClient)(nil).EnablePlugin), arg0, arg1)
 }
 
 // GeneratePresignedURL mocks base method.
@@ -1196,22 +1166,6 @@ func (mr *MockClientMockRecorder) GetPingWithOptions(arg0, arg1 interface{}) *go
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetPingWithOptions", reflect.TypeOf((*MockClient)(nil).GetPingWithOptions), arg0, arg1)
 }
 
-// GetPlugins mocks base method.
-func (m *MockClient) GetPlugins(arg0 context.Context) (*model.PluginsResponse, *model.Response, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetPlugins", arg0)
-	ret0, _ := ret[0].(*model.PluginsResponse)
-	ret1, _ := ret[1].(*model.Response)
-	ret2, _ := ret[2].(error)
-	return ret0, ret1, ret2
-}
-
-// GetPlugins indicates an expected call of GetPlugins.
-func (mr *MockClientMockRecorder) GetPlugins(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetPlugins", reflect.TypeOf((*MockClient)(nil).GetPlugins), arg0)
-}
-
 // GetPost mocks base method.
 func (m *MockClient) GetPost(arg0 context.Context, arg1, arg2 string) (*model.Post, *model.Response, error) {
 	m.ctrl.T.Helper()
@@ -1578,22 +1532,6 @@ func (m *MockClient) GetUsersWithCustomQueryParameters(arg0 context.Context, arg
 func (mr *MockClientMockRecorder) GetUsersWithCustomQueryParameters(arg0, arg1, arg2, arg3, arg4 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetUsersWithCustomQueryParameters", reflect.TypeOf((*MockClient)(nil).GetUsersWithCustomQueryParameters), arg0, arg1, arg2, arg3, arg4)
-}
-
-// InstallPluginFromURL mocks base method.
-func (m *MockClient) InstallPluginFromURL(arg0 context.Context, arg1 string, arg2 bool) (*model.Manifest, *model.Response, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "InstallPluginFromURL", arg0, arg1, arg2)
-	ret0, _ := ret[0].(*model.Manifest)
-	ret1, _ := ret[1].(*model.Response)
-	ret2, _ := ret[2].(error)
-	return ret0, ret1, ret2
-}
-
-// InstallPluginFromURL indicates an expected call of InstallPluginFromURL.
-func (mr *MockClientMockRecorder) InstallPluginFromURL(arg0, arg1, arg2 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "InstallPluginFromURL", reflect.TypeOf((*MockClient)(nil).InstallPluginFromURL), arg0, arg1, arg2)
 }
 
 // InviteUsersToTeam mocks base method.
@@ -2044,21 +1982,6 @@ func (m *MockClient) RemoveLicenseFile(arg0 context.Context) (*model.Response, e
 func (mr *MockClientMockRecorder) RemoveLicenseFile(arg0 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RemoveLicenseFile", reflect.TypeOf((*MockClient)(nil).RemoveLicenseFile), arg0)
-}
-
-// RemovePlugin mocks base method.
-func (m *MockClient) RemovePlugin(arg0 context.Context, arg1 string) (*model.Response, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "RemovePlugin", arg0, arg1)
-	ret0, _ := ret[0].(*model.Response)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// RemovePlugin indicates an expected call of RemovePlugin.
-func (mr *MockClientMockRecorder) RemovePlugin(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RemovePlugin", reflect.TypeOf((*MockClient)(nil).RemovePlugin), arg0, arg1)
 }
 
 // RemoveTeamMember mocks base method.
@@ -2540,38 +2463,6 @@ func (m *MockClient) UploadLicenseFile(arg0 context.Context, arg1 []byte) (*mode
 func (mr *MockClientMockRecorder) UploadLicenseFile(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UploadLicenseFile", reflect.TypeOf((*MockClient)(nil).UploadLicenseFile), arg0, arg1)
-}
-
-// UploadPlugin mocks base method.
-func (m *MockClient) UploadPlugin(arg0 context.Context, arg1 io.Reader) (*model.Manifest, *model.Response, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "UploadPlugin", arg0, arg1)
-	ret0, _ := ret[0].(*model.Manifest)
-	ret1, _ := ret[1].(*model.Response)
-	ret2, _ := ret[2].(error)
-	return ret0, ret1, ret2
-}
-
-// UploadPlugin indicates an expected call of UploadPlugin.
-func (mr *MockClientMockRecorder) UploadPlugin(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UploadPlugin", reflect.TypeOf((*MockClient)(nil).UploadPlugin), arg0, arg1)
-}
-
-// UploadPluginForced mocks base method.
-func (m *MockClient) UploadPluginForced(arg0 context.Context, arg1 io.Reader) (*model.Manifest, *model.Response, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "UploadPluginForced", arg0, arg1)
-	ret0, _ := ret[0].(*model.Manifest)
-	ret1, _ := ret[1].(*model.Response)
-	ret2, _ := ret[2].(error)
-	return ret0, ret1, ret2
-}
-
-// UploadPluginForced indicates an expected call of UploadPluginForced.
-func (mr *MockClientMockRecorder) UploadPluginForced(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UploadPluginForced", reflect.TypeOf((*MockClient)(nil).UploadPluginForced), arg0, arg1)
 }
 
 // VerifyUserEmailWithoutToken mocks base method.

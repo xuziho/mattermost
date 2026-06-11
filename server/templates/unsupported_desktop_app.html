@@ -114,7 +114,7 @@
         </head>
         <body>
             <header class="header">
-                <img class="logo" src="static/images/logo.svg" alt="{{.Props.SiteName}}" />
+                <div class="logo">{{.Props.SiteName}}</div>
             </header>
             <main class="main">
                 <div class="content">
@@ -125,7 +125,7 @@
                 </div>
             </main>
             <footer class="footer">
-                <span>© {{.Props.CopyrightYear}} Mattermost Inc.</span>
+                <span>© {{.Props.CopyrightYear}} {{.Props.SiteName}}</span>
             </footer>
         </body>
     </html>

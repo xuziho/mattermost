@@ -145,59 +145,6 @@ func TestPostStoreLastPostTimeCache(t *testing.T) {
 		mockStore.Post().(*mocks.PostStore).AssertNumberOfCalls(t, "GetPostsSince", 2)
 	})
 
-	t.Run("GetEtag: with includeTranslations appends translation time", func(t *testing.T) {
-		mockStore := getMockStore(t)
-		mockCacheProvider := getMockCacheProvider()
-		cachedStore, err := NewLocalCacheLayer(mockStore, nil, nil, mockCacheProvider, logger)
-		require.NoError(t, err)
-
-		// Expected: "{version}.{lastTime}.{translationTime}"
-		expectedResult := fmt.Sprintf("%v.%v_%v", model.CurrentVersion, fakeLastTime, 5000)
-
-		etag := cachedStore.Post().GetEtag(channelId, true, false, true)
-		assert.Equal(t, expectedResult, etag)
-		mockStore.Post().(*mocks.PostStore).AssertNumberOfCalls(t, "GetEtag", 1)
-		mockStore.AutoTranslation().(*mocks.AutoTranslationStore).AssertNumberOfCalls(t, "GetLatestPostUpdateAtForChannel", 1)
-	})
-
-	t.Run("GetEtag: translation etag is cached per-channel", func(t *testing.T) {
-		mockStore := getMockStore(t)
-		mockCacheProvider := getMockCacheProvider()
-		cachedStore, err := NewLocalCacheLayer(mockStore, nil, nil, mockCacheProvider, logger)
-		require.NoError(t, err)
-
-		// First call with includeTranslations=true - should call GetLatestPostUpdateAtForChannel
-		expected := fmt.Sprintf("%v.%v_%v", model.CurrentVersion, fakeLastTime, 5000)
-		etag := cachedStore.Post().GetEtag(channelId, true, false, true)
-		assert.Equal(t, expected, etag)
-		mockStore.AutoTranslation().(*mocks.AutoTranslationStore).AssertNumberOfCalls(t, "GetLatestPostUpdateAtForChannel", 1)
-
-		// Second call - should use cached translation time
-		etag = cachedStore.Post().GetEtag(channelId, true, false, true)
-		assert.Equal(t, expected, etag)
-		mockStore.AutoTranslation().(*mocks.AutoTranslationStore).AssertNumberOfCalls(t, "GetLatestPostUpdateAtForChannel", 1)
-	})
-
-	t.Run("GetEtag: invalidate translation etag clears the channel cache", func(t *testing.T) {
-		mockStore := getMockStore(t)
-		mockCacheProvider := getMockCacheProvider()
-		cachedStore, err := NewLocalCacheLayer(mockStore, nil, nil, mockCacheProvider, logger)
-		require.NoError(t, err)
-
-		// Call GetEtag with includeTranslations=true
-		expected := fmt.Sprintf("%v.%v_%v", model.CurrentVersion, fakeLastTime, 5000)
-		etag := cachedStore.Post().GetEtag(channelId, true, false, true)
-		assert.Equal(t, expected, etag)
-		mockStore.AutoTranslation().(*mocks.AutoTranslationStore).AssertNumberOfCalls(t, "GetLatestPostUpdateAtForChannel", 1)
-
-		// Invalidate the channel's post translation etag
-		cachedStore.AutoTranslation().InvalidatePostTranslationEtag(channelId)
-
-		// Call GetEtag again - should re-fetch
-		etag = cachedStore.Post().GetEtag(channelId, true, false, true)
-		assert.Equal(t, expected, etag)
-		mockStore.AutoTranslation().(*mocks.AutoTranslationStore).AssertNumberOfCalls(t, "GetLatestPostUpdateAtForChannel", 2)
-	})
 }
 
 func TestPostStoreCache(t *testing.T) {

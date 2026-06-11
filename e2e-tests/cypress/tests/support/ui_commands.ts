@@ -828,7 +828,7 @@ declare global {
             updateDMGMChannelHeader(text: string): ChainableT<void>;
 
             /**
-             * Navigate to system console-PluginManagement from profile settings
+             * Run LDAP sync from System Console.
              */
             checkRunLDAPSync: typeof checkRunLDAPSync;
 

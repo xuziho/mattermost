@@ -4,12 +4,8 @@
 import FlexSearch from 'flexsearch/dist/flexsearch.es5';
 import type {IntlShape, MessageDescriptor} from 'react-intl';
 
-import type {PluginRedux} from '@mattermost/types/plugins';
-
 import type AdminDefinition from 'components/admin_console/admin_definition';
 import type {AdminDefinitionSetting, AdminDefinitionSubSection} from 'components/admin_console/types';
-
-import {getPluginEntries} from './admin_console_plugin_index';
 
 export type Index = {
 
@@ -99,7 +95,6 @@ export function adminDefinitionsToUrlsAndTexts(adminDefinition: typeof AdminDefi
         adminDefinition.environment,
         adminDefinition.site,
         adminDefinition.authentication,
-        adminDefinition.plugins,
         adminDefinition.integrations,
         adminDefinition.compliance,
         adminDefinition.experimental,
@@ -115,12 +110,10 @@ export function adminDefinitionsToUrlsAndTexts(adminDefinition: typeof AdminDefi
     return entries;
 }
 
-export function generateIndex(adminDefinition: typeof AdminDefinition, intl: IntlShape, plugins?: Record<string, PluginRedux>) {
+export function generateIndex(adminDefinition: typeof AdminDefinition, intl: IntlShape) {
     const idx: Index = new FlexSearch();
 
     addToIndex(adminDefinitionsToUrlsAndTexts(adminDefinition, intl), idx);
-
-    addToIndex(getPluginEntries(plugins, intl), idx);
 
     return idx;
 }

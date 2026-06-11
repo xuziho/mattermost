@@ -413,16 +413,7 @@ exports[`components/DatabaseSettings should match snapshot 1`] = `
                 class="help-text"
                 data-testid="disableDatabaseSearchhelp-text"
               >
-                Disables the use of the database to perform searches. Should only be used when other 
-                <a
-                  href="https://mattermost.com/pl/setup-elasticsearch?utm_source=mattermost&utm_medium=in-product&utm_content=database_settings&uid=&sid=&edition=team&server_version="
-                  location="database_settings"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  search engines
-                </a>
-                 are configured.
+                Disables the use of the database to perform searches.
               </div>
             </div>
           </fieldset>
@@ -494,7 +485,7 @@ exports[`components/DatabaseSettings should match snapshot 1`] = `
               <div
                 class="help-text"
               >
-                Shows the currently active backend used for search. Values can be none, database, elasticsearch.
+                Shows the currently active backend used for search. Values can be none or database.
               </div>
             </div>
           </div>

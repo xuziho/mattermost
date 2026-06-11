@@ -10,7 +10,7 @@
 // Group: @channels @enterprise @profile_popover
 
 import * as TIMEOUTS from '../../../../fixtures/timeouts';
-import {createPrivateChannel} from '../elasticsearch_autocomplete/helpers';
+import {createPrivateChannel} from '../../autocomplete/helpers';
 import {getAdminAccount} from '../../../../support/env';
 
 describe('Profile popover', () => {

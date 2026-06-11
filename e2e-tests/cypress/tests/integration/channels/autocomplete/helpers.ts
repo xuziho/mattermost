@@ -237,8 +237,12 @@ function withPrefix(name: string, prefix: string) {
     return prefix + name;
 }
 
-function createEmail(name: string, prefix: string) {
-    return `${prefix}${name}@sample.mattermost.com`;
+function withTimestamp(prefix: string, timestamp: string | number) {
+    return `${prefix}-${timestamp}`;
+}
+
+function createEmail(name: string, suffix: string | number) {
+    return `${name}${suffix}@sample.mattermost.com`;
 }
 
 export {
@@ -254,4 +258,6 @@ export {
     startAtMention,
     verifySuggestionAtChannelSwitcher,
     verifySuggestionAtPostTextbox,
+    withTimestamp,
+    createEmail,
 };

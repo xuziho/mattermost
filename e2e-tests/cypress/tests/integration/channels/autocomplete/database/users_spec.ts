@@ -20,7 +20,6 @@ describe('Autocomplete with Database - Users', () => {
     let testTeam: Cypress.Team;
 
     before(() => {
-        cy.shouldHaveElasticsearchDisabled();
 
         createSearchData(prefix).then((searchData) => {
             testUsers = searchData.users;

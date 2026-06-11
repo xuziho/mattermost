@@ -9,16 +9,12 @@ import {Route, Switch, useHistory, useParams} from 'react-router-dom';
 import type {ServerError} from '@mattermost/types/errors';
 import type {Team} from '@mattermost/types/teams';
 
-import {getTeamContentFlaggingStatus} from 'mattermost-redux/actions/content_flagging';
-import {
-    contentFlaggingFeatureEnabled,
-} from 'mattermost-redux/selectors/entities/content_flagging';
 import type {ActionResult} from 'mattermost-redux/types/actions';
 
 import {reconnect} from 'actions/websocket_actions';
 import LocalStorageStore from 'stores/local_storage_store';
 
-import {makeAsyncComponent, makeAsyncPluggableComponent} from 'components/async_load';
+import {makeAsyncComponent} from 'components/async_load';
 import ChannelController from 'components/channel_layout/channel_controller';
 import useTelemetryIdentitySync from 'components/common/hooks/useTelemetryIdentifySync';
 import InitialLoadingScreen from 'components/initial_loading_screen';
@@ -32,7 +28,6 @@ import {isIosSafari} from 'utils/user_agent';
 import type {OwnProps, PropsFromRedux} from './index';
 
 const BackstageController = makeAsyncComponent('BackstageController', lazy(() => import('components/backstage')));
-const Pluggable = makeAsyncPluggableComponent();
 
 const WAKEUP_CHECK_INTERVAL = 30000; // 30 seconds
 const WAKEUP_THRESHOLD = 60000; // 60 seconds
@@ -54,8 +49,6 @@ function TeamController(props: Props) {
     const [initialChannelsLoaded, setInitialChannelsLoaded] = useState(false);
 
     const [team, setTeam] = useState<Team | null>(getTeamFromTeamList(props.teamsList, teamNameParam));
-
-    const contentFlaggingEnabled = useSelector(contentFlaggingFeatureEnabled);
 
     const blurTime = useRef(Date.now());
     const lastTime = useRef(Date.now());
@@ -138,13 +131,6 @@ function TeamController(props: Props) {
             window.removeEventListener('keydown', handleKeydown);
         };
     }, [props.currentTeamId]);
-
-    // Load team content flagging status on team switch
-    useEffect(() => {
-        if (contentFlaggingEnabled && props.currentTeamId) {
-            dispatch(getTeamContentFlaggingStatus(props.currentTeamId));
-        }
-    }, [contentFlaggingEnabled, dispatch, props.currentTeamId]);
 
     // Effect runs on mount, adds active state to window
     useEffect(() => {
@@ -237,19 +223,6 @@ function TeamController(props: Props) {
                 path={`/:team(${TEAM_NAME_PATH_PATTERN})/emoji`}
                 component={BackstageController}
             />
-            {props.plugins?.map((plugin) => (
-                <Route
-                    key={plugin.id}
-                    path={`/:team(${TEAM_NAME_PATH_PATTERN})/` + (plugin as any).route}
-                    render={() => (
-                        <Pluggable
-                            pluggableName={'NeedsTeamComponent'}
-                            pluggableId={plugin.id}
-                            css={{gridArea: 'center'}}
-                        />
-                    )}
-                />
-            ))}
             <ChannelController shouldRenderCenterChannel={initialChannelsLoaded && teamLoaded}/>
         </Switch>
     );

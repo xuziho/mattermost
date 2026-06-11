@@ -54,7 +54,7 @@ func registerDummyWebConn(t *testing.T, th *TestHelper, addr net.Addr, session *
 		TFunc:     i18n.IdentityTfunc(),
 		Locale:    "en",
 	}
-	wc := th.Service.NewWebConn(cfg, th.Suite, &hookRunner{})
+	wc := th.Service.NewWebConn(cfg, th.Suite)
 	require.NoError(t, th.Service.HubRegister(wc))
 	go wc.Pump()
 	return wc

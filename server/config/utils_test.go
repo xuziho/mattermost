@@ -33,19 +33,11 @@ func TestDesanitize(t *testing.T) {
 	actual.OpenIdSettings.Secret = model.NewPointer("secret")
 	actual.SqlSettings.DataSource = model.NewPointer("data_source")
 	actual.SqlSettings.AtRestEncryptKey = model.NewPointer("at_rest_encrypt_key")
-	actual.ElasticsearchSettings.Password = model.NewPointer("password")
 	actual.ServiceSettings.GoogleDeveloperKey = model.NewPointer("google_developer_key")
-	actual.ServiceSettings.GiphySdkKey = model.NewPointer("giphy_sdk_key")
 	actual.SqlSettings.DataSourceReplicas = append(actual.SqlSettings.DataSourceReplicas, "replica0")
 	actual.SqlSettings.DataSourceReplicas = append(actual.SqlSettings.DataSourceReplicas, "replica1")
 	actual.SqlSettings.DataSourceSearchReplicas = append(actual.SqlSettings.DataSourceSearchReplicas, "search_replica0")
 	actual.SqlSettings.DataSourceSearchReplicas = append(actual.SqlSettings.DataSourceSearchReplicas, "search_replica1")
-	actual.PluginSettings.Plugins = map[string]map[string]any{
-		"plugin1": {
-			"secret":    "value1",
-			"no_secret": "value2",
-		},
-	}
 
 	target := &model.Config{}
 	target.SetDefaults()
@@ -64,17 +56,9 @@ func TestDesanitize(t *testing.T) {
 	target.OpenIdSettings.Secret = model.NewPointer(model.FakeSetting)
 	target.SqlSettings.DataSource = model.NewPointer(model.FakeSetting)
 	target.SqlSettings.AtRestEncryptKey = model.NewPointer(model.FakeSetting)
-	target.ElasticsearchSettings.Password = model.NewPointer(model.FakeSetting)
 	target.ServiceSettings.GoogleDeveloperKey = model.NewPointer(model.FakeSetting)
-	target.ServiceSettings.GiphySdkKey = model.NewPointer(model.FakeSetting)
 	target.SqlSettings.DataSourceReplicas = []string{model.FakeSetting, model.FakeSetting}
 	target.SqlSettings.DataSourceSearchReplicas = []string{model.FakeSetting, model.FakeSetting}
-	target.PluginSettings.Plugins = map[string]map[string]any{
-		"plugin1": {
-			"secret":    model.FakeSetting,
-			"no_secret": "value2",
-		},
-	}
 
 	actualClone := actual.Clone()
 	desanitize(actual, target)
@@ -94,13 +78,10 @@ func TestDesanitize(t *testing.T) {
 	assert.Equal(t, *actual.OpenIdSettings.Secret, *target.OpenIdSettings.Secret)
 	assert.Equal(t, *actual.SqlSettings.DataSource, *target.SqlSettings.DataSource)
 	assert.Equal(t, *actual.SqlSettings.AtRestEncryptKey, *target.SqlSettings.AtRestEncryptKey)
-	assert.Equal(t, *actual.ElasticsearchSettings.Password, *target.ElasticsearchSettings.Password)
 	assert.Equal(t, *actual.ServiceSettings.GoogleDeveloperKey, *target.ServiceSettings.GoogleDeveloperKey)
-	assert.Equal(t, *actual.ServiceSettings.GiphySdkKey, *target.ServiceSettings.GiphySdkKey)
 	assert.Equal(t, actual.SqlSettings.DataSourceReplicas, target.SqlSettings.DataSourceReplicas)
 	assert.Equal(t, actual.SqlSettings.DataSourceSearchReplicas, target.SqlSettings.DataSourceSearchReplicas)
 	assert.Equal(t, actual.ServiceSettings.SplitKey, target.ServiceSettings.SplitKey)
-	assert.Equal(t, actual.PluginSettings.Plugins, target.PluginSettings.Plugins)
 }
 
 // TestDesanitizeRemovesAllFakeSettings verifies that every field masked by

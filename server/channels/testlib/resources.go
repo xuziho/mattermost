@@ -7,8 +7,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"os/exec"
 	"path"
 	"path/filepath"
+	"runtime"
 
 	"github.com/pkg/errors"
 
@@ -83,7 +85,6 @@ func getTestResourcesToSetup() []testResourceDetails {
 		{"templates", "templates", resourceTypeFolder, actionSymlink},
 		{"tests", "tests", resourceTypeFolder, actionSymlink},
 		{"fonts", "fonts", resourceTypeFolder, actionSymlink},
-		{"channels/app/plugin_api_tests", "channels/app/plugin_api_tests", resourceTypeFolder, actionSymlink},
 		{"channels/utils/policies-roles-mapping.json", "channels/utils/policies-roles-mapping.json", resourceTypeFile, actionSymlink},
 	}
 
@@ -180,9 +181,8 @@ func SetupTestResources() (string, error) {
 				}
 			}
 
-			err = os.Symlink(testResource.src, resourceDestInTemp)
-			if err != nil {
-				return "", errors.Wrapf(err, "failed to symlink %s to %s", testResource.src, resourceDestInTemp)
+			if err = setupSymlinkOrFallback(testResource, resourceDestInTemp); err != nil {
+				return "", err
 			}
 		} else {
 			return "", errors.Wrapf(err, "Invalid action: %d", testResource.action)
@@ -190,6 +190,31 @@ func SetupTestResources() (string, error) {
 	}
 
 	return tempDir, nil
+}
+
+func setupSymlinkOrFallback(testResource testResourceDetails, resourceDestInTemp string) error {
+	err := os.Symlink(testResource.src, resourceDestInTemp)
+	if err == nil {
+		return nil
+	}
+
+	if runtime.GOOS != "windows" {
+		return errors.Wrapf(err, "failed to symlink %s to %s", testResource.src, resourceDestInTemp)
+	}
+
+	if testResource.resType == resourceTypeFile {
+		if copyErr := CopyFile(testResource.src, resourceDestInTemp); copyErr != nil {
+			return errors.Wrapf(err, "failed to symlink %s to %s and failed to copy file: %v", testResource.src, resourceDestInTemp, copyErr)
+		}
+		return nil
+	}
+
+	cmd := exec.Command("cmd", "/c", "mklink", "/J", resourceDestInTemp, testResource.src)
+	if output, junctionErr := cmd.CombinedOutput(); junctionErr != nil {
+		return errors.Wrapf(err, "failed to symlink %s to %s and failed to create junction: %s: %v", testResource.src, resourceDestInTemp, string(output), junctionErr)
+	}
+
+	return nil
 }
 
 func setupConfig(configDir string) error {

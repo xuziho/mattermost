@@ -18,13 +18,12 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"github.com/mattermost/mattermost/server/public/model"
-	"github.com/mattermost/mattermost/server/public/plugin/plugintest/mock"
 	"github.com/mattermost/mattermost/server/public/shared/mlog"
 	"github.com/mattermost/mattermost/server/v8/channels/store"
 	storemocks "github.com/mattermost/mattermost/server/v8/channels/store/storetest/mocks"
 	"github.com/mattermost/mattermost/server/v8/channels/testlib"
 	"github.com/mattermost/mattermost/server/v8/platform/services/imageproxy"
-	"github.com/mattermost/mattermost/server/v8/platform/services/searchengine/mocks"
+	"github.com/stretchr/testify/mock"
 )
 
 func enableBoRFeature(th *TestHelper) {
@@ -68,134 +67,6 @@ func TestCreatePostDeduplicate(t *testing.T) {
 		require.Nil(t, err)
 		require.Equal(t, post.Id, duplicatePost.Id, "should have returned previously created post id")
 		require.Equal(t, "message", duplicatePost.Message)
-	})
-
-	t.Run("post rejected by plugin leaves cache ready for non-deduplicated try", func(t *testing.T) {
-		setupPluginAPITest(t, `
-			package main
-
-			import (
-				"github.com/mattermost/mattermost/server/public/plugin"
-				"github.com/mattermost/mattermost/server/public/model"
-			)
-
-			type MyPlugin struct {
-				plugin.MattermostPlugin
-				allow bool
-			}
-
-			func (p *MyPlugin) MessageWillBePosted(c *plugin.Context, post *model.Post) (*model.Post, string) {
-				if !p.allow {
-					p.allow = true
-					return nil, "rejected"
-				}
-
-				return nil, ""
-			}
-
-			func main() {
-				plugin.ClientMain(&MyPlugin{})
-			}
-		`, `{"id": "testrejectfirstpost", "server": {"executable": "backend.exe"}}`, "testrejectfirstpost", th.App, th.Context)
-
-		session := &model.Session{
-			UserId: th.BasicUser.Id,
-		}
-		session, err := th.App.CreateSession(th.Context, session)
-		require.Nil(t, err)
-
-		pendingPostId := makePendingPostId(th.BasicUser)
-
-		post, _, err := th.App.CreatePostAsUser(th.Context.WithSession(session), &model.Post{
-			UserId:        th.BasicUser.Id,
-			ChannelId:     th.BasicChannel.Id,
-			Message:       "message",
-			PendingPostId: pendingPostId,
-		}, session.Id, true)
-		require.NotNil(t, err)
-		require.Equal(t, "Post rejected by plugin. rejected", err.Id)
-		require.Nil(t, post)
-
-		duplicatePost, _, err := th.App.CreatePostAsUser(th.Context.WithSession(session), &model.Post{
-			UserId:        th.BasicUser.Id,
-			ChannelId:     th.BasicChannel.Id,
-			Message:       "message",
-			PendingPostId: pendingPostId,
-		}, session.Id, true)
-		require.Nil(t, err)
-		require.Equal(t, "message", duplicatePost.Message)
-	})
-
-	t.Run("slow posting after cache entry blocks duplicate request", func(t *testing.T) {
-		setupPluginAPITest(t, `
-			package main
-
-			import (
-				"github.com/mattermost/mattermost/server/public/plugin"
-				"github.com/mattermost/mattermost/server/public/model"
-				"time"
-			)
-
-			type MyPlugin struct {
-				plugin.MattermostPlugin
-				instant bool
-			}
-
-			func (p *MyPlugin) MessageWillBePosted(c *plugin.Context, post *model.Post) (*model.Post, string) {
-				if !p.instant {
-					p.instant = true
-					time.Sleep(3 * time.Second)
-				}
-
-				return nil, ""
-			}
-
-			func main() {
-				plugin.ClientMain(&MyPlugin{})
-			}
-		`, `{"id": "testdelayfirstpost", "server": {"executable": "backend.exe"}}`, "testdelayfirstpost", th.App, th.Context)
-
-		session := &model.Session{
-			UserId: th.BasicUser.Id,
-		}
-		session, err := th.App.CreateSession(th.Context, session)
-		require.Nil(t, err)
-
-		var post *model.Post
-		pendingPostId := makePendingPostId(th.BasicUser)
-
-		wg := sync.WaitGroup{}
-
-		// Launch a goroutine to make the first CreatePost call that will get delayed
-		// by the plugin above.
-		wg.Go(func() {
-			var appErr *model.AppError
-			post, _, appErr = th.App.CreatePostAsUser(th.Context.WithSession(session), &model.Post{
-				UserId:        th.BasicUser.Id,
-				ChannelId:     th.BasicChannel.Id,
-				Message:       "plugin delayed",
-				PendingPostId: pendingPostId,
-			}, session.Id, true)
-			require.Nil(t, appErr)
-			require.Equal(t, post.Message, "plugin delayed")
-		})
-
-		// Give the goroutine above a chance to start and get delayed by the plugin.
-		time.Sleep(2 * time.Second)
-
-		// Try creating a duplicate post
-		duplicatePost, _, err := th.App.CreatePostAsUser(th.Context.WithSession(session), &model.Post{
-			UserId:        th.BasicUser.Id,
-			ChannelId:     th.BasicChannel.Id,
-			Message:       "plugin delayed",
-			PendingPostId: pendingPostId,
-		}, session.Id, true)
-		require.NotNil(t, err)
-		require.Equal(t, "api.post.deduplicate_create_post.pending", err.Id)
-		require.Nil(t, duplicatePost)
-
-		// Wait for the first CreatePost to finish to ensure assertions are made.
-		wg.Wait()
 	})
 
 	t.Run("duplicate create post after cache expires is not idempotent", func(t *testing.T) {
@@ -499,148 +370,6 @@ func TestPostAttachPostToChildPost(t *testing.T) {
 
 	_, _, err = th.App.CreatePostAsUser(th.Context, &replyPost3, "", true)
 	assert.Nil(t, err)
-}
-
-func TestUpdatePostPluginHooks(t *testing.T) {
-	mainHelper.Parallel(t)
-	th := Setup(t).InitBasic(t)
-
-	t.Run("Should stop processing at first reject", func(t *testing.T) {
-		setupMultiPluginAPITest(t, []string{
-			`
-				package main
-
-				import (
-					"github.com/mattermost/mattermost/server/public/plugin"
-					"github.com/mattermost/mattermost/server/public/model"
-				)
-
-				type MyPlugin struct {
-					plugin.MattermostPlugin
-				}
-
-				func (p *MyPlugin) MessageWillBeUpdated(c *plugin.Context, newPost, oldPost *model.Post) (*model.Post, string) {
-					return nil, "rejected"
-				}
-
-				func main() {
-					plugin.ClientMain(&MyPlugin{})
-				}
-			`,
-			`
-				package main
-
-				import (
-					"github.com/mattermost/mattermost/server/public/plugin"
-					"github.com/mattermost/mattermost/server/public/model"
-				)
-
-				type MyPlugin struct {
-					plugin.MattermostPlugin
-				}
-
-				func (p *MyPlugin) MessageWillBeUpdated(c *plugin.Context, newPost, oldPost *model.Post) (*model.Post, string) {
-					if (newPost == nil) {
-						return nil, "nil post"
-					}
-					newPost.Message = newPost.Message + "fromplugin"
-					return newPost, ""
-				}
-
-				func main() {
-					plugin.ClientMain(&MyPlugin{})
-				}
-			`,
-		}, []string{
-			`{"id": "testrejectfirstpost", "server": {"executable": "backend.exe"}}`,
-			`{"id": "testupdatepost", "server": {"executable": "backend.exe"}}`,
-		}, []string{
-			"testrejectfirstpost", "testupdatepost",
-		}, true, th.App, th.Context)
-
-		pendingPostId := makePendingPostId(th.BasicUser)
-		post, _, err := th.App.CreatePostAsUser(th.Context, &model.Post{
-			UserId:        th.BasicUser.Id,
-			ChannelId:     th.BasicChannel.Id,
-			Message:       "message",
-			PendingPostId: pendingPostId,
-		}, "", true)
-		require.Nil(t, err)
-
-		post.Message = "new message"
-		updatedPost, _, err := th.App.UpdatePost(th.Context, post, nil)
-		require.Nil(t, updatedPost)
-		require.NotNil(t, err)
-		require.Equal(t, "Post rejected by plugin. rejected", err.Id)
-	})
-
-	t.Run("Should update", func(t *testing.T) {
-		setupMultiPluginAPITest(t, []string{
-			`
-				package main
-
-				import (
-					"github.com/mattermost/mattermost/server/public/plugin"
-					"github.com/mattermost/mattermost/server/public/model"
-				)
-
-				type MyPlugin struct {
-					plugin.MattermostPlugin
-				}
-
-				func (p *MyPlugin) MessageWillBeUpdated(c *plugin.Context, newPost, oldPost *model.Post) (*model.Post, string) {
-					newPost.Message = newPost.Message + " 1"
-					return newPost, ""
-				}
-
-				func main() {
-					plugin.ClientMain(&MyPlugin{})
-				}
-			`,
-			`
-				package main
-
-				import (
-					"github.com/mattermost/mattermost/server/public/plugin"
-					"github.com/mattermost/mattermost/server/public/model"
-				)
-
-				type MyPlugin struct {
-					plugin.MattermostPlugin
-				}
-
-				func (p *MyPlugin) MessageWillBeUpdated(c *plugin.Context, newPost, oldPost *model.Post) (*model.Post, string) {
-					newPost.Message = "2 " + newPost.Message
-					return newPost, ""
-				}
-
-				func main() {
-					plugin.ClientMain(&MyPlugin{})
-				}
-			`,
-		}, []string{
-			`{"id": "testaddone", "server": {"executable": "backend.exe"}}`,
-			`{"id": "testaddtwo", "server": {"executable": "backend.exe"}}`,
-		}, []string{
-			"testaddone", "testaddtwo",
-		}, true, th.App, th.Context)
-
-		pendingPostId := makePendingPostId(th.BasicUser)
-		post, _, err := th.App.CreatePostAsUser(th.Context, &model.Post{
-			UserId:        th.BasicUser.Id,
-			ChannelId:     th.BasicChannel.Id,
-			Message:       "message",
-			PendingPostId: pendingPostId,
-		}, "", true)
-		require.Nil(t, err)
-
-		post.Message = "new message"
-		updatedPost, isMemberForPreviews, err := th.App.UpdatePost(th.Context, post, nil)
-		require.True(t, isMemberForPreviews)
-		require.Nil(t, err)
-		require.NotNil(t, updatedPost)
-		require.Equal(t, "2 new message 1", updatedPost.Message)
-	})
 }
 
 func TestPostChannelMentions(t *testing.T) {
@@ -2158,7 +1887,7 @@ func TestSearchPostsForUser(t *testing.T) {
 	perPage := 5
 	searchTerm := "searchTerm"
 
-	setup := func(t *testing.T, enableElasticsearch bool) (*TestHelper, []*model.Post) {
+	setup := func(t *testing.T) (*TestHelper, []*model.Post) {
 		th := Setup(t).InitBasic(t)
 
 		posts := make([]*model.Post, 7)
@@ -2174,25 +1903,12 @@ func TestSearchPostsForUser(t *testing.T) {
 			posts[i] = post
 		}
 
-		if enableElasticsearch {
-			th.App.Srv().SetLicense(model.NewTestLicense("elastic_search"))
-
-			th.App.UpdateConfig(func(cfg *model.Config) {
-				*cfg.ElasticsearchSettings.EnableIndexing = true
-				*cfg.ElasticsearchSettings.EnableSearching = true
-			})
-		} else {
-			th.App.UpdateConfig(func(cfg *model.Config) {
-				*cfg.ElasticsearchSettings.EnableSearching = false
-			})
-		}
-
 		return th, posts
 	}
 
 	t.Run("should return everything as first page of posts from database", func(t *testing.T) {
 		mainHelper.Parallel(t)
-		th, posts := setup(t, false)
+		th, posts := setup(t)
 
 		page := 0
 
@@ -2213,7 +1929,7 @@ func TestSearchPostsForUser(t *testing.T) {
 
 	t.Run("should not return later pages of posts from database", func(t *testing.T) {
 		mainHelper.Parallel(t)
-		th, _ := setup(t, false)
+		th, _ := setup(t)
 
 		page := 1
 
@@ -2222,132 +1938,11 @@ func TestSearchPostsForUser(t *testing.T) {
 		assert.Nil(t, err)
 		assert.Equal(t, []string{}, results.Order)
 		assert.True(t, allPostHaveMembership)
-	})
-
-	t.Run("should return first page of posts from ElasticSearch", func(t *testing.T) {
-		mainHelper.Parallel(t)
-		th, posts := setup(t, true)
-
-		page := 0
-		resultsPage := []string{
-			posts[6].Id,
-			posts[5].Id,
-			posts[4].Id,
-			posts[3].Id,
-			posts[2].Id,
-		}
-
-		es := &mocks.SearchEngineInterface{}
-		es.On("SearchPosts", mock.Anything, mock.Anything, page, perPage).Return(resultsPage, nil, nil)
-		es.On("Start").Return(nil).Maybe()
-		es.On("IsActive").Return(true)
-		es.On("IsHealthy").Return(true)
-		es.On("IsSearchEnabled").Return(true)
-		th.App.Srv().Platform().SearchEngine.ElasticsearchEngine = es
-		defer func() {
-			th.App.Srv().Platform().SearchEngine.ElasticsearchEngine = nil
-		}()
-
-		results, allPostHaveMembership, err := th.App.SearchPostsForUser(th.Context, searchTerm, th.BasicUser.Id, th.BasicTeam.Id, false, false, 0, page, perPage)
-
-		assert.Nil(t, err)
-		assert.Equal(t, resultsPage, results.Order)
-		assert.True(t, allPostHaveMembership)
-		es.AssertExpectations(t)
-	})
-
-	t.Run("should return later pages of posts from ElasticSearch", func(t *testing.T) {
-		mainHelper.Parallel(t)
-		th, posts := setup(t, true)
-
-		page := 1
-		resultsPage := []string{
-			posts[1].Id,
-			posts[0].Id,
-		}
-
-		es := &mocks.SearchEngineInterface{}
-		es.On("SearchPosts", mock.Anything, mock.Anything, page, perPage).Return(resultsPage, nil, nil)
-		es.On("Start").Return(nil).Maybe()
-		es.On("IsActive").Return(true)
-		es.On("IsHealthy").Return(true)
-		es.On("IsSearchEnabled").Return(true)
-		th.App.Srv().Platform().SearchEngine.ElasticsearchEngine = es
-		defer func() {
-			th.App.Srv().Platform().SearchEngine.ElasticsearchEngine = nil
-		}()
-
-		results, allPostHaveMembership, err := th.App.SearchPostsForUser(th.Context, searchTerm, th.BasicUser.Id, th.BasicTeam.Id, false, false, 0, page, perPage)
-
-		assert.Nil(t, err)
-		assert.Equal(t, resultsPage, results.Order)
-		assert.True(t, allPostHaveMembership)
-		es.AssertExpectations(t)
-	})
-
-	t.Run("should fall back to database if ElasticSearch fails on first page", func(t *testing.T) {
-		mainHelper.Parallel(t)
-		th, posts := setup(t, true)
-
-		page := 0
-
-		es := &mocks.SearchEngineInterface{}
-		es.On("SearchPosts", mock.Anything, mock.Anything, page, perPage).Return(nil, nil, &model.AppError{})
-		es.On("GetName").Return("mock")
-		es.On("Start").Return(nil).Maybe()
-		es.On("IsActive").Return(true)
-		es.On("IsHealthy").Return(true)
-		es.On("IsSearchEnabled").Return(true)
-		th.App.Srv().Platform().SearchEngine.ElasticsearchEngine = es
-		defer func() {
-			th.App.Srv().Platform().SearchEngine.ElasticsearchEngine = nil
-		}()
-
-		results, allPostHaveMembership, err := th.App.SearchPostsForUser(th.Context, searchTerm, th.BasicUser.Id, th.BasicTeam.Id, false, false, 0, page, perPage)
-
-		assert.Nil(t, err)
-		assert.Equal(t, []string{
-			posts[6].Id,
-			posts[5].Id,
-			posts[4].Id,
-			posts[3].Id,
-			posts[2].Id,
-			posts[1].Id,
-			posts[0].Id,
-		}, results.Order)
-		assert.True(t, allPostHaveMembership)
-		es.AssertExpectations(t)
-	})
-
-	t.Run("should return nothing if ElasticSearch fails on later pages", func(t *testing.T) {
-		mainHelper.Parallel(t)
-		th, _ := setup(t, true)
-
-		page := 1
-
-		es := &mocks.SearchEngineInterface{}
-		es.On("SearchPosts", mock.Anything, mock.Anything, page, perPage).Return(nil, nil, &model.AppError{})
-		es.On("GetName").Return("mock")
-		es.On("Start").Return(nil).Maybe()
-		es.On("IsActive").Return(true)
-		es.On("IsHealthy").Return(true)
-		es.On("IsSearchEnabled").Return(true)
-		th.App.Srv().Platform().SearchEngine.ElasticsearchEngine = es
-		defer func() {
-			th.App.Srv().Platform().SearchEngine.ElasticsearchEngine = nil
-		}()
-
-		results, allPostHaveMembership, err := th.App.SearchPostsForUser(th.Context, searchTerm, th.BasicUser.Id, th.BasicTeam.Id, false, false, 0, page, perPage)
-
-		assert.Nil(t, err)
-		assert.Equal(t, []string{}, results.Order)
-		assert.True(t, allPostHaveMembership)
-		es.AssertExpectations(t)
 	})
 
 	t.Run("should return the same results if there is a tilde in the channel name", func(t *testing.T) {
 		mainHelper.Parallel(t)
-		th, _ := setup(t, false)
+		th, _ := setup(t)
 
 		page := 0
 
@@ -2368,7 +1963,7 @@ func TestSearchPostsForUser(t *testing.T) {
 
 	t.Run("should return the same results if there is an 'at' in the user", func(t *testing.T) {
 		mainHelper.Parallel(t)
-		th, _ := setup(t, false)
+		th, _ := setup(t)
 
 		page := 0
 
@@ -2932,7 +2527,7 @@ func TestCountMentionsFromPost(t *testing.T) {
 		assert.Equal(t, 1, count)
 	})
 
-	t.Run("should not include comments made before the given post when rootPost is inaccessible", func(t *testing.T) {
+	t.Run("should include comments made before the given post when post history is unrestricted", func(t *testing.T) {
 		mainHelper.Parallel(t)
 		th := Setup(t).InitBasic(t)
 
@@ -2988,13 +2583,13 @@ func TestCountMentionsFromPost(t *testing.T) {
 		})
 		require.NoError(t, e)
 
-		// post4 should mention the user, but since post2 is inaccessible,
-		// post4 does not notify the user.
+		// Post history is unrestricted in slim mode, so post4 still notifies the
+		// root author even when the root was created before post3.
 
 		count, _, _, err := th.App.countMentionsFromPost(th.Context, user2, post3)
 
 		assert.Nil(t, err)
-		assert.Zero(t, count)
+		assert.Equal(t, 1, count)
 	})
 
 	t.Run("should count mentions from the user's webhook posts", func(t *testing.T) {
@@ -3218,103 +2813,6 @@ func TestFillInPostProps(t *testing.T) {
 
 		assert.Nil(t, err)
 		assert.Equal(t, post1.Props, model.StringInterface{"disable_group_highlight": true})
-	})
-
-	t.Run("should set AI-generated username when user ID is post creator", func(t *testing.T) {
-		mainHelper.Parallel(t)
-		th := Setup(t).InitBasic(t)
-
-		user1 := th.BasicUser
-		channel := th.CreateChannel(t, th.BasicTeam)
-
-		post1 := &model.Post{
-			UserId:    user1.Id,
-			ChannelId: channel.Id,
-			Message:   "test post",
-		}
-		post1.AddProp(model.PostPropsAIGeneratedByUserID, user1.Id)
-
-		err := th.App.FillInPostProps(th.Context, post1, channel)
-
-		assert.Nil(t, err)
-		assert.Equal(t, user1.Id, post1.GetProp(model.PostPropsAIGeneratedByUserID))
-		assert.Equal(t, user1.Username, post1.GetProp(model.PostPropsAIGeneratedByUsername))
-	})
-
-	t.Run("should set AI-generated username when user ID is a bot", func(t *testing.T) {
-		mainHelper.Parallel(t)
-		th := Setup(t).InitBasic(t)
-
-		user1 := th.BasicUser
-		channel := th.CreateChannel(t, th.BasicTeam)
-
-		// Create a bot
-		bot, appErr := th.App.CreateBot(th.Context, &model.Bot{
-			Username:    "testbot",
-			Description: "test bot",
-			OwnerId:     user1.Id,
-		})
-		require.Nil(t, appErr)
-
-		post1 := &model.Post{
-			UserId:    user1.Id,
-			ChannelId: channel.Id,
-			Message:   "test post generated by bot",
-		}
-		post1.AddProp(model.PostPropsAIGeneratedByUserID, bot.UserId)
-
-		err := th.App.FillInPostProps(th.Context, post1, channel)
-
-		assert.Nil(t, err)
-		assert.Equal(t, bot.UserId, post1.GetProp(model.PostPropsAIGeneratedByUserID))
-		assert.Equal(t, bot.Username, post1.GetProp(model.PostPropsAIGeneratedByUsername))
-	})
-
-	t.Run("should return error when user ID is a different non-bot user", func(t *testing.T) {
-		mainHelper.Parallel(t)
-		th := Setup(t).InitBasic(t)
-
-		user1 := th.BasicUser
-		user2 := th.BasicUser2
-		channel := th.CreateChannel(t, th.BasicTeam)
-
-		post1 := &model.Post{
-			UserId:    user1.Id,
-			ChannelId: channel.Id,
-			Message:   "test post",
-		}
-		// Try to set AI-generated user ID to a different user (not post creator, not bot)
-		post1.AddProp(model.PostPropsAIGeneratedByUserID, user2.Id)
-
-		err := th.App.FillInPostProps(th.Context, post1, channel)
-
-		// Should return an error since user2 is neither the post creator nor a bot
-		assert.NotNil(t, err)
-		assert.Equal(t, "FillInPostProps", err.Where)
-		assert.Equal(t, http.StatusBadRequest, err.StatusCode)
-	})
-
-	t.Run("should remove AI-generated prop when user ID does not exist", func(t *testing.T) {
-		mainHelper.Parallel(t)
-		th := Setup(t).InitBasic(t)
-
-		user1 := th.BasicUser
-		channel := th.CreateChannel(t, th.BasicTeam)
-
-		post1 := &model.Post{
-			UserId:    user1.Id,
-			ChannelId: channel.Id,
-			Message:   "test post",
-		}
-		// Set AI-generated user ID to a non-existent user
-		post1.AddProp(model.PostPropsAIGeneratedByUserID, model.NewId())
-
-		err := th.App.FillInPostProps(th.Context, post1, channel)
-
-		assert.Nil(t, err)
-		// The property should be removed since the user doesn't exist
-		assert.Nil(t, post1.GetProp(model.PostPropsAIGeneratedByUserID))
-		assert.Nil(t, post1.GetProp(model.PostPropsAIGeneratedByUsername))
 	})
 
 	t.Run("should not populate channel mentions for channels in teams where the user is not a member", func(t *testing.T) {
@@ -3934,213 +3432,6 @@ func TestGetPostIfAuthorized(t *testing.T) {
 		// User is authorized to get post
 		_, err, _ = th.App.GetPostIfAuthorized(th.Context, post.Id, session1, false)
 		require.Nil(t, err)
-	})
-}
-
-// MM-68140: thread context for rewrite must not be built from posts in channels the session cannot read.
-func TestBuildThreadContextForRewriteRequiresChannelReadAccess(t *testing.T) {
-	mainHelper.Parallel(t)
-	th := Setup(t).InitBasic(t)
-
-	t.Run("direct message between other users", func(t *testing.T) {
-		secretToken := "MM68140_SECRET_DM_THREAD_" + model.NewId()
-		dm := th.CreateDmChannel(t, th.BasicUser2)
-		root, _, err := th.App.CreatePost(th.Context, &model.Post{
-			UserId:    th.BasicUser.Id,
-			ChannelId: dm.Id,
-			Message:   secretToken,
-		}, dm, model.CreatePostFlags{})
-		require.Nil(t, err)
-
-		_, _, err = th.App.CreatePost(th.Context, &model.Post{
-			RootId:    root.Id,
-			UserId:    th.BasicUser2.Id,
-			ChannelId: dm.Id,
-			Message:   "reply only visible to DM participants",
-		}, dm, model.CreatePostFlags{})
-		require.Nil(t, err)
-
-		attacker := th.CreateUser(t)
-		session, err := th.App.CreateSession(th.Context, &model.Session{UserId: attacker.Id, Props: model.StringMap{}})
-		require.Nil(t, err)
-		ctx := th.Context.WithSession(session)
-
-		contextStr, appErr := th.App.buildThreadContextForRewrite(ctx, root.Id)
-
-		require.NotNil(t, appErr, "expected permission error when root_id is in a channel the user cannot read, got nil")
-		assert.Equal(t, http.StatusForbidden, appErr.StatusCode)
-		assert.NotContains(t, contextStr, secretToken)
-	})
-
-	t.Run("private channel the user is not a member of", func(t *testing.T) {
-		secretToken := "MM68140_SECRET_PRIVATE_THREAD_" + model.NewId()
-		privateCh := th.CreatePrivateChannel(t, th.BasicTeam)
-		root, _, err := th.App.CreatePost(th.Context, &model.Post{
-			UserId:    th.BasicUser.Id,
-			ChannelId: privateCh.Id,
-			Message:   secretToken,
-		}, privateCh, model.CreatePostFlags{})
-		require.Nil(t, err)
-
-		session, err := th.App.CreateSession(th.Context, &model.Session{UserId: th.BasicUser2.Id, Props: model.StringMap{}})
-		require.Nil(t, err)
-		ctx := th.Context.WithSession(session)
-
-		contextStr, appErr := th.App.buildThreadContextForRewrite(ctx, root.Id)
-
-		require.NotNil(t, appErr)
-		assert.Equal(t, http.StatusForbidden, appErr.StatusCode)
-		assert.NotContains(t, contextStr, secretToken)
-	})
-}
-
-// MM-68140: additional edge cases for thread context authorization and anchor resolution.
-func TestBuildThreadContextForRewriteEdgeCasesMM68140(t *testing.T) {
-	mainHelper.Parallel(t)
-	th := Setup(t).InitBasic(t)
-
-	t.Run("reply post id as root_id resolves thread and includes root message", func(t *testing.T) {
-		_, appErr := th.App.AddUserToChannel(th.Context, th.BasicUser2, th.BasicChannel, false)
-		require.Nil(t, appErr)
-
-		rootSecret := "MM68140_ROOT_VIA_REPLY_ANCHOR_" + model.NewId()
-		root, _, err := th.App.CreatePost(th.Context, &model.Post{
-			UserId:    th.BasicUser.Id,
-			ChannelId: th.BasicChannel.Id,
-			Message:   rootSecret,
-		}, th.BasicChannel, model.CreatePostFlags{})
-		require.Nil(t, err)
-
-		reply, _, err := th.App.CreatePost(th.Context, &model.Post{
-			RootId:    root.Id,
-			UserId:    th.BasicUser2.Id,
-			ChannelId: th.BasicChannel.Id,
-			Message:   "reply anchor",
-		}, th.BasicChannel, model.CreatePostFlags{})
-		require.Nil(t, err)
-
-		session, err := th.App.CreateSession(th.Context, &model.Session{UserId: th.BasicUser2.Id, Props: model.StringMap{}})
-		require.Nil(t, err)
-		ctx := th.Context.WithSession(session)
-
-		contextStr, appErr := th.App.buildThreadContextForRewrite(ctx, reply.Id)
-		require.Nil(t, appErr)
-		assert.Contains(t, contextStr, rootSecret)
-		assert.Contains(t, contextStr, "reply anchor")
-	})
-
-	t.Run("nonexistent post id returns not found", func(t *testing.T) {
-		session, err := th.App.CreateSession(th.Context, &model.Session{UserId: th.BasicUser.Id, Props: model.StringMap{}})
-		require.Nil(t, err)
-		ctx := th.Context.WithSession(session)
-
-		_, appErr := th.App.buildThreadContextForRewrite(ctx, model.NewId())
-		require.NotNil(t, appErr)
-		assert.Equal(t, http.StatusNotFound, appErr.StatusCode)
-	})
-
-	t.Run("soft-deleted anchor post returns not found", func(t *testing.T) {
-		root, _, err := th.App.CreatePost(th.Context, &model.Post{
-			UserId:    th.BasicUser.Id,
-			ChannelId: th.BasicChannel.Id,
-			Message:   "to be deleted",
-		}, th.BasicChannel, model.CreatePostFlags{})
-		require.Nil(t, err)
-
-		_, err = th.App.DeletePost(th.Context, root.Id, th.BasicUser.Id)
-		require.Nil(t, err)
-
-		session, err := th.App.CreateSession(th.Context, &model.Session{UserId: th.BasicUser.Id, Props: model.StringMap{}})
-		require.Nil(t, err)
-		ctx := th.Context.WithSession(session)
-
-		_, appErr := th.App.buildThreadContextForRewrite(ctx, root.Id)
-		require.NotNil(t, appErr)
-		assert.Equal(t, http.StatusNotFound, appErr.StatusCode)
-	})
-
-	t.Run("guest on team cannot use root_id for private channel they are not in", func(t *testing.T) {
-		th.App.UpdateConfig(func(cfg *model.Config) {
-			*cfg.GuestAccountsSettings.Enable = true
-		})
-
-		guest := th.CreateGuest(t)
-		_, _, appErr := th.App.AddUserToTeam(th.Context, th.BasicTeam.Id, guest.Id, "")
-		require.Nil(t, appErr)
-
-		privateCh := th.CreatePrivateChannel(t, th.BasicTeam)
-		secretToken := "MM68140_GUEST_PRIVATE_" + model.NewId()
-		root, _, err := th.App.CreatePost(th.Context, &model.Post{
-			UserId:    th.BasicUser.Id,
-			ChannelId: privateCh.Id,
-			Message:   secretToken,
-		}, privateCh, model.CreatePostFlags{})
-		require.Nil(t, err)
-
-		session, err := th.App.CreateSession(th.Context, &model.Session{UserId: guest.Id, Props: model.StringMap{}})
-		require.Nil(t, err)
-		ctx := th.Context.WithSession(session)
-
-		contextStr, appErr := th.App.buildThreadContextForRewrite(ctx, root.Id)
-		require.NotNil(t, appErr)
-		assert.Equal(t, http.StatusForbidden, appErr.StatusCode)
-		assert.NotContains(t, contextStr, secretToken)
-	})
-
-	t.Run("system admin may read thread context for DM they do not participate in", func(t *testing.T) {
-		dm := th.CreateDmChannel(t, th.BasicUser2)
-		secretToken := "MM68140_ADMIN_DM_THREAD_" + model.NewId()
-		root, _, err := th.App.CreatePost(th.Context, &model.Post{
-			UserId:    th.BasicUser.Id,
-			ChannelId: dm.Id,
-			Message:   secretToken,
-		}, dm, model.CreatePostFlags{})
-		require.Nil(t, err)
-
-		_, _, err = th.App.CreatePost(th.Context, &model.Post{
-			RootId:    root.Id,
-			UserId:    th.BasicUser2.Id,
-			ChannelId: dm.Id,
-			Message:   "dm reply",
-		}, dm, model.CreatePostFlags{})
-		require.Nil(t, err)
-
-		session, err := th.App.CreateSession(th.Context, &model.Session{UserId: th.SystemAdminUser.Id, Props: model.StringMap{}})
-		require.Nil(t, err)
-		ctx := th.Context.WithSession(session)
-
-		contextStr, appErr := th.App.buildThreadContextForRewrite(ctx, root.Id)
-		require.Nil(t, appErr)
-		assert.Contains(t, contextStr, secretToken)
-	})
-
-	t.Run("member can build context after channel is archived", func(t *testing.T) {
-		ch := th.CreateChannel(t, th.BasicTeam)
-		root, _, err := th.App.CreatePost(th.Context, &model.Post{
-			UserId:    th.BasicUser.Id,
-			ChannelId: ch.Id,
-			Message:   "MM68140_ARCHIVED_ROOT",
-		}, ch, model.CreatePostFlags{})
-		require.Nil(t, err)
-
-		_, _, err = th.App.CreatePost(th.Context, &model.Post{
-			RootId:    root.Id,
-			UserId:    th.BasicUser.Id,
-			ChannelId: ch.Id,
-			Message:   "reply in archived",
-		}, ch, model.CreatePostFlags{})
-		require.Nil(t, err)
-
-		appErr := th.App.DeleteChannel(th.Context, ch, th.SystemAdminUser.Id)
-		require.Nil(t, appErr)
-
-		session, err := th.App.CreateSession(th.Context, &model.Session{UserId: th.BasicUser.Id, Props: model.StringMap{}})
-		require.Nil(t, err)
-		ctx := th.Context.WithSession(session)
-
-		contextStr, appErr := th.App.buildThreadContextForRewrite(ctx, root.Id)
-		require.Nil(t, appErr)
-		assert.Contains(t, contextStr, "MM68140_ARCHIVED_ROOT")
 	})
 }
 
@@ -5768,12 +5059,12 @@ func TestBurnOnReadRestrictionsForDMsAndBots(t *testing.T) {
 		require.Equal(t, "api.post.fill_in_post_props.burn_on_read.self_dm.app_error", err.Id)
 	})
 
-	t.Run("should reject burn-on-read posts in DMs with bots/AI agents", func(t *testing.T) {
+	t.Run("should reject burn-on-read posts in DMs with bots", func(t *testing.T) {
 		// Create a bot user
 		bot := &model.Bot{
-			Username:    "aiagent",
-			DisplayName: "AI Agent",
-			Description: "Test AI Agent for burn-on-read restrictions",
+			Username:    "botuser",
+			DisplayName: "Bot User",
+			Description: "Test bot for burn-on-read restrictions",
 			OwnerId:     th.BasicUser.Id,
 		}
 		createdBot, appErr := th.App.CreateBot(th.Context, bot)
@@ -5792,7 +5083,7 @@ func TestBurnOnReadRestrictionsForDMsAndBots(t *testing.T) {
 		// Try to create a burn-on-read post in DM with bot (regular user sending)
 		post := &model.Post{
 			ChannelId: dmWithBotChannel.Id,
-			Message:   "This is a burn-on-read message to AI agent",
+			Message:   "This is a burn-on-read message to bot",
 			UserId:    th.BasicUser.Id,
 			Type:      model.PostTypeBurnOnRead,
 		}

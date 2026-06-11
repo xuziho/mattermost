@@ -43,7 +43,6 @@ const (
 	MetricsSubsystemClientsWeb        = "webapp"
 	MetricsSubsystemClientsDesktopApp = "desktopapp"
 	MetricsSubsystemAccessControl     = "access_control"
-	MetricsSubsystemAutoTranslation   = "autotranslation"
 )
 
 type MetricsInterfaceImpl struct {
@@ -150,7 +149,6 @@ type MetricsInterfaceImpl struct {
 	WebSocketBroadcastBufferUsersRegisteredGauge *prometheus.GaugeVec
 	WebSocketReconnectCounter                    *prometheus.CounterVec
 
-	SearchEngineStatusGauge    prometheus.GaugeFunc
 	SearchPostSearchesCounter  prometheus.Counter
 	SearchPostSearchesDuration prometheus.Histogram
 	SearchFileSearchesCounter  prometheus.Counter
@@ -163,11 +161,6 @@ type MetricsInterfaceImpl struct {
 	SearchUserIndexCounter     prometheus.Counter
 	SearchChannelIndexCounter  prometheus.Counter
 	ActiveUsers                prometheus.Gauge
-
-	PluginHookTimeHistogram            *prometheus.HistogramVec
-	PluginMultiHookTimeHistogram       *prometheus.HistogramVec
-	PluginMultiHookServerTimeHistogram prometheus.Histogram
-	PluginAPITimeHistogram             *prometheus.HistogramVec
 
 	LoggerQueueGauge      *DynamicGauge
 	LoggerLoggedCounters  *DynamicCounter
@@ -240,14 +233,6 @@ type MetricsInterfaceImpl struct {
 	AccessControlSearchQueryDuration       prometheus.Histogram
 	AccessControlCacheInvalidation         prometheus.Counter
 
-	// Auto-translation metrics
-	AutoTranslateTranslateDuration       *prometheus.HistogramVec
-	AutoTranslateLinguaDetectionDuration prometheus.Histogram
-	AutoTranslateProviderCallDuration    *prometheus.HistogramVec
-	AutoTranslateQueueDepth              prometheus.Gauge
-	AutoTranslateWorkerTaskDuration      prometheus.Histogram
-	AutoTranslateRecoveryStuckFound      prometheus.Counter
-	AutoTranslateNormHashCounter         *prometheus.CounterVec
 }
 
 func init() {
@@ -522,11 +507,9 @@ func New(ps *platform.PlatformService, driver, dataSource string) *MetricsInterf
 		model.ClusterEventInvalidateCacheForLastPostTime,
 		model.ClusterEventInvalidateCacheForPostsUsage,
 		model.ClusterEventInvalidateCacheForTeams,
-		model.ClusterEventInvalidateCacheForContentFlagging,
 		model.ClusterEventClearSessionCacheForAllUsers,
 		model.ClusterEventInstallPlugin,
 		model.ClusterEventRemovePlugin,
-		model.ClusterEventPluginEvent,
 		model.ClusterEventInvalidateCacheForTermsOfService,
 		model.ClusterEventBusyStateChanged,
 	} {
@@ -733,24 +716,6 @@ func New(ps *platform.PlatformService, driver, dataSource string) *MetricsInterf
 
 	// Search Subsystem
 
-	m.SearchEngineStatusGauge = prometheus.NewGaugeFunc(prometheus.GaugeOpts{
-		Namespace:   MetricsNamespace,
-		Subsystem:   MetricsSubsystemSearch,
-		Name:        "engine_status",
-		Help:        "Status of the configured search engine: 1 = healthy or not configured, 0 = configured but unavailable.",
-		ConstLabels: additionalLabels,
-	}, func() float64 {
-		es := m.Platform.SearchEngine.ElasticsearchEngine
-		if es == nil || !es.IsEnabled() {
-			return 1 // no search engine expected; nothing to alert on
-		}
-		if es.IsHealthy() {
-			return 1
-		}
-		return 0
-	})
-	m.Registry.MustRegister(m.SearchEngineStatusGauge)
-
 	m.SearchPostSearchesCounter = prometheus.NewCounter(prometheus.CounterOpts{
 		Namespace:   MetricsNamespace,
 		Subsystem:   MetricsSubsystemSearch,
@@ -862,51 +827,6 @@ func New(ps *platform.PlatformService, driver, dataSource string) *MetricsInterf
 		ConstLabels: additionalLabels,
 	})
 	m.Registry.MustRegister(m.SearchChannelIndexCounter)
-
-	// Plugin Subsystem
-
-	m.PluginHookTimeHistogram = prometheus.NewHistogramVec(
-		withLabels(prometheus.HistogramOpts{
-			Namespace: MetricsNamespace,
-			Subsystem: MetricsSubsystemPlugin,
-			Name:      "hook_time",
-			Help:      "Time to execute plugin hook handler in seconds.",
-		}),
-		[]string{"plugin_id", "hook_name", "success"},
-	)
-	m.Registry.MustRegister(m.PluginHookTimeHistogram)
-
-	m.PluginMultiHookTimeHistogram = prometheus.NewHistogramVec(
-		withLabels(prometheus.HistogramOpts{
-			Namespace: MetricsNamespace,
-			Subsystem: MetricsSubsystemPlugin,
-			Name:      "multi_hook_time",
-			Help:      "Time to execute multiple plugin hook handler in seconds.",
-		}),
-		[]string{"plugin_id"},
-	)
-	m.Registry.MustRegister(m.PluginMultiHookTimeHistogram)
-
-	m.PluginMultiHookServerTimeHistogram = prometheus.NewHistogram(
-		withLabels(prometheus.HistogramOpts{
-			Namespace: MetricsNamespace,
-			Subsystem: MetricsSubsystemPlugin,
-			Name:      "multi_hook_server_time",
-			Help:      "Time for the server to execute multiple plugin hook handlers in seconds.",
-		}),
-	)
-	m.Registry.MustRegister(m.PluginMultiHookServerTimeHistogram)
-
-	m.PluginAPITimeHistogram = prometheus.NewHistogramVec(
-		withLabels(prometheus.HistogramOpts{
-			Namespace: MetricsNamespace,
-			Subsystem: MetricsSubsystemPlugin,
-			Name:      "api_time",
-			Help:      "Time to execute plugin API handlers in seconds.",
-		}),
-		[]string{"plugin_id", "api_name", "success"},
-	)
-	m.Registry.MustRegister(m.PluginAPITimeHistogram)
 
 	// Logging subsystem
 
@@ -1609,79 +1529,6 @@ func New(ps *platform.PlatformService, driver, dataSource string) *MetricsInterf
 		})
 	m.Registry.MustRegister(m.AccessControlCacheInvalidation)
 
-	// Auto-translation Subsystem
-	m.AutoTranslateTranslateDuration = prometheus.NewHistogramVec(
-		withLabels(prometheus.HistogramOpts{
-			Namespace: MetricsNamespace,
-			Subsystem: MetricsSubsystemAutoTranslation,
-			Name:      "translate_duration_seconds",
-			Help:      "Duration of the Translate() function (latency impact on post create/edit)",
-			Buckets:   []float64{0.001, 0.005, 0.01, 0.05, 0.1, 0.25, 0.5, 1.0},
-		}),
-		[]string{"object_type"},
-	)
-	m.Registry.MustRegister(m.AutoTranslateTranslateDuration)
-
-	m.AutoTranslateLinguaDetectionDuration = prometheus.NewHistogram(withLabels(prometheus.HistogramOpts{
-		Namespace: MetricsNamespace,
-		Subsystem: MetricsSubsystemAutoTranslation,
-		Name:      "lingua_detection_duration_seconds",
-		Help:      "Duration of lingua-go language detection",
-		Buckets:   []float64{0.001, 0.005, 0.01, 0.05, 0.1, 0.25, 0.5, 1.0},
-	}))
-	m.Registry.MustRegister(m.AutoTranslateLinguaDetectionDuration)
-
-	m.AutoTranslateProviderCallDuration = prometheus.NewHistogramVec(
-		withLabels(prometheus.HistogramOpts{
-			Namespace: MetricsNamespace,
-			Subsystem: MetricsSubsystemAutoTranslation,
-			Name:      "provider_call_duration_seconds",
-			Help:      "Duration of translation provider API calls",
-			Buckets:   []float64{0.1, 0.25, 0.5, 1, 2, 4, 8, 15, 30, 60},
-		}),
-		[]string{"provider", "result"},
-	)
-	m.Registry.MustRegister(m.AutoTranslateProviderCallDuration)
-
-	m.AutoTranslateQueueDepth = prometheus.NewGauge(prometheus.GaugeOpts{
-		Namespace:   MetricsNamespace,
-		Subsystem:   MetricsSubsystemAutoTranslation,
-		Name:        "queue_depth_total",
-		Help:        "Current number of translation tasks waiting in worker queue",
-		ConstLabels: additionalLabels,
-	})
-	m.Registry.MustRegister(m.AutoTranslateQueueDepth)
-
-	m.AutoTranslateWorkerTaskDuration = prometheus.NewHistogram(withLabels(prometheus.HistogramOpts{
-		Namespace: MetricsNamespace,
-		Subsystem: MetricsSubsystemAutoTranslation,
-		Name:      "worker_task_duration_seconds",
-		Help:      "Duration for workers to process individual translation tasks",
-		Buckets:   []float64{0.1, 0.5, 1, 2, 5, 10, 30, 60},
-	}))
-	m.Registry.MustRegister(m.AutoTranslateWorkerTaskDuration)
-
-	m.AutoTranslateRecoveryStuckFound = prometheus.NewCounter(prometheus.CounterOpts{
-		Namespace:   MetricsNamespace,
-		Subsystem:   MetricsSubsystemAutoTranslation,
-		Name:        "recovery_stuck_found_total",
-		Help:        "Total number of stuck translations found by recovery sweep",
-		ConstLabels: additionalLabels,
-	})
-	m.Registry.MustRegister(m.AutoTranslateRecoveryStuckFound)
-
-	m.AutoTranslateNormHashCounter = prometheus.NewCounterVec(
-		prometheus.CounterOpts{
-			Namespace:   MetricsNamespace,
-			Subsystem:   MetricsSubsystemAutoTranslation,
-			Name:        "normhash_total",
-			Help:        "Translation reuse via normhash (hit=reused, miss=retranslated)",
-			ConstLabels: additionalLabels,
-		},
-		[]string{"result"},
-	)
-	m.Registry.MustRegister(m.AutoTranslateNormHashCounter)
-
 	return m
 }
 
@@ -1990,22 +1837,6 @@ func (mi *MetricsInterfaceImpl) IncrementChannelIndexCounter() {
 	mi.SearchChannelIndexCounter.Inc()
 }
 
-func (mi *MetricsInterfaceImpl) ObservePluginHookDuration(pluginID, hookName string, success bool, elapsed float64) {
-	mi.PluginHookTimeHistogram.With(prometheus.Labels{"plugin_id": pluginID, "hook_name": hookName, "success": strconv.FormatBool(success)}).Observe(elapsed)
-}
-
-func (mi *MetricsInterfaceImpl) ObservePluginMultiHookIterationDuration(pluginID string, elapsed float64) {
-	mi.PluginMultiHookTimeHistogram.With(prometheus.Labels{"plugin_id": pluginID}).Observe(elapsed)
-}
-
-func (mi *MetricsInterfaceImpl) ObservePluginMultiHookDuration(elapsed float64) {
-	mi.PluginMultiHookServerTimeHistogram.Observe(elapsed)
-}
-
-func (mi *MetricsInterfaceImpl) ObservePluginAPIDuration(pluginID, apiName string, success bool, elapsed float64) {
-	mi.PluginAPITimeHistogram.With(prometheus.Labels{"plugin_id": pluginID, "api_name": apiName, "success": strconv.FormatBool(success)}).Observe(elapsed)
-}
-
 func (mi *MetricsInterfaceImpl) GetLoggerMetricsCollector() mlog.MetricsCollector {
 	return &LoggerMetricsCollector{
 		queueGauge:      mi.LoggerQueueGauge,
@@ -2311,36 +2142,6 @@ func (mi *MetricsInterfaceImpl) IncrementAccessControlCacheInvalidation() {
 	mi.AccessControlCacheInvalidation.Inc()
 }
 
-func (mi *MetricsInterfaceImpl) ObserveAutoTranslateTranslateDuration(objectType string, elapsed float64) {
-	mi.AutoTranslateTranslateDuration.With(prometheus.Labels{"object_type": objectType}).Observe(elapsed)
-}
-
-func (mi *MetricsInterfaceImpl) ObserveAutoTranslateLinguaDetectionDuration(elapsed float64) {
-	mi.AutoTranslateLinguaDetectionDuration.Observe(elapsed)
-}
-
-func (mi *MetricsInterfaceImpl) ObserveAutoTranslateProviderCallDuration(provider, result string, elapsed float64) {
-	mi.AutoTranslateProviderCallDuration.With(prometheus.Labels{
-		"provider": provider,
-		"result":   result,
-	}).Observe(elapsed)
-}
-
-func (mi *MetricsInterfaceImpl) SetAutoTranslateQueueDepth(depth float64) {
-	mi.AutoTranslateQueueDepth.Set(depth)
-}
-
-func (mi *MetricsInterfaceImpl) ObserveAutoTranslateWorkerTaskDuration(elapsed float64) {
-	mi.AutoTranslateWorkerTaskDuration.Observe(elapsed)
-}
-
-func (mi *MetricsInterfaceImpl) AddAutoTranslateRecoveryStuckFound(count float64) {
-	mi.AutoTranslateRecoveryStuckFound.Add(count)
-}
-
-func (mi *MetricsInterfaceImpl) IncrementAutoTranslateNormHash(result string) {
-	mi.AutoTranslateNormHashCounter.With(prometheus.Labels{"result": result}).Inc()
-}
 
 func (mi *MetricsInterfaceImpl) ClearMobileClientSessionMetadata() {
 	mi.MobileClientSessionMetadataGauge.Reset()

@@ -22,7 +22,6 @@ type TimerLayer struct {
 	AccessControlPolicyStore        store.AccessControlPolicyStore
 	AttributesStore                 store.AttributesStore
 	AuditStore                      store.AuditStore
-	AutoTranslationStore            store.AutoTranslationStore
 	BotStore                        store.BotStore
 	ChannelStore                    store.ChannelStore
 	ChannelBookmarkStore            store.ChannelBookmarkStore
@@ -31,7 +30,6 @@ type TimerLayer struct {
 	CommandStore                    store.CommandStore
 	CommandWebhookStore             store.CommandWebhookStore
 	ComplianceStore                 store.ComplianceStore
-	ContentFlaggingStore            store.ContentFlaggingStore
 	DesktopTokensStore              store.DesktopTokensStore
 	DraftStore                      store.DraftStore
 	EmojiStore                      store.EmojiStore
@@ -42,7 +40,6 @@ type TimerLayer struct {
 	LinkMetadataStore               store.LinkMetadataStore
 	OAuthStore                      store.OAuthStore
 	OutgoingOAuthConnectionStore    store.OutgoingOAuthConnectionStore
-	PluginStore                     store.PluginStore
 	PostStore                       store.PostStore
 	PostAcknowledgementStore        store.PostAcknowledgementStore
 	PostPersistentNotificationStore store.PostPersistentNotificationStore
@@ -53,7 +50,6 @@ type TimerLayer struct {
 	PropertyValueStore              store.PropertyValueStore
 	ReactionStore                   store.ReactionStore
 	ReadReceiptStore                store.ReadReceiptStore
-	RecapStore                      store.RecapStore
 	RemoteClusterStore              store.RemoteClusterStore
 	RetentionPolicyStore            store.RetentionPolicyStore
 	RoleStore                       store.RoleStore
@@ -88,10 +84,6 @@ func (s *TimerLayer) Audit() store.AuditStore {
 	return s.AuditStore
 }
 
-func (s *TimerLayer) AutoTranslation() store.AutoTranslationStore {
-	return s.AutoTranslationStore
-}
-
 func (s *TimerLayer) Bot() store.BotStore {
 	return s.BotStore
 }
@@ -124,9 +116,6 @@ func (s *TimerLayer) Compliance() store.ComplianceStore {
 	return s.ComplianceStore
 }
 
-func (s *TimerLayer) ContentFlagging() store.ContentFlaggingStore {
-	return s.ContentFlaggingStore
-}
 
 func (s *TimerLayer) DesktopTokens() store.DesktopTokensStore {
 	return s.DesktopTokensStore
@@ -168,9 +157,6 @@ func (s *TimerLayer) OutgoingOAuthConnection() store.OutgoingOAuthConnectionStor
 	return s.OutgoingOAuthConnectionStore
 }
 
-func (s *TimerLayer) Plugin() store.PluginStore {
-	return s.PluginStore
-}
 
 func (s *TimerLayer) Post() store.PostStore {
 	return s.PostStore
@@ -212,9 +198,6 @@ func (s *TimerLayer) ReadReceipt() store.ReadReceiptStore {
 	return s.ReadReceiptStore
 }
 
-func (s *TimerLayer) Recap() store.RecapStore {
-	return s.RecapStore
-}
 
 func (s *TimerLayer) RemoteCluster() store.RemoteClusterStore {
 	return s.RemoteClusterStore
@@ -311,11 +294,6 @@ type TimerLayerAuditStore struct {
 	Root *TimerLayer
 }
 
-type TimerLayerAutoTranslationStore struct {
-	store.AutoTranslationStore
-	Root *TimerLayer
-}
-
 type TimerLayerBotStore struct {
 	store.BotStore
 	Root *TimerLayer
@@ -356,10 +334,6 @@ type TimerLayerComplianceStore struct {
 	Root *TimerLayer
 }
 
-type TimerLayerContentFlaggingStore struct {
-	store.ContentFlaggingStore
-	Root *TimerLayer
-}
 
 type TimerLayerDesktopTokensStore struct {
 	store.DesktopTokensStore
@@ -411,10 +385,6 @@ type TimerLayerOutgoingOAuthConnectionStore struct {
 	Root *TimerLayer
 }
 
-type TimerLayerPluginStore struct {
-	store.PluginStore
-	Root *TimerLayer
-}
 
 type TimerLayerPostStore struct {
 	store.PostStore
@@ -466,10 +436,6 @@ type TimerLayerReadReceiptStore struct {
 	Root *TimerLayer
 }
 
-type TimerLayerRecapStore struct {
-	store.RecapStore
-	Root *TimerLayer
-}
 
 type TimerLayerRemoteClusterStore struct {
 	store.RemoteClusterStore
@@ -791,226 +757,6 @@ func (s *TimerLayerAuditStore) Save(audit *model.Audit) error {
 			success = "true"
 		}
 		s.Root.Metrics.ObserveStoreMethodDuration("AuditStore.Save", success, elapsed)
-	}
-	return err
-}
-
-func (s *TimerLayerAutoTranslationStore) ClearCaches() {
-	start := time.Now()
-
-	s.AutoTranslationStore.ClearCaches()
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if true {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("AutoTranslationStore.ClearCaches", success, elapsed)
-	}
-}
-
-func (s *TimerLayerAutoTranslationStore) Get(objectType string, objectID string, dstLang string) (*model.Translation, error) {
-	start := time.Now()
-
-	result, err := s.AutoTranslationStore.Get(objectType, objectID, dstLang)
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if err == nil {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("AutoTranslationStore.Get", success, elapsed)
-	}
-	return result, err
-}
-
-func (s *TimerLayerAutoTranslationStore) GetActiveDestinationLanguages(channelID string, excludeUserID string, filterUserIDs []string) ([]string, error) {
-	start := time.Now()
-
-	result, err := s.AutoTranslationStore.GetActiveDestinationLanguages(channelID, excludeUserID, filterUserIDs)
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if err == nil {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("AutoTranslationStore.GetActiveDestinationLanguages", success, elapsed)
-	}
-	return result, err
-}
-
-func (s *TimerLayerAutoTranslationStore) GetAllForObject(objectType string, objectID string) ([]*model.Translation, error) {
-	start := time.Now()
-
-	result, err := s.AutoTranslationStore.GetAllForObject(objectType, objectID)
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if err == nil {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("AutoTranslationStore.GetAllForObject", success, elapsed)
-	}
-	return result, err
-}
-
-func (s *TimerLayerAutoTranslationStore) GetBatch(objectType string, objectIDs []string, dstLang string) (map[string]*model.Translation, error) {
-	start := time.Now()
-
-	result, err := s.AutoTranslationStore.GetBatch(objectType, objectIDs, dstLang)
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if err == nil {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("AutoTranslationStore.GetBatch", success, elapsed)
-	}
-	return result, err
-}
-
-func (s *TimerLayerAutoTranslationStore) GetByStateOlderThan(state model.TranslationState, olderThanMillis int64, limit int) ([]*model.Translation, error) {
-	start := time.Now()
-
-	result, err := s.AutoTranslationStore.GetByStateOlderThan(state, olderThanMillis, limit)
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if err == nil {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("AutoTranslationStore.GetByStateOlderThan", success, elapsed)
-	}
-	return result, err
-}
-
-func (s *TimerLayerAutoTranslationStore) GetLatestPostUpdateAtForChannel(channelID string) (int64, error) {
-	start := time.Now()
-
-	result, err := s.AutoTranslationStore.GetLatestPostUpdateAtForChannel(channelID)
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if err == nil {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("AutoTranslationStore.GetLatestPostUpdateAtForChannel", success, elapsed)
-	}
-	return result, err
-}
-
-func (s *TimerLayerAutoTranslationStore) GetTranslationsSinceForChannel(channelID string, dstLang string, since int64) (map[string]*model.Translation, error) {
-	start := time.Now()
-
-	result, err := s.AutoTranslationStore.GetTranslationsSinceForChannel(channelID, dstLang, since)
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if err == nil {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("AutoTranslationStore.GetTranslationsSinceForChannel", success, elapsed)
-	}
-	return result, err
-}
-
-func (s *TimerLayerAutoTranslationStore) GetUserLanguage(userID string, channelID string) (string, error) {
-	start := time.Now()
-
-	result, err := s.AutoTranslationStore.GetUserLanguage(userID, channelID)
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if err == nil {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("AutoTranslationStore.GetUserLanguage", success, elapsed)
-	}
-	return result, err
-}
-
-func (s *TimerLayerAutoTranslationStore) InvalidatePostTranslationEtag(channelID string) {
-	start := time.Now()
-
-	s.AutoTranslationStore.InvalidatePostTranslationEtag(channelID)
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if true {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("AutoTranslationStore.InvalidatePostTranslationEtag", success, elapsed)
-	}
-}
-
-func (s *TimerLayerAutoTranslationStore) InvalidateUserAutoTranslation(userID string, channelID string) {
-	start := time.Now()
-
-	s.AutoTranslationStore.InvalidateUserAutoTranslation(userID, channelID)
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if true {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("AutoTranslationStore.InvalidateUserAutoTranslation", success, elapsed)
-	}
-}
-
-func (s *TimerLayerAutoTranslationStore) InvalidateUserLocaleCache(userID string) {
-	start := time.Now()
-
-	s.AutoTranslationStore.InvalidateUserLocaleCache(userID)
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if true {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("AutoTranslationStore.InvalidateUserLocaleCache", success, elapsed)
-	}
-}
-
-func (s *TimerLayerAutoTranslationStore) IsUserEnabled(userID string, channelID string) (bool, error) {
-	start := time.Now()
-
-	result, err := s.AutoTranslationStore.IsUserEnabled(userID, channelID)
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if err == nil {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("AutoTranslationStore.IsUserEnabled", success, elapsed)
-	}
-	return result, err
-}
-
-func (s *TimerLayerAutoTranslationStore) Save(translation *model.Translation) error {
-	start := time.Now()
-
-	err := s.AutoTranslationStore.Save(translation)
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if err == nil {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("AutoTranslationStore.Save", success, elapsed)
 	}
 	return err
 }
@@ -3709,52 +3455,6 @@ func (s *TimerLayerComplianceStore) Update(compliance *model.Compliance) (*model
 	return result, err
 }
 
-func (s *TimerLayerContentFlaggingStore) ClearCaches() {
-	start := time.Now()
-
-	s.ContentFlaggingStore.ClearCaches()
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if true {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("ContentFlaggingStore.ClearCaches", success, elapsed)
-	}
-}
-
-func (s *TimerLayerContentFlaggingStore) GetReviewerSettings() (*model.ReviewerIDsSettings, error) {
-	start := time.Now()
-
-	result, err := s.ContentFlaggingStore.GetReviewerSettings()
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if err == nil {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("ContentFlaggingStore.GetReviewerSettings", success, elapsed)
-	}
-	return result, err
-}
-
-func (s *TimerLayerContentFlaggingStore) SaveReviewerSettings(reviewerSettings model.ReviewerIDsSettings) error {
-	start := time.Now()
-
-	err := s.ContentFlaggingStore.SaveReviewerSettings(reviewerSettings)
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if err == nil {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("ContentFlaggingStore.SaveReviewerSettings", success, elapsed)
-	}
-	return err
-}
 
 func (s *TimerLayerDesktopTokensStore) Delete(token string) error {
 	start := time.Now()
@@ -6170,149 +5870,6 @@ func (s *TimerLayerOutgoingOAuthConnectionStore) UpdateConnection(rctx request.C
 	return result, err
 }
 
-func (s *TimerLayerPluginStore) CompareAndDelete(keyVal *model.PluginKeyValue, oldValue []byte) (bool, error) {
-	start := time.Now()
-
-	result, err := s.PluginStore.CompareAndDelete(keyVal, oldValue)
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if err == nil {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("PluginStore.CompareAndDelete", success, elapsed)
-	}
-	return result, err
-}
-
-func (s *TimerLayerPluginStore) CompareAndSet(keyVal *model.PluginKeyValue, oldValue []byte) (bool, error) {
-	start := time.Now()
-
-	result, err := s.PluginStore.CompareAndSet(keyVal, oldValue)
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if err == nil {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("PluginStore.CompareAndSet", success, elapsed)
-	}
-	return result, err
-}
-
-func (s *TimerLayerPluginStore) Delete(pluginID string, key string) error {
-	start := time.Now()
-
-	err := s.PluginStore.Delete(pluginID, key)
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if err == nil {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("PluginStore.Delete", success, elapsed)
-	}
-	return err
-}
-
-func (s *TimerLayerPluginStore) DeleteAllExpired() error {
-	start := time.Now()
-
-	err := s.PluginStore.DeleteAllExpired()
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if err == nil {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("PluginStore.DeleteAllExpired", success, elapsed)
-	}
-	return err
-}
-
-func (s *TimerLayerPluginStore) DeleteAllForPlugin(PluginID string) error {
-	start := time.Now()
-
-	err := s.PluginStore.DeleteAllForPlugin(PluginID)
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if err == nil {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("PluginStore.DeleteAllForPlugin", success, elapsed)
-	}
-	return err
-}
-
-func (s *TimerLayerPluginStore) Get(pluginID string, key string) (*model.PluginKeyValue, error) {
-	start := time.Now()
-
-	result, err := s.PluginStore.Get(pluginID, key)
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if err == nil {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("PluginStore.Get", success, elapsed)
-	}
-	return result, err
-}
-
-func (s *TimerLayerPluginStore) List(pluginID string, page int, perPage int) ([]string, error) {
-	start := time.Now()
-
-	result, err := s.PluginStore.List(pluginID, page, perPage)
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if err == nil {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("PluginStore.List", success, elapsed)
-	}
-	return result, err
-}
-
-func (s *TimerLayerPluginStore) SaveOrUpdate(keyVal *model.PluginKeyValue) (*model.PluginKeyValue, error) {
-	start := time.Now()
-
-	result, err := s.PluginStore.SaveOrUpdate(keyVal)
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if err == nil {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("PluginStore.SaveOrUpdate", success, elapsed)
-	}
-	return result, err
-}
-
-func (s *TimerLayerPluginStore) SetWithOptions(pluginID string, key string, value []byte, options model.PluginKVSetOptions) (bool, error) {
-	start := time.Now()
-
-	result, err := s.PluginStore.SetWithOptions(pluginID, key, value, options)
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if err == nil {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("PluginStore.SetWithOptions", success, elapsed)
-	}
-	return result, err
-}
 
 func (s *TimerLayerPostStore) AnalyticsPostCount(options *model.PostCountOptions) (int64, error) {
 	start := time.Now()
@@ -7064,21 +6621,6 @@ func (s *TimerLayerPostStore) RefreshPostStats() error {
 	return err
 }
 
-func (s *TimerLayerPostStore) RestoreContentFlaggedPost(post *model.Post, statusFieldId string, contentFlaggingManagedFieldId string) error {
-	start := time.Now()
-
-	err := s.PostStore.RestoreContentFlaggedPost(post, statusFieldId, contentFlaggingManagedFieldId)
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if err == nil {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("PostStore.RestoreContentFlaggedPost", success, elapsed)
-	}
-	return err
-}
 
 func (s *TimerLayerPostStore) Save(rctx request.CTX, post *model.Post) (*model.Post, error) {
 	start := time.Now()
@@ -8407,165 +7949,6 @@ func (s *TimerLayerReadReceiptStore) Update(rctx request.CTX, receipt *model.Rea
 	return result, err
 }
 
-func (s *TimerLayerRecapStore) DeleteRecap(id string) error {
-	start := time.Now()
-
-	err := s.RecapStore.DeleteRecap(id)
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if err == nil {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("RecapStore.DeleteRecap", success, elapsed)
-	}
-	return err
-}
-
-func (s *TimerLayerRecapStore) DeleteRecapChannels(recapId string) error {
-	start := time.Now()
-
-	err := s.RecapStore.DeleteRecapChannels(recapId)
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if err == nil {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("RecapStore.DeleteRecapChannels", success, elapsed)
-	}
-	return err
-}
-
-func (s *TimerLayerRecapStore) GetRecap(id string) (*model.Recap, error) {
-	start := time.Now()
-
-	result, err := s.RecapStore.GetRecap(id)
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if err == nil {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("RecapStore.GetRecap", success, elapsed)
-	}
-	return result, err
-}
-
-func (s *TimerLayerRecapStore) GetRecapChannelsByRecapId(recapId string) ([]*model.RecapChannel, error) {
-	start := time.Now()
-
-	result, err := s.RecapStore.GetRecapChannelsByRecapId(recapId)
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if err == nil {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("RecapStore.GetRecapChannelsByRecapId", success, elapsed)
-	}
-	return result, err
-}
-
-func (s *TimerLayerRecapStore) GetRecapsForUser(userId string, page int, perPage int) ([]*model.Recap, error) {
-	start := time.Now()
-
-	result, err := s.RecapStore.GetRecapsForUser(userId, page, perPage)
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if err == nil {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("RecapStore.GetRecapsForUser", success, elapsed)
-	}
-	return result, err
-}
-
-func (s *TimerLayerRecapStore) MarkRecapAsRead(id string) error {
-	start := time.Now()
-
-	err := s.RecapStore.MarkRecapAsRead(id)
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if err == nil {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("RecapStore.MarkRecapAsRead", success, elapsed)
-	}
-	return err
-}
-
-func (s *TimerLayerRecapStore) SaveRecap(recap *model.Recap) (*model.Recap, error) {
-	start := time.Now()
-
-	result, err := s.RecapStore.SaveRecap(recap)
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if err == nil {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("RecapStore.SaveRecap", success, elapsed)
-	}
-	return result, err
-}
-
-func (s *TimerLayerRecapStore) SaveRecapChannel(recapChannel *model.RecapChannel) error {
-	start := time.Now()
-
-	err := s.RecapStore.SaveRecapChannel(recapChannel)
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if err == nil {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("RecapStore.SaveRecapChannel", success, elapsed)
-	}
-	return err
-}
-
-func (s *TimerLayerRecapStore) UpdateRecap(recap *model.Recap) (*model.Recap, error) {
-	start := time.Now()
-
-	result, err := s.RecapStore.UpdateRecap(recap)
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if err == nil {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("RecapStore.UpdateRecap", success, elapsed)
-	}
-	return result, err
-}
-
-func (s *TimerLayerRecapStore) UpdateRecapStatus(id string, status string) error {
-	start := time.Now()
-
-	err := s.RecapStore.UpdateRecapStatus(id, status)
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if err == nil {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("RecapStore.UpdateRecapStatus", success, elapsed)
-	}
-	return err
-}
 
 func (s *TimerLayerRemoteClusterStore) Delete(remoteClusterID string) (bool, error) {
 	start := time.Now()
@@ -13151,21 +12534,6 @@ func (s *TimerLayerUserStore) Search(rctx request.CTX, teamID string, term strin
 	return result, err
 }
 
-func (s *TimerLayerUserStore) SearchCommonContentFlaggingReviewers(term string) ([]*model.User, error) {
-	start := time.Now()
-
-	result, err := s.UserStore.SearchCommonContentFlaggingReviewers(term)
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if err == nil {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("UserStore.SearchCommonContentFlaggingReviewers", success, elapsed)
-	}
-	return result, err
-}
 
 func (s *TimerLayerUserStore) SearchInChannel(channelID string, term string, options *model.UserSearchOptions) ([]*model.User, error) {
 	start := time.Now()
@@ -13247,21 +12615,6 @@ func (s *TimerLayerUserStore) SearchNotInTeam(notInTeamID string, term string, o
 	return result, err
 }
 
-func (s *TimerLayerUserStore) SearchTeamContentFlaggingReviewers(teamId string, term string) ([]*model.User, error) {
-	start := time.Now()
-
-	result, err := s.UserStore.SearchTeamContentFlaggingReviewers(teamId, term)
-
-	elapsed := float64(time.Since(start)) / float64(time.Second)
-	if s.Root.Metrics != nil {
-		success := "false"
-		if err == nil {
-			success = "true"
-		}
-		s.Root.Metrics.ObserveStoreMethodDuration("UserStore.SearchTeamContentFlaggingReviewers", success, elapsed)
-	}
-	return result, err
-}
 
 func (s *TimerLayerUserStore) SearchWithoutTeam(term string, options *model.UserSearchOptions) ([]*model.User, error) {
 	start := time.Now()
@@ -14262,7 +13615,6 @@ func New(childStore store.Store, metrics einterfaces.MetricsInterface) *TimerLay
 	newStore.AccessControlPolicyStore = &TimerLayerAccessControlPolicyStore{AccessControlPolicyStore: childStore.AccessControlPolicy(), Root: &newStore}
 	newStore.AttributesStore = &TimerLayerAttributesStore{AttributesStore: childStore.Attributes(), Root: &newStore}
 	newStore.AuditStore = &TimerLayerAuditStore{AuditStore: childStore.Audit(), Root: &newStore}
-	newStore.AutoTranslationStore = &TimerLayerAutoTranslationStore{AutoTranslationStore: childStore.AutoTranslation(), Root: &newStore}
 	newStore.BotStore = &TimerLayerBotStore{BotStore: childStore.Bot(), Root: &newStore}
 	newStore.ChannelStore = &TimerLayerChannelStore{ChannelStore: childStore.Channel(), Root: &newStore}
 	newStore.ChannelBookmarkStore = &TimerLayerChannelBookmarkStore{ChannelBookmarkStore: childStore.ChannelBookmark(), Root: &newStore}
@@ -14271,7 +13623,6 @@ func New(childStore store.Store, metrics einterfaces.MetricsInterface) *TimerLay
 	newStore.CommandStore = &TimerLayerCommandStore{CommandStore: childStore.Command(), Root: &newStore}
 	newStore.CommandWebhookStore = &TimerLayerCommandWebhookStore{CommandWebhookStore: childStore.CommandWebhook(), Root: &newStore}
 	newStore.ComplianceStore = &TimerLayerComplianceStore{ComplianceStore: childStore.Compliance(), Root: &newStore}
-	newStore.ContentFlaggingStore = &TimerLayerContentFlaggingStore{ContentFlaggingStore: childStore.ContentFlagging(), Root: &newStore}
 	newStore.DesktopTokensStore = &TimerLayerDesktopTokensStore{DesktopTokensStore: childStore.DesktopTokens(), Root: &newStore}
 	newStore.DraftStore = &TimerLayerDraftStore{DraftStore: childStore.Draft(), Root: &newStore}
 	newStore.EmojiStore = &TimerLayerEmojiStore{EmojiStore: childStore.Emoji(), Root: &newStore}
@@ -14282,7 +13633,6 @@ func New(childStore store.Store, metrics einterfaces.MetricsInterface) *TimerLay
 	newStore.LinkMetadataStore = &TimerLayerLinkMetadataStore{LinkMetadataStore: childStore.LinkMetadata(), Root: &newStore}
 	newStore.OAuthStore = &TimerLayerOAuthStore{OAuthStore: childStore.OAuth(), Root: &newStore}
 	newStore.OutgoingOAuthConnectionStore = &TimerLayerOutgoingOAuthConnectionStore{OutgoingOAuthConnectionStore: childStore.OutgoingOAuthConnection(), Root: &newStore}
-	newStore.PluginStore = &TimerLayerPluginStore{PluginStore: childStore.Plugin(), Root: &newStore}
 	newStore.PostStore = &TimerLayerPostStore{PostStore: childStore.Post(), Root: &newStore}
 	newStore.PostAcknowledgementStore = &TimerLayerPostAcknowledgementStore{PostAcknowledgementStore: childStore.PostAcknowledgement(), Root: &newStore}
 	newStore.PostPersistentNotificationStore = &TimerLayerPostPersistentNotificationStore{PostPersistentNotificationStore: childStore.PostPersistentNotification(), Root: &newStore}
@@ -14293,7 +13643,6 @@ func New(childStore store.Store, metrics einterfaces.MetricsInterface) *TimerLay
 	newStore.PropertyValueStore = &TimerLayerPropertyValueStore{PropertyValueStore: childStore.PropertyValue(), Root: &newStore}
 	newStore.ReactionStore = &TimerLayerReactionStore{ReactionStore: childStore.Reaction(), Root: &newStore}
 	newStore.ReadReceiptStore = &TimerLayerReadReceiptStore{ReadReceiptStore: childStore.ReadReceipt(), Root: &newStore}
-	newStore.RecapStore = &TimerLayerRecapStore{RecapStore: childStore.Recap(), Root: &newStore}
 	newStore.RemoteClusterStore = &TimerLayerRemoteClusterStore{RemoteClusterStore: childStore.RemoteCluster(), Root: &newStore}
 	newStore.RetentionPolicyStore = &TimerLayerRetentionPolicyStore{RetentionPolicyStore: childStore.RetentionPolicy(), Root: &newStore}
 	newStore.RoleStore = &TimerLayerRoleStore{RoleStore: childStore.Role(), Root: &newStore}

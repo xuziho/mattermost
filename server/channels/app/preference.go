@@ -9,7 +9,6 @@ import (
 	"net/http"
 
 	"github.com/mattermost/mattermost/server/public/model"
-	"github.com/mattermost/mattermost/server/public/plugin"
 	"github.com/mattermost/mattermost/server/public/shared/request"
 )
 
@@ -74,14 +73,6 @@ func (a *App) UpdatePreferences(rctx request.CTX, userID string, preferences mod
 	}
 	message.Add("preferences", string(prefsJSON))
 	a.Publish(message)
-
-	pluginContext := pluginContext(rctx)
-	a.Srv().Go(func() {
-		a.ch.RunMultiHook(func(hooks plugin.Hooks, _ *model.Manifest) bool {
-			hooks.PreferencesHaveChanged(pluginContext, preferences)
-			return true
-		}, plugin.PreferencesHaveChangedID)
-	})
 
 	return nil
 }

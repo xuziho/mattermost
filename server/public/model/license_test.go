@@ -27,7 +27,6 @@ func TestLicenseFeaturesToMap(t *testing.T) {
 	CheckTrue(t, m["metrics"].(bool))
 	CheckTrue(t, m["mhpns"].(bool))
 	CheckTrue(t, m["saml"].(bool))
-	CheckTrue(t, m["elastic_search"].(bool))
 	CheckTrue(t, m["email_notification_contents"].(bool))
 	CheckTrue(t, m["data_retention"].(bool))
 	CheckTrue(t, m["message_export"].(bool))
@@ -53,7 +52,6 @@ func TestLicenseFeaturesSetDefaults(t *testing.T) {
 	CheckTrue(t, *f.Metrics)
 	CheckTrue(t, *f.MHPNS)
 	CheckTrue(t, *f.SAML)
-	CheckTrue(t, *f.Elasticsearch)
 	CheckTrue(t, *f.EmailNotificationContents)
 	CheckTrue(t, *f.DataRetention)
 	CheckTrue(t, *f.MessageExport)
@@ -79,7 +77,6 @@ func TestLicenseFeaturesSetDefaults(t *testing.T) {
 	*f.Metrics = true
 	*f.MHPNS = true
 	*f.SAML = true
-	*f.Elasticsearch = true
 	*f.DataRetention = true
 	*f.MessageExport = true
 	*f.CustomPermissionsSchemes = true
@@ -102,7 +99,6 @@ func TestLicenseFeaturesSetDefaults(t *testing.T) {
 	CheckTrue(t, *f.Metrics)
 	CheckTrue(t, *f.MHPNS)
 	CheckTrue(t, *f.SAML)
-	CheckTrue(t, *f.Elasticsearch)
 	CheckTrue(t, *f.EmailNotificationContents)
 	CheckTrue(t, *f.DataRetention)
 	CheckTrue(t, *f.MessageExport)

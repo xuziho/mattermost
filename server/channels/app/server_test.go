@@ -358,6 +358,7 @@ func TestPanicLog(t *testing.T) {
 
 	logFile, err := os.Open(config.GetLogFileLocation(tmpDir))
 	require.NoError(t, err, "cannot open log file")
+	defer logFile.Close()
 
 	_, err = logFile.Seek(0, 0)
 	require.NoError(t, err)

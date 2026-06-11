@@ -14,7 +14,7 @@
  * Note: This test requires Enterprise license to be uploaded
  */
 
-import {createPrivateChannel} from '../elasticsearch_autocomplete/helpers';
+import {createPrivateChannel} from '../../autocomplete/helpers';
 import * as TIMEOUTS from '../../../../fixtures/timeouts';
 
 describe('Guest Account - Guest User Experience', () => {

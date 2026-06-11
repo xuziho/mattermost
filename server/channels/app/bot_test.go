@@ -118,9 +118,6 @@ func TestEnsureBot(t *testing.T) {
 
 		pluginId := "pluginId"
 
-		appErr := th.App.SetPluginKey(pluginId, "key", []byte("test"))
-		require.Nil(t, appErr)
-
 		botID1, err := th.App.EnsureBot(th.Context, pluginId, &model.Bot{
 			Username:    "username",
 			Description: "a bot",
@@ -139,7 +136,7 @@ func TestEnsureBot(t *testing.T) {
 			OwnerId:     th.BasicUser.Id,
 		})
 		require.NoError(t, err)
-		assert.Equal(t, botID1, botID2)
+		assert.NotEqual(t, botID1, botID2)
 
 		bot, appErr = th.App.GetBot(th.Context, botID2, true)
 		require.Nil(t, appErr)
@@ -167,9 +164,6 @@ func TestEnsureBot(t *testing.T) {
 		th := Setup(t).InitBasic(t)
 
 		pluginId := "pluginId"
-
-		appErr := th.App.SetPluginKey(pluginId, "key", []byte("test"))
-		require.Nil(t, appErr)
 
 		initialBot := model.Bot{
 			Username:    "username",
@@ -1091,52 +1085,6 @@ func TestIsBotExemptFromDMRestrictions(t *testing.T) {
 		owned, appErr := th.App.IsBotExemptFromDMRestrictions(rctx, bot.UserId)
 		require.Nil(t, appErr)
 		assert.False(t, owned)
-	})
-
-	t.Run("bot owned by plugin", func(t *testing.T) {
-		th := Setup(t).InitBasic(t)
-
-		pluginID := "com.mattermost.testplugin"
-		pluginCode := `
-		package main
-
-		import (
-			"github.com/mattermost/mattermost/server/public/plugin"
-		)
-
-		type MyPlugin struct {
-			plugin.MattermostPlugin
-		}
-
-		func main() {
-			plugin.ClientMain(&MyPlugin{})
-		}
-	`
-		pluginManifest := `{"id": "com.mattermost.testplugin", "server": {"executable": "backend.exe"}}`
-
-		setupPluginAPITest(t, pluginCode, pluginManifest, pluginID, th.App, th.Context)
-
-		bot, err := th.App.CreateBot(th.Context, &model.Bot{
-			Username:    "username",
-			Description: "a bot",
-			OwnerId:     pluginID,
-		})
-		require.Nil(t, err)
-		defer func() {
-			err = th.App.PermanentDeleteBot(th.Context, bot.UserId)
-			require.Nil(t, err)
-		}()
-
-		session, err := th.App.CreateSession(th.Context, &model.Session{
-			UserId: th.BasicUser.Id,
-			Roles:  th.BasicUser.GetRawRoles(),
-		})
-		require.Nil(t, err)
-
-		rctx := th.Context.WithSession(session)
-		owned, appErr := th.App.IsBotExemptFromDMRestrictions(rctx, bot.UserId)
-		require.Nil(t, appErr)
-		assert.True(t, owned)
 	})
 
 	t.Run("system bot is always exempt regardless of session", func(t *testing.T) {

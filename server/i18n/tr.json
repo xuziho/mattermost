@@ -10536,18 +10536,6 @@
     "translation": "API yanıtının JSON kodlamasında bir sorunla karşılaşıldı"
   },
   {
-    "id": "model.config.is_valid.autotranslation.libretranslate.url.app_error",
-    "translation": "LibreTranslate adresi geçerli bir adres olmalı ve http:// ya da https:// ile başlamalıdır."
-  },
-  {
-    "id": "model.config.is_valid.autotranslation.provider.app_error",
-    "translation": "Otomatik çeviri hizmeti sağlayıcı geçersiz. Boş olmamalı."
-  },
-  {
-    "id": "model.config.is_valid.autotranslation.provider.unsupported.app_error",
-    "translation": "Otomatik çeviri hizmeti sağlayıcı desteklenmiyor."
-  },
-  {
     "id": "api.channel.get_channel.flagged_post_mismatch.app_error",
     "translation": "Kanal kimliği, işaretlenmiş iletinin kanal kimliğiyle eşleşmiyor."
   },
@@ -10574,10 +10562,6 @@
   {
     "id": "app.agents.get_agents.app_error",
     "translation": "Aracılar alınamadı."
-  },
-  {
-    "id": "app.agents.get_agents.bridge_call_failed",
-    "translation": "Köprü çağrısı yapılamadı."
   },
   {
     "id": "app.agents.get_services.app_error",

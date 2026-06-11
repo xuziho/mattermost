@@ -30,8 +30,6 @@ import AddOutgoingOAuthConnection from 'components/integrations/outgoing_oauth_c
 import EditOutgoingOAuthConnection from 'components/integrations/outgoing_oauth_connections/edit_outgoing_oauth_connection';
 import InstalledOutgoingOAuthConnections from 'components/integrations/outgoing_oauth_connections/installed_outgoing_oauth_connections';
 
-import Pluggable from 'plugins/pluggable';
-
 import BackstageNavbar from './components/backstage_navbar';
 import BackstageSidebar from './components/backstage_sidebar';
 
@@ -111,7 +109,6 @@ const BackstageController = (props: Props) => {
                 className='backstage-body'
                 ref={listRef}
             >
-                <Pluggable pluggableName='Root'/>
                 <BackstageSidebar
                     team={props.team}
                     enableCustomEmoji={props.enableCustomEmoji}

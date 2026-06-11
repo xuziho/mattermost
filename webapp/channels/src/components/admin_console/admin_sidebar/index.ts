@@ -3,10 +3,7 @@
 
 import {connect} from 'react-redux';
 import type {ConnectedProps} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import type {Dispatch} from 'redux';
 
-import {getPlugins} from 'mattermost-redux/actions/admin';
 import {getConfig, getLicense} from 'mattermost-redux/selectors/entities/general';
 
 import {getAdminDefinition, getConsoleAccess} from 'selectors/admin_console';
@@ -26,7 +23,6 @@ function mapStateToProps(state: GlobalState) {
     return {
         license,
         config: state.entities.admin.config,
-        plugins: state.entities.admin.plugins,
         navigationBlocked: getNavigationBlocked(state),
         buildEnterpriseReady,
         siteName,
@@ -36,15 +32,7 @@ function mapStateToProps(state: GlobalState) {
     };
 }
 
-function mapDispatchToProps(dispatch: Dispatch) {
-    return {
-        actions: bindActionCreators({
-            getPlugins,
-        }, dispatch),
-    };
-}
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
+const connector = connect(mapStateToProps, () => ({}));
 
 export type PropsFromRedux = ConnectedProps<typeof connector>;
 

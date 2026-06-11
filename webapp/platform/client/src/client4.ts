@@ -5,7 +5,6 @@
 
 import type {AccessControlPolicy, CELExpressionError, AccessControlTestResult, AccessControlPoliciesResult, AccessControlPolicyChannelsResult, AccessControlVisualAST, AccessControlAttributes, AccessControlPolicyActiveUpdate} from '@mattermost/types/access_control';
 import type {ClusterInfo, AnalyticsRow, SchemaMigration, LogFilterQuery} from '@mattermost/types/admin';
-import type {Agent, LLMService} from '@mattermost/types/agents';
 import type {AppBinding, AppCallRequest, AppCallResponse} from '@mattermost/types/apps';
 import type {Audit} from '@mattermost/types/audits';
 import type {UserAutocomplete, AutocompleteSuggestion} from '@mattermost/types/autocomplete';
@@ -39,9 +38,8 @@ import type {
     AllowedIPRanges,
     AllowedIPRange,
     FetchIPResponse,
-    LdapSettings, ContentFlaggingSettings,
+    LdapSettings,
 } from '@mattermost/types/config';
-import type {ContentFlaggingConfig} from '@mattermost/types/content_flagging';
 import type {
     DataRetentionCustomPolicies,
     CreateDataRetentionCustomPolicy,
@@ -84,12 +82,6 @@ import type {
 import type {Job, JobType, JobTypeBase} from '@mattermost/types/jobs';
 import type {ServerLimits} from '@mattermost/types/limits';
 import type {MfaSecret} from '@mattermost/types/mfa';
-import type {
-    ClientPluginManifest,
-    PluginManifest,
-    PluginsResponse,
-    PluginStatus,
-} from '@mattermost/types/plugins';
 import type {Post, PostList, PostSearchResults, PaginatedPostList, PostAcknowledgement, PostAnalytics, PostInfo} from '@mattermost/types/posts';
 import type {PreferenceType} from '@mattermost/types/preferences';
 import type {
@@ -100,7 +92,6 @@ import type {
     PropertyField,
 } from '@mattermost/types/properties';
 import type {Reaction} from '@mattermost/types/reactions';
-import type {Recap, CreateRecapRequest} from '@mattermost/types/recaps';
 import type {RemoteCluster, RemoteClusterAcceptInvite, RemoteClusterPatch, RemoteClusterWithPassword} from '@mattermost/types/remote_clusters';
 import type {UserReport, UserReportFilter, UserReportOptions} from '@mattermost/types/reports';
 import type {Role} from '@mattermost/types/roles';
@@ -433,26 +424,6 @@ export default class Client4 {
         return `${this.getBaseRoute()}/jobs`;
     }
 
-    getRecapsRoute() {
-        return `${this.getBaseRoute()}/recaps`;
-    }
-
-    getPluginsRoute() {
-        return `${this.getBaseRoute()}/plugins`;
-    }
-
-    getAgentsRoute() {
-        return `${this.getBaseRoute()}/agents`;
-    }
-
-    getLLMServicesRoute() {
-        return `${this.getBaseRoute()}/llmservices`;
-    }
-
-    getPluginRoute(pluginId: string) {
-        return `${this.getPluginsRoute()}/${pluginId}`;
-    }
-
     getRolesRoute() {
         return `${this.getBaseRoute()}/roles`;
     }
@@ -511,10 +482,6 @@ export default class Client4 {
 
     getClientMetricsRoute() {
         return `${this.getBaseRoute()}/client_perf`;
-    }
-
-    getContentFlaggingRoute() {
-        return `${this.getBaseRoute()}/content_flagging`;
     }
 
     getCSRFFromCookie() {
@@ -1339,19 +1306,9 @@ export default class Client4 {
         );
     }
 
-    getTeam = (teamId: string, asContentReviewer = false, flaggedPostId?: string) => {
-        const queryParamsArgs: Record<string, any> = {};
-        if (asContentReviewer) {
-            queryParamsArgs.as_content_reviewer = true;
-        }
-
-        if (flaggedPostId) {
-            queryParamsArgs.flagged_post_id = flaggedPostId;
-        }
-
-        const queryParams = buildQueryString(queryParamsArgs);
+    getTeam = (teamId: string) => {
         return this.doFetch<Team>(
-            `${this.getTeamRoute(teamId)}${queryParams}`,
+            `${this.getTeamRoute(teamId)}`,
             {method: 'get'},
         );
     };
@@ -1722,13 +1679,6 @@ export default class Client4 {
         );
     };
 
-    setMyChannelAutotranslation = (channelId: string, enabled: boolean) => {
-        return this.doFetch<StatusOK>(
-            `${this.getChannelMemberRoute(channelId, 'me')}/autotranslation`,
-            {method: 'put', body: JSON.stringify({autotranslation_disabled: !enabled})},
-        );
-    };
-
     updateChannelNotifyProps = (props: any) => {
         return this.doFetch<StatusOK>(
             `${this.getChannelMemberRoute(props.channel_id, props.user_id)}/notify_props`,
@@ -1745,19 +1695,9 @@ export default class Client4 {
         );
     };
 
-    getChannel = (channelId: string, asContentReviewer = false, flaggedPostId?: string) => {
-        const queryParamsArgs: Record<string, any> = {};
-        if (asContentReviewer) {
-            queryParamsArgs.as_content_reviewer = true;
-        }
-
-        if (flaggedPostId) {
-            queryParamsArgs.flagged_post_id = flaggedPostId;
-        }
-
-        const queryParams = buildQueryString(queryParamsArgs);
+    getChannel = (channelId: string) => {
         return this.doFetch<ServerChannel>(
-            `${this.getChannelRoute(channelId)}${queryParams}`,
+            `${this.getChannelRoute(channelId)}`,
             {method: 'get'},
         );
     };
@@ -3264,49 +3204,6 @@ export default class Client4 {
         );
     };
 
-    // Recaps Routes
-    createRecap = (request: CreateRecapRequest) => {
-        return this.doFetch<Recap>(
-            `${this.getRecapsRoute()}`,
-            {method: 'post', body: JSON.stringify(request)},
-        );
-    };
-
-    getRecaps = (page = 0, perPage = PER_PAGE_DEFAULT) => {
-        return this.doFetch<Recap[]>(
-            `${this.getRecapsRoute()}${buildQueryString({page, per_page: perPage})}`,
-            {method: 'get'},
-        );
-    };
-
-    getRecap = (recapId: string) => {
-        return this.doFetch<Recap>(
-            `${this.getRecapsRoute()}/${recapId}`,
-            {method: 'get'},
-        );
-    };
-
-    markRecapAsRead = (recapId: string) => {
-        return this.doFetch<Recap>(
-            `${this.getRecapsRoute()}/${recapId}/read`,
-            {method: 'post'},
-        );
-    };
-
-    regenerateRecap = (recapId: string) => {
-        return this.doFetch<Recap>(
-            `${this.getRecapsRoute()}/${recapId}/regenerate`,
-            {method: 'post'},
-        );
-    };
-
-    deleteRecap = (recapId: string) => {
-        return this.doFetch<StatusOK>(
-            `${this.getRecapsRoute()}/${recapId}`,
-            {method: 'delete'},
-        );
-    };
-
     // Admin Routes
 
     getLogs = (logFilter: LogFilterQuery) => {
@@ -3355,28 +3252,6 @@ export default class Client4 {
         return this.doFetch<StatusOK>(
             `${this.getBaseRoute()}/config/reload`,
             {method: 'post'},
-        );
-    };
-
-    // Agent Routes
-    getAgents = () => {
-        return this.doFetch<Agent[]>(
-            `${this.getAgentsRoute()}`,
-            {method: 'get'},
-        );
-    };
-
-    getAgentsStatus = () => {
-        return this.doFetch<{available: boolean; reason?: string}>(
-            `${this.getAgentsRoute()}/status`,
-            {method: 'get'},
-        );
-    };
-
-    getLLMServices = () => {
-        return this.doFetch<LLMService[]>(
-            `${this.getBaseRoute()}/llmservices`,
-            {method: 'get'},
         );
     };
 
@@ -3670,20 +3545,6 @@ export default class Client4 {
         );
     };
 
-    testElasticsearch = (config?: AdminConfig) => {
-        return this.doFetch<StatusOK>(
-            `${this.getBaseRoute()}/elasticsearch/test`,
-            {method: 'post', body: JSON.stringify(config)},
-        );
-    };
-
-    purgeElasticsearchIndexes = (indexes?: string[]) => {
-        return this.doFetch<StatusOK>(
-            `${this.getBaseRoute()}/elasticsearch/purge_indexes${indexes && indexes.length > 0 ? '?index=' + indexes.join(',') : ''}`,
-            {method: 'post'},
-        );
-    };
-
     purgeBleveIndexes = () => {
         return this.doFetch<StatusOK>(
             `${this.getBaseRoute()}/bleve/purge_indexes`,
@@ -3798,68 +3659,6 @@ export default class Client4 {
         return this.doFetch<Channel[]>(
             `${this.getSchemesRoute()}/${schemeId}/channels${buildQueryString({page, per_page: perPage})}`,
             {method: 'get'},
-        );
-    };
-
-    // Plugin Routes
-
-    uploadPlugin = async (fileData: File, force = false) => {
-        const formData = new FormData();
-        if (force) {
-            formData.append('force', 'true');
-        }
-        formData.append('plugin', fileData);
-
-        const request: any = {
-            method: 'post',
-            body: formData,
-        };
-
-        return this.doFetch<PluginManifest>(
-            this.getPluginsRoute(),
-            request,
-        );
-    };
-
-    getPlugins = () => {
-        return this.doFetch<PluginsResponse>(
-            this.getPluginsRoute(),
-            {method: 'get'},
-        );
-    };
-
-    getPluginStatuses = () => {
-        return this.doFetch<PluginStatus[]>(
-            `${this.getPluginsRoute()}/statuses`,
-            {method: 'get'},
-        );
-    };
-
-    removePlugin = (pluginId: string) => {
-        return this.doFetch<StatusOK>(
-            this.getPluginRoute(pluginId),
-            {method: 'delete'},
-        );
-    };
-
-    getWebappPlugins = () => {
-        return this.doFetch<ClientPluginManifest[]>(
-            `${this.getPluginsRoute()}/webapp`,
-            {method: 'get'},
-        );
-    };
-
-    enablePlugin = (pluginId: string) => {
-        return this.doFetch<StatusOK>(
-            `${this.getPluginRoute(pluginId)}/enable`,
-            {method: 'post'},
-        );
-    };
-
-    disablePlugin = (pluginId: string) => {
-        return this.doFetch<StatusOK>(
-            `${this.getPluginRoute(pluginId)}/disable`,
-            {method: 'post'},
         );
     };
 
@@ -4193,26 +3992,6 @@ export default class Client4 {
             `${this.getSystemRoute()}/schema/version`,
             {method: 'get'},
         );
-    };
-
-    getAIRewrittenMessage = (agentId: string, message: string, action?: string, customPrompt?: string, rootId?: string) => {
-        const body: {agent_id: string; message: string; action?: string; custom_prompt?: string; root_id?: string} = {
-            agent_id: agentId,
-            message,
-        };
-        if (action) {
-            body.action = action;
-        }
-        if (customPrompt) {
-            body.custom_prompt = customPrompt;
-        }
-        if (rootId) {
-            body.root_id = rootId;
-        }
-        return this.doFetch<{rewritten_text: string; changes_made: string[]}>(
-            `${this.getPostsRoute()}/rewrite`,
-            {method: 'post', body: JSON.stringify(body)},
-        ).then((response) => response.rewritten_text);
     };
 
     // Client Helpers
@@ -4596,98 +4375,6 @@ export default class Client4 {
         );
     };
 
-    getTeamContentFlaggingStatus = (teamId: string) => {
-        return this.doFetch<{enabled: boolean}>(
-            `${this.getContentFlaggingRoute()}/team/${teamId}/status`,
-            {method: 'get'},
-        );
-    };
-
-    getContentFlaggingConfig = (teamId?: string) => {
-        return this.doFetch<ContentFlaggingConfig>(
-            `${this.getContentFlaggingRoute()}/flag/config${buildQueryString({team_id: teamId})}`,
-            {method: 'get'},
-        );
-    };
-
-    flagPost = (postId: string, reason: string, comment?: string) => {
-        return this.doFetch<StatusOK>(
-            `${this.getContentFlaggingRoute()}/post/${postId}/flag`,
-            {
-                method: 'post',
-                body: JSON.stringify({reason, comment: JSON.stringify(comment)}),
-            },
-        );
-    };
-
-    removeFlaggedPost = (postId: string, comment?: string) => {
-        return this.doFetch<StatusOK>(
-            `${this.getContentFlaggingRoute()}/post/${postId}/remove`,
-            {
-                method: 'put',
-                body: JSON.stringify({comment: JSON.stringify(comment)}),
-            },
-        );
-    };
-
-    keepFlaggedPost = (postId: string, comment?: string) => {
-        return this.doFetch<StatusOK>(
-            `${this.getContentFlaggingRoute()}/post/${postId}/keep`,
-            {
-                method: 'put',
-                body: JSON.stringify({comment: JSON.stringify(comment)}),
-            },
-        );
-    };
-
-    getPostContentFlaggingFields = () => {
-        return this.doFetch<NameMappedPropertyFields>(
-            `${this.getContentFlaggingRoute()}/fields`,
-            {method: 'get'},
-        );
-    };
-
-    getPostContentFlaggingValues = (postId: string) => {
-        return this.doFetch<Array<PropertyValue<unknown>>>(
-            `${this.getContentFlaggingRoute()}/post/${postId}/field_values`,
-            {method: 'get'},
-        );
-    };
-
-    getFlaggedPost = (postId: string) => {
-        return this.doFetch<Post>(
-            `${this.getContentFlaggingRoute()}/post/${postId}`,
-            {method: 'get'},
-        );
-    };
-
-    searchContentFlaggingReviewers = (term: string, teamId: string) => {
-        return this.doFetch<UserProfile[]>(
-            `${this.getContentFlaggingRoute()}/team/${teamId}/reviewers/search${buildQueryString({term})}`,
-            {method: 'get'},
-        );
-    };
-
-    setContentFlaggingReviewer = (postId: string, reviewerId: string) => {
-        return this.doFetch(
-            `${this.getContentFlaggingRoute()}/post/${postId}/assign/${reviewerId}`,
-            {method: 'post'},
-        );
-    };
-
-    saveContentFlaggingConfig = (config: ContentFlaggingSettings) => {
-        return this.doFetch(
-            `${this.getContentFlaggingRoute()}/config`,
-            {method: 'put', body: JSON.stringify(config)},
-        );
-    };
-
-    getAdminContentFlaggingConfig = () => {
-        return this.doFetch<ContentFlaggingSettings>(
-            `${this.getContentFlaggingRoute()}/config`,
-            {method: 'get'},
-        );
-    };
 }
 
 export function parseAndMergeNestedHeaders(originalHeaders: any) {

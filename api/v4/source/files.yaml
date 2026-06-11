@@ -391,11 +391,11 @@
                 page:
                   type: integer
                   default: 0
-                  description: The page to select. (Only works with Elasticsearch)
+                  description: The page to select.
                 per_page:
                   type: integer
                   default: 60
-                  description: The number of posts per page. (Only works with Elasticsearch)
+                  description: The number of posts per page.
         description: The search terms and logic to use in the search.
         required: true
       responses:
@@ -459,11 +459,11 @@
                 page:
                   type: integer
                   default: 0
-                  description: The page to select. (Only works with Elasticsearch)
+                  description: The page to select.
                 per_page:
                   type: integer
                   default: 60
-                  description: The number of posts per page. (Only works with Elasticsearch)
+                  description: The number of posts per page.
         description: The search terms and logic to use in the search.
         required: true
       responses:

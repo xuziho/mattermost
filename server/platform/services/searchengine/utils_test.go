@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestElasticsearchGetSuggestionsSplitBy(t *testing.T) {
+func TestGetSuggestionsSplitBy(t *testing.T) {
 	testCases := []struct {
 		Name     string
 		Term     string
@@ -50,7 +50,7 @@ func TestElasticsearchGetSuggestionsSplitBy(t *testing.T) {
 	}
 }
 
-func TestElasticsearchGetSuggestionsSplitByMultiple(t *testing.T) {
+func TestGetSuggestionsSplitByMultiple(t *testing.T) {
 	r1 := GetSuggestionInputsSplitByMultiple("String with user.name", []string{" ", "."})
 	expectedR1 := []string{"string with user.name", "with user.name", "user.name", ".name", "name"}
 	assert.ElementsMatch(t, r1, expectedR1)

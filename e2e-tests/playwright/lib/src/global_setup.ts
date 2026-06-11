@@ -2,7 +2,6 @@
 // See LICENSE.txt for license information.
 
 import {Client4} from '@mattermost/client';
-import {PluginManifest} from '@mattermost/types/plugins';
 import {PreferenceType} from '@mattermost/types/preferences';
 import {UserProfile} from '@mattermost/types/users';
 
@@ -68,8 +67,6 @@ async function sysadminSetup(client: Client4, user: UserProfile | null) {
     // Set default preferences
     await savePreferences(client, user?.id ?? '');
 
-    // Log plugin details
-    await printPluginDetails(client);
 }
 
 function printPlaywrightTestConfig() {
@@ -104,7 +101,7 @@ async function printClientInfo(client: Client4) {
   - TelemetryId                 = ${config.TelemetryId}
   - ServiceEnvironment          = ${config.ServiceEnvironment}`);
 
-    const {LogSettings, ServiceSettings, PluginSettings, FeatureFlags} = await client.getConfig();
+    const {LogSettings, ServiceSettings, FeatureFlags} = await client.getConfig();
     // eslint-disable-next-line no-console
     console.log(`Notable Server Config:
   - ServiceSettings.EnableSecurityFixAlert  = ${ServiceSettings?.EnableSecurityFixAlert}
@@ -118,38 +115,6 @@ async function printClientInfo(client: Client4) {
             .map(([key, value]) => `  - ${key} = ${value}`)
             .join('\n'),
     );
-
-    // eslint-disable-next-line no-console
-    console.log(`Plugin Settings:
-  - Enable  = ${PluginSettings?.Enable}
-  - EnableUploads  = ${PluginSettings?.EnableUploads}
-}
-
-async function printPluginDetails(client: Client4) {
-    const plugins = await client.getPlugins();
-
-    if (plugins.active.length) {
-        // eslint-disable-next-line no-console
-        console.log('Active plugins:');
-    }
-
-    plugins.active.forEach((plugin: PluginManifest) => {
-        // eslint-disable-next-line no-console
-        console.log(`  - ${plugin.id}@${plugin.version} | min_server@${plugin.min_server_version}`);
-    });
-
-    if (plugins.inactive.length) {
-        // eslint-disable-next-line no-console
-        console.log('Inactive plugins:');
-    }
-
-    plugins.inactive.forEach((plugin: PluginManifest) => {
-        // eslint-disable-next-line no-console
-        console.log(`  - ${plugin.id}@${plugin.version} | min_server@${plugin.min_server_version}`);
-    });
-
-    // eslint-disable-next-line no-console
-    console.log('');
 }
 
 async function savePreferences(client: Client4, userId: UserProfile['id']) {

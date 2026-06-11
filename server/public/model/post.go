@@ -37,7 +37,6 @@ const (
 	PostTypeJoinTeam              = "system_join_team"
 	PostTypeLeaveTeam             = "system_leave_team"
 	PostTypeAutoResponder         = "system_auto_responder"
-	PostTypeAutotranslationChange = "system_autotranslation"
 	PostTypeAddRemove             = "system_add_remove" // Deprecated, use PostAddToChannel or PostRemoveFromChannel instead
 	PostTypeAddToChannel          = "system_add_to_channel"
 	PostTypeAddGuestToChannel     = "system_add_guest_to_chan"
@@ -98,8 +97,6 @@ const (
 	PostPropsChannelMentions          = "channel_mentions"
 	PostPropsCurrentTeamId            = "current_team_id"
 	PostPropsUnsafeLinks              = "unsafe_links"
-	PostPropsAIGeneratedByUserID      = "ai_generated_by"
-	PostPropsAIGeneratedByUsername    = "ai_generated_by_username"
 	PostPropsExpireAt                 = "expire_at"
 	PostPropsReadDurationSeconds      = "read_duration"
 
@@ -532,7 +529,6 @@ func (o *Post) IsValid(maxPostSize int) *AppError {
 		PostTypeMe,
 		PostTypeWrangler,
 		PostTypeGMConvertedToChannel,
-		PostTypeAutotranslationChange,
 		PostTypeBurnOnRead,
 		PostTypeCard:
 	default:
@@ -813,20 +809,6 @@ func (o *Post) propsIsValid() error {
 	if props[PostPropsForceNotification] != nil {
 		if _, ok := props[PostPropsForceNotification].(bool); !ok {
 			multiErr = multierror.Append(multiErr, fmt.Errorf("force_notification prop must be a boolean"))
-		}
-	}
-
-	if props[PostPropsAIGeneratedByUserID] != nil {
-		if aiGenUserID, ok := props[PostPropsAIGeneratedByUserID].(string); !ok {
-			multiErr = multierror.Append(multiErr, fmt.Errorf("ai_generated_by prop must be a string"))
-		} else if !IsValidId(aiGenUserID) {
-			multiErr = multierror.Append(multiErr, fmt.Errorf("ai_generated_by prop must be a valid user ID"))
-		}
-	}
-
-	if props[PostPropsAIGeneratedByUsername] != nil {
-		if _, ok := props[PostPropsAIGeneratedByUsername].(string); !ok {
-			multiErr = multierror.Append(multiErr, fmt.Errorf("ai_generated_by_username prop must be a string"))
 		}
 	}
 
@@ -1212,34 +1194,6 @@ type ReportPostOptions struct {
 	ExcludeSystemPosts bool   `json:"exclude_system_posts,omitempty"` // Exclude all system posts (any type starting with "system_")
 	IncludeMetadata    bool   `json:"include_metadata,omitempty"`     // Include file info, reactions, etc.
 }
-type RewriteAction string
-
-const (
-	RewriteActionCustom         RewriteAction = "custom"
-	RewriteActionShorten        RewriteAction = "shorten"
-	RewriteActionElaborate      RewriteAction = "elaborate"
-	RewriteActionImproveWriting RewriteAction = "improve_writing"
-	RewriteActionFixSpelling    RewriteAction = "fix_spelling"
-	RewriteActionSimplify       RewriteAction = "simplify"
-	RewriteActionSummarize      RewriteAction = "summarize"
-)
-
-type RewriteRequest struct {
-	AgentID      string        `json:"agent_id"`
-	Message      string        `json:"message"`
-	Action       RewriteAction `json:"action"`
-	CustomPrompt string        `json:"custom_prompt,omitempty"`
-	RootID       string        `json:"root_id,omitempty"`
-}
-
-type RewriteResponse struct {
-	RewrittenText string `json:"rewritten_text"`
-}
-
-const RewriteSystemPrompt = `You are a JSON API that rewrites text. Your response must be valid JSON only.
-Return this exact format: {"rewritten_text":"content"}.
-Do not use markdown, code blocks, or any formatting. Start with { and end with }.`
-
 // ReportPostOptionsCursor contains cursor information for pagination.
 // The cursor is an opaque base64-encoded string that encodes all pagination state.
 // Clients should treat this as an opaque token and pass it back unchanged.

@@ -9,7 +9,6 @@ import (
 	"net/http"
 
 	"github.com/mattermost/mattermost/server/public/model"
-	"github.com/mattermost/mattermost/server/public/plugin"
 	"github.com/mattermost/mattermost/server/public/shared/mlog"
 	"github.com/mattermost/mattermost/server/public/shared/request"
 	"github.com/mattermost/mattermost/server/v8/channels/store"
@@ -103,14 +102,6 @@ func (a *App) SaveReactionForPost(rctx request.CTX, reaction *model.Reaction) (*
 	// The post is always modified since the UpdateAt always changes
 	a.Srv().Store().Post().InvalidateLastPostTimeCache(channel.Id)
 
-	pluginContext := pluginContext(rctx)
-	a.Srv().Go(func() {
-		a.ch.RunMultiHook(func(hooks plugin.Hooks, _ *model.Manifest) bool {
-			hooks.ReactionHasBeenAdded(pluginContext, reaction)
-			return true
-		}, plugin.ReactionHasBeenAddedID)
-	})
-
 	a.sendReactionEvent(rctx, model.WebsocketEventReactionAdded, reaction, post)
 
 	return reaction, nil
@@ -183,14 +174,6 @@ func (a *App) DeleteReactionForPost(rctx request.CTX, reaction *model.Reaction) 
 
 	// The post is always modified since the UpdateAt always changes
 	a.Srv().Store().Post().InvalidateLastPostTimeCache(channel.Id)
-
-	pluginContext := pluginContext(rctx)
-	a.Srv().Go(func() {
-		a.ch.RunMultiHook(func(hooks plugin.Hooks, _ *model.Manifest) bool {
-			hooks.ReactionHasBeenRemoved(pluginContext, reaction)
-			return true
-		}, plugin.ReactionHasBeenRemovedID)
-	})
 
 	a.sendReactionEvent(rctx, model.WebsocketEventReactionRemoved, reaction, post)
 

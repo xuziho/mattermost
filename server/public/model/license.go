@@ -64,7 +64,6 @@ type LicenseLimits struct {
 	PostHistory         int64 `json:"post_history"`
 	BoardCards          int64 `json:"board_cards"`
 	CallDurationSeconds int64 `json:"call_duration"`
-	AgentsPrompts       int64 `json:"agents_prompts"`
 	PushNotifications   int64 `json:"push_notifications"`
 }
 
@@ -112,7 +111,6 @@ type Features struct {
 	Metrics                   *bool `json:"metrics"`
 	MHPNS                     *bool `json:"mhpns"`
 	SAML                      *bool `json:"saml"`
-	Elasticsearch             *bool `json:"elastic_search"`
 	Announcement              *bool `json:"announcement"`
 	ThemeManagement           *bool `json:"theme_management"`
 	EmailNotificationContents *bool `json:"email_notification_contents"`
@@ -129,7 +127,6 @@ type Features struct {
 	SharedChannels            *bool `json:"shared_channels"`
 	RemoteClusterService      *bool `json:"remote_cluster_service"`
 	OutgoingOAuthConnections  *bool `json:"outgoing_oauth_connections"`
-	AutoTranslation           *bool `json:"auto_translation"`
 
 	// after we enabled more features we'll need to control them with this
 	FutureFeatures *bool `json:"future_features"`
@@ -148,7 +145,6 @@ func (f *Features) ToMap() map[string]any {
 		"metrics":                     *f.Metrics,
 		"mhpns":                       *f.MHPNS,
 		"saml":                        *f.SAML,
-		"elastic_search":              *f.Elasticsearch,
 		"email_notification_contents": *f.EmailNotificationContents,
 		"data_retention":              *f.DataRetention,
 		"message_export":              *f.MessageExport,
@@ -217,10 +213,6 @@ func (f *Features) SetDefaults() {
 
 	if f.SAML == nil {
 		f.SAML = NewPointer(*f.FutureFeatures)
-	}
-
-	if f.Elasticsearch == nil {
-		f.Elasticsearch = NewPointer(*f.FutureFeatures)
 	}
 
 	if f.Announcement == nil {
