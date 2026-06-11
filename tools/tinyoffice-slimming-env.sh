@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Source this from WSL before running Mattermost slimming checks:
-#   source tools/agentcompanyos-slimming-env.sh
+#   source tools/tinyoffice-slimming-env.sh
 
 set -euo pipefail
 

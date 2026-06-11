@@ -33,7 +33,7 @@ const HeaderFooterNotLoggedIn = (props: Props) => {
         return null;
     }
 
-    const siteName = config.SiteName || 'AgentCompanyOS';
+    const siteName = config.SiteName || 'TinyOffice';
 
     return (
         <div className='inner-wrap'>

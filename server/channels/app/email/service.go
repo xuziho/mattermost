@@ -163,29 +163,29 @@ type ServiceInterface interface {
 
 // getLicenseSkuName returns the license tier descriptor (e.g. "Professional",
 // "Entry", "E20"), stripping the upstream product prefix if the license server
-// included it. Falls back to AgentCompanyOS when the SKU name is absent.
+// included it. Falls back to TinyOffice when the SKU name is absent.
 func (es *Service) getLicenseSkuName() string {
 	if license := es.license(); license != nil && license.SkuName != "" {
 		return strings.TrimPrefix(license.SkuName, "Mattermost ")
 	}
-	return "AgentCompanyOS"
+	return "TinyOffice"
 }
 
-// getPrefixedLicenseSkuName returns the full AgentCompanyOS product name,
+// getPrefixedLicenseSkuName returns the full TinyOffice product name,
 // suitable for email subjects.
 func (es *Service) getPrefixedLicenseSkuName() string {
 	skuName := es.getLicenseSkuName()
-	if skuName == "AgentCompanyOS" {
-		return "AgentCompanyOS"
+	if skuName == "TinyOffice" {
+		return "TinyOffice"
 	}
-	return "AgentCompanyOS " + skuName
+	return "TinyOffice " + skuName
 }
 
 func (es *Service) getConfigSiteName() string {
 	if siteName := *es.config().TeamSettings.SiteName; siteName != "" {
 		return siteName
 	}
-	return "AgentCompanyOS"
+	return "TinyOffice"
 }
 
 func (es *Service) Store() store.Store {

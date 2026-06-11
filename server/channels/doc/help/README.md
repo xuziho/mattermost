@@ -1,1 +1,1 @@
-AgentCompanyOS does not ship the upstream Mattermost help documentation.
+TinyOffice does not ship the upstream Mattermost help documentation.

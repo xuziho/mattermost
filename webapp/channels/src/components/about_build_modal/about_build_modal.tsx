@@ -69,14 +69,14 @@ export default function AboutBuildModal(props: Props) {
     const title = (
         <FormattedMessage
             id='about.agentCompanyOsTitle'
-            defaultMessage='AgentCompanyOS Collaboration Frontend'
+            defaultMessage='TinyOffice Collaboration Frontend'
         />
     );
 
     const subTitle = (
         <FormattedMessage
             id='about.agentCompanyOsSubtitle'
-            defaultMessage='A lightweight collaboration surface for teams, channels, messages, files, and AgentCompanyOS workflows.'
+            defaultMessage='A lightweight collaboration surface for teams, channels, messages, files, and TinyOffice workflows.'
         />
     );
 
@@ -189,7 +189,7 @@ export default function AboutBuildModal(props: Props) {
                     <FormattedMessage
                         id='about.title'
                         values={{
-                            appTitle: config.SiteName || 'AgentCompanyOS',
+                            appTitle: config.SiteName || 'TinyOffice',
                         }}
                         defaultMessage='About {appTitle}'
                     />
@@ -246,7 +246,7 @@ export default function AboutBuildModal(props: Props) {
                                 defaultMessage='Copyright 2015 - {currentYear} {appTitle}. All rights reserved'
                                 values={{
                                     currentYear: new Date().getFullYear(),
-                                    appTitle: config.SiteName || 'AgentCompanyOS',
+                                    appTitle: config.SiteName || 'TinyOffice',
                                 }}
                             />
                         </div>
@@ -256,7 +256,7 @@ export default function AboutBuildModal(props: Props) {
                     <p>
                         <FormattedMessage
                             id='about.notice'
-                            defaultMessage='AgentCompanyOS includes open source collaboration components and keeps the runtime focused on lightweight team messaging.'
+                            defaultMessage='TinyOffice includes open source collaboration components and keeps the runtime focused on lightweight team messaging.'
                         />
                     </p>
                 </div>

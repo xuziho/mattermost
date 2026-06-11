@@ -25,7 +25,7 @@ export default (props: Props) => (
         fill='none'
         xmlns='http://www.w3.org/2000/svg'
         role='img'
-        aria-label='AgentCompanyOS'
+        aria-label='TinyOffice'
     >
         <rect
             x='1'
@@ -52,7 +52,7 @@ export default (props: Props) => (
             fontWeight='760'
             letterSpacing='0'
         >
-            AgentCompanyOS
+            TinyOffice
         </text>
     </Svg>
 );

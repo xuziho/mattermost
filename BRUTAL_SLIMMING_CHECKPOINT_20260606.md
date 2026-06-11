@@ -10,7 +10,7 @@ This branch is a parked checkpoint for the aggressive Mattermost slimming pass.
 
 - This checkpoint is not the currently running web service.
 - The active service on port `8065` is the existing Docker image:
-  - `mattermost/agentcompanyos-thread-room:11.7.2-local`
+  - `mattermost/tinyoffice-thread-room:11.7.2-local`
   - container: `docker-mattermost-1`
 - This branch has not been rebuilt into a replacement Docker image.
 

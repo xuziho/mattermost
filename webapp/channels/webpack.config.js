@@ -205,10 +205,10 @@ var config = {
         // Generate manifest.json, honouring any configured publicPath. This also handles injecting
         // <link rel="apple-touch-icon" ... /> and <meta name="apple-*" ... /> tags into root.html.
         new WebpackPwaManifest({
-            name: 'AgentCompanyOS',
-            short_name: 'AgentCompanyOS',
+            name: 'TinyOffice',
+            short_name: 'TinyOffice',
             start_url: '..',
-            description: 'AgentCompanyOS collaboration surface',
+            description: 'TinyOffice collaboration surface',
             background_color: '#ffffff',
             inject: true,
             ios: true,

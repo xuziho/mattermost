@@ -331,7 +331,7 @@ const Signup = ({onCustomizeHeader}: SignupProps) => {
                 id: 'signup.title',
                 defaultMessage: 'Create Account | {siteName}',
             },
-            {siteName: SiteName || 'AgentCompanyOS'},
+            {siteName: SiteName || 'TinyOffice'},
         );
     }, [formatMessage, SiteName]);
 
@@ -578,7 +578,7 @@ const Signup = ({onCustomizeHeader}: SignupProps) => {
         if (!enableSignUpWithEmail && !enableExternalSignup) {
             return (
                 <ColumnLayout
-                    title={formatMessage({id: 'login.noMethods.title', defaultMessage: 'This server doesn’t have any sign-in methods enabled'})}
+                    title={formatMessage({id: 'login.noMethods.title', defaultMessage: 'This server does not have any sign-in methods enabled'})}
                     message={formatMessage({id: 'login.noMethods.subtitle', defaultMessage: 'Please contact your System Administrator to resolve this.'})}
                 />
             );
@@ -586,7 +586,7 @@ const Signup = ({onCustomizeHeader}: SignupProps) => {
 
         if (!isWaiting && (noOpenServer || serverError || usedBefore)) {
             const titleColumn = noOpenServer ? (
-                formatMessage({id: 'signup_user_completed.no_open_server.title', defaultMessage: 'This server doesn’t allow open signups'})
+                formatMessage({id: 'signup_user_completed.no_open_server.title', defaultMessage: 'This server does not allow open signups'})
             ) : (
                 serverError ||
                 formatMessage({id: 'signup_user_completed.invalid_invite.title', defaultMessage: 'This invite link is invalid'})
@@ -661,7 +661,7 @@ const Signup = ({onCustomizeHeader}: SignupProps) => {
                         />
                     ) : (
                         <h1 className='signup-body-message-title'>
-                            {formatMessage({id: 'signup_user_completed.title', defaultMessage: 'Let’s get started'})}
+                            {formatMessage({id: 'signup_user_completed.title', defaultMessage: 'Let us get started'})}
                         </h1>
                     )}
                     {getMessageSubtitle()}
@@ -769,7 +769,7 @@ const Signup = ({onCustomizeHeader}: SignupProps) => {
                                         disabled={!canSubmit}
                                         onClick={handleSubmit}
                                         defaultMessage={formatMessage({id: 'signup_user_completed.create', defaultMessage: 'Create account'})}
-                                        savingMessage={formatMessage({id: 'signup_user_completed.saving', defaultMessage: 'Creating account…'})}
+                                        savingMessage={formatMessage({id: 'signup_user_completed.saving', defaultMessage: 'Creating account...'})}
                                     />
                                 </form>
                             )}

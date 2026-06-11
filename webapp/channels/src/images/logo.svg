@@ -1,7 +1,7 @@
-<svg width="420" height="84" viewBox="0 0 420 84" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AgentCompanyOS">
+<svg width="420" height="84" viewBox="0 0 420 84" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="TinyOffice">
     <rect x="2" y="6" width="72" height="72" rx="18" fill="#0D1117"/>
     <path d="M22 55L34.6 27.2C35.3 25.8 36.6 25 38.2 25C39.8 25 41.2 25.8 41.8 27.2L54 55H46.5L44 49H32L29.5 55H22ZM34.4 43.1H41.6L38.1 34.1L34.4 43.1Z" fill="#F5F7FA"/>
     <path d="M57 24H63V60H57V24Z" fill="#50BC9B"/>
-    <text x="92" y="50" fill="#101419" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="30" font-weight="760" letter-spacing="0">AgentCompanyOS</text>
+    <text x="92" y="50" fill="#101419" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="30" font-weight="760" letter-spacing="0">TinyOffice</text>
     <text x="94" y="67" fill="#52605A" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" font-weight="600" letter-spacing="0">collaboration surface</text>
 </svg>

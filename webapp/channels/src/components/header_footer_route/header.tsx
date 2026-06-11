@@ -24,7 +24,7 @@ const Header = ({alternateLink, backButtonURL, onBackButtonClick}: HeaderProps) 
     const {SiteName} = useSelector(getConfig);
     const license = useSelector(getLicense);
 
-    const ariaLabel = SiteName || 'AgentCompanyOS';
+    const ariaLabel = SiteName || 'TinyOffice';
 
     let freeBanner = null;
     if (license.IsLicensed === 'false') {
@@ -34,7 +34,7 @@ const Header = ({alternateLink, backButtonURL, onBackButtonClick}: HeaderProps) 
     }
 
     let title: React.ReactNode = SiteName;
-    if (title === 'Mattermost' || title === 'AgentCompanyOS') {
+    if (title === 'Mattermost' || title === 'TinyOffice') {
         if (freeBanner) {
             title = '';
         } else {

@@ -111,7 +111,7 @@ func (ps *PlatformService) LoadLicense() {
 
 			ps.SetLicense(ps.LicenseManager().NewMattermostEntryLicense(ps.telemetryId))
 		} else {
-			ps.logger.Warn("Enterprise-only features are disabled in AgentCompanyOS slim mode.", mlog.Err(nErr))
+			ps.logger.Warn("Enterprise-only features are disabled in TinyOffice slim mode.", mlog.Err(nErr))
 			ps.SetLicense(nil)
 		}
 		return
