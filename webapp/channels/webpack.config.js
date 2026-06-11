@@ -133,6 +133,7 @@ var config = {
         alias: {
             'mattermost-redux/test': 'packages/mattermost-redux/test',
             'mattermost-redux': 'packages/mattermost-redux/src',
+            '@mattermost/types': path.resolve(__dirname, '..', 'platform', 'types', 'lib'),
             '@mui/styled-engine': '@mui/styled-engine-sc',
 
             // This alias restricts single version of styled components across all packages
@@ -447,6 +448,7 @@ if (targetIsDevServer) {
         ...config,
         devtool: 'eval-cheap-module-source-map',
         devServer: {
+            allowedHosts: ['chat-dev.aiziho.click'],
             liveReload: true,
             proxy: [
                 {
