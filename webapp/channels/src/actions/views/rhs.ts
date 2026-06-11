@@ -27,6 +27,7 @@ import {
     getSearchType,
     getSearchTerms,
     getRhsState,
+    getPluggableId,
     getFilesSearchExtFilter,
     getPreviousRhsState,
     getSearchTeam,
@@ -263,6 +264,14 @@ export function showSearchResults(isMentionSearch = false): ThunkActionFunc<unkn
     };
 }
 
+export function showRHSPlugin(pluggableId: string) {
+    return {
+        type: ActionTypes.UPDATE_RHS_STATE,
+        state: RHSStates.PLUGIN,
+        pluggableId,
+    };
+}
+
 export function showChannelMembers(channelId: string, inEditingMode = false): ActionFuncAsync<boolean> {
     return async (dispatch, getState) => {
         const state = getState();
@@ -282,6 +291,32 @@ export function showChannelMembers(channelId: string, inEditingMode = false): Ac
             previousRhsState,
         });
 
+        return {data: true};
+    };
+}
+
+export function hideRHSPlugin(pluggableId: string): ActionFunc<boolean> {
+    return (dispatch, getState) => {
+        const state = getState();
+
+        if (getPluggableId(state) === pluggableId) {
+            dispatch(closeRightHandSide());
+        }
+
+        return {data: true};
+    };
+}
+
+export function toggleRHSPlugin(pluggableId: string): ActionFunc<boolean> {
+    return (dispatch, getState) => {
+        const state = getState();
+
+        if (getPluggableId(state) === pluggableId) {
+            dispatch(hideRHSPlugin(pluggableId));
+            return {data: false};
+        }
+
+        dispatch(showRHSPlugin(pluggableId));
         return {data: true};
     };
 }

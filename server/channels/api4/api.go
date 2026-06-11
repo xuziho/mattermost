@@ -68,6 +68,9 @@ type Routes struct {
 	Uploads *mux.Router // 'api/v4/uploads'
 	Upload  *mux.Router // 'api/v4/uploads/{upload_id:[A-Za-z0-9]+}'
 
+	Plugins *mux.Router // 'api/v4/plugins'
+	Plugin  *mux.Router // 'api/v4/plugins/{plugin_id:[A-Za-z0-9\_\-\.]+}'
+
 	PublicFile *mux.Router // '/files/{file_id:[A-Za-z0-9]+}/public'
 
 	Commands *mux.Router // 'api/v4/commands'
@@ -225,6 +228,9 @@ func Init(srv *app.Server) (*API, error) {
 	api.BaseRoutes.Uploads = api.BaseRoutes.APIRoot.PathPrefix("/uploads").Subrouter()
 	api.BaseRoutes.Upload = api.BaseRoutes.Uploads.PathPrefix("/{upload_id:[A-Za-z0-9]+}").Subrouter()
 
+	api.BaseRoutes.Plugins = api.BaseRoutes.APIRoot.PathPrefix("/plugins").Subrouter()
+	api.BaseRoutes.Plugin = api.BaseRoutes.Plugins.PathPrefix("/{plugin_id:[A-Za-z0-9\\_\\-\\.]+}").Subrouter()
+
 	api.BaseRoutes.Commands = api.BaseRoutes.APIRoot.PathPrefix("/commands").Subrouter()
 	api.BaseRoutes.Command = api.BaseRoutes.Commands.PathPrefix("/{command_id:[A-Za-z0-9]+}").Subrouter()
 
@@ -331,6 +337,7 @@ func Init(srv *app.Server) (*API, error) {
 	api.InitEmoji()
 	api.InitOAuth()
 	api.InitReaction()
+	api.InitPlugin()
 	api.InitRole()
 	api.InitScheme()
 	api.InitImage()
@@ -427,6 +434,9 @@ func InitLocal(srv *app.Server) *API {
 	api.BaseRoutes.Uploads = api.BaseRoutes.APIRoot.PathPrefix("/uploads").Subrouter()
 	api.BaseRoutes.Upload = api.BaseRoutes.Uploads.PathPrefix("/{upload_id:[A-Za-z0-9]+}").Subrouter()
 
+	api.BaseRoutes.Plugins = api.BaseRoutes.APIRoot.PathPrefix("/plugins").Subrouter()
+	api.BaseRoutes.Plugin = api.BaseRoutes.Plugins.PathPrefix("/{plugin_id:[A-Za-z0-9\\_\\-\\.]+}").Subrouter()
+
 	api.BaseRoutes.Imports = api.BaseRoutes.APIRoot.PathPrefix("/imports").Subrouter()
 	api.BaseRoutes.Import = api.BaseRoutes.Imports.PathPrefix("/{import_name:.+\\.zip}").Subrouter()
 	api.BaseRoutes.Exports = api.BaseRoutes.APIRoot.PathPrefix("/exports").Subrouter()
@@ -449,6 +459,7 @@ func InitLocal(srv *app.Server) *API {
 	api.InitChannelLocal()
 	api.InitConfigLocal()
 	api.InitWebhookLocal()
+	api.InitPluginLocal()
 	api.InitCommandLocal()
 	api.InitLicenseLocal()
 	api.InitBotLocal()

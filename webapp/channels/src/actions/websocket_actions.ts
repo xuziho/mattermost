@@ -158,6 +158,37 @@ import {temporarilySetPageLoadContext} from './telemetry_actions';
 const dispatch = store.dispatch;
 const getState = store.getState;
 
+const pluginReconnectHandlers: Record<string, () => void> = {};
+const pluginEventHandlers: Record<string, Record<string, (msg: WebSocketMessages.Unknown) => void>> = {};
+
+export function registerPluginReconnectHandler(pluginId: string, handler: () => void) {
+    pluginReconnectHandlers[pluginId] = handler;
+}
+
+export function unregisterPluginReconnectHandler(pluginId: string) {
+    Reflect.deleteProperty(pluginReconnectHandlers, pluginId);
+}
+
+export function registerPluginWebSocketEvent(pluginId: string, event: string, action: (msg: WebSocketMessages.Unknown) => void) {
+    if (!pluginEventHandlers[pluginId]) {
+        pluginEventHandlers[pluginId] = {};
+    }
+    pluginEventHandlers[pluginId][event] = action;
+}
+
+export function unregisterPluginWebSocketEvent(pluginId: string, event: string) {
+    const events = pluginEventHandlers[pluginId];
+    if (!events) {
+        return;
+    }
+
+    Reflect.deleteProperty(events, event);
+}
+
+export function unregisterAllPluginWebSocketEvents(pluginId: string) {
+    Reflect.deleteProperty(pluginEventHandlers, pluginId);
+}
+
 const MAX_WEBSOCKET_FAILS = 7;
 
 export function initialize() {
@@ -241,6 +272,13 @@ export function reconnect() {
     });
 
     const state = getState();
+
+    Object.values(pluginReconnectHandlers).forEach((handler) => {
+        if (handler && typeof handler === 'function') {
+            handler();
+        }
+    });
+
     const currentTeamId = getCurrentTeamId(state);
     if (currentTeamId) {
         const currentUserId = getCurrentUserId(state);
@@ -634,6 +672,11 @@ export function handleEvent(msg: WebSocketMessage) {
         dispatch(handleShowToast(msg));
         break;
     default:
+        Object.values(pluginEventHandlers).forEach((handlers) => {
+            if (handlers?.[msg.event]) {
+                handlers[msg.event](msg);
+            }
+        });
     }
 
 }

@@ -5,8 +5,10 @@ package platform
 
 import (
 	"crypto/ecdsa"
+	"errors"
 	"fmt"
 	"hash/maphash"
+	"net/http"
 	"runtime"
 	"strconv"
 	"sync"
@@ -14,6 +16,7 @@ import (
 	"time"
 
 	"github.com/mattermost/mattermost/server/public/model"
+	"github.com/mattermost/mattermost/server/public/plugin"
 	"github.com/mattermost/mattermost/server/public/shared/mlog"
 	"github.com/mattermost/mattermost/server/v8/channels/app/featureflag"
 	"github.com/mattermost/mattermost/server/v8/channels/jobs"
@@ -105,6 +108,8 @@ type PlatformService struct {
 	shareChannelServiceMux sync.RWMutex
 	sharedChannelService   SharedChannelServiceIFace
 
+	pluginEnv HookRunner
+
 	// This is a test mode setting used to enable Redis
 	// without a license.
 	forceEnableRedis bool
@@ -126,6 +131,11 @@ func (ps *PlatformService) SetInstallTypeOverride(v string) {
 // SetLogRootPathOverride sets the log root path override for log file validation.
 func (ps *PlatformService) SetLogRootPathOverride(v string) {
 	ps.logRootPathOverride = v
+}
+
+type HookRunner interface {
+	RunMultiHook(hookRunnerFunc func(hooks plugin.Hooks, _ *model.Manifest) bool, hookId int)
+	GetPluginsEnvironment() *plugin.Environment
 }
 
 // New creates a new PlatformService.
@@ -572,6 +582,53 @@ func (ps *PlatformService) GetSharedChannelService() SharedChannelServiceIFace {
 	ps.shareChannelServiceMux.RLock()
 	defer ps.shareChannelServiceMux.RUnlock()
 	return ps.sharedChannelService
+}
+
+func (ps *PlatformService) SetPluginsEnvironment(runner HookRunner) {
+	ps.pluginEnv = runner
+}
+
+// GetPluginStatuses meant to be used by cluster implementation
+func (ps *PlatformService) GetPluginStatuses() (model.PluginStatuses, *model.AppError) {
+	if ps.pluginEnv == nil || ps.pluginEnv.GetPluginsEnvironment() == nil {
+		return nil, model.NewAppError("GetPluginStatuses", "app.plugin.disabled.app_error", nil, "", http.StatusNotImplemented)
+	}
+
+	pluginStatuses, err := ps.pluginEnv.GetPluginsEnvironment().Statuses()
+	if err != nil {
+		return nil, model.NewAppError("GetPluginStatuses", "app.plugin.get_statuses.app_error", nil, "", http.StatusInternalServerError).Wrap(err)
+	}
+
+	for _, status := range pluginStatuses {
+		if ps.Cluster() != nil {
+			status.ClusterId = ps.Cluster().GetClusterId()
+		}
+	}
+
+	return pluginStatuses, nil
+}
+
+func (ps *PlatformService) getPluginManifests() ([]*model.Manifest, error) {
+	if ps.pluginEnv == nil {
+		return nil, errors.New("plugin environment not initialized")
+	}
+
+	pluginsEnvironment := ps.pluginEnv.GetPluginsEnvironment()
+	if pluginsEnvironment == nil {
+		return nil, model.NewAppError("getPluginManifests", "app.plugin.disabled.app_error", nil, "", http.StatusNotImplemented)
+	}
+
+	plugins, err := pluginsEnvironment.Available()
+	if err != nil {
+		return nil, fmt.Errorf("failed to get list of available plugins: %w", err)
+	}
+
+	manifests := make([]*model.Manifest, len(plugins))
+	for i := range plugins {
+		manifests[i] = plugins[i].Manifest
+	}
+
+	return manifests, nil
 }
 
 func (ps *PlatformService) FileBackend() filestore.FileBackend {

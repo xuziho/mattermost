@@ -18,6 +18,26 @@ type MetricsInterface struct {
 	mock.Mock
 }
 
+// ObservePluginHookDuration provides a mock function with given fields: pluginID, hookName, success, elapsed
+func (_m *MetricsInterface) ObservePluginHookDuration(pluginID string, hookName string, success bool, elapsed float64) {
+	_m.Called(pluginID, hookName, success, elapsed)
+}
+
+// ObservePluginMultiHookDuration provides a mock function with given fields: elapsed
+func (_m *MetricsInterface) ObservePluginMultiHookDuration(elapsed float64) {
+	_m.Called(elapsed)
+}
+
+// ObservePluginMultiHookIterationDuration provides a mock function with given fields: pluginID, elapsed
+func (_m *MetricsInterface) ObservePluginMultiHookIterationDuration(pluginID string, elapsed float64) {
+	_m.Called(pluginID, elapsed)
+}
+
+// ObservePluginAPIDuration provides a mock function with given fields: pluginID, apiName, success, elapsed
+func (_m *MetricsInterface) ObservePluginAPIDuration(pluginID string, apiName string, success bool, elapsed float64) {
+	_m.Called(pluginID, apiName, success, elapsed)
+}
+
 // AddMemCacheHitCounter provides a mock function with given fields: cacheName, amount
 func (_m *MetricsInterface) AddMemCacheHitCounter(cacheName string, amount float64) {
 	_m.Called(cacheName, amount)

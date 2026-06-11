@@ -865,6 +865,20 @@ export type JobSettings = {
     CleanupConfigThresholdDays: number;
 };
 
+export type PluginSettings = {
+    Enable: boolean;
+    EnableUploads: boolean;
+    AllowInsecureDownloadURL: boolean;
+    EnableHealthCheck: boolean;
+    Directory: string;
+    ClientDirectory: string;
+    Plugins: Record<string, any>;
+    PluginStates: Record<string, { Enable: boolean }>;
+    RequirePluginSignature: boolean;
+    SignaturePublicKeyFiles: string[];
+    ChimeraOAuthProxyURL: string;
+};
+
 export type DisplaySettings = {
     CustomURLSchemes: string[];
     MaxMarkdownNodes: number;
@@ -936,6 +950,7 @@ export type AdminConfig = {
     DataRetentionSettings: DataRetentionSettings;
     MessageExportSettings: MessageExportSettings;
     JobSettings: JobSettings;
+    PluginSettings: PluginSettings;
     DisplaySettings: DisplaySettings;
     GuestAccountsSettings: GuestAccountsSettings;
     ImageProxySettings: ImageProxySettings;

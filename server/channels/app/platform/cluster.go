@@ -4,10 +4,13 @@
 package platform
 
 import (
+	"errors"
 	"fmt"
+	"net/http"
 
 	"github.com/mattermost/mattermost/server/public/model"
 	"github.com/mattermost/mattermost/server/public/shared/mlog"
+	"github.com/mattermost/mattermost/server/v8/channels/store"
 	"github.com/mattermost/mattermost/server/v8/einterfaces"
 )
 
@@ -52,10 +55,107 @@ func (ps *PlatformService) SetCluster(impl einterfaces.ClusterInterface) { //nol
 	ps.clusterIFace = impl
 }
 
+func (ps *PlatformService) PublishPluginClusterEvent(productID string, ev model.PluginClusterEvent, opts model.PluginClusterEventSendOptions) error {
+	if ps.clusterIFace == nil {
+		return nil
+	}
+
+	msg := &model.ClusterMessage{
+		Event:            model.ClusterEventPluginEvent,
+		SendType:         opts.SendType,
+		WaitForAllToSend: false,
+		Props: map[string]string{
+			"EventID": ev.Id,
+		},
+		Data: ev.Data,
+	}
+
+	// If TargetId is empty we broadcast to all other cluster nodes.
+	if opts.TargetId == "" {
+		ps.clusterIFace.SendClusterMessage(msg)
+	} else {
+		if err := ps.clusterIFace.SendClusterMessageToNode(opts.TargetId, msg); err != nil {
+			return fmt.Errorf("failed to send message to cluster node %q: %w", opts.TargetId, err)
+		}
+	}
+
+	return nil
+}
+
 func (ps *PlatformService) PublishWebSocketEvent(productID string, event string, payload map[string]any, broadcast *model.WebsocketBroadcast) {
 	ev := model.NewWebSocketEvent(model.WebsocketEventType(fmt.Sprintf("custom_%v_%v", productID, event)), "", "", "", nil, "")
 	ev = ev.SetBroadcast(broadcast).SetData(payload)
 	ps.Publish(ev)
+}
+
+func (ps *PlatformService) SetPluginKeyWithOptions(productID string, key string, value []byte, options model.PluginKVSetOptions) (bool, *model.AppError) {
+	if err := options.IsValid(); err != nil {
+		mlog.Debug("Failed to set plugin key value with options", mlog.String("plugin_id", productID), mlog.String("key", key), mlog.Err(err))
+		return false, err
+	}
+
+	updated, err := ps.Store.Plugin().SetWithOptions(productID, key, value, options)
+	if err != nil {
+		mlog.Error("Failed to set plugin key value with options", mlog.String("plugin_id", productID), mlog.String("key", key), mlog.Err(err))
+		var appErr *model.AppError
+		switch {
+		case errors.As(err, &appErr):
+			return false, appErr
+		default:
+			return false, model.NewAppError("SetPluginKeyWithOptions", "app.plugin_store.save.app_error", nil, "", http.StatusInternalServerError).Wrap(err)
+		}
+	}
+
+	// Clean up a previous entry using the hashed key, if it exists.
+	if err := ps.Store.Plugin().Delete(productID, getKeyHash(key)); err != nil {
+		mlog.Warn("Failed to clean up previously hashed plugin key value", mlog.String("plugin_id", productID), mlog.String("key", key), mlog.Err(err))
+	}
+
+	return updated, nil
+}
+
+func (ps *PlatformService) KVGet(productID, key string) ([]byte, *model.AppError) {
+	if kv, err := ps.Store.Plugin().Get(productID, key); err == nil {
+		return kv.Value, nil
+	} else if nfErr := new(store.ErrNotFound); !errors.As(err, &nfErr) {
+		mlog.Error("Failed to query plugin key value", mlog.String("plugin_id", productID), mlog.String("key", key), mlog.Err(err))
+		return nil, model.NewAppError("GetPluginKey", "app.plugin_store.get.app_error", nil, "", http.StatusInternalServerError).Wrap(err)
+	}
+
+	// Lookup using the hashed version of the key for keys written prior to v5.6.
+	if kv, err := ps.Store.Plugin().Get(productID, getKeyHash(key)); err == nil {
+		return kv.Value, nil
+	} else if nfErr := new(store.ErrNotFound); !errors.As(err, &nfErr) {
+		mlog.Error("Failed to query plugin key value using hashed key", mlog.String("plugin_id", productID), mlog.String("key", key), mlog.Err(err))
+		return nil, model.NewAppError("GetPluginKey", "app.plugin_store.get.app_error", nil, "", http.StatusInternalServerError).Wrap(err)
+	}
+
+	return nil, nil
+}
+
+func (ps *PlatformService) KVDelete(productID, key string) *model.AppError {
+	if err := ps.Store.Plugin().Delete(productID, getKeyHash(key)); err != nil {
+		ps.logger.Error("Failed to delete plugin key value", mlog.String("plugin_id", productID), mlog.String("key", key), mlog.Err(err))
+		return model.NewAppError("DeletePluginKey", "app.plugin_store.delete.app_error", nil, "", http.StatusInternalServerError).Wrap(err)
+	}
+
+	// Also delete the key without hashing
+	if err := ps.Store.Plugin().Delete(productID, key); err != nil {
+		ps.logger.Error("Failed to delete plugin key value using hashed key", mlog.String("plugin_id", productID), mlog.String("key", key), mlog.Err(err))
+		return model.NewAppError("DeletePluginKey", "app.plugin_store.delete.app_error", nil, "", http.StatusInternalServerError).Wrap(err)
+	}
+
+	return nil
+}
+
+func (ps *PlatformService) KVList(productID string, page, perPage int) ([]string, *model.AppError) {
+	data, err := ps.Store.Plugin().List(productID, page*perPage, perPage)
+	if err != nil {
+		ps.logger.Error("Failed to list plugin key values", mlog.Int("page", page), mlog.Int("perPage", perPage), mlog.Err(err))
+		return nil, model.NewAppError("ListPluginKeys", "app.plugin_store.list.app_error", nil, "", http.StatusInternalServerError).Wrap(err)
+	}
+
+	return data, nil
 }
 
 // Registers a given function to be called when the cluster leader may have changed. Returns a unique ID for the
@@ -131,4 +231,29 @@ func (ps *PlatformService) PublishSkipClusterSend(event *model.WebSocketEvent) {
 
 	// Notify shared channel sync service
 	ps.SharedChannelSyncHandler(event)
+}
+
+func (ps *PlatformService) ListPluginKeys(pluginID string, page, perPage int) ([]string, *model.AppError) {
+	data, err := ps.Store.Plugin().List(pluginID, page*perPage, perPage)
+	if err != nil {
+		mlog.Error("Failed to list plugin key values", mlog.Int("page", page), mlog.Int("perPage", perPage), mlog.Err(err))
+		return nil, model.NewAppError("ListPluginKeys", "app.plugin_store.list.app_error", nil, "", http.StatusInternalServerError).Wrap(err)
+	}
+
+	return data, nil
+}
+
+func (ps *PlatformService) DeletePluginKey(pluginID string, key string) *model.AppError {
+	if err := ps.Store.Plugin().Delete(pluginID, getKeyHash(key)); err != nil {
+		mlog.Error("Failed to delete plugin key value", mlog.String("plugin_id", pluginID), mlog.String("key", key), mlog.Err(err))
+		return model.NewAppError("DeletePluginKey", "app.plugin_store.delete.app_error", nil, "", http.StatusInternalServerError).Wrap(err)
+	}
+
+	// Also delete the key without hashing
+	if err := ps.Store.Plugin().Delete(pluginID, key); err != nil {
+		mlog.Error("Failed to delete plugin key value using hashed key", mlog.String("plugin_id", pluginID), mlog.String("key", key), mlog.Err(err))
+		return model.NewAppError("DeletePluginKey", "app.plugin_store.delete.app_error", nil, "", http.StatusInternalServerError).Wrap(err)
+	}
+
+	return nil
 }

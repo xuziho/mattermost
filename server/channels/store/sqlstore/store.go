@@ -88,6 +88,7 @@ type SqlStoreStores struct {
 	reaction                   store.ReactionStore
 	job                        store.JobStore
 	userAccessToken            store.UserAccessTokenStore
+	plugin                     store.PluginStore
 	channelMemberHistory       store.ChannelMemberHistoryStore
 	role                       store.RoleStore
 	scheme                     store.SchemeStore
@@ -267,6 +268,7 @@ func New(settings model.SqlSettings, logger mlog.LoggerIFace, metrics einterface
 	store.stores.thread = newSqlThreadStore(store)
 	store.stores.job = newSqlJobStore(store)
 	store.stores.userAccessToken = newSqlUserAccessTokenStore(store)
+	store.stores.plugin = newSqlPluginStore(store)
 	store.stores.channelMemberHistory = newSqlChannelMemberHistoryStore(store)
 	store.stores.TermsOfService = newSqlTermsOfServiceStore(store, metrics)
 	store.stores.UserTermsOfService = newSqlUserTermsOfServiceStore(store)
@@ -797,6 +799,10 @@ func (ss *SqlStore) UserAccessToken() store.UserAccessTokenStore {
 
 func (ss *SqlStore) ChannelMemberHistory() store.ChannelMemberHistoryStore {
 	return ss.stores.channelMemberHistory
+}
+
+func (ss *SqlStore) Plugin() store.PluginStore {
+	return ss.stores.plugin
 }
 
 func (ss *SqlStore) Thread() store.ThreadStore {

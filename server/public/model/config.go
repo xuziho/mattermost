@@ -215,6 +215,10 @@ const (
 
 	OutgoingIntegrationRequestsDefaultTimeout = 30
 
+	PluginSettingsDefaultDirectory          = "./plugins"
+	PluginSettingsDefaultClientDirectory    = "./client/plugins"
+	PluginSettingsDefaultHookTimeoutSeconds = 30
+
 	ComplianceExportDirectoryFormat                = "compliance-export-2006-01-02-15h04m"
 	ComplianceExportPath                           = "export"
 	ComplianceExportPathCLI                        = "cli"
@@ -3282,6 +3286,99 @@ func (s *MessageExportSettings) SetDefaults() {
 	s.GlobalRelaySettings.SetDefaults()
 }
 
+type PluginState struct {
+	Enable bool
+}
+
+type PluginSettings struct {
+	Enable                   *bool                     `access:"plugins,write_restrictable"`
+	EnableUploads            *bool                     `access:"plugins,write_restrictable"`
+	AllowInsecureDownloadURL *bool                     `access:"plugins,write_restrictable"`
+	EnableHealthCheck        *bool                     `access:"plugins,write_restrictable"`
+	Directory                *string                   `access:"plugins,write_restrictable"` // telemetry: none
+	ClientDirectory          *string                   `access:"plugins,write_restrictable"` // telemetry: none
+	Plugins                  map[string]map[string]any `access:"plugins"`                    // telemetry: none
+	PluginStates             map[string]*PluginState   `access:"plugins"`                    // telemetry: none
+	RequirePluginSignature   *bool                     `access:"plugins,write_restrictable"`
+	SignaturePublicKeyFiles  []string                  `access:"plugins,write_restrictable"`
+	ChimeraOAuthProxyURL     *string                   `access:"plugins,write_restrictable"`
+}
+
+func (s *PluginSettings) SetDefaults(ls LogSettings) {
+	if s.Enable == nil {
+		s.Enable = NewPointer(true)
+	}
+	if s.EnableUploads == nil {
+		s.EnableUploads = NewPointer(false)
+	}
+	if s.AllowInsecureDownloadURL == nil {
+		s.AllowInsecureDownloadURL = NewPointer(false)
+	}
+	if s.EnableHealthCheck == nil {
+		s.EnableHealthCheck = NewPointer(true)
+	}
+	if s.Directory == nil || *s.Directory == "" {
+		s.Directory = NewPointer(PluginSettingsDefaultDirectory)
+	}
+	if s.ClientDirectory == nil || *s.ClientDirectory == "" {
+		s.ClientDirectory = NewPointer(PluginSettingsDefaultClientDirectory)
+	}
+	if s.Plugins == nil {
+		s.Plugins = make(map[string]map[string]any)
+	}
+	if s.PluginStates == nil {
+		s.PluginStates = make(map[string]*PluginState)
+	}
+	if s.PluginStates[PluginIdNPS] == nil {
+		s.PluginStates[PluginIdNPS] = &PluginState{Enable: false}
+	}
+	if s.PluginStates[PluginIdAI] == nil {
+		s.PluginStates[PluginIdAI] = &PluginState{Enable: false}
+	}
+	if s.RequirePluginSignature == nil {
+		s.RequirePluginSignature = NewPointer(false)
+	}
+	if s.ChimeraOAuthProxyURL == nil {
+		s.ChimeraOAuthProxyURL = NewPointer("")
+	}
+	if s.SignaturePublicKeyFiles == nil {
+		s.SignaturePublicKeyFiles = []string{}
+	}
+}
+
+func (s *PluginSettings) Sanitize(pluginManifests []*Manifest) {
+	manifestMap := make(map[string]*Manifest, len(pluginManifests))
+	for _, manifest := range pluginManifests {
+		manifestMap[manifest.Id] = manifest
+	}
+	for id, settings := range s.Plugins {
+		manifest := manifestMap[id]
+		for key := range settings {
+			if manifest == nil {
+				delete(s.Plugins, id)
+				break
+			}
+			if manifest.SettingsSchema == nil {
+				break
+			}
+			for _, definedSetting := range manifest.SettingsSchema.Settings {
+				if definedSetting.Secret && strings.EqualFold(definedSetting.Key, key) {
+					settings[key] = FakeSetting
+					break
+				}
+			}
+			for _, section := range manifest.SettingsSchema.Sections {
+				for _, definedSetting := range section.Settings {
+					if definedSetting.Secret && strings.EqualFold(definedSetting.Key, key) {
+						settings[key] = FakeSetting
+						break
+					}
+				}
+			}
+		}
+	}
+}
+
 type DisplaySettings struct {
 	CustomURLSchemes []string `access:"site_posts"`
 	MaxMarkdownNodes *int     `access:"site_posts"`
@@ -3521,6 +3618,7 @@ type Config struct {
 	DataRetentionSettings       DataRetentionSettings
 	MessageExportSettings       MessageExportSettings
 	JobSettings                 JobSettings
+	PluginSettings              PluginSettings
 	DisplaySettings             DisplaySettings
 	GuestAccountsSettings       GuestAccountsSettings
 	ImageProxySettings          ImageProxySettings
@@ -3632,6 +3730,7 @@ func (o *Config) SetDefaults() {
 	o.ExperimentalAuditSettings.SetDefaults()
 	o.JobSettings.SetDefaults()
 	o.MessageExportSettings.SetDefaults()
+	o.PluginSettings.SetDefaults(o.LogSettings)
 	o.DisplaySettings.SetDefaults()
 	o.GuestAccountsSettings.SetDefaults()
 	o.ImageProxySettings.SetDefaults()
@@ -4503,6 +4602,8 @@ func (o *Config) Sanitize(pluginManifests []*Manifest, opts *SanitizeOptions) {
 	if o.ServiceSettings.GoogleDeveloperKey != nil && *o.ServiceSettings.GoogleDeveloperKey != "" {
 		*o.ServiceSettings.GoogleDeveloperKey = FakeSetting
 	}
+
+	o.PluginSettings.Sanitize(pluginManifests)
 
 	if o.CacheSettings.RedisPassword != nil {
 		*o.CacheSettings.RedisPassword = FakeSetting

@@ -54,6 +54,7 @@ type Store interface {
 	Job() JobStore
 	UserAccessToken() UserAccessTokenStore
 	ChannelMemberHistory() ChannelMemberHistoryStore
+	Plugin() PluginStore
 	TermsOfService() TermsOfServiceStore
 	Group() GroupStore
 	UserTermsOfService() UserTermsOfServiceStore
@@ -830,6 +831,18 @@ type UserAccessTokenStore interface {
 	Search(term string) ([]*model.UserAccessToken, error)
 	UpdateTokenEnable(tokenID string) error
 	UpdateTokenDisable(tokenID string) error
+}
+
+type PluginStore interface {
+	SaveOrUpdate(keyVal *model.PluginKeyValue) (*model.PluginKeyValue, error)
+	CompareAndSet(keyVal *model.PluginKeyValue, oldValue []byte) (bool, error)
+	CompareAndDelete(keyVal *model.PluginKeyValue, oldValue []byte) (bool, error)
+	SetWithOptions(pluginID string, key string, value []byte, options model.PluginKVSetOptions) (bool, error)
+	Get(pluginID, key string) (*model.PluginKeyValue, error)
+	Delete(pluginID, key string) error
+	DeleteAllForPlugin(PluginID string) error
+	DeleteAllExpired() error
+	List(pluginID string, page, perPage int) ([]string, error)
 }
 
 type RoleStore interface {

@@ -56,6 +56,10 @@ func (c *FakeClusterInterface) GetClusterStats(rctx request.CTX) ([]*model.Clust
 	return nil, nil
 }
 
+func (c *FakeClusterInterface) GetPluginStatuses() (model.PluginStatuses, *model.AppError) {
+	return nil, nil
+}
+
 func (c *FakeClusterInterface) GetLogs(rctx request.CTX, page, perPage int) ([]string, *model.AppError) {
 	return []string{}, nil
 }

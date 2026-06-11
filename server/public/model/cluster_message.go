@@ -42,12 +42,18 @@ const (
 	ClusterEventInvalidateCacheForLastPostTime              ClusterEvent = "inv_last_post_time"
 	ClusterEventInvalidateCacheForPostsUsage                ClusterEvent = "inv_posts_usage"
 	ClusterEventInvalidateCacheForTeams                     ClusterEvent = "inv_teams"
+	ClusterEventInvalidateCacheForContentFlagging           ClusterEvent = "inv_content_flagging"
+	ClusterEventInvalidateCacheForAutoTranslation           ClusterEvent = "inv_autotranslation"
 	ClusterEventInvalidateCacheForReadReceipts              ClusterEvent = "inv_read_receipts"
 	ClusterEventInvalidateCacheForTemporaryPosts            ClusterEvent = "inv_temporary_posts"
 	ClusterEventClearSessionCacheForAllUsers                ClusterEvent = "inv_all_user_sessions"
 	ClusterEventInstallPlugin                               ClusterEvent = "install_plugin"
 	ClusterEventRemovePlugin                                ClusterEvent = "remove_plugin"
+	ClusterEventPluginEvent                                 ClusterEvent = "plugin_event"
 	ClusterEventInvalidateCacheForTermsOfService            ClusterEvent = "inv_terms_of_service"
+	ClusterEventInvalidateCacheForUserAutoTranslation       ClusterEvent = "inv_user_autotranslation"
+	ClusterEventInvalidateCacheForPostTranslationEtag       ClusterEvent = "inv_post_translation_etag"
+	ClusterEventAutoTranslationTask                         ClusterEvent = "autotranslation_task"
 	ClusterEventBusyStateChanged                            ClusterEvent = "busy_state_change"
 	// Note: if you are adding a new event, please also add it in the slice of
 	// m.ClusterEventMap in metrics/metrics.go file.
@@ -59,6 +65,8 @@ const (
 	ClusterGossipEventResponseGenerateSupportPacket = "gossip_response_generate_support_packet"
 	ClusterGossipEventRequestGetClusterStats        = "gossip_request_cluster_stats"
 	ClusterGossipEventResponseGetClusterStats       = "gossip_response_cluster_stats"
+	ClusterGossipEventRequestGetPluginStatuses      = "gossip_request_plugin_statuses"
+	ClusterGossipEventResponseGetPluginStatuses     = "gossip_response_plugin_statuses"
 	ClusterGossipEventRequestSaveConfig             = "gossip_request_save_config"
 	ClusterGossipEventResponseSaveConfig            = "gossip_response_save_config"
 	ClusterGossipEventRequestWebConnCount           = "gossip_request_webconn_count"
@@ -112,6 +120,13 @@ func (m *ClusterMessage) LogFields() []mlog.Field {
 			if n := len(header.Broadcast.OmitUsers); n > 0 {
 				fields = append(fields, mlog.Int("omit_users_len", n))
 			}
+		}
+	case ClusterEventPluginEvent:
+		if pluginID := m.Props["PluginID"]; pluginID != "" {
+			fields = append(fields, mlog.String("plugin_id", pluginID))
+		}
+		if eventID := m.Props["EventID"]; eventID != "" {
+			fields = append(fields, mlog.String("event_id", eventID))
 		}
 	}
 

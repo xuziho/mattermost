@@ -82,6 +82,12 @@ import type {
 import type {Job, JobType, JobTypeBase} from '@mattermost/types/jobs';
 import type {ServerLimits} from '@mattermost/types/limits';
 import type {MfaSecret} from '@mattermost/types/mfa';
+import type {
+    ClientPluginManifest,
+    PluginManifest,
+    PluginsResponse,
+    PluginStatus,
+} from '@mattermost/types/plugins';
 import type {Post, PostList, PostSearchResults, PaginatedPostList, PostAcknowledgement, PostAnalytics, PostInfo} from '@mattermost/types/posts';
 import type {PreferenceType} from '@mattermost/types/preferences';
 import type {
@@ -248,6 +254,14 @@ export default class Client4 {
 
     getAppsProxyRoute() {
         return `${this.url}/plugins/com.mattermost.apps`;
+    }
+
+    getPluginsRoute() {
+        return `${this.getBaseRoute()}/plugins`;
+    }
+
+    getPluginRoute(pluginId: string) {
+        return `${this.getPluginsRoute()}/${pluginId}`;
     }
 
     getUsersRoute() {
@@ -2899,6 +2913,66 @@ export default class Client4 {
         return this.doFetch<string[]>(
             `${this.getAppsProxyRoute()}/api/v1/bot-ids`,
             {method: 'get'},
+        );
+    };
+
+    uploadPlugin = async (fileData: File, force = false) => {
+        const formData = new FormData();
+        if (force) {
+            formData.append('force', 'true');
+        }
+        formData.append('plugin', fileData);
+
+        const request: any = {
+            method: 'post',
+            body: formData,
+        };
+
+        return this.doFetch<PluginManifest>(
+            this.getPluginsRoute(),
+            request,
+        );
+    };
+
+    getPlugins = () => {
+        return this.doFetch<PluginsResponse>(
+            this.getPluginsRoute(),
+            {method: 'get'},
+        );
+    };
+
+    getPluginStatuses = () => {
+        return this.doFetch<PluginStatus[]>(
+            `${this.getPluginsRoute()}/statuses`,
+            {method: 'get'},
+        );
+    };
+
+    removePlugin = (pluginId: string) => {
+        return this.doFetch<StatusOK>(
+            this.getPluginRoute(pluginId),
+            {method: 'delete'},
+        );
+    };
+
+    getWebappPlugins = () => {
+        return this.doFetch<ClientPluginManifest[]>(
+            `${this.getPluginsRoute()}/webapp`,
+            {method: 'get'},
+        );
+    };
+
+    enablePlugin = (pluginId: string) => {
+        return this.doFetch<StatusOK>(
+            `${this.getPluginRoute(pluginId)}/enable`,
+            {method: 'post'},
+        );
+    };
+
+    disablePlugin = (pluginId: string) => {
+        return this.doFetch<StatusOK>(
+            `${this.getPluginRoute(pluginId)}/disable`,
+            {method: 'post'},
         );
     };
 

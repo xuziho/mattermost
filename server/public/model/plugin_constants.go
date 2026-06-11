@@ -7,4 +7,5 @@ const (
 	PluginIdApps          = "com.mattermost.apps"
 	PluginIdNPS           = "com.mattermost.nps"
 	PluginIdChannelExport = "com.mattermost.plugin-channel-export"
+	PluginIdAI            = "mattermost-ai"
 )

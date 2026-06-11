@@ -7,6 +7,7 @@ import type {MMReduxAction} from 'mattermost-redux/action_types';
 // eslint-disable-next-line @typescript-eslint/no-restricted-imports
 import type * as MMReduxTypes from 'mattermost-redux/types/actions';
 
+import type {PluginsState} from './plugins';
 import type {StorageState} from './storage';
 import type {ViewsState} from './views';
 
@@ -17,6 +18,7 @@ export type DraggingState = {
 }
 
 export type GlobalState = BaseGlobalState & {
+    plugins: PluginsState;
     storage: StorageState;
     views: ViewsState;
 };

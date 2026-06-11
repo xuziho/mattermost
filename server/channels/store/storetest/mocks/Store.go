@@ -267,7 +267,6 @@ func (_m *Store) Compliance() store.ComplianceStore {
 	return r0
 }
 
-
 // DesktopTokens provides a mock function with no fields
 func (_m *Store) DesktopTokens() store.DesktopTokensStore {
 	ret := _m.Called()
@@ -681,6 +680,26 @@ func (_m *Store) OutgoingOAuthConnection() store.OutgoingOAuthConnectionStore {
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(store.OutgoingOAuthConnectionStore)
+		}
+	}
+
+	return r0
+}
+
+// Plugin provides a mock function with no fields
+func (_m *Store) Plugin() store.PluginStore {
+	ret := _m.Called()
+
+	if len(ret) == 0 {
+		panic("no return value specified for Plugin")
+	}
+
+	var r0 store.PluginStore
+	if rf, ok := ret.Get(0).(func() store.PluginStore); ok {
+		r0 = rf()
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(store.PluginStore)
 		}
 	}
 

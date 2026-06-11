@@ -19,6 +19,11 @@ import {
     onMessageFromParent as onMessageFromParentBrowser,
 } from './use_browser_popout';
 
+const pluginPopoutListeners: Map<string, (teamName: string, channelName: string | undefined, listeners: Partial<PopoutListeners>) => void> = new Map();
+export function registerRHSPluginPopoutListener(pluginId: string, onPopoutOpened: (teamName: string, channelName: string | undefined, listeners: Partial<PopoutListeners>) => void) {
+    pluginPopoutListeners.set(pluginId, onPopoutOpened);
+}
+
 export const FOCUS_REPLY_POST = 'focus-reply-post';
 export async function popoutThread(
     titleTemplate: string,
@@ -47,6 +52,35 @@ export async function popoutThread(
     });
 
     return popoutListeners;
+}
+
+export async function popoutRhsPlugin(
+    titleTemplate: string,
+    pluginId: string,
+    teamName: string,
+    channelName?: string,
+) {
+    const url = new URL(
+        `${getBasePath()}/_popout/rhs/${teamName}/plugin/${pluginId}`,
+        window.location.origin,
+    );
+    if (channelName) {
+        url.searchParams.set('channel', channelName);
+    }
+
+    const path = `${url.pathname}${url.search}`;
+
+    const listeners = await popout(
+        path,
+        {
+            isRHS: true,
+            titleTemplate,
+        },
+    );
+
+    pluginPopoutListeners.get(pluginId)?.(teamName, channelName, listeners);
+
+    return listeners;
 }
 
 export async function popoutRhsSearch(

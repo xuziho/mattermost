@@ -7,6 +7,7 @@ import type {Compliance} from './compliance';
 import type {AdminConfig, EnvironmentConfig} from './config';
 import type {DataRetentionCustomPolicies} from './data_retention';
 import type {MixedUnlinkedGroupRedux} from './groups';
+import type {PluginRedux, PluginStatusRedux} from './plugins';
 import type {SamlCertificateStatus, SamlMetadataResponse} from './saml';
 import type {Team} from './teams';
 import type {UserAccessToken, UserProfile} from './users';
@@ -63,6 +64,8 @@ export type AdminState = {
     analytics: AnalyticsState;
     teamAnalytics: RelationOneToOne<Team, AnalyticsState>;
     userAccessTokensByUser?: RelationOneToOne<UserProfile, Record<string, UserAccessToken>>;
+    plugins?: Record<string, PluginRedux>;
+    pluginStatuses?: Record<string, PluginStatusRedux>;
     samlMetadataResponse?: SamlMetadataResponse;
     dataRetentionCustomPolicies: DataRetentionCustomPolicies;
     dataRetentionCustomPoliciesCount: number;

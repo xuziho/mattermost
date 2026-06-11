@@ -15,6 +15,7 @@ import (
 	"github.com/pkg/errors"
 
 	"github.com/mattermost/mattermost/server/public/model"
+	"github.com/mattermost/mattermost/server/public/plugin"
 	"github.com/mattermost/mattermost/server/public/shared/mlog"
 	"github.com/mattermost/mattermost/server/public/shared/request"
 	"github.com/mattermost/mattermost/server/v8/channels/app/imaging"
@@ -39,6 +40,13 @@ type Channels struct {
 	exportFilestore filestore.FileBackend
 
 	postActionCookieSecret []byte
+
+	pluginCommandsLock            sync.RWMutex
+	pluginCommands                []*PluginCommand
+	pluginsLock                   sync.RWMutex
+	pluginsEnvironment            *plugin.Environment
+	pluginConfigListenerID        string
+	pluginClusterLeaderListenerID string
 
 	imageProxy *imageproxy.ImageProxy
 
@@ -82,6 +90,26 @@ type Channels struct {
 	scheduledPostTask     *model.ScheduledTask
 	emailLoginAttemptsMut sync.Mutex
 	ldapLoginAttemptsMut  sync.Mutex
+}
+
+func (ch *Channels) RunMultiHook(hookRunnerFunc func(hooks plugin.Hooks, manifest *model.Manifest) bool, hookId int) {
+	if env := ch.GetPluginsEnvironment(); env != nil {
+		env.RunMultiPluginHook(hookRunnerFunc, hookId)
+	}
+}
+
+func (ch *Channels) HooksForPlugin(id string) (plugin.Hooks, error) {
+	env := ch.GetPluginsEnvironment()
+	if env == nil {
+		return nil, errors.New("plugins are not initialized")
+	}
+
+	hooks, err := env.HooksForPlugin(id)
+	if err != nil {
+		return nil, err
+	}
+
+	return hooks, nil
 }
 
 func NewChannels(s *Server) (*Channels, error) {

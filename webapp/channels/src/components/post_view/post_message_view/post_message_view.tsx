@@ -16,6 +16,7 @@ import type {AttachmentTextOverflowType} from 'components/post_view/show_more/sh
 
 import type {TextFormattingOptions} from 'utils/text_formatting';
 import * as Utils from 'utils/utils';
+import type {PostPluginComponent} from 'types/store/plugins';
 
 type Props = {
     post: Post; /* The post to render the message for */
@@ -28,6 +29,7 @@ type Props = {
     overflowType?: AttachmentTextOverflowType;
     maxHeight?: number; /* The max height used by the show more component */
     showPostEditedIndicator?: boolean; /* Whether or not to render the post edited indicator */
+    pluginPostTypes?: Record<string, PostPluginComponent>;
 }
 
 type State = {
@@ -99,10 +101,24 @@ export default class PostMessageView extends React.PureComponent<Props, State> {
             theme,
             overflowType,
             maxHeight,
+            pluginPostTypes,
         } = this.props;
 
         if (post.state === Posts.POST_DELETED) {
             return this.renderDeletedPost();
+        }
+
+        const pluginPostType = pluginPostTypes?.[post.type];
+        if (pluginPostType) {
+            const Component = pluginPostType.component;
+            return (
+                <Component
+                    post={post}
+                    compactDisplay={compactDisplay}
+                    isRHS={isRHS}
+                    theme={theme}
+                />
+            );
         }
 
         if (!enableFormatting) {
