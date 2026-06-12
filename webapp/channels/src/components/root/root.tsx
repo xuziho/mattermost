@@ -17,6 +17,7 @@ import {HFRoute} from 'components/header_footer_route/header_footer_route';
 import {HFTRoute, LoggedInHFTRoute} from 'components/header_footer_template_route';
 import InitialLoadingScreen from 'components/initial_loading_screen';
 import LoggedInRoute from 'components/logged_in_route';
+import PluginRoot from 'components/plugin_root/plugin_root';
 import Readout from 'components/readout/readout';
 import {WithUserTheme} from 'components/theme_provider';
 
@@ -28,6 +29,7 @@ import {EmojiIndicesByAlias} from 'utils/emoji';
 import {TEAM_NAME_PATH_PATTERN} from 'utils/path';
 import {getSiteURL} from 'utils/url';
 import {isTextDroppableEvent} from 'utils/utils';
+import {initializePlugins} from 'plugins';
 
 import LuxonController from './luxon_controller';
 import PerformanceReporterController from './performance_reporter_controller';
@@ -89,6 +91,7 @@ export default class Root extends React.PureComponent<Props, State> {
     onConfigLoaded = () => {
         this.setState({shouldMountAppRoutes: true});
 
+        initializePlugins();
         this.props.actions.migrateRecentEmojis();
         this.props.actions.loadRecentlyUsedCustomEmojis();
     };
@@ -326,6 +329,7 @@ export default class Root extends React.PureComponent<Props, State> {
                             <SidebarRight/>
                         </div>
                         <AppBar/>
+                        <PluginRoot/>
                         <Readout/>
                     </WithUserTheme>
                 </Switch>

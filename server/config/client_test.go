@@ -241,6 +241,32 @@ func TestGetClientConfig(t *testing.T) {
 			},
 		},
 		{
+			"plugins enabled",
+			&model.Config{
+				PluginSettings: model.PluginSettings{
+					Enable: model.NewPointer(true),
+				},
+			},
+			"",
+			nil,
+			map[string]string{
+				"PluginsEnabled": "true",
+			},
+		},
+		{
+			"plugins disabled",
+			&model.Config{
+				PluginSettings: model.PluginSettings{
+					Enable: model.NewPointer(false),
+				},
+			},
+			"",
+			nil,
+			map[string]string{
+				"PluginsEnabled": "false",
+			},
+		},
+		{
 			"Shared channels enterprise license",
 			&model.Config{
 				ConnectedWorkspacesSettings: model.ConnectedWorkspacesSettings{
@@ -642,6 +668,32 @@ func TestGetLimitedClientConfig(t *testing.T) {
 			nil,
 			map[string]string{
 				"FeatureFlagTestFeature": "myvalue",
+			},
+		},
+		{
+			"plugins enabled",
+			&model.Config{
+				PluginSettings: model.PluginSettings{
+					Enable: model.NewPointer(true),
+				},
+			},
+			"",
+			nil,
+			map[string]string{
+				"PluginsEnabled": "true",
+			},
+		},
+		{
+			"plugins disabled",
+			&model.Config{
+				PluginSettings: model.PluginSettings{
+					Enable: model.NewPointer(false),
+				},
+			},
+			"",
+			nil,
+			map[string]string{
+				"PluginsEnabled": "false",
 			},
 		},
 		{

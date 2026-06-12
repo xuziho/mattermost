@@ -24,6 +24,14 @@ export const getPluginPostTypes = createSelector(
     },
 );
 
+export const getPluginRootComponents = createSelector(
+    'getPluginRootComponents',
+    (state: GlobalState) => state.plugins.components.Root,
+    (components = []) => {
+        return components;
+    },
+);
+
 export const getFilesDropdownPluginMenuItems = createSelector(
     'getFilesDropdownPluginMenuItems',
     (state: GlobalState) => state.plugins.components.FilesDropdown,

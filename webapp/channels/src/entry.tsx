@@ -13,6 +13,8 @@ import App from 'components/app';
 import {AnnouncementBarTypes} from 'utils/constants';
 import {setCSRFFromCookie} from 'utils/utils';
 
+import './plugins/export';
+
 // Import our styles
 import './sass/styles.scss';
 import 'katex/dist/katex.min.css';

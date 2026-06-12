@@ -13,6 +13,7 @@ import CustomStatusText from 'components/custom_status/custom_status_text';
 import PopoutButton from 'components/popout_button';
 import Timestamp from 'components/timestamp';
 import WithTooltip from 'components/with_tooltip';
+import ChannelHeaderPlug from 'plugins/channel_header_plug';
 
 import {getChannelRoutePathAndIdentifier} from 'utils/channel_utils';
 import {
@@ -405,6 +406,10 @@ class ChannelHeader extends React.PureComponent<Props> {
                         />
                     )}
                     <ChannelInfoButton channel={channel}/>
+                    <ChannelHeaderPlug
+                        channel={channel}
+                        channelMember={channelMember}
+                    />
                 </div>
             </div>
         );

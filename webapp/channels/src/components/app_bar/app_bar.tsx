@@ -4,26 +4,42 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
 
-import {appBarEnabled, getAppBarAppBindings} from 'mattermost-redux/selectors/entities/apps';
+import {getAppBarAppBindings} from 'mattermost-redux/selectors/entities/apps';
+
+import {getAppBarPluginComponents, getChannelHeaderPluginComponents, shouldShowAppBar} from 'selectors/plugins';
 
 import AppBarBinding, {isAppBinding} from './app_bar_binding';
+import AppBarPluginComponent, {isAppBarComponent} from './app_bar_plugin_component';
 
 import './app_bar.scss';
 
 export default function AppBar() {
+    const channelHeaderComponents = useSelector(getChannelHeaderPluginComponents);
+    const appBarPluginComponents = useSelector(getAppBarPluginComponents);
     const appBarBindings = useSelector(getAppBarAppBindings);
-    const enabled = useSelector(appBarEnabled);
+    const enabled = useSelector(shouldShowAppBar);
 
-    if (!enabled || !appBarBindings.length) {
+    if (!enabled) {
         return null;
     }
 
-    const items = appBarBindings.map((x) => {
+    const items = [
+        ...appBarPluginComponents,
+        ...channelHeaderComponents,
+        ...appBarBindings,
+    ].map((x) => {
         if (!x) {
             return x;
         }
 
-        if (isAppBinding(x)) {
+        if (isAppBarComponent(x)) {
+            return (
+                <AppBarPluginComponent
+                    key={x.id}
+                    component={x}
+                />
+            );
+        } else if (isAppBinding(x)) {
             return (
                 <AppBarBinding
                     key={`${x.app_id}_${x.label}`}

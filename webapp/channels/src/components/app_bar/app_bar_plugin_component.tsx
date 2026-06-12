@@ -54,7 +54,7 @@ const AppBarPluginComponent = ({
         setImageLoadState(ImageLoadState.ERROR);
     };
 
-    const buttonId = `app-bar-icon-${component.pluginId}`;
+    const buttonId = `app-bar-icon-${component.pluginId}-${component.id}`;
     const tooltipText = component.tooltipText || dropdownText || component.pluginId;
 
     let content: React.ReactNode = (
